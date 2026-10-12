@@ -413,19 +413,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. Mobile Drawer Toggle
+  // 5. Mobile Drawer Toggle with Backdrop & Escape Support
   const mobileToggle = document.getElementById('mobileMenuBtn');
   const sidebar = document.getElementById('docsSidebar');
   if (mobileToggle && sidebar) {
+    let backdrop = document.getElementById('docsSidebarBackdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.id = 'docsSidebarBackdrop';
+      backdrop.className = 'docs-sidebar-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    function setMobileDrawer(open) {
+      sidebar.classList.toggle('open', open);
+      backdrop.classList.toggle('open', open);
+      mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
     mobileToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
+      const nextState = !sidebar.classList.contains('open');
+      setMobileDrawer(nextState);
+    });
+
+    backdrop.addEventListener('click', () => {
+      setMobileDrawer(false);
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+        setMobileDrawer(false);
+      }
     });
 
     // Close when clicking a link on mobile
     tocLinks.forEach(link => {
       link.addEventListener('click', () => {
         if (window.innerWidth <= 1024) {
-          sidebar.classList.remove('open');
+          setMobileDrawer(false);
         }
       });
     });

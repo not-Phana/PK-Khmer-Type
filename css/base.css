@@ -7738,4 +7738,119 @@ a.pk-cc-handle:hover {
   border-radius: 3px;
 }
 
-
+@media (max-width: 640px) {
+  .pk-collab-modal-card {
+    width: 96vw;
+    max-height: 92dvh;
+    padding: 18px 14px calc(20px + env(safe-area-inset-bottom, 0px));
+    border-radius: 10px;
+  }
+  .pk-collab-close-btn {
+    top: 12px;
+    right: 12px;
+  }
+  .pk-collab-header {
+    gap: 14px;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+  }
+  .pk-collab-header-copy {
+    padding-right: 34px;
+  }
+  .pk-collab-main-title {
+    font-size: 1.25rem;
+  }
+  .pk-collab-main-sub {
+    font-size: 0.78rem;
+  }
+  .pk-collab-filter-bar {
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .pk-collab-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .pk-collab-filter-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 7px 11px;
+    font-size: 0.65rem;
+  }
+  .pk-collab-inspector {
+    padding: 14px;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .pk-ci-main {
+    flex-direction: column;
+    gap: 12px;
+    flex: 1 1 100%;
+  }
+  .pk-ci-avatar-wrap {
+    width: 50px;
+    height: 50px;
+  }
+  .pk-ci-name {
+    font-size: 1.05rem;
+  }
+  .pk-ci-desc {
+    font-size: 0.76rem;
+  }
+  .pk-ci-chip {
+    font-size: 0.62rem;
+    padding: 5px 8px;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  .pk-ci-actions {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .pk-ll-header {
+    padding: 15px 14px;
+    gap: 12px;
+  }
+  .pk-ll-title-wrap {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pk-ll-title {
+    font-size: 1.06rem;
+  }
+  .pk-ll-subtitle {
+    font-size: 0.72rem;
+  }
+  .pk-ll-mode-bar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+  .pk-ll-mode-btn {
+    padding: 7px 4px;
+    font-size: 0.58rem;
+    text-align: center;
+  }
+  .pk-ll-sec-banner {
+    padding: 8px 14px;
+    font-size: 0.58rem;
+    gap: 4px;
+  }
+  .pk-ll-tiers-grid,
+  .pk-ll-clauses-grid {
+    padding: 14px 12px;
+    gap: 12px;
+  }
+  .pk-ll-tier-box,
+  .pk-ll-clause {
+    padding: 13px;
+  }
+}
