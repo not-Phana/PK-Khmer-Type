@@ -2403,110 +2403,153 @@ if (document.readyState === "loading") {
   var collabGrid = document.getElementById("pkCollabGrid");
   var collabJumpLegalBtn = document.getElementById("pkCollabJumpLegalBtn");
   var collabLegalSection = document.getElementById("pkCollabLegalLedger");
+  var currentCollabId = "kon-kurosaki";
 
   var COLLAB_AUDIT_DATA = {
     "kon-kurosaki": {
-      name: "Phanna Kurosaki (@Kon-Kurosaki)",
-      badge: "HUMAN ARCHITECT · LEAD CONTRIBUTOR",
+      name: "Phana Kurosaki (@Kon-Kurosaki)",
+      avatar: "assets/avatar-kon-kurosaki.jpg",
+      model: "Biological Neural Network",
+      status: "ONLINE // ACTIVE",
+      badge: "HUMAN CREATOR (CORE DECISION MAKER)",
       url: "https://github.com/Kon-Kurosaki",
-      linkLabel: "View GitHub Profile",
-      desc: "Primary human creator, system architect, and copyright holder of PK Khmer Type. Designed the 40-level / 218-lesson Khmer Standard, Khmer NiDA, and English QWERTY curriculum, 3D anatomical hand kinematics, audio synthesis engine, and studio UI.",
+      linkLabel: "Open @Kon-Kurosaki",
+      recorded: "167 Commits recorded",
+      pair: "Phana (@not-Phana)",
+      desc: "Primary human architect of PK Khmer Type with 167+ verified commits. Designs the 218-lesson Khmer Standard, Khmer NiDA, and English QWERTY curriculum, 3D anatomical hand kinematics, audio synthesis engine, and studio UI.",
       chips: [
-        "Authorship: Primary Human Creator & Copyright Owner",
-        "Commits: 170+ Verified Git Commits",
-        "Scope: Full-Stack Core, 3D Hands, Curriculum & UI/UX"
+        "167+ verified commits on PK Khmer Type",
+        "Tactile typing engine & 218 interactive lessons",
+        "Full-stack architecture & reactive telemetry"
       ]
     },
     "phanaach4889": {
-      name: "Phanna (@phanaach4889)",
-      badge: "HUMAN ARCHITECT · REPO OWNER",
-      url: "https://github.com/phanaach4889",
-      linkLabel: "View GitHub Profile",
-      desc: "Founding repository owner and release custodian for phanaach4889/PK-Khmer-Type. Manages repository governance, GitHub Pages production deployments, branch protection, and verified open-source release distribution.",
+      name: "Phana (@not-Phana)",
+      avatar: "assets/avatar-not-phana.jpg",
+      model: "Biological Neural Network",
+      status: "ONLINE // SYNCED",
+      badge: "HUMAN CREATOR (CORE DECISION MAKER)",
+      url: "https://github.com/not-Phana",
+      linkLabel: "Open @not-Phana",
+      recorded: "30 Commits recorded",
+      pair: "Phana Kurosaki (@Kon-Kurosaki)",
+      desc: "Official repository owner of not-Phana/PK-Khmer-Type and PK Studio ecosystems with 30+ verified commits. Directs public releases, documentation, and web hosting.",
       chips: [
-        "Role: Repository Owner & Release Custodian",
-        "Commits: 38+ Verified Git Commits",
-        "Scope: Ecosystem Architecture, Repo Hygiene & Releases"
+        "30+ verified commits & repository owner",
+        "Public GitHub Pages deployment & domain ops",
+        "Ecosystem integration and community tools"
       ]
     },
     "antigravity": {
       name: "Antigravity (@gemini-code-assist)",
-      badge: "AUTONOMOUS AGENT · GOOGLE DEEPMIND",
+      avatar: "assets/contributor-antigravity.png",
+      model: "Google DeepMind / Antigravity Agent",
+      status: "AUTONOMOUS // ACTIVE",
+      badge: "AUTONOMOUS AGENT (TERMINAL & TOOL EXECUTION)",
       url: "https://github.com/apps/gemini-code-assist",
-      linkLabel: "View Official Bot App",
-      desc: "Autonomous agentic coding assistant powered by Google DeepMind. Operates inside the developer's local workspace to execute multi-file UI/UX engineering, headless browser verification, and automated test validation under human direction.",
+      linkLabel: "Open @gemini-code-assist",
+      recorded: "1 Commit recorded",
+      pair: "Gemini (Conversational Chatbot)",
+      desc: "Autonomous coding agent designed by Google DeepMind. Unlike standard conversational chatbots, Antigravity executes shell commands, inspects live browser viewports via CDP, refactors source trees, and verifies builds autonomously.",
       chips: [
-        "Tier: Tier 02 Sandboxed Autonomous Coding Agent",
-        "Git Provenance: gemini-code-assist[bot] Co-Authored Trailer",
-        "Legal Status: Tool Output Assigned to Human Author"
+        "1 verified commit on PK Khmer Type",
+        "Headless Edge CDP visual verification engine",
+        "Precision cursor vector physics & live terminal execution"
       ]
     },
     "claude-code": {
       name: "Claude Code (@claude)",
-      badge: "AUTONOMOUS AGENT · ANTHROPIC CLI",
+      avatar: "assets/contributor-claude-code.svg",
+      model: "Claude 3.7 Sonnet / Code CLI",
+      status: "AUTONOMOUS // READY",
+      badge: "AUTONOMOUS AGENT (TERMINAL & TOOL EXECUTION)",
       url: "https://github.com/claude",
-      linkLabel: "View Official Account",
-      desc: "Autonomous terminal and CLI engineering agent by Anthropic. Assists with deep invariant proofs, strict Khmer Unicode normalization checks, curriculum validation scripts, and multi-module refactoring.",
+      linkLabel: "Open @claude",
+      recorded: "1 Commit recorded",
+      pair: "Claude (Conversational Chatbot)",
+      desc: "Agentic command-line tool powered by Anthropic. Unlike web chatbots, Claude Code runs directly inside the local terminal to navigate file trees, edit multi-file codebases, execute git commands, and verify complex logic.",
       chips: [
-        "Tier: Tier 02 Sandboxed CLI Engineering Agent",
-        "Git Provenance: @claude (81847+claude@users.noreply.github.com)",
-        "Legal Status: Tool Output Assigned to Human Author"
+        "1 verified commit on PK Khmer Type",
+        "Curriculum invariant proofs & strict validation",
+        "High-order component modularization & state checks"
       ]
     },
     "codex": {
-      name: "OpenAI Codex (@chatgpt-codex-connector)",
-      badge: "AUTONOMOUS AGENT · CODE SYNTHESIS",
+      name: "Codex (@chatgpt-codex-connector)",
+      avatar: "assets/contributor-codex.svg",
+      model: "OpenAI Codex Engine",
+      status: "AUTONOMOUS // STANDBY",
+      badge: "AUTONOMOUS AGENT (TERMINAL & TOOL EXECUTION)",
       url: "https://github.com/apps/chatgpt-codex-connector",
-      linkLabel: "View Official Bot App",
-      desc: "Autonomous code synthesis and verification connector by OpenAI. Assists with algorithmic synthesis, Khmer cluster regex compilers, automated cloud sync test suites, and edge-case validation.",
+      linkLabel: "Open @chatgpt-codex-connector",
+      recorded: "1 Commit recorded",
+      pair: "ChatGPT (Conversational Chatbot)",
+      desc: "Autonomous code generation and execution engine from OpenAI. Connects programmatic pipelines, parses intricate Unicode Khmer keystroke stacking, and generates algorithmic scaffolding rather than mere conversational text.",
       chips: [
-        "Tier: Tier 02 Autonomous Code Synthesis Agent",
-        "Git Provenance: chatgpt-codex-connector[bot] Trailer",
-        "Legal Status: Tool Output Assigned to Human Author"
+        "1 verified commit on PK Khmer Type",
+        "Khmer NiDA character stacking tables & unicode maps",
+        "Rapid prototype scaffolding & algorithmic compilation"
       ]
     },
     "gemini": {
-      name: "Google Gemini (@google-gemini)",
-      badge: "AI CHATBOT · CONVERSATIONAL IDEATION",
+      name: "Gemini (@google-gemini)",
+      avatar: "assets/contributor-gemini.png",
+      model: "Gemini 2.5 Advanced Web UI",
+      status: "ONLINE // READY",
+      badge: "CONVERSATIONAL CHATBOT (WEB & PROMPT INTERFACE)",
       url: "https://gemini.google.com/",
-      linkLabel: "Official Product Site",
-      desc: "Conversational multimodal AI assistant used for early concept brainstorming, bilingual English/Khmer UI copywriting exploration, and pedagogical prompt drafting without direct repository write access.",
+      linkLabel: "Open @google-gemini",
+      recorded: "Ideation Chat recorded",
+      pair: "Antigravity (Autonomous Agent)",
+      desc: "Conversational multimodal chatbot interface by Google. Used in the early creative stages for rapid brainstorming, prompt refinement, and architecture discussions before agentic terminal execution.",
       chips: [
-        "Tier: Tier 03 Non-Autonomous Conversational Chatbot",
-        "Access Level: Zero Direct Git / Terminal Write Access",
-        "Legal Status: Nominative Fair Use Attribution Only"
+        "Initial feature ideation & natural language prompt drafts",
+        "Multimodal layout analysis & creative critique",
+        "Conversational dialogue companion to Antigravity"
       ]
     },
     "claude": {
-      name: "Anthropic Claude (@anthropic-claude)",
-      badge: "AI CHATBOT · DIALOGUE & PEDAGOGY",
+      name: "Claude (@anthropic-claude)",
+      avatar: "assets/contributor-claude.png",
+      model: "Claude.ai Web Interface",
+      status: "ONLINE // READY",
+      badge: "CONVERSATIONAL CHATBOT (WEB & PROMPT INTERFACE)",
       url: "https://claude.ai/",
-      linkLabel: "Official Product Site",
-      desc: "Conversational AI partner used for Khmer linguistic pedagogy curation, philosophical typing maxims, structured documentation review, and ergonomic learning progressions.",
+      linkLabel: "Open @anthropic-claude",
+      recorded: "Dialogue Chat recorded",
+      pair: "Claude Code (Autonomous Agent)",
+      desc: "Conversational chat assistant by Anthropic. Engaged for high-level philosophical discussions, Classical Greek Delphic maxim curation, and stylistic prose refining before CLI implementation.",
       chips: [
-        "Tier: Tier 03 Non-Autonomous Conversational Chatbot",
-        "Access Level: Zero Direct Git / Terminal Write Access",
-        "Legal Status: Nominative Fair Use Attribution Only"
+        "Delphic maxims philosophical narrative exploration",
+        "Khmer pedagogical prose styling and curation",
+        "Conversational dialogue companion to Claude Code"
       ]
     },
     "chatgpt": {
-      name: "OpenAI ChatGPT (@openai-chatgpt)",
-      badge: "AI CHATBOT · RESEARCH & SUMMARIES",
+      name: "ChatGPT (@openai-chatgpt)",
+      avatar: "assets/contributor-chatgpt.png",
+      model: "ChatGPT Plus / GPT-4o Web UI",
+      status: "ONLINE // STANDBY",
+      badge: "CONVERSATIONAL CHATBOT (WEB & PROMPT INTERFACE)",
       url: "https://chatgpt.com/",
-      linkLabel: "Official Product Site",
-      desc: "Conversational AI research assistant used for general technical inquiries, rapid UX idea exploration, and comparative keyboard layout research during studio design phases.",
+      linkLabel: "Open @openai-chatgpt",
+      recorded: "Research Chat recorded",
+      pair: "Codex (Autonomous Agent)",
+      desc: "Conversational web chatbot by OpenAI. Employed for quick inquiries, documentation queries, and exploratory idea exchanges prior to algorithmic synthesis in the Codex pipeline.",
       chips: [
-        "Tier: Tier 03 Non-Autonomous Conversational Chatbot",
-        "Access Level: Zero Direct Git / Terminal Write Access",
-        "Legal Status: Nominative Fair Use Attribution Only"
+        "Rapid exploration of keyboard layout specifications",
+        "Markdown documentation drafting and phrasing ideas",
+        "Conversational dialogue companion to Codex"
       ]
     }
   };
 
   function selectCollaboratorLog(collabId) {
     var info = COLLAB_AUDIT_DATA[collabId];
-    if (!info || !collabGrid) return;
-    var cards = collabGrid.querySelectorAll(".pk-collab-card");
+    var gridEl = collabGrid || document.getElementById("pkCollabGrid");
+    if (!info || !gridEl) return;
+    currentCollabId = collabId;
+    var cards = gridEl.querySelectorAll(".pk-collab-card");
     for (var i = 0; i < cards.length; i++) {
       var card = cards[i];
       var isMatch = card.getAttribute("data-collab-id") === collabId;
@@ -2517,42 +2560,125 @@ if (document.readyState === "loading") {
         btn.textContent = isMatch ? "INSPECTING" : "VIEW LOG";
       }
     }
+    var ciAvatar = document.getElementById("pkCiAvatarImg");
+    var ciModel = document.getElementById("pkCiModel");
+    var ciStatus = document.getElementById("pkCiStatus");
     var ciName = document.getElementById("pkCiName");
     var ciBadge = document.getElementById("pkCiBadge");
     var ciLink = document.getElementById("pkCiLink");
+    var ciLinkLabel = document.getElementById("pkCiLinkLabel");
+    var ciRecorded = document.getElementById("pkCiRecorded");
+    var ciPair = document.getElementById("pkCiPair");
     var ciDesc = document.getElementById("pkCiDesc");
     var ciMeta = document.getElementById("pkCiMeta");
+
+    if (ciAvatar && info.avatar) ciAvatar.src = info.avatar;
+    if (ciModel && info.model) ciModel.textContent = "CONTRIBUTOR INSPECTION // " + info.model;
+    if (ciStatus && info.status) ciStatus.textContent = "STATUS: " + info.status;
     if (ciName) ciName.textContent = info.name;
     if (ciBadge) ciBadge.textContent = info.badge;
+    if (ciPair && info.pair) ciPair.textContent = info.pair;
+    if (ciRecorded && info.recorded) ciRecorded.textContent = info.recorded;
     if (ciLink) {
       ciLink.href = info.url;
-      var span = ciLink.querySelector("span");
-      if (span) span.textContent = info.linkLabel;
+      if (ciLinkLabel) ciLinkLabel.textContent = info.linkLabel;
     }
     if (ciDesc) ciDesc.textContent = info.desc;
     if (ciMeta && Array.isArray(info.chips)) {
+      var checkSvg = '<svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
       ciMeta.innerHTML = info.chips.map(function (c) {
-        return '<span class="pk-ci-chip">' + c.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</span>";
+        var safe = c.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return '<span class="pk-ci-chip">' + checkSvg + "<span>" + safe + "</span></span>";
       }).join("");
     }
   }
 
+  function filterPkCollaborators(tier, clickedBtn) {
+    var filterBarEl = collabFilterBar || document.getElementById("pkCollabFilterBar");
+    var gridEl = collabGrid || document.getElementById("pkCollabGrid");
+    if (!gridEl) return;
+    var targetTier = tier || "all";
+    if (filterBarEl) {
+      var allBtns = filterBarEl.querySelectorAll(".pk-collab-filter-btn[data-collab-filter]");
+      for (var i = 0; i < allBtns.length; i++) {
+        var b = allBtns[i];
+        var isAct = clickedBtn ? b === clickedBtn : b.getAttribute("data-collab-filter") === targetTier;
+        b.classList.toggle("active", isAct);
+        b.setAttribute("aria-selected", isAct ? "true" : "false");
+      }
+    }
+    var cards = gridEl.querySelectorAll(".pk-collab-card");
+    var firstVisibleId = null;
+    var currentStillVisible = false;
+    for (var j = 0; j < cards.length; j++) {
+      var card = cards[j];
+      var cardTier = card.getAttribute("data-collab-tier");
+      var cardId = card.getAttribute("data-collab-id");
+      var show = targetTier === "all" || cardTier === targetTier;
+      card.hidden = !show;
+      card.classList.toggle("is-filtered-out", !show);
+      card.style.display = show ? "" : "none";
+      if (show) {
+        if (!firstVisibleId) firstVisibleId = cardId;
+        if (cardId === currentCollabId) currentStillVisible = true;
+      }
+    }
+    if (!currentStillVisible && firstVisibleId) {
+      selectCollaboratorLog(firstVisibleId);
+    }
+  }
+
+  function setPkLegalLedgerMode(mode, clickedBtn) {
+    var m = mode || "both";
+    var modeBar = document.getElementById("pkLlModeBar");
+    if (modeBar) {
+      var btns = modeBar.querySelectorAll(".pk-ll-mode-btn");
+      for (var i = 0; i < btns.length; i++) {
+        var active = clickedBtn ? btns[i] === clickedBtn : btns[i].getAttribute("data-ll-mode") === m;
+        btns[i].classList.toggle("active", active);
+      }
+    }
+    var techSec = document.getElementById("pkLlTechSection");
+    var legalSec = document.getElementById("pkLlLegalSection");
+    if (techSec) techSec.hidden = !(m === "tech" || m === "both");
+    if (legalSec) legalSec.hidden = !(m === "legal" || m === "both");
+  }
+
+  function togglePkLegalProvisions(btn) {
+    if (!btn) return;
+    var clause = btn.closest(".pk-ll-clause");
+    if (!clause) return;
+    var drawer = clause.querySelector(".pk-ll-prov-drawer");
+    if (!drawer) return;
+    var count = drawer.querySelectorAll(".pk-ll-prov-item").length;
+    var willOpen = drawer.hidden;
+    drawer.hidden = !willOpen;
+    btn.textContent = willOpen ? "- Hide Full Provisions" : "+ View Full Provisions (" + count + ")";
+  }
+
   function openCollaboratorsModal() {
-    if (!collabModal) return;
-    collabModal.hidden = false;
-    if (collabCloseBtn) collabCloseBtn.focus();
+    var modalEl = collabModal || document.getElementById("pkCollaboratorsModal");
+    if (!modalEl) return;
+    modalEl.hidden = false;
+    var closeEl = collabCloseBtn || document.getElementById("pkCollabCloseBtn");
+    if (closeEl) closeEl.focus();
   }
 
   function closeCollaboratorsModal() {
-    if (typeof window.closeModalAnimated === "function" && collabModal) {
-      window.closeModalAnimated(collabModal);
-    } else if (collabModal) {
-      collabModal.hidden = true;
+    var modalEl = collabModal || document.getElementById("pkCollaboratorsModal");
+    if (typeof window.closeModalAnimated === "function" && modalEl) {
+      window.closeModalAnimated(modalEl);
+    } else if (modalEl) {
+      modalEl.hidden = true;
     }
   }
 
   window.openCollaboratorsModal = openCollaboratorsModal;
   window.closeCollaboratorsModal = closeCollaboratorsModal;
+  window.selectPkCollaborator = selectCollaboratorLog;
+  window.filterPkCollaborators = filterPkCollaborators;
+  window.setPkLegalLedgerMode = setPkLegalLedgerMode;
+  window.togglePkLegalProvisions = togglePkLegalProvisions;
 
   if (collabMiniBtn) collabMiniBtn.addEventListener("click", openCollaboratorsModal);
   if (collabCloseBtn) collabCloseBtn.addEventListener("click", closeCollaboratorsModal);
@@ -2566,23 +2692,12 @@ if (document.readyState === "loading") {
     });
   }
 
-  if (collabFilterBar && collabGrid) {
+  if (collabFilterBar) {
     collabFilterBar.addEventListener("click", function (e) {
       var filterBtn = e.target.closest(".pk-collab-filter-btn[data-collab-filter]");
       if (!filterBtn) return;
       var tier = filterBtn.getAttribute("data-collab-filter") || "all";
-      var allBtns = collabFilterBar.querySelectorAll(".pk-collab-filter-btn[data-collab-filter]");
-      for (var i = 0; i < allBtns.length; i++) {
-        var active = allBtns[i] === filterBtn;
-        allBtns[i].classList.toggle("active", active);
-        allBtns[i].setAttribute("aria-selected", active ? "true" : "false");
-      }
-      var cards = collabGrid.querySelectorAll(".pk-collab-card");
-      for (var j = 0; j < cards.length; j++) {
-        var cardTier = cards[j].getAttribute("data-collab-tier");
-        var show = tier === "all" || cardTier === tier;
-        cards[j].classList.toggle("is-filtered-out", !show);
-      }
+      filterPkCollaborators(tier, filterBtn);
     });
   }
 
