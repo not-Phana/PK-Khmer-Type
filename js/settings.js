@@ -2460,18 +2460,18 @@ if (document.readyState === "loading") {
     "claude-code": {
       name: "Claude Code (@claude)",
       avatar: "assets/contributor-claude-code.svg",
-      model: "Claude 3.7 Sonnet / Code CLI",
-      status: "AUTONOMOUS // READY",
-      badge: "AUTONOMOUS AGENT (TERMINAL & TOOL EXECUTION)",
+      model: "Claude Code CLI // Future Incubation Slot",
+      status: "STANDBY // QUEUED FOR FUTURE V3.0",
+      badge: "FUTURE AUTONOMOUS AGENT (RESERVED PIPELINE SLOT)",
       url: "https://github.com/claude",
       linkLabel: "Open @claude",
-      recorded: "1 Commit recorded",
-      pair: "Claude (Conversational Chatbot)",
-      desc: "Agentic command-line tool powered by Anthropic. Unlike web chatbots, Claude Code runs directly inside the local terminal to navigate file trees, edit multi-file codebases, execute git commands, and verify complex logic.",
+      recorded: "Queued for Future Use",
+      pair: "Claude (Active Conversational Chatbot)",
+      desc: "Reserved autonomous CLI agent slot for future PK Khmer Type engineering phases. Not currently used in active development — pre-configured in the studio architecture for upcoming terminal refactoring, AST audits, and V3.0 expansion.",
       chips: [
-        "1 verified commit on PK Khmer Type",
-        "Curriculum invariant proofs & strict validation",
-        "High-order component modularization & state checks"
+        "Status: Not Used Yet — Reserved for Future V3.0 Pipeline",
+        "Planned Scope: CLI Code Operations & AST Refactoring",
+        "Pre-Configured: Official @claude Git Provenance Slot Ready"
       ]
     },
     "codex": {
@@ -2517,12 +2517,12 @@ if (document.readyState === "loading") {
       url: "https://claude.ai/",
       linkLabel: "Open @anthropic-claude",
       recorded: "Dialogue Chat recorded",
-      pair: "Claude Code (Autonomous Agent)",
-      desc: "Conversational chat assistant by Anthropic. Engaged for high-level philosophical discussions, Classical Greek Delphic maxim curation, and stylistic prose refining before CLI implementation.",
+      pair: "Claude Code (Future CLI Agent Slot)",
+      desc: "Conversational chat assistant by Anthropic. Engaged for high-level philosophical discussions, Classical Greek Delphic maxim curation, and stylistic prose refining.",
       chips: [
         "Delphic maxims philosophical narrative exploration",
         "Khmer pedagogical prose styling and curation",
-        "Conversational dialogue companion to Claude Code"
+        "Paired with reserved Claude Code future CLI slot"
       ]
     },
     "chatgpt": {
@@ -2557,7 +2557,8 @@ if (document.readyState === "loading") {
       var btn = card.querySelector(".pk-cc-log-btn");
       if (btn) {
         btn.classList.toggle("is-active", isMatch);
-        btn.textContent = isMatch ? "INSPECTING" : "VIEW LOG";
+        var defaultLabel = card.classList.contains("pk-collab-card-future") ? "VIEW SLOT" : "VIEW LOG";
+        btn.textContent = isMatch ? "INSPECTING" : defaultLabel;
       }
     }
     var ciAvatar = document.getElementById("pkCiAvatarImg");
