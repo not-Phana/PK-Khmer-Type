@@ -253,13 +253,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/base.css?v=72">
-  <link rel="stylesheet" href="css/keyboard.css?v=72">
-  <link rel="stylesheet" href="css/typing.css?v=72">
-  <link rel="stylesheet" href="css/lessons.css?v=72">
-  <link rel="stylesheet" href="css/responsive.css?v=72">
-  <link rel="stylesheet" href="css/settings.css?v=72">
-  <link rel="stylesheet" href="css/tutorial.css?v=72">
+  <link rel="stylesheet" href="css/base.css?v=73">
+  <link rel="stylesheet" href="css/keyboard.css?v=73">
+  <link rel="stylesheet" href="css/typing.css?v=73">
+  <link rel="stylesheet" href="css/lessons.css?v=73">
+  <link rel="stylesheet" href="css/responsive.css?v=73">
+  <link rel="stylesheet" href="css/settings.css?v=73">
+  <link rel="stylesheet" href="css/tutorial.css?v=73">
   <script>
     try {
       var p = localStorage.getItem('khmerSettingPerformanceMode');
@@ -370,18 +370,39 @@
     <!-- Status Pill & Main Headline -->
     <div class="pk-mdg-status-pill">
       <span class="pk-mdg-pulse-dot" aria-hidden="true"></span>
-      <span class="i18n-t" data-en="HARDWARE TELEMETRY // PHYSICAL KEYBOARD REQUIRED" data-km="ប្រព័ន្ធត្រួតពិនិត្យ // ទាមទារក្តារចុចកុំព្យូទ័រ">HARDWARE TELEMETRY // PHYSICAL KEYBOARD REQUIRED</span>
+      <span class="i18n-t" data-en="DESKTOP HARDWARE REQUIRED" data-km="ទាមទារក្តារចុចកុំព្យូទ័រ">DESKTOP HARDWARE REQUIRED</span>
     </div>
 
-    <h2 id="pkMdgTitle" class="pk-mdg-title i18n-t" data-en="This Studio Is Built for PC &amp; Physical Keyboards — Not Phones" data-km="ស្ទូឌីយោនេះបង្កើតឡើងសម្រាប់កុំព្យូទ័រ និងក្តារចុចរូបវន្ត — មិនមែនសម្រាប់ទូរស័ព្ទទេ">This Studio Is Built for PC &amp; Physical Keyboards — Not Phones</h2>
+    <h2 id="pkMdgTitle" class="pk-mdg-title i18n-t" data-en="Built for PC &amp; Physical Keyboards — Not Phones" data-km="បង្កើតឡើងសម្រាប់កុំព្យូទ័រ និងក្តារចុចរូបវន្ត — មិនមែនទូរស័ព្ទទេ">Built for PC &amp; Physical Keyboards — Not Phones</h2>
 
-    <p class="pk-mdg-lead i18n-t" data-en="PK Khmer Type is a 10-finger mechanical touch-typing trainer. Real muscle memory requires physical F &amp; J tactile home-row bumps, simultaneous multi-key Khmer Unicode chords, and full-hand ergonomics that cannot be practiced on a mobile glass screen." data-km="PK Khmer Type គឺជាកម្មវិធីហ្វឹកហាត់វាយអក្សរដោយម្រាមដៃទាំង ១០ លើក្តារចុចកុំព្យូទ័រ។ ការចងចាំសាច់ដុំពិតប្រាកដទាមទារគ្រាប់ចុច F និង J ការចុចគ្រាប់ចុចផ្សំ (Shift + Space / AltGr) និងចលនាម្រាមដៃទាំងសងខាង ដែលមិនអាចហាត់លើអេក្រង់ទូរស័ព្ទបានឡើយ។">PK Khmer Type is a 10-finger mechanical touch-typing trainer. Real muscle memory requires physical F &amp; J tactile home-row bumps, simultaneous multi-key Khmer Unicode chords, and full-hand ergonomics that cannot be practiced on a mobile glass screen.</p>
+    <p class="pk-mdg-lead i18n-t" data-en="PK Khmer Type is a 10-finger mechanical touch-typing studio. Real muscle memory requires physical F &amp; J home-row bumps and multi-key Khmer Unicode chords that cannot be practiced on a phone glass screen." data-km="PK Khmer Type គឺជាស្ទូឌីយោហ្វឹកហាត់វាយអក្សរដោយម្រាមដៃទាំង ១០ លើក្តារចុចកុំព្យូទ័រ ដែលមិនអាចហាត់លើអេក្រង់កញ្ចក់ទូរស័ព្ទបានឡើយ។">PK Khmer Type is a 10-finger mechanical touch-typing studio. Real muscle memory requires physical F &amp; J home-row bumps and multi-key Khmer Unicode chords that cannot be practiced on a phone glass screen.</p>
 
-    <!-- 3 Hardware Reasons Bento List -->
-    <div class="pk-mdg-reasons">
+    <!-- Compact 3-Chip Hardware Spec Strip (Always fits on small phones) -->
+    <div class="pk-mdg-chip-strip">
+      <span class="pk-mdg-spec-chip">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="M7 15h10"/></svg>
+        <span class="i18n-t" data-en="10-Finger F/J Bumps" data-km="ម្រាមដៃ ១០ (F/J)">10-Finger F/J Bumps</span>
+      </span>
+      <span class="pk-mdg-spec-chip">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/></svg>
+        <span class="i18n-t" data-en="Shift+Space &amp; Coeng ្" data-km="Shift+Space និងជើង ្">Shift+Space &amp; Coeng ្</span>
+      </span>
+      <span class="pk-mdg-spec-chip">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span class="i18n-t" data-en="3D Hand Kinematics" data-km="ចលនាដៃ 3D">3D Hand Kinematics</span>
+      </span>
+    </div>
+
+    <!-- Collapsible 3 Hardware Reasons Drawer for Small Screens -->
+    <button type="button" class="pk-mdg-specs-toggle" aria-expanded="false" onclick="var d=document.getElementById('pkMdgReasonsDrawer');if(!d)return;var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');this.setAttribute('aria-expanded','true');this.querySelector('.pk-mdg-toggle-sign').textContent='−';}else{d.setAttribute('hidden','');this.setAttribute('aria-expanded','false');this.querySelector('.pk-mdg-toggle-sign').textContent='+';}">
+      <span class="pk-mdg-toggle-sign" aria-hidden="true">+</span>
+      <span class="i18n-t" data-en="Why Phone Screens Are Unsupported (3 Hardware Specs)" data-km="ហេតុអ្វីអេក្រង់ទូរស័ព្ទមិនអាចប្រើបាន (លក្ខណៈបច្ចេកទេស ៣)">Why Phone Screens Are Unsupported (3 Hardware Specs)</span>
+    </button>
+
+    <div class="pk-mdg-reasons" id="pkMdgReasonsDrawer" hidden>
       <div class="pk-mdg-reason-item">
         <div class="pk-mdg-reason-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="M7 15h10"/><path d="M8 10h2"/><path d="M14 10h2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="M7 15h10"/><path d="M8 10h2"/><path d="M14 10h2"/></svg>
         </div>
         <div class="pk-mdg-reason-copy">
           <strong class="i18n-t" data-en="10-Finger Tactile Home Row (ថ / ញ &middot; F / J)" data-km="ការដាក់ម្រាមដៃទាំង ១០ លើជួរដើម (ថ / ញ &middot; F / J)">10-Finger Tactile Home Row (ថ / ញ &middot; F / J)</strong>
@@ -391,7 +412,7 @@
 
       <div class="pk-mdg-reason-item">
         <div class="pk-mdg-reason-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
         </div>
         <div class="pk-mdg-reason-copy">
           <strong class="i18n-t" data-en="Khmer Multi-Key Chords (Shift + Space, AltGr, Coeng ្)" data-km="ការចុចគ្រាប់ចុចផ្សំខ្មែរ (Shift + Space, AltGr, ជើង ្)">Khmer Multi-Key Chords (Shift + Space, AltGr, Coeng ្)</strong>
@@ -401,7 +422,7 @@
 
       <div class="pk-mdg-reason-item">
         <div class="pk-mdg-reason-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
         <div class="pk-mdg-reason-copy">
           <strong class="i18n-t" data-en="3D Hand Kinematics &amp; Mechanical Switch Audio" data-km="ចលនាដៃ 3D និងសំឡេងក្តារចុចមេកានិច">3D Hand Kinematics &amp; Mechanical Switch Audio</strong>
@@ -413,25 +434,25 @@
     <!-- Action Buttons for Mobile Visitors -->
     <div class="pk-mdg-actions">
       <a href="Documents/index.html" class="pk-mdg-btn pk-mdg-btn-primary">
-        <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        <span class="i18n-t" data-en="Open Mobile Documentation &amp; Layout Guide" data-km="បើកមើលឯកសារណែនាំ និងប្លង់ក្តារចុចលើទូរស័ព្ទ">Open Mobile Documentation &amp; Layout Guide</span>
+        <svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span class="i18n-t" data-en="Open Mobile Docs &amp; Layout Guide" data-km="បើកឯកសារណែនាំលើទូរស័ព្ទ">Open Mobile Docs &amp; Layout Guide</span>
       </a>
 
       <div class="pk-mdg-sub-actions">
-        <button type="button" class="pk-mdg-btn pk-mdg-btn-secondary" id="pkMdgCopyUrlBtn" onclick="(function(btn){var url='https://not-phana.github.io/PK-Khmer-Type/';if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url);}var span=btn.querySelector('.pk-mdg-copy-label');if(span){span.textContent='Copied Desktop URL!';btn.classList.add('is-copied');setTimeout(function(){span.textContent='Copy Link for PC / Mac';btn.classList.remove('is-copied');},2400);}})(this)">
-          <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          <span class="pk-mdg-copy-label i18n-t" data-en="Copy Link for PC / Mac" data-km="ចម្លងតំណសម្រាប់កុំព្យូទ័រ">Copy Link for PC / Mac</span>
+        <button type="button" class="pk-mdg-btn pk-mdg-btn-secondary" id="pkMdgCopyUrlBtn" onclick="(function(btn){var url='https://not-phana.github.io/PK-Khmer-Type/';if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url);}var span=btn.querySelector('.pk-mdg-copy-label');if(span){span.textContent='Copied URL!';btn.classList.add('is-copied');setTimeout(function(){span.textContent='Copy PC Link';btn.classList.remove('is-copied');},2400);}})(this)">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span class="pk-mdg-copy-label i18n-t" data-en="Copy PC Link" data-km="ចម្លងតំណ PC">Copy PC Link</span>
         </button>
 
         <button type="button" class="pk-mdg-btn pk-mdg-btn-secondary" onclick="if(window.openCollaboratorsModal){window.openCollaboratorsModal();}else{var m=document.getElementById('pkCollaboratorsModal');if(m)m.hidden=false;}">
-          <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span class="i18n-t" data-en="Collaborators &amp; Legal Shield" data-km="សហការី និងបញ្ជីផ្លូវច្បាប់">Collaborators &amp; Legal Shield</span>
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="i18n-t" data-en="AI &amp; Legal Shield" data-km="AI និងផ្លូវច្បាប់">AI &amp; Legal Shield</span>
         </button>
       </div>
 
       <button type="button" class="pk-mdg-bypass-btn" id="pkMdgBypassBtn" onclick="try{sessionStorage.setItem('pk_mobile_gate_bypass','1');}catch(e){}document.documentElement.classList.add('pk-mobile-gate-dismissed');">
-        <span class="i18n-t" data-en="Connected a physical USB / Bluetooth keyboard? Enter Studio anyway" data-km="បានភ្ជាប់ក្តារចុចក្រៅ (USB / Bluetooth)? ចូលទៅកាន់ស្ទូឌីយោ">Connected a physical USB / Bluetooth keyboard? Enter Studio anyway</span>
-        <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+        <span class="i18n-t" data-en="Have an external USB / Bluetooth keyboard? Enter Studio" data-km="មានក្តារចុចក្រៅ (USB / Bluetooth)? ចូលស្ទូឌីយោ">Have an external USB / Bluetooth keyboard? Enter Studio</span>
+        <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
       </button>
     </div>
   </div>
@@ -3370,29 +3391,29 @@
 </noscript>
 
   <!-- Scripts -->
-  <script defer src="js/icons.js?v=72"></script>
-  <script defer src="js/vendor/supabase.js?v=72"></script>
-  <script defer src="js/supabase-env.js?v=72" onerror="window.__PK_NO_ENV_FILE=true"></script>
-  <script defer src="js/supabase-config.js?v=72"></script>
-  <script defer src="js/cloud-sync.js?v=72"></script>
-  <script defer src="js/storage.js?v=72"></script>
-  <script defer src="data/curriculum-data.js?v=72"></script>
-  <script defer src="data/adaptive-vocab.js?v=72"></script>
-  <script defer src="js/keyboard.js?v=72"></script>
-  <script defer src="js/tracker.js?v=72"></script>
-  <script defer src="js/progress.js?v=72"></script>
-  <script defer src="js/review.js?v=72"></script>
-  <script defer src="js/cursor-inspector.js?v=72"></script>
-  <script defer src="js/feedback.js?v=72"></script>
-  <script defer src="js/adaptive.js?v=72"></script>
-  <script defer src="js/lessons.js?v=72"></script>
-  <script defer src="js/race.js?v=72"></script>
-  <script defer src="js/typing.js?v=72"></script>
-  <script defer src="js/statistics.js?v=72"></script>
-  <script defer src="js/settings.js?v=72"></script>
-  <script defer src="js/shortcuts.js?v=72"></script>
-  <script defer src="js/quick_guide.js?v=72"></script>
-  <script defer src="js/tutorial.js?v=72"></script>
-  <script defer src="js/app.js?v=72"></script>
+  <script defer src="js/icons.js?v=73"></script>
+  <script defer src="js/vendor/supabase.js?v=73"></script>
+  <script defer src="js/supabase-env.js?v=73" onerror="window.__PK_NO_ENV_FILE=true"></script>
+  <script defer src="js/supabase-config.js?v=73"></script>
+  <script defer src="js/cloud-sync.js?v=73"></script>
+  <script defer src="js/storage.js?v=73"></script>
+  <script defer src="data/curriculum-data.js?v=73"></script>
+  <script defer src="data/adaptive-vocab.js?v=73"></script>
+  <script defer src="js/keyboard.js?v=73"></script>
+  <script defer src="js/tracker.js?v=73"></script>
+  <script defer src="js/progress.js?v=73"></script>
+  <script defer src="js/review.js?v=73"></script>
+  <script defer src="js/cursor-inspector.js?v=73"></script>
+  <script defer src="js/feedback.js?v=73"></script>
+  <script defer src="js/adaptive.js?v=73"></script>
+  <script defer src="js/lessons.js?v=73"></script>
+  <script defer src="js/race.js?v=73"></script>
+  <script defer src="js/typing.js?v=73"></script>
+  <script defer src="js/statistics.js?v=73"></script>
+  <script defer src="js/settings.js?v=73"></script>
+  <script defer src="js/shortcuts.js?v=73"></script>
+  <script defer src="js/quick_guide.js?v=73"></script>
+  <script defer src="js/tutorial.js?v=73"></script>
+  <script defer src="js/app.js?v=73"></script>
 </body>
 </html>
