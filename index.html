@@ -253,13 +253,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/base.css?v=71">
-  <link rel="stylesheet" href="css/keyboard.css?v=71">
-  <link rel="stylesheet" href="css/typing.css?v=71">
-  <link rel="stylesheet" href="css/lessons.css?v=71">
-  <link rel="stylesheet" href="css/responsive.css?v=71">
-  <link rel="stylesheet" href="css/settings.css?v=71">
-  <link rel="stylesheet" href="css/tutorial.css?v=71">
+  <link rel="stylesheet" href="css/base.css?v=72">
+  <link rel="stylesheet" href="css/keyboard.css?v=72">
+  <link rel="stylesheet" href="css/typing.css?v=72">
+  <link rel="stylesheet" href="css/lessons.css?v=72">
+  <link rel="stylesheet" href="css/responsive.css?v=72">
+  <link rel="stylesheet" href="css/settings.css?v=72">
+  <link rel="stylesheet" href="css/tutorial.css?v=72">
   <script>
     try {
       var p = localStorage.getItem('khmerSettingPerformanceMode');
@@ -272,6 +272,9 @@
       } else {
         // Default for new visitors: Minimal mode
         document.documentElement.classList.add('anim-mode-minimal', 'hide-key-fx', 'hide-motes', 'hide-cursor-shockwave');
+      }
+      if (sessionStorage.getItem('pk_mobile_gate_bypass') === '1') {
+        document.documentElement.classList.add('pk-mobile-gate-dismissed');
       }
     } catch(e){}
   </script>
@@ -301,6 +304,138 @@
 <div class="scanline-overlay" id="scanlineOverlay" aria-hidden="true"></div>
 
 <div class="toast-stack" id="toastStack"></div>
+
+<!-- ================= Mobile Phone Hardware Workstation Gate ================= -->
+<section class="pk-mobile-desktop-gate" id="pkMobileDesktopGate" aria-labelledby="pkMdgTitle">
+  <div class="pk-mdg-card">
+    <span class="pk-mdg-corner pk-mdg-tl" aria-hidden="true"></span>
+    <span class="pk-mdg-corner pk-mdg-tr" aria-hidden="true"></span>
+    <span class="pk-mdg-corner pk-mdg-bl" aria-hidden="true"></span>
+    <span class="pk-mdg-corner pk-mdg-br" aria-hidden="true"></span>
+
+    <!-- Top Brand & Bilingual Toggle Bar -->
+    <div class="pk-mdg-topbar">
+      <div class="pk-mdg-brand">
+        <img src="logo.svg" alt="PK Khmer Type" width="30" height="30" class="pk-mdg-logo">
+        <div class="pk-mdg-brand-text">
+          <span class="pk-mdg-brand-name">PK KHMER TYPE</span>
+          <span class="pk-mdg-brand-ver">STUDIO // DESKTOP WORKSTATION</span>
+        </div>
+      </div>
+      <button type="button" class="pk-mdg-lang-btn" id="pkMdgLangBtn" onclick="var btn=document.getElementById('topLangToggleBtn');if(btn)btn.click();" aria-label="Switch language">
+        <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span class="i18n-t" data-en="ភាសាខ្មែរ" data-km="English">ភាសាខ្មែរ</span>
+      </button>
+    </div>
+
+    <!-- Hardware Comparison Telemetry Diagram (Phone Blocked vs Physical Keyboard Active) -->
+    <div class="pk-mdg-diagram" aria-hidden="true">
+      <div class="pk-mdg-device pk-mdg-device-phone">
+        <div class="pk-mdg-device-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="2" width="12" height="20" rx="2.5"/>
+            <line x1="12" y1="18" x2="12.01" y2="18"/>
+            <line x1="4" y1="4" x2="20" y2="20" stroke="#f43f5e" stroke-width="2.3"/>
+          </svg>
+        </div>
+        <span class="pk-mdg-device-tag tag-blocked i18n-t" data-en="PHONE TOUCHSCREEN" data-km="អេក្រង់ទូរស័ព្ទ">PHONE TOUCHSCREEN</span>
+        <span class="pk-mdg-device-sub i18n-t" data-en="Not Built for Phone" data-km="មិនមែនសម្រាប់ទូរស័ព្ទ">Not Built for Phone</span>
+      </div>
+
+      <div class="pk-mdg-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="13 6 19 12 13 18"/>
+        </svg>
+      </div>
+
+      <div class="pk-mdg-device pk-mdg-device-kb">
+        <div class="pk-mdg-device-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2.5"/>
+            <line x1="6" y1="8" x2="6.01" y2="8"/>
+            <line x1="10" y1="8" x2="10.01" y2="8"/>
+            <line x1="14" y1="8" x2="14.01" y2="8"/>
+            <line x1="18" y1="8" x2="18.01" y2="8"/>
+            <line x1="6" y1="12" x2="8" y2="12" stroke="#ffd166" stroke-width="2.5"/>
+            <line x1="16" y1="12" x2="18" y2="12" stroke="#ffd166" stroke-width="2.5"/>
+            <line x1="7" y1="16" x2="17" y2="16"/>
+          </svg>
+        </div>
+        <span class="pk-mdg-device-tag tag-required i18n-t" data-en="PHYSICAL KEYBOARD" data-km="ក្តារចុចកុំព្យូទ័រ">PHYSICAL KEYBOARD</span>
+        <span class="pk-mdg-device-sub i18n-t" data-en="PC · Mac · Hardware Keycaps" data-km="កុំព្យូទ័រ PC / Mac">PC &middot; Mac &middot; Hardware Keycaps</span>
+      </div>
+    </div>
+
+    <!-- Status Pill & Main Headline -->
+    <div class="pk-mdg-status-pill">
+      <span class="pk-mdg-pulse-dot" aria-hidden="true"></span>
+      <span class="i18n-t" data-en="HARDWARE TELEMETRY // PHYSICAL KEYBOARD REQUIRED" data-km="ប្រព័ន្ធត្រួតពិនិត្យ // ទាមទារក្តារចុចកុំព្យូទ័រ">HARDWARE TELEMETRY // PHYSICAL KEYBOARD REQUIRED</span>
+    </div>
+
+    <h2 id="pkMdgTitle" class="pk-mdg-title i18n-t" data-en="This Studio Is Built for PC &amp; Physical Keyboards — Not Phones" data-km="ស្ទូឌីយោនេះបង្កើតឡើងសម្រាប់កុំព្យូទ័រ និងក្តារចុចរូបវន្ត — មិនមែនសម្រាប់ទូរស័ព្ទទេ">This Studio Is Built for PC &amp; Physical Keyboards — Not Phones</h2>
+
+    <p class="pk-mdg-lead i18n-t" data-en="PK Khmer Type is a 10-finger mechanical touch-typing trainer. Real muscle memory requires physical F &amp; J tactile home-row bumps, simultaneous multi-key Khmer Unicode chords, and full-hand ergonomics that cannot be practiced on a mobile glass screen." data-km="PK Khmer Type គឺជាកម្មវិធីហ្វឹកហាត់វាយអក្សរដោយម្រាមដៃទាំង ១០ លើក្តារចុចកុំព្យូទ័រ។ ការចងចាំសាច់ដុំពិតប្រាកដទាមទារគ្រាប់ចុច F និង J ការចុចគ្រាប់ចុចផ្សំ (Shift + Space / AltGr) និងចលនាម្រាមដៃទាំងសងខាង ដែលមិនអាចហាត់លើអេក្រង់ទូរស័ព្ទបានឡើយ។">PK Khmer Type is a 10-finger mechanical touch-typing trainer. Real muscle memory requires physical F &amp; J tactile home-row bumps, simultaneous multi-key Khmer Unicode chords, and full-hand ergonomics that cannot be practiced on a mobile glass screen.</p>
+
+    <!-- 3 Hardware Reasons Bento List -->
+    <div class="pk-mdg-reasons">
+      <div class="pk-mdg-reason-item">
+        <div class="pk-mdg-reason-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="M7 15h10"/><path d="M8 10h2"/><path d="M14 10h2"/></svg>
+        </div>
+        <div class="pk-mdg-reason-copy">
+          <strong class="i18n-t" data-en="10-Finger Tactile Home Row (ថ / ញ &middot; F / J)" data-km="ការដាក់ម្រាមដៃទាំង ១០ លើជួរដើម (ថ / ញ &middot; F / J)">10-Finger Tactile Home Row (ថ / ញ &middot; F / J)</strong>
+          <span class="i18n-t" data-en="Designed for resting all ten fingers on physical keycaps and typing without looking down." data-km="រចនាឡើងសម្រាប់ការដាក់ម្រាមដៃទាំង ១០ លើគ្រាប់ចុចពិតប្រាកដដោយមិនបាច់មើលក្តារចុច។">Designed for resting all ten fingers on physical keycaps and typing without looking down.</span>
+        </div>
+      </div>
+
+      <div class="pk-mdg-reason-item">
+        <div class="pk-mdg-reason-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <div class="pk-mdg-reason-copy">
+          <strong class="i18n-t" data-en="Khmer Multi-Key Chords (Shift + Space, AltGr, Coeng ្)" data-km="ការចុចគ្រាប់ចុចផ្សំខ្មែរ (Shift + Space, AltGr, ជើង ្)">Khmer Multi-Key Chords (Shift + Space, AltGr, Coeng ្)</strong>
+          <span class="i18n-t" data-en="Khmer Standard and NiDA layouts rely on hardware modifier layers and subscript chords." data-km="ប្លង់ក្តារចុចខ្មែរស្តង់ដារ និង និដា ត្រូវការចុចគ្រាប់ចុច Shift និង AltGr រួមគ្នា។">Khmer Standard and NiDA layouts rely on hardware modifier layers and subscript chords.</span>
+        </div>
+      </div>
+
+      <div class="pk-mdg-reason-item">
+        <div class="pk-mdg-reason-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="pk-mdg-reason-copy">
+          <strong class="i18n-t" data-en="3D Hand Kinematics &amp; Mechanical Switch Audio" data-km="ចលនាដៃ 3D និងសំឡេងក្តារចុចមេកានិច">3D Hand Kinematics &amp; Mechanical Switch Audio</strong>
+          <span class="i18n-t" data-en="Real-time 3D finger tracking and Topre / Holy Panda switch synthesis built for desktop." data-km="ប្រព័ន្ធបង្ហាញម្រាមដៃ 3D និងសំឡេងក្តារចុចមេកានិចសម្រាប់កុំព្យូទ័រ។">Real-time 3D finger tracking and Topre / Holy Panda switch synthesis built for desktop.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons for Mobile Visitors -->
+    <div class="pk-mdg-actions">
+      <a href="Documents/index.html" class="pk-mdg-btn pk-mdg-btn-primary">
+        <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span class="i18n-t" data-en="Open Mobile Documentation &amp; Layout Guide" data-km="បើកមើលឯកសារណែនាំ និងប្លង់ក្តារចុចលើទូរស័ព្ទ">Open Mobile Documentation &amp; Layout Guide</span>
+      </a>
+
+      <div class="pk-mdg-sub-actions">
+        <button type="button" class="pk-mdg-btn pk-mdg-btn-secondary" id="pkMdgCopyUrlBtn" onclick="(function(btn){var url='https://not-phana.github.io/PK-Khmer-Type/';if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url);}var span=btn.querySelector('.pk-mdg-copy-label');if(span){span.textContent='Copied Desktop URL!';btn.classList.add('is-copied');setTimeout(function(){span.textContent='Copy Link for PC / Mac';btn.classList.remove('is-copied');},2400);}})(this)">
+          <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span class="pk-mdg-copy-label i18n-t" data-en="Copy Link for PC / Mac" data-km="ចម្លងតំណសម្រាប់កុំព្យូទ័រ">Copy Link for PC / Mac</span>
+        </button>
+
+        <button type="button" class="pk-mdg-btn pk-mdg-btn-secondary" onclick="if(window.openCollaboratorsModal){window.openCollaboratorsModal();}else{var m=document.getElementById('pkCollaboratorsModal');if(m)m.hidden=false;}">
+          <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="i18n-t" data-en="Collaborators &amp; Legal Shield" data-km="សហការី និងបញ្ជីផ្លូវច្បាប់">Collaborators &amp; Legal Shield</span>
+        </button>
+      </div>
+
+      <button type="button" class="pk-mdg-bypass-btn" id="pkMdgBypassBtn" onclick="try{sessionStorage.setItem('pk_mobile_gate_bypass','1');}catch(e){}document.documentElement.classList.add('pk-mobile-gate-dismissed');">
+        <span class="i18n-t" data-en="Connected a physical USB / Bluetooth keyboard? Enter Studio anyway" data-km="បានភ្ជាប់ក្តារចុចក្រៅ (USB / Bluetooth)? ចូលទៅកាន់ស្ទូឌីយោ">Connected a physical USB / Bluetooth keyboard? Enter Studio anyway</span>
+        <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
 
 <div class="top-actions" role="toolbar" aria-label="Studio Command Bar">
   <button id="focusModeBtn" class="focus-mode-btn" aria-label="Toggle Focus Mode" title="Focus Mode (Hide distractions, Alt+F)"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg> <span class="focus-btn-text i18n-t" data-en="Focus" data-km="ផ្ដោត">Focus</span> <kbd class="focus-kbd-badge">Alt+F</kbd></button>
@@ -3235,29 +3370,29 @@
 </noscript>
 
   <!-- Scripts -->
-  <script defer src="js/icons.js?v=71"></script>
-  <script defer src="js/vendor/supabase.js?v=71"></script>
-  <script defer src="js/supabase-env.js?v=71" onerror="window.__PK_NO_ENV_FILE=true"></script>
-  <script defer src="js/supabase-config.js?v=71"></script>
-  <script defer src="js/cloud-sync.js?v=71"></script>
-  <script defer src="js/storage.js?v=71"></script>
-  <script defer src="data/curriculum-data.js?v=71"></script>
-  <script defer src="data/adaptive-vocab.js?v=71"></script>
-  <script defer src="js/keyboard.js?v=71"></script>
-  <script defer src="js/tracker.js?v=71"></script>
-  <script defer src="js/progress.js?v=71"></script>
-  <script defer src="js/review.js?v=71"></script>
-  <script defer src="js/cursor-inspector.js?v=71"></script>
-  <script defer src="js/feedback.js?v=71"></script>
-  <script defer src="js/adaptive.js?v=71"></script>
-  <script defer src="js/lessons.js?v=71"></script>
-  <script defer src="js/race.js?v=71"></script>
-  <script defer src="js/typing.js?v=71"></script>
-  <script defer src="js/statistics.js?v=71"></script>
-  <script defer src="js/settings.js?v=71"></script>
-  <script defer src="js/shortcuts.js?v=71"></script>
-  <script defer src="js/quick_guide.js?v=71"></script>
-  <script defer src="js/tutorial.js?v=71"></script>
-  <script defer src="js/app.js?v=71"></script>
+  <script defer src="js/icons.js?v=72"></script>
+  <script defer src="js/vendor/supabase.js?v=72"></script>
+  <script defer src="js/supabase-env.js?v=72" onerror="window.__PK_NO_ENV_FILE=true"></script>
+  <script defer src="js/supabase-config.js?v=72"></script>
+  <script defer src="js/cloud-sync.js?v=72"></script>
+  <script defer src="js/storage.js?v=72"></script>
+  <script defer src="data/curriculum-data.js?v=72"></script>
+  <script defer src="data/adaptive-vocab.js?v=72"></script>
+  <script defer src="js/keyboard.js?v=72"></script>
+  <script defer src="js/tracker.js?v=72"></script>
+  <script defer src="js/progress.js?v=72"></script>
+  <script defer src="js/review.js?v=72"></script>
+  <script defer src="js/cursor-inspector.js?v=72"></script>
+  <script defer src="js/feedback.js?v=72"></script>
+  <script defer src="js/adaptive.js?v=72"></script>
+  <script defer src="js/lessons.js?v=72"></script>
+  <script defer src="js/race.js?v=72"></script>
+  <script defer src="js/typing.js?v=72"></script>
+  <script defer src="js/statistics.js?v=72"></script>
+  <script defer src="js/settings.js?v=72"></script>
+  <script defer src="js/shortcuts.js?v=72"></script>
+  <script defer src="js/quick_guide.js?v=72"></script>
+  <script defer src="js/tutorial.js?v=72"></script>
+  <script defer src="js/app.js?v=72"></script>
 </body>
 </html>
