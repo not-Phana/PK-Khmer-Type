@@ -253,13 +253,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/base.css?v=75">
-  <link rel="stylesheet" href="css/keyboard.css?v=75">
-  <link rel="stylesheet" href="css/typing.css?v=75">
-  <link rel="stylesheet" href="css/lessons.css?v=75">
-  <link rel="stylesheet" href="css/responsive.css?v=75">
-  <link rel="stylesheet" href="css/settings.css?v=75">
-  <link rel="stylesheet" href="css/tutorial.css?v=75">
+  <link rel="stylesheet" href="css/base.css?v=76">
+  <link rel="stylesheet" href="css/keyboard.css?v=76">
+  <link rel="stylesheet" href="css/typing.css?v=76">
+  <link rel="stylesheet" href="css/lessons.css?v=76">
+  <link rel="stylesheet" href="css/responsive.css?v=76">
+  <link rel="stylesheet" href="css/settings.css?v=76">
+  <link rel="stylesheet" href="css/tutorial.css?v=76">
   <script>
     try {
       var p = localStorage.getItem('khmerSettingPerformanceMode');
@@ -530,17 +530,27 @@
 
 <aside class="guide-dock" id="guideDock" aria-label="Khmer typing guide">
   <div class="guide-dock-header">
-    <div class="gdh-title-wrap">
-      <span class="gdh-title"><svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M6 12h.01"/><path d="M10 12h.01"/><path d="M14 12h.01"/><path d="M18 12h.01"/><path d="M7 16h10"/></svg> <span class="i18n-t" data-en="QUICK GUIDE" data-km="ការណែនាំរហ័ស">QUICK GUIDE</span></span>
-      <span class="guide-live-status-pill status-ready" id="guideLiveStatusPill"><span class="gac-pulse-dot" aria-hidden="true"></span> <span id="guideLiveStatusText" class="i18n-t" data-en="Free Typing" data-km="វាយអក្សរសេរី">Free Typing</span></span>
-    </div>
-    <div class="gdh-header-right">
-      <span class="gdh-badge i18n-t" id="guideLayoutBadge" data-en="Standard" data-km="ស្តង់ដារ">Standard</span>
+    <div class="gdh-top-row">
+      <div class="gdh-title">
+        <span class="gdh-title-icon-box" aria-hidden="true">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M6 12h.01"/><path d="M10 12h.01"/><path d="M14 12h.01"/><path d="M18 12h.01"/><path d="M7 16h10"/></svg>
+        </span>
+        <span class="gdh-title-text i18n-t" data-en="QUICK GUIDE" data-km="ការណែនាំរហ័ស">QUICK GUIDE</span>
+      </div>
       <button type="button" class="guide-close-btn" id="guideCloseBtn" aria-label="Close Quick Guide" title="Close Quick Guide">
-        <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
+    <div class="gdh-sub-row">
+      <span class="guide-live-status-pill status-ready" id="guideLiveStatusPill">
+        <span class="gls-dot gac-pulse-dot" aria-hidden="true"></span>
+        <span id="guideLiveStatusText" class="i18n-t" data-en="Free Typing" data-km="វាយអក្សរសេរី">Free Typing</span>
+      </span>
+      <span class="gdh-badge badge-std i18n-t" id="guideLayoutBadge" data-en="Standard" data-km="ស្តង់ដារ">Standard</span>
+    </div>
   </div>
+
+  <div class="guide-dock-body" id="guideDockBody">
 
   <!-- SECTION 1: LIVE PRACTICE RADAR -->
   <div class="guide-section guide-session-radar" id="guideSessionRadarSec">
@@ -728,6 +738,7 @@
         <kbd class="guide-kbd">Esc</kbd>
       </div>
     </div>
+  </div>
   </div>
 </aside>
 
@@ -3391,29 +3402,29 @@
 </noscript>
 
   <!-- Scripts -->
-  <script defer src="js/icons.js?v=75"></script>
-  <script defer src="js/vendor/supabase.js?v=75"></script>
-  <script defer src="js/supabase-env.js?v=75" onerror="window.__PK_NO_ENV_FILE=true"></script>
-  <script defer src="js/supabase-config.js?v=75"></script>
-  <script defer src="js/cloud-sync.js?v=75"></script>
-  <script defer src="js/storage.js?v=75"></script>
-  <script defer src="data/curriculum-data.js?v=75"></script>
-  <script defer src="data/adaptive-vocab.js?v=75"></script>
-  <script defer src="js/keyboard.js?v=75"></script>
-  <script defer src="js/tracker.js?v=75"></script>
-  <script defer src="js/progress.js?v=75"></script>
-  <script defer src="js/review.js?v=75"></script>
-  <script defer src="js/cursor-inspector.js?v=75"></script>
-  <script defer src="js/feedback.js?v=75"></script>
-  <script defer src="js/adaptive.js?v=75"></script>
-  <script defer src="js/lessons.js?v=75"></script>
-  <script defer src="js/race.js?v=75"></script>
-  <script defer src="js/typing.js?v=75"></script>
-  <script defer src="js/statistics.js?v=75"></script>
-  <script defer src="js/settings.js?v=75"></script>
-  <script defer src="js/shortcuts.js?v=75"></script>
-  <script defer src="js/quick_guide.js?v=75"></script>
-  <script defer src="js/tutorial.js?v=75"></script>
-  <script defer src="js/app.js?v=75"></script>
+  <script defer src="js/icons.js?v=76"></script>
+  <script defer src="js/vendor/supabase.js?v=76"></script>
+  <script defer src="js/supabase-env.js?v=76" onerror="window.__PK_NO_ENV_FILE=true"></script>
+  <script defer src="js/supabase-config.js?v=76"></script>
+  <script defer src="js/cloud-sync.js?v=76"></script>
+  <script defer src="js/storage.js?v=76"></script>
+  <script defer src="data/curriculum-data.js?v=76"></script>
+  <script defer src="data/adaptive-vocab.js?v=76"></script>
+  <script defer src="js/keyboard.js?v=76"></script>
+  <script defer src="js/tracker.js?v=76"></script>
+  <script defer src="js/progress.js?v=76"></script>
+  <script defer src="js/review.js?v=76"></script>
+  <script defer src="js/cursor-inspector.js?v=76"></script>
+  <script defer src="js/feedback.js?v=76"></script>
+  <script defer src="js/adaptive.js?v=76"></script>
+  <script defer src="js/lessons.js?v=76"></script>
+  <script defer src="js/race.js?v=76"></script>
+  <script defer src="js/typing.js?v=76"></script>
+  <script defer src="js/statistics.js?v=76"></script>
+  <script defer src="js/settings.js?v=76"></script>
+  <script defer src="js/shortcuts.js?v=76"></script>
+  <script defer src="js/quick_guide.js?v=76"></script>
+  <script defer src="js/tutorial.js?v=76"></script>
+  <script defer src="js/app.js?v=76"></script>
 </body>
 </html>

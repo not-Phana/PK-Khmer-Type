@@ -17,32 +17,42 @@
     .race-track-fill, .race-toggle-btn{ animation:none !important; transition:none !important; }
   }
 
-  @media(min-width:1380px){
+  /* Quick Guide Dock - Fixed Obsidian HUD Anchor (Stays firmly in place) */
+  .guide-dock{
+    display:flex;
+    position:fixed;
+    left:14px;
+    top:72px;
+    width:min(320px, calc(100vw - 28px));
+    max-height:calc(100vh - 86px);
+    z-index:90;
+    margin:0;
+    box-sizing:border-box;
+    contain:layout style;
+    overscroll-behavior:contain;
+    box-shadow:0 24px 60px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,209,102,0.22);
+  }
+
+  @media(min-width:1200px){
     .guide-dock{
-      display:flex;
-      position:fixed;
       left:18px;
-      top:90px;
-      bottom:20px;
-      width:294px;
-      margin:0;
+      top:88px;
+      width:300px;
+      max-height:calc(100vh - 108px);
       z-index:60;
-      max-height:calc(100vh - 110px);
-      overflow-y:auto;
-      overflow-x:hidden;
-      /* scrollbar-width: thin (handled via ::-webkit-scrollbar) */
-      /* scrollbar-color handled via ::-webkit-scrollbar */
-      backdrop-filter:blur(8px);
+      box-shadow:0 20px 50px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,209,102,0.14), 0 0 32px rgba(255,209,102,0.06);
     }
-    .guide-dock::-webkit-scrollbar{
-      width:5px;
-    }
-    .guide-dock::-webkit-scrollbar-thumb{
-      background:rgba(255,209,102,0.25);
-      border-radius:3px;
-    }
-    .guide-dock::-webkit-scrollbar-thumb:hover{
-      background:var(--gold);
+  }
+
+  @media(max-width:640px){
+    .guide-dock{
+      left:10px;
+      right:10px;
+      width:auto;
+      max-width:none;
+      top:60px;
+      max-height:calc(100vh - 74px);
+      z-index:100;
     }
   }
 

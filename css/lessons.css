@@ -1,78 +1,222 @@
-  /* ---------- quick guide (compact left-side dock) ---------- */
+  /* ---------- quick guide (sleek luxury obsidian dock) ---------- */
   .guide-dock{
-    display:none;
+    display:flex;
     flex-direction:column;
-    gap:7px;
-    width:min(92vw, 560px);
-    margin:0 0 20px;
-    background:linear-gradient(180deg, color-mix(in srgb, var(--stone-2) 96%, transparent) 0%, color-mix(in srgb, var(--stone-1) 96%, transparent) 100%);
-    border:1px solid color-mix(in srgb, var(--gold-bright) 25%, var(--stone-3));
-    border-radius:12px;
-    padding:9px 11px;
+    width:min(92vw, 304px);
+    margin:0;
+    background:linear-gradient(180deg, rgba(14, 19, 34, 0.96) 0%, rgba(9, 12, 22, 0.98) 100%);
+    border:1px solid rgba(255, 209, 102, 0.22);
+    border-radius:14px;
+    padding:0;
     box-sizing:border-box;
-    box-shadow:0 12px 40px rgba(0,0,0,0.48), 0 0 0 1px color-mix(in srgb, var(--gold-bright) 14%, transparent);
+    box-shadow:0 20px 50px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,209,102,0.12), 0 0 32px rgba(255,209,102,0.06);
+    backdrop-filter:blur(20px) saturate(180%);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
     color:var(--ink);
+    overflow:hidden;
+    contain:layout style;
+    overscroll-behavior:contain;
     transition:background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
   }
 
-
+  /* Fixed Stationary Header */
   .guide-dock-header{
+    flex:0 0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding:11px 13px 10px;
+    background:linear-gradient(180deg, rgba(20, 26, 44, 0.98) 0%, rgba(13, 18, 32, 0.96) 100%);
+    border-bottom:1px solid rgba(255, 209, 102, 0.18);
+    position:relative;
+    box-shadow:0 4px 16px rgba(0,0,0,0.35);
+    z-index:2;
+  }
+  .guide-dock-header::after{
+    content:'';
+    position:absolute;
+    bottom:-1px;
+    left:10%;
+    right:10%;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255, 209, 102, 0.35), transparent);
+    pointer-events:none;
+  }
+
+  .gdh-top-row{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:2px 2px 7px;
-    border-bottom:1px solid color-mix(in srgb, var(--gold-bright) 18%, var(--stone-3));
-    position:sticky;
-    top:0;
-    background:var(--stone-2);
-    z-index:2;
+    min-height:24px;
   }
   .gdh-title{
+    display:flex;
+    align-items:center;
+    gap:7px;
     font-family:'Space Grotesk', -apple-system, sans-serif;
-    font-size:0.75rem;
+    font-size:0.76rem;
     font-weight:700;
     color:var(--gold-bright);
-    letter-spacing:0.04em;
-    display:flex;
-    align-items:center;
-    gap:6px;
+    letter-spacing:0.07em;
+    text-transform:uppercase;
   }
-  .gdh-badge{
-    font-size:0.58rem;
-    padding:2px 7px;
-    border-radius:999px;
-    background:color-mix(in srgb, var(--gold-bright) 14%, var(--stone-3));
-    border:1px solid color-mix(in srgb, var(--gold-bright) 38%, transparent);
+  .gdh-title-icon-box{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px;
+    height:22px;
+    border-radius:6px;
+    background:rgba(255, 209, 102, 0.12);
+    border:1px solid rgba(255, 209, 102, 0.32);
     color:var(--gold-bright);
-    font-weight:600;
+    box-shadow:0 0 10px rgba(255, 209, 102, 0.18);
+    flex-shrink:0;
   }
-  .gdh-header-right{
-    display:flex;
-    align-items:center;
-    gap:6px;
+  .gdh-title-icon-box svg{
+    display:block;
   }
+  .gdh-title-text{
+    line-height:1;
+  }
+
   .guide-close-btn{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    width:24px;
-    height:24px;
+    width:22px;
+    height:22px;
     border-radius:6px;
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.14);
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.12);
     color:var(--ink-dim);
     cursor:pointer;
     padding:0;
-    transition:background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease;
+    transition:background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
   }
   .guide-close-btn:hover{
-    background:rgba(239,68,68,0.2);
-    border-color:rgba(239,68,68,0.5);
+    background:rgba(239,68,68,0.22);
+    border-color:rgba(239,68,68,0.55);
     color:#fca5a5;
-    transform:scale(1.06);
+    transform:scale(1.08);
+    box-shadow:0 0 10px rgba(239, 68, 68, 0.35);
   }
   .guide-close-btn:active{
-    transform:scale(0.94);
+    transform:scale(0.92);
+  }
+
+  .gdh-sub-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:22px;
+    gap:8px;
+  }
+
+  .guide-live-status-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:0.58rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:2.5px 8px;
+    border-radius:999px;
+    background:rgba(255, 255, 255, 0.05);
+    border:1px solid rgba(255, 255, 255, 0.12);
+    color:var(--ink-dim);
+    transition:background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
+  }
+  .guide-live-status-pill .gls-dot,
+  .guide-live-status-pill .gac-pulse-dot{
+    display:inline-block;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#94a3b8;
+    box-shadow:0 0 5px rgba(148, 163, 184, 0.5);
+    flex-shrink:0;
+  }
+  .guide-live-status-pill.status-ready{
+    background:rgba(56, 189, 248, 0.1);
+    border-color:rgba(56, 189, 248, 0.32);
+    color:#38bdf8;
+    box-shadow:0 0 8px rgba(56, 189, 248, 0.12);
+  }
+  .guide-live-status-pill.status-ready .gls-dot,
+  .guide-live-status-pill.status-ready .gac-pulse-dot{
+    background:#38bdf8;
+    box-shadow:0 0 8px rgba(56, 189, 248, 0.85);
+    animation:gls-pulse 2s ease-in-out infinite;
+  }
+  .guide-live-status-pill.status-active{
+    background:rgba(52, 211, 153, 0.12);
+    border-color:rgba(52, 211, 153, 0.38);
+    color:#34d399;
+    box-shadow:0 0 10px rgba(52, 211, 153, 0.15);
+  }
+  .guide-live-status-pill.status-active .gls-dot,
+  .guide-live-status-pill.status-active .gac-pulse-dot{
+    background:#34d399;
+    box-shadow:0 0 8px rgba(52, 211, 153, 0.9);
+    animation:gls-pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes gls-pulse{
+    0%, 100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.4; transform:scale(0.85); }
+  }
+
+  .gdh-badge{
+    font-size:0.58rem;
+    font-weight:700;
+    letter-spacing:0.05em;
+    padding:2.5px 8px;
+    border-radius:999px;
+    background:rgba(255, 209, 102, 0.12);
+    border:1px solid rgba(255, 209, 102, 0.35);
+    color:var(--gold-bright);
+    transition:background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
+  }
+  .gdh-badge.badge-std{
+    background:rgba(255, 209, 102, 0.12);
+    border-color:rgba(255, 209, 102, 0.38);
+    color:var(--gold-bright);
+    box-shadow:0 0 8px rgba(255, 209, 102, 0.15);
+  }
+  .gdh-badge.badge-nida{
+    background:rgba(56, 189, 248, 0.12);
+    border-color:rgba(56, 189, 248, 0.38);
+    color:#38bdf8;
+    box-shadow:0 0 8px rgba(56, 189, 248, 0.15);
+  }
+  .gdh-badge.badge-eng{
+    background:rgba(244, 114, 182, 0.12);
+    border-color:rgba(244, 114, 182, 0.38);
+    color:#f472b6;
+    box-shadow:0 0 8px rgba(244, 114, 182, 0.15);
+  }
+
+  /* Inner Scroll Body - Header remains strictly stationary */
+  .guide-dock-body{
+    flex:1 1 auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding:10px 11px 14px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    overscroll-behavior:contain;
+  }
+  .guide-dock-body::-webkit-scrollbar{
+    width:5px;
+  }
+  .guide-dock-body::-webkit-scrollbar-thumb{
+    background:rgba(255,209,102,0.25);
+    border-radius:3px;
+  }
+  .guide-dock-body::-webkit-scrollbar-thumb:hover{
+    background:var(--gold);
   }
 
   .guide-section{
@@ -240,72 +384,6 @@
   }
 
   /* ---------- Enhanced Quick Guide Dock Components ---------- */
-  .gdh-title-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .guide-live-status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.58rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 2px 7px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--ink-dim);
-  }
-  .guide-live-status-pill .gls-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #94a3b8;
-    box-shadow: 0 0 4px rgba(148, 163, 184, 0.5);
-  }
-  .guide-live-status-pill.status-active {
-    background: rgba(52, 211, 153, 0.12);
-    border-color: rgba(52, 211, 153, 0.35);
-    color: #34d399;
-  }
-  .guide-live-status-pill.status-active .gls-dot {
-    background: #34d399;
-    box-shadow: 0 0 6px rgba(52, 211, 153, 0.8);
-    animation: gls-pulse 1.8s ease-in-out infinite;
-  }
-  .guide-live-status-pill.status-ready {
-    background: rgba(56, 189, 248, 0.1);
-    border-color: rgba(56, 189, 248, 0.3);
-    color: #38bdf8;
-  }
-  .guide-live-status-pill.status-ready .gls-dot {
-    background: #38bdf8;
-    box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
-  }
-  @keyframes gls-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.45; transform: scale(0.85); }
-  }
-
-  .gdh-badge.badge-std {
-    background: rgba(255, 209, 102, 0.14);
-    border-color: rgba(255, 209, 102, 0.4);
-    color: var(--gold-bright);
-  }
-  .gdh-badge.badge-nida {
-    background: rgba(56, 189, 248, 0.14);
-    border-color: rgba(56, 189, 248, 0.4);
-    color: #38bdf8;
-  }
-  .gdh-badge.badge-eng {
-    background: rgba(244, 114, 182, 0.14);
-    border-color: rgba(244, 114, 182, 0.4);
-    color: #f472b6;
-  }
 
   /* Section 1: Active Lesson Card */
   .guide-active-card {
