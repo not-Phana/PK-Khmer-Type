@@ -527,33 +527,38 @@
     color:var(--ink-dim);
   }
 
-  .key.space{
-    --u:9;
-    flex-grow:9;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
+  .key.space,
+  .key[data-key="space"] {
+    --u: 9 !important;
+    flex: 9 1 calc(8 * var(--key-gap, 7px)) !important;
+    flex-grow: 9 !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    white-space: nowrap;
   }
-  .key.space .space-glyph{
-    font-family:'Noto Sans Khmer','JetBrains Mono',sans-serif;
-    font-size:1.3rem;
-    font-weight:700;
-    color:var(--gold-bright);
-    line-height:1;
-    text-shadow:0 0 8px rgba(255,209,102,0.35);
+  .key.space .space-glyph {
+    font-family: 'Noto Sans Khmer', 'JetBrains Mono', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold-bright);
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(255, 209, 102, 0.35);
+    white-space: nowrap;
   }
-  .key.space .space-label{
-    font-family:'Noto Sans Khmer','JetBrains Mono',sans-serif;
-    font-size:0.74rem;
-    color:var(--ink-dim);
-    letter-spacing:0.03em;
-    opacity:0.88;
+  .key.space .space-label {
+    font-family: 'Noto Sans Khmer', 'JetBrains Mono', sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+    opacity: 0.88;
+    white-space: nowrap;
   }
-  .key.space:hover .space-label{
-    color:var(--ink);
-    opacity:1;
+  .key.space:hover .space-label {
+    color: var(--ink);
+    opacity: 1;
   }
   .key.empty{ opacity:0.35; }
 

@@ -337,7 +337,7 @@ ALL_ROWS.forEach(rowDef=>{
     el.setAttribute('translate', 'no');
     el.dataset.key = k.id;
     if(KEY_FINGER[k.id]) el.dataset.finger = KEY_FINGER[k.id];
-    const u = k.wide || 1;
+    const u = k.wide || (k.id === 'space' ? 9 : 1);
     el.style.setProperty('--u', u);
     el.style.flexGrow = u;
     if(k.cls) el.classList.add(k.cls);
@@ -1612,7 +1612,15 @@ function render(){
 
 function applyKeyboardData(data){
   if(!data) return;
-  if(data.LAYOUTS) Object.assign(LAYOUTS, data.LAYOUTS);
+  if(data.LAYOUTS) {
+    Object.assign(LAYOUTS, data.LAYOUTS);
+    ['standard', 'nida', 'english'].forEach(l => {
+      if(LAYOUTS[l] && LAYOUTS[l].rows && LAYOUTS[l].rows[4]){
+        const sp = LAYOUTS[l].rows[4].find(k => k.id === 'space');
+        if(sp && !sp.wide) sp.wide = 9;
+      }
+    });
+  }
   if(data.KEY_FINGER) Object.assign(KEY_FINGER, data.KEY_FINGER);
   if(data.CODE_MAP) Object.assign(CODE_MAP, data.CODE_MAP);
 }

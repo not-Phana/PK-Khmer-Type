@@ -219,9 +219,12 @@
             "kind": "glyph"
           },
           {
-            "id": "enter",
-            "kind": "mod",
-            "label": "Enter",
+            "id": "backslash",
+            "base": "\\",
+            "ctrl": "/",
+            "altgr": "៚",
+            "shift": "/",
+            "kind": "glyph",
             "wide": 1.5
           }
         ],
@@ -321,12 +324,10 @@
             "kind": "glyph"
           },
           {
-            "id": "backslash",
-            "base": "\\",
-            "ctrl": "/",
-            "altgr": "៚",
-            "shift": "/",
-            "kind": "glyph"
+            "id": "enter",
+            "kind": "mod",
+            "label": "Enter",
+            "wide": 2.25
           }
         ],
         [
@@ -451,7 +452,8 @@
             "id": "space",
             "kind": "mod",
             "label": "",
-            "cls": "space"
+            "cls": "space",
+            "wide": 9
           },
           {
             "id": "altgr",
@@ -702,9 +704,12 @@
             "kind": "glyph"
           },
           {
-            "id": "enter",
-            "kind": "mod",
-            "label": "Enter",
+            "id": "backslash",
+            "base": "ឮ",
+            "ctrl": "",
+            "altgr": "\\",
+            "shift": "ឭ",
+            "kind": "glyph",
             "wide": 1.5
           }
         ],
@@ -804,12 +809,10 @@
             "kind": "glyph"
           },
           {
-            "id": "backslash",
-            "base": "ឮ",
-            "ctrl": "",
-            "altgr": "\\",
-            "shift": "ឭ",
-            "kind": "glyph"
+            "id": "enter",
+            "kind": "mod",
+            "label": "Enter",
+            "wide": 2.25
           }
         ],
         [
@@ -934,7 +937,8 @@
             "id": "space",
             "kind": "mod",
             "label": "",
-            "cls": "space"
+            "cls": "space",
+            "wide": 9
           },
           {
             "id": "altgr",
@@ -1185,9 +1189,12 @@
             "kind": "glyph"
           },
           {
-            "id": "enter",
-            "kind": "mod",
-            "label": "Enter",
+            "id": "backslash",
+            "base": "\\",
+            "ctrl": "",
+            "altgr": "",
+            "shift": "|",
+            "kind": "glyph",
             "wide": 1.5
           }
         ],
@@ -1287,12 +1294,10 @@
             "kind": "glyph"
           },
           {
-            "id": "backslash",
-            "base": "\\",
-            "ctrl": "",
-            "altgr": "",
-            "shift": "|",
-            "kind": "glyph"
+            "id": "enter",
+            "kind": "mod",
+            "label": "Enter",
+            "wide": 2.25
           }
         ],
         [
@@ -1417,7 +1422,8 @@
             "id": "space",
             "kind": "mod",
             "label": "",
-            "cls": "space"
+            "cls": "space",
+            "wide": 9
           },
           {
             "id": "altgr",
