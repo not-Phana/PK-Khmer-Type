@@ -291,7 +291,8 @@
         "standard-L12-02",
         "standard-L12-03",
         "standard-L12-04",
-        "standard-L12-05"
+        "standard-L12-05",
+        "standard-L12-06"
       ],
       "unlockRequirements": {
         "previousLevel": "standard-L11"

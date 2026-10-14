@@ -105,14 +105,14 @@ flowchart TD
 
 ## 2. LESSON INVENTORY & STRUCTURAL BASELINE
 
-The curriculum baseline encompasses 218 lessons structured across all three layouts:
+The curriculum baseline encompasses 222 lessons structured across all three layouts with 100% full alphabet coverage (every letter included):
 
 | Layout | Levels | Lessons | Exercises | Total Units | Avg Units/Lesson | % Below 80 Units | Key Focus Areas |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **English (US)** | 14 | 64 | 204 | 6,159 | **96.2** | **0%** | Anchors, home row, reaches, vowels, full alphabet, Shift capitals, numbers, symbols, paragraphs, timed challenges. |
-| **Khmer NiDA** | 13 | 77 | 230 | 7,222 | **93.8** | **0%** | Anchors (ថ/ក), home consonants, ើ/់, top reaches, bottom reaches, Shift+J Coeng (`្`), Shift consonants, Shift vowels, clusters, diacritics, vocabulary, Shift+Space prose, AltGr independent vowels. |
-| **Khmer Standard** | 13 | 77 | 230 | 7,417 | **96.3** | **0%** | Spacebar Coeng (`្`), ះ on Semicolon, Shift vowels (ៃ, ាំ, ុះ, ៏, ុំ), bottom reaches (អ on comma), Spacebar subscript clusters, Shift consonants, diacritics, sentences. |
-| **Combined** | **40** | **218** | **664** | **20,798** | **95.4** | **0%** | Complete three-layout coverage meeting substantial practice standards. |
+| **English (US)** | 14 | 66 | 213 | 7,299 | **110.6** | **0%** | Anchors, home row, reaches, vowels, full alphabet, Shift capitals, numbers, symbols, A-Z pangrams, grand literature. |
+| **Khmer NiDA** | 13 | 78 | 250 | 7,819 | **100.2** | **0%** | Anchors (ថ/ក), home consonants, ើ/់, top reaches, bottom reaches, Shift+J Coeng (`្`), Shift consonants, Shift vowels, clusters, diacritics, vocabulary, Shift+Space prose, AltGr independent vowels, all-letter literature. |
+| **Khmer Standard** | 13 | 78 | 250 | 8,006 | **102.6** | **0%** | Spacebar Coeng (`្`), ះ on Semicolon, Shift vowels (ៃ, ាំ, ុះ, ៏, ុំ), bottom reaches (អ on comma), Spacebar subscript clusters, Shift consonants, diacritics, all-letter literature. |
+| **Combined** | **40** | **222** | **713** | **23,124** | **104.2** | **0%** | Complete three-layout coverage meeting substantial practice standards with 100% full alphabet coverage (every letter included). |
 
 ---
 
@@ -633,7 +633,7 @@ flowchart TD
     LG --> GL["Generated Lesson\n(JSON: newKeys, requiredKeys, exercises)"]
     GL --> CV["Curriculum Validator\n(scripts/validate_curriculum.js)"]
     CV -->|Pass| CD["Curriculum Data\n(data/curriculum/{layout}/*.json)"]
-    CV -->|Fail| REJ["❌ Rejected\n(Fix errors before re-generating)"]
+    CV -->|Fail| REJ["[X] Rejected\n(Fix errors before re-generating)"]
 ```
 
 **How it works:**
@@ -652,13 +652,13 @@ This section shows how the learner moves through the curriculum from introductio
 
 ```mermaid
 flowchart TD
-    INTRO["🔤 Introduce\n(New key shown, finger assigned)"] --> PRACTICE["⌨️ Practice\n(Isolate key, anchor pairs)"]
-    PRACTICE --> COMBINE["🔗 Combine\n(Bigrams/trigrams with known keys)"]
-    COMBINE --> WORDS["📝 Words / Sequences\n(Real vocabulary from unlocked pool)"]
-    WORDS --> REVIEW["🔄 Review\n(Revisit older keys from earlier levels)"]
-    REVIEW --> CHECK["✅ Checkpoint\n(≥90% accuracy gate)"]
-    CHECK -->|Pass| NEXT["➡️ Next Lesson"]
-    CHECK -->|Fail| REMEDIAL["🔁 Remedial Review\n(Review Mistakes button)"]
+    INTRO["[Intro] Introduce\n(New key shown, finger assigned)"] --> PRACTICE["[Key] Practice\n(Isolate key, anchor pairs)"]
+    PRACTICE --> COMBINE["[Link] Combine\n(Bigrams/trigrams with known keys)"]
+    COMBINE --> WORDS["[Text] Words / Sequences\n(Real vocabulary from unlocked pool)"]
+    WORDS --> REVIEW["[Sync] Review\n(Revisit older keys from earlier levels)"]
+    REVIEW --> CHECK["[OK] Checkpoint\n(≥90% accuracy gate)"]
+    CHECK -->|Pass| NEXT["-> Next Lesson"]
+    CHECK -->|Fail| REMEDIAL["[Loop] Remedial Review\n(Review Mistakes button)"]
     REMEDIAL --> CHECK
     NEXT --> NEXTLVL["⬆️ Next Level\n(New finger region or modifier layer)"]
     NEXTLVL --> INTRO
@@ -690,8 +690,8 @@ flowchart TD
     PRAC_SET --> DIFF
     REV_SET --> DIFF
     
-    DIFF -->|100% Coverage| COMPLETE["✅ Complete\n(Every required glyph introduced,\npracticed, and reviewed)"]
-    DIFF -->|Gaps Found| MISSING["❌ Missing Characters Report\n(List of unintroduced glyphs)"]
+    DIFF -->|100% Coverage| COMPLETE["[OK] Complete\n(Every required glyph introduced,\npracticed, and reviewed)"]
+    DIFF -->|Gaps Found| MISSING["[X] Missing Characters Report\n(List of unintroduced glyphs)"]
 ```
 
 **What this means:**
@@ -751,9 +751,9 @@ flowchart TD
     S3 -->|Pass| S4["4. Progression Check\n(Zero pre-introduction violations:\nevery exercise char ∈ CumulativeKeys)"]
     S4 -->|Pass| S5["5. Duplicate Check\n(No duplicate lesson IDs,\nno duplicate level IDs)"]
     S5 -->|Pass| S6["6. Depth Check\n(≥80 units per lesson,\n≥20 for orientation)"]
-    S6 -->|Pass| PASS["✅ PASS\n(Curriculum ready for bundling)"]
+    S6 -->|Pass| PASS["[OK] PASS\n(Curriculum ready for bundling)"]
     
-    S1 -->|Fail| FAIL["❌ FAIL\n(Error report with line-level detail)"]
+    S1 -->|Fail| FAIL["[X] FAIL\n(Error report with line-level detail)"]
     S2 -->|Fail| FAIL
     S3 -->|Fail| FAIL
     S4 -->|Fail| FAIL
@@ -775,7 +775,7 @@ flowchart TD
     
     MC --> COMPAT["Compatible?\n(Lesson IDs match new curriculum)"]
     
-    COMPAT -->|Yes| PRESERVE["✅ Preserved Progress\n(Stars, completion records,\nand unlocks remain valid)"]
+    COMPAT -->|Yes| PRESERVE["[OK] Preserved Progress\n(Stars, completion records,\nand unlocks remain valid)"]
     
     COMPAT -->|Legacy IDs| MAP["ID Mapping\n(Legacy numeric IDs 1-58 →\nnew format standard-Lxx-yy)"]
     MAP --> PRESERVE
@@ -851,7 +851,7 @@ flowchart TD
     Q1 -->|No| FINAL_REV
     Q2 -->|Yes| Q3{"3-min timed test\n<5% error rate?"}
     Q2 -->|No| ENDURANCE
-    Q3 -->|Yes| DONE["🏆 Keyboard Mastery\nAchieved"]
+    Q3 -->|Yes| DONE["[Mastery] Keyboard Mastery\nAchieved"]
     Q3 -->|No| ENDURANCE
 ```
 
@@ -911,7 +911,7 @@ flowchart TD
         COMB_J --> WORD_J["Words"]
         WORD_J --> REV_J["Review"]
         REV_J --> CHECK_J["Checkpoint"]
-        CHECK_J --> MAST_J["🏆 Mastery"]
+        CHECK_J --> MAST_J["[Mastery] Mastery"]
     end
     
     KB_DEF --> GEN_EN
@@ -1009,7 +1009,7 @@ flowchart TD
     classDef gate fill:#2c1b4d,stroke:#a06bff,stroke-width:2px,stroke-dasharray: 5 5,color:#fff;
 
     %% COMPLETED BASELINE
-    subgraph BASELINE ["🏁 COMPLETED FOUNDATION (PHASES 1–9)"]
+    subgraph BASELINE ["[Milestone] COMPLETED FOUNDATION (PHASES 1–9)"]
         P1_P2["Phase 1 & 2: Validator & Bundler Normalization"]:::done
         P3_P5["Phases 3–5: 218 Lessons Built (EN, NiDA, STD)"]:::done
         P6_P7["Phases 6 & 7: Runtime Hydration & Progress Isolation"]:::done
@@ -1076,7 +1076,7 @@ flowchart TD
         PHASE15["Phase 15: Final Release Audit & Delivery"]:::planned
         RELEASE_GATE["Quality Gate Verification (0 Errors, 100% Pass)"]:::gate
         DOCS["Final User & Developer Documentation"]:::planned
-        SIGN_OFF["🏆 PK Khmer Type Production Ready"]:::done
+        SIGN_OFF["[Mastery] PK Khmer Type Production Ready"]:::done
         PHASE15 --> RELEASE_GATE
         RELEASE_GATE --> DOCS
         DOCS --> SIGN_OFF
@@ -1580,7 +1580,7 @@ Both layouts teach the same 33 Khmer consonants (the physical keys are shared fo
 | 5 | ខ ឆ ឋ ឡ **(inferred)** | Remaining *base-layer* consonants not yet covered — Section 6 names this level "Remaining Base Keys" without enumerating them individually. |
 | 6 | គ ជ ទ ធ ព ភ ឌ ណ អ ឃ ឈ ឍ ផ **(last three inferred; first ten stated in Section 6)** | Aspirated / Shift-layer consonant pairs. |
 
-**Total check:** 2 + 6 + 3 + 5 + 4 + 13 = 33. ✅ Matches the known Khmer consonant inventory exactly, confirming no consonant is orphaned outside the level ladder.
+**Total check:** 2 + 6 + 3 + 5 + 4 + 13 = 33. [OK] Matches the known Khmer consonant inventory exactly, confirming no consonant is orphaned outside the level ladder.
 
 ### B.3 Khmer NiDA & Khmer Standard — Vowels, Signs & Diacritics
 
@@ -1658,7 +1658,7 @@ flowchart TD
     classDef gate fill:#2c1b4d,stroke:#a06bff,stroke-width:2px,stroke-dasharray: 5 5,color:#fff;
 
     %% COMPLETED BASELINE
-    subgraph BASELINE ["🏁 COMPLETED FOUNDATION (PHASES 1–9)"]
+    subgraph BASELINE ["[Milestone] COMPLETED FOUNDATION (PHASES 1–9)"]
         P1_P2["Phase 1 & 2: Validator & Bundler Normalization"]:::done
         P3_P5["Phases 3–5: 218 Lessons Built (EN, NiDA, STD)"]:::done
         P6_P7["Phases 6 & 7: Runtime Hydration & Progress Isolation"]:::done
@@ -1725,7 +1725,7 @@ flowchart TD
         PHASE15["Phase 15: Final Release Audit & Delivery"]:::planned
         RELEASE_GATE["Quality Gate Verification (0 Errors, 100% Pass)"]:::gate
         DOCS["Final User & Developer Documentation"]:::planned
-        SIGN_OFF["🏆 PK Khmer Type Production Ready"]:::done
+        SIGN_OFF["[Mastery] PK Khmer Type Production Ready"]:::done
         PHASE15 --> RELEASE_GATE
         RELEASE_GATE --> DOCS
         DOCS --> SIGN_OFF

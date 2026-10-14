@@ -98,13 +98,13 @@
       chooseStartTrack: 'Choose where you want to start learning:',
       trackStdTitle: 'Khmer Standard',
       trackStdDesc: 'Classic home row anchors G & Ñ, consonants, vowels, and coeng subscripts.',
-      trackStdTag: '77 Lessons',
+      trackStdTag: '78 Lessons · Every Letter Included',
       trackNidaTitle: 'Khmer NiDA',
       trackNidaDesc: 'Official national standard curriculum widely used in government & education.',
-      trackNidaTag: '77 Lessons',
+      trackNidaTag: '78 Lessons · Every Letter Included',
       trackEngTitle: 'English (US)',
       trackEngDesc: 'Structured QWERTY touch-typing curriculum from ASDF home row to high speed.',
-      trackEngTag: '64 Lessons'
+      trackEngTag: '66 Lessons · Every Letter Included'
     },
     km: {
       welcomeTitle: 'សូមស្វាគមន៍មកកាន់ PK Khmer Type',
@@ -125,13 +125,13 @@
       chooseStartTrack: 'ជ្រើសរើសក្តារចុចដែលអ្នកចង់ចាប់ផ្តើមរៀន៖',
       trackStdTitle: 'ខ្មែរស្តង់ដារ (Standard)',
       trackStdDesc: 'មេរៀនគ្រាប់ចុចគោល ក & ញ ព្យញ្ជនៈ ស្រៈនិស្ស័យ និងជើងអក្សរ។',
-      trackStdTag: '៧៧ មេរៀន',
+      trackStdTag: '៧៨ មេរៀន · រួមបញ្ចូលគ្រប់តួអក្សរ',
       trackNidaTitle: 'ខ្មែរ និដា (NiDA)',
       trackNidaDesc: 'ប្លង់ក្តារចុចផ្លូវការសម្រាប់ស្ថាប័នរដ្ឋ និងសាលារៀន។',
-      trackNidaTag: '៧៧ មេរៀន',
+      trackNidaTag: '៧៨ មេរៀន · រួមបញ្ចូលគ្រប់តួអក្សរ',
       trackEngTitle: 'English (US)',
       trackEngDesc: 'រៀនវាយក្តារចុចអង់គ្លេស QWERTY ពីជួរកណ្តាល ASDF រហូតដល់ស្ទាត់ជំនាញ។',
-      trackEngTag: '៦៤ មេរៀន',
+      trackEngTag: '៦៦ មេរៀន · រួមបញ្ចូលគ្រប់តួអក្សរ',
 
       step1Title: 'ជំហានទី ១ — ស្វែងរកមេរៀនរបស់អ្នក',
       step1Desc: 'មេរៀនរបស់អ្នកស្ថិតនៅទីនេះ។ ចាប់ផ្តើមពីមេរៀនដំបូងដែលបានដោះសោ ហើយបន្តដំណើរទៅមុខ។',
@@ -364,7 +364,7 @@
                 <div class="pk-tut-track-info">
                   <div class="pk-tut-track-title-row">
                     <span class="pk-tut-track-name" id="pkTutTrackStdName">Khmer Standard</span>
-                    <span class="pk-tut-track-badge" id="pkTutTrackStdTag">77 Lessons</span>
+                    <span class="pk-tut-track-badge" id="pkTutTrackStdTag">78 Lessons · Every Letter Included</span>
                   </div>
                   <div class="pk-tut-track-desc" id="pkTutTrackStdDesc">Classic home row anchors G &amp; Ñ, consonants, vowels, and coeng subscripts.</div>
                 </div>
@@ -378,7 +378,7 @@
                 <div class="pk-tut-track-info">
                   <div class="pk-tut-track-title-row">
                     <span class="pk-tut-track-name" id="pkTutTrackNidaName">Khmer NiDA</span>
-                    <span class="pk-tut-track-badge" id="pkTutTrackNidaTag">77 Lessons</span>
+                    <span class="pk-tut-track-badge" id="pkTutTrackNidaTag">78 Lessons · Every Letter Included</span>
                   </div>
                   <div class="pk-tut-track-desc" id="pkTutTrackNidaDesc">Official national standard curriculum widely used in government &amp; education.</div>
                 </div>
@@ -392,7 +392,7 @@
                 <div class="pk-tut-track-info">
                   <div class="pk-tut-track-title-row">
                     <span class="pk-tut-track-name" id="pkTutTrackEngName">English (US)</span>
-                    <span class="pk-tut-track-badge" id="pkTutTrackEngTag">64 Lessons</span>
+                    <span class="pk-tut-track-badge" id="pkTutTrackEngTag">66 Lessons · Every Letter Included</span>
                   </div>
                   <div class="pk-tut-track-desc" id="pkTutTrackEngDesc">Structured QWERTY touch-typing curriculum from ASDF home row to high speed.</div>
                 </div>

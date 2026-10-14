@@ -1609,7 +1609,7 @@ function toggleAllLessonsUnlocked(){
       confettiBurst(rect.left + rect.width/2, rect.top + rect.height/2, 42);
     }
     if(typeof playChime === 'function') playChime();
-    showToast(pkIcon('unlock', 20), 'Master Unlock', 'All 77 lessons unlocked!');
+    showToast(pkIcon('unlock', 20), 'Master Unlock', `All ${LESSONS.length} lessons unlocked!`);
   } else {
     showToast(pkIcon('lock', 20), 'Progress Locked', 'Normal lesson progression restored');
   }
@@ -1738,6 +1738,25 @@ function renderLessonStrip(){
       </div>
     `;
     frag.appendChild(searchBar);
+
+    const hubBannerWrap = document.createElement('div');
+    hubBannerWrap.className = 'lesson-strip-hub-banner-wrap';
+    hubBannerWrap.innerHTML = `
+      <button type="button" class="lsh-hub-banner" id="lshHubBanner" title="${isKm ? 'ស្វែងយល់បន្ថែមអំពី ២២២ មេរៀន និងតួអក្សរគ្រប់ទម្រង់' : 'Explore 222 Handcrafted Lessons & 100% Alphabet Coverage (Every Letter Included)'}">
+        <div class="lsh-hb-left">
+          <span class="lsh-hb-badge">
+            <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span>222</span>
+          </span>
+          <div class="lsh-hb-text">
+            <span class="lsh-hb-title i18n-t" data-en="222 Lessons · All Letters" data-km="២២២ មេរៀន · គ្រប់តួអក្សរ">222 Lessons · All Letters</span>
+            <span class="lsh-hb-sub i18n-t" data-en="Every Letter Included · Learn More" data-km="រួមបញ្ចូលគ្រប់តួអក្សរ · ស្វែងយល់បន្ថែម">Every Letter Included · Learn More</span>
+          </div>
+        </div>
+        <svg class="pk-icon lsh-hb-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    `;
+    frag.appendChild(hubBannerWrap);
 
     const adaptiveCard = document.createElement('div');
     adaptiveCard.className = 'adaptive-sidebar-card';
@@ -1889,6 +1908,13 @@ lessonStrip.addEventListener('click', (e)=>{
         showToast(pkIcon('check', 16), 'Adaptive Practice', 'No weak targets found! Excellent work.');
       }
     }
+    return;
+  }
+
+  // If clicked 222 Lessons Hub Banner
+  const hubBanner = e.target.closest('#lshHubBanner');
+  if(hubBanner){
+    if(typeof openLearnMoreHub === 'function') openLearnMoreHub();
     return;
   }
 
@@ -2894,6 +2920,397 @@ function applyLessonsData(data){
   if(typeof renderLessonStrip === "function") renderLessonStrip();
   if(typeof updateMasteryStat === "function") updateMasteryStat();
 }
+
+/* ==========================================================================
+   222 MASTER LESSONS & ALPHABET COVERAGE HUB CONTROLLER
+   ========================================================================== */
+
+(function initLearnMoreHubModule(){
+  const KHMER_CONSONANTS = ['ក','ខ','គ','ឃ','ង','ច','ឆ','ជ','ឈ','ញ','ដ','ឋ','ឌ','ឍ','ណ','ត','ថ','ទ','ធ','ន','ប','ផ','ព','ភ','ម','យ','រ','ល','វ','ស','ហ','ឡ','អ'];
+  const KHMER_DEP_VOWELS = ['ា','ិ','ី','ឹ','ឺ','ុ','ូ','ួ','ើ','ឿ','ៀ','េ','ែ','ៃ','ោ','ៅ','ុំ','ំ','ះ','ុះ','េះ','ោះ'];
+  const KHMER_INDEP_VOWELS = ['ឥ','ឦ','ឧ','ឩ','ឪ','ឫ','ឬ','ឭ','ឮ','ឯ','ឰ','ឱ','ឳ','ឲ'];
+  const KHMER_DIACRITICS = ['់','៉','៊','៍','័','៏','៌','៎','ៗ','៖','។','៕','៛'];
+  const KHMER_NUMBERS = ['០','១','២','៣','៤','៥','៦','៧','៨','៩'];
+  const EN_LOWER = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  const EN_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const EN_DIGITS = '0123456789'.split('');
+
+  let hubActiveTrack = 'standard';
+  let hubAlphaScope = 'all';
+  let selectedInspectorChar = null;
+  let hubInitialized = false;
+
+  function getHubModal() {
+    return document.getElementById('learnMoreHubModal');
+  }
+
+  function getCharLessonsMap() {
+    const map = new Map();
+    const addList = (lessonsList, layoutId) => {
+      if(!lessonsList || !Array.isArray(lessonsList)) return;
+      lessonsList.forEach(l => {
+        if(l.newKeys && Array.isArray(l.newKeys)){
+          l.newKeys.forEach(k => {
+            if(k && k.char && !map.has(k.char)){
+              map.set(k.char, { lessonId: l.id, title: l.title, titleKm: l.titleKm, layoutId });
+            }
+          });
+        }
+      });
+    };
+    addList(LESSONS_STANDARD, 'standard');
+    addList(LESSONS_NIDA, 'nida');
+    addList(LESSONS_ENGLISH, 'english');
+    return map;
+  }
+
+  function findLessonForChar(ch) {
+    const map = getCharLessonsMap();
+    if(map.has(ch)) return map.get(ch);
+    // Fallbacks
+    if(/^[a-z]$/i.test(ch) || /^[0-9]$/.test(ch)) {
+      return { lessonId: 'en-L13-05', title: 'All-Letter Pangram Mastery (A-Z Every Letter)', layoutId: 'english' };
+    }
+    return { lessonId: 'standard-L12-06', title: 'All Khmer Letters & Comprehensive Literature', layoutId: 'standard' };
+  }
+
+  function getUnicodeCodePoint(ch) {
+    if(!ch) return '';
+    return 'U+' + ch.codePointAt(0).toString(16).toUpperCase().padStart(4, '0');
+  }
+
+  function inspectChar(ch, category, layoutHint) {
+    selectedInspectorChar = ch;
+    const inspectorEl = document.getElementById('lmAlphaInspector');
+    if(!inspectorEl) return;
+    inspectorEl.hidden = false;
+
+    const glyphEl = document.getElementById('lmAiGlyph');
+    const nameEl = document.getElementById('lmAiName');
+    const codeEl = document.getElementById('lmAiCode');
+    const catEl = document.getElementById('lmAiCategory');
+    const lessonEl = document.getElementById('lmAiLessonName');
+    const launchBtn = document.getElementById('lmAiLaunchBtn');
+
+    if(glyphEl) glyphEl.textContent = ch;
+    if(codeEl) codeEl.textContent = getUnicodeCodePoint(ch);
+    if(catEl) catEl.textContent = category || 'Khmer Letter';
+
+    const lessonInfo = findLessonForChar(ch);
+    const isKm = document.documentElement.classList.contains('site-km-mode');
+    const displayTitle = (isKm && lessonInfo.titleKm) ? lessonInfo.titleKm : lessonInfo.title;
+
+    if(nameEl) {
+      nameEl.textContent = `${category || 'Character'}: ${ch}`;
+    }
+    if(lessonEl) {
+      lessonEl.textContent = `${lessonInfo.lessonId} (${displayTitle})`;
+    }
+
+    if(launchBtn) {
+      launchBtn.onclick = function() {
+        window.launchMasterLesson(lessonInfo.lessonId, lessonInfo.layoutId || layoutHint || 'standard');
+      };
+    }
+
+    // Highlight selected tile
+    document.querySelectorAll('.lm-char-tile').forEach(t => {
+      t.classList.toggle('active', t.getAttribute('data-char') === ch);
+    });
+  }
+
+  function renderAlphabetMatrix(scope) {
+    const container = document.getElementById('lmAlphaGrids');
+    if(!container) return;
+    scope = scope || hubAlphaScope || 'all';
+    container.innerHTML = '';
+
+    const isKm = document.documentElement.classList.contains('site-km-mode');
+
+    const sections = [];
+    if(scope === 'all' || scope === 'khmer'){
+      sections.push(
+        { title: isKm ? 'ព្យញ្ជនៈ ៣៣ តួ (Consonants)' : '33 Khmer Consonants (ព្យញ្ជនៈ)', badge: '33/33 Included · 100%', chars: KHMER_CONSONANTS, cat: 'Consonant', layout: 'standard' },
+        { title: isKm ? 'ស្រៈនិស្ស័យ ២២ តួ (Dependent Vowels)' : '22 Dependent Vowels (ស្រៈនិស្ស័យ)', badge: '22/22 Included · 100%', chars: KHMER_DEP_VOWELS, cat: 'Dependent Vowel', layout: 'standard' },
+        { title: isKm ? 'ស្រៈពេញតួ ១៤ តួ (Independent Vowels)' : '14 Independent Vowels (ស្រៈពេញតួ)', badge: '14/14 Included · 100%', chars: KHMER_INDEP_VOWELS, cat: 'Independent Vowel', layout: 'nida' },
+        { title: isKm ? 'វណ្ណយុត្តិ និងសញ្ញា (Diacritics & Punctuation)' : 'Diacritics & Punctuation (វណ្ណយុត្តិ)', badge: '13/13 Included · 100%', chars: KHMER_DIACRITICS, cat: 'Diacritic', layout: 'standard' },
+        { title: isKm ? 'លេខខ្មែរ ០-៩ (Khmer Numerals)' : 'Khmer Numerals ០-៩ (លេខខ្មែរ)', badge: '10/10 Included · 100%', chars: KHMER_NUMBERS, cat: 'Khmer Numeral', layout: 'standard' }
+      );
+    }
+    if(scope === 'all' || scope === 'english'){
+      sections.push(
+        { title: isKm ? 'អក្សរឡាតាំងតូច a-z (English Lowercase)' : 'English Lowercase (a-z)', badge: '26/26 Included · 100%', chars: EN_LOWER, cat: 'English Lowercase', layout: 'english' },
+        { title: isKm ? 'អក្សរឡាតាំងធំ A-Z (English Uppercase)' : 'English Uppercase (A-Z)', badge: '26/26 Included · 100%', chars: EN_UPPER, cat: 'English Uppercase', layout: 'english' },
+        { title: isKm ? 'លេខសកល 0-9 (English Digits)' : 'English Digits (0-9)', badge: '10/10 Included · 100%', chars: EN_DIGITS, cat: 'English Digit', layout: 'english' }
+      );
+    }
+
+    sections.forEach(sec => {
+      const secEl = document.createElement('section');
+      secEl.className = 'lm-alpha-section';
+      secEl.innerHTML = `
+        <div class="lm-alpha-sec-header">
+          <span class="lm-alpha-sec-title">${sec.title}</span>
+          <span class="lm-alpha-sec-badge">${sec.badge}</span>
+        </div>
+        <div class="lm-char-grid"></div>
+      `;
+      const grid = secEl.querySelector('.lm-char-grid');
+      sec.chars.forEach(ch => {
+        const tile = document.createElement('button');
+        tile.type = 'button';
+        tile.className = 'lm-char-tile';
+        tile.setAttribute('data-char', ch);
+        tile.setAttribute('title', `${ch} (${getUnicodeCodePoint(ch)}) — Click to inspect`);
+        tile.innerHTML = `<span>${ch}</span><span class="lm-char-dot" aria-hidden="true"></span>`;
+        tile.onclick = () => inspectChar(ch, sec.cat, sec.layout);
+        grid.appendChild(tile);
+      });
+      container.appendChild(secEl);
+    });
+
+    // Auto-inspect first consonant if none selected
+    if(!selectedInspectorChar && KHMER_CONSONANTS.length > 0){
+      inspectChar(KHMER_CONSONANTS[0], 'Consonant', 'standard');
+    }
+  }
+
+  function renderHubLessons(track, query) {
+    const container = document.getElementById('lmBrowseLessonsContainer');
+    if(!container) return;
+    track = track || hubActiveTrack || 'standard';
+    query = (query || '').toLowerCase().trim();
+
+    let lessonsList = LESSONS_STANDARD;
+    if(track === 'nida') lessonsList = LESSONS_NIDA;
+    if(track === 'english') lessonsList = LESSONS_ENGLISH;
+
+    if(!lessonsList || !Array.isArray(lessonsList) || lessonsList.length === 0){
+      container.innerHTML = '<div style="padding:20px;text-align:center;color:#94a3b8;">Loading curriculum data...</div>';
+      return;
+    }
+
+    const filtered = lessonsList.filter(l => {
+      if(!query) return true;
+      const t = (l.title || '').toLowerCase();
+      const tKm = (l.titleKm || '').toLowerCase();
+      const id = (l.id || '').toLowerCase();
+      const keys = (l.newKeys || []).map(k => k.char || '').join('').toLowerCase();
+      return t.includes(query) || tKm.includes(query) || id.includes(query) || keys.includes(query);
+    });
+
+    if(filtered.length === 0){
+      container.innerHTML = '<div style="padding:24px;text-align:center;color:#94a3b8;">No matching lessons found for your query.</div>';
+      return;
+    }
+
+    const isKm = document.documentElement.classList.contains('site-km-mode');
+    container.innerHTML = '';
+
+    filtered.forEach(l => {
+      const card = document.createElement('article');
+      card.className = 'lm-lesson-item';
+      const titleDisplay = (isKm && l.titleKm) ? l.titleKm : l.title;
+      const keysHtml = (l.newKeys && l.newKeys.length > 0)
+        ? l.newKeys.slice(0, 6).map(k => `<span class="lm-li-key-badge">${k.char || k.keyId}</span>`).join('')
+        : `<span style="font-size:0.68rem;color:#94a3b8;">Practice drill</span>`;
+
+      card.innerHTML = `
+        <div class="lm-li-top">
+          <span class="lm-li-code">${l.id}</span>
+          <span class="lm-li-units">${l.level ? 'Level ' + l.level : ''} · ${(l.type || 'drill').toUpperCase()}</span>
+        </div>
+        <div class="lm-li-title">${titleDisplay}</div>
+        <div class="lm-li-keys">${keysHtml}</div>
+        <button type="button" class="lm-li-launch-btn">
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span class="i18n-t" data-en="Start Lesson" data-km="ចូលរៀន">Start Lesson</span>
+        </button>
+      `;
+
+      card.querySelector('.lm-li-launch-btn').onclick = function() {
+        window.launchMasterLesson(l.id, track);
+      };
+
+      container.appendChild(card);
+    });
+  }
+
+  function setupHubEvents() {
+    if(hubInitialized) return;
+    hubInitialized = true;
+
+    const modal = getHubModal();
+    const closeBtn = document.getElementById('learnMoreHubCloseBtn');
+    const doneBtn = document.getElementById('learnMoreHubDoneBtn');
+    const topBtn = document.getElementById('topLearnMoreBtn');
+
+    if(closeBtn) closeBtn.onclick = closeLearnMoreHub;
+    if(doneBtn) doneBtn.onclick = closeLearnMoreHub;
+    if(topBtn) topBtn.onclick = () => openLearnMoreHub('alphabet');
+
+    if(modal) {
+      modal.onclick = (e) => {
+        if(e.target === modal) closeLearnMoreHub();
+      };
+      modal.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') closeLearnMoreHub();
+      });
+    }
+
+    // Tab buttons
+    const tabAlphabet = document.getElementById('lmTabBtn-alphabet');
+    const tabLessons = document.getElementById('lmTabBtn-lessons');
+    const tabMaster = document.getElementById('lmTabBtn-master');
+
+    const panelAlphabet = document.getElementById('lmPanel-alphabet');
+    const panelLessons = document.getElementById('lmPanel-lessons');
+    const panelMaster = document.getElementById('lmPanel-master');
+
+    function switchTab(tabId) {
+      const tabs = [tabAlphabet, tabLessons, tabMaster];
+      const panels = [panelAlphabet, panelLessons, panelMaster];
+
+      tabs.forEach(t => { if(t) t.classList.remove('active'), t.setAttribute('aria-selected', 'false'); });
+      panels.forEach(p => { if(p) p.classList.remove('active'), p.hidden = true; });
+
+      if(tabId === 'alphabet') {
+        if(tabAlphabet) tabAlphabet.classList.add('active'), tabAlphabet.setAttribute('aria-selected', 'true');
+        if(panelAlphabet) panelAlphabet.classList.add('active'), panelAlphabet.hidden = false;
+        renderAlphabetMatrix();
+      } else if(tabId === 'lessons') {
+        if(tabLessons) tabLessons.classList.add('active'), tabLessons.setAttribute('aria-selected', 'true');
+        if(panelLessons) panelLessons.classList.add('active'), panelLessons.hidden = false;
+        renderHubLessons();
+      } else if(tabId === 'master') {
+        if(tabMaster) tabMaster.classList.add('active'), tabMaster.setAttribute('aria-selected', 'true');
+        if(panelMaster) panelMaster.classList.add('active'), panelMaster.hidden = false;
+      }
+    }
+
+    if(tabAlphabet) tabAlphabet.onclick = () => switchTab('alphabet');
+    if(tabLessons) tabLessons.onclick = () => switchTab('lessons');
+    if(tabMaster) tabMaster.onclick = () => switchTab('master');
+
+    // Layout pills in alphabet matrix
+    const alphaPillGroup = document.getElementById('lmAlphaLayoutSelector');
+    if(alphaPillGroup) {
+      alphaPillGroup.addEventListener('click', (e) => {
+        const btn = e.target.closest('.lm-alpha-pill-btn');
+        if(!btn) return;
+        alphaPillGroup.querySelectorAll('.lm-alpha-pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        hubAlphaScope = btn.getAttribute('data-alpha-layout') || 'all';
+        renderAlphabetMatrix(hubAlphaScope);
+      });
+    }
+
+    // Track pills in Browse Lessons
+    const browsePillGroup = document.getElementById('lmBrowseTrackPills');
+    if(browsePillGroup) {
+      browsePillGroup.addEventListener('click', (e) => {
+        const btn = e.target.closest('.lm-track-pill');
+        if(!btn) return;
+        browsePillGroup.querySelectorAll('.lm-track-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        hubActiveTrack = btn.getAttribute('data-track') || 'standard';
+        const searchInput = document.getElementById('lmHubLessonSearch');
+        renderHubLessons(hubActiveTrack, searchInput ? searchInput.value : '');
+      });
+    }
+
+    // Live search input in Browse Lessons
+    const searchInput = document.getElementById('lmHubLessonSearch');
+    if(searchInput) {
+      let debounceTimer = null;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          renderHubLessons(hubActiveTrack, searchInput.value);
+        }, 150);
+      });
+    }
+  }
+
+  function openLearnMoreHub(initialTab) {
+    const modal = getHubModal();
+    if(!modal) return;
+    setupHubEvents();
+
+    initialTab = initialTab || 'alphabet';
+    modal.hidden = false;
+
+    // Switch tab
+    const tabAlphabet = document.getElementById('lmTabBtn-alphabet');
+    const tabLessons = document.getElementById('lmTabBtn-lessons');
+    const tabMaster = document.getElementById('lmTabBtn-master');
+    const panelAlphabet = document.getElementById('lmPanel-alphabet');
+    const panelLessons = document.getElementById('lmPanel-lessons');
+    const panelMaster = document.getElementById('lmPanel-master');
+
+    [tabAlphabet, tabLessons, tabMaster].forEach(t => { if(t) t.classList.remove('active'); });
+    [panelAlphabet, panelLessons, panelMaster].forEach(p => { if(p) p.classList.remove('active'), p.hidden = true; });
+
+    if(initialTab === 'lessons') {
+      if(tabLessons) tabLessons.classList.add('active');
+      if(panelLessons) panelLessons.classList.add('active'), panelLessons.hidden = false;
+      renderHubLessons();
+    } else if(initialTab === 'master') {
+      if(tabMaster) tabMaster.classList.add('active');
+      if(panelMaster) panelMaster.classList.add('active'), panelMaster.hidden = false;
+    } else {
+      if(tabAlphabet) tabAlphabet.classList.add('active');
+      if(panelAlphabet) panelAlphabet.classList.add('active'), panelAlphabet.hidden = false;
+      renderAlphabetMatrix();
+    }
+
+    const closeBtn = document.getElementById('learnMoreHubCloseBtn');
+    if(closeBtn) closeBtn.focus();
+  }
+
+  function closeLearnMoreHub() {
+    const modal = getHubModal();
+    if(!modal) return;
+    if(typeof window.closeModalAnimated === 'function') {
+      window.closeModalAnimated(modal);
+    } else {
+      modal.hidden = true;
+    }
+  }
+
+  window.openLearnMoreHub = openLearnMoreHub;
+  window.closeLearnMoreHub = closeLearnMoreHub;
+
+  window.launchMasterLesson = function(lessonId, layoutId) {
+    if(layoutId && typeof switchLayout === 'function' && currentLayoutId !== layoutId) {
+      switchLayout(layoutId);
+    }
+    // Master unlock so that learner can freely practice all 222 lessons from the hub
+    allLessonsUnlocked = true;
+    try { localStorage.setItem('khmerUnlockAll', '1'); } catch(e){}
+
+    if(typeof renderLessonStrip === 'function') {
+      renderLessonStrip();
+    }
+    closeLearnMoreHub();
+
+    setTimeout(() => {
+      if(typeof startLesson === 'function') {
+        startLesson(lessonId);
+      }
+      const board = document.getElementById('boardWrap') || document.body;
+      if(board && typeof board.focus === 'function') board.focus();
+    }, 120);
+  };
+
+  // Wire up top button on page load
+  if(document.readyState !== 'loading') {
+    setupHubEvents();
+  } else {
+    document.addEventListener('DOMContentLoaded', setupHubEvents);
+  }
+})();
+
 
 
 

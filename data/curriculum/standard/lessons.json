@@ -2752,6 +2752,34 @@
         "previousLesson": "standard-L12-04"
       },
       "timeLimit": 60
+    },
+    {
+      "id": "standard-L12-06",
+      "level": "standard-L12",
+      "order": 6,
+      "title": "All Khmer Letters & Comprehensive Literature (អក្សរខ្មែរគ្រប់តួ)",
+      "titleKm": "អក្សរខ្មែរគ្រប់តួ និង អក្សរសិល្ប៍ទូទៅ (គ្រប់ព្យញ្ជនៈ ស្រះ និងលេខ)",
+      "description": "Master touch typing every Khmer consonant, vowel, independent vowel, coeng subscript, and numeral in classical literature.",
+      "objective": "Type all Khmer letters with comprehensive fluency",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 90,
+      "speedTarget": null,
+      "mistakeTolerance": 5,
+      "exerciseRefs": [
+        "standard-L12-06-E01",
+        "standard-L12-06-E02",
+        "standard-L12-06-E03",
+        "standard-L12-06-E04",
+        "standard-L12-06-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L12-05"
+      },
+      "timeLimit": 60
     }
   ]
 }

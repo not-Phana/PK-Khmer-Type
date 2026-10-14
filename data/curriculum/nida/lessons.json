@@ -2769,6 +2769,34 @@
         "previousLesson": "nida-L12-04"
       },
       "timeLimit": 60
+    },
+    {
+      "id": "nida-L12-06",
+      "level": "nida-L12",
+      "order": 6,
+      "title": "All Khmer Letters & Comprehensive Literature (អក្សរខ្មែរគ្រប់តួ)",
+      "titleKm": "អក្សរខ្មែរគ្រប់តួ និង អក្សរសិល្ប៍ទូទៅ (គ្រប់ព្យញ្ជនៈ ស្រៈ ឲ ៊ និងលេខ)",
+      "description": "Master touch typing every Khmer consonant, vowel, independent vowel including ឲ, shifter ៊, coeng subscript, and numeral.",
+      "objective": "Type all Khmer letters with comprehensive fluency in NiDA",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 90,
+      "speedTarget": null,
+      "mistakeTolerance": 5,
+      "exerciseRefs": [
+        "nida-L12-06-E01",
+        "nida-L12-06-E02",
+        "nida-L12-06-E03",
+        "nida-L12-06-E04",
+        "nida-L12-06-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "nida-L12-05"
+      },
+      "timeLimit": 60
     }
   ]
 }

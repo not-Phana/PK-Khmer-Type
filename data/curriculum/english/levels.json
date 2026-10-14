@@ -294,7 +294,9 @@
         "en-L13-01",
         "en-L13-02",
         "en-L13-03",
-        "en-L13-04"
+        "en-L13-04",
+        "en-L13-05",
+        "en-L13-06"
       ],
       "unlockRequirements": {
         "previousLevel": "en-L12"

@@ -2416,10 +2416,10 @@ if (document.readyState === "loading") {
       linkLabel: "Open @Kon-Kurosaki",
       recorded: "167 Commits recorded",
       pair: "Phana (@not-Phana)",
-      desc: "Primary human architect of PK Khmer Type with 167+ verified commits. Designs the 218-lesson Khmer Standard, Khmer NiDA, and English QWERTY curriculum, 3D anatomical hand kinematics, audio synthesis engine, and studio UI.",
+      desc: "Primary human architect of PK Khmer Type with 167+ verified commits. Designs the 222-lesson Khmer Standard, Khmer NiDA, and English QWERTY curriculum (with 100% full alphabet coverage), 3D anatomical hand kinematics, audio synthesis engine, and studio UI.",
       chips: [
         "167+ verified commits on PK Khmer Type",
-        "Tactile typing engine & 218 interactive lessons",
+        "Tactile typing engine & 222 interactive lessons (every letter included)",
         "Full-stack architecture & reactive telemetry"
       ]
     },

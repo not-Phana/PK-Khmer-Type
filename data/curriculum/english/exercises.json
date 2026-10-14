@@ -1016,6 +1016,56 @@
       "type": "test",
       "content": "Keep your posture upright, your wrists relaxed, and your accuracy above 96% - you have passed the Mastery Test!",
       "description": "Mastery test round 5"
+    },
+    "en-L13-05-E01": {
+      "type": "drill",
+      "content": "The quick brown fox jumps over the lazy dog. Pack my box with five dozen jugs. Sphinx of black quartz, judge my vow.",
+      "description": "Classic alphabet pangrams round 1"
+    },
+    "en-L13-05-E02": {
+      "type": "drill",
+      "content": "How vexingly quick daft zebras jump! Bright vixens jump; dozy fowl quack. Jackdaws love my big sphinx of quartz.",
+      "description": "Classic alphabet pangrams round 2"
+    },
+    "en-L13-05-E03": {
+      "type": "drill",
+      "content": "The five boxing wizards jump quickly. Waltz, bad nymph, for quick jigs vex! Glib jocks quiz nymph to vex dwarf.",
+      "description": "Classic alphabet pangrams round 3"
+    },
+    "en-L13-05-E04": {
+      "type": "drill",
+      "content": "Cozy lummox gives smart squid who asks for job pen. Quick zephyrs blow, vexing Jim. Few quips mock the lazy jury.",
+      "description": "Classic alphabet pangrams round 4"
+    },
+    "en-L13-05-E05": {
+      "type": "drill",
+      "content": "All 26 letters (A to Z) with numbers: The 5 quick brown foxes jumped over 12 lazy dogs at 3:45 PM on July 28!",
+      "description": "Pangrams with numbers and punctuation"
+    },
+    "en-L13-06-E01": {
+      "type": "drill",
+      "content": "Knowledge is the foundation of progress. To master the keyboard is to unlock seamless expression of ideas and thoughts.",
+      "description": "Philosophy of learning and expression"
+    },
+    "en-L13-06-E02": {
+      "type": "drill",
+      "content": "In the quiet expanse of Angkor temples, stone carvings whisper ancient tales of devotion, architecture, and harmony.",
+      "description": "Cambodian cultural reflections"
+    },
+    "en-L13-06-E03": {
+      "type": "drill",
+      "content": "True mastery is not the absence of mistakes, but the calm ability to maintain accurate cadence and rhythmic focus.",
+      "description": "Mindset and cadence in touch typing"
+    },
+    "en-L13-06-E04": {
+      "type": "drill",
+      "content": "With 222 lessons, every letter, symbol, and digit has been practiced. You now possess lifetime touch typing fluency!",
+      "description": "Curriculum celebration and milestone"
+    },
+    "en-L13-06-E05": {
+      "type": "drill",
+      "content": "The art of typing is like music: each keystroke a distinct note, each sentence a melody flowing freely with speed.",
+      "description": "Rhythmic flow and typing artistry"
     }
   }
 }

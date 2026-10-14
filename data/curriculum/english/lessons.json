@@ -2309,6 +2309,62 @@
       },
       "timeLimit": 180,
       "titleKm": "តេស្តស្ទាត់ជំនាញភាសាអង់គ្លេស"
+    },
+    {
+      "id": "en-L13-05",
+      "level": "en-L13",
+      "order": 5,
+      "title": "All-Letter Pangram Mastery (A-Z Every Letter)",
+      "titleKm": "ស្ទាត់ជំនាញប្រយោគគ្រប់តួអក្សរ A-Z (Pangrams)",
+      "description": "Type complete alphabet pangrams that exercise every single letter from A through Z, numerals, and punctuation in every exercise.",
+      "objective": "Master all 26 English letters in rapid-flow pangrams",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 90,
+      "speedTarget": null,
+      "mistakeTolerance": 5,
+      "exerciseRefs": [
+        "en-L13-05-E01",
+        "en-L13-05-E02",
+        "en-L13-05-E03",
+        "en-L13-05-E04",
+        "en-L13-05-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L13-04"
+      },
+      "timeLimit": 60
+    },
+    {
+      "id": "en-L13-06",
+      "level": "en-L13",
+      "order": 6,
+      "title": "Grand Literature & Philosophical Texts (Learn More Mastery)",
+      "titleKm": "អក្សរសិល្ប៍ទស្សនវិជ្ជា និងលំហាត់កម្រិតខ្ពស់",
+      "description": "Extended literature and philosophical excerpts ensuring full-spectrum keyboard mastery across vocabulary, punctuation, and rhythm.",
+      "objective": "Achieve complete keyboard fluency on long-form literature",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 90,
+      "speedTarget": null,
+      "mistakeTolerance": 5,
+      "exerciseRefs": [
+        "en-L13-06-E01",
+        "en-L13-06-E02",
+        "en-L13-06-E03",
+        "en-L13-06-E04",
+        "en-L13-06-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L13-05"
+      },
+      "timeLimit": 60
     }
   ]
 }

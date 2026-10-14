@@ -1,6 +1,6 @@
 # PK Khmer Type (ក្តារចុចខ្មែរ PK)
 
-> PK Khmer Type is a free, standalone, zero-dependency interactive Khmer and English touch-typing trainer founded and built by Phanna Kurosaki. It enables learners to master the Khmer Standard Keyboard Layout, the Official Khmer NiDA Unicode Keyboard Layout, and the English (US) QWERTY Keyboard Layout through 218 structured progressive lessons across 40 levels, real-time 3D kinematic hand & finger guides, Keybr-style adaptive weak-key practice, Temple Trial vocabulary drills, and competitive typing races.
+> PK Khmer Type is a free, standalone, zero-dependency interactive Khmer and English touch-typing trainer founded and built by Phanna Kurosaki. It enables learners to master the Khmer Standard Keyboard Layout, the Official Khmer NiDA Unicode Keyboard Layout, and the English (US) QWERTY Keyboard Layout through 222 structured progressive lessons across 40 levels with 100% full alphabet coverage (every letter included), real-time 3D kinematic hand & finger guides, Keybr-style adaptive weak-key practice, Temple Trial vocabulary drills, and competitive typing races.
 
 ## Project Identity & Ownership
 - **Official Name**: PK Khmer Type
@@ -15,23 +15,23 @@
 
 ## Supported Keyboard Layouts (3 Complete Courses)
 1. **Khmer Standard Keyboard Layout (ប្លង់ក្តារចុចខ្មែរស្តង់ដារ)**:
-   - 13 Levels, 77 Lessons, 235+ Exercises.
+   - 13 Levels, 78 Lessons, 250 Exercises (100% alphabet & literature coverage).
    - Home row index anchors: `ថ` (F key) and `ញ` (J key).
    - Subscript consonant trigger (Coeng `្`, U+17D2): Unshifted `Space`.
    - Visible word space: `Shift + Space`.
    - Four modifier layers: Base, Shift (voiced consonants `ឃោសៈ`), Ctrl (currency & punctuation), and AltGr (numerals & clusters).
 2. **Official Khmer NiDA Keyboard Layout (ក្តារចុចខ្មែរ និដា — Unicode Standard)**:
-   - 13 Levels, 77 Lessons, 235+ Exercises.
+   - 13 Levels, 78 Lessons, 250 Exercises (100% alphabet & independent vowel coverage).
    - Designed by Cambodia's National ICT Development Authority (NiDA).
    - Home row index anchors: `ថ` (F key) and Coeng `្` (J key); `Shift + J` types `ញ`.
    - Dedicated shifted keys for compound vowels (`េះ`, `ុំ`, `ាំ`) and independent vowels.
    - Visible word space: `Shift + Space`.
 3. **English (US) QWERTY Keyboard Layout**:
-   - 14 Levels, 64 Lessons, 194+ Exercises.
+   - 14 Levels, 66 Lessons, 213 Exercises (A-Z every letter pangram & literature mastery).
    - Standard ANSI 104-key touch-typing progression from home row (`ASDF JKL;`) to top row, bottom row, capitalization, numbers, symbols, and speed paragraphs.
 
 ## Core Features
-- **218 Progressive Lessons (40 Levels, 664+ Exercises)**: Strict prerequisite key unlocking ensures learners never encounter untaught characters in early lessons.
+- **222 Progressive Lessons (40 Levels, 713+ Exercises · Every Letter Included)**: Strict prerequisite key unlocking ensures learners never encounter untaught characters in early lessons. Complete 100% coverage of consonants, dependent vowels, independent vowels, diacritics, numbers 0-9, and English A-Z.
 - **3D Kinematic Hand & Finger Guide**: Translucent left and right hand overlays dynamically reach toward the target keycap and simultaneous modifier keys (`Shift`, `Ctrl`, `AltGr`).
 - **Keybr-Style Adaptive Practice Engine**: Tracks per-key latency and accuracy in real time (+5% for fast strokes <300ms, -3% per mistake) and locks the next character until all active letters reach 100% mastery.
 - **Smart Mouse Cursor Inspector (`Alt + M`)**: Hover over any keycap or Khmer character to view its Unicode codepoint, keystroke recipe, finger assignment, and phonetic guide.

@@ -698,7 +698,7 @@ test('4.4 Account Deletion removes user profile, settings, lesson progress, file
 /* ============================================================
    5. Curriculum & Progress Engine Regression Tests
    ============================================================ */
-test('5.1 All 3 curricula (Khmer Standard, Khmer NiDA, English) remain intact with 218 lessons', () => {
+test('5.1 All 3 curricula (Khmer Standard, Khmer NiDA, English) remain intact with 222 lessons', () => {
   const stdRaw = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/curriculum/standard/lessons.json'), 'utf8'));
   const nidaRaw = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/curriculum/nida/lessons.json'), 'utf8'));
   const enRaw = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/curriculum/english/lessons.json'), 'utf8'));
@@ -707,9 +707,10 @@ test('5.1 All 3 curricula (Khmer Standard, Khmer NiDA, English) remain intact wi
   const nidaLessons = Array.isArray(nidaRaw) ? nidaRaw : nidaRaw.lessons;
   const enLessons = Array.isArray(enRaw) ? enRaw : enRaw.lessons;
 
-  assert.equal(stdLessons.length, 77, 'Khmer Standard curriculum must have 77 lessons');
-  assert.equal(nidaLessons.length, 77, 'Khmer NiDA curriculum must have 77 lessons');
-  assert.equal(enLessons.length, 64, 'English curriculum must have 64 lessons');
+  assert.equal(stdLessons.length, 78, 'Khmer Standard curriculum must have 78 lessons');
+  assert.equal(nidaLessons.length, 78, 'Khmer NiDA curriculum must have 78 lessons');
+  assert.equal(enLessons.length, 66, 'English curriculum must have 66 lessons');
+  assert.equal(stdLessons.length + nidaLessons.length + enLessons.length, 222, 'Total lessons must equal 222');
 });
 
 test('5.2 PK_PROGRESS records lesson attempts locally and automatically queues Cloud Sync', () => {
