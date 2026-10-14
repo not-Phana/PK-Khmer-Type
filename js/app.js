@@ -51,6 +51,13 @@ function initApp(){
     }
   } catch(e){}
 
+  // Restore hardware gate bypass if previously dismissed in this session
+  try {
+    if (sessionStorage.getItem("pk_mobile_gate_bypass") === "1") {
+      document.documentElement.classList.add("pk-mobile-gate-dismissed");
+    }
+  } catch(e){}
+
   // Synchronous initial render for zero-delay offline startup
   try { if(typeof buildBoard === "function") buildBoard(); } catch(e){ console.error("buildBoard error:", e); }
   try { if(typeof syncLayoutUI === "function") syncLayoutUI(window.currentLayoutId); } catch(e){}

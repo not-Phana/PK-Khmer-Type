@@ -2119,7 +2119,7 @@ function updateLessonProgress(){
   lessonTotalValEl.textContent = lessonChars.length;
   lessonProgressFillEl.style.width = (lessonChars.length > 0 ? (lessonIndex/lessonChars.length*100) : 0) + '%';
   const attempts = lessonIndex + lessonMistakes;
-  const accuracy = attempts > 0 ? Math.round((lessonIndex/attempts)*100) : 100;
+  const accuracy = attempts > 0 ? Math.min(100, Math.max(0, Math.round((lessonIndex/attempts)*100))) : 100;
   lessonAccValEl.textContent = accuracy + '%';
   lessonMistakesValEl.textContent = lessonMistakes;
 
@@ -2199,8 +2199,9 @@ function startLesson(idOrDef){
   if(document.activeElement && typeof document.activeElement.blur === 'function'){
     document.activeElement.blur();
   }
-  if(typeof trialActive !== 'undefined' && trialActive) stopTrial();
-  if(typeof raceMode !== 'undefined' && raceMode) exitRaceMode();
+  if(typeof trialActive !== 'undefined' && trialActive && typeof stopTrial === 'function') stopTrial();
+  if(typeof raceReset === 'function') raceReset();
+  if(typeof raceMode !== 'undefined' && raceMode && typeof exitRaceMode === 'function') exitRaceMode();
   if(typeof window !== 'undefined' && window.adaptiveActive && typeof PK_ADAPTIVE !== 'undefined' && typeof PK_ADAPTIVE.exitSession === 'function'){
     PK_ADAPTIVE.exitSession(false);
   }
@@ -2569,9 +2570,11 @@ function completeLesson(){
     clearInterval(lessonTimerInterval);
     lessonTimerInterval = null;
   }
-  const elapsed = (Date.now() - lessonStartTime) / 1000;
+  if (!currentLesson || !lessonChars || lessonChars.length === 0) return;
   const attempts = lessonChars.length + lessonMistakes;
-  const accuracy = attempts > 0 ? Math.round((lessonChars.length / attempts) * 100) : 100;
+  if (attempts === 0) return;
+  const elapsed = Math.max(0.001, (Date.now() - lessonStartTime) / 1000);
+  const accuracy = Math.min(100, Math.max(0, Math.round((lessonChars.length / attempts) * 100)));
   const def = currentLesson;
   const id = def.id;
   const mistakeChars = Object.keys(lessonMistakeChars);
@@ -2592,7 +2595,8 @@ function completeLesson(){
   }
 
   // Update persistent lesson WPM upon completion
-  const lessonWpm = elapsed > 0 ? Math.min(180, Math.round((lessonChars.length / 5) / (elapsed / 60))) : 0;
+  const rawWpm = (elapsed > 0 && Number.isFinite(elapsed)) ? (lessonChars.length / 5) / (elapsed / 60) : 0;
+  const lessonWpm = (Number.isFinite(rawWpm) && rawWpm >= 0) ? Math.min(180, Math.max(0, Math.round(rawWpm))) : 0;
   if(lessonWpm > 0 && typeof savedLessonStats !== 'undefined'){
     savedLessonStats.wpm = lessonWpm;
     if(lessonWpm > (savedLessonStats.bestWpm || 0)){

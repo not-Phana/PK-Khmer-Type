@@ -576,6 +576,13 @@ function playClick(kind) {
     noiseGain.gain.setValueAtTime(actualNoiseAmp, t);
     noiseGain.gain.exponentialRampToValueAtTime(0.0001, t + p.noiseDecay);
     noise.connect(noiseFilter).connect(noiseGain).connect(dest);
+    noise.onended = () => {
+      try {
+        noise.disconnect();
+        noiseFilter.disconnect();
+        noiseGain.disconnect();
+      } catch (_e) {}
+    };
     noise.start(t);
     noise.stop(t + p.noiseDecay + 0.015);
 
@@ -590,6 +597,12 @@ function playClick(kind) {
     gain.gain.setValueAtTime(actualBodyAmp, t);
     gain.gain.exponentialRampToValueAtTime(0.0001, t + p.decay + 0.018);
     osc.connect(gain).connect(dest);
+    osc.onended = () => {
+      try {
+        osc.disconnect();
+        gain.disconnect();
+      } catch (_e) {}
+    };
     osc.start(t);
     osc.stop(t + p.decay + 0.025);
   } catch (e) {}
@@ -616,6 +629,8 @@ function initSettingsToggles() {
 
   function bindSwitch(el, onToggle) {
     if (!el) return;
+    if (!el.hasAttribute("role")) el.setAttribute("role", "switch");
+    if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "0");
     el.addEventListener("click", () => onToggle(!el.classList.contains("on")));
     el.addEventListener("keydown", (e) => {
       if (e.key === " " || e.key === "Enter") {

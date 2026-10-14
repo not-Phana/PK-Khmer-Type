@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/Performance-Zero--Lag%20Mode-34d399?style=for-the-badge" alt="Zero-Lag Performance Mode">
   <img src="https://img.shields.io/badge/Audio-Web%20Audio%20Synth-2dd4a7?style=for-the-badge" alt="Web Audio Synthesizer">
   <img src="https://img.shields.io/badge/Themes-8%20Studio%20Themes%20%2B%20Glass-ec4899?style=for-the-badge" alt="8 Themes & Glass">
-  <img src="https://img.shields.io/badge/Curriculum-40%20Levels%20%7C%20218%20Lessons-38bdf8?style=for-the-badge" alt="218 Lessons">
+  <img src="https://img.shields.io/badge/Curriculum-40%20Levels%20%7C%20222%20Lessons-38bdf8?style=for-the-badge" alt="222 Lessons">
   <img src="https://img.shields.io/badge/Analytics-Live%20Mastery%20Dashboard-a78bfa?style=for-the-badge" alt="Live Mastery Dashboard">
 </p>
 
@@ -40,7 +40,7 @@
 
 **PK Khmer Type (v2.4 Pro Studio Edition)** is a standalone, zero-dependency browser typing studio built specifically for mastering the Khmer abugida script (**Khmer Standard** and **Official Khmer NiDA**) alongside **English (US) QWERTY**.
 
-Designed to run effortlessly both **online via any static server** and **100% offline directly from the filesystem (`file:///`)**, it combines a 218-lesson progressive curriculum with a hardware-accurate mechanical keyboard simulator, dual-hand 3D kinematic finger guides, a dedicated live analytics dashboard (`dashboard.html`), an interactive launch showcase (`launch/index.html`), 8 bespoke color themes, frosted glassmorphism, instant Zero-Lag Performance mode, and cinematic Focus Mode.
+Designed to run effortlessly both **online via any static server** and **100% offline directly from the filesystem (`file:///`)**, it combines a 222-lesson progressive curriculum with a hardware-accurate mechanical keyboard simulator, dual-hand 3D kinematic finger guides, a dedicated live analytics dashboard (`dashboard.html`), an interactive launch showcase (`launch/index.html`), 8 bespoke color themes, frosted glassmorphism, instant Zero-Lag Performance mode, and cinematic Focus Mode.
 
 ### Interactive Keyboard Layouts in PK Khmer Type
 
@@ -58,7 +58,7 @@ Designed to run effortlessly both **online via any static server** and **100% of
 | **Interactive Launch Showcase (`launch/index.html`)** | Dedicated product showcase featuring the full mechanical keyboard deck, 3D kinematic hand overlay, procedural Web Audio switch synthesizer, live key telemetry HUD, and an interactive starter curriculum drill — working 100% offline on `file:///`. |
 | **Dual-Hand 3D Kinematic Guide (44% Default Opacity)** | Translucent anatomical left and right hand overlays dynamically reach toward target keys and simultaneous modifier keys (`Shift`, `Ctrl`, `AltGr`). Tuned to **44% default opacity** for crystal-clear keycap visibility, with one-click Hand Theme color presets (*Cyber Cyan & Orchid, Amber & Emerald, Ruby & Sapphire, Sunset & Violet, Frost Silver*). |
 | **3 Complete Keyboard Layouts** | Instant switching between **Khmer Standard**, **Khmer NiDA**, and **English (US) QWERTY** (`Alt + 1/2/3`). |
-| **218-Lesson Progressive Curriculum** | **40 structured levels**, **218 lessons**, and **664+ exercises** built with strict progressive key unlocking (no unseen characters in early drills). |
+| **222-Lesson Progressive Curriculum** | **40 structured levels**, **222 lessons**, and **666+ exercises** built with strict progressive key unlocking (no unseen characters in early drills). |
 | **Zero-Lag Performance Mode** | Dedicated high-performance setting that turns off non-essential animations, transitions, glowing effects, and background particles for instant responsiveness and zero CPU/GPU overhead. Includes a 3-tier motion density control (*Full, Minimal, Off*). |
 | **Anchored Cursor Inspector (`Alt + M`)** | Hover over any keycap or Khmer glyph to inspect its Unicode codepoints, keystroke recipe, finger assignment, and phonetic details—statically anchored to keycaps for clean, jitter-free reading. |
 | **Cinematic Focus Mode (`Alt + F`)** | Smooth expansion that hides sidebars, headers, and UI distractions, scaling the manuscript and keyboard to center stage for pure immersion. |
@@ -80,7 +80,7 @@ Accessible directly from the keyboard chassis bar (**Dashboard `STATS`**), `dash
 - **Real-Time Telemetry Sync**: Reads live progress, lesson records, per-key stroke statistics, and adaptive mastery directly from `localStorage`.
 - **Course Filtering**: Inspect aggregate performance across all layouts or filter specifically by **Khmer Standard**, **Khmer NiDA**, or **English (US)**.
 - **Interactive Per-Key Heatmap**: Visualizes accuracy rates, error hotspots, and keystroke volume across every key on the board.
-- **40-Level Curriculum Matrix**: Track star ratings (`0–3 stars`), best WPM, and completion percentages across all 218 lessons.
+- **40-Level Curriculum Matrix**: Track star ratings (`0–3 stars`), best WPM, and completion percentages across all 222 lessons.
 - **Data Portability**: Export your complete profile to a timestamped `.json` backup file or restore from an existing backup at any time.
 
 ---
@@ -157,7 +157,7 @@ Each layout maintains independent progress, star ratings, WPM records, and unloc
 | **Khmer Standard** | 13 | 77 | 235+ | Home row anchors → Consonants → Dependent vowels → Coeng clusters → Shift layer → Numerals & prose |
 | **Khmer NiDA** | 13 | 77 | 235+ | Official NiDA home row → Vowel combinations → Subscript stacks → Independent vowels → Full literature |
 | **English (US)** | 14 | 64 | 194+ | Home row (`ASDF JKL;`) → Top & bottom reaches → Capitalization → Numbers & symbols → Speed paragraphs |
-| **Total** | **40** | **218** | **664+** | **Complete zero-to-fluent mastery across all three layouts** |
+| **Total** | **40** | **222** | **666+** | **Complete zero-to-fluent mastery across all three layouts** |
 
 ---
 
@@ -181,7 +181,7 @@ Each layout maintains independent progress, star ratings, WPM records, and unloc
 ## Getting Started
 
 ### Option 1: Open Directly (Offline / No Install)
-Simply double-click **`index.html`**, **`dashboard.html`**, or **`launch/index.html`** in any modern web browser (Edge, Chrome, Brave, Firefox, Safari). All 218 lessons, 3D kinematic hands, procedural audio synthesizers, and themes work out of the box via `file:///`.
+Simply double-click **`index.html`**, **`dashboard.html`**, or **`launch/index.html`** in any modern web browser (Edge, Chrome, Brave, Firefox, Safari). All 222 lessons, 3D kinematic hands, procedural audio synthesizers, and themes work out of the box via `file:///`.
 
 ### Option 2: Run Local Development Server
 If you have **Node.js** installed, launch the included zero-cache static development server:

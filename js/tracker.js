@@ -377,7 +377,7 @@
 
       const totalAttempts = state.liveLesson.correctCount + state.liveLesson.mistakeCount;
       state.liveLesson.accuracy = totalAttempts > 0
-        ? Math.round((state.liveLesson.correctCount / totalAttempts) * 100)
+        ? Math.min(100, Math.max(0, Math.round((state.liveLesson.correctCount / totalAttempts) * 100)))
         : 100;
 
       state.liveLesson.currentResponseTimeMs = responseTimeMs;
@@ -386,7 +386,8 @@
 
       if(state.liveLesson.activeTypingTimeMs > 0){
         const activeMinutes = state.liveLesson.activeTypingTimeMs / 60000;
-        state.liveLesson.wpm = Math.min(180, Math.round((state.liveLesson.correctCount / 5) / activeMinutes));
+        const rawLiveWpm = (activeMinutes > 0 && Number.isFinite(activeMinutes)) ? (state.liveLesson.correctCount / 5) / activeMinutes : 0;
+        state.liveLesson.wpm = (Number.isFinite(rawLiveWpm) && rawLiveWpm >= 0) ? Math.min(180, Math.max(0, Math.round(rawLiveWpm))) : 0;
       }
     }
 
@@ -416,7 +417,7 @@
         }
       }
 
-      ks.accuracy = Math.round((ks.correct / ks.attempts) * 100);
+      ks.accuracy = ks.attempts > 0 ? Math.min(100, Math.max(0, Math.round((ks.correct / ks.attempts) * 100))) : 100;
       ks.totalResponseTimeMs += responseTimeMs;
       ks.avgResponseTimeMs = Math.round(ks.totalResponseTimeMs / ks.attempts);
       if(ks.minResponseTimeMs === null || responseTimeMs < ks.minResponseTimeMs){
@@ -449,7 +450,7 @@
         }
       }
 
-      cs.accuracy = Math.round((cs.correct / cs.attempts) * 100);
+      cs.accuracy = cs.attempts > 0 ? Math.min(100, Math.max(0, Math.round((cs.correct / cs.attempts) * 100))) : 100;
       cs.totalResponseTimeMs += responseTimeMs;
       cs.avgResponseTimeMs = Math.round(cs.totalResponseTimeMs / cs.attempts);
     }
@@ -461,7 +462,7 @@
       fs.attempts++;
       if(isCorrect) fs.correct++;
       else fs.mistakes++;
-      fs.accuracy = Math.round((fs.correct / fs.attempts) * 100);
+      fs.accuracy = fs.attempts > 0 ? Math.min(100, Math.max(0, Math.round((fs.correct / fs.attempts) * 100))) : 100;
       fs.totalResponseTimeMs += responseTimeMs;
       fs.avgResponseTimeMs = Math.round(fs.totalResponseTimeMs / fs.attempts);
     }

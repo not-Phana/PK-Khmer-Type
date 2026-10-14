@@ -7935,7 +7935,7 @@ a.pk-cc-handle:hover {
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) and (pointer: coarse) {
   html:not(.pk-mobile-gate-dismissed) body {
     overflow: hidden !important;
   }

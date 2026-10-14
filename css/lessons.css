@@ -276,7 +276,12 @@
   .guide-mini-key.gmk-middle { border-top: 2px solid #3b82f6; }
   .guide-mini-key.gmk-index { border-top: 2px solid #10b981; }
   .guide-mini-key .km-ch{
-    font-family:'Kantumruy Pro', 'Khmer OS Battambang', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.3em;
+    overflow: visible;
+    font-family:'Noto Sans Khmer', 'Kantumruy Pro', 'Khmer OS Battambang', sans-serif;
     font-size:0.95rem;
     font-weight:600;
     color:var(--ink);
@@ -733,6 +738,15 @@
   }
   .gas-btn:active {
     transform: translateY(0) scale(0.99);
+  }
+  .gas-btn.gas-info-row {
+    cursor: default !important;
+  }
+  .gas-btn.gas-info-row:hover,
+  .gas-btn.gas-info-row:active {
+    background: color-mix(in srgb, var(--stone-1) 85%, #000000) !important;
+    border-color: var(--stone-3) !important;
+    transform: none !important;
   }
   .gas-info {
     display: flex;

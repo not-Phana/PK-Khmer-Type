@@ -1527,9 +1527,10 @@
     }
 
     const attempts = idx + activeSession.mistakes;
-    const accuracy = attempts > 0 ? Math.round((idx / attempts) * 100) : 100;
+    const accuracy = attempts > 0 ? Math.min(100, Math.max(0, Math.round((idx / attempts) * 100))) : 100;
     const elapsedSec = (Date.now() - activeSession.startTime) / 1000;
-    const wpm = elapsedSec > 0 ? Math.min(180, Math.round((idx / 5) / (elapsedSec / 60))) : 0;
+    const rawWpm = (elapsedSec > 0 && Number.isFinite(elapsedSec)) ? (idx / 5) / (elapsedSec / 60) : 0;
+    const wpm = (Number.isFinite(rawWpm) && rawWpm >= 0) ? Math.min(180, Math.max(0, Math.round(rawWpm))) : 0;
 
     const accVal = document.getElementById('adaptiveAccVal');
     if (accVal) accVal.textContent = `${accuracy}%`;
@@ -1556,6 +1557,9 @@
     }
     if (typeof trialActive !== 'undefined' && trialActive && typeof stopTrial === 'function') {
       stopTrial();
+    }
+    if (typeof raceReset === 'function') {
+      raceReset();
     }
     if (typeof raceMode !== 'undefined' && raceMode && typeof exitRaceMode === 'function') {
       exitRaceMode();
@@ -1814,11 +1818,15 @@
   }
 
   function finishAdaptiveSession() {
-    const elapsed = Math.max(1, (Date.now() - activeSession.startTime) / 1000);
+    if (!activeSession || !activeSession.drill || !activeSession.drill.chars) return;
     const totalChars = activeSession.drill.chars.length;
+    if (totalChars === 0) return;
     const attempts = totalChars + activeSession.mistakes;
-    const accuracy = attempts > 0 ? Math.round((totalChars / attempts) * 100) : 100;
-    const wpm = elapsed > 0 ? Math.min(180, Math.round((totalChars / 5) / (elapsed / 60))) : 0;
+    if (attempts === 0) return;
+    const elapsed = Math.max(0.001, (Date.now() - activeSession.startTime) / 1000);
+    const accuracy = Math.min(100, Math.max(0, Math.round((totalChars / attempts) * 100)));
+    const rawWpm = (elapsed > 0 && Number.isFinite(elapsed)) ? (totalChars / 5) / (elapsed / 60) : 0;
+    const wpm = (Number.isFinite(rawWpm) && rawWpm >= 0) ? Math.min(180, Math.max(0, Math.round(rawWpm))) : 0;
     const currentLayoutId = activeSession.layoutId;
 
     const summaryResult = completeAdaptiveSession(activeSession.layoutId, activeSession.drill, {

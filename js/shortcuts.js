@@ -459,11 +459,19 @@
     }
   }, { capture: true, passive: false });
 
-  /* Blur toolbar & sidebar controls on click so Space and Tab never re-trigger UI buttons during a drill */
+  /* Blur toolbar & sidebar controls on pointer click so Space and Tab never re-trigger UI buttons during a drill */
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.toolbar button, .guide-dock button, .guide-dock .gas-btn, .layout-pill, .layout-strip button, #profileSidebar');
+    // Only blur on actual pointer/mouse click (e.detail > 0), never on keyboard Space/Enter navigation (e.detail === 0)
+    if(e.detail === 0) return;
+    const btn = e.target.closest('.toolbar button, .top-actions button, .guide-dock button, .guide-dock .gas-btn:not(.gas-info-row), .layout-pill, .layout-strip button, #profileSidebar');
     if(btn && typeof btn.blur === 'function'){
-      btn.blur();
+      // Never blur buttons that open modal dialogs to preserve accessibility and modal focus trapping
+      if(btn.id === 'statsBtn' || btn.id === 'settingsBtn' || btn.id === 'authChip' || btn.id === 'shortcutsBtn' || btn.id === 'topLearnMoreBtn' || btn.closest('.modal-backdrop')) return;
+      setTimeout(() => {
+        if(!document.querySelector('.modal-backdrop:not([hidden])')){
+          btn.blur();
+        }
+      }, 0);
     }
   }, true);
 

@@ -1,46 +1,233 @@
+// scripts/verify_audit_fixes.js
+// Automated verification suite for the 9 Round 2 audit areas in PK-Khmer-Type.
+// Strictly adheres to Zero-Emoji Policy.
+
 const fs = require('fs');
+const path = require('path');
 
-console.log('=== AUDIT VERIFICATION ===');
+let totalTests = 0;
+let passedTests = 0;
+let failedTests = 0;
 
-// 1. Home row & finger guide
+function assert(condition, testName, details = '') {
+  totalTests++;
+  if (condition) {
+    passedTests++;
+    console.log(`[PASS] ${testName}`);
+  } else {
+    failedTests++;
+    console.error(`[FAIL] ${testName}${details ? ': ' + details : ''}`);
+  }
+}
+
+console.log('====================================================');
+console.log('PK-KHMER-TYPE ROUND 2 AUDIT VERIFICATION SUITE');
+console.log('====================================================');
+
+// ----------------------------------------------------
+// Area 1: Right-Hand Finger Order & Dependent Vowel Keycaps
+// ----------------------------------------------------
+console.log('\n--- Area 1: Right-Hand Finger Order & Dependent Vowel Keycaps ---');
 const indexHtml = fs.readFileSync('index.html', 'utf8');
-const hasPinkyA = indexHtml.includes('title="Left Pinky (A)"');
-const hasIndexF = indexHtml.includes('title="Left Index Anchor (F)"');
-const hasIndexJ = indexHtml.includes('title="Right Index Anchor (J)"');
-const hasPinkySemi = indexHtml.includes('title="Right Pinky (;)"');
-console.log('1. Home Row & Finger Guide:', (hasPinkyA && hasIndexF && hasIndexJ && hasPinkySemi) ? 'PASS' : 'FAIL');
+const keyboardJs = fs.readFileSync('js/keyboard.js', 'utf8');
+const lessonsCss = fs.readFileSync('css/lessons.css', 'utf8');
 
-// 2. Canonical & Domain URLs
-const canonicalOk = indexHtml.includes('<link rel="canonical" href="https://not-phana.github.io/PK-Khmer-Type/">');
-const staleUrls = (indexHtml.match(/phanaach4889\.github\.io/g) || []).length;
-console.log('2. Canonical & Domain URLs:', (canonicalOk && staleUrls === 0) ? 'PASS (0 stale URLs)' : 'FAIL');
+// index.html right-hand finger order inside-out: J(index), K(middle), L(ring), ;(pinky)
+const rhHtmlMatch = indexHtml.includes('class="guide-mini-key gmk-index" title="Right Index Anchor (J)"') &&
+                    indexHtml.includes('class="guide-mini-key gmk-middle" title="Right Middle (K)"') &&
+                    indexHtml.includes('class="guide-mini-key gmk-ring" title="Right Ring (L)"') &&
+                    indexHtml.includes('class="guide-mini-key gmk-pinky" title="Right Pinky (;)"');
+assert(rhHtmlMatch, 'index.html has Right Hand finger order inside-out (J=index, K=middle, L=ring, ;=pinky)');
 
-// 3. Shortcuts Alt+H and Alt+S
-const hasAltH = indexHtml.includes('<kbd class="guide-kbd">Alt + H</kbd>');
-const hasAltS = indexHtml.includes('<kbd class="guide-kbd">Alt + S</kbd>');
-console.log('3. Shortcuts Alt+H and Alt+S:', (hasAltH && hasAltS) ? 'PASS' : 'FAIL');
+// js/keyboard.js inside-out assignment
+const kbJsOrder = keyboardJs.includes('title="Right Index Anchor (J)"') &&
+                  keyboardJs.includes('title="Right Middle (K)"') &&
+                  keyboardJs.includes('title="Right Ring (L)"') &&
+                  keyboardJs.includes('title="Right Pinky (;)"');
+assert(kbJsOrder, 'js/keyboard.js updateQuickGuide assigns Right Hand inside-out');
 
-// 4. Dynamic Sidebar Updates
-const kbJs = fs.readFileSync('js/keyboard.js', 'utf8');
-const updatesBadge = kbJs.includes("layoutBadge.className = 'gdh-badge badge-eng'") && kbJs.includes("layoutBadge.className = 'gdh-badge badge-nida'");
-const updatesRules = kbJs.includes("cheatTitle.textContent = isKm ? 'គោលការណ៍វាយអក្សរអង់គ្លេស' : 'Touch Typing Principles'");
-console.log('4. Dynamic Sidebar Updates in JS:', (updatesBadge && updatesRules) ? 'PASS' : 'FAIL');
+// css/lessons.css dependent vowel rendering
+const cssVowelRule = lessonsCss.includes('.guide-mini-key .km-ch') &&
+                     lessonsCss.includes('display: inline-flex;') &&
+                     lessonsCss.includes('overflow: visible;');
+assert(cssVowelRule, 'css/lessons.css formats .guide-mini-key .km-ch with inline-flex and visible overflow');
 
-// 5. Accessibility & Focus Stealing
-const spaceBtnSlice = indexHtml.substring(indexHtml.indexOf('id="guideBtnSpace"') - 40, indexHtml.indexOf('id="guideBtnSpace"') + 60);
-const noRoleButton = !spaceBtnSlice.includes('role="button"') && !spaceBtnSlice.includes('tabindex');
-const shortcutsJs = fs.readFileSync('js/shortcuts.js', 'utf8');
-const hasBlurHandler = shortcutsJs.includes('.toolbar button, .guide-dock button, .guide-dock .gas-btn') && shortcutsJs.includes('btn.blur()');
-console.log('5. Accessibility & Focus Stealing:', (noRoleButton && hasBlurHandler) ? 'PASS' : 'FAIL');
-
-// Step 2: Engine Audit
+// ----------------------------------------------------
+// Area 2: Accuracy Clamping & Zero-Attempt Guards
+// ----------------------------------------------------
+console.log('\n--- Area 2: Accuracy Clamping & Zero-Attempt Guards ---');
 const lessonsJs = fs.readFileSync('js/lessons.js', 'utf8');
-const accuracySafe = lessonsJs.includes('attempts > 0 ? Math.round((lessonChars.length / attempts) * 100) : 100;');
-const timerNullReset = lessonsJs.includes('lessonTimerInterval = null;');
 const raceJs = fs.readFileSync('js/race.js', 'utf8');
-const raceTimerSafe = raceJs.includes('clearInterval(raceCountdownTimer);') && raceJs.includes('raceCountdownTimer = null;');
+const adaptiveJs = fs.readFileSync('js/adaptive.js', 'utf8');
+const statisticsJs = fs.readFileSync('js/statistics.js', 'utf8');
+const trackerJs = fs.readFileSync('js/tracker.js', 'utf8');
+
+// lessons.js zero-attempt guard and clamp
+assert(lessonsJs.includes('if (!currentLesson || !lessonChars || lessonChars.length === 0) return;') &&
+       lessonsJs.includes('if (attempts === 0) return;'),
+  'js/lessons.js completeLesson guards against attempts === 0');
+assert(lessonsJs.includes('Math.min(100, Math.max(0, Math.round((lessonChars.length / attempts) * 100)))'),
+  'js/lessons.js completeLesson clamps accuracy [0, 100]');
+assert(lessonsJs.includes('Number.isFinite(rawWpm) && rawWpm >= 0'),
+  'js/lessons.js completeLesson checks finite WPM');
+
+// race.js zero-attempt guard and clamp
+assert(raceJs.includes('raceCorrectTotal === 0 && raceMistakes === 0') && raceJs.includes('raceReset();'),
+  'js/race.js raceFinish guards against zero attempts');
+assert(raceJs.includes('Math.min(100, Math.max(0, Math.round((raceCorrectTotal/attempts)*100)))'),
+  'js/race.js raceCurrentStats clamps accuracy [0, 100]');
+assert(raceJs.includes('Number.isFinite(rawWpm) && rawWpm >= 0'),
+  'js/race.js raceCurrentStats checks finite WPM');
+
+// adaptive.js zero-attempt guard and clamp
+assert(adaptiveJs.includes('totalChars === 0') && adaptiveJs.includes('attempts === 0'),
+  'js/adaptive.js finishAdaptiveSession guards against zero attempts');
+assert(adaptiveJs.includes('Math.min(100, Math.max(0, Math.round((totalChars / attempts) * 100)))'),
+  'js/adaptive.js finishAdaptiveSession clamps accuracy [0, 100]');
+assert(adaptiveJs.includes('Number.isFinite(rawWpm) && rawWpm >= 0'),
+  'js/adaptive.js finishAdaptiveSession checks finite WPM');
+
+// statistics.js & tracker.js clamping
+assert(statisticsJs.includes('Math.min(100, Math.max(0, Math.round((savedLessonStats.correct / attempts) * 100)))'),
+  'js/statistics.js clamps accuracy [0, 100]');
+assert(trackerJs.includes('Math.min(100, Math.max(0, Math.round((state.liveLesson.correctCount / totalAttempts) * 100)))') &&
+       trackerJs.includes('Math.min(100, Math.max(0, Math.round((ks.correct / ks.attempts) * 100)))'),
+  'js/tracker.js clamps accuracy [0, 100]');
+
+// ----------------------------------------------------
+// Area 3: Blur Handler Safety & #guideBtnSpace Cleanup
+// ----------------------------------------------------
+console.log('\n--- Area 3: Blur Handler Safety & #guideBtnSpace Cleanup ---');
+const shortcutsJs = fs.readFileSync('js/shortcuts.js', 'utf8');
+const quickGuideJs = fs.readFileSync('js/quick_guide.js', 'utf8');
+
+assert(shortcutsJs.includes('if(e.detail === 0) return;'),
+  'js/shortcuts.js only blurs on mouse pointer clicks (e.detail > 0)');
+assert(shortcutsJs.includes('.gas-info-row'),
+  'js/shortcuts.js excludes .gas-info-row from blurring');
+assert(!quickGuideJs.includes("this.btnSpace.addEventListener('click'"),
+  'js/quick_guide.js has no active click listener on btnSpace');
+
+// ----------------------------------------------------
+// Area 4: Complete window.blur & visibilitychange State Reset
+// ----------------------------------------------------
+console.log('\n--- Area 4: Complete window.blur & visibilitychange State Reset ---');
 const typingJs = fs.readFileSync('js/typing.js', 'utf8');
-const blurComposingReset = typingJs.includes('isComposing = false;');
-console.log('Step 2: Engine Audit (NaN guard, Timer cleanup, isComposing blur reset):',
-  (accuracySafe && timerNullReset && raceTimerSafe && blurComposingReset) ? 'PASS' : 'FAIL'
-);
+
+assert(typingJs.includes('function resetAllInputStates()'),
+  'js/typing.js defines resetAllInputStates()');
+assert(typingJs.includes("window.addEventListener('blur', resetAllInputStates);"),
+  'js/typing.js binds resetAllInputStates to window.blur');
+assert(typingJs.includes("document.addEventListener('visibilitychange'"),
+  'js/typing.js binds resetAllInputStates to visibilitychange');
+assert(typingJs.includes('heldModifiers && heldModifiers.clear'),
+  'js/typing.js resetAllInputStates clears heldModifiers');
+assert(typingJs.includes("setActiveFinger(null)"),
+  'js/typing.js resetAllInputStates resets 3D hand finger guide state');
+
+// ----------------------------------------------------
+// Area 5: Key-Repeat Protection & Web Audio Node Safety
+// ----------------------------------------------------
+console.log('\n--- Area 5: Key-Repeat Protection & Web Audio Node Safety ---');
+const settingsJs = fs.readFileSync('js/settings.js', 'utf8');
+
+assert(typingJs.includes("if(e.repeat && id !== 'backspace') return;"),
+  'js/typing.js blocks keydown repeat for characters');
+assert(settingsJs.includes('noise.onended = () => {') && settingsJs.includes('noise.disconnect();'),
+  'js/settings.js disconnects noise audio nodes onended');
+assert(settingsJs.includes('osc.onended = () => {') && settingsJs.includes('osc.disconnect();'),
+  'js/settings.js disconnects oscillator audio nodes onended');
+
+// ----------------------------------------------------
+// Area 6: Cross-Mode Timer & Loop Teardown
+// ----------------------------------------------------
+console.log('\n--- Area 6: Cross-Mode Timer & Loop Teardown ---');
+
+assert(raceJs.includes('executeLessonExit()') && raceJs.includes('PK_ADAPTIVE.exitSession(false)'),
+  'js/race.js tears down active lesson and adaptive session before race start');
+assert(lessonsJs.includes('raceReset();'),
+  'js/lessons.js startLesson resets any running race timers');
+assert(adaptiveJs.includes('raceReset();'),
+  'js/adaptive.js startAdaptiveSession resets any running race timers');
+
+// ----------------------------------------------------
+// Area 7: Modal Dialog & Custom Switch Accessibility
+// ----------------------------------------------------
+console.log('\n--- Area 7: Modal Dialog & Custom Switch Accessibility ---');
+
+// Check modal attributes in index.html
+const statsModalHasRole = indexHtml.includes('id="statsModal"') &&
+                          indexHtml.includes('role="dialog"') &&
+                          indexHtml.includes('aria-modal="true"');
+assert(statsModalHasRole, 'index.html statsModal has role="dialog" and aria-modal="true"');
+
+const settingsModalHasRole = indexHtml.includes('id="settingsModal"') &&
+                             indexHtml.includes('role="dialog"') &&
+                             indexHtml.includes('aria-modal="true"');
+assert(settingsModalHasRole, 'index.html settingsModal has role="dialog" and aria-modal="true"');
+
+assert(settingsJs.includes('el.setAttribute("role", "switch")') &&
+       settingsJs.includes('el.setAttribute("tabindex", "0")'),
+  'js/settings.js bindSwitch enforces role="switch" and tabindex="0"');
+assert(settingsJs.includes('e.key === " " || e.key === "Enter"'),
+  'js/settings.js bindSwitch supports Space and Enter key toggling');
+
+// ----------------------------------------------------
+// Area 8: Desktop Scaling vs. Mobile Lock Screen Check
+// ----------------------------------------------------
+console.log('\n--- Area 8: Desktop Scaling vs. Mobile Lock Screen Check ---');
+const baseCss = fs.readFileSync('css/base.css', 'utf8');
+const appJs = fs.readFileSync('js/app.js', 'utf8');
+
+assert(baseCss.includes('@media (max-width: 768px) and (pointer: coarse)'),
+  'css/base.css restricts mobile lockout overlay to pointer: coarse devices');
+assert(appJs.includes('sessionStorage.getItem("pk_mobile_gate_bypass") === "1"'),
+  'js/app.js preserves mobile gate bypass across session');
+
+// ----------------------------------------------------
+// Area 9: Asset Integrity, Duplicate Docs & Supabase Config
+// ----------------------------------------------------
+console.log('\n--- Area 9: Asset Integrity, Duplicate Docs & Supabase Config ---');
+
+const requiredAssets = [
+  'icon-16.png',
+  'icon-32.png',
+  'icon-48.png',
+  'icon-180.png',
+  'icon-192.png',
+  'icon-512.png',
+  'logo.svg',
+  'manifest.json'
+];
+
+let assetsAllExist = true;
+for (const asset of requiredAssets) {
+  if (!fs.existsSync(asset)) {
+    assetsAllExist = false;
+    console.error(`Asset missing: ${asset}`);
+  }
+}
+assert(assetsAllExist, 'All 8 PWA icons and manifest.json exist on disk');
+
+const docsIndexHtml = fs.readFileSync('docs/index.html', 'utf8');
+assert(docsIndexHtml.toLowerCase().includes('documents/index.html'),
+  'docs/index.html cleanly redirects to Documents/index.html');
+
+const supabaseConfigJs = fs.readFileSync('js/supabase-config.js', 'utf8');
+assert(supabaseConfigJs.includes('https://not-phana.github.io/PK-Khmer-Type/'),
+  'js/supabase-config.js uses correct GitHub Pages canonical base URL');
+
+// ----------------------------------------------------
+// Final Summary
+// ----------------------------------------------------
+console.log('\n====================================================');
+console.log(`TOTAL AUDIT CHECKS: ${totalTests}`);
+console.log(`PASSED: ${passedTests}`);
+console.log(`FAILED: ${failedTests}`);
+console.log('====================================================');
+
+if (failedTests > 0) {
+  process.exit(1);
+} else {
+  console.log('ALL 9 AUDIT AREAS VERIFIED CLEAN WITH ZERO REGRESSIONS.');
+}

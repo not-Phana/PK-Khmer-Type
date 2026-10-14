@@ -1188,15 +1188,30 @@ window.addEventListener('keyup', (e)=>{
   }
 });
 
-window.addEventListener('blur', ()=>{
+function resetAllInputStates(){
   isComposing = false;
-  cancelPendingCtrl();
-  heldModifiers.clear();
+  if(typeof cancelPendingCtrl === 'function') cancelPendingCtrl();
+  if(heldModifiers && heldModifiers.clear) heldModifiers.clear();
   physicalLayer = null;
-  ['shiftL','shiftR','ctrlL','ctrlR','alt','altgr'].forEach(k => {
-    if(keyEls[k]) keyEls[k].classList.remove('pressed');
-  });
-  render();
+  if(typeof keyEls === 'object' && keyEls){
+    Object.values(keyEls).forEach(el => {
+      if(el && el.classList){
+        el.classList.remove('pressed', 'active', 'key-hit', 'key-err');
+      }
+    });
+  }
+  if(typeof setActiveFinger === 'function'){
+    setActiveFinger(null);
+  }
+  if(typeof render === 'function'){
+    render();
+  }
+}
+window.addEventListener('blur', resetAllInputStates);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    resetAllInputStates();
+  }
 });
 
 /* ================= Khmer NiDA Language Switch & Download Modal Logic ================= */

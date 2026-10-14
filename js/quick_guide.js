@@ -210,20 +210,7 @@
         });
       }
 
-      // Type Space Shortcut Card
-      if(this.btnSpace){
-        this.btnSpace.addEventListener('click', () => {
-          const isStd = (typeof currentLayoutId !== 'undefined' && currentLayoutId === 'standard');
-          const isKm = document.documentElement.classList.contains('site-km-mode');
-          if(typeof showToast === 'function'){
-            showToast(
-              pkIcon('keyboard', 16),
-              isStd ? (isKm ? 'វាយចន្លោះ៖ Shift + Space' : 'Type Space: Shift + Space') : (isKm ? 'វាយចន្លោះ៖ Spacebar' : 'Type Space: Spacebar'),
-              isStd ? (isKm ? 'ក្តារចុចស្តង់ដារប្រើ Space សម្រាប់ជើងអក្សរ (ជើង)។' : 'Standard Khmer uses Space for sub-consonants (ជើង).') : (isKm ? 'ចុច Space ដើម្បីខណ្ឌពាក្យ។' : 'Press Space to separate words.')
-            );
-          }
-        });
-      }
+      // Type Space Shortcut Info (informative row, not interactive button)
 
       // Exit Lesson Shortcut Card
       if(this.btnExit){

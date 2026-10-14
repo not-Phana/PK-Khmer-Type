@@ -9,12 +9,12 @@ function showToast(icon, title, sub){
   if(!toastStack) return;
   if(arguments.length === 1){
     title = icon;
-    icon = typeof pkIcon === 'function' ? pkIcon('check', 18) : '✓';
+    icon = typeof pkIcon === 'function' ? pkIcon('check', 18) : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
     sub = '';
   } else if(arguments.length === 2 && typeof icon === 'string' && !icon.trim().startsWith('<')){
     sub = title;
     title = icon;
-    icon = typeof pkIcon === 'function' ? pkIcon('info', 18) : 'ℹ';
+    icon = typeof pkIcon === 'function' ? pkIcon('info', 18) : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
   }
   const t = document.createElement('div');
   t.className = 'toast';
@@ -161,7 +161,7 @@ function recordKeystroke(correct){
   else savedLessonStats.wrong++;
 
   const attempts = savedLessonStats.correct + savedLessonStats.wrong;
-  const acc = attempts > 0 ? Math.round((savedLessonStats.correct / attempts) * 100) : 100;
+  const acc = attempts > 0 ? Math.min(100, Math.max(0, Math.round((savedLessonStats.correct / attempts) * 100))) : 100;
   savedLessonStats.accuracy = acc;
 
   // Calculate live lesson WPM
@@ -169,7 +169,8 @@ function recordKeystroke(correct){
     const elapsedMin = (Date.now() - lessonStartTime) / 60000;
     if(elapsedMin >= 0.04){
       const typedCount = (typeof lessonIndex === 'number' ? lessonIndex : 1);
-      const liveWpm = Math.min(180, Math.round((typedCount / 5) / elapsedMin));
+      const rawLiveWpm = (elapsedMin > 0 && Number.isFinite(elapsedMin)) ? (typedCount / 5) / elapsedMin : 0;
+      const liveWpm = (Number.isFinite(rawLiveWpm) && rawLiveWpm >= 0) ? Math.min(180, Math.max(0, Math.round(rawLiveWpm))) : 0;
       if(liveWpm > 0){
         savedLessonStats.wpm = liveWpm;
         if(liveWpm > (savedLessonStats.bestWpm || 0)){
@@ -194,7 +195,7 @@ function recordLessonBackspace(){
   if(savedLessonStats.correct > 0) savedLessonStats.correct--;
 
   const attempts = savedLessonStats.correct + savedLessonStats.wrong;
-  const acc = attempts > 0 ? Math.round((savedLessonStats.correct / attempts) * 100) : 100;
+  const acc = attempts > 0 ? Math.min(100, Math.max(0, Math.round((savedLessonStats.correct / attempts) * 100))) : 100;
   savedLessonStats.accuracy = acc;
 
   saveLessonStats();

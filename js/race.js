@@ -461,9 +461,10 @@ function raceElapsedSeconds(){
 
 function raceCurrentStats(){
   const attempts = raceCorrectTotal + raceMistakes;
-  const accuracy = attempts > 0 ? Math.round((raceCorrectTotal/attempts)*100) : 100;
+  const accuracy = attempts > 0 ? Math.min(100, Math.max(0, Math.round((raceCorrectTotal/attempts)*100))) : 100;
   const minutes = Math.max(raceElapsedSeconds()/60, 1/600);
-  const wpm = Math.round((raceCorrectTotal/5)/minutes);
+  const rawWpm = (raceCorrectTotal/5)/minutes;
+  const wpm = (Number.isFinite(rawWpm) && rawWpm >= 0) ? Math.min(250, Math.max(0, Math.round(rawWpm))) : 0;
   return {accuracy, wpm};
 }
 
@@ -589,8 +590,11 @@ function raceReset(){
 
 function enterRaceMode(){
   if(raceMode) return;
-  if(trialActive) stopTrial();
-  if(lessonActive) exitLesson();
+  if(typeof trialActive !== 'undefined' && trialActive && typeof stopTrial === 'function') stopTrial();
+  if(typeof lessonActive !== 'undefined' && lessonActive){
+    if(typeof executeLessonExit === 'function') executeLessonExit();
+    else if(typeof exitLesson === 'function') exitLesson(true);
+  }
   if(typeof window !== 'undefined' && window.adaptiveActive && typeof PK_ADAPTIVE !== 'undefined' && typeof PK_ADAPTIVE.exitSession === 'function'){
     PK_ADAPTIVE.exitSession(false);
   }
@@ -666,6 +670,14 @@ function raceRunCountdown(cb){
 
 function startRace(){
   if(raceActive || raceCountingDown) return; // never start multiple race timers
+  if(typeof trialActive !== 'undefined' && trialActive && typeof stopTrial === 'function') stopTrial();
+  if(typeof lessonActive !== 'undefined' && lessonActive){
+    if(typeof executeLessonExit === 'function') executeLessonExit();
+    else if(typeof exitLesson === 'function') exitLesson(true);
+  }
+  if(typeof window !== 'undefined' && window.adaptiveActive && typeof PK_ADAPTIVE !== 'undefined' && typeof PK_ADAPTIVE.exitSession === 'function'){
+    PK_ADAPTIVE.exitSession(false);
+  }
   raceGenerateText();
   raceIndex = 0;
   raceMistakes = 0;
@@ -701,6 +713,10 @@ function raceFinish(timedOut){
   if(!raceActive) return;
   raceActive = false;
   cancelAnimationFrame(raceTimerId);
+  if(raceCorrectTotal === 0 && raceMistakes === 0){
+    raceReset();
+    return;
+  }
   const elapsed = raceElapsedSeconds();
   const {accuracy, wpm} = raceCurrentStats();
   const score = raceScore(wpm, accuracy, raceMistakes);
