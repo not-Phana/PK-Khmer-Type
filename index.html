@@ -1914,101 +1914,161 @@
         <p class="auth-switch"><button type="button" class="auth-link-btn i18n-t" id="recoveryCancelBtn" data-en="← Cancel" data-km="← បោះបង់">← Cancel</button></p>
       </form>
 
-      <!-- ---------- Signed-in account panel ---------- -->
+      <!-- ---------- Signed-in account panel (Remade Luxury Cockpit Hub) ---------- -->
       <div class="auth-panel auth-panel-account" id="accountPanel" hidden>
 
-        <div class="acc-session-row">
-          <div class="acc-session-pill" id="accSessionPill">
-            <span class="acc-session-dot" id="accSessionDot" aria-hidden="true"></span>
-            <span id="accSessionStatusText" class="i18n-t" data-en="Cloud Synced" data-km="បានធ្វើសមកាលកម្មលើពពក">Cloud Synced</span>
+        <!-- Profile Hero & Status Card -->
+        <div class="acc-hero-card">
+          <div class="acc-hero-main">
+            <div class="acc-avatar-wrap">
+              <div class="auth-account-avatar" id="authAccountAvatar" aria-hidden="true">
+                <svg class="pk-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <button type="button" class="acc-avatar-edit" id="accAvatarEditBtn" title="Change profile picture" aria-label="Change profile picture">
+                <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+              </button>
+              <input type="file" id="accAvatarInput" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+            </div>
+
+            <div class="acc-hero-info">
+              <div class="acc-name-row">
+                <h3 class="auth-account-name" id="authAccountName">—</h3>
+                <span class="acc-rank-badge" id="authAccountRank">Novice Scribe</span>
+              </div>
+              <div class="auth-account-email" id="authAccountEmail">—</div>
+              <div class="acc-meta-row">
+                <span class="acc-meta-item">
+                  <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span class="i18n-t" data-en="Member since" data-km="សមាជិកតាំងពី">Member since</span> <b id="authAccountJoined">—</b>
+                </span>
+                <span class="acc-meta-item" id="accLastSyncedWrap">
+                  <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span id="accLastSyncedAt">Synced</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="acc-sync-badge-col">
+              <div class="acc-session-pill" id="accSessionPill">
+                <span class="acc-session-dot" id="accSessionDot" aria-hidden="true"></span>
+                <span id="accSessionStatusText" class="i18n-t" data-en="Cloud Synced" data-km="បានធ្វើសមកាលកម្មលើពពក">Cloud Synced</span>
+              </div>
+              <button type="button" class="acc-sync-now-btn" id="accSyncNowBtn" title="Synchronize progress &amp; settings now">
+                <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+                <span id="accSyncNowBtnLabel" class="i18n-t" data-en="Sync Now" data-km="ធ្វើសមកាលកម្មឥឡូវ">Sync Now</span>
+              </button>
+            </div>
           </div>
-          <button type="button" class="acc-sync-now-btn" id="accSyncNowBtn" title="Synchronize progress &amp; settings now">
-            <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
-            <span id="accSyncNowBtnLabel" class="i18n-t" data-en="Sync Now" data-km="ធ្វើសមកាលកម្មឥឡូវ">Sync Now</span>
+
+          <!-- XP Mastery Bar -->
+          <div class="acc-xp-container">
+            <div class="acc-xp-track" id="accXpTrack" aria-hidden="true"><div class="acc-xp-fill" id="accXpFill"></div></div>
+            <div class="acc-xp-label" id="accXpLabel">Next rank at —</div>
+          </div>
+        </div>
+
+        <!-- Segmented Tab Navigation -->
+        <div class="acc-nav-bar" role="tablist" aria-label="Account sections">
+          <button type="button" class="acc-nav-btn active" id="accTabBtnOverview" role="tab" aria-selected="true">
+            <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span class="i18n-t" data-en="Overview &amp; Stats" data-km="ទិដ្ឋភាព &amp; ស្ថិតិ">Overview &amp; Stats</span>
+          </button>
+          <button type="button" class="acc-nav-btn" id="accTabBtnVault" role="tab" aria-selected="false">
+            <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="2"/></svg>
+            <span class="i18n-t" data-en="Cloud Storage Vault" data-km="ឃ្លាំងផ្ទុកទិន្នន័យលើពពក">Cloud Storage Vault</span>
+          </button>
+          <button type="button" class="acc-nav-btn" id="accTabBtnSecurity" role="tab" aria-selected="false">
+            <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span class="i18n-t" data-en="Security &amp; Session" data-km="សុវត្ថិភាព &amp; គណនី">Security &amp; Session</span>
           </button>
         </div>
 
-        <div class="acc-hero">
-          <div class="acc-avatar-wrap">
-            <div class="auth-account-avatar" id="authAccountAvatar" aria-hidden="true"><svg class="pk-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-            <button type="button" class="acc-avatar-edit" id="accAvatarEditBtn" title="Change profile picture" aria-label="Change profile picture"><svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
-            <input type="file" id="accAvatarInput" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
-          </div>
-          <div class="acc-hero-text">
-            <p class="auth-account-name" id="authAccountName">—</p>
-            <p class="acc-rank-badge" id="authAccountRank">Novice Scribe</p>
-            <p class="auth-account-email" id="authAccountEmail">—</p>
+        <!-- Section 1: Overview & Stats -->
+        <div class="acc-tab-pane" id="accSectionOverview">
+          <div class="acc-stats-grid" id="accountStatsGrid" aria-label="Your progress stats"></div>
+          <div class="acc-action-row">
+            <button type="button" class="secondary-btn" id="accountViewStatsBtn">
+              <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              <span class="i18n-t" data-en="Full Statistics" data-km="ស្ថិតិពេញលេញ">Full Statistics</span>
+            </button>
+            <button type="button" class="secondary-btn" id="accountSettingsBtn">
+              <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1.51-1V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <span class="i18n-t" data-en="Settings" data-km="ការកំណត់">Settings</span>
+            </button>
+            <button type="button" class="secondary-btn" id="accChangePasswordBtn">
+              <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span class="i18n-t" data-en="Update Password" data-km="ប្ដូរពាក្យសម្ងាត់">Update Password</span>
+            </button>
           </div>
         </div>
 
-        <div class="acc-meta-row">
-          <span class="acc-meta-item"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="i18n-t" data-en="Member since" data-km="សមាជិកតាំងពី">Member since</span> <b id="authAccountJoined">—</b></span>
-          <span class="acc-meta-item" id="accLastSyncedWrap"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg><span id="accLastSyncedAt">Synced</span></span>
-        </div>
-
-        <div class="acc-xp-track" id="accXpTrack" aria-hidden="true"><div class="acc-xp-fill" id="accXpFill"></div></div>
-        <div class="acc-xp-label" id="accXpLabel">Next rank at —</div>
-
-        <div class="acc-stats-grid" id="accountStatsGrid" aria-label="Your progress stats"></div>
-
-        <!-- Personal Cloud Vault & Backups (user-files private bucket) -->
-        <div class="acc-cloud-vault-chassis" id="accountCloudFilesSection">
-          <div class="acc-vault-glow" aria-hidden="true"></div>
-          <div class="acc-vault-header">
-            <div class="acc-vault-brand">
-              <div class="acc-vault-shield-icon" aria-hidden="true">
-                <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="2"/></svg>
-              </div>
-              <div>
-                <div class="acc-vault-title-wrap">
-                  <h4 class="acc-vault-title i18n-t" data-en="Cloud Storage Vault" data-km="ឃ្លាំងផ្ទុកទិន្នន័យលើពពក">Cloud Storage Vault</h4>
-                  <span class="acc-vault-quota-pill" id="accCloudVaultQuota">0 Files · 0 KB</span>
+        <!-- Section 2: Cloud Storage Vault -->
+        <div class="acc-tab-pane" id="accSectionVault" hidden>
+          <div class="acc-cloud-vault-chassis" id="accountCloudFilesSection">
+            <div class="acc-vault-glow" aria-hidden="true"></div>
+            <div class="acc-vault-header">
+              <div class="acc-vault-brand">
+                <div class="acc-vault-shield-icon" aria-hidden="true">
+                  <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="2"/></svg>
                 </div>
-                <div class="acc-vault-sub i18n-t" data-en="Private End-to-End RLS Encrypted Backups &amp; Media" data-km="ការបម្រុងទុក និងមេឌៀផ្ទាល់ខ្លួនសុវត្ថិភាព RLS">Private End-to-End RLS Encrypted Backups &amp; Media</div>
+                <div>
+                  <div class="acc-vault-title-wrap">
+                    <h4 class="acc-vault-title i18n-t" data-en="Cloud Storage Vault" data-km="ឃ្លាំងផ្ទុកទិន្នន័យលើពពក">Cloud Storage Vault</h4>
+                    <span class="acc-vault-quota-pill" id="accCloudVaultQuota">0 Files · 0 KB</span>
+                  </div>
+                  <div class="acc-vault-sub i18n-t" data-en="Private End-to-End RLS Encrypted Backups &amp; Media" data-km="ការបម្រុងទុក និងមេឌៀផ្ទាល់ខ្លួនសុវត្ថិភាព RLS">Private End-to-End RLS Encrypted Backups &amp; Media</div>
+                </div>
+              </div>
+              <div class="acc-vault-actions">
+                <button type="button" class="acc-vault-btn gold-glow" id="accCreateCloudBackupBtn" title="Save current progress &amp; settings snapshot to cloud storage">
+                  <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  <span class="i18n-t" data-en="Snapshot" data-km="បម្រុងទុក">Snapshot</span>
+                </button>
+                <button type="button" class="acc-vault-btn cyan-glow" id="accUploadCloudFileBtn" title="Upload personal backup JSON, avatar, or wallpaper image (max 5 MB)">
+                  <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span class="i18n-t" data-en="Upload" data-km="បង្ហោះ">Upload</span>
+                </button>
+                <button type="button" class="acc-vault-icon-btn" id="accRefreshCloudFilesBtn" title="Refresh files list" aria-label="Refresh cloud files">
+                  <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+                </button>
+                <input type="file" id="accCloudFileInput" accept=".json,.txt,image/png,image/jpeg,image/webp,image/gif" hidden>
               </div>
             </div>
-            <div class="acc-vault-actions">
-              <button type="button" class="acc-vault-btn gold-glow" id="accCreateCloudBackupBtn" title="Save current progress &amp; settings snapshot to cloud storage">
-                <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                <span class="i18n-t" data-en="Snapshot" data-km="បម្រុងទុក">Snapshot</span>
-              </button>
-              <button type="button" class="acc-vault-btn cyan-glow" id="accUploadCloudFileBtn" title="Upload personal backup JSON, avatar, or wallpaper image (max 5 MB)">
-                <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                <span class="i18n-t" data-en="Upload" data-km="បង្ហោះ">Upload</span>
-              </button>
-              <button type="button" class="acc-vault-icon-btn" id="accRefreshCloudFilesBtn" title="Refresh files list" aria-label="Refresh cloud files">
-                <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
-              </button>
-              <input type="file" id="accCloudFileInput" accept=".json,.txt,image/png,image/jpeg,image/webp,image/gif" hidden>
+
+            <!-- Drop overlay hint -->
+            <div class="acc-vault-drop-hint" id="accVaultDropHint" aria-hidden="true">
+              <svg class="pk-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span>Drop file here to upload to private Cloud Vault</span>
+            </div>
+
+            <div class="acc-cloud-files-list" id="accCloudFilesList">
+              <div class="acc-cloud-files-empty" id="accCloudFilesEmpty">No personal cloud files yet.</div>
             </div>
           </div>
+        </div>
 
-          <!-- Drop overlay hint -->
-          <div class="acc-vault-drop-hint" id="accVaultDropHint" aria-hidden="true">
-            <svg class="pk-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <span>Drop file here to upload to private Cloud Vault</span>
+        <!-- Section 3: Security & Session -->
+        <div class="acc-tab-pane" id="accSectionSecurity" hidden>
+          <div class="acc-security-card">
+            <div class="acc-security-header">
+              <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <h4 class="acc-security-title i18n-t" data-en="Account Credentials &amp; Encryption" data-km="ព័ត៌មានគណនី &amp; ការអ៊ិនគ្រីប">Account Credentials &amp; Encryption</h4>
+            </div>
+            <p class="acc-security-desc i18n-t" data-en="Your account is protected by Supabase Auth with Row Level Security (RLS) on all progress records and private storage vaults." data-km="គណនីរបស់អ្នកត្រូវបានការពារដោយ Supabase Auth ជាមួយនឹង RLS លើកំណត់ត្រា និងឯកសារផ្ទុកឯកជនទាំងអស់។">Your account is protected by Supabase Auth with Row Level Security (RLS) on all progress records and private storage vaults.</p>
           </div>
 
-          <div class="acc-cloud-files-list" id="accCloudFilesList">
-            <div class="acc-cloud-files-empty" id="accCloudFilesEmpty">No personal cloud files yet.</div>
+          <div class="acc-bottom-actions">
+            <button type="button" class="auth-submit-btn auth-signout-btn" id="signOutBtn">
+              <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              <span class="auth-submit-label i18n-t" data-en="Sign Out" data-km="ចាកចេញ">Sign Out</span>
+            </button>
+            <button type="button" class="acc-delete-account-btn" id="deleteAccountBtn">
+              <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              <span class="i18n-t" data-en="Delete Account &amp; Cloud Data" data-km="លុបគណនី និងទិន្នន័យពពក">Delete Account &amp; Cloud Data</span>
+            </button>
           </div>
         </div>
 
-        <div class="acc-action-row">
-          <button type="button" class="secondary-btn" id="accountViewStatsBtn"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span class="i18n-t" data-en="Full Statistics" data-km="ស្ថិតិពេញលេញ">Full Statistics</span></button>
-          <button type="button" class="secondary-btn" id="accountSettingsBtn"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1.51-1V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="i18n-t" data-en="Settings" data-km="ការកំណត់">Settings</span></button>
-          <button type="button" class="secondary-btn" id="accChangePasswordBtn"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span class="i18n-t" data-en="Update Password" data-km="ប្ដូរពាក្យសម្ងាត់">Update Password</span></button>
-        </div>
-
-        <div class="acc-bottom-actions">
-          <button type="button" class="auth-submit-btn auth-signout-btn" id="signOutBtn">
-            <span class="auth-submit-label i18n-t" data-en="Sign Out" data-km="ចាកចេញ">Sign Out</span>
-          </button>
-          <button type="button" class="acc-delete-account-btn" id="deleteAccountBtn">
-            <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-            <span class="i18n-t" data-en="Delete Account &amp; Cloud Data" data-km="លុបគណនី និងទិន្នន័យពពក">Delete Account &amp; Cloud Data</span>
-          </button>
-        </div>
       </div>
 
     </div>

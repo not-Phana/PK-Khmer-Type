@@ -1506,6 +1506,32 @@ window.AccountProgress = AccountProgress;
     }
   }
 
+  /* ---------- Account Segmented Tabs Switcher ---------- */
+  function switchAccountTab(targetBtn) {
+    const tabs = [
+      { btn: document.getElementById('accTabBtnOverview'), pane: document.getElementById('accSectionOverview') },
+      { btn: document.getElementById('accTabBtnVault'), pane: document.getElementById('accSectionVault') },
+      { btn: document.getElementById('accTabBtnSecurity'), pane: document.getElementById('accSectionSecurity') }
+    ];
+    tabs.forEach(({ btn, pane }) => {
+      if (!btn || !pane) return;
+      const isMatch = btn === targetBtn;
+      btn.classList.toggle('active', isMatch);
+      btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+      pane.hidden = !isMatch;
+    });
+    if (targetBtn && targetBtn.id === 'accTabBtnVault') {
+      refreshCloudFilesList();
+    }
+  }
+
+  ['accTabBtnOverview', 'accTabBtnVault', 'accTabBtnSecurity'].forEach((id) => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.addEventListener('click', () => switchAccountTab(btn));
+    }
+  });
+
   function populateAccountPanel(user) {
     document.getElementById('authAccountName').textContent = user.username;
     document.getElementById('authAccountEmail').textContent = user.email;
@@ -1519,6 +1545,8 @@ window.AccountProgress = AccountProgress;
 
     updateSyncStatusUI();
     refreshCloudFilesList();
+    const overviewTabBtn = document.getElementById('accTabBtnOverview');
+    if (overviewTabBtn) switchAccountTab(overviewTabBtn);
 
     const snap = typeof window.getAccountSnapshot === 'function' ? window.getAccountSnapshot() : null;
     const grid = document.getElementById('accountStatsGrid');

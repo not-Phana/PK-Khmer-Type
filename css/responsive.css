@@ -96,17 +96,6 @@
       bottom:auto !important;
       width:258px !important;
       max-height:min(465px, calc(100vh - 70px)) !important;
-    }
-    .lesson-strip::-webkit-scrollbar{
-      width:6px;
-    }
-    .lesson-strip::-webkit-scrollbar-thumb{
-      background:rgba(255,209,102,0.3);
-      border-radius:3px;
-    }
-    .lesson-strip::-webkit-scrollbar-thumb:hover{
-      background:var(--gold);
-    }
   }
 
   @media (max-width: 640px){
