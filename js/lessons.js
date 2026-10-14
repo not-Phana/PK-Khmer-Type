@@ -1015,11 +1015,14 @@ function createLessonModel(rawLesson, exercisesMap, layoutId, levelObj){
     id: rawLesson.id,
     level: rawLesson.level,
     title: rawLesson.title,
+    titleKm: rawLesson.titleKm || rawLesson.title,
     subtitle: rawLesson.subtitle || rawLesson.description || (levelObj ? levelObj.title : ''),
     type: rawLesson.type || 'drill',
     threshold: threshold,
+    newKeys: Array.isArray(rawLesson.newKeys) ? rawLesson.newKeys.slice() : [],
     newIds: newIds,
     newLayer: newLayer,
+    layoutId: layoutId,
     examples: examples,
     hasExplicitExamples: hasExplicitExamples,
     unlockRequirements: rawLesson.unlockRequirements || null,
@@ -2195,7 +2198,7 @@ function updateLessonProgress(){
 /* Accepts either a lesson id from LESSONS, or a transient ad-hoc lesson
    definition object (used by "Review Mistakes" — never saved to the
    course list or to localStorage). */
-function startLesson(idOrDef){
+function startLesson(idOrDef, allowDirectPractice = false){
   if(document.activeElement && typeof document.activeElement.blur === 'function'){
     document.activeElement.blur();
   }
@@ -2207,7 +2210,7 @@ function startLesson(idOrDef){
   }
   const def = (typeof idOrDef === 'object') ? idOrDef : LESSONS.find(l=> String(l.id) === String(idOrDef));
   if(!def) return;
-  if(!def.isRemedial && isLessonLocked(def.id)) return;
+  if(!def.isRemedial && !allowDirectPractice && isLessonLocked(def.id)) return;
 
   if(currentLayoutId && COURSE_LESSON_STATES[currentLayoutId]){
     COURSE_LESSON_STATES[currentLayoutId] = null;
@@ -2954,34 +2957,63 @@ function applyLessonsData(data){
     return document.getElementById('learnMoreHubModal');
   }
 
-  function getCharLessonsMap() {
+  function getCharLessonsMap(preferredLayout) {
     const map = new Map();
-    const addList = (lessonsList, layoutId) => {
-      if(!lessonsList || !Array.isArray(lessonsList)) return;
-      lessonsList.forEach(l => {
-        if(l.newKeys && Array.isArray(l.newKeys)){
-          l.newKeys.forEach(k => {
-            if(k && k.char && !map.has(k.char)){
-              map.set(k.char, { lessonId: l.id, title: l.title, titleKm: l.titleKm, layoutId });
-            }
-          });
-        }
-      });
-    };
-    addList(LESSONS_STANDARD, 'standard');
-    addList(LESSONS_NIDA, 'nida');
-    addList(LESSONS_ENGLISH, 'english');
+    const cData = (typeof window !== 'undefined' && window.CURRICULUM_DATA)
+      ? window.CURRICULUM_DATA
+      : (typeof global !== 'undefined' && global.CURRICULUM_DATA)
+      ? global.CURRICULUM_DATA
+      : null;
+
+    const tracks = (preferredLayout === 'nida')
+      ? ['nida', 'standard', 'english']
+      : (preferredLayout === 'english')
+      ? ['english', 'standard', 'nida']
+      : ['standard', 'nida', 'english'];
+
+    tracks.forEach(track => {
+      if (cData && cData[track] && Array.isArray(cData[track].lessons)) {
+        cData[track].lessons.forEach(l => {
+          if (l.newKeys && Array.isArray(l.newKeys)) {
+            l.newKeys.forEach(k => {
+              if (k && k.char && !map.has(k.char)) {
+                map.set(k.char, { lessonId: l.id, title: l.title, titleKm: l.titleKm || l.title, layoutId: track });
+              }
+            });
+          }
+        });
+      }
+      const runtimeList = (typeof LESSON_SETS !== 'undefined' && LESSON_SETS[track])
+        ? LESSON_SETS[track]
+        : (track === 'standard' ? LESSONS_STANDARD : track === 'nida' ? LESSONS_NIDA : LESSONS_ENGLISH);
+      if (Array.isArray(runtimeList)) {
+        runtimeList.forEach(l => {
+          if (l.newKeys && Array.isArray(l.newKeys)) {
+            l.newKeys.forEach(k => {
+              if (k && k.char && !map.has(k.char)) {
+                map.set(k.char, { lessonId: l.id, title: l.title, titleKm: l.titleKm || l.title, layoutId: track });
+              }
+            });
+          }
+        });
+      }
+    });
+
     return map;
   }
 
-  function findLessonForChar(ch) {
-    const map = getCharLessonsMap();
+  function findLessonForChar(ch, layoutHint) {
+    const prefLayout = layoutHint || (typeof currentLayoutId !== 'undefined' ? currentLayoutId : 'standard');
+    const map = getCharLessonsMap(prefLayout);
     if(map.has(ch)) return map.get(ch);
-    // Fallbacks
-    if(/^[a-z]$/i.test(ch) || /^[0-9]$/.test(ch)) {
-      return { lessonId: 'en-L13-05', title: 'All-Letter Pangram Mastery (A-Z Every Letter)', layoutId: 'english' };
+    // English uppercase letters fallback to Shift / capital lesson
+    if(/^[A-Z]$/.test(ch)) {
+      return { lessonId: 'en-L08-01', title: `Shift Key & Capitals (${ch})`, titleKm: `គ្រាប់ចុច Shift និងអក្សរធំ (${ch})`, layoutId: 'english' };
     }
-    return { lessonId: 'standard-L12-06', title: 'All Khmer Letters & Comprehensive Literature', layoutId: 'standard' };
+    if(/^[a-z0-9]$/i.test(ch)) {
+      return { lessonId: 'en-L01-01', title: 'Home Row Index Anchors (F & J)', titleKm: 'គ្រាប់ចុចយុថ្កា (F & J)', layoutId: 'english' };
+    }
+    return { lessonId: 'standard-L00-02', title: 'Right Middle Anchor ក (K)', titleKm: 'ក (K)', layoutId: 'standard' };
   }
 
   function getUnicodeCodePoint(ch) {
@@ -3006,7 +3038,7 @@ function applyLessonsData(data){
     if(codeEl) codeEl.textContent = getUnicodeCodePoint(ch);
     if(catEl) catEl.textContent = category || 'Khmer Letter';
 
-    const lessonInfo = findLessonForChar(ch);
+    const lessonInfo = findLessonForChar(ch, layoutHint);
     const isKm = document.documentElement.classList.contains('site-km-mode');
     const displayTitle = (isKm && lessonInfo.titleKm) ? lessonInfo.titleKm : lessonInfo.title;
 
@@ -3295,9 +3327,6 @@ function applyLessonsData(data){
     if(layoutId && typeof switchLayout === 'function' && currentLayoutId !== layoutId) {
       switchLayout(layoutId);
     }
-    // Master unlock so that learner can freely practice all 222 lessons from the hub
-    allLessonsUnlocked = true;
-    try { localStorage.setItem('khmerUnlockAll', '1'); } catch(e){}
 
     if(typeof renderLessonStrip === 'function') {
       renderLessonStrip();
@@ -3306,7 +3335,7 @@ function applyLessonsData(data){
 
     setTimeout(() => {
       if(typeof startLesson === 'function') {
-        startLesson(lessonId);
+        startLesson(lessonId, true);
       }
       const board = document.getElementById('boardWrap') || document.body;
       if(board && typeof board.focus === 'function') board.focus();
