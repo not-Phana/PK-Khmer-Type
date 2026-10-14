@@ -2965,30 +2965,24 @@
     }
   }
 
-  /* auth-card scrollable modal container */
+  /* auth-card modal container — strictly zero scrollbars */
   .auth-card{
-    max-height: min(88vh, 760px);
-    overflow-y: auto !important;
+    max-height: min(92vh, 820px);
+    overflow-y: auto;
     overflow-x: hidden;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 209, 102, 0.45) rgba(0, 0, 0, 0.25);
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
-  .auth-card::-webkit-scrollbar{
-    width: 6px;
-  }
-  .auth-card::-webkit-scrollbar-track{
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 999px;
-  }
-  .auth-card::-webkit-scrollbar-thumb{
-    background: rgba(255, 209, 102, 0.35);
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  .auth-card::-webkit-scrollbar-thumb:hover{
-    background: rgba(255, 209, 102, 0.6);
+  .auth-card::-webkit-scrollbar,
+  .auth-card::-webkit-scrollbar-track,
+  .auth-card::-webkit-scrollbar-thumb,
+  .auth-card::-webkit-scrollbar-button{
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
   }
   .modal-top{
     display:flex; justify-content:space-between; align-items:center;
@@ -3859,9 +3853,11 @@
   /* ---- richer signed-in account panel (Luxury Command Cockpit) ---- */
   .auth-card.is-account{
     width: min(94vw, 680px);
-    max-height: min(88vh, 740px);
+    max-height: min(92vh, 820px);
     border-radius: 22px;
-    padding: 24px 26px 22px;
+    padding: 22px 24px 20px;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
   .auth-card.is-account .auth-tabs{
     display: none !important;

@@ -5,7 +5,7 @@ const fs = require('fs');
 const os = require('os');
 
 const EDGE_PATH = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
-const PORT = 9225;
+const PORT = 9226;
 const userDataDir = path.join(os.tmpdir(), 'edge_account_test_' + Date.now());
 
 const browserProcess = spawn(EDGE_PATH, [
@@ -141,7 +141,37 @@ async function run() {
     fs.writeFileSync(wsArtifactPath, Buffer.from(wsScreenshot.data, 'base64'));
     console.log('Clean workspace screenshot saved to:', wsArtifactPath);
 
-    // 2. Open Account Panel with mock user and rich telemetry data
+    // 2. Open Sign In modal
+    console.log('Opening Sign In modal...');
+    await client.evaluate(`
+      (function() {
+        const authBtn = document.getElementById('authOpenBtn');
+        if (authBtn) authBtn.click();
+      })()
+    `);
+    await new Promise(r => setTimeout(r, 600));
+
+    const signInScreenshot = await client.send('Page.captureScreenshot', { format: 'png' });
+    const signInPath = path.join('C:\\Users\\Kurosaki Kon\\.gemini\\antigravity\\brain\\9ef964bc-db6f-4cb5-9c9a-20b607235a59', 'auth_signin_modal.png');
+    fs.writeFileSync(signInPath, Buffer.from(signInScreenshot.data, 'base64'));
+    console.log('Sign In screenshot saved to:', signInPath);
+
+    // 3. Switch to Sign Up modal
+    console.log('Switching to Sign Up modal...');
+    await client.evaluate(`
+      (function() {
+        const signUpTab = document.getElementById('authTabSignUp');
+        if (signUpTab) signUpTab.click();
+      })()
+    `);
+    await new Promise(r => setTimeout(r, 600));
+
+    const signUpScreenshot = await client.send('Page.captureScreenshot', { format: 'png' });
+    const signUpPath = path.join('C:\\Users\\Kurosaki Kon\\.gemini\\antigravity\\brain\\9ef964bc-db6f-4cb5-9c9a-20b607235a59', 'auth_signup_modal.png');
+    fs.writeFileSync(signUpPath, Buffer.from(signUpScreenshot.data, 'base64'));
+    console.log('Sign Up screenshot saved to:', signUpPath);
+
+    // 4. Open Account Panel with mock user and rich telemetry data
     console.log('Opening Your Account panel with luxury telemetry...');
     const modalOpened = await client.evaluate(`
       (function() {
@@ -182,6 +212,9 @@ async function run() {
         [signInForm, signUpForm].forEach(f => { if (f) f.hidden = true; });
         if (accountPanel) accountPanel.hidden = false;
         if (authModal) authModal.hidden = false;
+
+        const authTabs = document.getElementById('authTabs');
+        if (authTabs) authTabs.hidden = true;
 
         const authModalTitleText = document.getElementById('authModalTitleText');
         if (authModalTitleText) authModalTitleText.textContent = 'Your Account';
@@ -240,67 +273,6 @@ async function run() {
     const overviewPath = path.join('C:\\Users\\Kurosaki Kon\\.gemini\\antigravity\\brain\\9ef964bc-db6f-4cb5-9c9a-20b607235a59', 'your_account_overview.png');
     fs.writeFileSync(overviewPath, Buffer.from(overviewScreenshot.data, 'base64'));
     console.log('Your Account Overview screenshot saved to:', overviewPath);
-
-    // 3. Switch to Cloud Storage Vault tab
-    console.log('Switching to Cloud Storage Vault tab...');
-    await client.evaluate(`
-      (function() {
-        const vaultBtn = document.getElementById('accTabBtnVault');
-        if (vaultBtn) vaultBtn.click();
-        
-        // Add sample cloud files to demonstrate the vault
-        const filesList = document.getElementById('accCloudFilesList');
-        const emptyEl = document.getElementById('accCloudFilesEmpty');
-        if (emptyEl) emptyEl.style.display = 'none';
-
-        const sampleFiles = [
-          { name: 'pk_progress_backup_2026-10-14.json', size: '14.2 KB', date: 'Oct 14, 2026', type: 'Backup' },
-          { name: 'avatar_cyber_gold_phanna.webp', size: '48.6 KB', date: 'Oct 12, 2026', type: 'Avatar' },
-          { name: 'custom_typing_manuscript.txt', size: '6.8 KB', date: 'Oct 09, 2026', type: 'Document' }
-        ];
-
-        filesList.innerHTML = sampleFiles.map(f => \`
-          <div class="acc-cloud-file-card" style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;margin-bottom:8px;">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              <div>
-                <div style="font-size:0.78rem;font-weight:600;color:#fff;">\${f.name}</div>
-                <div style="font-size:0.65rem;color:#8da4d4;">\${f.size} · \${f.type} · \${f.date}</div>
-              </div>
-            </div>
-            <div style="display:flex;gap:6px;">
-              <button class="acc-vault-btn" style="padding:4px 8px;font-size:0.65rem;">Download</button>
-              <button class="acc-vault-btn" style="padding:4px 8px;font-size:0.65rem;border-color:rgba(255,59,86,0.4);color:#fca5a5;">Delete</button>
-            </div>
-          </div>
-        \`).join('');
-
-        document.getElementById('accCloudVaultQuota').textContent = '3 Files · 69.6 KB';
-      })()
-    `);
-    await new Promise(r => setTimeout(r, 600));
-
-    // Capture Cloud Storage Vault Screenshot
-    const vaultScreenshot = await client.send('Page.captureScreenshot', { format: 'png' });
-    const vaultPath = path.join('C:\\Users\\Kurosaki Kon\\.gemini\\antigravity\\brain\\9ef964bc-db6f-4cb5-9c9a-20b607235a59', 'your_account_vault.png');
-    fs.writeFileSync(vaultPath, Buffer.from(vaultScreenshot.data, 'base64'));
-    console.log('Your Account Vault screenshot saved to:', vaultPath);
-
-    // 4. Switch to Security & Session tab
-    console.log('Switching to Security & Session tab...');
-    await client.evaluate(`
-      (function() {
-        const secBtn = document.getElementById('accTabBtnSecurity');
-        if (secBtn) secBtn.click();
-      })()
-    `);
-    await new Promise(r => setTimeout(r, 600));
-
-    // Capture Security & Session Screenshot
-    const secScreenshot = await client.send('Page.captureScreenshot', { format: 'png' });
-    const secPath = path.join('C:\\Users\\Kurosaki Kon\\.gemini\\antigravity\\brain\\9ef964bc-db6f-4cb5-9c9a-20b607235a59', 'your_account_security.png');
-    fs.writeFileSync(secPath, Buffer.from(secScreenshot.data, 'base64'));
-    console.log('Your Account Security screenshot saved to:', secPath);
 
     client.close();
     console.log('All screenshots captured successfully!');
