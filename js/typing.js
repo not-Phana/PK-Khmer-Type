@@ -46,9 +46,16 @@ function splitIntoTypingUnits(text, layoutId){
   return units;
 }
 
-window.normalizeInput = normalizeInput;
-window.compareTypingSequence = compareTypingSequence;
-window.splitIntoTypingUnits = splitIntoTypingUnits;
+if(typeof window !== 'undefined'){
+  window.normalizeInput = normalizeInput;
+  window.compareTypingSequence = compareTypingSequence;
+  window.splitIntoTypingUnits = splitIntoTypingUnits;
+}
+if(typeof global !== 'undefined'){
+  global.normalizeInput = normalizeInput;
+  global.compareTypingSequence = compareTypingSequence;
+  global.splitIntoTypingUnits = splitIntoTypingUnits;
+}
 
 /* ---------- Composition / IME Awareness ---------- */
 let isComposing = false;
@@ -61,8 +68,13 @@ window.addEventListener('compositionupdate', ()=>{
   isComposing = true;
 });
 
+let lastCompositionEndTime = 0;
+let lastCompositionChar = '';
+
 window.addEventListener('compositionend', (e)=>{
   isComposing = false;
+  lastCompositionEndTime = Date.now();
+  lastCompositionChar = (e && e.data) ? normalizeInput(e.data) : '';
   if(typeof lessonActive !== 'undefined' && lessonActive) return;
   if(typeof raceActive !== 'undefined' && raceActive) return;
   if(typeof trialActive !== 'undefined' && trialActive) return;
@@ -972,6 +984,16 @@ window.addEventListener('keydown', (e)=>{
   if(t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
   if(e.isComposing || isComposing) return;
 
+  // Trailing IME keydown deduplication guard:
+  // If compositionend just committed this exact character within the last 40ms, suppress duplicate keydown!
+  if(lastCompositionEndTime && (Date.now() - lastCompositionEndTime < 40)){
+    const normKey = (typeof normalizeInput === 'function') ? normalizeInput(e.key) : e.key;
+    if(normKey && normKey === lastCompositionChar){
+      if(e.preventDefault) e.preventDefault();
+      return;
+    }
+  }
+
   const id = CODE_MAP[e.code];
 
   // If a non-AltGr key arrives while Ctrl is pending (e.g. fast Ctrl+C), flush Ctrl immediately
@@ -991,14 +1013,18 @@ window.addEventListener('keydown', (e)=>{
   if(id === 'ctrlL'){
     if(e.repeat) return;
     // On Windows, pressing AltGr emits ControlLeft followed immediately by AltRight.
-    // If AltGraph state is already reported by the browser, suppress synthetic ControlLeft completely!
+    // If AltGraph state is already reported by the browser, switch directly to altgr!
     if(e.getModifierState && e.getModifierState('AltGraph')){
+      cancelPendingCtrl();
+      heldModifiers.delete('ctrl');
+      heldModifiers.add('altgr');
+      recomputePhysicalLayer();
       return;
     }
-    // Delay activating ctrlL for 35ms to allow AltRight to cancel it if AltGr was struck
+    // Delay activating ctrlL for 50ms to allow AltRight to cancel it if AltGr was struck
     cancelPendingCtrl();
     pendingCtrlId = id;
-    pendingCtrlTimer = setTimeout(applyPendingCtrl, 35);
+    pendingCtrlTimer = setTimeout(applyPendingCtrl, 50);
     return;
   }
   if(id === 'ctrlR'){

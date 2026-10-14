@@ -1154,6 +1154,7 @@
     state.history.recentCompletions = [];
     try {
       if(typeof localStorage !== 'undefined'){
+        localStorage.setItem('pk_cloud_progress_reset_at', new Date().toISOString());
         getAllStorageKeys().forEach(k => {
           if(k.startsWith('khmerLessonBest_') || k === STORAGE_KEY || k === 'khmerTrackingData_v1' || k === 'pk_adaptive_state_v1' || k === 'pk_active_lesson_session' || k.startsWith('pk_adaptive_')){
             localStorage.removeItem(k);

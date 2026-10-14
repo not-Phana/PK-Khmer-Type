@@ -271,10 +271,48 @@ function seqRandom(pool, length){
   return seq;
 }
 
-function seqWords(words, table){
+const KHMER_COMPOUND_VOWELS = ['\u17BB\u17C6', '\u17BB\u17C7', '\u17B6\u17C6', '\u17C1\u17C7', '\u17C4\u17C7'];
+
+function getTypingUnits(text, layoutId) {
+  if (typeof splitIntoTypingUnits === 'function') {
+    return splitIntoTypingUnits(text, layoutId);
+  }
+  if (typeof window !== 'undefined' && typeof window.splitIntoTypingUnits === 'function') {
+    return window.splitIntoTypingUnits(text, layoutId);
+  }
+  if (typeof global !== 'undefined' && typeof global.splitIntoTypingUnits === 'function') {
+    return global.splitIntoTypingUnits(text, layoutId);
+  }
+  if (!text) return [];
+  const normFn = (typeof normalizeInput === 'function')
+    ? normalizeInput
+    : (typeof window !== 'undefined' && typeof window.normalizeInput === 'function' ? window.normalizeInput : (typeof global !== 'undefined' && typeof global.normalizeInput === 'function' ? global.normalizeInput : null));
+  const normalized = normFn ? normFn(text) : String(text).normalize('NFD');
+  const units = [];
+  let i = 0;
+  while (i < normalized.length) {
+    if ((layoutId === 'nida' || layoutId === 'standard') && i + 1 < normalized.length) {
+      const pair = normalized.slice(i, i + 2);
+      if (KHMER_COMPOUND_VOWELS.includes(pair)) {
+        units.push(pair);
+        i += 2;
+        continue;
+      }
+    }
+    const code = normalized.codePointAt(i);
+    const ch = String.fromCodePoint(code);
+    units.push(ch);
+    i += ch.length;
+  }
+  return units;
+}
+
+function seqWords(words, table, layoutId){
   const seq = [];
+  const activeLid = layoutId || (typeof currentLayoutId !== 'undefined' ? currentLayoutId : 'nida');
   shuffled(words).forEach(w=>{
-    for(const ch of w){
+    const units = getTypingUnits(w, activeLid);
+    for(const ch of units){
       const loc = resolveCharLocation(ch, table);
       if(loc) seq.push(loc);
     }
@@ -283,6 +321,8 @@ function seqWords(words, table){
   while(seq.length && seq[seq.length-1].ch === ' ') seq.pop();
   return seq;
 }
+if(typeof window !== 'undefined') window.seqWords = seqWords;
+if(typeof global !== 'undefined') global.seqWords = seqWords;
 
 /* Intelligent mistake review: pairs each missed character with contrasting context keys.
    Never produces consecutive identical letters (e.g. never 'កក' or 'ក ក ក').

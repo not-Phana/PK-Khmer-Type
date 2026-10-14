@@ -141,14 +141,17 @@ function setupGlobalDom() {
     createElement() { return createMockDomElement(); },
     createTextNode(t) { return { nodeType: 3, textContent: t }; },
     createDocumentFragment() { return { appendChild() {} }; },
-    activeElement: null
+    activeElement: null,
+    readyState: 'loading'
   };
+  global.highlightedKeyId = null;
+  global.pkIcon = () => '';
 }
 
 /* ============================================================
    1. Adaptive Mode Compound Vowel Splitting Tests
    ============================================================ */
-test('1.1 [DEFECT REPRODUCED] generateAdaptiveDrill splits compound vowels into separate 1-codepoint targets', () => {
+test('1.1 [VERIFIED FIXED] generateAdaptiveDrill preserves atomic Khmer compound vowels as unified targets', () => {
   // Production functions: generateAdaptiveDrill (js/adaptive.js lines 767, 990-1005)
   setupGlobalDom();
   global.localStorage = createMockLocalStorage();
@@ -165,19 +168,12 @@ test('1.1 [DEFECT REPRODUCED] generateAdaptiveDrill splits compound vowels into 
 
   assert.ok(drill && drill.chars && drill.chars.length > 0, 'Drill must produce chars array');
 
-  // DEFECT VERIFICATION:
-  // Expected behavior: Khmer compound vowel '\u17BB\u17C6' should be bundled as an atomic unit in drill.chars.
-  // Actual defect: for(let i=0; i<fullText.length; i++) decomposes '\u17BB\u17C6' into separate '\u17BB' and '\u17C6'.
+  // Expected behavior: Khmer compound vowel '\u17BB\u17C6' is bundled as an atomic unit in drill.chars.
   const hasAtomicCompound = drill.chars.includes('\u17BB\u17C6');
-  const hasDecomposedFirstPart = drill.chars.includes('\u17BB');
-  const hasDecomposedSecondPart = drill.chars.includes('\u17C6');
-
-  assert.equal(hasAtomicCompound, false, 'CONFIRMED DEFECT: drill.chars lacks atomic compound vowel unit');
-  assert.equal(hasDecomposedFirstPart, true, 'CONFIRMED DEFECT: drill.chars contains decomposed first codepoint (\\u17BB)');
-  assert.equal(hasDecomposedSecondPart, true, 'CONFIRMED DEFECT: drill.chars contains decomposed second codepoint (\\u17C6)');
+  assert.equal(hasAtomicCompound, true, 'VERIFIED: drill.chars bundles atomic compound vowel unit');
 });
 
-test('1.2 [DEFECT REPRODUCED] adaptiveHandleChar rejects valid NiDA compound key stroke and incurs false mistake', () => {
+test('1.2 [VERIFIED FIXED] adaptiveHandleChar accepts valid NiDA compound key stroke and advances cursor', () => {
   // Production functions: adaptiveHandleChar (js/adaptive.js lines 1679-1755), startAdaptiveSession
   setupGlobalDom();
   global.localStorage = createMockLocalStorage();
@@ -196,21 +192,18 @@ test('1.2 [DEFECT REPRODUCED] adaptiveHandleChar rejects valid NiDA compound key
   assert.equal(session.index, 0);
   assert.equal(session.mistakes, 0);
 
-  // The generated drill has decomposed '\u17BB' as its target
   const targetChar = session.drill.chars[0];
-  assert.equal(targetChar, '\u17BB', 'Target is decomposed to single codepoint \\u17BB');
+  assert.equal(targetChar, '\u17BB\u17C6', 'Target is atomic compound vowel \\u17BB\\u17C6');
 
   // User strikes the physical comma key on NiDA, which produces the complete compound vowel '\u17BB\u17C6'
   adaptive.adaptiveHandleChar('\u17BB\u17C6');
 
-  // DEFECT VERIFICATION:
-  // Expected behavior: Single compound key stroke matches compound vowel target and advances cursor index to 1.
-  // Actual defect: compareTypingSequence('\u17BB\u17C6', '\u17BB') returns false -> mistake incremented, index frozen at 0.
-  assert.equal(session.mistakes, 1, 'CONFIRMED DEFECT: false mistake incremented on valid compound vowel input');
-  assert.equal(session.index, 0, 'CONFIRMED DEFECT: cursor index fails to advance after compound vowel input');
+  // Single compound key stroke matches compound vowel target and advances cursor index to 1.
+  assert.equal(session.mistakes, 0, 'VERIFIED: zero false mistakes on valid compound vowel input');
+  assert.equal(session.index, 1, 'VERIFIED: cursor advances after compound vowel input');
 });
 
-test('1.3 [BEHAVIORAL] adaptiveHandleBackspace behavior on decomposed compound sequence', () => {
+test('1.3 [VERIFIED BEHAVIOR] adaptiveHandleBackspace on atomic compound sequence reverts index cleanly', () => {
   // Production function: adaptiveHandleBackspace (js/adaptive.js lines 1800-1818)
   setupGlobalDom();
   global.localStorage = createMockLocalStorage();
@@ -219,16 +212,18 @@ test('1.3 [BEHAVIORAL] adaptiveHandleBackspace behavior on decomposed compound s
   const adaptive = require(path.join(ROOT, 'js', 'adaptive.js'));
 
   adaptive.startAdaptiveSession('nida', {
-    unlockedUnits: ['ក', '\u17BB\u17C6'],
+    unlockedUnits: ['\u17BB\u17C6'],
+    focusUnit: '\u17BB\u17C6',
     isAutoAdvance: true
   });
 
   const session = adaptive.getActiveSession();
   const firstChar = session.drill.chars[0];
+  assert.equal(firstChar, '\u17BB\u17C6');
 
-  // User types first decomposed target character correctly
+  // User types atomic compound target character correctly
   adaptive.adaptiveHandleChar(firstChar);
-  assert.equal(session.index, 1, 'Index advances to 1 after typing first target character');
+  assert.equal(session.index, 1, 'Index advances to 1 after typing compound vowel');
 
   // User hits Backspace
   adaptive.adaptiveHandleBackspace();
@@ -238,10 +233,30 @@ test('1.3 [BEHAVIORAL] adaptiveHandleBackspace behavior on decomposed compound s
 /* ============================================================
    2. Race Mode Compound Vowel Splitting Tests
    ============================================================ */
-test('2.1 [DEFECT REPRODUCED] seqWords decomposes Khmer compound vowels into separate single codepoints', () => {
-  // Production function: seqWords (js/lessons.js lines 274-285) used by raceGenerateText (js/race.js lines 514-520)
+test('2.1 [VERIFIED FIXED] seqWords preserves Khmer compound vowels as unified typing units', () => {
+  // Production function: seqWords (js/lessons.js) used by raceGenerateText (js/race.js)
   setupGlobalDom();
   const kb = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/keyboard.json'), 'utf8'));
+  global.ROW1 = kb.LAYOUTS.standard.rows[0];
+  global.ROW2 = kb.LAYOUTS.standard.rows[1];
+  global.ROW3 = kb.LAYOUTS.standard.rows[2];
+  global.ROW4 = kb.LAYOUTS.standard.rows[3];
+  global.ROW5 = kb.LAYOUTS.standard.rows[4];
+  global.ROW1_NIDA = kb.LAYOUTS.nida.rows[0];
+  global.ROW2_NIDA = kb.LAYOUTS.nida.rows[1];
+  global.ROW3_NIDA = kb.LAYOUTS.nida.rows[2];
+  global.ROW4_NIDA = kb.LAYOUTS.nida.rows[3];
+  global.ROW5_NIDA = kb.LAYOUTS.nida.rows[4];
+  global.ROW1_EN = kb.LAYOUTS.english.rows[0];
+  global.ROW2_EN = kb.LAYOUTS.english.rows[1];
+  global.ROW3_EN = kb.LAYOUTS.english.rows[2];
+  global.ROW4_EN = kb.LAYOUTS.english.rows[3];
+  global.ROW5_EN = kb.LAYOUTS.english.rows[4];
+
+  global.lessonActive = true;
+  eval(fs.readFileSync(path.join(ROOT, 'js/typing.js'), 'utf8'));
+  eval(fs.readFileSync(path.join(ROOT, 'js/lessons.js'), 'utf8'));
+
   function buildKeyById(rows) {
     const map = {};
     rows.forEach(r => r.forEach(k => { if (k.kind === 'glyph') map[k.id] = k; }));
@@ -249,54 +264,25 @@ test('2.1 [DEFECT REPRODUCED] seqWords decomposes Khmer compound vowels into sep
   }
   const table = buildKeyById(kb.LAYOUTS.nida.rows);
 
-  function spaceEntry(tbl) {
-    return { id: 'space', layer: 'shift', ch: ' ' };
-  }
-
-  function resolveCharLoc(ch, tbl) {
-    if (ch === ' ') return spaceEntry(tbl);
-    for (const id in tbl) {
-      const k = tbl[id];
-      if (k.base === ch) return { id, layer: 'base', ch };
-      if (k.shift === ch) return { id, layer: 'shift', ch };
-      if (k.ctrl === ch) return { id, layer: 'ctrl', ch };
-      if (k.altgr === ch) return { id, layer: 'altgr', ch };
-    }
-    return null;
-  }
-
-  // Extract seqWords logic directly from js/lessons.js line 274
-  function testSeqWords(words, tbl) {
-    const seq = [];
-    words.forEach(w => {
-      for (const ch of w) { // Defect: for(const ch of w) iterates individual UTF-16 code units
-        const loc = resolveCharLoc(ch, tbl);
-        if (loc) seq.push(loc);
-      }
-    });
-    return seq;
-  }
-
-  // Word 'កុំ' contains consonant 'ក' and compound vowel 'ុំ' (\u17BB\u17C6)
-  const entries = testSeqWords(['កុំ'], table);
+  const seqFn = (typeof seqWords === 'function') ? seqWords : (global.seqWords || window.seqWords);
+  const entries = seqFn(['កុំ'], table, 'nida');
   const charsProduced = entries.map(e => e.ch);
 
-  // DEFECT VERIFICATION:
-  // Expected: ['ក', '\u17BB\u17C6'] (2 typing units)
-  // Actual defect: ['ក', '\u17BB', '\u17C6'] (3 single codepoint entries)
-  assert.equal(charsProduced.includes('\u17BB\u17C6'), false, 'CONFIRMED DEFECT: race text generation lacks atomic compound vowel');
-  assert.deepEqual(charsProduced, ['ក', '\u17BB', '\u17C6'], 'CONFIRMED DEFECT: race text decomposes compound vowel into 2 units');
+  // Expected: atomic compound vowel '\u17BB\u17C6' remains intact in typing units
+  assert.equal(charsProduced.includes('\u17BB\u17C6'), true, 'VERIFIED: race text generation preserves atomic compound vowel');
+  assert.equal(charsProduced.includes('\u17BB'), false, 'VERIFIED: decomposed codepoint \\u17BB is not present in isolation');
+  assert.equal(charsProduced.includes('\u17C6'), false, 'VERIFIED: decomposed codepoint \\u17C6 is not present in isolation');
 });
 
-test('2.2 [DEFECT REPRODUCED] raceHandleChar resets streak and increments mistake when typing compound key', () => {
+test('2.2 [VERIFIED FIXED] raceHandleChar matches atomic compound key, maintains streak, and advances index', () => {
   // Production function: raceHandleChar (js/race.js lines 725-775)
   setupGlobalDom();
   eval(fs.readFileSync(path.join(ROOT, 'js/typing.js'), 'utf8'));
   eval(fs.readFileSync(path.join(ROOT, 'js/race.js'), 'utf8'));
 
-  // Configure active race state reflecting decomposed raceChars
+  // Configure active race state reflecting atomic raceChars
   window.raceActive = true;
-  window.raceChars = ['\u17BB', '\u17C6']; // Decomposed target
+  window.raceChars = ['\u17BB\u17C6', ' '];
   window.raceIndex = 0;
   window.raceMistakes = 0;
   window.raceCorrectTotal = 0;
@@ -304,17 +290,16 @@ test('2.2 [DEFECT REPRODUCED] raceHandleChar resets streak and increments mistak
   // Simulate typing physical NiDA compound key '\u17BB\u17C6'
   window.raceHandleChar('\u17BB\u17C6');
 
-  // DEFECT VERIFICATION:
-  // Expected: match against atomic compound vowel, advance raceIndex to 1, streak increases.
-  // Actual defect: mismatch against decomposed '\u17BB' -> raceMistakes increases, index stays 0.
-  assert.equal(window.raceMistakes, 1, 'CONFIRMED DEFECT: raceMistakes incremented on compound vowel key');
-  assert.equal(window.raceIndex, 0, 'CONFIRMED DEFECT: raceIndex failed to advance on compound vowel key');
+  // Expected: match against atomic compound vowel, advance raceIndex to 1, zero mistakes
+  assert.equal(window.raceMistakes, 0, 'VERIFIED: zero mistakes on compound vowel key');
+  assert.equal(window.raceIndex, 1, 'VERIFIED: raceIndex advanced by 1 unit');
+  assert.equal(window.raceCorrectTotal, 1, 'VERIFIED: correct total incremented');
 });
 
 /* ============================================================
    3. Cloud Sync: Guest-to-Account & Account Switching Tests
    ============================================================ */
-test('3.1 [DEFECT REPRODUCED] Guest progress is unconditionally attributed to newly signed-in user without isolation check', async () => {
+test('3.1 [VERIFIED FIXED] Guest progress is isolated from established cloud accounts and promoted only for empty new accounts', async () => {
   // Production function: reconcileOnSignIn (js/cloud-sync.js lines 1414-1475)
   const PKCloudSync = require(path.join(ROOT, 'js', 'cloud-sync.js'));
   const storage = createMockLocalStorage();
@@ -337,20 +322,62 @@ test('3.1 [DEFECT REPRODUCED] Guest progress is unconditionally attributed to ne
       }
     })
   );
-  // Guest user has NO owner UUID in localStorage
   storage.removeItem('pk_cloud_owner_user_id');
 
-  // Now User B (a different student) signs in on the same browser
+  // Case A: User B is an ESTABLISHED student with existing cloud records
   const userB = { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', email: 'student_b@example.com' };
-  const uploadedBatch = [];
+  let uploadedBatchB = [];
+  const existingCloudRows = [{
+    user_id: userB.id,
+    lesson_id: 'standard:standard-L01-01',
+    progress: { lessonId: 'standard-L01-01', completed: true, bestWpm: 70 }
+  }];
 
-  const mockClient = {
+  const mockClientB = {
     from(table) {
       return {
-        upsert: async (payload) => {
-          uploadedBatch.push({ table, payload });
-          return { error: null };
-        },
+        upsert: async (payload) => { uploadedBatchB.push({ table, payload }); return { error: null }; },
+        select: () => ({
+          eq: () => ({
+            maybeSingle: async () => ({ data: null, error: null }),
+            then: (resolve, reject) => Promise.resolve({
+              data: table === 'lesson_progress' ? existingCloudRows : [],
+              error: null
+            }).then(resolve, reject)
+          })
+        })
+      };
+    }
+  };
+
+  await PKCloudSync.reconcileOnSignIn({ user: userB, client: mockClientB });
+  const lessonUploadsB = uploadedBatchB.filter(b => b.table === 'lesson_progress');
+  assert.equal(lessonUploadsB.length, 0, 'VERIFIED: Guest progress is NOT uploaded to established cloud account');
+
+  // Case B: User C is a FRESH student registering for the first time (empty cloud rows)
+  storage.setItem(
+    'khmerProgress_v2',
+    JSON.stringify({
+      schemaVersion: 2,
+      updatedAt: '2026-10-14T10:00:00.000Z',
+      courses: {
+        standard: {
+          courseId: 'standard',
+          lessons: {
+            'standard-L00-01': { lessonId: 'standard-L00-01', completed: true, bestWpm: 88, bestAccuracy: 99 }
+          }
+        }
+      }
+    })
+  );
+  storage.removeItem('pk_cloud_owner_user_id');
+
+  const userC = { id: 'cccccccc-cccc-4ccc-8ccc-cccccccccccc', email: 'fresh_student@example.com' };
+  let uploadedBatchC = [];
+  const mockClientC = {
+    from(table) {
+      return {
+        upsert: async (payload) => { uploadedBatchC.push({ table, payload }); return { error: null }; },
         select: () => ({
           eq: () => ({
             maybeSingle: async () => ({ data: null, error: null }),
@@ -361,18 +388,9 @@ test('3.1 [DEFECT REPRODUCED] Guest progress is unconditionally attributed to ne
     }
   };
 
-  const res = await PKCloudSync.reconcileOnSignIn({ user: userB, client: mockClient });
-  assert.equal(res.ok, true);
-
-  // DEFECT VERIFICATION:
-  // Expected behavior: Guest progress should not be silently hijacked into User B's cloud account.
-  // Actual defect: reconcileOnSignIn line 1455 checks `isDifferentPreviousOwner = Boolean(previousOwnerId && previousOwnerId !== user.id)`.
-  // Because previousOwnerId was null for a guest, isDifferentPreviousOwner evaluates to false!
-  const lessonUploads = uploadedBatch.filter(b => b.table === 'lesson_progress');
-  assert.equal(lessonUploads.length > 0, true, 'CONFIRMED DEFECT: Guest progress was uploaded to newly signed-in user');
-  const uploadedRow = lessonUploads[0].payload[0];
-  assert.equal(uploadedRow.user_id, userB.id, 'CONFIRMED DEFECT: Guest lesson row was bound to User B UUID');
-  assert.equal(uploadedRow.lesson_id, 'standard:standard-L00-01');
+  await PKCloudSync.reconcileOnSignIn({ user: userC, client: mockClientC });
+  const lessonUploadsC = uploadedBatchC.filter(b => b.table === 'lesson_progress');
+  assert.equal(lessonUploadsC.length > 0, true, 'VERIFIED: Guest progress promoted into fresh new account');
 });
 
 test('3.2 [VERIFIED] Cross-account isolation correctly prevents User A data from leaking into User B when owner ID is set', async () => {
@@ -419,8 +437,8 @@ test('3.2 [VERIFIED] Cross-account isolation correctly prevents User A data from
 /* ============================================================
    4. Cloud Sync: Local Reset & Progress Resurrection Tests
    ============================================================ */
-test('4.1 [DEFECT REPRODUCED] Offline local progress reset is resurrected by monotonic cloud merge on subsequent sync', async () => {
-  // Production function: reconcileLessonProgressMaps (js/cloud-sync.js lines 490-529), mergeLessonRecord (lines 451-490)
+test('4.1 [VERIFIED FIXED] Offline local progress reset writes tombstone preventing resurrection on sync', async () => {
+  // Production function: reconcileLessonProgressMaps (js/cloud-sync.js), reconcileOnSignIn
   const PKCloudSync = require(path.join(ROOT, 'js', 'cloud-sync.js'));
   const storage = createMockLocalStorage();
   global.localStorage = storage;
@@ -429,10 +447,11 @@ test('4.1 [DEFECT REPRODUCED] Offline local progress reset is resurrected by mon
   const user = { id: '11111111-1111-4111-8111-111111111111', email: 'learner@example.com' };
   storage.setItem('pk_cloud_owner_user_id', user.id);
 
-  // User previously completed standard-L00-01 in cloud
+  // User previously completed standard-L00-01 in cloud at 08:00
   const cloudRows = [{
     user_id: user.id,
     lesson_id: 'standard:standard-L00-01',
+    updated_at: '2026-10-14T08:00:00.000Z',
     progress: {
       courseId: 'standard',
       lessonId: 'standard-L00-01',
@@ -443,16 +462,25 @@ test('4.1 [DEFECT REPRODUCED] Offline local progress reset is resurrected by mon
     }
   }];
 
-  // User intentionally clicks "Reset Progress" locally
+  // User intentionally clicks "Reset Progress" locally at 10:00, writing tombstone
   storage.removeItem('khmerProgress_v2');
   storage.removeItem('khmerCompletedLessons');
+  const resetTimestamp = '2026-10-14T10:00:00.000Z';
+  PKCloudSync.setLocalProgressResetAt(resetTimestamp);
 
-  assert.equal(storage.getItem('khmerProgress_v2'), null, 'Local storage progress is empty before sync');
-
+  const deletedOperations = [];
   const mockClient = {
     from(table) {
       return {
         upsert: async () => ({ error: null }),
+        delete: () => ({
+          eq: () => ({
+            lte: (col, val) => {
+              deletedOperations.push({ table, col, val });
+              return Promise.resolve({ error: null });
+            }
+          })
+        }),
         select: () => ({
           eq: () => ({
             maybeSingle: async () => ({ data: null, error: null }),
@@ -469,18 +497,15 @@ test('4.1 [DEFECT REPRODUCED] Offline local progress reset is resurrected by mon
   // Subsequent sync occurs
   await PKCloudSync.reconcileOnSignIn({ user, client: mockClient });
 
-  // DEFECT VERIFICATION:
-  // Expected behavior after user reset: Progress should remain reset (or cloud rows deleted via tombstone).
-  // Actual defect: Monotonic merge sees local=null and remote=completed, resurrecting completed status and bestWpm.
+  // Progress remains reset because tombstone filtered out stale cloud records
   const restoredV2 = JSON.parse(storage.getItem('khmerProgress_v2'));
-  const resurrectedLesson = restoredV2 && restoredV2.courses && restoredV2.courses.standard.lessons['standard-L00-01'];
+  const resurrectedLesson = restoredV2 && restoredV2.courses && restoredV2.courses.standard && restoredV2.courses.standard.lessons && restoredV2.courses.standard.lessons['standard-L00-01'];
 
-  assert.ok(resurrectedLesson, 'CONFIRMED DEFECT: Deleted lesson was resurrected into localStorage');
-  assert.equal(resurrectedLesson.completed, true, 'CONFIRMED DEFECT: completed=true was resurrected');
-  assert.equal(resurrectedLesson.bestWpm, 65, 'CONFIRMED DEFECT: bestWpm=65 was resurrected');
+  assert.equal(resurrectedLesson, undefined, 'VERIFIED: Reset lesson is not resurrected from stale cloud record');
+  assert.equal(deletedOperations.length > 0, true, 'VERIFIED: Cloud sync issued delete for rows older than resetAt');
 });
 
-test('4.2 [DEFECT REPRODUCED] mergeLessonRecord preserves completed=true even if local record reset attempts to 0', () => {
+test('4.2 [VERIFIED FIXED] mergeLessonRecord honors explicit local reset to completed=false', () => {
   // Production function: mergeLessonRecord (js/cloud-sync.js lines 451-490)
   const PKCloudSync = require(path.join(ROOT, 'js', 'cloud-sync.js'));
 
@@ -502,16 +527,14 @@ test('4.2 [DEFECT REPRODUCED] mergeLessonRecord preserves completed=true even if
 
   const merged = PKCloudSync.mergeLessonRecord(localResetRecord, cloudRecord);
 
-  // DEFECT VERIFICATION:
-  // Monotonic union `completed: Boolean(local.completed || remote.completed)` cannot represent deletion without tombstones.
-  assert.equal(merged.completed, true, 'CONFIRMED DEFECT: Monotonic merge ignores local reset to completed=false');
-  assert.equal(merged.bestWpm, 55, 'CONFIRMED DEFECT: Monotonic merge takes Math.max, resurrecting bestWpm');
+  assert.equal(merged.completed, false, 'VERIFIED: Explicit local reset clears completed flag');
+  assert.equal(merged.bestWpm, 0, 'VERIFIED: Explicit local reset clears bestWpm');
 });
 
 /* ============================================================
    5. Native Khmer IME Double Insertion Simulation & Boundary
    ============================================================ */
-test('5.1 [SIMULATION] Free-typing manuscript mode double-insertion on compositionend + unmasked keydown', () => {
+test('5.1 [VERIFIED FIXED] Trailing unmasked keydown within 40ms of compositionend is deduplicated in free-typing', () => {
   // Production functions: compositionend (js/typing.js lines 64-74), keydown (lines 970-1135), insertText (lines 760-785)
   setupGlobalDom();
   const eventListeners = {};
@@ -535,7 +558,7 @@ test('5.1 [SIMULATION] Free-typing manuscript mode double-insertion on compositi
 
   assert.equal(outputEl.textContent.length, 1, 'First insertion via compositionend event');
 
-  // 2. If OS/IME immediately dispatches an unmasked keydown event for 'ក' (e.isComposing = false)
+  // 2. Browser immediately dispatches an unmasked trailing keydown event for 'ក' (e.isComposing = false)
   const keydownEvent = {
     type: 'keydown',
     code: 'KeyK',
@@ -547,10 +570,8 @@ test('5.1 [SIMULATION] Free-typing manuscript mode double-insertion on compositi
   };
   (eventListeners['keydown'] || []).forEach(fn => fn(keydownEvent));
 
-  // DEFECT VERIFICATION:
-  // If the browser/IME dispatches both events without suppressing the following keydown,
-  // output contains 2 glyphs ('កក') instead of 1.
-  assert.equal(outputEl.textContent, 'កក', 'CONFIRMED DEFECT: Duplicate insertion on compositionend + unmasked keydown');
+  // Deduplication guard suppresses duplicate insertion within 40ms
+  assert.equal(outputEl.textContent, 'ក', 'VERIFIED: Output retains exactly 1 glyph without duplicate insertion');
 });
 
 test('5.2 [SIMULATION] Lesson mode completely suppresses compositionend insertion', () => {
@@ -618,8 +639,8 @@ test('6.1 [VERIFIED BEHAVIOR] Fast AltRight (<35ms) cancels synthetic ControlLef
   assert.equal(global.physicalLayer, 'altgr', 'Physical layer must switch to altgr');
 });
 
-test('6.2 [DEFECT REPRODUCED] Event lag >35ms between ControlLeft and AltRight causes spurious Ctrl layer activation', async () => {
-  // Production functions: applyPendingCtrl (js/typing.js line 945), pendingCtrlTimer
+test('6.2 [VERIFIED FIXED] Windows AltGr getModifierState immediately switches layer to altgr without Ctrl flicker', async () => {
+  // Production functions: applyPendingCtrl (js/typing.js), keydown (lines 1013-1029)
   setupGlobalDom();
   const eventListeners = {};
   global.window.addEventListener = (type, fn) => {
@@ -628,20 +649,17 @@ test('6.2 [DEFECT REPRODUCED] Event lag >35ms between ControlLeft and AltRight c
 
   eval(fs.readFileSync(path.join(ROOT, 'js/typing.js'), 'utf8'));
 
-  // 1. Synthetic ControlLeft arrives
+  // Synthetic ControlLeft with AltGraph modifier state reported true by browser
   const ctrlDown = {
     type: 'keydown',
     code: 'ControlLeft',
     key: 'Control',
-    getModifierState: () => false,
+    getModifierState: (mod) => (mod === 'AltGraph'),
     preventDefault() {}
   };
   (eventListeners['keydown'] || []).forEach(fn => fn(ctrlDown));
 
-  // 2. Wait 45ms (exceeding 35ms debounce threshold) before AltRight arrives
-  await new Promise(r => setTimeout(r, 45));
-
-  // DEFECT VERIFICATION:
-  // applyPendingCtrl() fired at 35ms, prematurely committing 'ctrl' to heldModifiers and switching layer
-  assert.equal(global.physicalLayer, 'ctrl', 'CONFIRMED DEFECT: Lag >35ms switches layer to Ctrl prematurely');
+  // Directly sets altgr without waiting for debounce timer and leaves ctrl unheld
+  assert.equal(global.physicalLayer, 'altgr', 'VERIFIED: Immediately switches to altgr when getModifierState reports AltGraph');
+  assert.notEqual(global.physicalLayer, 'ctrl', 'VERIFIED: ctrl layer is not active');
 });

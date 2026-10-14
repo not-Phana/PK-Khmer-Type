@@ -21,6 +21,41 @@
 
   const STORAGE_KEY = 'pk_adaptive_state_v1';
   const VALID_LAYOUTS = ['english', 'nida', 'standard'];
+  const KHMER_COMPOUND_VOWELS = ['\u17BB\u17C6', '\u17BB\u17C7', '\u17B6\u17C6', '\u17C1\u17C7', '\u17C4\u17C7'];
+
+  function getTypingUnits(text, layoutId) {
+    if (typeof global !== 'undefined' && typeof global.splitIntoTypingUnits === 'function') {
+      return global.splitIntoTypingUnits(text, layoutId);
+    }
+    if (typeof splitIntoTypingUnits === 'function') {
+      return splitIntoTypingUnits(text, layoutId);
+    }
+    if (typeof window !== 'undefined' && typeof window.splitIntoTypingUnits === 'function') {
+      return window.splitIntoTypingUnits(text, layoutId);
+    }
+    if (!text) return [];
+    const normFn = (typeof global !== 'undefined' && typeof global.normalizeInput === 'function')
+      ? global.normalizeInput
+      : (typeof normalizeInput === 'function' ? normalizeInput : (typeof window !== 'undefined' && typeof window.normalizeInput === 'function' ? window.normalizeInput : null));
+    const normalized = normFn ? normFn(text) : String(text).normalize('NFD');
+    const units = [];
+    let i = 0;
+    while (i < normalized.length) {
+      if ((layoutId === 'nida' || layoutId === 'standard') && i + 1 < normalized.length) {
+        const pair = normalized.slice(i, i + 2);
+        if (KHMER_COMPOUND_VOWELS.includes(pair)) {
+          units.push(pair);
+          i += 2;
+          continue;
+        }
+      }
+      const code = normalized.codePointAt(i);
+      const ch = String.fromCodePoint(code);
+      units.push(ch);
+      i += ch.length;
+    }
+    return units;
+  }
 
   // Letter / logical typing unit progressions
   const PROGRESSIONS = {
@@ -992,13 +1027,17 @@
     const layers = [];
     const keyIds = [];
 
+    const units = getTypingUnits(fullText, l);
+
     // Map through resolveCharLocation if available
-    for (let i = 0; i < fullText.length; i++) {
-      const ch = fullText[i];
+    for (let i = 0; i < units.length; i++) {
+      const ch = units[i];
       chars.push(ch);
       let loc = null;
-      if (typeof global.resolveCharLocation === 'function') {
+      if (typeof global !== 'undefined' && typeof global.resolveCharLocation === 'function') {
         loc = global.resolveCharLocation(ch);
+      } else if (typeof resolveCharLocation === 'function') {
+        loc = resolveCharLocation(ch);
       }
       layers.push(loc ? loc.layer : 'base');
       keyIds.push(loc ? loc.id : (ch === ' ' ? 'space' : ch.toLowerCase()));
@@ -1573,8 +1612,10 @@
       let curPos = 0;
       for (let i = 0; i < drill.words.length; i++) {
         const w = drill.words[i];
+        const wUnits = getTypingUnits(w, l);
+        const wLen = wUnits.length;
         const start = curPos;
-        const end = curPos + w.length - 1;
+        const end = curPos + wLen - 1;
         wordRanges.push({
           index: i,
           word: w,
@@ -1584,7 +1625,7 @@
           completed: false,
           scoreDelta: 0
         });
-        curPos += w.length + 1; // +1 for the space separator between words
+        curPos += wLen + 1; // +1 for the space separator between words
       }
     }
 
@@ -1683,8 +1724,12 @@
     const expected = activeSession.drill.chars[activeSession.index];
     if (!expected) return;
 
-    const isMatch = (typeof compareTypingSequence === 'function')
-      ? compareTypingSequence(val, expected)
+    const compFn = (typeof global !== 'undefined' && typeof global.compareTypingSequence === 'function')
+      ? global.compareTypingSequence
+      : (typeof compareTypingSequence === 'function' ? compareTypingSequence : (typeof window !== 'undefined' && typeof window.compareTypingSequence === 'function' ? window.compareTypingSequence : null));
+
+    const isMatch = compFn
+      ? compFn(val, expected)
       : (val === expected);
 
     const now = Date.now();

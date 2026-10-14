@@ -587,7 +587,7 @@ function raceUpdateKeyHighlight(){
   }
   highlightedKeyId = null;
   raceHighlightedModifierKeyId = null;
-  if(!raceActive || raceIndex >= raceKeyIds.length){ setActiveFinger(null); return; }
+  if(!raceActive || raceIndex >= raceKeyIds.length){ if(typeof setActiveFinger === 'function') setActiveFinger(null); return; }
   const id = raceKeyIds[raceIndex];
   const layer = raceLayers[raceIndex] || 'base';
   if(id && keyEls[id]){
@@ -601,7 +601,7 @@ function raceUpdateKeyHighlight(){
       keyEls[mod.targetKey].classList.add('modifier-target');
     }
   }
-  setActiveFinger(id, layer);
+  if(typeof setActiveFinger === 'function') setActiveFinger(id, layer);
 }
 window.raceUpdateKeyHighlight = raceUpdateKeyHighlight;
 window.updateRaceKeyHighlight = raceUpdateKeyHighlight;
@@ -1156,14 +1156,14 @@ window.AI_BOTS = AI_BOTS;
 try {
   Object.defineProperty(window, 'raceMode', { get: () => raceMode, set: v => { raceMode = v; }, configurable: true });
   Object.defineProperty(window, 'raceActive', { get: () => raceActive, set: v => { raceActive = v; }, configurable: true });
-  Object.defineProperty(window, 'raceCountingDown', { get: () => raceCountingDown, configurable: true });
-  Object.defineProperty(window, 'raceChars', { get: () => raceChars, configurable: true });
-  Object.defineProperty(window, 'raceKeyIds', { get: () => raceKeyIds, configurable: true });
-  Object.defineProperty(window, 'raceLayers', { get: () => raceLayers, configurable: true });
-  Object.defineProperty(window, 'raceIndex', { get: () => raceIndex, configurable: true });
-  Object.defineProperty(window, 'raceCorrectTotal', { get: () => raceCorrectTotal, configurable: true });
-  Object.defineProperty(window, 'raceMistakes', { get: () => raceMistakes, configurable: true });
-  Object.defineProperty(window, 'currentAiBot', { get: () => currentAiBot, configurable: true });
-  Object.defineProperty(window, 'aiTargetWpm', { get: () => aiTargetWpm, configurable: true });
-  Object.defineProperty(window, 'aiCharsTyped', { get: () => aiCharsTyped, configurable: true });
+  Object.defineProperty(window, 'raceCountingDown', { get: () => raceCountingDown, set: v => { raceCountingDown = v; }, configurable: true });
+  Object.defineProperty(window, 'raceChars', { get: () => raceChars, set: v => { raceChars = v; }, configurable: true });
+  Object.defineProperty(window, 'raceKeyIds', { get: () => raceKeyIds, set: v => { raceKeyIds = v; }, configurable: true });
+  Object.defineProperty(window, 'raceLayers', { get: () => raceLayers, set: v => { raceLayers = v; }, configurable: true });
+  Object.defineProperty(window, 'raceIndex', { get: () => raceIndex, set: v => { raceIndex = v; }, configurable: true });
+  Object.defineProperty(window, 'raceCorrectTotal', { get: () => raceCorrectTotal, set: v => { raceCorrectTotal = v; }, configurable: true });
+  Object.defineProperty(window, 'raceMistakes', { get: () => raceMistakes, set: v => { raceMistakes = v; }, configurable: true });
+  Object.defineProperty(window, 'currentAiBot', { get: () => currentAiBot, set: v => { currentAiBot = v; }, configurable: true });
+  Object.defineProperty(window, 'aiTargetWpm', { get: () => aiTargetWpm, set: v => { aiTargetWpm = v; }, configurable: true });
+  Object.defineProperty(window, 'aiCharsTyped', { get: () => aiCharsTyped, set: v => { aiCharsTyped = v; }, configurable: true });
 } catch(e) {}

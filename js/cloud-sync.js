@@ -28,6 +28,28 @@
   var LS_LAST_SYNC_AT = "pk_cloud_last_sync_at";
   var LS_SETTINGS_TIMESTAMPS = "pk_settings_updated_at_map";
   var LS_QUEUE_FALLBACK = "pk_cloud_sync_queue_fallback_v1";
+  var LS_PROGRESS_RESET_AT = "pk_cloud_progress_reset_at";
+
+  function getLocalProgressResetAt() {
+    try {
+      if (typeof localStorage !== "undefined") {
+        return localStorage.getItem(LS_PROGRESS_RESET_AT) || null;
+      }
+    } catch (_e) {}
+    return null;
+  }
+
+  function setLocalProgressResetAt(isoString) {
+    try {
+      if (typeof localStorage !== "undefined") {
+        if (isoString) {
+          localStorage.setItem(LS_PROGRESS_RESET_AT, isoString);
+        } else {
+          localStorage.removeItem(LS_PROGRESS_RESET_AT);
+        }
+      }
+    } catch (_e) {}
+  }
 
   var MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB max
   var ALLOWED_MIME_TYPES = [
@@ -359,6 +381,49 @@
     var l = localRec || {};
     var r = remoteRec || {};
 
+    var isLocalExplicitReset = Boolean(
+      l.isReset ||
+      l.reset ||
+      (l.completed === false &&
+        Number(l.totalAttempts || l.attempts || 0) === 0 &&
+        Number(l.bestWpm || l.wpm || 0) === 0 &&
+        Number(l.bestAccuracy || l.accuracy || 0) === 0)
+    );
+
+    if (isLocalExplicitReset && (!r.updatedAt || !l.updatedAt || new Date(l.updatedAt).getTime() >= new Date(r.updatedAt).getTime())) {
+      var rawId = l.id || r.id || l.lessonId || r.lessonId || "";
+      return {
+        id: String(rawId),
+        lessonId: String(rawId),
+        courseId: l.courseId || r.courseId || "standard",
+        levelId: l.levelId || r.levelId || "",
+        started: false,
+        completed: false,
+        mastered: false,
+        starsEarned: 0,
+        completionCount: 0,
+        totalAttempts: 0,
+        attempts: 0,
+        masteryState: "unstarted",
+        bestWpm: 0,
+        bestAccuracy: 0,
+        wpm: 0,
+        accuracy: 0,
+        totalTypingUnits: 0,
+        totalMistakes: 0,
+        totalCorrections: 0,
+        activeTypingTimeMs: 0,
+        lastWpm: 0,
+        lastAccuracy: 0,
+        mostRecentAttempt: null,
+        bestAttempt: null,
+        recentAttempts: [],
+        firstCompletedAt: null,
+        lastPracticedAt: l.updatedAt || new Date().toISOString(),
+        exercises: {}
+      };
+    }
+
     var completed = Boolean(l.completed || r.completed);
     var started = Boolean(l.started || r.started || completed || Number(l.totalAttempts || l.attempts || 0) > 0 || Number(r.totalAttempts || r.attempts || 0) > 0);
     var mastered = Boolean(
@@ -467,11 +532,25 @@
    * Reconciles a map of local lesson records and remote lesson rows.
    * Returns { mergedMap, toUpsertRemote }
    */
-  function reconcileLessonProgressMaps(localMap, remoteRows) {
+  function reconcileLessonProgressMaps(localMap, remoteRows, options) {
     var loc = localMap || {};
     var remByLessonId = {};
+    var resetAtTs = 0;
+    try {
+      var resetAt = (options && options.resetAt) || getLocalProgressResetAt();
+      if (resetAt) {
+        resetAtTs = new Date(resetAt).getTime();
+      }
+    } catch (_e) {}
+
     (remoteRows || []).forEach(function (row) {
       if (row && row.lesson_id && row.progress && typeof row.progress === "object") {
+        if (resetAtTs > 0) {
+          var rowTs = new Date(row.updated_at || (row.progress && (row.progress.lastPracticedAt || row.progress.updatedAt)) || 0).getTime();
+          if (rowTs && rowTs <= resetAtTs) {
+            return;
+          }
+        }
         remByLessonId[row.lesson_id] = row.progress;
       }
     });
@@ -1549,9 +1628,22 @@
       );
 
       // 5. Reconcile lesson_progress
-      var localProgressMap = isDifferentPreviousOwner ? {} : collectLocalLessonProgressMap();
       var remoteProgressRows = Array.isArray(progRes.data) ? progRes.data : [];
-      var reconciled = reconcileLessonProgressMaps(localProgressMap, remoteProgressRows);
+      var isGuestSession = !previousOwnerId;
+      var canPromoteGuestToCloud = isGuestSession && remoteProgressRows.length === 0;
+
+      var localProgressMap = (isDifferentPreviousOwner || (isGuestSession && !canPromoteGuestToCloud))
+        ? {}
+        : collectLocalLessonProgressMap();
+
+      var currentResetAt = getLocalProgressResetAt();
+      if (currentResetAt && client) {
+        try {
+          await client.from("lesson_progress").delete().eq("user_id", user.id).lte("updated_at", currentResetAt);
+        } catch (_delErr) {}
+      }
+
+      var reconciled = reconcileLessonProgressMaps(localProgressMap, remoteProgressRows, { resetAt: currentResetAt });
 
       applyMergedLessonProgressToLocal(reconciled.mergedMap);
 
@@ -2263,6 +2355,8 @@
     deleteUserFile: deleteUserFile,
     createCloudBackupSnapshot: createCloudBackupSnapshot,
     restoreCloudBackupSnapshot: restoreCloudBackupSnapshot,
-    deleteAccountAndCloudData: deleteAccountAndCloudData
+    deleteAccountAndCloudData: deleteAccountAndCloudData,
+    getLocalProgressResetAt: getLocalProgressResetAt,
+    setLocalProgressResetAt: setLocalProgressResetAt
   };
 });
