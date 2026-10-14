@@ -515,43 +515,78 @@
   .race-stats{ display:flex; gap:14px; flex-wrap:wrap; }
   .race-stats b{ color:var(--gold-bright); font-weight:600; }
 
-  .race-track{ margin-bottom:14px; }
+  .race-track{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:16px;
+    padding:10px 14px;
+    border-radius:12px;
+    background:rgba(12, 16, 28, 0.65);
+    border:1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+  }
   .race-track-row{ display:flex; align-items:center; gap:10px; }
   .race-track-tag{
     font-family:'JetBrains Mono', monospace;
-    font-size:0.62rem;
-    letter-spacing:0.08em;
+    font-size:0.66rem;
+    font-weight:700;
+    letter-spacing:0.04em;
     color:var(--gold-bright);
-    width:28px;
+    min-width:110px;
+    max-width:145px;
     flex-shrink:0;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .race-track-tag.ai-tag{
+    color:#38bdf8;
   }
   .race-track-bar{
     flex:1;
-    height:9px;
+    height:10px;
     border-radius:999px;
-    background:var(--stone-3);
+    background:rgba(255, 255, 255, 0.06);
+    border:1px solid rgba(255, 255, 255, 0.1);
     overflow:hidden;
-    box-shadow:inset 0 1px 3px rgba(0,0,0,0.4);
+    box-shadow:inset 0 1px 3px rgba(0,0,0,0.5);
+    position:relative;
   }
   .race-track-fill{
     height:100%;
     width:0%;
     border-radius:999px;
-    background:linear-gradient(90deg, var(--gold), var(--gold-bright));
-    box-shadow:0 0 10px rgba(255,209,102,0.6);
+    background:linear-gradient(90deg, #ffd166, #ffb703);
+    box-shadow:0 0 10px rgba(255,209,102,0.65);
     transition:width .18s ease-out;
+  }
+  .race-track-fill.ai-fill{
+    background:linear-gradient(90deg, #38bdf8, #0ea5e9);
+    box-shadow:0 0 10px rgba(56,189,248,0.65);
   }
   .race-track-fill.race-fast{
     box-shadow:0 0 16px 2px rgba(255,209,102,0.85);
   }
+  .race-track-fill.ai-fill.race-fast{
+    box-shadow:0 0 16px 2px rgba(56,189,248,0.85);
+  }
   .race-track-pct{
     font-family:'JetBrains Mono', monospace;
-    font-size:0.62rem;
+    font-size:0.66rem;
+    font-weight:600;
     color:var(--ink-dim);
-    width:34px;
+    width:38px;
     text-align:right;
     flex-shrink:0;
   }
+  .race-track-pct.ai-pct{
+    color:#7dd3fc;
+  }
+
 
   .race-text-wrap{ position:relative; }
   .race-text{
@@ -682,6 +717,37 @@
     color:var(--gold-bright);
     margin:6px 0 0;
     text-transform:uppercase;
+  }
+  .race-duel-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:6px 14px;
+    border-radius:999px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    margin:8px 0 4px;
+    text-transform:uppercase;
+  }
+  .race-duel-badge.win{
+    background:rgba(255, 209, 102, 0.18);
+    border:1px solid rgba(255, 209, 102, 0.45);
+    color:var(--gold-bright, #ffd166);
+    box-shadow:0 0 16px rgba(255, 209, 102, 0.3);
+  }
+  .race-duel-badge.loss{
+    background:rgba(56, 189, 248, 0.18);
+    border:1px solid rgba(56, 189, 248, 0.45);
+    color:#38bdf8;
+    box-shadow:0 0 16px rgba(56, 189, 248, 0.3);
+  }
+  .race-duel-sub{
+    font-size:0.78rem;
+    color:var(--ink-dim, #94a3b8);
+    margin:2px 0 12px;
   }
   .race-result-grid{
     display:grid;

@@ -2503,6 +2503,16 @@
       </div>
     </div>
 
+    <div class="race-setup-group">
+      <span class="race-setup-label i18n-t" data-en="AI Opponent" data-km="ដៃគូប្រកួត AI">AI Opponent</span>
+      <div class="race-pill-row" id="raceAiOpponentRow" role="radiogroup" aria-label="AI Opponent Bot">
+        <button type="button" class="race-pill i18n-t" data-ai-bot="auto" role="radio" aria-checked="true" data-en="Auto Match" data-km="ផ្គូផ្គងស្វ័យប្រវត្តិ" title="Automatically match AI speed to selected difficulty">Auto Match</button>
+        <button type="button" class="race-pill" data-ai-bot="novice" role="radio" aria-checked="false" title="Scribe Bot (~24 WPM)">Scribe Bot (24 WPM)</button>
+        <button type="button" class="race-pill" data-ai-bot="skilled" role="radio" aria-checked="false" title="Angkor AI (~40 WPM)">Angkor AI (40 WPM)</button>
+        <button type="button" class="race-pill" data-ai-bot="master" role="radio" aria-checked="false" title="Naga Bot (~75 WPM)">Naga Bot (75 WPM)</button>
+      </div>
+    </div>
+
     <div class="race-setup-best" id="raceSetupBest"></div>
 
     <button class="race-start-btn i18n-t" id="raceStartBtn" data-en="Start Race →" data-km="ចាប់ផ្តើមប្រណាំង →">Start Race →</button>
@@ -2542,11 +2552,23 @@
       </span>
     </div>
 
+    <!-- Dual-lane Race Track (Player vs AI Bot) -->
     <div class="race-track">
-      <div class="race-track-row">
-        <span class="race-track-tag i18n-t" data-en="YOU" data-km="អ្នក">YOU</span>
+      <div class="race-track-row player-lane">
+        <span class="race-track-tag">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span id="racePlayerTagLabel">YOU</span>
+        </span>
         <div class="race-track-bar"><div class="race-track-fill" id="raceTrackFill"></div></div>
         <span class="race-track-pct" id="raceTrackPct">0%</span>
+      </div>
+      <div class="race-track-row ai-lane">
+        <span class="race-track-tag ai-tag">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+          <span id="raceAiRacerName">AI BOT</span>
+        </span>
+        <div class="race-track-bar ai-bar"><div class="race-track-fill ai-fill" id="raceTrackAiFill"></div></div>
+        <span class="race-track-pct ai-pct" id="raceTrackAiPct">0%</span>
       </div>
     </div>
 

@@ -161,6 +161,11 @@ const raceTimeValEl = document.getElementById('raceTimeVal');
 const raceMistakesValEl = document.getElementById('raceMistakesVal');
 const raceTrackFillEl = document.getElementById('raceTrackFill');
 const raceTrackPctEl = document.getElementById('raceTrackPct');
+const raceTrackAiFillEl = document.getElementById('raceTrackAiFill');
+const raceTrackAiPctEl = document.getElementById('raceTrackAiPct');
+const raceAiRacerNameEl = document.getElementById('raceAiRacerName');
+const racePlayerTagLabelEl = document.getElementById('racePlayerTagLabel');
+const raceAiOpponentRow = document.getElementById('raceAiOpponentRow');
 const raceTextEl = document.getElementById('raceText');
 const raceCountdownEl = document.getElementById('raceCountdown');
 const raceExitLiveBtn = document.getElementById('raceExitLiveBtn');
@@ -177,6 +182,23 @@ let raceActive = false;        // true only during live typing (countdown finish
 let raceCountingDown = false;
 let raceDifficulty = 'easy';
 let raceLength = '30';
+let raceAiBotChoice = 'auto';  // 'auto' | 'novice' | 'skilled' | 'master'
+let currentAiBot = null;
+let aiTargetWpm = 30;
+let aiCharsTyped = 0;
+let aiFinished = false;
+let aiFinishTime = 0;
+
+const AI_BOTS = {
+  easy: { name: 'Scribe Bot', baseWpm: 24, spread: 3 },
+  medium: { name: 'Angkor AI', baseWpm: 40, spread: 4 },
+  hard: { name: 'Preah Khan AI', baseWpm: 60, spread: 5 },
+  expert: { name: 'Naga Bot 3000', baseWpm: 84, spread: 6 },
+  novice: { name: 'Scribe Bot', baseWpm: 22, spread: 3 },
+  skilled: { name: 'Angkor AI', baseWpm: 42, spread: 4 },
+  master: { name: 'Naga Bot 3000', baseWpm: 75, spread: 5 }
+};
+
 let raceChars = [];            // characters to type, drawn from the same KEY_BY_ID/word data as lessons
 let raceLayers = [];
 let raceKeyIds = [];
@@ -190,6 +212,7 @@ let raceTimeLimitId = null;
 let raceLastStreakCorrect = 0;
 let raceLbDifficulty = 'easy';
 let raceLbLength = '30';
+
 
 /* racer nickname — pre-filled from the site's local profile name (if set),
    overridable per race, remembered for next time */
@@ -415,6 +438,15 @@ raceLengthRow.querySelectorAll('.race-pill').forEach(btn=>{
     updateRaceSetupBest();
   });
 });
+if(raceAiOpponentRow){
+  raceAiOpponentRow.querySelectorAll('.race-pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      raceAiBotChoice = btn.dataset.aiBot;
+      setRacePill(raceAiOpponentRow, 'aiBot', raceAiBotChoice);
+    });
+  });
+}
+
 
 function raceRenderText(){
   raceTextEl.innerHTML = '';
@@ -478,6 +510,26 @@ function raceUpdateHud(){
   raceTrackFillEl.style.width = pct + '%';
   raceTrackPctEl.textContent = pct + '%';
   raceTrackFillEl.classList.toggle('race-fast', wpm >= 40);
+
+  // Compute and render AI opponent progress
+  if(currentAiBot && raceChars.length){
+    const elapsed = raceElapsedSeconds();
+    const aiCharsPerSec = (aiTargetWpm * 5) / 60;
+    const cadence = 1 + 0.05 * Math.sin(elapsed * 1.8);
+    aiCharsTyped = Math.min(raceChars.length, Math.floor(elapsed * aiCharsPerSec * cadence));
+    const aiPct = Math.min(100, Math.round((aiCharsTyped / raceChars.length) * 100));
+    if(raceTrackAiFillEl){
+      raceTrackAiFillEl.style.width = aiPct + '%';
+      raceTrackAiFillEl.classList.toggle('race-fast', aiTargetWpm >= 45);
+    }
+    if(raceTrackAiPctEl){
+      raceTrackAiPctEl.textContent = aiPct + '%';
+    }
+    if(aiPct >= 100 && !aiFinished){
+      aiFinished = true;
+      aiFinishTime = elapsed;
+    }
+  }
 }
 
 function raceTick(){
@@ -584,8 +636,13 @@ function raceReset(){
   raceMistakes = 0;
   raceCorrectTotal = 0;
   raceLastStreakCorrect = 0;
+  aiCharsTyped = 0;
+  aiFinished = false;
+  aiFinishTime = 0;
   raceCountdownEl.hidden = true;
   raceCountdownEl.classList.remove('pulse');
+  if(raceTrackAiFillEl) raceTrackAiFillEl.style.width = '0%';
+  if(raceTrackAiPctEl) raceTrackAiPctEl.textContent = '0%';
 }
 
 function enterRaceMode(){
@@ -606,6 +663,7 @@ function enterRaceMode(){
   raceToggle.setAttribute('aria-pressed','true');
   setRacePill(raceDifficultyRow, 'difficulty', raceDifficulty);
   setRacePill(raceLengthRow, 'length', raceLength);
+  if(raceAiOpponentRow) setRacePill(raceAiOpponentRow, 'aiBot', raceAiBotChoice);
   initRaceNameInput();
   raceOpenSetup();
   requestAnimationFrame(()=>{
@@ -683,6 +741,33 @@ function startRace(){
   raceMistakes = 0;
   raceCorrectTotal = 0;
   raceLastStreakCorrect = 0;
+
+  // Initialize AI Bot opponent
+  const botKey = raceAiBotChoice === 'auto' ? raceDifficulty : raceAiBotChoice;
+  const botProfile = AI_BOTS[botKey] || AI_BOTS.easy;
+  const spreadDelta = Math.floor((Math.random() - 0.5) * (botProfile.spread * 2));
+  aiTargetWpm = Math.max(16, botProfile.baseWpm + spreadDelta);
+  currentAiBot = {
+    key: botKey,
+    name: botProfile.name,
+    targetWpm: aiTargetWpm
+  };
+  aiCharsTyped = 0;
+  aiFinished = false;
+  aiFinishTime = 0;
+
+  if(raceAiRacerNameEl){
+    raceAiRacerNameEl.textContent = `${currentAiBot.name} (${aiTargetWpm} WPM)`;
+  }
+  if(racePlayerTagLabelEl){
+    const rName = getRaceName();
+    racePlayerTagLabelEl.textContent = rName ? rName.toUpperCase() : 'YOU';
+  }
+  if(raceTrackAiFillEl) raceTrackAiFillEl.style.width = '0%';
+  if(raceTrackAiPctEl) raceTrackAiPctEl.textContent = '0%';
+  if(raceTrackFillEl) raceTrackFillEl.style.width = '0%';
+  if(raceTrackPctEl) raceTrackPctEl.textContent = '0%';
+
   const isKm = typeof document !== 'undefined' && document.documentElement.classList.contains('site-km-mode');
   const diffKm = { easy: 'ងាយស្រួល', medium: 'មធ្យម', hard: 'ពិបាក' }[raceDifficulty] || raceDifficulty;
   const diffName = isKm ? diffKm : (raceDifficulty.charAt(0).toUpperCase() + raceDifficulty.slice(1));
@@ -773,18 +858,54 @@ function raceFinish(timedOut){
   confettiBurst(rect.left + rect.width/2, rect.top + rect.height*0.3, accuracy === 100 ? 34 : 22);
   if(isNewBest) triggerRecordCelebration();
 
-  showRaceResults({wpm, accuracy, elapsed, charsTyped, mistakes:raceMistakes, score, isNewBest, timedOut, racerName, rank, lbTotal: lbList.length});
+  const playerWon = (raceLength === 'text')
+    ? (!aiFinished && raceIndex >= raceChars.length) || (wpm >= aiTargetWpm)
+    : (wpm >= aiTargetWpm);
+  const wpmDiff = Math.abs(wpm - aiTargetWpm);
+
+  showRaceResults({
+    wpm,
+    accuracy,
+    elapsed,
+    charsTyped,
+    mistakes: raceMistakes,
+    score,
+    isNewBest,
+    timedOut,
+    racerName,
+    rank,
+    lbTotal: lbList.length,
+    duelResult: {
+      playerWon,
+      aiBot: currentAiBot || { name: 'AI Bot' },
+      aiWpm: aiTargetWpm,
+      wpmDiff
+    }
+  });
   achievementOnce('race-'+raceDifficulty+'-'+raceLength, pkIcon('flag', 20), 'Race complete!', 'Finished a ' + raceDifficulty + ' race');
 }
 
-function showRaceResults({wpm, accuracy, elapsed, charsTyped, mistakes, score, isNewBest, racerName, rank, lbTotal}){
+function showRaceResults({wpm, accuracy, elapsed, charsTyped, mistakes, score, isNewBest, racerName, rank, lbTotal, duelResult}){
   const isKm = typeof document !== 'undefined' && document.documentElement.classList.contains('site-km-mode');
   const overlay = document.createElement('div');
   overlay.className = 'race-result-overlay';
+
+  const duelHtml = duelResult ? `
+    <div class="race-duel-badge ${duelResult.playerWon ? 'win' : 'loss'}">
+      ${duelResult.playerWon ? pkIcon('trophy', 16) : pkIcon('flag', 16)}
+      <span>${duelResult.playerWon ? (isKm ? 'អ្នកបានយកឈ្នះ AI!' : 'VICTORY OVER AI!') : (isKm ? 'AI ទទួលបានជ័យជម្នះ!' : 'AI BOT WON THE MATCH!')}</span>
+    </div>
+    <p class="race-duel-sub">
+      ${duelResult.playerWon
+        ? (isKm ? `អ្នកវាយបាន <b>${wpm} WPM</b> លើស ${escapeHtml(duelResult.aiBot.name)} (${duelResult.aiWpm} WPM) ចំនួន <b>+${duelResult.wpmDiff} WPM</b>!` : `You clocked <b>${wpm} WPM</b>, beating ${escapeHtml(duelResult.aiBot.name)} (${duelResult.aiWpm} WPM) by <b>+${duelResult.wpmDiff} WPM</b>!`)
+        : (isKm ? `${escapeHtml(duelResult.aiBot.name)} វាយបាន <b>${duelResult.aiWpm} WPM</b> លើសអ្នក (${wpm} WPM) ចំនួន <b>+${duelResult.wpmDiff} WPM</b>។ ព្យាយាមម្តងទៀត!` : `${escapeHtml(duelResult.aiBot.name)} clocked <b>${duelResult.aiWpm} WPM</b> vs your <b>${wpm} WPM</b> (+${duelResult.wpmDiff} WPM advantage). Keep practicing!`)}
+    </p>` : '';
+
   overlay.innerHTML = `
     <div class="race-result-card">
-      <div class="race-badge">${pkIcon('trophy', 38)}</div>
-      <h2>${isKm ? 'បញ្ចប់ការប្រណាំង!' : 'RACE COMPLETE!'}</h2>
+      <div class="race-badge">${duelResult && duelResult.playerWon ? pkIcon('trophy', 38) : pkIcon('flag', 38)}</div>
+      <h2>${duelResult && duelResult.playerWon ? (isKm ? 'ជ័យជម្នះ!' : 'VICTORY!') : (isKm ? 'បញ្ចប់ការប្រណាំង!' : 'RACE FINISHED!')}</h2>
+      ${duelHtml}
       <p class="race-pb" style="color:var(--ink-dim); text-transform:none; letter-spacing:0;">
         ${escapeHtml(racerName)} — ${isKm ? `ចំណាត់ថ្នាក់ <b style="color:var(--gold-bright)">#${rank}</b> ក្នុងចំណោម ${lbTotal} នៅលើតារាងនេះ` : `Rank <b style="color:var(--gold-bright)">#${rank}</b> of ${lbTotal} on this leaderboard`}
       </p>
@@ -805,6 +926,7 @@ function showRaceResults({wpm, accuracy, elapsed, charsTyped, mistakes, score, i
       </div>
     </div>`;
   document.body.appendChild(overlay);
+
 
   overlay.querySelector('.race-again').addEventListener('click', ()=>{
     overlay.remove();
