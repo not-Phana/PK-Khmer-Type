@@ -1157,108 +1157,353 @@ window.AccountProgress = AccountProgress;
     return { name: r.name, next };
   }
 
-  /* ---------- Render Cloud Files List in Account Panel ---------- */
+  /* ---------- Cloud Storage Vault & Lightbox Implementation ---------- */
+  const cloudThumbnailCache = new Map(); // fileId -> { blob, blobUrl }
+  let activeLightboxItem = null;
+
+  function formatCloudFileInfo(f) {
+    const rawName = String(f.file_name || 'file');
+    const lower = rawName.toLowerCase();
+    const mime = String(f.mime_type || '').toLowerCase();
+    const isJsonBackup = lower.endsWith('.json') || mime === 'application/json';
+    const isImage = /\.(png|jpe?g|webp|gif|svg)$/i.test(lower) || mime.startsWith('image/');
+
+    let ext = '';
+    const lastDot = rawName.lastIndexOf('.');
+    if (lastDot > 0) {
+      ext = rawName.slice(lastDot + 1).toUpperCase();
+    }
+
+    let smartTitle = rawName;
+    let tagText = ext || 'FILE';
+    let tagClass = '';
+
+    if (isJsonBackup) {
+      smartTitle = 'Progress & Settings Backup';
+      tagText = 'BACKUP';
+      tagClass = 'tag-backup';
+    } else if (isImage) {
+      tagClass = 'tag-image';
+      if (/^[a-f0-9]{16,}/i.test(rawName) || /_[0-9]{8,}/.test(rawName) || rawName.includes('.png_2K_')) {
+        smartTitle = 'Profile Media / Artwork';
+      } else {
+        smartTitle = rawName.replace(/\.[^/.]+$/, '');
+      }
+    }
+
+    return {
+      rawName,
+      smartTitle,
+      tagText,
+      tagClass,
+      isJsonBackup,
+      isImage,
+      safeRawName: rawName.replace(/[<>&"]/g, ''),
+      safeTitle: smartTitle.replace(/[<>&"]/g, '')
+    };
+  }
+
+  function openCloudImageLightbox(fileRecord, blobUrl) {
+    const modal = document.getElementById('accImageLightboxModal');
+    const img = document.getElementById('accLightboxImg');
+    const title = document.getElementById('accLightboxTitle');
+    const details = document.getElementById('accLightboxDetails');
+    if (!modal || !img) return;
+
+    activeLightboxItem = { fileRecord, blobUrl };
+    const info = formatCloudFileInfo(fileRecord);
+    const kb = Math.max(1, Math.round((Number(fileRecord.size_bytes) || 0) / 1024));
+    const dateStr = fileRecord.updated_at ? new Date(fileRecord.updated_at).toLocaleString() : '';
+
+    img.src = blobUrl;
+    if (title) title.textContent = info.smartTitle;
+    if (details) details.textContent = `${info.rawName} (${kb} KB · ${dateStr})`;
+    modal.hidden = false;
+  }
+
+  function closeCloudImageLightbox() {
+    const modal = document.getElementById('accImageLightboxModal');
+    if (modal) modal.hidden = true;
+    activeLightboxItem = null;
+  }
+
+  async function applyFileAsProfileAvatar(fileRecord, blob) {
+    if (!blob || !window.AuthProvider || typeof window.AuthProvider.updateAvatar !== 'function') return;
+    try {
+      const objUrl = URL.createObjectURL(blob);
+      const img = new Image();
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = objUrl;
+      });
+      URL.revokeObjectURL(objUrl);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 160;
+      canvas.height = 160;
+      const ctx = canvas.getContext('2d');
+      const minDim = Math.min(img.naturalWidth || img.width, img.naturalHeight || img.height);
+      const sx = Math.max(0, ((img.naturalWidth || img.width) - minDim) / 2);
+      const sy = Math.max(0, ((img.naturalHeight || img.height) - minDim) / 2);
+      ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, 160, 160);
+      const avatarDataUrl = canvas.toDataURL('image/jpeg', 0.88);
+
+      const avRes = await window.AuthProvider.updateAvatar({ avatarDataUrl });
+      if (!avRes.ok) {
+        if (typeof showToast === 'function') showToast(pkIcon('zap', 18), 'Avatar Update Failed', avRes.error || 'Could not update avatar.');
+        return;
+      }
+
+      // Update avatar previews in DOM
+      const accAv = document.getElementById('authAccountAvatar');
+      if (accAv) {
+        accAv.innerHTML = '';
+        const accImg = document.createElement('img');
+        accImg.src = avatarDataUrl;
+        accImg.alt = 'Avatar';
+        accImg.className = 'acc-avatar-photo';
+        accAv.appendChild(accImg);
+      }
+      const btnAv = document.getElementById('authBtnAvatar');
+      if (btnAv) {
+        btnAv.innerHTML = '';
+        const bImg = document.createElement('img');
+        bImg.src = avatarDataUrl;
+        bImg.alt = 'Avatar';
+        bImg.className = 'auth-btn-photo';
+        btnAv.appendChild(bImg);
+      }
+      if (typeof showToast === 'function') {
+        showToast(pkIcon('check', 18), 'Profile Avatar Updated', 'Your new cloud avatar is active across all devices.');
+      }
+    } catch (err) {
+      if (typeof showToast === 'function') showToast(pkIcon('zap', 18), 'Avatar Error', err.message || 'Could not process image.');
+    }
+  }
+
   async function refreshCloudFilesList() {
     const listEl = document.getElementById('accCloudFilesList');
+    const quotaEl = document.getElementById('accCloudVaultQuota');
+    const refreshBtn = document.getElementById('accRefreshCloudFilesBtn');
     if (!listEl) return;
     if (!window.PKCloudSync || typeof window.PKCloudSync.listUserFiles !== 'function') {
       listEl.innerHTML = '<div class="acc-cloud-files-empty">Cloud storage module unavailable.</div>';
       return;
     }
 
-    listEl.innerHTML = '<div class="acc-cloud-files-empty">Loading private cloud files...</div>';
-    const res = await window.PKCloudSync.listUserFiles();
-    if (!res.ok) {
-      listEl.innerHTML = `<div class="acc-cloud-files-empty">${res.error || 'Could not load cloud files.'}</div>`;
-      return;
-    }
-    const files = res.files || [];
-    if (files.length === 0) {
-      listEl.innerHTML = '<div class="acc-cloud-files-empty">No cloud files yet. Click "Save Snapshot" to store an encrypted cloud backup or upload a personal file.</div>';
-      return;
-    }
+    if (refreshBtn) refreshBtn.classList.add('is-spinning');
+    listEl.innerHTML = '<div class="acc-cloud-files-empty">Loading private cloud vault...</div>';
 
-    listEl.innerHTML = files
-      .map((f) => {
-        const kb = Math.max(1, Math.round((Number(f.size_bytes) || 0) / 1024));
-        const dateStr = f.updated_at ? new Date(f.updated_at).toLocaleDateString() : '';
-        const isJsonBackup = String(f.file_name || '').toLowerCase().endsWith('.json') || f.mime_type === 'application/json';
-        const safeName = String(f.file_name || 'file').replace(/[<>&"]/g, '');
-        return `<div class="acc-cloud-file-item" data-file-id="${f.id}">
-          <div class="acc-cloud-file-meta">
-            <span class="acc-cloud-file-name" title="${safeName}">${safeName}</span>
-            <span class="acc-cloud-file-sub">${kb} KB · ${dateStr}</span>
-          </div>
-          <div class="acc-cloud-file-btns">
-            ${isJsonBackup ? `<button type="button" class="acc-file-act-btn restore" data-action="restore" data-id="${f.id}" title="Restore backup snapshot">Restore</button>` : ''}
-            <button type="button" class="acc-file-act-btn" data-action="download" data-id="${f.id}" title="Download file">Download</button>
-            <button type="button" class="acc-file-act-btn danger" data-action="delete" data-id="${f.id}" title="Delete from cloud">Delete</button>
-          </div>
-        </div>`;
-      })
-      .join('');
+    try {
+      const res = await window.PKCloudSync.listUserFiles();
+      if (!res.ok) {
+        listEl.innerHTML = `<div class="acc-cloud-files-empty">${res.error || 'Could not load cloud files.'}</div>`;
+        if (quotaEl) quotaEl.textContent = 'Unavailable';
+        return;
+      }
+      const files = res.files || [];
 
-    listEl.querySelectorAll('.acc-file-act-btn').forEach((btn) => {
-      btn.addEventListener('click', async () => {
-        const action = btn.dataset.action;
-        const fileId = btn.dataset.id;
-        const fileRecord = files.find((item) => item.id === fileId);
-        if (!fileRecord) return;
+      // Update quota badge
+      let totalBytes = 0;
+      files.forEach((f) => { totalBytes += (Number(f.size_bytes) || 0); });
+      const totalKb = Math.round(totalBytes / 1024);
+      const totalFormatted = totalKb > 1024 ? `${(totalKb / 1024).toFixed(1)} MB` : `${totalKb} KB`;
+      if (quotaEl) {
+        quotaEl.textContent = `${files.length} File${files.length === 1 ? '' : 's'} · ${totalFormatted}`;
+      }
 
-        if (action === 'restore') {
-          const confirmed = typeof templeConfirm === 'function'
-            ? await templeConfirm(
-                `Restore cloud snapshot "${fileRecord.file_name}" and merge it with your current progress and settings?`,
-                { title: 'Restore Cloud Snapshot?', confirmLabel: 'Restore Snapshot' }
-              )
-            : confirm(`Restore cloud snapshot "${fileRecord.file_name}"?`);
-          if (!confirmed) return;
-          btn.disabled = true;
-          const restoreRes = await window.PKCloudSync.restoreCloudBackupSnapshot(fileRecord.id);
-          btn.disabled = false;
-          if (!restoreRes.ok) {
-            if (typeof showToast === 'function') showToast(pkIcon('zap', 18), 'Restore failed', restoreRes.error);
-            return;
+      if (files.length === 0) {
+        listEl.innerHTML = '<div class="acc-cloud-files-empty">No cloud files yet. Click "Snapshot" to store an encrypted cloud backup or "Upload" personal media.</div>';
+        return;
+      }
+
+      listEl.innerHTML = files
+        .map((f) => {
+          const info = formatCloudFileInfo(f);
+          const kb = Math.max(1, Math.round((Number(f.size_bytes) || 0) / 1024));
+          const dateStr = f.updated_at ? new Date(f.updated_at).toLocaleDateString() : '';
+
+          let thumbIcon = '';
+          if (info.isJsonBackup) {
+            thumbIcon = `<div class="acc-file-thumb-wrap is-backup" title="JSON Backup Snapshot">
+              <svg class="pk-icon acc-file-thumb-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            </div>`;
+          } else if (info.isImage) {
+            thumbIcon = `<div class="acc-file-thumb-wrap is-image" data-thumb-id="${f.id}" title="Click to view full image">
+              <svg class="pk-icon acc-file-thumb-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>`;
+          } else {
+            thumbIcon = `<div class="acc-file-thumb-wrap is-generic" title="Document File">
+              <svg class="pk-icon acc-file-thumb-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>`;
           }
-          if (typeof showToast === 'function') {
-            showToast(pkIcon('check', 18), 'Snapshot Restored', 'Reloading your synchronized workspace...');
+
+          return `<div class="acc-cloud-file-card" data-file-id="${f.id}">
+            ${thumbIcon}
+            <div class="acc-file-body">
+              <div class="acc-file-title-row">
+                <span class="acc-file-smart-name" title="${info.safeTitle}">${info.safeTitle}</span>
+                <span class="acc-file-ext-tag ${info.tagClass}">${info.tagText}</span>
+              </div>
+              <div class="acc-file-meta-row">
+                <span>${kb} KB</span>
+                <span>·</span>
+                <span>${dateStr}</span>
+                <span>·</span>
+                <span class="acc-file-raw-name" title="${info.safeRawName}">${info.safeRawName}</span>
+              </div>
+            </div>
+            <div class="acc-file-btns">
+              ${info.isJsonBackup ? `<button type="button" class="acc-file-act-btn restore" data-action="restore" data-id="${f.id}" title="Restore backup snapshot">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+                <span>Restore</span>
+              </button>` : ''}
+              ${info.isImage ? `<button type="button" class="acc-file-act-btn avatar-btn" data-action="set-avatar" data-id="${f.id}" title="Set this image as your profile avatar">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Avatar</span>
+              </button>` : ''}
+              ${info.isImage ? `<button type="button" class="acc-file-act-btn" data-action="preview" data-id="${f.id}" title="View full image">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>View</span>
+              </button>` : ''}
+              <button type="button" class="acc-file-act-btn" data-action="download" data-id="${f.id}" title="Download file to computer">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </button>
+              <button type="button" class="acc-file-act-btn danger" data-action="delete" data-id="${f.id}" title="Delete permanently from cloud">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              </button>
+            </div>
+          </div>`;
+        })
+        .join('');
+
+      // Asynchronously fetch & render image thumbnails
+      files.forEach(async (f) => {
+        const info = formatCloudFileInfo(f);
+        if (!info.isImage) return;
+
+        let cached = cloudThumbnailCache.get(f.id);
+        if (!cached) {
+          const dlRes = await window.PKCloudSync.downloadUserFile(f);
+          if (dlRes.ok && dlRes.blob) {
+            const blobUrl = URL.createObjectURL(dlRes.blob);
+            cached = { blob: dlRes.blob, blobUrl };
+            cloudThumbnailCache.set(f.id, cached);
           }
-          setTimeout(() => location.reload(), 500);
-        } else if (action === 'download') {
-          btn.disabled = true;
-          const dlRes = await window.PKCloudSync.downloadUserFile(fileRecord);
-          btn.disabled = false;
-          if (!dlRes.ok || !dlRes.blob) {
-            if (typeof showToast === 'function') showToast(pkIcon('zap', 18), 'Download failed', dlRes.error || 'Could not download file.');
-            return;
+        }
+
+        if (cached && cached.blobUrl) {
+          const thumbWrap = listEl.querySelector(`.acc-file-thumb-wrap[data-thumb-id="${f.id}"]`);
+          if (thumbWrap) {
+            thumbWrap.innerHTML = `<img src="${cached.blobUrl}" class="acc-file-thumb" alt="${info.safeTitle}">`;
+            thumbWrap.onclick = () => openCloudImageLightbox(f, cached.blobUrl);
           }
-          const url = URL.createObjectURL(dlRes.blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = fileRecord.file_name || 'cloud-file';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        } else if (action === 'delete') {
-          const confirmed = typeof templeConfirm === 'function'
-            ? await templeConfirm(
-                `Permanently delete "${fileRecord.file_name}" from your private cloud storage?`,
-                { title: 'Delete Cloud File?', danger: true, confirmLabel: 'Delete' }
-              )
-            : confirm(`Delete "${fileRecord.file_name}"?`);
-          if (!confirmed) return;
-          btn.disabled = true;
-          const delRes = await window.PKCloudSync.deleteUserFile(fileRecord.id);
-          if (!delRes.ok) {
-            btn.disabled = false;
-            if (typeof showToast === 'function') showToast(pkIcon('zap', 18), 'Delete failed', delRes.error || 'Could not delete file.');
-            return;
-          }
-          await refreshCloudFilesList();
         }
       });
-    });
+
+      // Hook up card buttons
+      listEl.querySelectorAll('.acc-file-act-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const action = btn.dataset.action;
+          const fileId = btn.dataset.id;
+          const fileRecord = files.find((item) => item.id === fileId);
+          if (!fileRecord) return;
+
+          if (action === 'restore') {
+            const confirmed = typeof templeConfirm === 'function'
+              ? await templeConfirm(
+                  `Restore cloud snapshot "${fileRecord.file_name}" and merge it with your current progress and settings?`,
+                  { title: 'Restore Cloud Snapshot?', confirmLabel: 'Restore Snapshot' }
+                )
+              : confirm(`Restore cloud snapshot "${fileRecord.file_name}"?`);
+            if (!confirmed) return;
+            btn.disabled = true;
+            const restoreRes = await window.PKCloudSync.restoreCloudBackupSnapshot(fileRecord.id);
+            btn.disabled = false;
+            if (!restoreRes.ok) {
+              if (typeof showToast === 'function') showToast(pkIcon('zap', 18), 'Restore failed', restoreRes.error);
+              return;
+            }
+            if (typeof showToast === 'function') {
+              showToast(pkIcon('check', 18), 'Snapshot Restored', 'Reloading your synchronized workspace...');
+            }
+            setTimeout(() => location.reload(), 500);
+          } else if (action === 'preview') {
+            let cached = cloudThumbnailCache.get(fileRecord.id);
+            if (!cached) {
+              btn.disabled = true;
+              const dlRes = await window.PKCloudSync.downloadUserFile(fileRecord);
+              btn.disabled = false;
+              if (dlRes.ok && dlRes.blob) {
+                const blobUrl = URL.createObjectURL(dlRes.blob);
+                cached = { blob: dlRes.blob, blobUrl };
+                cloudThumbnailCache.set(fileRecord.id, cached);
+              }
+            }
+            if (cached && cached.blobUrl) {
+              openCloudImageLightbox(fileRecord, cached.blobUrl);
+            }
+          } else if (action === 'set-avatar') {
+            let cached = cloudThumbnailCache.get(fileRecord.id);
+            if (!cached) {
+              btn.disabled = true;
+              const dlRes = await window.PKCloudSync.downloadUserFile(fileRecord);
+              btn.disabled = false;
+              if (dlRes.ok && dlRes.blob) {
+                const blobUrl = URL.createObjectURL(dlRes.blob);
+                cached = { blob: dlRes.blob, blobUrl };
+                cloudThumbnailCache.set(fileRecord.id, cached);
+              }
+            }
+            if (cached && cached.blob) {
+              btn.disabled = true;
+              await applyFileAsProfileAvatar(fileRecord, cached.blob);
+              btn.disabled = false;
+            }
+          } else if (action === 'download') {
+            btn.disabled = true;
+            let blob = cloudThumbnailCache.get(fileRecord.id)?.blob;
+            if (!blob) {
+              const dlRes = await window.PKCloudSync.downloadUserFile(fileRecord);
+              if (dlRes.ok && dlRes.blob) blob = dlRes.blob;
+            }
+            btn.disabled = false;
+            if (!blob) {
+              if (typeof showToast === 'function') showToast(pkIcon('zap', 18), 'Download failed', 'Could not download file.');
+              return;
+            }
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileRecord.file_name || 'cloud-file';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          } else if (action === 'delete') {
+            const confirmed = typeof templeConfirm === 'function'
+              ? await templeConfirm(
+                  `Permanently delete "${fileRecord.file_name}" from your private cloud storage?`,
+                  { title: 'Delete Cloud File?', danger: true, confirmLabel: 'Delete' }
+                )
+              : confirm(`Delete "${fileRecord.file_name}"?`);
+            if (!confirmed) return;
+            btn.disabled = true;
+            const delRes = await window.PKCloudSync.deleteUserFile(fileRecord.id);
+            if (!delRes.ok) {
+              btn.disabled = false;
+              if (typeof showToast === 'function') showToast(pkIcon('zap', 18), 'Delete failed', delRes.error || 'Could not delete file.');
+              return;
+            }
+            cloudThumbnailCache.delete(fileRecord.id);
+            await refreshCloudFilesList();
+          }
+        });
+      });
+    } finally {
+      if (refreshBtn) refreshBtn.classList.remove('is-spinning');
+    }
   }
 
   function populateAccountPanel(user) {
@@ -1434,6 +1679,88 @@ window.AccountProgress = AccountProgress;
       await refreshCloudFilesList();
     });
   }
+
+  const accRefreshCloudFilesBtn = document.getElementById('accRefreshCloudFilesBtn');
+  if (accRefreshCloudFilesBtn) {
+    accRefreshCloudFilesBtn.addEventListener('click', () => refreshCloudFilesList());
+  }
+
+  // Cloud Vault Drag-and-Drop file upload
+  const accVaultChassis = document.getElementById('accountCloudFilesSection');
+  if (accVaultChassis) {
+    accVaultChassis.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      accVaultChassis.classList.add('drag-active');
+    });
+    accVaultChassis.addEventListener('dragleave', (e) => {
+      if (!accVaultChassis.contains(e.relatedTarget)) {
+        accVaultChassis.classList.remove('drag-active');
+      }
+    });
+    accVaultChassis.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      accVaultChassis.classList.remove('drag-active');
+      if (!e.dataTransfer || !e.dataTransfer.files || !e.dataTransfer.files.length) return;
+      const file = e.dataTransfer.files[0];
+      if (!file || !window.PKCloudSync) return;
+      if (typeof showToast === 'function') {
+        showToast(pkIcon('upload', 18), 'Uploading File', `Uploading "${file.name}" to private Cloud Vault...`);
+      }
+      const res = await window.PKCloudSync.uploadUserFile(file, { category: 'personal' });
+      if (!res.ok) {
+        if (typeof showToast === 'function') showToast(pkIcon('zap', 18), 'Upload Failed', res.error || 'Could not upload file.');
+        return;
+      }
+      if (typeof showToast === 'function') {
+        showToast(pkIcon('check', 18), 'File Stored in Vault', `"${file.name}" saved to your personal vault.`);
+      }
+      await refreshCloudFilesList();
+    });
+  }
+
+  // Cloud Vault Lightbox Modal Handlers
+  const accLightboxModal = document.getElementById('accImageLightboxModal');
+  const accLightboxCloseBtn = document.getElementById('accLightboxCloseBtn');
+  const accLightboxDoneBtn = document.getElementById('accLightboxDoneBtn');
+  const accLightboxDownloadBtn = document.getElementById('accLightboxDownloadBtn');
+  const accLightboxSetAvatarBtn = document.getElementById('accLightboxSetAvatarBtn');
+
+  if (accLightboxCloseBtn) accLightboxCloseBtn.addEventListener('click', closeCloudImageLightbox);
+  if (accLightboxDoneBtn) accLightboxDoneBtn.addEventListener('click', closeCloudImageLightbox);
+  if (accLightboxModal) {
+    accLightboxModal.addEventListener('click', (e) => {
+      if (e.target === accLightboxModal) closeCloudImageLightbox();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !accLightboxModal.hidden) {
+        closeCloudImageLightbox();
+      }
+    });
+  }
+  if (accLightboxDownloadBtn) {
+    accLightboxDownloadBtn.addEventListener('click', () => {
+      if (!activeLightboxItem || !activeLightboxItem.blobUrl || !activeLightboxItem.fileRecord) return;
+      const a = document.createElement('a');
+      a.href = activeLightboxItem.blobUrl;
+      a.download = activeLightboxItem.fileRecord.file_name || 'cloud-image';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  }
+  if (accLightboxSetAvatarBtn) {
+    accLightboxSetAvatarBtn.addEventListener('click', async () => {
+      if (!activeLightboxItem || !activeLightboxItem.fileRecord) return;
+      const cached = cloudThumbnailCache.get(activeLightboxItem.fileRecord.id);
+      if (cached && cached.blob) {
+        accLightboxSetAvatarBtn.disabled = true;
+        await applyFileAsProfileAvatar(activeLightboxItem.fileRecord, cached.blob);
+        accLightboxSetAvatarBtn.disabled = false;
+        closeCloudImageLightbox();
+      }
+    });
+  }
+
 
   const accChangePasswordBtn = document.getElementById('accChangePasswordBtn');
   if (accChangePasswordBtn && recoveryForm) {
