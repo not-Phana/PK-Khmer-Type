@@ -2986,9 +2986,30 @@
     }
   }
 
-  /* auth-card never needs scrollbar — content is sized to fit */
+  /* auth-card scrollable modal container */
   .auth-card{
-    overflow:hidden !important;
+    max-height: min(88vh, 760px);
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 209, 102, 0.45) rgba(0, 0, 0, 0.25);
+  }
+  .auth-card::-webkit-scrollbar{
+    width: 6px;
+  }
+  .auth-card::-webkit-scrollbar-track{
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 999px;
+  }
+  .auth-card::-webkit-scrollbar-thumb{
+    background: rgba(255, 209, 102, 0.35);
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .auth-card::-webkit-scrollbar-thumb:hover{
+    background: rgba(255, 209, 102, 0.6);
   }
   .modal-top{
     display:flex; justify-content:space-between; align-items:center;
@@ -6583,12 +6604,59 @@ html.performance-mode .settings-version-pill .ver-live-dot {
   align-items: center;
   gap: 6px;
 }
+.acc-mini-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+  transition: all 0.16s ease;
+  line-height: 1.2;
+}
+.acc-mini-btn:hover {
+  background: rgba(255, 209, 102, 0.14);
+  border-color: var(--gold-bright);
+  color: var(--gold-bright);
+  transform: translateY(-1px);
+}
+.acc-mini-btn:active {
+  transform: translateY(0);
+}
+.acc-mini-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
 .acc-cloud-files-list {
   display: flex;
   flex-direction: column;
   gap: 6px;
   max-height: 150px;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 209, 102, 0.4) rgba(0, 0, 0, 0.2);
+}
+.acc-cloud-files-list::-webkit-scrollbar {
+  width: 5px;
+}
+.acc-cloud-files-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+}
+.acc-cloud-files-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 209, 102, 0.35);
+  border-radius: 999px;
+}
+.acc-cloud-files-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 209, 102, 0.6);
 }
 .acc-cloud-files-empty {
   font-size: 0.74rem;
@@ -6658,9 +6726,16 @@ html.performance-mode .settings-version-pill .ver-live-dot {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-top: 10px;
-  padding-top: 10px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+}
+.acc-bottom-actions .auth-signout-btn {
+  width: auto;
+  padding: 7px 14px;
+  margin: 0;
 }
 .acc-delete-account-btn {
   display: inline-flex;
