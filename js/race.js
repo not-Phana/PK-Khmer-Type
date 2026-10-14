@@ -569,8 +569,14 @@ function raceOpenSetup(){
 }
 
 function raceReset(){
-  cancelAnimationFrame(raceTimerId);
-  clearTimeout(raceCountdownTimer);
+  if(raceTimerId){
+    cancelAnimationFrame(raceTimerId);
+    raceTimerId = null;
+  }
+  if(raceCountdownTimer){
+    clearInterval(raceCountdownTimer);
+    raceCountdownTimer = null;
+  }
   raceActive = false;
   raceCountingDown = false;
   raceIndex = 0;

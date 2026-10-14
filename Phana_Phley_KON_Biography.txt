@@ -233,7 +233,7 @@ PROJECT SUMMARY TABLE:
    - Category: Educational / Web App
    - Status: Live - Active Development
    - Tech: Vanilla ES6+, CSS3, Web Audio API, Three.js, LocalStorage
-   - Links: https://phanaach4889.github.io/PK-Khmer-Type/ | https://github.com/not-Phana/PK-Khmer-Type
+   - Links: https://not-phana.github.io/PK-Khmer-Type/ | https://github.com/not-Phana/PK-Khmer-Type
 
 2. NEON PROTOCOL // OVERDRIVE
    - Category: Action Game

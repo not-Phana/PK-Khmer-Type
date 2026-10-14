@@ -6,8 +6,8 @@
 - **Official Name**: PK Khmer Type
 - **Khmer Name**: ក្តារចុចខ្មែរ PK
 - **Founder & Developer**: Phanna Kurosaki
-- **Canonical Website**: https://phanaach4889.github.io/PK-Khmer-Type/
-- **Official Documentation**: https://phanaach4889.github.io/PK-Khmer-Type/Documents/
+- **Canonical Website**: https://not-phana.github.io/PK-Khmer-Type/
+- **Official Documentation**: https://not-phana.github.io/PK-Khmer-Type/Documents/
 - **GitHub Repository**: https://github.com/phanaach4889/PK-Khmer-Type
 - **Author Profile (Facebook)**: https://web.facebook.com/Wphanakurasaki/
 - **Category**: Educational Web Application / Khmer Touch-Typing Tutor / Progressive Web App (PWA)
@@ -46,9 +46,9 @@
 3. **Word & Clause Spacing**: Press `Shift + Space` on Khmer layouts to insert a visible space between phrases or clauses.
 
 ## Key Pages & Visual Assets
-- [PK Khmer Type — Interactive Typing Trainer](https://phanaach4889.github.io/PK-Khmer-Type/): Main typing application.
-- [PK Khmer Type — Official Documentation & Keyboard Guide](https://phanaach4889.github.io/PK-Khmer-Type/Documents/): Comprehensive Khmer orthography guide, keyboard layout tables, and 3D mechanical studio.
-- [Open Graph Preview Banner](https://phanaach4889.github.io/PK-Khmer-Type/assets/pk-khmer-type-og-preview.png): Official 1200x630 preview banner.
-- [Khmer Standard Keyboard Layout Diagram](https://phanaach4889.github.io/PK-Khmer-Type/assets/pk-khmer-type-standard-khmer-keyboard-layout.png): Visual keymap with finger guide for Khmer Standard.
-- [Khmer NiDA Keyboard Layout Diagram](https://phanaach4889.github.io/PK-Khmer-Type/assets/pk-khmer-type-khmer-nida-keyboard-layout.png): Visual keymap with finger guide for Khmer NiDA.
-- [English QWERTY Keyboard Layout Diagram](https://phanaach4889.github.io/PK-Khmer-Type/assets/pk-khmer-type-english-qwerty-keyboard-layout.png): Visual keymap with finger guide for English US QWERTY.
+- [PK Khmer Type — Interactive Typing Trainer](https://not-phana.github.io/PK-Khmer-Type/): Main typing application.
+- [PK Khmer Type — Official Documentation & Keyboard Guide](https://not-phana.github.io/PK-Khmer-Type/Documents/): Comprehensive Khmer orthography guide, keyboard layout tables, and 3D mechanical studio.
+- [Open Graph Preview Banner](https://not-phana.github.io/PK-Khmer-Type/assets/pk-khmer-type-og-preview.png): Official 1200x630 preview banner.
+- [Khmer Standard Keyboard Layout Diagram](https://not-phana.github.io/PK-Khmer-Type/assets/pk-khmer-type-standard-khmer-keyboard-layout.png): Visual keymap with finger guide for Khmer Standard.
+- [Khmer NiDA Keyboard Layout Diagram](https://not-phana.github.io/PK-Khmer-Type/assets/pk-khmer-type-khmer-nida-keyboard-layout.png): Visual keymap with finger guide for Khmer NiDA.
+- [English QWERTY Keyboard Layout Diagram](https://not-phana.github.io/PK-Khmer-Type/assets/pk-khmer-type-english-qwerty-keyboard-layout.png): Visual keymap with finger guide for English US QWERTY.

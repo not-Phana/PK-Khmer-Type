@@ -160,7 +160,7 @@ The **PK Ecosystem** is the unified umbrella of applications, libraries, and exp
 
 | Project Name | Category | Status | Primary Technologies | Deployment / Repository |
 | :--- | :--- | :--- | :--- | :--- |
-| **PK Khmer Type** | Educational / Web App | Live · Active Development | Vanilla ES6+, CSS3, Web Audio API, Three.js, LocalStorage | [Live Site](https://phanaach4889.github.io/PK-Khmer-Type/) · [GitHub](https://github.com/not-Phana/PK-Khmer-Type) |
+| **PK Khmer Type** | Educational / Web App | Live · Active Development | Vanilla ES6+, CSS3, Web Audio API, Three.js, LocalStorage | [Live Site](https://not-phana.github.io/PK-Khmer-Type/) · [GitHub](https://github.com/not-Phana/PK-Khmer-Type) |
 | **NEON PROTOCOL // OVERDRIVE** | Action Game | Live on GitHub Pages | HTML5 Canvas 2D, Web Audio API, Pure JavaScript, SVG | [Live Game](https://not-phana.github.io/PK-game/) · [GitHub](https://github.com/not-Phana/PK-game) |
 | **PK Icons Studio** | Developer Tools / UI | Live · Expanding | SVG Vector Geometry, JavaScript, HTML5, CSS3 | [Live Gallery](https://not-phana.github.io/PK-icons/) · [GitHub](https://github.com/not-Phana/PK-icons) |
 | **PK Studio Code** | Developer Environment | In Development · Local Build | Monaco Editor, Node.js SSE Server, HTML5, Gemini API | Local Workspace Prototype |

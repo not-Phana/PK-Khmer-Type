@@ -1871,6 +1871,10 @@
   function exitSession(keepSummary = false) {
     if (typeof window !== 'undefined') window.adaptiveActive = false;
     activeSession = null;
+    if (roundToastTimer) {
+      clearTimeout(roundToastTimer);
+      roundToastTimer = null;
+    }
 
     if (highlightedAdaptiveKeyId && typeof keyEls !== 'undefined' && keyEls[highlightedAdaptiveKeyId]) {
       keyEls[highlightedAdaptiveKeyId].classList.remove('lesson-target');

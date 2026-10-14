@@ -771,7 +771,7 @@ test('6.1 AuthProvider returns normal user errors for Sign In / Sign Up and enfo
       isSupabaseConfigured: () => false,
       getSupabaseSetupError: () => 'Missing VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.',
       getSupabaseClient: () => null,
-      getAuthRedirectUrl: () => 'https://phanaach4889.github.io/PK-Khmer-Type/'
+      getAuthRedirectUrl: () => 'https://not-phana.github.io/PK-Khmer-Type/'
     }
   };
 
@@ -899,7 +899,7 @@ test('6.2 AuthProvider handles Registration, Email Verification Pending, Duplica
       isSupabaseConfigured: () => true,
       getSupabaseSetupError: () => '',
       getSupabaseClient: () => mockAuthClient,
-      getAuthRedirectUrl: () => 'https://phanaach4889.github.io/PK-Khmer-Type/'
+      getAuthRedirectUrl: () => 'https://not-phana.github.io/PK-Khmer-Type/'
     }
   };
 

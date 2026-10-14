@@ -459,6 +459,14 @@
     }
   }, { capture: true, passive: false });
 
+  /* Blur toolbar & sidebar controls on click so Space and Tab never re-trigger UI buttons during a drill */
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.toolbar button, .guide-dock button, .guide-dock .gas-btn, .layout-pill, .layout-strip button, #profileSidebar');
+    if(btn && typeof btn.blur === 'function'){
+      btn.blur();
+    }
+  }, true);
+
   window.openShortcutsModal = openShortcutsModal;
   window.closeShortcutsModal = closeShortcutsModal;
 })();

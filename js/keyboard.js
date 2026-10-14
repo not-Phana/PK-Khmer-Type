@@ -493,64 +493,117 @@ if(document.readyState !== 'loading'){
 }
 
 
-/* ---------- layout switching ---------- */
+/* ---------- layout switching & sidebar guide sync ---------- */
 function updateQuickGuide() {
   const leftHand = document.getElementById('guideLeftHand');
   const rightHand = document.getElementById('guideRightHand');
   const subscriptsSec = document.getElementById('guideSubscriptsSec');
   const typeSpaceKbd = document.getElementById('guideTypeSpaceKbd');
   const coengKeyWrap = document.getElementById('guideCoengKeyWrap');
+  const cheatTitle = document.getElementById('guideCheatTitle');
+  const layoutBadge = document.getElementById('guideLayoutBadge');
+  const ruleRow1 = document.getElementById('guideRuleRow1');
+  const ruleRow2 = document.getElementById('guideRuleRow2');
+  const ruleRow3 = document.getElementById('guideRuleRow3');
+  const ruleRow4 = document.getElementById('guideRuleRow4');
+  const ruleLabel1 = document.getElementById('guideRuleLabel1');
+  const ruleLabel2 = document.getElementById('guideRuleLabel2');
+  const ruleLabel3 = document.getElementById('guideRuleLabel3');
+  const ruleLabel4 = document.getElementById('guideRuleLabel4');
+  const coengExample1 = document.getElementById('guideCoengExample1');
+  const coengExample2 = document.getElementById('guideCoengExample2');
+  const punctSample = document.getElementById('guidePunctSample');
   const isKm = document.documentElement.classList.contains('site-km-mode');
 
   if (!leftHand) return;
 
   if (currentLayoutId === 'english') {
+    if(layoutBadge){
+      layoutBadge.textContent = isKm ? 'អង់គ្លេស' : 'English';
+      layoutBadge.className = 'gdh-badge badge-eng';
+    }
     leftHand.innerHTML = `
-      <div class="guide-mini-key" title="Left Pinky"><span class="km-ch" style="opacity:0">A</span><span class="en-ch">A</span></div>
-      <div class="guide-mini-key" title="Left Ring"><span class="km-ch" style="opacity:0">S</span><span class="en-ch">S</span></div>
-      <div class="guide-mini-key" title="Left Middle"><span class="km-ch" style="opacity:0">D</span><span class="en-ch">D</span></div>
-      <div class="guide-mini-key" title="Left Index"><span class="km-ch" style="opacity:0">F</span><span class="en-ch">F</span></div>
+      <div class="guide-mini-key gmk-pinky" title="Left Pinky (A)"><span class="km-ch" style="opacity:0">A</span><span class="en-ch">A</span></div>
+      <div class="guide-mini-key gmk-ring" title="Left Ring (S)"><span class="km-ch" style="opacity:0">S</span><span class="en-ch">S</span></div>
+      <div class="guide-mini-key gmk-middle" title="Left Middle (D)"><span class="km-ch" style="opacity:0">D</span><span class="en-ch">D</span></div>
+      <div class="guide-mini-key gmk-index" title="Left Index Anchor (F)"><span class="km-ch" style="opacity:0">F</span><span class="en-ch">F</span></div>
     `;
     rightHand.innerHTML = `
-      <div class="guide-mini-key" title="Right Index"><span class="km-ch" style="opacity:0">H</span><span class="en-ch">J</span></div>
-      <div class="guide-mini-key" title="Right Middle"><span class="km-ch" style="opacity:0">J</span><span class="en-ch">K</span></div>
-      <div class="guide-mini-key" title="Right Ring"><span class="km-ch" style="opacity:0">K</span><span class="en-ch">L</span></div>
-      <div class="guide-mini-key" title="Right Pinky"><span class="km-ch" style="opacity:0">L</span><span class="en-ch">;</span></div>
+      <div class="guide-mini-key gmk-index" title="Right Index Anchor (J)"><span class="km-ch" style="opacity:0">J</span><span class="en-ch">J</span></div>
+      <div class="guide-mini-key gmk-middle" title="Right Middle (K)"><span class="km-ch" style="opacity:0">K</span><span class="en-ch">K</span></div>
+      <div class="guide-mini-key gmk-ring" title="Right Ring (L)"><span class="km-ch" style="opacity:0">L</span><span class="en-ch">L</span></div>
+      <div class="guide-mini-key gmk-pinky" title="Right Pinky (;)"><span class="km-ch" style="opacity:0">;</span><span class="en-ch">;</span></div>
     `;
     if(subscriptsSec) subscriptsSec.style.display = 'block';
+    if(cheatTitle) cheatTitle.textContent = isKm ? 'គោលការណ៍វាយអក្សរអង់គ្លេស' : 'Touch Typing Principles';
+    if(ruleLabel1) ruleLabel1.innerHTML = isKm ? 'ប្ដូរអក្សរធំ (Shift)' : 'Opposite Shift';
+    if(coengExample1) coengExample1.innerHTML = '<kbd class="guide-kbd">Shift</kbd> (Opposite)';
+    if(ruleLabel2) ruleLabel2.innerHTML = isKm ? 'គ្រាប់ចុចយុថ្កា' : 'Home Anchors';
+    if(coengKeyWrap) coengKeyWrap.innerHTML = '<kbd class="guide-kbd">F</kbd> &amp; <kbd class="guide-kbd">J</kbd> (Bumps)';
+    if(ruleLabel3) ruleLabel3.innerHTML = isKm ? 'សញ្ញាវណ្ណយុត្តិ' : 'Punctuation';
+    if(coengExample2) coengExample2.innerHTML = '<kbd class="guide-kbd">,</kbd> Mid · <kbd class="guide-kbd">.</kbd> Ring';
+    if(ruleRow4) ruleRow4.style.display = 'flex';
+    if(ruleLabel4) ruleLabel4.innerHTML = isKm ? 'ឥរិយាបថដៃ' : 'Posture';
+    if(punctSample) punctSample.innerHTML = 'Float wrists';
     if(typeSpaceKbd) typeSpaceKbd.textContent = 'Space';
   } else if (currentLayoutId === 'standard') {
+    if(layoutBadge){
+      layoutBadge.textContent = isKm ? 'ស្តង់ដារ' : 'Standard';
+      layoutBadge.className = 'gdh-badge badge-std';
+    }
     leftHand.innerHTML = `
-      <div class="guide-mini-key" title="Left Pinky"><span class="km-ch">ា</span><span class="en-ch">A</span></div>
-      <div class="guide-mini-key" title="Left Ring"><span class="km-ch">ស</span><span class="en-ch">S</span></div>
-      <div class="guide-mini-key" title="Left Middle"><span class="km-ch">ដ</span><span class="en-ch">D</span></div>
-      <div class="guide-mini-key" title="Left Index"><span class="km-ch">ថ</span><span class="en-ch">F</span></div>
+      <div class="guide-mini-key gmk-pinky" title="Left Pinky (A)"><span class="km-ch">ា</span><span class="en-ch">A</span></div>
+      <div class="guide-mini-key gmk-ring" title="Left Ring (S)"><span class="km-ch">ស</span><span class="en-ch">S</span></div>
+      <div class="guide-mini-key gmk-middle" title="Left Middle (D)"><span class="km-ch">ដ</span><span class="en-ch">D</span></div>
+      <div class="guide-mini-key gmk-index" title="Left Index Anchor (F)"><span class="km-ch">ថ</span><span class="en-ch">F</span></div>
     `;
     rightHand.innerHTML = `
-      <div class="guide-mini-key" title="Right Index"><span class="km-ch">ញ</span><span class="en-ch">J</span></div>
-      <div class="guide-mini-key" title="Right Middle"><span class="km-ch">ក</span><span class="en-ch">K</span></div>
-      <div class="guide-mini-key" title="Right Ring"><span class="km-ch">ល</span><span class="en-ch">L</span></div>
-      <div class="guide-mini-key" title="Right Pinky"><span class="km-ch">ះ</span><span class="en-ch">;</span></div>
+      <div class="guide-mini-key gmk-index" title="Right Index Anchor (J)"><span class="km-ch">ញ</span><span class="en-ch">J</span></div>
+      <div class="guide-mini-key gmk-middle" title="Right Middle (K)"><span class="km-ch">ក</span><span class="en-ch">K</span></div>
+      <div class="guide-mini-key gmk-ring" title="Right Ring (L)"><span class="km-ch">ល</span><span class="en-ch">L</span></div>
+      <div class="guide-mini-key gmk-pinky" title="Right Pinky (;)"><span class="km-ch">ះ</span><span class="en-ch">;</span></div>
     `;
     if(subscriptsSec) subscriptsSec.style.display = 'block';
-    if(typeSpaceKbd) typeSpaceKbd.textContent = 'Shift + Space';
+    if(cheatTitle) cheatTitle.textContent = isKm ? 'ជើងអក្សរ & ក្បួនប្លង់ (ស្តង់ដារ)' : 'Subscripts & Rules (Standard)';
+    if(ruleLabel1) ruleLabel1.innerHTML = isKm ? 'ក្បួន៖ <kbd class="guide-kbd">្</kbd> + ព្យញ្ជនៈ' : 'Rule: <kbd class="guide-kbd">្</kbd> + Consonant';
+    if(coengExample1) coengExample1.innerHTML = 'ក + ្ + ក = ក្ក';
+    if(ruleLabel2) ruleLabel2.innerHTML = isKm ? 'គ្រាប់ចុចជើង' : 'Coeng Key';
     if(coengKeyWrap) coengKeyWrap.innerHTML = '<kbd class="guide-kbd">Space</kbd> <span class="i18n-t" data-en="(Standard)" data-km="(ស្តង់ដារ)">' + (isKm ? '(ស្តង់ដារ)' : '(Standard)') + '</span>';
+    if(ruleLabel3) ruleLabel3.innerHTML = isKm ? 'ឧទាហរណ៍' : 'Example';
+    if(coengExample2) coengExample2.innerHTML = 'ស + ្ + ង = ស្ង';
+    if(ruleRow4) ruleRow4.style.display = 'flex';
+    if(ruleLabel4) ruleLabel4.innerHTML = isKm ? 'សញ្ញាខណ្ឌ (។)' : 'Khmer Khan (។)';
+    if(punctSample) punctSample.innerHTML = '<kbd class="guide-kbd">.</kbd> (Period)';
+    if(typeSpaceKbd) typeSpaceKbd.textContent = 'Shift + Space';
   } else if (currentLayoutId === 'nida') {
+    if(layoutBadge){
+      layoutBadge.textContent = 'NiDA';
+      layoutBadge.className = 'gdh-badge badge-nida';
+    }
     leftHand.innerHTML = `
-      <div class="guide-mini-key" title="Left Pinky"><span class="km-ch">ា</span><span class="en-ch">A</span></div>
-      <div class="guide-mini-key" title="Left Ring"><span class="km-ch">ស</span><span class="en-ch">S</span></div>
-      <div class="guide-mini-key" title="Left Middle"><span class="km-ch">ដ</span><span class="en-ch">D</span></div>
-      <div class="guide-mini-key" title="Left Index"><span class="km-ch">ថ</span><span class="en-ch">F</span></div>
+      <div class="guide-mini-key gmk-pinky" title="Left Pinky (A)"><span class="km-ch">ា</span><span class="en-ch">A</span></div>
+      <div class="guide-mini-key gmk-ring" title="Left Ring (S)"><span class="km-ch">ស</span><span class="en-ch">S</span></div>
+      <div class="guide-mini-key gmk-middle" title="Left Middle (D)"><span class="km-ch">ដ</span><span class="en-ch">D</span></div>
+      <div class="guide-mini-key gmk-index" title="Left Index Anchor (F)"><span class="km-ch">ថ</span><span class="en-ch">F</span></div>
     `;
     rightHand.innerHTML = `
-      <div class="guide-mini-key" title="Right Index"><span class="km-ch">្</span><span class="en-ch">J</span></div>
-      <div class="guide-mini-key" title="Right Middle"><span class="km-ch">ក</span><span class="en-ch">K</span></div>
-      <div class="guide-mini-key" title="Right Ring"><span class="km-ch">ល</span><span class="en-ch">L</span></div>
-      <div class="guide-mini-key" title="Right Pinky"><span class="km-ch">ើ</span><span class="en-ch">;</span></div>
+      <div class="guide-mini-key gmk-index" title="Right Index Anchor (J)"><span class="km-ch">្</span><span class="en-ch">J</span></div>
+      <div class="guide-mini-key gmk-middle" title="Right Middle (K)"><span class="km-ch">ក</span><span class="en-ch">K</span></div>
+      <div class="guide-mini-key gmk-ring" title="Right Ring (L)"><span class="km-ch">ល</span><span class="en-ch">L</span></div>
+      <div class="guide-mini-key gmk-pinky" title="Right Pinky (;)"><span class="km-ch">ើ</span><span class="en-ch">;</span></div>
     `;
     if(subscriptsSec) subscriptsSec.style.display = 'block';
-    if(typeSpaceKbd) typeSpaceKbd.textContent = 'Space';
+    if(cheatTitle) cheatTitle.textContent = isKm ? 'ជើងអក្សរ & ក្បួនប្លង់ (NiDA)' : 'Subscripts & Rules (NiDA)';
+    if(ruleLabel1) ruleLabel1.innerHTML = isKm ? 'ក្បួន៖ <kbd class="guide-kbd">្</kbd> + ព្យញ្ជនៈ' : 'Rule: <kbd class="guide-kbd">្</kbd> + Consonant';
+    if(coengExample1) coengExample1.innerHTML = 'ក + ្ + ក = ក្ក';
+    if(ruleLabel2) ruleLabel2.innerHTML = isKm ? 'គ្រាប់ចុចជើង' : 'Coeng Key';
     if(coengKeyWrap) coengKeyWrap.innerHTML = '<kbd class="guide-kbd">J</kbd> <span class="i18n-t" data-en="(NiDA)" data-km="(NiDA)">(NiDA)</span>';
+    if(ruleLabel3) ruleLabel3.innerHTML = isKm ? 'ឧទាហរណ៍' : 'Example';
+    if(coengExample2) coengExample2.innerHTML = 'ស + ្ + ង = ស្ង';
+    if(ruleRow4) ruleRow4.style.display = 'flex';
+    if(ruleLabel4) ruleLabel4.innerHTML = isKm ? 'ខណ្ឌ &amp; បរិយោសាន' : 'Khan &amp; Bariyosan';
+    if(punctSample) punctSample.innerHTML = '<kbd class="guide-kbd">.</kbd> (។) · <kbd class="guide-kbd">Shift+.</kbd> (៕)';
+    if(typeSpaceKbd) typeSpaceKbd.textContent = 'Space';
   }
 
   if(window.PKQuickGuide && typeof window.PKQuickGuide.updateLayout === 'function'){

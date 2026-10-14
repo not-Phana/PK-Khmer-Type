@@ -1189,6 +1189,7 @@ window.addEventListener('keyup', (e)=>{
 });
 
 window.addEventListener('blur', ()=>{
+  isComposing = false;
   cancelPendingCtrl();
   heldModifiers.clear();
   physicalLayer = null;

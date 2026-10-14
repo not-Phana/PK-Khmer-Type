@@ -2303,7 +2303,10 @@ function scrollToLessonStage(){
 window.scrollToLessonStage = scrollToLessonStage;
 
 function executeLessonExit(){
-  if (lessonTimerInterval) clearInterval(lessonTimerInterval);
+  if (lessonTimerInterval) {
+    clearInterval(lessonTimerInterval);
+    lessonTimerInterval = null;
+  }
   if(typeof PK_TRACKER !== 'undefined' && typeof PK_TRACKER.recordLessonExit === 'function'){
     PK_TRACKER.recordLessonExit({
       layout: currentLayoutId,
@@ -2562,10 +2565,13 @@ function lessonHandleBackspace(){
 }
 
 function completeLesson(){
-  if (lessonTimerInterval) clearInterval(lessonTimerInterval);
+  if (lessonTimerInterval) {
+    clearInterval(lessonTimerInterval);
+    lessonTimerInterval = null;
+  }
   const elapsed = (Date.now() - lessonStartTime) / 1000;
   const attempts = lessonChars.length + lessonMistakes;
-  const accuracy = Math.round((lessonChars.length/attempts)*100);
+  const accuracy = attempts > 0 ? Math.round((lessonChars.length / attempts) * 100) : 100;
   const def = currentLesson;
   const id = def.id;
   const mistakeChars = Object.keys(lessonMistakeChars);

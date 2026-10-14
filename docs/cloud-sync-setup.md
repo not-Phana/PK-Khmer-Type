@@ -6,7 +6,7 @@ This guide explains how to configure, deploy, and verify the free-tier **Supabas
 
 ## 1. Architecture Overview
 
-PK Khmer Type uses a **local-first, cloud-synchronized** architecture designed to work both offline and across multiple devices on static GitHub Pages hosting (`https://phanaach4889.github.io/PK-Khmer-Type/`):
+PK Khmer Type uses a **local-first, cloud-synchronized** architecture designed to work both offline and across multiple devices on static GitHub Pages hosting (`https://not-phana.github.io/PK-Khmer-Type/`):
 
 - **Frontend Runtime:** Static HTML5 / CSS3 / Vanilla ES6+ with Vite build/dev tooling (`vite.config.js`) and the official `@supabase/supabase-js` client (`js/vendor/supabase.js` + `js/supabase-config.js`).
 - **Authentication (`js/storage.js`):** Real Supabase email-and-password authentication (`signUp`, `signInWithPassword`, `signOut`, `resetPasswordForEmail`, `updateUser`, `resend`, persistent session management). Never falls back to fake or simulated authentication when credentials are missing.
@@ -49,12 +49,12 @@ npx supabase db push
 2. Navigate to **Authentication -> URL Configuration**:
    - Set **Site URL** to your production GitHub Pages URL:
      ```text
-     https://phanaach4889.github.io/PK-Khmer-Type/
+     https://not-phana.github.io/PK-Khmer-Type/
      ```
    - Under **Redirect URLs**, add both your production GitHub Pages URLs and your local development URLs:
      ```text
-     https://phanaach4889.github.io/PK-Khmer-Type/
-     https://phanaach4889.github.io/PK-Khmer-Type/index.html
+     https://not-phana.github.io/PK-Khmer-Type/
+     https://not-phana.github.io/PK-Khmer-Type/index.html
      http://localhost:5173/
      http://localhost:5173/index.html
      http://127.0.0.1:5173/
@@ -93,7 +93,7 @@ The SQL migration automatically creates and secures the private `user-files` buc
    *( Note: `.env`, `.env.local`, `.env.*.local`, and `js/supabase-env.js` are excluded in `.gitignore` so credentials are never committed to Git. )*
 
 ### GitHub Pages Deployment Configuration
-To enable Supabase Auth and Cloud Sync on the live GitHub Pages deployment (`https://phanaach4889.github.io/PK-Khmer-Type/`):
+To enable Supabase Auth and Cloud Sync on the live GitHub Pages deployment (`https://not-phana.github.io/PK-Khmer-Type/`):
 1. Open your GitHub repository **Settings -> Secrets and variables -> Actions**.
 2. Under the **Variables** tab (or **Secrets** tab), add:
    - `VITE_SUPABASE_URL`: `https://<your-project-ref>.supabase.co`

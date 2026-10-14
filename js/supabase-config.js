@@ -122,7 +122,7 @@
    */
   function getAuthRedirectUrl(queryOrHash) {
     if (typeof window === "undefined" || !window.location) {
-      return "https://phanaach4889.github.io/PK-Khmer-Type/" + (queryOrHash || "");
+      return "https://not-phana.github.io/PK-Khmer-Type/" + (queryOrHash || "");
     }
     var origin = window.location.origin;
     var pathname = window.location.pathname || "/";

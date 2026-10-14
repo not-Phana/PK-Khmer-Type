@@ -271,6 +271,10 @@
     border-radius:5px;
     padding:3px 2px;
   }
+  .guide-mini-key.gmk-pinky { border-top: 2px solid #ec4899; }
+  .guide-mini-key.gmk-ring { border-top: 2px solid #8b5cf6; }
+  .guide-mini-key.gmk-middle { border-top: 2px solid #3b82f6; }
+  .guide-mini-key.gmk-index { border-top: 2px solid #10b981; }
   .guide-mini-key .km-ch{
     font-family:'Kantumruy Pro', 'Khmer OS Battambang', sans-serif;
     font-size:0.95rem;
