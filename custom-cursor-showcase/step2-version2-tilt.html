@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Step 2 - Version 2: 3D Perspective Tilt Animation</title>
+  <style>
+    /* ==========================================================================
+       CSS RESET & BASE THEME
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0c0d12;
+      --surface: #14161f;
+      --surface-hover: #1c1f2b;
+      --border: #262938;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.35);
+      --accent-ring: rgba(56, 189, 248, 0.45);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      line-height: 1.5;
+    }
+
+    /* Hide default cursor on desktop */
+    @media (hover: hover) and (pointer: fine) {
+      body, a, button, input, textarea {
+        cursor: none !important;
+      }
+    }
+
+    /* ==========================================================================
+       STEP 1 CURSOR (Maintained faithfully)
+       ========================================================================== */
+    .cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px var(--accent);
+      transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
+      will-change: transform;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid var(--accent-ring);
+      background-color: rgba(56, 189, 248, 0.04);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-radius 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.25s ease,
+                  background-color 0.25s ease,
+                  opacity 0.2s ease;
+      will-change: transform;
+    }
+
+    body.cursor-hover .cursor-ring {
+      width: 52px;
+      height: 52px;
+      border-color: var(--accent);
+      background-color: rgba(56, 189, 248, 0.12);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+
+    body.cursor-hover .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #ffffff;
+    }
+
+    body.cursor-text .cursor-ring {
+      width: 3px;
+      height: 24px;
+      border-radius: 2px;
+      border: none;
+      background-color: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    body.cursor-text .cursor-dot {
+      opacity: 0;
+    }
+
+    body.cursor-active .cursor-ring {
+      width: 24px;
+      height: 24px;
+      border-color: #ffffff;
+    }
+
+    body.cursor-active .cursor-dot {
+      width: 4px;
+      height: 4px;
+    }
+
+    body.cursor-hidden .cursor-dot,
+    body.cursor-hidden .cursor-ring {
+      opacity: 0;
+    }
+
+    /* ==========================================================================
+       STEP 2 - VERSION 2: 3D PERSPECTIVE TILT ANIMATION ONLY
+       Rule: Only ONE animation effect (interactive 3D tilt). No pulse. No glow sweeps.
+       Tracks cursor coordinates inside the hovered element to calculate rotateX & rotateY.
+       ========================================================================== */
+    .tilt-target {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+      will-change: transform;
+    }
+
+    .tilt-target.is-resetting {
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ==========================================================================
+       SHOWCASE CARD & BUTTON STYLES
+       ========================================================================== */
+    .showcase-card {
+      width: 100%;
+      max-w: 640px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.25rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      background-color: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--accent);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 1.15rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background-color: var(--surface-hover);
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #0c0d12;
+      border-color: var(--accent);
+    }
+
+    .icon-svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .info-footer {
+      margin-top: 1.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor Nodes -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- Showcase Content -->
+  <main class="showcase-card">
+    <div class="header-badge">
+      <span class="badge-dot"></span>
+      Step 2 — Version 2 of 3
+    </div>
+
+    <h1>3D Perspective Tilt Animation</h1>
+    <p class="subtitle">
+      Hovering over an element calculates cursor coordinates and dynamically tilts that element in <strong>3D perspective space</strong>. Contains no pulse and no glow sweep.
+    </p>
+
+    <div class="buttons-container">
+      <!-- Button 1: Primary 3D Tilt Target -->
+      <button type="button" class="btn btn-primary tilt-target" id="tiltBtnPrimary">
+        <svg class="icon-svg" viewBox="0 0 24 24">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+        <span>Hover Me (Interactive 3D Perspective Tilt)</span>
+      </button>
+
+      <!-- Button 2: Secondary 3D Tilt Target -->
+      <button type="button" class="btn tilt-target" id="tiltBtnSecondary">
+        <svg class="icon-svg" viewBox="0 0 24 24">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        <span>Secondary Tilt Element</span>
+      </button>
+    </div>
+
+    <div class="info-footer">
+      <svg class="icon-svg" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+      </svg>
+      <span>Isolated Animation: 3D rotational tilt only. Move cursor across button corners to observe angular response.</span>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      // 1. Custom Cursor Follower Physics
+      const dot = document.getElementById('cursorDot');
+      const ring = document.getElementById('cursorRing');
+
+      let mouseX = -100;
+      let mouseY = -100;
+      let ringX = -100;
+      let ringY = -100;
+      const LERP_FACTOR = 0.16;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+        document.body.classList.remove('cursor-hidden');
+      }, { passive: true });
+
+      function updateRingPhysics() {
+        ringX += (mouseX - ringX) * LERP_FACTOR;
+        ringY += (mouseY - ringY) * LERP_FACTOR;
+        ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+        requestAnimationFrame(updateRingPhysics);
+      }
+      requestAnimationFrame(updateRingPhysics);
+
+      // Cursor hover states
+      const interactiveTargets = document.querySelectorAll('button, a');
+      interactiveTargets.forEach((el) => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      });
+
+      window.addEventListener('mousedown', () => document.body.classList.add('cursor-active'));
+      window.addEventListener('mouseup', () => document.body.classList.remove('cursor-active'));
+      document.addEventListener('mouseleave', () => document.body.classList.add('cursor-hidden'));
+      document.addEventListener('mouseenter', () => document.body.classList.remove('cursor-hidden'));
+
+      // 2. Step 2 - Version 2: 3D Perspective Tilt Physics Engine
+      // Only runs on elements designated with .tilt-target
+      const tiltTargets = document.querySelectorAll('.tilt-target');
+      const MAX_TILT_DEG = 12; // Maximum tilt rotation in degrees
+
+      tiltTargets.forEach((target) => {
+        target.addEventListener('mousemove', (e) => {
+          const rect = target.getBoundingClientRect();
+          // Offset relative to element center (-0.5 to +0.5)
+          const xRatio = (e.clientX - rect.left) / rect.width - 0.5;
+          const yRatio = (e.clientY - rect.top) / rect.height - 0.5;
+
+          // Inverted Y produces intuitive tilt towards the pointer
+          const rotateX = (-yRatio * MAX_TILT_DEG).toFixed(2);
+          const rotateY = (xRatio * MAX_TILT_DEG).toFixed(2);
+
+          target.classList.remove('is-resetting');
+          target.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        target.addEventListener('mouseleave', () => {
+          target.classList.add('is-resetting');
+          target.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg)';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

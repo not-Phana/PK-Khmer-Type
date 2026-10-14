@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PK Corporation - Precision Custom Cursor System</title>
+
+  <!-- Typography: JetBrains Mono for system metrics, labels, and telemetry -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. CSS Custom Properties (Exact Color Architecture)
+       ========================================================================== */
+    :root {
+      --bg: #0b0d10;
+      --accent: #c9a227;
+      --accent-60: rgba(201, 162, 39, 0.6);
+      --accent-08: rgba(201, 162, 39, 0.08);
+      --accent-16: rgba(201, 162, 39, 0.16);
+      --accent-36: rgba(201, 162, 39, 0.36);
+      --pale-gold: #ffd978;
+      --dark-ink: #1b1608;
+
+      --surface: #12151b;
+      --surface-2: #171b22;
+      --surface-border: #20242e;
+      --text-main: #eceae4;
+      --text-muted: #8b909a;
+      --line: #1f232c;
+
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* CSS Houdini Custom Property for Smooth 360deg Orbit Angle */
+    @property --ang {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    /* ==========================================================================
+       2. Base Reset & Layout
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      color: var(--text-main);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Requirement 24: Default focus outline only shows when navigating with keyboard */
+    :focus {
+      outline: none;
+    }
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* ==========================================================================
+       3. Lamp-Lit Dot Grid (Requirement 19)
+       ========================================================================== */
+    /* Page background faint dot grid (26px tiles) */
+    .grid-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background-size: 26px 26px;
+      background-image: radial-gradient(circle, rgba(201, 162, 39, 0.11) 1.1px, transparent 1.1px);
+      background-position: 0 0;
+    }
+
+    /* Fixed 340px lamp element: masked glowing amber dots following cursor */
+    #grid-lamp {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      background-size: 26px 26px;
+      background-image: radial-gradient(circle, rgba(201, 162, 39, 0.65) 1.4px, transparent 1.4px);
+      -webkit-mask-image: radial-gradient(circle closest-side, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0) 80%);
+      mask-image: radial-gradient(circle closest-side, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0) 80%);
+      transition: opacity 0.35s ease;
+      will-change: transform, background-position;
+    }
+    body.cursor-active-lamp #grid-lamp {
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       4. Setup & Cursor Layering (Requirements 1-9)
+       ========================================================================== */
+    /* Hide native cursor only when (hover: hover) and (pointer: fine) */
+    @media (hover: hover) and (pointer: fine) {
+      body.pk-has-custom-cursor,
+      body.pk-has-custom-cursor a,
+      body.pk-has-custom-cursor button,
+      body.pk-has-custom-cursor [role="button"],
+      body.pk-has-custom-cursor [role="tab"],
+      body.pk-has-custom-cursor .clickable,
+      body.pk-has-custom-cursor .row-item {
+        cursor: none !important;
+      }
+
+      /* Keep native text cursor on inputs and textareas (Requirement Setup) */
+      body.pk-has-custom-cursor input,
+      body.pk-has-custom-cursor textarea,
+      body.pk-has-custom-cursor [contenteditable="true"] {
+        cursor: text !important;
+      }
+    }
+
+    /* Layer Z-Indices (Requirement Setup) */
+    .cursor-layer-main {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      pointer-events: none;
+      user-select: none;
+      aria-hidden: true;
+    }
+
+    .cursor-layer-effects {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9998;
+      pointer-events: none;
+      user-select: none;
+      aria-hidden: true;
+    }
+
+    .cursor-layer-telemetry {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9997;
+      pointer-events: none;
+      user-select: none;
+      aria-hidden: true;
+    }
+
+    /* Hide custom cursor when mouse leaves window or over native inputs */
+    body.cursor-hidden #pk-cursor-dot,
+    body.cursor-hidden #pk-cursor-ring,
+    body.cursor-hidden #pk-scroll-arc,
+    body.cursor-hidden #pk-section-tag,
+    body.cursor-over-input #pk-cursor-dot,
+    body.cursor-over-input #pk-cursor-ring {
+      opacity: 0 !important;
+      transition: opacity 0.18s ease;
+    }
+
+    /* --------------------------------------------------------------------------
+       Dot: Requirement 1 & 9
+       -------------------------------------------------------------------------- */
+    #pk-cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-100px, -100px);
+      will-change: transform, width, height, border-radius, background-color;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Dot Stretch and Motion: Handled dynamically in JS transform */
+
+    /* Text Mode Dot (Requirement 9): thin vertical bar */
+    #pk-cursor-dot.mode-text {
+      border-radius: 1px !important;
+      box-shadow: 0 0 6px rgba(201, 162, 39, 0.45);
+      transition: width 0.15s ease, height 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Text Mode Dot Pressed: thickens to 3px with soft glow */
+    #pk-cursor-dot.mode-text.is-pressed {
+      width: 3px !important;
+      box-shadow: 0 0 10px rgba(201, 162, 39, 0.85);
+    }
+
+    /* Solid amber elements: Dot turns dark #1b1608 (Requirement 7) */
+    #pk-cursor-dot.dark-cursor {
+      background-color: var(--dark-ink) !important;
+      box-shadow: 0 0 4px rgba(27, 22, 8, 0.4) !important;
+    }
+
+    /* Dot click flash (Requirement 10) */
+    #pk-cursor-dot.dot-flash {
+      background-color: var(--pale-gold) !important;
+      box-shadow: 0 0 12px var(--pale-gold), 0 0 4px #ffffff !important;
+    }
+
+    /* --------------------------------------------------------------------------
+       Ring: Requirements 2, 3, 4, 5, 6, 7, 8, 14, 18
+       -------------------------------------------------------------------------- */
+    #pk-cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent-60);
+      background-color: transparent;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-100px, -100px) translate(-50%, -50%);
+      will-change: transform, width, height, border-radius, border-color, background-color;
+      transition: border-radius 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.2s ease,
+                  background-color 0.2s ease,
+                  opacity 0.22s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Text label inside cursor ring (Requirement 8) */
+    #pk-cursor-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark-ink);
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      pointer-events: none;
+    }
+
+    /* Text Mode Ring (Requirement 9): Ring hides */
+    #pk-cursor-ring.mode-text {
+      opacity: 0 !important;
+    }
+
+    /* Target-Lock Mode (Requirement 3): rounded rect, radius 11px, amber tint 8% */
+    #pk-cursor-ring.is-locked {
+      border-radius: 11px;
+      border-color: var(--accent);
+      background-color: var(--accent-08);
+      animation: lockedGlowPulse 2.2s ease-in-out infinite;
+    }
+
+    /* Breathing glow while locked (Requirement 6): box-shadow pulses between 14px (0.16) and 28px (0.36) */
+    @keyframes lockedGlowPulse {
+      0%, 100% {
+        box-shadow: 0 0 14px var(--accent-16);
+      }
+      50% {
+        box-shadow: 0 0 28px var(--accent-36);
+      }
+    }
+
+    /* Orbiting Light While Locked (Requirement 5):
+       Bright gold streak travels around border, conic-gradient masked to 2px border band */
+    #pk-cursor-ring.is-locked::after {
+      content: '';
+      position: absolute;
+      inset: -1.5px;
+      border-radius: 11px;
+      padding: 2px;
+      background: conic-gradient(
+        from var(--ang, 0deg),
+        transparent 0deg,
+        transparent 280deg,
+        var(--pale-gold) 345deg,
+        #ffffff 360deg
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: orbitLightAnim 2.4s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes orbitLightAnim {
+      0% {
+        --ang: 0deg;
+      }
+      100% {
+        --ang: 360deg;
+      }
+    }
+
+    /* Lock-On Bounce (Requirement 4): 400ms duration */
+    @keyframes lockBounceAnim {
+      0% {
+        transform: scale(1.3);
+        opacity: 0.35;
+      }
+      60% {
+        transform: scale(0.965);
+        opacity: 0.95;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    .ring-lock-bounce {
+      animation: lockBounceAnim 400ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    /* Solid amber buttons: Ring turns dark #1b1608 (Requirement 7) */
+    #pk-cursor-ring.dark-cursor {
+      border-color: rgba(27, 22, 8, 0.75) !important;
+      background-color: rgba(27, 22, 8, 0.12) !important;
+      box-shadow: 0 0 14px rgba(27, 22, 8, 0.25) !important;
+    }
+    #pk-cursor-ring.dark-cursor::after {
+      background: conic-gradient(
+        from var(--ang, 0deg),
+        transparent 0deg,
+        transparent 280deg,
+        rgba(27, 22, 8, 0.8) 345deg,
+        #000000 360deg
+      ) !important;
+    }
+
+    /* Large Elements & Wide Rows (Requirement 8): 54px circle with amber tint */
+    #pk-cursor-ring.is-large-row {
+      width: 54px !important;
+      height: 54px !important;
+      border-radius: 50% !important;
+      border-color: var(--accent);
+      background-color: var(--accent-08);
+      box-shadow: 0 0 20px var(--accent-16);
+    }
+
+    /* Labeled Elements (Requirement 8): Solid amber 62px circle with dark mono text */
+    #pk-cursor-ring.is-labeled {
+      width: 62px !important;
+      height: 62px !important;
+      border-radius: 50% !important;
+      background-color: var(--accent) !important;
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 24px var(--accent-36) !important;
+    }
+    #pk-cursor-ring.is-labeled #pk-cursor-label {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Idle Breathing (Requirement 18): after 2.5s without mouse movement */
+    #pk-cursor-ring.is-idle-breathing {
+      animation: ringIdlePulse 2.6s ease-in-out infinite;
+    }
+    @keyframes ringIdlePulse {
+      0%, 100% {
+        box-shadow: 0 0 0px rgba(201, 162, 39, 0);
+      }
+      50% {
+        box-shadow: 0 0 9px rgba(201, 162, 39, 0.12);
+      }
+    }
+
+    /* Mouseup spring snap (Requirement 14): 0.8 -> 1.25 -> 1 (340ms) */
+    @keyframes ringSpringSnap {
+      0% {
+        transform: scale(0.8);
+      }
+      55% {
+        transform: scale(1.25);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    .ring-spring-release {
+      animation: ringSpringSnap 340ms cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+    }
+
+    /* --------------------------------------------------------------------------
+       Click Effects: Requirements 11, 12, 13
+       -------------------------------------------------------------------------- */
+    /* Spark Lines (Requirement 11) */
+    .pk-spark {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 14px;
+      height: 2px;
+      border-radius: 1px;
+      pointer-events: none;
+      z-index: 9998;
+      transform-origin: left center;
+      will-change: transform, opacity;
+    }
+
+    /* Shock Ring (Requirement 12): tight ring expanding scale 0.3 to 3.6 over 430ms */
+    .pk-shock-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      margin-left: -14px;
+      margin-top: -14px;
+      transform: scale(0.3);
+      opacity: 0.9;
+      animation: shockRingExpand 430ms cubic-bezier(0.1, 0.7, 0.2, 1) forwards;
+    }
+    @keyframes shockRingExpand {
+      0% {
+        transform: scale(0.3);
+        opacity: 0.9;
+      }
+      100% {
+        transform: scale(3.6);
+        opacity: 0;
+      }
+    }
+
+    /* Soft Radial Flash (Requirement 12): scale 0.6 to 2.6 over 260ms */
+    .pk-radial-flash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      margin-left: -22px;
+      margin-top: -22px;
+      background: radial-gradient(circle, rgba(255, 217, 120, 0.7) 0%, rgba(201, 162, 39, 0.25) 50%, transparent 75%);
+      transform: scale(0.6);
+      opacity: 0.85;
+      animation: radialFlashExpand 260ms ease-out forwards;
+    }
+    @keyframes radialFlashExpand {
+      0% {
+        transform: scale(0.6);
+        opacity: 0.85;
+      }
+      100% {
+        transform: scale(2.6);
+        opacity: 0;
+      }
+    }
+
+    /* Clicked Element Amber Outline Pulse (Requirement 13): 0 to 9px, fades, 480ms */
+    .pk-outline-pulse {
+      animation: elementOutlinePulse 480ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    @keyframes elementOutlinePulse {
+      0% {
+        outline: 0px solid var(--accent);
+        outline-offset: 0px;
+      }
+      40% {
+        outline: 3px solid var(--accent);
+        outline-offset: 6px;
+      }
+      100% {
+        outline: 0px solid rgba(201, 162, 39, 0);
+        outline-offset: 9px;
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       Scroll Telemetry: Requirements 16 & 17
+       -------------------------------------------------------------------------- */
+    /* 52px SVG Progress Arc (Requirement 16) */
+    #pk-scroll-arc {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 52px;
+      height: 52px;
+      margin-left: -26px;
+      margin-top: -26px;
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0;
+      transform: translate(-100px, -100px);
+      transition: opacity 0.3s ease;
+      will-change: transform, opacity;
+    }
+    #pk-scroll-arc.is-visible {
+      opacity: 0.85;
+    }
+    #pk-scroll-arc-meter {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-dasharray: 138.23; /* 2 * PI * 22 */
+      stroke-dashoffset: 138.23;
+      transform: rotate(-90deg);
+      transform-origin: 26px 26px;
+      filter: drop-shadow(0 0 3px rgba(201, 162, 39, 0.5));
+    }
+
+    /* Section Tag Pill (Requirement 17): 11px JetBrains Mono weight 600 */
+    #pk-section-tag {
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 3px 8px;
+      background-color: var(--accent);
+      color: var(--dark-ink);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(201, 162, 39, 0.35);
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0;
+      transform: translate(-100px, -100px);
+      transition: opacity 0.25s ease;
+      white-space: nowrap;
+      will-change: transform, opacity;
+    }
+    #pk-section-tag.is-visible {
+      opacity: 1;
+    }
+
+    /* Section Tag Ring Pulse (Requirement 17): scale 1.35, 420ms */
+    @keyframes sectionTagRingPulse {
+      0% {
+        transform: scale(1);
+      }
+      45% {
+        transform: scale(1.35);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    .ring-section-pulse {
+      animation: sectionTagRingPulse 420ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    /* --------------------------------------------------------------------------
+       Page Reactions: Requirements 20, 21, 22, 23
+       -------------------------------------------------------------------------- */
+    /* Card Borders Glow (Requirement 20) via CSS Mask Composite */
+    .card-panel {
+      position: relative;
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid var(--surface-border);
+      overflow: hidden;
+      transition: background 0.25s ease, transform 0.25s ease;
+      --gx: 50%;
+      --gy: 50%;
+      --gi: 0;
+    }
+    .card-panel::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: radial-gradient(
+        220px circle at var(--gx) var(--gy),
+        rgba(201, 162, 39, calc(var(--gi) * 0.9)) 0%,
+        rgba(255, 217, 120, calc(var(--gi) * 0.6)) 30%,
+        transparent 70%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: var(--gi);
+      transition: opacity 0.15s ease;
+    }
+
+    /* Spotlight (Requirement 23): Soft radial highlight under cursor (about 260px) */
+    .has-spotlight {
+      position: relative;
+    }
+    .has-spotlight::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+        rgba(201, 162, 39, 0.08) 0%,
+        transparent 75%
+      );
+      pointer-events: none;
+      opacity: var(--spot-opacity, 0);
+      transition: opacity 0.2s ease;
+    }
+
+    /* Warming Links (Requirement 21): color-mix shifting toward amber within ~130px */
+    .warm-target {
+      --warm: 0;
+      color: color-mix(in srgb, var(--accent) calc(var(--warm) * 100%), var(--text-muted));
+      transition: color 0.12s linear;
+    }
+
+    /* Leaning (Requirement 22): small links/buttons shift 7%/14%, primary 12%/20% */
+    .lean-target {
+      will-change: transform;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Touch Device Fallback (Requirement Setup) */
+    @media (hover: none) or (pointer: coarse) {
+      .cursor-layer-main,
+      .cursor-layer-effects,
+      .cursor-layer-telemetry,
+      #grid-lamp {
+        display: none !important;
+      }
+    }
+
+    /* Prefers Reduced Motion (Requirement Setup) */
+    @media (prefers-reduced-motion: reduce) {
+      #pk-cursor-dot,
+      #pk-cursor-ring,
+      .card-panel::before,
+      .lean-target {
+        animation: none !important;
+        transition: none !important;
+      }
+      .ring-lock-bounce,
+      .ring-spring-release,
+      .ring-section-pulse,
+      #pk-cursor-ring.is-locked::after,
+      #pk-cursor-ring.is-idle-breathing {
+        animation: none !important;
+      }
+    }
+
+    /* ==========================================================================
+       5. Page UI Components & Architectural Styling
+       ========================================================================== */
+    .app-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header & Navigation */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 13, 16, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .brand-logo-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+    .brand-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .brand-sub {
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+    }
+
+    nav.site-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    nav.site-nav a {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      padding: 6px 4px;
+      position: relative;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .nav-search-input {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 7px 12px;
+      border-radius: 6px;
+      width: 170px;
+      transition: border-color 0.2s ease, width 0.2s ease;
+    }
+    .nav-search-input:focus {
+      border-color: var(--accent);
+      width: 210px;
+    }
+
+    /* Buttons */
+    .btn-solid-amber {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: var(--accent);
+      color: var(--dark-ink);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(201, 162, 39, 0.28);
+    }
+
+    .btn-outline-amber {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: transparent;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--surface-border);
+      text-decoration: none;
+    }
+
+    /* Section Structure */
+    section.demo-section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section-eyebrow-pip {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      line-height: 1.65;
+      margin-bottom: 32px;
+    }
+
+    /* Tabs deck */
+    .tab-bar {
+      display: inline-flex;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 4px;
+      gap: 4px;
+      margin-bottom: 28px;
+    }
+    .tab-item {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+    .tab-item.active {
+      background: var(--surface-2);
+      color: var(--accent);
+      border: 1px solid var(--accent-16);
+    }
+
+    /* Interactive Grids & Panels */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* Wide Rows (Requirement 8) */
+    .rows-container {
+      display: flex;
+      flex-col: column;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .row-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    /* Typography Showcase Box (Requirement 9) */
+    .prose-reading-box {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 32px;
+    }
+    .prose-reading-box h1 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .prose-reading-box h2 {
+      font-size: 1.35rem;
+      margin: 20px 0 10px 0;
+      color: var(--pale-gold);
+    }
+    .prose-reading-box p {
+      font-size: 1.05rem;
+      color: #c5c9d2;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .prose-reading-box blockquote {
+      border-left: 2px solid var(--accent);
+      padding-left: 18px;
+      font-style: italic;
+      color: var(--text-muted);
+      margin: 18px 0;
+    }
+
+    /* Drag Item Box (Requirement 8) */
+    .draggable-sandbox-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface-2);
+      border: 1px dashed var(--accent);
+      border-radius: 8px;
+      padding: 16px 24px;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      cursor: grab;
+    }
+
+    /* Telemetry HUD Pill */
+    .hud-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(201, 162, 39, 0.08);
+      border: 1px solid rgba(201, 162, 39, 0.2);
+      color: var(--pale-gold);
+    }
+  </style>
+</head>
+<body class="pk-has-custom-cursor">
+
+  <!-- ========================================================================
+       Lamp-Lit Dot Grid (Requirement 19)
+       ======================================================================== -->
+  <div class="grid-canvas" aria-hidden="true"></div>
+  <div id="grid-lamp" aria-hidden="true"></div>
+
+  <!-- ========================================================================
+       Custom Cursor Elements (Fixed Layers - Requirements 1, 2, 8, 16, 17)
+       ======================================================================== -->
+  <!-- Layer 9999: Main Dot & Ring -->
+  <div class="cursor-layer-main" aria-hidden="true">
+    <div id="pk-cursor-dot"></div>
+    <div id="pk-cursor-ring">
+      <span id="pk-cursor-label">VIEW</span>
+    </div>
+  </div>
+
+  <!-- Layer 9998: Sparks & Shockwaves -->
+  <div class="cursor-layer-effects" id="pk-effects-container" aria-hidden="true"></div>
+
+  <!-- Layer 9997: Scroll Arc & Section Tag -->
+  <div class="cursor-layer-telemetry" aria-hidden="true">
+    <svg id="pk-scroll-arc" viewBox="0 0 52 52">
+      <circle
+        id="pk-scroll-arc-meter"
+        cx="26"
+        cy="26"
+        r="22"
+      />
+    </svg>
+    <div id="pk-section-tag">COMMAND CORE</div>
+  </div>
+
+  <!-- ========================================================================
+       Site Header / Navigation
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="app-container">
+      <div class="header-inner">
+        <a href="#core" class="brand-mark lean-target" aria-label="PK Corporation Home">
+          <div class="brand-logo-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <path d="M7 17V7h5a4 4 0 0 1 0 8H7" />
+              <path d="M15 12l4 5" />
+            </svg>
+          </div>
+          <div>
+            <div class="brand-title">PK CORPORATION</div>
+            <div class="brand-sub">PRECISION CURSOR ENGINE</div>
+          </div>
+        </a>
+
+        <nav class="site-nav">
+          <a href="#core" class="warm-target lean-target">01 // CORE</a>
+          <a href="#typography" class="warm-target lean-target">02 // TEXT MODE</a>
+          <a href="#hardware" class="warm-target lean-target">03 // HARDWARE</a>
+          <a href="#telemetry" class="warm-target lean-target">04 // ROWS & LABELS</a>
+          <a href="https://github.com/phanaach4889" target="_blank" rel="noopener noreferrer" class="warm-target lean-target" data-cursor="open">05 // GITHUB &#8599;</a>
+        </nav>
+
+        <div class="header-controls">
+          <input
+            type="text"
+            class="nav-search-input"
+            placeholder="Type command or search..."
+            aria-label="Filter documentation commands"
+          />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       Main Content Sections
+       ======================================================================== -->
+  <main>
+    <!-- Section 1: Command Core & Hero -->
+    <section id="core" class="demo-section" data-section="Command Core">
+      <div class="app-container">
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-pip"></span>
+          <span>SUBSYSTEM 01 // KINEMATIC DYNAMICS</span>
+        </div>
+        <h1 class="section-title">
+          Precision Custom Cursor System
+        </h1>
+        <p class="section-desc">
+          Engineered for PK Corporation. Zero third-party runtime dependencies, zero flashy gimmick trails. Built strictly around tactile physics, volume-conserving velocity stretch, target locking, and contextual shape morphing.
+        </p>
+
+        <!-- Interactive Tabs Deck (Requirement 3: small tabs <= 380x80 target-lock) -->
+        <div class="tab-bar" role="tablist" aria-label="System Modes">
+          <button type="button" role="tab" class="tab-item active lean-target" aria-selected="true">
+            TELEMETRY
+          </button>
+          <button type="button" role="tab" class="tab-item lean-target" aria-selected="false">
+            DIAGNOSTICS
+          </button>
+          <button type="button" role="tab" class="tab-item lean-target" aria-selected="false">
+            EVENT LOOP
+          </button>
+        </div>
+
+        <!-- Call to Action Buttons (Requirements 7, 22: solid amber turns cursor dark #1b1608; lean 12%/20%) -->
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 12px;">
+          <button type="button" class="btn-solid-amber lean-target primary-lean">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            <span>Initiate Primary Lock</span>
+          </button>
+
+          <a href="#typography" class="btn-outline-amber warm-target lean-target">
+            <span>Explore Text Engine</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+
+          <div class="hud-badge">
+            <span>VELOCITY SQUASH: ACTIVE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Typography Engine & Text Mode (Requirement 9) -->
+    <section id="typography" class="demo-section" data-section="Typography Engine">
+      <div class="app-container">
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-pip"></span>
+          <span>SUBSYSTEM 02 // PROSE INSPECTION</span>
+        </div>
+        <h2 class="section-title">
+          Adaptive Text Mode Cursor
+        </h2>
+        <p class="section-desc">
+          Hover over the editorial content below. The outer ring gracefully hides, while the 6px dot morphs into a thin 2px vertical bar sized dynamically to the font height (font-size &times; 1.35, clamped 16–46px). Clicking thickens the bar to 3px with a soft glow and releases 5 compact sparks.
+        </p>
+
+        <div class="prose-reading-box">
+          <h1>Architecture of Human-Machine Feedback</h1>
+          <p>
+            When interactive design avoids superfluous decoration and adheres to kinematic realism, the user develops immediate muscle memory. The follower ring operates via a single linear interpolation step (lerp factor 0.20), eliminating artificial rubber-band latency while ensuring fluid momentum.
+          </p>
+
+          <blockquote>
+            "True precision is felt in the restraint of the animation, not the abundance of its particles."
+          </blockquote>
+
+          <h2>Hellenic Epigraphy Meets Modern Event Loops</h2>
+          <p>
+            Across high-resolution monitors, cursor tracking calculates instantaneous frame-to-frame displacement. Whenever velocity exceeds 1.5 pixels per frame, volume conservation squashes the secondary axis while stretching along the travel angle. Upon settling, it snaps instantaneously back to a symmetrical 6px circle.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Reactive Hardware Cards (Requirements 20 & 23) -->
+    <section id="hardware" class="demo-section" data-section="Hardware Matrix">
+      <div class="app-container">
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-pip"></span>
+          <span>SUBSYSTEM 03 // SURFACE PERCEPTION</span>
+        </div>
+        <h2 class="section-title">
+          Reactive Card Boundaries &amp; Spotlights
+        </h2>
+        <p class="section-desc">
+          Move your cursor over and between the panels. Notice how the gradient borders light up on the side nearest the cursor using smoothstep falloff, accompanied by a soft 260px radial illumination beneath the card surface.
+        </p>
+
+        <div class="cards-grid">
+          <!-- Card 1 -->
+          <div class="card-panel has-spotlight">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-bottom: 8px;">
+              MODULE 01 // KINEMATICS
+            </div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">
+              Sub-Pixel Lerp Physics
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">
+              Ring coordinates lag behind the primary dot at 20% interpolation per frame. On first entry into the viewport, coordinates jump instantly to prevent diagonal sweeping.
+            </p>
+            <button type="button" class="btn-outline-amber warm-target lean-target" style="padding: 8px 16px; font-size: 11px;">
+              Inspect Matrix
+            </button>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card-panel has-spotlight">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-bottom: 8px;">
+              MODULE 02 // TARGET LOCKING
+            </div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">
+              Dynamic Morph Bounds
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">
+              Buttons under 380&times;80px snap the ring into an 11px radius rectangle with an orbiting gold light streak driven by CSS @property Houdini angle variables.
+            </p>
+            <button type="button" class="btn-outline-amber warm-target lean-target" style="padding: 8px 16px; font-size: 11px;">
+              Verify Locks
+            </button>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card-panel has-spotlight">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-bottom: 8px;">
+              MODULE 03 // SCROLL SPRING
+            </div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">
+              Elastic Velocity Stretch
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">
+              Scroll velocity vertically elongates the ring up to 1.85&times; with a damped harmonic spring (stiffness 220, damping 11) and renders a 52px circular SVG progress arc.
+            </p>
+            <button type="button" class="btn-outline-amber warm-target lean-target" style="padding: 8px 16px; font-size: 11px;">
+              Test Springs
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Wide Rows & Labeled Interaction (Requirement 8) -->
+    <section id="telemetry" class="demo-section" data-section="Interactive Rows">
+      <div class="app-container">
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-pip"></span>
+          <span>SUBSYSTEM 04 // LABELED CONTEXTS</span>
+        </div>
+        <h2 class="section-title">
+          Contextual Morphing &amp; Large Rows
+        </h2>
+        <p class="section-desc">
+          Over large rows, the ring expands to a 54px circle. For items with contextual tags, it morphs into a solid amber 62px circle containing crisp dark monospace text: "VIEW", "OPEN", "DRAG", or "TYPE".
+        </p>
+
+        <!-- Rows Container -->
+        <div class="rows-container">
+          <a href="#core" class="row-item has-spotlight" data-cursor="view">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <span style="font-family: var(--font-mono); color: var(--accent); font-size: 11px;">#01</span>
+              <div>
+                <div style="font-weight: 600;">System Telemetry Folio</div>
+                <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Hover for 62px solid amber "VIEW" cursor morph</div>
+              </div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">&#8594;</div>
+          </a>
+
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="row-item has-spotlight" data-cursor="open">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <span style="font-family: var(--font-mono); color: var(--accent); font-size: 11px;">#02</span>
+              <div>
+                <div style="font-weight: 600;">External Repository Gateway</div>
+                <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Target blank link automatically triggers "OPEN" badge</div>
+              </div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">&#8599;</div>
+          </a>
+
+          <div class="row-item has-spotlight" data-cursor="view">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <span style="font-family: var(--font-mono); color: var(--accent); font-size: 11px;">#03</span>
+              <div>
+                <div style="font-weight: 600;">Hardware Register Map</div>
+                <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Standard wide table row triggers 54px circle mode</div>
+              </div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">READY</div>
+          </div>
+        </div>
+
+        <!-- Draggable & Typing Sandbox Elements -->
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-top: 36px;">
+          <div class="draggable-sandbox-item" draggable="true" data-cursor="drag">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="5 9 2 12 5 15" />
+              <polyline points="9 5 12 2 15 5" />
+              <polyline points="15 19 12 22 9 19" />
+              <polyline points="19 9 22 12 19 15" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <line x1="12" y1="2" x2="12" y2="22" />
+            </svg>
+            <span>DRAG ME // TACTILE NODE</span>
+          </div>
+
+          <div class="card-panel" data-cursor="type" style="padding: 14px 20px; display: inline-flex; align-items: center; gap: 12px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="4 7 4 4 20 4 20 7" />
+              <line x1="9" y1="20" x2="15" y2="20" />
+              <line x1="12" y1="4" x2="12" y2="20" />
+            </svg>
+            <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">
+              Hover here for "TYPE" cursor context
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Idle & Telemetry Testing -->
+    <section id="footer-section" class="demo-section" data-section="System Telemetry">
+      <div class="app-container">
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-pip"></span>
+          <span>SUBSYSTEM 05 // IDLE OBSERVABILITY</span>
+        </div>
+        <h2 class="section-title">
+          Damped Breathing &amp; Scroll Observability
+        </h2>
+        <p class="section-desc">
+          Leave the mouse completely still for 2.5 seconds. The ring enters idle breathing mode with a 2.6s pulsing glow. Scroll up and down to observe the 52px SVG circle scroll progress meter and the dynamic section tag pill.
+        </p>
+
+        <div style="display: flex; gap: 16px; margin-top: 24px;">
+          <a href="#core" class="btn-solid-amber lean-target primary-lean">
+            <span>Scroll Back to Top</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="19" x2="12" y2="5" />
+              <polyline points="5 12 12 5 19 12" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       Vanilla JavaScript: The Precision Cursor Engine
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 1. Feature Check: Only run when (hover: hover) and (pointer: fine)
+      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (!hasFinePointer) {
+        document.body.classList.remove('pk-has-custom-cursor');
+        return;
+      }
+
+      // Check prefers-reduced-motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // 2. DOM Elements
+      const dot = document.getElementById('pk-cursor-dot');
+      const ring = document.getElementById('pk-cursor-ring');
+      const ringLabel = document.getElementById('pk-cursor-label');
+      const lamp = document.getElementById('grid-lamp');
+      const scrollArc = document.getElementById('pk-scroll-arc');
+      const scrollArcMeter = document.getElementById('pk-scroll-arc-meter');
+      const sectionTag = document.getElementById('pk-section-tag');
+      const effectsContainer = document.getElementById('pk-effects-container');
+
+      if (!dot || !ring) return;
+
+      // 3. State & Physics Variables
+      let mouseX = -100;
+      let mouseY = -100;
+      let prevMouseX = -100;
+      let prevMouseY = -100;
+
+      let ringX = -100;
+      let ringY = -100;
+      let targetRingX = -100;
+      let targetRingY = -100;
+
+      let ringWidth = 34;
+      let ringHeight = 34;
+      let targetRingWidth = 34;
+      let targetRingHeight = 34;
+
+      let isFirstMove = true;
+      let isMouseDown = false;
+      let isWindowActive = true;
+      let isTextMode = false;
+      let currentTextFontSize = 16;
+      let isOverInput = false;
+
+      // Target Locking
+      let lockedTargetElement = null;
+      let isSolidAmberTarget = false;
+
+      // Large Rows / Labeled State
+      let isLargeRow = false;
+      let currentLabel = '';
+
+      // Velocity & Stretch Simulation
+      let speed = 0;
+      let dotAngle = 0;
+      let dotScaleX = 1;
+      let dotScaleY = 1;
+
+      // Scroll Elasticity Spring Simulation (stiffness 220, damping 11)
+      let scrollVelocity = 0;
+      let scrollStretch = 1;
+      let scrollStretchVel = 0;
+      const SPRING_STIFFNESS = 220;
+      const SPRING_DAMPING = 11;
+
+      // Scroll Progress Arc & Hide Timer
+      let isScrolling = false;
+      let scrollFadeTimer = null;
+      const ARC_CIRCUMFERENCE = 138.23; // 2 * PI * 22
+
+      // Section Tag Timer
+      let sectionTagTimer = null;
+      let isFirstPageLoad = true;
+
+      // Idle Breathing Timer (2.5s without mouse movement)
+      let idleTimer = null;
+      let isIdle = false;
+
+      // Interactive Page Elements Cache
+      const interactiveCards = Array.from(document.querySelectorAll('.card-panel, .has-spotlight'));
+      const warmingLinks = Array.from(document.querySelectorAll('.warm-target'));
+      const leaningElements = Array.from(document.querySelectorAll('.lean-target'));
+
+      // ------------------------------------------------------------------------
+      // 4. Mouse Event Listeners (Passive)
+      // ------------------------------------------------------------------------
+      const handleMouseMove = (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        if (isFirstMove) {
+          isFirstMove = false;
+          prevMouseX = mouseX;
+          prevMouseY = mouseY;
+          ringX = mouseX;
+          ringY = mouseY;
+          targetRingX = mouseX;
+          targetRingY = mouseY;
+          document.body.classList.remove('cursor-hidden');
+          document.body.classList.add('cursor-active-lamp');
+        }
+
+        // Reset Idle Breathing
+        if (isIdle) {
+          isIdle = false;
+          ring.classList.remove('is-idle-breathing');
+        }
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+          isIdle = true;
+          if (!lockedTargetElement && !isTextMode) {
+            ring.classList.add('is-idle-breathing');
+          }
+        }, 2500);
+
+        // Update Lamp Position & Synchronized Background Grid (Requirement 19)
+        if (lamp) {
+          lamp.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+          // Align lamp dots with static 26px grid tiles
+          const offsetLeft = -(mouseX - 170) % 26;
+          const offsetTop = -(mouseY - 170) % 26;
+          lamp.style.backgroundPosition = `${offsetLeft}px ${offsetTop}px`;
+        }
+
+        // Section Tag & Scroll Arc follows mouse cursor
+        if (scrollArc) {
+          scrollArc.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        }
+        if (sectionTag && sectionTag.classList.contains('is-visible')) {
+          sectionTag.style.transform = `translate(${mouseX + 24}px, ${mouseY + 24}px)`;
+        }
+
+        // Reactive Page Effects: Card Borders Glow & Spotlights (Requirements 20 & 23)
+        updateCardReactions();
+
+        // Reactive Page Effects: Warming Links (Requirement 21)
+        updateWarmingLinks();
+
+        // Reactive Page Effects: Leaning Links and Buttons (Requirement 22)
+        updateLeaningElements();
+      };
+
+      const handleMouseDown = (e) => {
+        isMouseDown = true;
+
+        // Requirement 24: Hide keyboard focus outline after mouse click
+        if (document.activeElement && document.activeElement !== document.body) {
+          document.activeElement.blur();
+        }
+
+        if (isTextMode) {
+          dot.classList.add('is-pressed');
+          spawnSparks(mouseX, mouseY, 5, true);
+        } else {
+          // Requirement 10: Ring squeezes to 0.8, dot flashes pale gold with a glow
+          dot.classList.add('dot-flash');
+          ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%) scale(0.8)`;
+
+          // Requirement 11 & 12: 10 spark lines, shock ring, soft radial flash
+          spawnSparks(mouseX, mouseY, 10, false);
+          spawnShockRing(mouseX, mouseY);
+          spawnRadialFlash(mouseX, mouseY);
+
+          // Requirement 13: Clicked element gets brief amber outline pulse (0 to 9px, 480ms)
+          const target = e.target;
+          if (target && target instanceof Element) {
+            const clickable = target.closest('button, a, [role="button"], [role="tab"], .row-item');
+            if (clickable) {
+              clickable.classList.remove('pk-outline-pulse');
+              // Force reflow
+              void clickable.offsetWidth;
+              clickable.classList.add('pk-outline-pulse');
+              setTimeout(() => clickable.classList.remove('pk-outline-pulse'), 500);
+            }
+          }
+        }
+      };
+
+      const handleMouseUp = () => {
+        isMouseDown = false;
+        dot.classList.remove('dot-flash', 'is-pressed');
+
+        // Requirement 14: On mouseup the ring springs: 0.8, overshoot to 1.25, settle at 1 (340ms)
+        if (!prefersReducedMotion && !isTextMode) {
+          ring.classList.remove('ring-spring-release');
+          void ring.offsetWidth;
+          ring.classList.add('ring-spring-release');
+          setTimeout(() => ring.classList.remove('ring-spring-release'), 350);
+        }
+      };
+
+      const handleMouseLeaveWindow = () => {
+        isWindowActive = false;
+        document.body.classList.add('cursor-hidden');
+        document.body.classList.remove('cursor-active-lamp');
+      };
+
+      const handleMouseEnterWindow = () => {
+        isWindowActive = true;
+        document.body.classList.remove('cursor-hidden');
+        document.body.classList.add('cursor-active-lamp');
+      };
+
+      // ------------------------------------------------------------------------
+      // 5. Contextual Hover Target Detection
+      // ------------------------------------------------------------------------
+      const handleMouseOver = (e) => {
+        const target = e.target;
+        if (!target || !(target instanceof Element)) return;
+
+        // Requirement Setup: Input / Textarea detection
+        if (target.closest('input, textarea, [contenteditable="true"]')) {
+          isOverInput = true;
+          document.body.classList.add('cursor-over-input');
+          return;
+        } else {
+          isOverInput = false;
+          document.body.classList.remove('cursor-over-input');
+        }
+
+        // Requirement 9: Plain Text Mode (p, li, h1-h4, blockquote, .prose)
+        const textTarget = target.closest('p, li, h1, h2, h3, h4, blockquote');
+        const isClickable = target.closest('button, a, [role="button"], [role="tab"], input, textarea, select');
+
+        if (textTarget && !isClickable) {
+          isTextMode = true;
+          const computed = window.getComputedStyle(textTarget);
+          const fSize = parseFloat(computed.fontSize) || 16;
+          currentTextFontSize = Math.min(Math.max(fSize * 1.35, 16), 46);
+
+          dot.classList.add('mode-text');
+          ring.classList.add('mode-text');
+          return;
+        } else {
+          isTextMode = false;
+          dot.classList.remove('mode-text');
+          ring.classList.remove('mode-text');
+        }
+
+        // Requirement 3: Small links and buttons (width <= 380 && height <= 80)
+        const clickTarget = target.closest('a, button, [role="button"], [role="tab"]');
+        if (clickTarget) {
+          const rect = clickTarget.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0 && rect.width <= 380 && rect.height <= 80) {
+            if (lockedTargetElement !== clickTarget) {
+              lockedTargetElement = clickTarget;
+
+              // Check if solid amber button (Requirement 7)
+              const bg = window.getComputedStyle(clickTarget).backgroundColor;
+              isSolidAmberTarget = clickTarget.classList.contains('btn-solid-amber') ||
+                                   bg.includes('201, 162, 39') ||
+                                   bg.includes('c9a227');
+
+              if (isSolidAmberTarget) {
+                dot.classList.add('dark-cursor');
+                ring.classList.add('dark-cursor');
+              } else {
+                dot.classList.remove('dark-cursor');
+                ring.classList.remove('dark-cursor');
+              }
+
+              // Requirement 4: Lock-on bounce (400ms duration)
+              if (!prefersReducedMotion) {
+                ring.classList.remove('ring-lock-bounce');
+                void ring.offsetWidth;
+                ring.classList.add('ring-lock-bounce');
+                setTimeout(() => ring.classList.remove('ring-lock-bounce'), 410);
+              }
+
+              ring.classList.add('is-locked');
+            }
+            return;
+          }
+        }
+
+        // Clear target-lock if leaving small element
+        if (lockedTargetElement) {
+          lockedTargetElement = null;
+          isSolidAmberTarget = false;
+          dot.classList.remove('dark-cursor');
+          ring.classList.remove('dark-cursor', 'is-locked');
+        }
+
+        // Requirement 8: Large Elements & Contextual Labels
+        const largeRowTarget = target.closest('.row-item');
+        const customCursorTag = target.closest('[data-cursor]');
+
+        if (customCursorTag) {
+          const labelType = customCursorTag.getAttribute('data-cursor');
+          if (['view', 'open', 'drag', 'type'].includes(labelType)) {
+            isLargeRow = true;
+            currentLabel = labelType;
+            ring.classList.add('is-labeled');
+            ringLabel.textContent = labelType;
+            return;
+          }
+        } else if (largeRowTarget) {
+          isLargeRow = true;
+          currentLabel = '';
+          ring.classList.remove('is-labeled');
+          ring.classList.add('is-large-row');
+          return;
+        }
+
+        // Reset Large Rows & Labels
+        isLargeRow = false;
+        currentLabel = '';
+        ring.classList.remove('is-labeled', 'is-large-row');
+      };
+
+      const handleMouseOut = (e) => {
+        const related = e.relatedTarget;
+        if (!related) {
+          lockedTargetElement = null;
+          isLargeRow = false;
+          ring.classList.remove('is-locked', 'is-labeled', 'is-large-row', 'dark-cursor');
+          dot.classList.remove('dark-cursor');
+        }
+      };
+
+      // ------------------------------------------------------------------------
+      // 6. Scroll Velocity Tracking & Progress Arc (Requirements 15, 16, 17)
+      // ------------------------------------------------------------------------
+      let prevScrollY = window.scrollY;
+
+      const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+        const delta = currentScrollY - prevScrollY;
+        prevScrollY = currentScrollY;
+
+        // Requirement 15: Elastic stretch velocity (delta * 0.6, clamp to +/-90)
+        scrollVelocity += delta * 0.6;
+        scrollVelocity = Math.max(-90, Math.min(90, scrollVelocity));
+
+        // Requirement 16: SVG Progress Arc
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = totalHeight > 0 ? Math.min(Math.max(currentScrollY / totalHeight, 0), 1) : 0;
+        const offset = ARC_CIRCUMFERENCE * (1 - progress);
+        if (scrollArcMeter) {
+          scrollArcMeter.style.strokeDashoffset = offset;
+        }
+
+        // Show Progress Arc while scrolling; fade 700ms after stopping
+        if (scrollArc) {
+          scrollArc.classList.add('is-visible');
+          clearTimeout(scrollFadeTimer);
+          scrollFadeTimer = setTimeout(() => {
+            scrollArc.classList.remove('is-visible');
+          }, 700);
+        }
+      };
+
+      // Wheel listener for instant responsiveness
+      const handleWheel = (e) => {
+        scrollVelocity += (e.deltaY || 0) * 0.25;
+        scrollVelocity = Math.max(-90, Math.min(90, scrollVelocity));
+      };
+
+      // ------------------------------------------------------------------------
+      // 7. Section Tag IntersectionObserver (Requirement 17)
+      // ------------------------------------------------------------------------
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const secName = entry.target.getAttribute('data-section') || 'OVERVIEW';
+
+              if (isFirstPageLoad) {
+                // Don't show on initial load (Requirement 17)
+                return;
+              }
+
+              showSectionTag(secName);
+            }
+          });
+        },
+        {
+          rootMargin: '-40% 0px -55% 0px',
+          threshold: 0,
+        }
+      );
+
+      document.querySelectorAll('section[data-section]').forEach((sec) => {
+        sectionObserver.observe(sec);
+      });
+
+      // Enable section tag after initial load pass
+      setTimeout(() => {
+        isFirstPageLoad = false;
+      }, 600);
+
+      const showSectionTag = (name) => {
+        if (!sectionTag) return;
+        sectionTag.textContent = name;
+        sectionTag.style.transform = `translate(${mouseX + 24}px, ${mouseY + 24}px)`;
+        sectionTag.classList.add('is-visible');
+
+        // Ring pulse: scale 1.35, 420ms
+        if (!prefersReducedMotion) {
+          ring.classList.remove('ring-section-pulse');
+          void ring.offsetWidth;
+          ring.classList.add('ring-section-pulse');
+          setTimeout(() => ring.classList.remove('ring-section-pulse'), 430);
+        }
+
+        clearTimeout(sectionTagTimer);
+        sectionTagTimer = setTimeout(() => {
+          sectionTag.classList.remove('is-visible');
+        }, 1400);
+      };
+
+      // ------------------------------------------------------------------------
+      // 8. Particle Sparks, Shock Ring & Radial Flash (Requirements 11 & 12)
+      // ------------------------------------------------------------------------
+      const spawnSparks = (cx, cy, count, isTextModeClick) => {
+        if (prefersReducedMotion || !effectsContainer) return;
+
+        const maxDistBase = isTextModeClick ? 14 : 28;
+        const maxDistSpread = isTextModeClick ? 6 : 8;
+
+        for (let i = 0; i < count; i++) {
+          const spark = document.createElement('div');
+          spark.className = 'pk-spark';
+
+          // Every third spark is pale gold (Requirement 11)
+          const isPaleGold = i % 3 === 0;
+          spark.style.backgroundColor = isPaleGold ? 'var(--pale-gold)' : 'var(--accent)';
+          if (isPaleGold) {
+            spark.style.boxShadow = '0 0 6px var(--pale-gold)';
+          }
+
+          // Angle evenly spaced with small random jitter
+          const baseAngle = (i * 360) / count;
+          const jitter = (Math.random() - 0.5) * 14;
+          const angle = (baseAngle + jitter) * (Math.PI / 180);
+
+          const travelDist = maxDistBase + Math.random() * maxDistSpread;
+          const duration = isTextModeClick
+            ? 280 + Math.random() * 100
+            : 380 + Math.random() * 180;
+
+          spark.style.transform = `translate(${cx}px, ${cy}px) rotate(${baseAngle + jitter}deg)`;
+          effectsContainer.appendChild(spark);
+
+          const startTime = performance.now();
+          const animateSpark = (now) => {
+            const elapsed = now - startTime;
+            const t = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const easeOut = 1 - Math.pow(1 - t, 3);
+            const dist = easeOut * travelDist;
+            const currentScale = 1 - t;
+            const currentOpacity = 1 - t * t;
+
+            spark.style.transform = `translate(${cx + Math.cos(angle) * dist}px, ${cy + Math.sin(angle) * dist}px) rotate(${baseAngle + jitter}deg) scaleX(${currentScale})`;
+            spark.style.opacity = currentOpacity;
+
+            if (t < 1) {
+              requestAnimationFrame(animateSpark);
+            } else {
+              spark.remove();
+            }
+          };
+
+          requestAnimationFrame(animateSpark);
+        }
+      };
+
+      const spawnShockRing = (cx, cy) => {
+        if (prefersReducedMotion || !effectsContainer) return;
+        const shock = document.createElement('div');
+        shock.className = 'pk-shock-ring';
+        shock.style.left = `${cx}px`;
+        shock.style.top = `${cy}px`;
+        effectsContainer.appendChild(shock);
+        setTimeout(() => shock.remove(), 450);
+      };
+
+      const spawnRadialFlash = (cx, cy) => {
+        if (prefersReducedMotion || !effectsContainer) return;
+        const flash = document.createElement('div');
+        flash.className = 'pk-radial-flash';
+        flash.style.left = `${cx}px`;
+        flash.style.top = `${cy}px`;
+        effectsContainer.appendChild(flash);
+        setTimeout(() => flash.remove(), 280);
+      };
+
+      // ------------------------------------------------------------------------
+      // 9. Reactive Page Effects: Cards, Warming Links & Leaning (Requirements 20, 21, 22)
+      // ------------------------------------------------------------------------
+      const smoothstep = (min, max, value) => {
+        const x = Math.max(0, Math.min(1, (value - min) / (max - min)));
+        return x * x * (3 - 2 * x);
+      };
+
+      // Requirement 20 & 23: Card Borders Glow & Spotlights
+      const updateCardReactions = () => {
+        interactiveCards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const withinHoriz = mouseX >= rect.left && mouseX <= rect.right;
+          const withinVert = mouseY >= rect.top && mouseY <= rect.bottom;
+
+          // Distance to card rectangle
+          const dx = Math.max(rect.left - mouseX, 0, mouseX - rect.right);
+          const dy = Math.max(rect.top - mouseY, 0, mouseY - rect.bottom);
+          const dist = Math.hypot(dx, dy);
+
+          const intensity = smoothstep(150, 0, dist);
+          const relX = mouseX - rect.left;
+          const relY = mouseY - rect.top;
+
+          card.style.setProperty('--gx', `${relX}px`);
+          card.style.setProperty('--gy', `${relY}px`);
+          card.style.setProperty('--gi', intensity.toFixed(3));
+
+          // Spotlight on tiles/rows (Requirement 23)
+          if (withinHoriz && withinVert) {
+            card.style.setProperty('--spot-x', `${relX}px`);
+            card.style.setProperty('--spot-y', `${relY}px`);
+            card.style.setProperty('--spot-opacity', '1');
+          } else {
+            card.style.setProperty('--spot-opacity', '0');
+          }
+        });
+      };
+
+      // Requirement 21: Warming Links (within ~130px shift toward amber color-mix)
+      const updateWarmingLinks = () => {
+        warmingLinks.forEach((link) => {
+          const rect = link.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dist = Math.hypot(mouseX - cx, mouseY - cy);
+
+          if (dist < 130) {
+            const factor = ((1 - dist / 130) * 0.8).toFixed(3);
+            link.style.setProperty('--warm', factor);
+          } else {
+            link.style.setProperty('--warm', '0');
+          }
+        });
+      };
+
+      // Requirement 22: Leaning Elements (7%/14% small, 12%/20% primary buttons)
+      const updateLeaningElements = () => {
+        leaningElements.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          const isPrimary = el.classList.contains('primary-lean');
+          const isHovered = mouseX >= rect.left && mouseX <= rect.right &&
+                            mouseY >= rect.top && mouseY <= rect.bottom;
+
+          if (isHovered) {
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const hFactor = isPrimary ? 0.12 : 0.07;
+            const vFactor = isPrimary ? 0.20 : 0.14;
+
+            const shiftX = (mouseX - cx) * hFactor;
+            const shiftY = (mouseY - cy) * vFactor;
+            el.style.transform = `translate(${shiftX.toFixed(1)}px, ${shiftY.toFixed(1)}px)`;
+          } else {
+            el.style.transform = 'translate(0px, 0px)';
+          }
+        });
+      };
+
+      // ------------------------------------------------------------------------
+      // 10. Master Animation Loop (One requestAnimationFrame Loop)
+      // ------------------------------------------------------------------------
+      let lastTime = performance.now();
+
+      const mainTick = (now) => {
+        const dt = Math.min((now - lastTime) / 1000, 0.05); // Clamp dt to prevent tunneling
+        lastTime = now;
+
+        // 1. Calculate Velocity & Direction of Travel for Dot
+        const dx = mouseX - prevMouseX;
+        const dy = mouseY - prevMouseY;
+        speed = Math.hypot(dx, dy);
+
+        prevMouseX = mouseX;
+        prevMouseY = mouseY;
+
+        // Requirement 1: Dot Squash & Stretch
+        if (!prefersReducedMotion && !isTextMode && speed > 1.5) {
+          dotAngle = Math.atan2(dy, dx) * (180 / Math.PI);
+          dotScaleX = 1 + Math.min(speed / 28, 1.1);
+          dotScaleY = 1 / Math.sqrt(dotScaleX); // Volume preserving squash
+        } else {
+          // Snap back to circle
+          dotScaleX += (1 - dotScaleX) * 0.35;
+          dotScaleY += (1 - dotScaleY) * 0.35;
+        }
+
+        // Render Dot (Requirement 1 & 9)
+        if (isTextMode) {
+          dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+          dot.style.width = '2px';
+          dot.style.height = `${currentTextFontSize}px`;
+        } else {
+          dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%) rotate(${dotAngle}deg) scale(${dotScaleX.toFixed(3)}, ${dotScaleY.toFixed(3)})`;
+          dot.style.width = '6px';
+          dot.style.height = '6px';
+        }
+
+        // 2. Ring Target Calculations
+        let currentLerp = 0.20; // Requirement 2 default lerp factor
+
+        if (lockedTargetElement) {
+          // Requirement 3: Target-Lock Mode on small buttons/links
+          const rect = lockedTargetElement.getBoundingClientRect();
+          const elemCenterX = rect.left + rect.width / 2;
+          const elemCenterY = rect.top + rect.height / 2;
+
+          // Pull slightly toward pointer: 12% horizontal, 18% vertical
+          targetRingX = elemCenterX + (mouseX - elemCenterX) * 0.12;
+          targetRingY = elemCenterY + (mouseY - elemCenterY) * 0.18;
+
+          targetRingWidth = rect.width + 14;
+          targetRingHeight = rect.height + 10;
+          currentLerp = 0.30; // Faster follow while locked
+        } else if (isLargeRow) {
+          // Requirement 8: Large Elements (54px circle or 62px labeled)
+          targetRingX = mouseX;
+          targetRingY = mouseY;
+          targetRingWidth = currentLabel ? 62 : 54;
+          targetRingHeight = currentLabel ? 62 : 54;
+        } else {
+          // Standard core ring (34px circle)
+          targetRingX = mouseX;
+          targetRingY = mouseY;
+          targetRingWidth = 34;
+          targetRingHeight = 34;
+        }
+
+        // Smooth Lerp Follow for Ring Position and Dimensions
+        ringX += (targetRingX - ringX) * currentLerp;
+        ringY += (targetRingY - ringY) * currentLerp;
+
+        ringWidth += (targetRingWidth - ringWidth) * 0.25;
+        ringHeight += (targetRingHeight - ringHeight) * 0.25;
+
+        // 3. Requirement 15: Elastic Scroll Stretch Spring Simulation
+        // Decay scroll velocity per frame: 0.87
+        scrollVelocity *= 0.87;
+
+        if (!prefersReducedMotion) {
+          const targetStretch = 1 + (Math.abs(scrollVelocity) / 90) * 0.85; // Up to 1.85x
+          const stretchForce = -SPRING_STIFFNESS * (scrollStretch - targetStretch) - SPRING_DAMPING * scrollStretchVel;
+          scrollStretchVel += stretchForce * dt;
+          scrollStretch += scrollStretchVel * dt;
+        } else {
+          scrollStretch = 1;
+        }
+
+        // Render Ring (only animate transform and opacity)
+        ring.style.width = `${ringWidth.toFixed(1)}px`;
+        ring.style.height = `${ringHeight.toFixed(1)}px`;
+
+        if (isMouseDown && !lockedTargetElement && !isTextMode) {
+          ring.style.transform = `translate(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px) translate(-50%, -50%) scale(0.8, ${(0.8 * scrollStretch).toFixed(3)})`;
+        } else {
+          ring.style.transform = `translate(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px) translate(-50%, -50%) scale(1, ${scrollStretch.toFixed(3)})`;
+        }
+
+        // Loop Continues
+        requestAnimationFrame(mainTick);
+      };
+
+      // ------------------------------------------------------------------------
+      // 11. Initialization & Event Binding
+      // ------------------------------------------------------------------------
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
+      window.addEventListener('mousedown', handleMouseDown, { passive: true });
+      window.addEventListener('mouseup', handleMouseUp, { passive: true });
+      window.addEventListener('mouseover', handleMouseOver, { passive: true });
+      window.addEventListener('mouseout', handleMouseOut, { passive: true });
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener('wheel', handleWheel, { passive: true });
+      document.addEventListener('mouseleave', handleMouseLeaveWindow, { passive: true });
+      document.addEventListener('mouseenter', handleMouseEnterWindow, { passive: true });
+
+      // Start Single RAF Loop
+      requestAnimationFrame(mainTick);
+
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Step 1: Custom Mouse Cursor Design</title>
+  <style>
+    /* ==========================================================================
+       CSS RESET & BASE THEME
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0c0d12;
+      --surface: #14161f;
+      --surface-hover: #1c1f2b;
+      --border: #262938;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #38bdf8;         /* Cyan highlight */
+      --accent-glow: rgba(56, 189, 248, 0.35);
+      --accent-ring: rgba(56, 189, 248, 0.45);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       CUSTOM CURSOR STYLING
+       ========================================================================== */
+    /* Hide native system cursor on devices that support hover & fine pointers */
+    @media (hover: hover) and (pointer: fine) {
+      body, a, button, input, textarea, select {
+        cursor: none !important;
+      }
+    }
+
+    /* 1. Fast-response precision center dot */
+    .cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px var(--accent), 0 0 4px #ffffff;
+      transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+      will-change: transform;
+    }
+
+    /* 2. Smooth-lagging follower ring */
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid var(--accent-ring);
+      background-color: rgba(56, 189, 248, 0.04);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-radius 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.25s ease,
+                  background-color 0.25s ease,
+                  opacity 0.2s ease;
+      will-change: transform;
+    }
+
+    /* CURSOR STATE: Interactive Hover (Links, Buttons) */
+    body.cursor-hover .cursor-ring {
+      width: 52px;
+      height: 52px;
+      border-color: var(--accent);
+      background-color: rgba(56, 189, 248, 0.12);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+
+    body.cursor-hover .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #ffffff;
+    }
+
+    /* CURSOR STATE: Text Input Mode (Morphs ring into a sleek vertical I-beam caret) */
+    body.cursor-text .cursor-ring {
+      width: 3px;
+      height: 24px;
+      border-radius: 2px;
+      border: none;
+      background-color: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    body.cursor-text .cursor-dot {
+      opacity: 0; /* Fade dot out so only the vertical caret line shows */
+    }
+
+    /* CURSOR STATE: Mouse Click / Active */
+    body.cursor-active .cursor-ring {
+      width: 24px;
+      height: 24px;
+      border-color: #ffffff;
+      background-color: rgba(56, 189, 248, 0.25);
+    }
+
+    body.cursor-active .cursor-dot {
+      width: 4px;
+      height: 4px;
+    }
+
+    /* CURSOR STATE: Mouse left the browser window */
+    body.cursor-hidden .cursor-dot,
+    body.cursor-hidden .cursor-ring {
+      opacity: 0;
+    }
+
+    /* ==========================================================================
+       SHOWCASE CONTAINER & UI ELEMENTS
+       ========================================================================== */
+    .showcase-card {
+      width: 100%;
+      max-w: 680px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.25rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      background-color: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Live Cursor Telemetry Monitor */
+    .telemetry-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.25rem;
+      background-color: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.85rem;
+    }
+
+    .telemetry-label {
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .telemetry-value {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Interactive Demonstration Grid */
+    .demo-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .demo-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .demo-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .interactive-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    /* Standard Button */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background-color: var(--surface-hover);
+      color: var(--text-main);
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #0c0d12;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background-color: #7dd3fc;
+    }
+
+    /* Anchor Link */
+    .demo-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-bottom: 1px dashed var(--accent);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .demo-link:hover {
+      opacity: 0.85;
+    }
+
+    /* Text Inputs */
+    .input-field {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      background-color: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-glow);
+    }
+
+    .input-field::placeholder {
+      color: #4b5563;
+    }
+
+    /* Helper Notes */
+    .legend-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .icon-svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       CUSTOM CURSOR DOM NODES
+       ======================================================================== -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- ========================================================================
+       DEMONSTRATION INTERFACE
+       ======================================================================== -->
+  <main class="showcase-card">
+    <div class="header-badge">
+      <span class="badge-dot"></span>
+      Step 1: Custom Cursor Design
+    </div>
+
+    <h1>Aura Precision Cursor</h1>
+    <p class="subtitle">
+      A dual-layer custom cursor featuring zero-latency dot tracking, smooth follower ring physics, and dynamic shape morphing for links, buttons, and text inputs.
+    </p>
+
+    <!-- Real-time Status Indicator -->
+    <div class="telemetry-box">
+      <span class="telemetry-label">
+        <svg class="icon-svg" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        Current Cursor Mode:
+      </span>
+      <span class="telemetry-value" id="cursorStateText">DEFAULT (IDLE)</span>
+    </div>
+
+    <section class="demo-section">
+      <!-- 1. Buttons & Links (Hover Expansion Mode) -->
+      <div class="demo-group">
+        <label>1. Interactive Elements (Expands Ring)</label>
+        <div class="interactive-row">
+          <button type="button" class="btn btn-primary" id="btnPrimary">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span>Primary Action</span>
+          </button>
+
+          <button type="button" class="btn" id="btnSecondary">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Secondary Button</span>
+          </button>
+
+          <a href="#test" class="demo-link" id="linkDemo">
+            <span>Explore Documentation</span>
+            <svg class="icon-svg" viewBox="0 0 24 24">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. Text Input (Vertical I-Beam Caret Mode) -->
+      <div class="demo-group">
+        <label for="demoInput">2. Text Field (Morphs into Caret)</label>
+        <input
+          type="text"
+          id="demoInput"
+          class="input-field"
+          placeholder="Move cursor here to see the vertical text caret..."
+        />
+      </div>
+
+      <!-- 3. Textarea Input -->
+      <div class="demo-group">
+        <label for="demoTextarea">3. Multi-line Textarea</label>
+        <textarea
+          id="demoTextarea"
+          class="input-field"
+          rows="3"
+          placeholder="Type feedback or notes here..."
+        ></textarea>
+      </div>
+
+      <!-- Behavior Legend -->
+      <div class="legend-row">
+        <div class="legend-item">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle></svg>
+          <span>Buttons: Ring Expands</span>
+        </div>
+        <div class="legend-item">
+          <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line></svg>
+          <span>Inputs: I-Beam Caret</span>
+        </div>
+        <div class="legend-item">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle></svg>
+          <span>Click: Compact Snap</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       JAVASCRIPT: SMOOTH CURSOR PHYSICS & STATE LOGIC
+       ======================================================================== -->
+  <script>
+    (function () {
+      // 1. DOM Elements
+      const dot = document.getElementById('cursorDot');
+      const ring = document.getElementById('cursorRing');
+      const stateText = document.getElementById('cursorStateText');
+
+      // 2. Coordinates & Physics States
+      // Exact mouse pointer position (updated instantly on mousemove)
+      let mouseX = -100;
+      let mouseY = -100;
+
+      // Follower ring position (smoothly interpolated via requestAnimationFrame)
+      let ringX = -100;
+      let ringY = -100;
+
+      // Linear interpolation speed factor (0.15 gives a silky fluid lag)
+      const LERP_FACTOR = 0.16;
+
+      // 3. Track mouse coordinates immediately
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Position the center dot instantly (zero latency)
+        dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+
+        // If the cursor was hidden (re-entering window), reveal it
+        document.body.classList.remove('cursor-hidden');
+      }, { passive: true });
+
+      // 4. Smooth Follower Ring Physics Loop (requestAnimationFrame)
+      function updateRingPhysics() {
+        // Linear Interpolation: ringX approaches mouseX by LERP_FACTOR each frame
+        ringX += (mouseX - ringX) * LERP_FACTOR;
+        ringY += (mouseY - ringY) * LERP_FACTOR;
+
+        // Apply interpolated transform to the follower ring
+        ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+
+        requestAnimationFrame(updateRingPhysics);
+      }
+      requestAnimationFrame(updateRingPhysics);
+
+      // 5. Update State Indicator Helper
+      function setCursorState(stateName) {
+        if (stateText) {
+          stateText.textContent = stateName;
+        }
+      }
+
+      // 6. Interactive Hover Detection (Buttons, Links, Custom Clickables)
+      const hoverTargets = document.querySelectorAll('button, a, [role="button"]');
+      hoverTargets.forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          document.body.classList.add('cursor-hover');
+          setCursorState('HOVER // EXPANDED RING');
+        });
+        el.addEventListener('mouseleave', () => {
+          document.body.classList.remove('cursor-hover');
+          setCursorState('DEFAULT (IDLE)');
+        });
+      });
+
+      // 7. Text Input Detection (Inputs, Textareas)
+      const textTargets = document.querySelectorAll('input[type="text"], textarea, [contenteditable="true"]');
+      textTargets.forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          document.body.classList.add('cursor-text');
+          setCursorState('TEXT // VERTICAL I-BEAM CARET');
+        });
+        el.addEventListener('mouseleave', () => {
+          document.body.classList.remove('cursor-text');
+          setCursorState('DEFAULT (IDLE)');
+        });
+      });
+
+      // 8. Mouse Click / Mousedown Active State
+      window.addEventListener('mousedown', () => {
+        document.body.classList.add('cursor-active');
+        setCursorState('ACTIVE // CLICK SNAP');
+      });
+
+      window.addEventListener('mouseup', () => {
+        document.body.classList.remove('cursor-active');
+        // Restore contextual status
+        if (document.body.classList.contains('cursor-text')) {
+          setCursorState('TEXT // VERTICAL I-BEAM CARET');
+        } else if (document.body.classList.contains('cursor-hover')) {
+          setCursorState('HOVER // EXPANDED RING');
+        } else {
+          setCursorState('DEFAULT (IDLE)');
+        }
+      });
+
+      // 9. Window Exit / Window Enter (Hide cursor when mouse leaves browser window)
+      document.addEventListener('mouseleave', () => {
+        document.body.classList.add('cursor-hidden');
+        setCursorState('OFFSCREEN (HIDDEN)');
+      });
+
+      document.addEventListener('mouseenter', () => {
+        document.body.classList.remove('cursor-hidden');
+        setCursorState('DEFAULT (IDLE)');
+      });
+    })();
+  </script>
+</body>
+</html>
