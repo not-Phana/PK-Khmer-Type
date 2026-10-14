@@ -2440,7 +2440,7 @@ if (document.readyState === "loading") {
     },
     "veasnawt": {
       name: "Veasna TEP (@veasnawt)",
-      avatar: "assets/avatar-veasnawt.jpg",
+      avatar: "assets/avatar-veasnawt.png",
       model: "Biological Neural Network",
       status: "ONLINE // MENTOR",
       badge: "HUMAN ARCHITECT & SENIOR MENTOR",
