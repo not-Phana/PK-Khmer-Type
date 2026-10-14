@@ -2430,12 +2430,29 @@ if (document.readyState === "loading") {
       url: "https://github.com/Kon-Kurosaki",
       linkLabel: "Open @Kon-Kurosaki",
       recorded: "167 Commits recorded",
-      pair: "Phana (@not-Phana)",
+      pair: "Veasna TEP (@veasnawt) & Phana (@not-Phana)",
       desc: "Primary human architect of PK Khmer Type with 167+ verified commits. Designs the 222-lesson Khmer Standard, Khmer NiDA, and English QWERTY curriculum (with 100% full alphabet coverage), 3D anatomical hand kinematics, audio synthesis engine, and studio UI.",
       chips: [
         "167+ verified commits on PK Khmer Type",
         "Tactile typing engine & 222 interactive lessons (every letter included)",
         "Full-stack architecture & reactive telemetry"
+      ]
+    },
+    "veasnawt": {
+      name: "Veasna TEP (@veasnawt)",
+      avatar: "assets/avatar-veasnawt.jpg",
+      model: "Biological Neural Network",
+      status: "ONLINE // MENTOR",
+      badge: "HUMAN ARCHITECT & SENIOR MENTOR",
+      url: "https://github.com/veasnawt",
+      linkLabel: "Open @veasnawt",
+      recorded: "Senior Mentor & Advisor",
+      pair: "Phana Kurosaki (@Kon-Kurosaki)",
+      desc: "Revered senior engineering mentor, teacher, and pedagogical guide to Phana Kurosaki. Provides architectural counsel, high-level code guidance, and modern JavaScript engineering mastery that elevates the entire PK Studio ecosystem.",
+      chips: [
+        "Senior engineering mentorship & architectural counsel",
+        "Full-stack JavaScript mastery & educational pedagogy",
+        "Guiding mentor behind PK Studio standards & continuous growth"
       ]
     },
     "phanaach4889": {

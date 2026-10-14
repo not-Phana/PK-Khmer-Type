@@ -7513,6 +7513,7 @@ html.performance-mode .settings-version-pill .ver-live-dot {
   display: block;
 }
 .pk-cmb-av-human { border-color: #fbbf24; }
+.pk-cmb-av-mentor { border-color: #a855f7; }
 .pk-cmb-av-owner { border-color: #38bdf8; }
 .pk-cmb-av-agy { background: #141829; border-color: #818cf8; }
 .pk-cmb-av-claude-code { background: #1c1412; border-color: #f97316; }
@@ -7779,10 +7780,10 @@ html.theme-sepia .pk-cmb-sub { color: #5c4228 !important; }
   color: #a7f3d0;
 }
 
-/* 8-Card Grid matching reference screenshot */
+/* 9-Card Grid: 3x3 Matrix for Humans, Agents, and Chatbots */
 .pk-collab-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin-bottom: 18px;
 }
@@ -7844,6 +7845,7 @@ html.theme-sepia .pk-cmb-sub { color: #5c4228 !important; }
 }
 .pk-cc-avatar-ring.ring-gold { border-color: #38bdf8; box-shadow: 0 0 14px rgba(56, 189, 248, 0.22); }
 .pk-cc-avatar-ring.ring-cyan { border-color: #38bdf8; box-shadow: 0 0 14px rgba(56, 189, 248, 0.22); }
+.pk-cc-avatar-ring.ring-violet { border-color: #a855f7; box-shadow: 0 0 14px rgba(168, 85, 247, 0.28); }
 .pk-cc-avatar-ring.ring-indigo { border-color: #818cf8; box-shadow: 0 0 14px rgba(129, 140, 248, 0.25); }
 .pk-cc-avatar-ring.ring-terracotta { border-color: #ea580c; box-shadow: 0 0 14px rgba(234, 88, 12, 0.25); }
 .pk-cc-avatar-ring.ring-emerald { border-color: #10b981; box-shadow: 0 0 14px rgba(16, 185, 129, 0.25); }
@@ -7868,6 +7870,7 @@ html.theme-sepia .pk-cmb-sub { color: #5c4228 !important; }
 }
 .pk-cc-dot.dot-emerald { background: #10b981; }
 .pk-cc-dot.dot-cyan { background: #38bdf8; }
+.pk-cc-dot.dot-violet { background: #a855f7; }
 .pk-cc-dot.dot-indigo { background: #818cf8; }
 .pk-cc-dot.dot-terracotta { background: #f97316; }
 
@@ -7965,6 +7968,11 @@ a.pk-cc-handle:hover {
   color: #fbbf24;
   background: rgba(245, 158, 11, 0.1);
   border: 1px solid rgba(245, 158, 11, 0.45);
+}
+.pk-cc-role-pill.pill-violet {
+  color: #c084fc;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.45);
 }
 .pk-cc-role-pill.pill-cyan {
   color: #38bdf8;
