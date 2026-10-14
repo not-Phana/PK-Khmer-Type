@@ -557,7 +557,10 @@
       const pathBox = document.getElementById('pkTutPathContainer');
       const trackPicker = document.getElementById('pkTutTrackPicker');
 
-      if(overlay) overlay.hidden = false;
+      if(overlay){
+        overlay.hidden = false;
+        overlay.classList.add('pk-modal-mode');
+      }
       if(modal) modal.style.display = 'block';
       if(tooltip) tooltip.style.display = 'none';
       if(pathBox) pathBox.style.display = 'none';
@@ -636,6 +639,7 @@
       const pill = document.getElementById('pkTutorialPracticePill');
 
       overlay.hidden = false;
+      overlay.classList.remove('pk-modal-mode');
       modal.style.display = 'none';
       maskSvg.style.display = 'block';
       tooltip.style.display = 'block';
@@ -913,6 +917,7 @@
       const trackPicker = document.getElementById('pkTutTrackPicker');
 
       overlay.hidden = false;
+      overlay.classList.add('pk-modal-mode');
       modal.style.display = 'block';
       tooltip.style.display = 'none';
       pill.style.display = 'none';
@@ -1145,6 +1150,7 @@
       const trackPicker = document.getElementById('pkTutTrackPicker');
 
       overlay.hidden = false;
+      overlay.classList.add('pk-modal-mode');
       modal.style.display = 'block';
       tooltip.style.display = 'none';
       pill.style.display = 'none';
@@ -1333,7 +1339,10 @@
       this.currentModalMode = null;
 
       const overlay = document.getElementById('pkTutorialOverlay');
-      if(overlay) overlay.hidden = true;
+      if(overlay){
+        overlay.hidden = true;
+        overlay.classList.remove('pk-modal-mode');
+      }
 
       window.removeEventListener('resize', this.boundOnResize);
       window.removeEventListener('scroll', this.boundOnResize);

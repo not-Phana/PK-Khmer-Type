@@ -725,9 +725,18 @@ function raceEmberBurst(count){
 function raceHandleChar(val, el, stroke){
   if(!raceActive || !val) return;
   const expected = raceChars[raceIndex];
-  const isMatch = (typeof compareTypingSequence === 'function')
+  let isMatch = (typeof compareTypingSequence === 'function')
     ? compareTypingSequence(val, expected)
     : (val === expected);
+  let advanceUnits = 1;
+
+  if(!isMatch && (raceIndex + 1 < raceChars.length)){
+    const nextPair = expected + raceChars[raceIndex + 1];
+    if(typeof compareTypingSequence === 'function' && compareTypingSequence(val, nextPair)){
+      isMatch = true;
+      advanceUnits = 2;
+    }
+  }
 
   if(typeof PK_TRACKER !== 'undefined' && typeof PK_TRACKER.recordTypingUnit === 'function'){
     PK_TRACKER.recordTypingUnit({
@@ -745,9 +754,9 @@ function raceHandleChar(val, el, stroke){
 
   if(isMatch){
     recordKeystroke(true);
-    raceCorrectTotal++;
-    raceIndex++;
-    raceLastStreakCorrect++;
+    raceCorrectTotal += advanceUnits;
+    raceIndex += advanceUnits;
+    raceLastStreakCorrect += advanceUnits;
     if(el){ el.classList.add('correct'); setTimeout(()=> el.classList.remove('correct'), 260); }
     emberBurst(el, null, raceLastStreakCorrect >= 8 ? 8 : 4, raceLastStreakCorrect >= 8 ? '#ff9d4d' : null);
     runeRing(el);

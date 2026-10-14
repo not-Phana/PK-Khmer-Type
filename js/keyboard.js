@@ -628,6 +628,12 @@ function switchLayout(id, force = false){
   if(id !== 'nida' && typeof hideNidaSwitchHud === 'function') hideNidaSwitchHud();
   currentLayoutId = id;
   window.currentLayoutId = currentLayoutId;
+  if(id === 'english'){
+    const warnEl = document.getElementById('capsLockWarningHud');
+    const chassisWarnEl = document.getElementById('chassisCapsWarn');
+    if(warnEl) warnEl.hidden = true;
+    if(chassisWarnEl) chassisWarnEl.hidden = true;
+  }
   try {
     if(typeof localStorage !== 'undefined'){
       localStorage.setItem(LAYOUT_STORAGE_KEY, id);
@@ -657,7 +663,8 @@ function switchLayout(id, force = false){
   lockedLayer = null;
   physicalLayer = null;
   capsOn = false;
-  clearText();
+  if(typeof clearText === 'function') clearText();
+  else if(typeof window !== 'undefined' && typeof window.clearText === 'function') window.clearText();
   buildBoard();
   updateHandsOverlay();
   render();

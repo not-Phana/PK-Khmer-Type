@@ -179,7 +179,9 @@ function ensureUpgradedSettingsModalDOM() {
       </div>
 
       <div class="settings-section" data-cat-section="keyboard">
-        <div class="settings-section-header"><h3 class="settings-section-title">3D Hands, Keyboard &amp; Smart Cursor</h3><span class="settings-section-count">10 settings</span></div>
+        <div class="settings-section-header"><h3 class="settings-section-title">3D Hands, Keyboard &amp; Smart Cursor</h3><span class="settings-section-count">12 settings</span></div>
+        <div class="settings-row" data-search="smooth interactive you cursor pointer mouse custom arrow badge glow lessons"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Smooth Interactive Cursor</span><span class="settings-row-km">កណ្ដុរឆ្លាតវៃ "YOU"</span></div><div class="settings-row-desc">Glowing pointer with silky spring physics and smart contextual badge (shows "LESSONS" on lessons, etc.).</div></div><div class="settings-row-control"><div class="toggle-switch on" id="settingsSmoothCursorToggle" role="switch" aria-checked="true" tabindex="0"></div></div></div>
+        <div class="settings-row settings-row-stacked" data-search="cursor color theme match gold cyan jade ruby sapphire amethyst pointer badge"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Cursor Theme &amp; Accent Color</span><span class="settings-row-km">ពណ៌កណ្ដុរតាម Theme</span></div><div class="settings-row-desc">Match the cursor arrow, pill badge, and glow with your active theme and accent, or lock to a chosen color.</div></div><div class="settings-row-control"><div class="settings-choice" id="cursorColorChoice"><button type="button" data-cursor-color="theme" class="active"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:var(--gold,#ff9d2e)"></span> Match Theme</button><button type="button" data-cursor-color="gold"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#ff9d2e"></span> Gold</button><button type="button" data-cursor-color="cyan"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#38bdf8"></span> Cyan</button><button type="button" data-cursor-color="jade"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#3f9d6b"></span> Jade</button><button type="button" data-cursor-color="ruby"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#e11d48"></span> Ruby</button><button type="button" data-cursor-color="sapphire"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#14b8a6"></span> Sapphire</button><button type="button" data-cursor-color="amethyst"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#9333ea"></span> Amethyst</button></div></div></div>
         <div class="settings-row" data-search="finger guide 3d hands kinematic left right hand"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">3D Kinematic Finger Guide</span><span class="settings-row-km">មគ្គុទ្ទេសក៍ដៃ</span></div><div class="settings-row-desc">Display translucent left and right hands that reach to each target key.</div></div><div class="settings-row-control"><div class="toggle-switch on" id="settingsHandsToggle" role="switch" aria-checked="true" tabindex="0"></div></div></div>
         <div class="settings-row" data-search="hand opacity transparency alpha see through"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">3D Hand Opacity</span><span class="settings-row-km">កម្រិតថ្លានៃដៃ</span></div><div class="settings-row-desc">Control how solid or see-through the 3D hands appear over the keycaps.</div></div><div class="settings-row-control"><div class="settings-slider-wrap"><input type="range" id="handsOpacitySlider" min="15" max="100" value="44"><span class="settings-slider-badge" id="handsOpacityValue">44%</span></div></div></div>
         <div class="settings-row settings-row-stacked" data-search="hand color hand colors finger colors left hand right hand palette cyber cyan orchid emerald amber ruby sapphire sunset monochrome ghost theme match custom"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">3D Hand Color Scheme</span><span class="settings-row-km">ពណ៌នៃដៃ 3D</span></div><div class="settings-row-desc">Customize the left and right hand colors across curated palettes, match the active keyboard theme, or pick individual colors.</div></div><div class="settings-row-control"><div class="settings-choice settings-choice-hand-colors" id="handColorChoice"><button type="button" data-hand-color="cyber" class="active"><span class="hand-color-swatch-duo"><span style="background:#38bdf8"></span><span style="background:#f472b6"></span></span> Cyber Cyan &amp; Orchid</button><button type="button" data-hand-color="emerald"><span class="hand-color-swatch-duo"><span style="background:#fbbf24"></span><span style="background:#34d399"></span></span> Amber &amp; Emerald</button><button type="button" data-hand-color="ruby"><span class="hand-color-swatch-duo"><span style="background:#fb7185"></span><span style="background:#60a5fa"></span></span> Ruby &amp; Sapphire</button><button type="button" data-hand-color="sunset"><span class="hand-color-swatch-duo"><span style="background:#fb923c"></span><span style="background:#a78bfa"></span></span> Sunset &amp; Violet</button><button type="button" data-hand-color="ghost"><span class="hand-color-swatch-duo"><span style="background:#94a3b8"></span><span style="background:#e2e8f0"></span></span> Frost Silver</button><button type="button" data-hand-color="match"><span class="hand-color-swatch-duo"><span class="swatch-match-l"></span><span class="swatch-match-r"></span></span> Match Theme</button><button type="button" data-hand-color="custom"><span class="hand-color-swatch-duo"><span class="swatch-custom-l" id="handCustomSwatchL" style="background:#38bdf8"></span><span class="swatch-custom-r" id="handCustomSwatchR" style="background:#f472b6"></span></span> Custom Dual Colors</button></div><div class="hand-custom-color-pickers" id="handCustomPickers" hidden><div class="hand-color-picker-item"><label for="handColorPickerL"><span class="hand-picker-dot" id="handPickerDotL" style="background:#38bdf8"></span> Left Hand</label><div class="color-input-wrap"><input type="color" id="handColorPickerL" value="#38bdf8"><span class="color-hex-val" id="handColorHexL">#38bdf8</span></div></div><div class="hand-color-picker-item"><label for="handColorPickerR"><span class="hand-picker-dot" id="handPickerDotR" style="background:#f472b6"></span> Right Hand</label><div class="color-input-wrap"><input type="color" id="handColorPickerR" value="#f472b6"><span class="color-hex-val" id="handColorHexR">#f472b6</span></div></div></div></div></div>
@@ -1393,6 +1395,41 @@ function initSettingsToggles() {
     }
   }, 60);
 
+  // Smooth Interactive Cursor Toggle
+  const settingsSmoothCursorToggle = document.getElementById("settingsSmoothCursorToggle");
+  function applySmoothCursor(on) {
+    if (window.PK_SMOOTH_CURSOR && typeof window.PK_SMOOTH_CURSOR.setEnabled === "function") {
+      window.PK_SMOOTH_CURSOR.setEnabled(on);
+    } else {
+      safeSet("khmerSmoothCursor", on ? "1" : "0");
+    }
+    setSwitchUI(settingsSmoothCursorToggle, on);
+  }
+  bindSwitch(settingsSmoothCursorToggle, applySmoothCursor);
+  setSwitchUI(settingsSmoothCursorToggle, safeGet("khmerSmoothCursor", "1") !== "0");
+
+  // Cursor Theme Color Choice
+  const cursorColorBtns = document.querySelectorAll("#cursorColorChoice button");
+  function applyCursorColor(colorName) {
+    const valid = colorName || "theme";
+    if (window.PK_SMOOTH_CURSOR && typeof window.PK_SMOOTH_CURSOR.setColor === "function") {
+      window.PK_SMOOTH_CURSOR.setColor(valid);
+    }
+    cursorColorBtns.forEach((b) => {
+      const isAct = b.dataset.cursorColor === valid;
+      b.classList.toggle("active", isAct);
+      b.setAttribute("aria-pressed", isAct ? "true" : "false");
+    });
+    safeSet("khmerCursorColor", valid);
+  }
+  cursorColorBtns.forEach((b) => {
+    b.addEventListener("click", () => {
+      applyCursorColor(b.dataset.cursorColor);
+      if (typeof soundOn !== "undefined" && soundOn && typeof playClick === "function") playClick("down");
+    });
+  });
+  applyCursorColor(safeGet("khmerCursorColor", "theme"));
+
   // Smart Mouse Cursor Inspector toggle
   const settingsMouseInspectorToggle = document.getElementById("settingsMouseInspectorToggle");
   function applyMouseInspector(on) {
@@ -1878,6 +1915,13 @@ function initSettingsToggles() {
     if (settingsMouseInspectorToggle && window.PKCursorInspector && typeof window.PKCursorInspector.isEnabled === "function") {
       setSwitchUI(settingsMouseInspectorToggle, window.PKCursorInspector.isEnabled());
     }
+    if (settingsSmoothCursorToggle && window.PK_SMOOTH_CURSOR && typeof window.PK_SMOOTH_CURSOR.isEnabled === "function") {
+      setSwitchUI(settingsSmoothCursorToggle, window.PK_SMOOTH_CURSOR.isEnabled());
+    }
+    if (window.PK_SMOOTH_CURSOR && typeof window.PK_SMOOTH_CURSOR.getColor === "function") {
+      const c = window.PK_SMOOTH_CURSOR.getColor();
+      cursorColorBtns.forEach((b) => b.classList.toggle("active", b.dataset.cursorColor === c));
+    }
     syncLayoutChoiceUI();
     syncLangChoiceUI();
     syncAmbienceUI();
@@ -1905,6 +1949,7 @@ function initSettingsToggles() {
     if (presetName === "default") {
       applyTheme("dark");
       applyAccent("gold");
+      applyCursorColor("theme");
       applyKhmerFont("kantumruy");
       applyLargeText(false);
       applyCompactKeys(false);
@@ -1913,6 +1958,7 @@ function initSettingsToggles() {
       if (typeof soundToggle !== "undefined" && soundToggle && !soundToggle.classList.contains("on")) soundToggle.click();
       applySwitchProfile("brown", false);
       applySoundVolume(80);
+      applySmoothCursor(true);
       applyMouseInspector(true);
       applyReticle(false);
       applyShockwave(true);
@@ -1951,6 +1997,7 @@ function initSettingsToggles() {
       applyAnimationMode("full");
       applyTorches(true);
       applyScanlines(true);
+      applySmoothCursor(true);
       applyMouseInspector(true);
       applyReticle(false);
       applyShockwave(true);
@@ -1961,6 +2008,7 @@ function initSettingsToggles() {
       applyScanlines(false);
       applyReticle(false);
       applyShockwave(false);
+      applySmoothCursor(false);
       if (ambienceOn) { ambienceOn = false; stopAmbience(); syncAmbienceUI(); }
     }
     syncSettingsMirrors();
@@ -2456,6 +2504,23 @@ if (document.readyState === "loading") {
       ]
     },
     "phanaach4889": {
+      name: "Phana (@not-Phana)",
+      avatar: "assets/avatar-not-phana.jpg",
+      model: "Biological Neural Network",
+      status: "ONLINE // SYNCED",
+      badge: "HUMAN CREATOR (CORE DECISION MAKER)",
+      url: "https://github.com/not-Phana",
+      linkLabel: "Open @not-Phana",
+      recorded: "30 Commits recorded",
+      pair: "Phana Kurosaki (@Kon-Kurosaki)",
+      desc: "Official repository owner of not-Phana/PK-Khmer-Type and PK Studio ecosystems with 30+ verified commits. Directs public releases, documentation, and web hosting.",
+      chips: [
+        "30+ verified commits & repository owner",
+        "Public GitHub Pages deployment & domain ops",
+        "Ecosystem integration and community tools"
+      ]
+    },
+    "not-Phana": {
       name: "Phana (@not-Phana)",
       avatar: "assets/avatar-not-phana.jpg",
       model: "Biological Neural Network",

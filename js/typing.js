@@ -11,17 +11,36 @@ const KHMER_COMPOUND_VOWELS = Object.freeze([
   '\u17C4\u17C7', // ោះ (semicolon shift)
 ]);
 
+const KHMER_COMPOUND_MAP = Object.freeze({
+  '\u17B6\u17C6': ['\u17B6', '\u17C6'], // ាំ -> ា + ំ
+  '\u17C4\u17C7': ['\u17C4', '\u17C7'], // ោះ -> ោ + ះ
+  '\u17C1\u17C7': ['\u17C1', '\u17C7'], // េះ -> េ + ះ
+  '\u17BB\u17C6': ['\u17BB', '\u17C6'], // ុំ -> ុ + ំ
+  '\u17BB\u17C7': ['\u17BB', '\u17C7'], // ុះ -> ុ + ះ
+});
+
 function normalizeInput(text){
   if(text === null || text === undefined) return '';
-  const str = typeof text === 'string' ? text : String(text);
+  let str = typeof text === 'string' ? text : String(text);
+  str = str.replace(/\u17C1\u17B6/g, '\u17C4')
+           .replace(/\u17C1\u17B8/g, '\u17BE');
   return str.normalize('NFC');
+}
+
+function isSpaceEquivalent(a, b){
+  const isA = (a === ' ' || a === '\u200B' || a === '\u00A0');
+  const isB = (b === ' ' || b === '\u200B' || b === '\u00A0');
+  return isA && isB;
 }
 
 function compareTypingSequence(produced, expected){
   if(produced === expected) return true;
+  if(!produced || !expected) return false;
   const pNorm = normalizeInput(produced);
   const eNorm = normalizeInput(expected);
-  return pNorm === eNorm;
+  if(pNorm === eNorm) return true;
+  if(isSpaceEquivalent(pNorm, eNorm)) return true;
+  return false;
 }
 
 function splitIntoTypingUnits(text, layoutId){
@@ -47,11 +66,15 @@ function splitIntoTypingUnits(text, layoutId){
 }
 
 if(typeof window !== 'undefined'){
+  window.KHMER_COMPOUND_VOWELS = KHMER_COMPOUND_VOWELS;
+  window.KHMER_COMPOUND_MAP = KHMER_COMPOUND_MAP;
   window.normalizeInput = normalizeInput;
   window.compareTypingSequence = compareTypingSequence;
   window.splitIntoTypingUnits = splitIntoTypingUnits;
 }
 if(typeof global !== 'undefined'){
+  global.KHMER_COMPOUND_VOWELS = KHMER_COMPOUND_VOWELS;
+  global.KHMER_COMPOUND_MAP = KHMER_COMPOUND_MAP;
   global.normalizeInput = normalizeInput;
   global.compareTypingSequence = compareTypingSequence;
   global.splitIntoTypingUnits = splitIntoTypingUnits;
@@ -812,6 +835,13 @@ function backspaceText(specificUnit){
         }
       }
       if(!sliced){
+        // Delete Coeng subscripts cleanly (consonant + \u17D2 or \u17D2 + consonant)
+        if(/[\u1780-\u17A2]\u17D2$/.test(node.textContent) || /\u17D2[\u1780-\u17A2]$/.test(node.textContent)){
+          node.textContent = node.textContent.slice(0, -2);
+          sliced = true;
+        }
+      }
+      if(!sliced){
         const chars = Array.from(node.textContent);
         chars.pop();
         node.textContent = chars.join('');
@@ -825,11 +855,16 @@ function backspaceText(specificUnit){
 function clearText(){
   pushUndoSnapshot();
   burstSnapshotTaken = false;
-  Array.from(outputEl.childNodes).forEach(n=>{
-    if(n.nodeType === 3) n.remove();
-  });
-  placeholderEl.style.display = 'inline';
+  if(outputEl){
+    Array.from(outputEl.childNodes).forEach(n=>{
+      if(n.nodeType === 3) n.remove();
+    });
+  }
+  if(placeholderEl) placeholderEl.style.display = 'inline';
 }
+window.clearText = clearText;
+window.insertText = insertText;
+window.backspaceText = backspaceText;
 
 /* ---------- Key Stroke Resolution Pipeline ---------- */
 function resolveKeyStroke(id){
@@ -944,6 +979,53 @@ function typeKey(id, ev){
   }
 }
 
+function typeDirectChar(ch, keyIdHint, ev){
+  const val = normalizeInput(ch);
+  if(!val) return;
+
+  let id = keyIdHint;
+  let layer = 'base';
+  if((!id || !keyEls[id]) && typeof resolveCharLocation === 'function'){
+    const loc = resolveCharLocation(val);
+    if(loc){
+      id = loc.id;
+      layer = loc.layer;
+    }
+  }
+
+  const el = id ? keyEls[id] : null;
+  if(el) press(el);
+  if(id) triggerFingerPress(id);
+  if(el){
+    if(ev) burst(el, ev); else burst(el);
+  }
+
+  playClick('down');
+
+  const stroke = {
+    id: id || 'direct',
+    kind: 'glyph',
+    layer: layer,
+    charProduced: val
+  };
+
+  // Active consumer routing
+  if(typeof adaptiveActive !== 'undefined' && adaptiveActive){
+    if(typeof adaptiveHandleChar === 'function') adaptiveHandleChar(val, el, stroke);
+  } else if(typeof lessonActive !== 'undefined' && lessonActive){
+    lessonHandleChar(val, el, stroke);
+  } else if(typeof raceActive !== 'undefined' && raceActive){
+    raceHandleChar(val, el, stroke);
+  } else if(typeof trialActive !== 'undefined' && trialActive){
+    if(typeof trialHandleChar === 'function') trialHandleChar(val, el, stroke);
+  } else {
+    if(el) emberBurst(el, ev, 6);
+    if(el) runeRing(el);
+    insertText(val);
+  }
+}
+window.typeDirectChar = typeDirectChar;
+
 /* ---------- Physical Keyboard Support ---------- */
 const heldModifiers = new Set();
 let pendingCtrlTimer = null;
@@ -979,7 +1061,20 @@ function recomputePhysicalLayer(){
   render();
 }
 
+function checkCapsLock(e){
+  if(!e || typeof e.getModifierState !== 'function') return;
+  const isCaps = e.getModifierState('CapsLock');
+  const isKhmer = (typeof currentLayoutId !== 'undefined') && (currentLayoutId === 'standard' || currentLayoutId === 'nida');
+  const warnEl = document.getElementById('capsLockWarningHud');
+  const chassisWarnEl = document.getElementById('chassisCapsWarn');
+  const show = isCaps && isKhmer;
+  if(warnEl) warnEl.hidden = !show;
+  if(chassisWarnEl) chassisWarnEl.hidden = !show;
+}
+window.checkCapsLock = checkCapsLock;
+
 window.addEventListener('keydown', (e)=>{
+  checkCapsLock(e);
   const t = e.target;
   if(t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
   if(e.isComposing || isComposing) return;
@@ -1150,29 +1245,20 @@ window.addEventListener('keydown', (e)=>{
   // Prevent holding down a key from repeatedly spamming inputs and racking up duplicate mistakes
   if(e.repeat && id !== 'backspace') return;
 
-  // Strict System Language Enforcement for Khmer NiDA layout
+  // Dual Input Compatibility:
+  // 1. If event.key is already in the Khmer Unicode range, process it directly without double-mapping event.code
+  const isKhmerChar = e.key && /[\u1780-\u17FF\u19E0-\u19FF]/.test(e.key);
+  if(isKhmerChar){
+    hideNidaSwitchHud();
+    if(keyEls[id]) keyEls[id].classList.add('pressed');
+    e.preventDefault();
+    typeDirectChar(e.key, id, e);
+    return;
+  }
+
+  // 2. If user's OS layout is English QWERTY, map event.code according to the active layout (QWERTY emulation)
   if(currentLayoutId === 'nida'){
-    const isKhmerChar = e.key && /[\u1780-\u17FF]/.test(e.key);
-    if(isKhmerChar){
-      hideNidaSwitchHud();
-    } else {
-      const isEnglishLetter = e.code && e.code.startsWith('Key') && /^[a-zA-Z]$/.test(e.key);
-      const isEnglishDigit = e.code && e.code.startsWith('Digit') && !e.shiftKey && /^[0-9]$/.test(e.key);
-      const isEnglishSymbol = !e.shiftKey && (
-        (e.code === 'Minus' && e.key === '-') ||
-        (e.code === 'Equal' && e.key === '=') ||
-        (e.code === 'BracketLeft' && e.key === '[') ||
-        (e.code === 'BracketRight' && e.key === ']') ||
-        (e.code === 'Semicolon' && e.key === ';') ||
-        (e.code === 'Quote' && e.key === "'") ||
-        (e.code === 'Backquote' && e.key === '`')
-      );
-      if(isEnglishLetter || isEnglishDigit || isEnglishSymbol){
-        e.preventDefault();
-        showNidaSwitchHud();
-        return;
-      }
-    }
+    hideNidaSwitchHud();
   }
 
   if(keyEls[id]) keyEls[id].classList.add('pressed');
@@ -1181,6 +1267,7 @@ window.addEventListener('keydown', (e)=>{
 }, {passive:false});
 
 window.addEventListener('keyup', (e)=>{
+  checkCapsLock(e);
   const id = CODE_MAP[e.code];
   if(!id) return;
   if(keyEls[id]) keyEls[id].classList.remove('pressed');
@@ -1219,6 +1306,10 @@ function resetAllInputStates(){
   if(typeof cancelPendingCtrl === 'function') cancelPendingCtrl();
   if(heldModifiers && heldModifiers.clear) heldModifiers.clear();
   physicalLayer = null;
+  const warnEl = document.getElementById('capsLockWarningHud');
+  const chassisWarnEl = document.getElementById('chassisCapsWarn');
+  if(warnEl) warnEl.hidden = true;
+  if(chassisWarnEl) chassisWarnEl.hidden = true;
   if(typeof keyEls === 'object' && keyEls){
     Object.values(keyEls).forEach(el => {
       if(el && el.classList){

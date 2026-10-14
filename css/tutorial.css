@@ -9,13 +9,23 @@
   width: 100vw;
   height: 100vh;
   z-index: 99990;
-  pointer-events: auto;
+  pointer-events: none;
   overflow: hidden;
   transition: opacity 0.25s ease;
 }
 
+.pk-tutorial-overlay.pk-modal-mode {
+  pointer-events: auto;
+}
+
 .pk-tutorial-overlay[hidden] {
   display: none !important;
+}
+
+.pk-tutorial-tooltip,
+.pk-tutorial-modal-card,
+.pk-tutorial-practice-pill {
+  pointer-events: auto;
 }
 
 .pk-tutorial-mask-svg {

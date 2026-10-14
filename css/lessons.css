@@ -818,6 +818,43 @@
     visibility:hidden !important;
   }
 
+  /* Minimized / Compact Quick Guide State (Gets small when practicing or clicked) */
+  .guide-dock.minimized {
+    max-height: 48px !important;
+    height: 48px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45) !important;
+    border-color: rgba(255, 209, 102, 0.3) !important;
+  }
+  .guide-dock.minimized .guide-dock-body {
+    display: none !important;
+  }
+  .guide-dock.minimized .gdh-sub-row {
+    display: none !important;
+  }
+  .guide-dock.minimized .guide-min-btn svg {
+    transform: rotate(180deg);
+  }
+  .guide-min-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--ink-muted, #94a3b8);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .guide-min-btn:hover {
+    background: rgba(255, 209, 102, 0.15);
+    border-color: rgba(255, 209, 102, 0.35);
+    color: var(--gold-bright, #ffd166);
+  }
+
   /* Compact / Small Lessons Dock in Focus Mode */
   html.focus-mode .lesson-strip,
   html.focus-mode #lessonStrip{
@@ -1799,19 +1836,49 @@
     align-items:center;
     flex-wrap:nowrap;
     white-space:nowrap;
-    overflow:hidden;
-    min-height:3.6em;
-    height:3.6em;
-    padding:8px 20px;
+    overflow-x:auto;
+    overflow-y:visible;
+    min-height:4.2em;
+    height:auto;
+    padding:10px 20px;
     font-family:'Kantumruy Pro', 'Khmer OS Battambang', 'Khmer OS Siemreap', 'Noto Sans Khmer', sans-serif;
     font-size:2.45rem;
-    line-height:1;
+    line-height:1.8;
     margin-bottom:16px;
     background:rgba(7, 10, 20, 0.62);
     border:1.5px solid rgba(255, 255, 255, 0.14);
     border-radius:14px;
     box-shadow:inset 0 3px 12px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.06);
     box-sizing:border-box;
+  }
+  .caps-lock-warning-hud{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:rgba(239, 68, 68, 0.16);
+    border:1.5px solid rgba(239, 68, 68, 0.55);
+    color:#fca5a5;
+    font-size:0.8rem;
+    font-weight:600;
+    padding:6px 14px;
+    border-radius:999px;
+    margin:6px auto 10px;
+    width:fit-content;
+    box-shadow:0 0 12px rgba(239, 68, 68, 0.25);
+  }
+  .chassis-caps-warn{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    background:rgba(239, 68, 68, 0.2);
+    border:1px solid rgba(239, 68, 68, 0.6);
+    color:#fca5a5;
+    font-size:0.65rem;
+    font-weight:700;
+    padding:2px 7px;
+    border-radius:4px;
+    margin-left:8px;
   }
   .lc-char{
     color:#f1f5f9;
@@ -1823,9 +1890,10 @@
     align-items:center;
     justify-content:center;
     min-width:1.22em;
-    height:1.58em;
-    line-height:1;
-    padding:0 10px;
+    min-height:1.95em;
+    height:auto;
+    line-height:1.8;
+    padding:4px 10px;
     border-radius:12px;
     border:1.5px solid rgba(255, 255, 255, 0.16);
     border-bottom:4px solid rgba(148, 163, 184, 0.42);

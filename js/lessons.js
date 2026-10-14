@@ -100,7 +100,11 @@ function resolveCharLocation(ch, table){
   const src = table || ((typeof currentLayoutId !== 'undefined' && currentLayoutId==='nida') ? KEY_BY_ID_NIDA
     : (typeof currentLayoutId !== 'undefined' && currentLayoutId==='english') ? KEY_BY_ID_EN
     : KEY_BY_ID);
-  if(ch === ' ') return spaceEntry(src);
+  if(!src) return null;
+  if(ch === ' ' || ch === '\u200B') return spaceEntry(src);
+  if(ch === '្' && (src === KEY_BY_ID || (typeof currentLayoutId !== 'undefined' && currentLayoutId === 'standard'))){
+    return { id: 'space', layer: 'base', ch: '្' };
+  }
   for(const id in src){
     const k = src[id];
     if(k.base===ch) return {id, layer:'base', ch};
@@ -109,6 +113,9 @@ function resolveCharLocation(ch, table){
     if(k.altgr===ch) return {id, layer:'altgr', ch};
   }
   return null;
+}
+if(typeof window !== 'undefined'){
+  window.resolveCharLocation = resolveCharLocation;
 }
 function materialize(entries, sections){
   return {
@@ -271,8 +278,6 @@ function seqRandom(pool, length){
   return seq;
 }
 
-const KHMER_COMPOUND_VOWELS = ['\u17BB\u17C6', '\u17BB\u17C7', '\u17B6\u17C6', '\u17C1\u17C7', '\u17C4\u17C7'];
-
 function getTypingUnits(text, layoutId) {
   if (typeof splitIntoTypingUnits === 'function') {
     return splitIntoTypingUnits(text, layoutId);
@@ -284,6 +289,9 @@ function getTypingUnits(text, layoutId) {
     return global.splitIntoTypingUnits(text, layoutId);
   }
   if (!text) return [];
+  const compoundList = (typeof KHMER_COMPOUND_VOWELS !== 'undefined')
+    ? KHMER_COMPOUND_VOWELS
+    : ['\u17BB\u17C6', '\u17BB\u17C7', '\u17B6\u17C6', '\u17C1\u17C7', '\u17C4\u17C7'];
   const normFn = (typeof normalizeInput === 'function')
     ? normalizeInput
     : (typeof window !== 'undefined' && typeof window.normalizeInput === 'function' ? window.normalizeInput : (typeof global !== 'undefined' && typeof global.normalizeInput === 'function' ? global.normalizeInput : null));
@@ -293,7 +301,7 @@ function getTypingUnits(text, layoutId) {
   while (i < normalized.length) {
     if ((layoutId === 'nida' || layoutId === 'standard') && i + 1 < normalized.length) {
       const pair = normalized.slice(i, i + 2);
-      if (KHMER_COMPOUND_VOWELS.includes(pair)) {
+      if (compoundList.includes(pair)) {
         units.push(pair);
         i += 2;
         continue;
@@ -309,11 +317,13 @@ function getTypingUnits(text, layoutId) {
 
 function seqWords(words, table, layoutId){
   const seq = [];
-  const activeLid = layoutId || (typeof currentLayoutId !== 'undefined' ? currentLayoutId : 'nida');
+  const layout = layoutId || ((table === KEY_BY_ID_NIDA || (typeof currentLayoutId !== 'undefined' && currentLayoutId === 'nida')) ? 'nida'
+               : (table === KEY_BY_ID_EN || (typeof currentLayoutId !== 'undefined' && currentLayoutId === 'english')) ? 'english'
+               : 'standard');
   shuffled(words).forEach(w=>{
-    const units = getTypingUnits(w, activeLid);
-    for(const ch of units){
-      const loc = resolveCharLocation(ch, table);
+    const units = getTypingUnits(w, layout);
+    for(const u of units){
+      const loc = resolveCharLocation(u, table);
       if(loc) seq.push(loc);
     }
     seq.push(spaceEntry(table));
@@ -1294,7 +1304,9 @@ let lessonIndex = 0;
 let lessonMistakes = 0;
 let lessonMistakeChars = {};   // ch -> count of mistakes this attempt, for adaptive drilling + Review Mistakes
 let lessonAcceptedUnits = [];  // Stack of accepted {index, val, expected} units for reliable Backspace
+let lessonPartialStroke = null; // Partial keystroke state for multi-step compound vowels
 let lessonStartTime = 0;
+let lessonTimerStarted = false;
 let lessonTimerInterval = null;
 let lessonTimeLeft = 0;
 let lessonHasTimer = false;
@@ -2044,13 +2056,22 @@ function renderLessonMeta(def){
       const displayChar = formatDisplayGlyph(ch) || keyLabel(id);
       const fid = (typeof KEY_FINGER !== 'undefined' && KEY_FINGER[id]) ? KEY_FINGER[id] : '';
       const isAnchorKey = (id === 'f' || id === 'j');
-      return `<div class="lesson-newkey-chip" data-finger="${fid}" title="${keyLabel(id)} — ${fingerLabel(id)}">
+      let modPrefix = '';
+      if(layer === 'shift'){
+        modPrefix = 'Shift + ';
+      } else if(layer === 'altgr'){
+        modPrefix = 'AltGr + ';
+      } else if(layer === 'ctrl'){
+        modPrefix = 'Ctrl + ';
+      }
+      const fullKeyLabel = `${modPrefix}${keyLabel(id)}`;
+      return `<div class="lesson-newkey-chip" data-finger="${fid}" title="${fullKeyLabel} — ${fingerLabel(id)}">
         <div class="nk-keycap">
           <span class="nk-char">${displayChar}</span>
           ${isAnchorKey ? '<span class="nk-homing-bump" title="Tactile Homing Bar"></span>' : ''}
         </div>
         <div class="nk-key-details">
-          <span class="nk-keyid">${keyLabel(id)}</span>
+          <span class="nk-keyid">${fullKeyLabel}</span>
           <span class="nk-finger-badge finger-${fid}">${fingerLabel(id)}</span>
         </div>
       </div>`;
@@ -2087,10 +2108,17 @@ function renderLessonMeta(def){
       const iconSvg = typeof pkIcon === 'function' ? pkIcon('book', 13) : '';
       exEl.innerHTML = `
         <span class="leb-label i18n-t" data-en="Lesson Examples:" data-km="គំរូវាយ៖">${iconSvg} ${labelText}</span>
-        <div class="leb-chips">
-          ${tokens.slice(0, 10).map(ex => `<span class="leb-chip">${ex}</span>`).join('')}
-        </div>
+        <div class="leb-chips"></div>
       `;
+      const chipsWrap = exEl.querySelector('.leb-chips');
+      if(chipsWrap){
+        tokens.slice(0, 10).forEach(ex => {
+          const chip = document.createElement('span');
+          chip.className = 'leb-chip';
+          chip.textContent = ex;
+          chipsWrap.appendChild(chip);
+        });
+      }
     } else {
       exEl.hidden = true;
       exEl.innerHTML = '';
@@ -2112,7 +2140,7 @@ function renderLessonChars(){
     const keyId = lessonKeyIds && lessonKeyIds[i];
     const fid = (keyId && typeof KEY_FINGER !== 'undefined' && KEY_FINGER[keyId]) ? KEY_FINGER[keyId] : '';
     if(fid && ch !== ' ') s.dataset.finger = fid;
-    s.textContent = ch === ' ' ? '␣' : ch;
+    s.textContent = ch === ' ' ? '␣' : (typeof formatDisplayGlyph === 'function' ? formatDisplayGlyph(ch) : ch);
     lessonCharRowEl.appendChild(s);
   }
   updateLessonKeyHighlight();
@@ -2275,23 +2303,20 @@ function startLesson(idOrDef, allowDirectPractice = false){
   lessonMistakes = 0;
   lessonMistakeChars = {};
   lessonAcceptedUnits = [];
+  lessonPartialStroke = null;
   lessonExtendedOnce = false;
-  lessonStartTime = Date.now();
-  if (lessonTimerInterval) clearInterval(lessonTimerInterval);
+  lessonStartTime = 0;
+  lessonTimerStarted = false;
+  if (lessonTimerInterval) {
+    clearInterval(lessonTimerInterval);
+    lessonTimerInterval = null;
+  }
   if (currentLesson && currentLesson.timeLimit) {
     lessonHasTimer = true;
     lessonTimeLeft = currentLesson.timeLimit;
-    lessonTimerInterval = setInterval(() => {
-      if (!lessonActive) return;
-      lessonTimeLeft--;
-      updateLessonProgress();
-      if (lessonTimeLeft <= 0) {
-        clearInterval(lessonTimerInterval);
-        completeLesson();
-      }
-    }, 1000);
   } else {
     lessonHasTimer = false;
+    lessonTimeLeft = 0;
   }
   lessonActive = true;
 
@@ -2365,6 +2390,7 @@ function executeLessonExit(){
   currentLesson = null;
   remedialActive = false;
   lessonAcceptedUnits = [];
+  lessonPartialStroke = null;
   lessonPanel.hidden = true;
   const mElExit = document.getElementById('manuscript'); if(mElExit) mElExit.hidden = false;
   if(lessonStrip) lessonStrip.hidden = false;
@@ -2519,9 +2545,90 @@ function lessonHandleChar(val, el, stroke){
   const expected = lessonChars[lessonIndex];
   if(!expected) return;
 
-  const isMatch = (typeof compareTypingSequence === 'function')
+  if(!lessonTimerStarted){
+    lessonTimerStarted = true;
+    lessonStartTime = Date.now();
+    if(lessonHasTimer){
+      if(lessonTimerInterval) clearInterval(lessonTimerInterval);
+      lessonTimerInterval = setInterval(() => {
+        if (!lessonActive) return;
+        lessonTimeLeft--;
+        updateLessonProgress();
+        if (lessonTimeLeft <= 0) {
+          clearInterval(lessonTimerInterval);
+          lessonTimerInterval = null;
+          completeLesson();
+        }
+      }, 1000);
+    }
+  }
+
+  let isMatch = (typeof compareTypingSequence === 'function')
     ? compareTypingSequence(val, expected)
     : (val === expected);
+  let advanceUnits = 1;
+  let acceptedVal = val;
+  let acceptedExpected = expected;
+
+  // Multi-codepoint NiDA support:
+  // 1. Single atomic keystroke matches a 2-unit slice in target text (e.g. user typed atomic ាំ, target has ា + ំ)
+  if(!isMatch && (lessonIndex + 1 < lessonChars.length)){
+    const nextPair = expected + lessonChars[lessonIndex + 1];
+    if(typeof compareTypingSequence === 'function' && compareTypingSequence(val, nextPair)){
+      isMatch = true;
+      advanceUnits = 2;
+      acceptedExpected = nextPair;
+    }
+  }
+
+  // 2. Sequential typing support for compound vowels:
+  // If expected is a 2-codepoint compound vowel (e.g. ាំ) and user typed the first component (ា)
+  const compoundPair = (typeof KHMER_COMPOUND_MAP !== 'undefined') ? KHMER_COMPOUND_MAP[expected] : null;
+  if(!isMatch && compoundPair && !lessonPartialStroke){
+    if(typeof compareTypingSequence === 'function' && compareTypingSequence(val, compoundPair[0])){
+      lessonPartialStroke = {
+        baseExpected: expected,
+        firstVal: val,
+        secondExpected: compoundPair[1]
+      };
+      insertText(val);
+      recordKeystroke(true);
+      if(el){ el.classList.add('correct'); setTimeout(()=> el.classList.remove('correct'), 260); }
+      emberBurst(el, null, 4, null);
+      runeRing(el);
+      // Highlight the second required component
+      const secondLoc = (typeof resolveCharLocation === 'function') ? resolveCharLocation(compoundPair[1]) : null;
+      if(secondLoc && keyEls[secondLoc.id]){
+        if(highlightedKeyId && keyEls[highlightedKeyId]) keyEls[highlightedKeyId].classList.remove('lesson-target');
+        highlightedKeyId = secondLoc.id;
+        keyEls[secondLoc.id].classList.add('lesson-target');
+        if(typeof modifierInfoFor === 'function'){
+          const mod = modifierInfoFor(secondLoc.id, secondLoc.layer);
+          if(mod && mod.targetKey && keyEls[mod.targetKey]){
+            if(highlightedModifierKeyId && keyEls[highlightedModifierKeyId]) keyEls[highlightedModifierKeyId].classList.remove('modifier-target');
+            highlightedModifierKeyId = mod.targetKey;
+            keyEls[mod.targetKey].classList.add('modifier-target');
+          }
+        }
+        if(typeof setActiveFinger === 'function') setActiveFinger(secondLoc.id, secondLoc.layer);
+      }
+      return;
+    }
+  }
+
+  // If completing a partial compound stroke
+  if(lessonPartialStroke){
+    if(typeof compareTypingSequence === 'function' && compareTypingSequence(val, lessonPartialStroke.secondExpected)){
+      isMatch = true;
+      acceptedVal = lessonPartialStroke.firstVal + val;
+      acceptedExpected = lessonPartialStroke.baseExpected;
+      advanceUnits = 1;
+      lessonPartialStroke = null;
+    } else {
+      lessonPartialStroke = null;
+      isMatch = false;
+    }
+  }
 
   const curSection = lessonSections.find(s => lessonIndex >= s.startIndex && lessonIndex <= s.endIndex);
   const curExId = curSection ? curSection.id : null;
@@ -2533,8 +2640,8 @@ function lessonHandleChar(val, el, stroke){
       lessonId: currentLesson ? currentLesson.id : null,
       exerciseId: curExId,
       unitIndex: lessonIndex,
-      expected: expected,
-      produced: val,
+      expected: acceptedExpected,
+      produced: acceptedVal,
       correct: isMatch,
       strokeKeyId: stroke ? stroke.id : null,
       strokeLayer: stroke ? stroke.layer : null,
@@ -2546,12 +2653,13 @@ function lessonHandleChar(val, el, stroke){
   if(isMatch){
     lessonAcceptedUnits.push({
       index: lessonIndex,
-      val: val,
-      expected: expected
+      count: advanceUnits,
+      val: acceptedVal,
+      expected: acceptedExpected
     });
     insertText(val);
     recordKeystroke(true);
-    lessonIndex++;
+    lessonIndex += advanceUnits;
     if(el){ el.classList.add('correct'); setTimeout(()=> el.classList.remove('correct'), 260); }
     emberBurst(el, null, 5, null);
     runeRing(el);
@@ -2578,21 +2686,34 @@ function lessonHandleChar(val, el, stroke){
 
 function lessonHandleBackspace(){
   if(!lessonActive) return;
+
+  if(lessonPartialStroke){
+    if(typeof backspaceText === 'function'){
+      backspaceText(lessonPartialStroke.firstVal);
+    }
+    lessonPartialStroke = null;
+    updateLessonProgress();
+    renderLessonChars();
+    updateLessonKeyHighlight();
+    return;
+  }
+
   if(lessonIndex <= 0 || !lessonAcceptedUnits.length) return;
 
   const lastUnit = lessonAcceptedUnits.pop();
   if(!lastUnit) return;
+  const count = lastUnit.count || 1;
 
   if(typeof PK_TRACKER !== 'undefined' && typeof PK_TRACKER.recordBackspace === 'function'){
     PK_TRACKER.recordBackspace({
       layout: currentLayoutId,
       lessonId: currentLesson ? currentLesson.id : null,
-      unitIndex: lessonIndex - 1,
+      unitIndex: Math.max(0, lessonIndex - count),
       poppedUnit: lastUnit.expected
     });
   }
 
-  lessonIndex = Math.max(0, lessonIndex - 1);
+  lessonIndex = Math.max(0, lessonIndex - count);
 
   if(typeof backspaceText === 'function'){
     backspaceText(lastUnit.val);
@@ -2616,7 +2737,7 @@ function completeLesson(){
   if (!currentLesson || !lessonChars || lessonChars.length === 0) return;
   const attempts = lessonChars.length + lessonMistakes;
   if (attempts === 0) return;
-  const elapsed = Math.max(0.001, (Date.now() - lessonStartTime) / 1000);
+  const elapsed = Math.max(0.5, (Date.now() - (lessonStartTime || Date.now())) / 1000);
   const accuracy = Math.min(100, Math.max(0, Math.round((lessonChars.length / attempts) * 100)));
   const def = currentLesson;
   const id = def.id;

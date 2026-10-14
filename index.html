@@ -90,8 +90,8 @@
       "url": "https://web.facebook.com/Wphanakurasaki/",
       "sameAs": [
         "https://web.facebook.com/Wphanakurasaki/",
-        "https://github.com/phanaach4889",
-        "https://github.com/phanaach4889/PK-Khmer-Type"
+        "https://github.com/not-Phana",
+        "https://github.com/not-Phana/PK-Khmer-Type"
       ]
     },
     {
@@ -538,9 +538,14 @@
         </span>
         <span class="gdh-title-text i18n-t" data-en="QUICK GUIDE" data-km="ការណែនាំរហ័ស">QUICK GUIDE</span>
       </div>
-      <button type="button" class="guide-close-btn" id="guideCloseBtn" aria-label="Close Quick Guide" title="Close Quick Guide">
-        <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <div class="gdh-actions" style="display:flex;align-items:center;gap:5px;">
+        <button type="button" class="guide-min-btn" id="guideMinBtn" aria-label="Minimize or Expand Quick Guide" title="Minimize or Expand Quick Guide">
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 14 12 6 20 14"/></svg>
+        </button>
+        <button type="button" class="guide-close-btn" id="guideCloseBtn" aria-label="Close Quick Guide" title="Close Quick Guide">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
     </div>
     <div class="gdh-sub-row">
       <span class="guide-live-status-pill status-ready" id="guideLiveStatusPill">
@@ -895,7 +900,41 @@
       <div class="settings-section" data-cat-section="keyboard">
         <div class="settings-section-header">
           <h3 class="settings-section-title i18n-t" data-en="3D Hands, Keyboard &amp; Smart Cursor" data-km="ដៃ 3D ក្តារចុច និងព្រួញម៉ៅឆ្លាតវៃ">3D Hands, Keyboard &amp; Smart Cursor</h3>
-          <span class="settings-section-count i18n-t" data-en="10 settings" data-km="10 ការកំណត់">10 settings</span>
+          <span class="settings-section-count i18n-t" data-en="12 settings" data-km="12 ការកំណត់">12 settings</span>
+        </div>
+
+        <div class="settings-row" data-search="smooth interactive you cursor pointer mouse custom arrow badge glow lessons">
+          <div class="settings-row-info">
+            <div class="settings-row-title-line">
+              <span class="settings-row-name i18n-t" data-en="Smooth Interactive Cursor" data-km="កណ្ដុរឆ្លាតវៃ 'YOU'">Smooth Interactive Cursor</span>
+              <span class="settings-row-km">កណ្ដុរឆ្លាតវៃ "YOU"</span>
+            </div>
+            <div class="settings-row-desc i18n-t" data-en="Glowing pointer with silky spring physics and smart contextual badge (shows 'LESSONS' on lessons, etc.)." data-km="ព្រួញកណ្ដុររលូនជាមួយផ្លាកឆ្លាតវៃដែលប្រាប់ឈ្មោះមេរៀនពេលដាក់លើមេរៀន។">Glowing pointer with silky spring physics and smart contextual badge (shows "LESSONS" on lessons, etc.).</div>
+          </div>
+          <div class="settings-row-control">
+            <div class="toggle-switch on" id="settingsSmoothCursorToggle" role="switch" aria-checked="true" aria-label="Toggle smooth interactive cursor" tabindex="0"></div>
+          </div>
+        </div>
+
+        <div class="settings-row settings-row-stacked" data-search="cursor color theme match gold cyan jade ruby sapphire amethyst pointer badge">
+          <div class="settings-row-info">
+            <div class="settings-row-title-line">
+              <span class="settings-row-name i18n-t" data-en="Cursor Theme &amp; Accent Color" data-km="ពណ៌កណ្ដុរតាម Theme">Cursor Theme &amp; Accent Color</span>
+              <span class="settings-row-km">ពណ៌កណ្ដុរតាម Theme</span>
+            </div>
+            <div class="settings-row-desc i18n-t" data-en="Match the cursor arrow, pill badge, and glow with your active theme and accent, or lock to a chosen color." data-km="កំណត់ពណ៌កណ្ដុរឱ្យស៊ីជាមួយស្បែក Theme ឬជ្រើសរើសពណ៌ផ្ទាល់ខ្លួន។">Match the cursor arrow, pill badge, and glow with your active theme and accent, or lock to a chosen color.</div>
+          </div>
+          <div class="settings-row-control">
+            <div class="settings-choice" id="cursorColorChoice">
+              <button type="button" data-cursor-color="theme" class="active"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:var(--gold,#ff9d2e)"></span> Match Theme</button>
+              <button type="button" data-cursor-color="gold"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#ff9d2e"></span> Gold</button>
+              <button type="button" data-cursor-color="cyan"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#38bdf8"></span> Cyan</button>
+              <button type="button" data-cursor-color="jade"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#3f9d6b"></span> Jade</button>
+              <button type="button" data-cursor-color="ruby"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#e11d48"></span> Ruby</button>
+              <button type="button" data-cursor-color="sapphire"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#14b8a6"></span> Sapphire</button>
+              <button type="button" data-cursor-color="amethyst"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#9333ea"></span> Amethyst</button>
+            </div>
+          </div>
         </div>
 
         <div class="settings-row" data-search="finger guide 3d hands kinematic left right hand">
@@ -2424,6 +2463,10 @@
 
   <div class="lesson-newkeys" id="lessonNewKeys" hidden></div>
   <div class="lesson-progress-bar"><div class="lesson-progress-fill" id="lessonProgressFill"><span class="lpf-glow-tip"></span></div></div>
+  <div class="caps-lock-warning-hud" id="capsLockWarningHud" hidden aria-live="polite">
+    <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <span class="i18n-t" data-en="Caps Lock is ON — please turn off Caps Lock for Khmer typing" data-km="Caps Lock កំពុងបើក — សូមបិទ Caps Lock ដើម្បីវាយអក្សរខ្មែរ">Caps Lock is ON — please turn off Caps Lock for Khmer typing</span>
+  </div>
   <div class="lesson-char-row" id="lessonCharRow"></div>
   <div class="lesson-live-hint" id="lessonLiveHint" hidden></div>
 
@@ -2679,6 +2722,10 @@
       <span class="chassis-name">PK-KHMER</span>
       <span class="chassis-slash">/</span>
       <span class="chassis-layout-label" id="chassisLayoutLabel">STANDARD</span>
+      <span class="chassis-caps-warn" id="chassisCapsWarn" hidden title="Caps Lock is ON">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        <span>CAPS ON</span>
+      </span>
     </div>
     <div class="chassis-actions">
       <a href="dashboard.html" class="chassis-dash-btn" title="View Live Analytics &amp; Typing Mastery Dashboard" aria-label="Open Mastery Dashboard">
@@ -2956,7 +3003,7 @@
       </article>
 
       <!-- 3. Phana (Human Repo Owner) -->
-      <article class="pk-collab-card" data-collab-tier="human" data-collab-id="phanaach4889" tabindex="0" onclick="if(window.selectPkCollaborator && !event.target.closest('a'))window.selectPkCollaborator('phanaach4889')">
+      <article class="pk-collab-card" data-collab-tier="human" data-collab-id="not-Phana" tabindex="0" onclick="if(window.selectPkCollaborator && !event.target.closest('a'))window.selectPkCollaborator('not-Phana')">
         <div class="pk-cc-top">
           <div class="pk-cc-avatar-ring ring-cyan">
             <img src="assets/avatar-not-phana.jpg" onerror="this.src='https://avatars.githubusercontent.com/u/255106015?s=120&amp;v=4'" alt="Phana" class="pk-cc-avatar-img" loading="lazy">
@@ -2974,7 +3021,7 @@
         <div class="pk-cc-subtier">HUMAN ARCHITECT</div>
         <div class="pk-cc-foot">
           <span class="pk-cc-commits">30 Commits</span>
-          <button type="button" class="pk-cc-log-btn" data-inspect-id="phanaach4889">VIEW LOG</button>
+          <button type="button" class="pk-cc-log-btn" data-inspect-id="not-Phana">VIEW LOG</button>
         </div>
       </article>
 
@@ -3855,16 +3902,17 @@
   <script defer src="js/storage.js?v=78"></script>
   <script defer src="data/curriculum-data.js?v=78"></script>
   <script defer src="data/adaptive-vocab.js?v=78"></script>
+  <script defer src="js/typing.js?v=78"></script>
   <script defer src="js/keyboard.js?v=78"></script>
   <script defer src="js/tracker.js?v=78"></script>
   <script defer src="js/progress.js?v=78"></script>
   <script defer src="js/review.js?v=78"></script>
   <script defer src="js/cursor-inspector.js?v=78"></script>
+  <script defer src="js/smooth-cursor.js?v=78"></script>
   <script defer src="js/feedback.js?v=78"></script>
   <script defer src="js/adaptive.js?v=78"></script>
   <script defer src="js/lessons.js?v=78"></script>
   <script defer src="js/race.js?v=78"></script>
-  <script defer src="js/typing.js?v=78"></script>
   <script defer src="js/statistics.js?v=78"></script>
   <script defer src="js/settings.js?v=78"></script>
   <script defer src="js/shortcuts.js?v=78"></script>

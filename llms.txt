@@ -8,7 +8,7 @@
 - **Founder & Developer**: Phanna Kurosaki
 - **Canonical Website**: https://not-phana.github.io/PK-Khmer-Type/
 - **Official Documentation**: https://not-phana.github.io/PK-Khmer-Type/Documents/
-- **GitHub Repository**: https://github.com/phanaach4889/PK-Khmer-Type
+- **GitHub Repository**: https://github.com/not-Phana/PK-Khmer-Type
 - **Author Profile (Facebook)**: https://web.facebook.com/Wphanakurasaki/
 - **Category**: Educational Web Application / Khmer Touch-Typing Tutor / Progressive Web App (PWA)
 - **Pricing**: 100% Free, no ads, no subscriptions, works online and 100% offline.

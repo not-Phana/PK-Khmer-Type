@@ -1031,16 +1031,18 @@
 
     // Map through resolveCharLocation if available
     for (let i = 0; i < units.length; i++) {
-      const ch = units[i];
-      chars.push(ch);
+      const u = units[i];
+      chars.push(u);
       let loc = null;
       if (typeof global !== 'undefined' && typeof global.resolveCharLocation === 'function') {
-        loc = global.resolveCharLocation(ch);
+        loc = global.resolveCharLocation(u);
       } else if (typeof resolveCharLocation === 'function') {
-        loc = resolveCharLocation(ch);
+        loc = resolveCharLocation(u);
+      } else if (typeof window !== 'undefined' && typeof window.resolveCharLocation === 'function') {
+        loc = window.resolveCharLocation(u);
       }
       layers.push(loc ? loc.layer : 'base');
-      keyIds.push(loc ? loc.id : (ch === ' ' ? 'space' : ch.toLowerCase()));
+      keyIds.push(loc ? loc.id : (u === ' ' || u === '\u200B' ? 'space' : u.toLowerCase()));
     }
 
     // Snapshot target unit beforeStats for Before/After measurement
@@ -1567,8 +1569,8 @@
 
     const attempts = idx + activeSession.mistakes;
     const accuracy = attempts > 0 ? Math.min(100, Math.max(0, Math.round((idx / attempts) * 100))) : 100;
-    const elapsedSec = (Date.now() - activeSession.startTime) / 1000;
-    const rawWpm = (elapsedSec > 0 && Number.isFinite(elapsedSec)) ? (idx / 5) / (elapsedSec / 60) : 0;
+    const elapsedSec = activeSession.startTime ? Math.max(0, (Date.now() - activeSession.startTime) / 1000) : 0;
+    const rawWpm = (elapsedSec >= 0.5 && Number.isFinite(elapsedSec)) ? (idx / 5) / (elapsedSec / 60) : 0;
     const wpm = (Number.isFinite(rawWpm) && rawWpm >= 0) ? Math.min(180, Math.max(0, Math.round(rawWpm))) : 0;
 
     const accVal = document.getElementById('adaptiveAccVal');
@@ -1642,10 +1644,10 @@
       index: 0,
       mistakes: 0,
       mistakeUnits: {},
-      startTime: Date.now(),
+      startTime: 0,
       acceptedUnits: [],
       streak: initStreak,
-      lastStrokeTime: Date.now()
+      lastStrokeTime: 0
     };
     if (typeof window !== 'undefined') window.adaptiveActive = true;
 
@@ -1728,16 +1730,32 @@
       ? global.compareTypingSequence
       : (typeof compareTypingSequence === 'function' ? compareTypingSequence : (typeof window !== 'undefined' && typeof window.compareTypingSequence === 'function' ? window.compareTypingSequence : null));
 
-    const isMatch = compFn
+    let isMatch = compFn
       ? compFn(val, expected)
       : (val === expected);
+    let advanceUnits = 1;
+    let acceptedVal = val;
+    let acceptedExpected = expected;
+
+    if (!isMatch && (activeSession.index + 1 < activeSession.drill.chars.length)) {
+      const nextPair = expected + activeSession.drill.chars[activeSession.index + 1];
+      if (typeof compareTypingSequence === 'function' && compareTypingSequence(val, nextPair)) {
+        isMatch = true;
+        advanceUnits = 2;
+        acceptedExpected = nextPair;
+      }
+    }
 
     const now = Date.now();
-    const responseTimeMs = Math.max(20, Math.min(5000, now - activeSession.lastStrokeTime));
+    if (!activeSession.startTime) {
+      activeSession.startTime = now;
+      activeSession.lastStrokeTime = now;
+    }
+    const responseTimeMs = activeSession.lastStrokeTime ? Math.max(20, Math.min(5000, now - activeSession.lastStrokeTime)) : 200;
     activeSession.lastStrokeTime = now;
 
     // Record stroke in adaptive engine
-    recordStroke(activeSession.layoutId, expected, isMatch, responseTimeMs);
+    recordStroke(activeSession.layoutId, acceptedExpected, isMatch, responseTimeMs);
 
     // Record in Phase 6 Real-time tracker if available
     if (typeof PK_TRACKER !== 'undefined' && typeof PK_TRACKER.recordTypingUnit === 'function') {
@@ -1746,8 +1764,8 @@
         lessonId: 'adaptive-stage-' + (loadAdaptiveState(activeSession.layoutId).stage || 1),
         exerciseId: 'adaptive-drill',
         unitIndex: activeSession.index,
-        expected: expected,
-        produced: val,
+        expected: acceptedExpected,
+        produced: acceptedVal,
         correct: isMatch,
         strokeKeyId: stroke ? stroke.id : null,
         strokeLayer: stroke ? stroke.layer : null,
@@ -1776,12 +1794,13 @@
 
       activeSession.acceptedUnits.push({
         index: activeSession.index,
-        val: val,
-        expected: expected
+        count: advanceUnits,
+        val: acceptedVal,
+        expected: acceptedExpected
       });
       if (typeof insertText === 'function') insertText(val);
       if (typeof recordKeystroke === 'function') recordKeystroke(true);
-      activeSession.index++;
+      activeSession.index += advanceUnits;
 
       if (el) {
         el.classList.add('correct');
@@ -1833,7 +1852,8 @@
     if (activeSession.index <= 0 || !activeSession.acceptedUnits.length) return;
 
     const last = activeSession.acceptedUnits.pop();
-    activeSession.index--;
+    const count = (last && last.count) || 1;
+    activeSession.index = Math.max(0, activeSession.index - count);
 
     // If backspacing into an already completed word, revert the scoreDelta
     if (activeSession.wordRanges) {
@@ -1868,9 +1888,9 @@
     if (totalChars === 0) return;
     const attempts = totalChars + activeSession.mistakes;
     if (attempts === 0) return;
-    const elapsed = Math.max(0.001, (Date.now() - activeSession.startTime) / 1000);
+    const elapsed = Math.max(0.5, (Date.now() - (activeSession.startTime || Date.now())) / 1000);
     const accuracy = Math.min(100, Math.max(0, Math.round((totalChars / attempts) * 100)));
-    const rawWpm = (elapsed > 0 && Number.isFinite(elapsed)) ? (totalChars / 5) / (elapsed / 60) : 0;
+    const rawWpm = (elapsed >= 0.5 && Number.isFinite(elapsed)) ? (totalChars / 5) / (elapsed / 60) : 0;
     const wpm = (Number.isFinite(rawWpm) && rawWpm >= 0) ? Math.min(180, Math.max(0, Math.round(rawWpm))) : 0;
     const currentLayoutId = activeSession.layoutId;
 
