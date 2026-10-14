@@ -552,18 +552,18 @@
       const overlay = document.getElementById('pkTutorialOverlay');
       const modal = document.getElementById('pkTutorialModalCard');
       const tooltip = document.getElementById('pkTutorialTooltip');
-      const maskSvg = overlay.querySelector('.pk-tutorial-mask-svg');
+      const maskSvg = overlay ? overlay.querySelector('.pk-tutorial-mask-svg') : null;
       const frame = document.getElementById('pkSpotlightFrame');
       const pathBox = document.getElementById('pkTutPathContainer');
       const trackPicker = document.getElementById('pkTutTrackPicker');
 
-      overlay.hidden = false;
-      modal.style.display = 'block';
-      tooltip.style.display = 'none';
-      pathBox.style.display = 'none';
+      if(overlay) overlay.hidden = false;
+      if(modal) modal.style.display = 'block';
+      if(tooltip) tooltip.style.display = 'none';
+      if(pathBox) pathBox.style.display = 'none';
       if(trackPicker) trackPicker.style.display = 'block';
-      frame.classList.add('hidden-frame');
-      maskSvg.style.display = 'none';
+      if(frame) frame.classList.add('hidden-frame');
+      if(maskSvg) maskSvg.style.display = 'none';
 
       document.getElementById('pkTutModalTitle').textContent = this.t('welcomeTitle');
       document.getElementById('pkTutModalSubtitle').textContent = this.t('welcomeSubtitle');

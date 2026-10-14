@@ -522,9 +522,56 @@
     margin-bottom:16px;
     padding:10px 14px;
     border-radius:12px;
-    background:rgba(12, 16, 28, 0.65);
-    border:1px solid rgba(255, 255, 255, 0.08);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+    background:rgba(12, 16, 28, 0.75);
+    border:1px solid rgba(255, 255, 255, 0.09);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 4px 18px rgba(0,0,0,0.4);
+  }
+  .race-track-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 2px 4px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    margin-bottom:4px;
+  }
+  .race-lead-badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.64rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:2px 8px;
+    border-radius:999px;
+    transition:all .2s ease;
+  }
+  .race-lead-badge.lead-player{
+    color:#34d399;
+    background:rgba(52, 211, 153, 0.12);
+    border:1px solid rgba(52, 211, 153, 0.35);
+    box-shadow:0 0 10px rgba(52, 211, 153, 0.25);
+  }
+  .race-lead-badge.lead-ai{
+    color:#f43f5e;
+    background:rgba(244, 63, 94, 0.12);
+    border:1px solid rgba(244, 63, 94, 0.35);
+    box-shadow:0 0 10px rgba(244, 63, 94, 0.25);
+  }
+  .race-lead-badge.lead-tied{
+    color:#ffd166;
+    background:rgba(255, 209, 102, 0.1);
+    border:1px solid rgba(255, 209, 102, 0.25);
+  }
+  .race-finish-banner{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.6rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    color:rgba(255,255,255,0.45);
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
   }
   .race-track-row{ display:flex; align-items:center; gap:10px; }
   .race-track-tag{
@@ -534,7 +581,7 @@
     letter-spacing:0.04em;
     color:var(--gold-bright);
     min-width:110px;
-    max-width:145px;
+    max-width:175px;
     flex-shrink:0;
     display:inline-flex;
     align-items:center;
@@ -548,11 +595,10 @@
   }
   .race-track-bar{
     flex:1;
-    height:10px;
+    height:12px;
     border-radius:999px;
     background:rgba(255, 255, 255, 0.06);
     border:1px solid rgba(255, 255, 255, 0.1);
-    overflow:hidden;
     box-shadow:inset 0 1px 3px rgba(0,0,0,0.5);
     position:relative;
   }
@@ -563,6 +609,31 @@
     background:linear-gradient(90deg, #ffd166, #ffb703);
     box-shadow:0 0 10px rgba(255,209,102,0.65);
     transition:width .18s ease-out;
+    position:relative;
+  }
+  .race-runner-head{
+    position:absolute;
+    right:-8px;
+    top:50%;
+    transform:translateY(-50%);
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:2;
+    transition:transform .15s ease;
+  }
+  .race-runner-head.player-runner{
+    background:#ffd166;
+    color:#0a0d18;
+    box-shadow:0 0 8px rgba(255,209,102,0.9);
+  }
+  .race-runner-head.ai-runner{
+    background:#38bdf8;
+    color:#0a0d18;
+    box-shadow:0 0 8px rgba(56,189,248,0.9);
   }
   .race-track-fill.ai-fill{
     background:linear-gradient(90deg, #38bdf8, #0ea5e9);
@@ -573,6 +644,26 @@
   }
   .race-track-fill.ai-fill.race-fast{
     box-shadow:0 0 16px 2px rgba(56,189,248,0.85);
+  }
+  .race-ai-pill-row .race-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .race-ai-pill-row .ai-pill-name{
+    font-weight:600;
+  }
+  .race-ai-pill-row .ai-pill-wpm{
+    font-size:0.6rem;
+    font-family:'JetBrains Mono', monospace;
+    opacity:0.75;
+    background:rgba(255,255,255,0.08);
+    padding:1px 5px;
+    border-radius:4px;
+  }
+  .race-ai-pill-row .race-pill[aria-checked="true"] .ai-pill-wpm{
+    background:rgba(0,0,0,0.25);
+    opacity:1;
   }
   .race-track-pct{
     font-family:'JetBrains Mono', monospace;

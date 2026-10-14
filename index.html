@@ -2550,6 +2550,7 @@
         <button type="button" class="race-pill i18n-t" data-difficulty="medium" role="radio" aria-checked="false" data-en="Medium" data-km="មធ្យម">Medium</button>
         <button type="button" class="race-pill i18n-t" data-difficulty="hard" role="radio" aria-checked="false" data-en="Hard" data-km="ពិបាក">Hard</button>
         <button type="button" class="race-pill i18n-t" data-difficulty="expert" role="radio" aria-checked="false" data-en="Expert" data-km="ជំនាញ">Expert</button>
+        <button type="button" class="race-pill i18n-t" data-difficulty="nightmare" role="radio" aria-checked="false" data-en="Nightmare" data-km="ល្បឿនកំពូល">Nightmare</button>
       </div>
     </div>
 
@@ -2565,11 +2566,13 @@
 
     <div class="race-setup-group">
       <span class="race-setup-label i18n-t" data-en="AI Opponent" data-km="ដៃគូប្រកួត AI">AI Opponent</span>
-      <div class="race-pill-row" id="raceAiOpponentRow" role="radiogroup" aria-label="AI Opponent Bot">
+      <div class="race-pill-row race-ai-pill-row" id="raceAiOpponentRow" role="radiogroup" aria-label="AI Opponent Bot">
         <button type="button" class="race-pill i18n-t" data-ai-bot="auto" role="radio" aria-checked="true" data-en="Auto Match" data-km="ផ្គូផ្គងស្វ័យប្រវត្តិ" title="Automatically match AI speed to selected difficulty">Auto Match</button>
-        <button type="button" class="race-pill" data-ai-bot="novice" role="radio" aria-checked="false" title="Scribe Bot (~24 WPM)">Scribe Bot (24 WPM)</button>
-        <button type="button" class="race-pill" data-ai-bot="skilled" role="radio" aria-checked="false" title="Angkor AI (~40 WPM)">Angkor AI (40 WPM)</button>
-        <button type="button" class="race-pill" data-ai-bot="master" role="radio" aria-checked="false" title="Naga Bot (~75 WPM)">Naga Bot (75 WPM)</button>
+        <button type="button" class="race-pill" data-ai-bot="easy" role="radio" aria-checked="false" title="Scribe Bot (~22 WPM)"><span class="ai-pill-name">Scribe Bot</span><span class="ai-pill-wpm">22 WPM</span></button>
+        <button type="button" class="race-pill" data-ai-bot="medium" role="radio" aria-checked="false" title="Angkor AI (~42 WPM)"><span class="ai-pill-name">Angkor AI</span><span class="ai-pill-wpm">42 WPM</span></button>
+        <button type="button" class="race-pill" data-ai-bot="hard" role="radio" aria-checked="false" title="Preah Khan AI (~65 WPM)"><span class="ai-pill-name">Preah Khan</span><span class="ai-pill-wpm">65 WPM</span></button>
+        <button type="button" class="race-pill" data-ai-bot="expert" role="radio" aria-checked="false" title="Naga Grandmaster (~88 WPM)"><span class="ai-pill-name">Naga Bot</span><span class="ai-pill-wpm">88 WPM</span></button>
+        <button type="button" class="race-pill" data-ai-bot="nightmare" role="radio" aria-checked="false" title="Cyber Garuda Titan (~115 WPM)"><span class="ai-pill-name">Garuda Titan</span><span class="ai-pill-wpm">115 WPM</span></button>
       </div>
     </div>
 
@@ -2588,6 +2591,7 @@
       <button type="button" class="race-pill i18n-t" data-lb-difficulty="medium" role="radio" aria-checked="false" data-en="Medium" data-km="មធ្យម">Medium</button>
       <button type="button" class="race-pill i18n-t" data-lb-difficulty="hard" role="radio" aria-checked="false" data-en="Hard" data-km="ពិបាក">Hard</button>
       <button type="button" class="race-pill i18n-t" data-lb-difficulty="expert" role="radio" aria-checked="false" data-en="Expert" data-km="ជំនាញ">Expert</button>
+      <button type="button" class="race-pill i18n-t" data-lb-difficulty="nightmare" role="radio" aria-checked="false" data-en="Nightmare" data-km="ល្បឿនកំពូល">Nightmare</button>
     </div>
     <div class="race-pill-row race-lb-tabs" id="raceLbLengthTabs" role="radiogroup" aria-label="Leaderboard race length">
       <button type="button" class="race-pill" data-lb-length="15" role="radio" aria-checked="false">15s</button>
@@ -2614,12 +2618,28 @@
 
     <!-- Dual-lane Race Track (Player vs AI Bot) -->
     <div class="race-track">
+      <div class="race-track-header">
+        <div class="race-lead-badge lead-tied" id="raceLeadBadge">
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span id="raceLeadText">Ready to Race</span>
+        </div>
+        <div class="race-finish-banner">
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          <span>FINISH</span>
+        </div>
+      </div>
       <div class="race-track-row player-lane">
         <span class="race-track-tag">
           <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           <span id="racePlayerTagLabel">YOU</span>
         </span>
-        <div class="race-track-bar"><div class="race-track-fill" id="raceTrackFill"></div></div>
+        <div class="race-track-bar">
+          <div class="race-track-fill" id="raceTrackFill">
+            <span class="race-runner-head player-runner" id="racePlayerRunner">
+              <svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </span>
+          </div>
+        </div>
         <span class="race-track-pct" id="raceTrackPct">0%</span>
       </div>
       <div class="race-track-row ai-lane">
@@ -2627,7 +2647,13 @@
           <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
           <span id="raceAiRacerName">AI BOT</span>
         </span>
-        <div class="race-track-bar ai-bar"><div class="race-track-fill ai-fill" id="raceTrackAiFill"></div></div>
+        <div class="race-track-bar ai-bar">
+          <div class="race-track-fill ai-fill" id="raceTrackAiFill">
+            <span class="race-runner-head ai-runner" id="raceAiRunner">
+              <svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </span>
+          </div>
+        </div>
         <span class="race-track-pct ai-pct" id="raceTrackAiPct">0%</span>
       </div>
     </div>

@@ -143,7 +143,7 @@ function trialHandleChar(val, el){
    *which keys*, in *what order*, and *how many at once* to teach. */
 
 
-const RACE_DIFFICULTIES = ['easy','medium','hard','expert'];
+const RACE_DIFFICULTIES = ['easy','medium','hard','expert','nightmare'];
 const RACE_LENGTHS = ['15','30','60','text'];
 
 const racePanel = document.getElementById('racePanel');
@@ -182,22 +182,130 @@ let raceActive = false;        // true only during live typing (countdown finish
 let raceCountingDown = false;
 let raceDifficulty = 'easy';
 let raceLength = '30';
-let raceAiBotChoice = 'auto';  // 'auto' | 'novice' | 'skilled' | 'master'
+let raceAiBotChoice = 'auto';  // 'auto' | 'easy' | 'medium' | 'hard' | 'expert' | 'nightmare'
 let currentAiBot = null;
 let aiTargetWpm = 30;
 let aiCharsTyped = 0;
 let aiFinished = false;
 let aiFinishTime = 0;
+let aiKeyTimestamps = [];
 
 const AI_BOTS = {
-  easy: { name: 'Scribe Bot', baseWpm: 24, spread: 3 },
-  medium: { name: 'Angkor AI', baseWpm: 40, spread: 4 },
-  hard: { name: 'Preah Khan AI', baseWpm: 60, spread: 5 },
-  expert: { name: 'Naga Bot 3000', baseWpm: 84, spread: 6 },
-  novice: { name: 'Scribe Bot', baseWpm: 22, spread: 3 },
-  skilled: { name: 'Angkor AI', baseWpm: 42, spread: 4 },
-  master: { name: 'Naga Bot 3000', baseWpm: 75, spread: 5 }
+  easy: {
+    key: 'easy',
+    name: 'Scribe Bot',
+    nameKm: 'រ៉ូបូតស្មៀន',
+    title: 'Novice Scribe',
+    baseWpm: 22,
+    spread: 3,
+    variance: 0.12,
+    badgeColor: '#38bdf8'
+  },
+  medium: {
+    key: 'medium',
+    name: 'Angkor AI',
+    nameKm: 'អង្គរ AI',
+    title: 'Angkor Apprentice',
+    baseWpm: 42,
+    spread: 4,
+    variance: 0.08,
+    badgeColor: '#34d399'
+  },
+  hard: {
+    key: 'hard',
+    name: 'Preah Khan AI',
+    nameKm: 'ព្រះខ័ន AI',
+    title: 'Temple Guardian',
+    baseWpm: 65,
+    spread: 5,
+    variance: 0.06,
+    badgeColor: '#f59e0b'
+  },
+  expert: {
+    key: 'expert',
+    name: 'Naga Grandmaster',
+    nameKm: 'មហាចារ្យនាគ',
+    title: 'Naga Grandmaster',
+    baseWpm: 88,
+    spread: 6,
+    variance: 0.04,
+    badgeColor: '#a855f7'
+  },
+  nightmare: {
+    key: 'nightmare',
+    name: 'Cyber Garuda Titan',
+    nameKm: 'គ្រុឌស៊ីប័រ',
+    title: 'Cyber Garuda Titan',
+    baseWpm: 115,
+    spread: 8,
+    variance: 0.03,
+    badgeColor: '#f43f5e'
+  },
+  novice: {
+    key: 'easy',
+    name: 'Scribe Bot',
+    nameKm: 'រ៉ូបូតស្មៀន',
+    title: 'Novice Scribe',
+    baseWpm: 22,
+    spread: 3,
+    variance: 0.12,
+    badgeColor: '#38bdf8'
+  },
+  skilled: {
+    key: 'medium',
+    name: 'Angkor AI',
+    nameKm: 'អង្គរ AI',
+    title: 'Angkor Apprentice',
+    baseWpm: 42,
+    spread: 4,
+    variance: 0.08,
+    badgeColor: '#34d399'
+  },
+  master: {
+    key: 'expert',
+    name: 'Naga Grandmaster',
+    nameKm: 'មហាចារ្យនាគ',
+    title: 'Naga Grandmaster',
+    baseWpm: 88,
+    spread: 6,
+    variance: 0.04,
+    badgeColor: '#a855f7'
+  }
 };
+
+function generateAiTimings(chars, targetWpm, varianceFactor){
+  const totalChars = chars.length;
+  if(!totalChars) return [];
+  const charsPerSec = (targetWpm * 5) / 60;
+  const avgSecPerChar = 1 / charsPerSec;
+  const rawIntervals = [];
+
+  for(let i = 0; i < totalChars; i++){
+    const ch = chars[i];
+    let interval = avgSecPerChar;
+    // Word boundary pause (spaces take ~40% longer for humans)
+    if(ch === ' '){
+      interval *= 1.4;
+    } else if(ch === '\u17D2' || ch === '​' || 'ឥឦឧឩឪឫឬឭឮឯឰឱឲឳ'.includes(ch)){
+      interval *= 1.25;
+    }
+    const jitter = (Math.random() - 0.5) * 2 * (varianceFactor || 0.08);
+    interval = Math.max(0.04, interval * (1 + jitter));
+    rawIntervals.push(interval);
+  }
+
+  const targetTotalDuration = totalChars * avgSecPerChar;
+  const currentTotal = rawIntervals.reduce((a, b) => a + b, 0);
+  const scale = targetTotalDuration / Math.max(0.01, currentTotal);
+
+  const timestamps = [];
+  let cum = 0;
+  for(let i = 0; i < totalChars; i++){
+    cum += rawIntervals[i] * scale;
+    timestamps.push(cum);
+  }
+  return timestamps;
+}
 
 let raceChars = [];            // characters to type, drawn from the same KEY_BY_ID/word data as lessons
 let raceLayers = [];
@@ -286,7 +394,7 @@ function renderRaceLeaderboard(){
   const list = loadRaceLeaderboard(raceLbDifficulty, raceLbLength);
   const isKm = typeof document !== 'undefined' && document.documentElement.classList.contains('site-km-mode');
   if(!list.length){
-    const diffKm = { easy: 'ងាយស្រួល', medium: 'មធ្យម', hard: 'ពិបាក' }[raceLbDifficulty] || raceLbDifficulty;
+    const diffKm = { easy: 'ងាយស្រួល', medium: 'មធ្យម', hard: 'ពិបាក', expert: 'ជំនាញ', nightmare: 'ល្បឿនកំពូល' }[raceLbDifficulty] || raceLbDifficulty;
     const diffLabel = isKm ? diffKm : (raceLbDifficulty.charAt(0).toUpperCase() + raceLbDifficulty.slice(1));
     const emptyMsg = isKm
       ? `មិនទាន់មានអ្នកប្រណាំងសម្រាប់ ${diffLabel} · ${raceLengthLabel(raceLbLength)} នៅឡើយទេ។ ចាប់ផ្តើមមុនគេ!`
@@ -380,7 +488,18 @@ function raceBuildEntries(difficulty){
       .flat().filter(Boolean);
     return seqWords(bank, table).concat(seqRandom(allBaseShift, 40));
   }
-  // expert — long text across the full keyboard, all layers
+  if(difficulty === 'expert'){
+    const allLayers = ['base','shift','ctrl','altgr'];
+    const fullPool = [];
+    Object.keys(table).forEach(id=>{
+      allLayers.forEach(layer=>{
+        const e = entriesFromIds([id], layer, table)[0];
+        if(e) fullPool.push(e);
+      });
+    });
+    return seqWords(bank, table).concat(seqRandom(fullPool, 60));
+  }
+  // nightmare — intense sprint across all layers with rich words
   const allLayers = ['base','shift','ctrl','altgr'];
   const fullPool = [];
   Object.keys(table).forEach(id=>{
@@ -389,7 +508,7 @@ function raceBuildEntries(difficulty){
       if(e) fullPool.push(e);
     });
   });
-  return seqWords(bank, table).concat(seqRandom(fullPool, 60));
+  return seqWords(bank, table).concat(seqRandom(fullPool, 90));
 }
 
 function raceGenerateText(){
@@ -484,11 +603,13 @@ function raceUpdateKeyHighlight(){
   }
   setActiveFinger(id, layer);
 }
-window.updateRaceKeyHighlight = updateRaceKeyHighlight;
-window.highlightRaceTarget = updateRaceKeyHighlight;
+window.raceUpdateKeyHighlight = raceUpdateKeyHighlight;
+window.updateRaceKeyHighlight = raceUpdateKeyHighlight;
+window.highlightRaceTarget = raceUpdateKeyHighlight;
 
 function raceElapsedSeconds(){
-  return (Date.now() - raceStartTime) / 1000;
+  if(!raceStartTime || !raceActive) return 0;
+  return Math.max(0, (Date.now() - raceStartTime) / 1000);
 }
 
 function raceCurrentStats(){
@@ -514,9 +635,18 @@ function raceUpdateHud(){
   // Compute and render AI opponent progress
   if(currentAiBot && raceChars.length){
     const elapsed = raceElapsedSeconds();
-    const aiCharsPerSec = (aiTargetWpm * 5) / 60;
-    const cadence = 1 + 0.05 * Math.sin(elapsed * 1.8);
-    aiCharsTyped = Math.min(raceChars.length, Math.floor(elapsed * aiCharsPerSec * cadence));
+    if(aiKeyTimestamps && aiKeyTimestamps.length){
+      let count = 0;
+      while(count < aiKeyTimestamps.length && aiKeyTimestamps[count] <= elapsed){
+        count++;
+      }
+      aiCharsTyped = Math.min(raceChars.length, count);
+    } else {
+      const aiCharsPerSec = (aiTargetWpm * 5) / 60;
+      const cadence = 1 + 0.05 * Math.sin(elapsed * 1.8);
+      aiCharsTyped = Math.min(raceChars.length, Math.floor(elapsed * aiCharsPerSec * cadence));
+    }
+
     const aiPct = Math.min(100, Math.round((aiCharsTyped / raceChars.length) * 100));
     if(raceTrackAiFillEl){
       raceTrackAiFillEl.style.width = aiPct + '%';
@@ -528,6 +658,36 @@ function raceUpdateHud(){
     if(aiPct >= 100 && !aiFinished){
       aiFinished = true;
       aiFinishTime = elapsed;
+    }
+
+    // Dynamic AI live name / WPM label
+    if(raceAiRacerNameEl){
+      const isKm = typeof document !== 'undefined' && document.documentElement.classList.contains('site-km-mode');
+      const bName = isKm && currentAiBot.nameKm ? currentAiBot.nameKm : currentAiBot.name;
+      const statusText = aiFinished ? (isKm ? 'បានដល់ទី!' : 'FINISHED!') : `${aiTargetWpm} WPM`;
+      raceAiRacerNameEl.textContent = `${bName} (${statusText})`;
+    }
+  }
+
+  // Update live lead indicator
+  const raceLeadBadgeEl = document.getElementById('raceLeadBadge');
+  const raceLeadTextEl = document.getElementById('raceLeadText');
+  if(raceLeadBadgeEl && raceLeadTextEl){
+    const playerChars = raceIndex;
+    const aiChars = aiCharsTyped;
+    const charDiff = playerChars - aiChars;
+    const isKm = typeof document !== 'undefined' && document.documentElement.classList.contains('site-km-mode');
+
+    raceLeadBadgeEl.classList.remove('lead-player', 'lead-ai', 'lead-tied');
+    if(charDiff > 0){
+      raceLeadBadgeEl.classList.add('lead-player');
+      raceLeadTextEl.textContent = isKm ? `នាំមុខ +${charDiff} តួ` : `+${charDiff} chars Ahead`;
+    } else if(charDiff < 0){
+      raceLeadBadgeEl.classList.add('lead-ai');
+      raceLeadTextEl.textContent = isKm ? `តាមក្រោយ ${charDiff} តួ` : `${charDiff} chars Behind`;
+    } else {
+      raceLeadBadgeEl.classList.add('lead-tied');
+      raceLeadTextEl.textContent = isKm ? `ស្មើគ្នា (Neck & neck)` : `Neck and neck`;
     }
   }
 }
@@ -639,10 +799,17 @@ function raceReset(){
   aiCharsTyped = 0;
   aiFinished = false;
   aiFinishTime = 0;
+  aiKeyTimestamps = [];
   raceCountdownEl.hidden = true;
   raceCountdownEl.classList.remove('pulse');
   if(raceTrackAiFillEl) raceTrackAiFillEl.style.width = '0%';
   if(raceTrackAiPctEl) raceTrackAiPctEl.textContent = '0%';
+  if(raceTrackFillEl) raceTrackFillEl.style.width = '0%';
+  if(raceTrackPctEl) raceTrackPctEl.textContent = '0%';
+  const raceLeadBadgeEl = document.getElementById('raceLeadBadge');
+  const raceLeadTextEl = document.getElementById('raceLeadText');
+  if(raceLeadBadgeEl) raceLeadBadgeEl.className = 'race-lead-badge lead-tied';
+  if(raceLeadTextEl) raceLeadTextEl.textContent = 'Ready to Race';
 }
 
 function enterRaceMode(){
@@ -743,21 +910,30 @@ function startRace(){
   raceLastStreakCorrect = 0;
 
   // Initialize AI Bot opponent
-  const botKey = raceAiBotChoice === 'auto' ? raceDifficulty : raceAiBotChoice;
+  let botKey = raceAiBotChoice;
+  if(botKey === 'auto'){
+    botKey = raceDifficulty;
+  }
   const botProfile = AI_BOTS[botKey] || AI_BOTS.easy;
   const spreadDelta = Math.floor((Math.random() - 0.5) * (botProfile.spread * 2));
   aiTargetWpm = Math.max(16, botProfile.baseWpm + spreadDelta);
   currentAiBot = {
-    key: botKey,
+    key: botProfile.key || botKey,
     name: botProfile.name,
+    nameKm: botProfile.nameKm,
+    title: botProfile.title,
+    baseWpm: botProfile.baseWpm,
     targetWpm: aiTargetWpm
   };
   aiCharsTyped = 0;
   aiFinished = false;
   aiFinishTime = 0;
+  aiKeyTimestamps = generateAiTimings(raceChars, aiTargetWpm, botProfile.variance || 0.08);
 
   if(raceAiRacerNameEl){
-    raceAiRacerNameEl.textContent = `${currentAiBot.name} (${aiTargetWpm} WPM)`;
+    const isKm = typeof document !== 'undefined' && document.documentElement.classList.contains('site-km-mode');
+    const bName = (isKm && currentAiBot.nameKm) ? currentAiBot.nameKm : currentAiBot.name;
+    raceAiRacerNameEl.textContent = `${bName} (${aiTargetWpm} WPM)`;
   }
   if(racePlayerTagLabelEl){
     const rName = getRaceName();
@@ -769,7 +945,7 @@ function startRace(){
   if(raceTrackPctEl) raceTrackPctEl.textContent = '0%';
 
   const isKm = typeof document !== 'undefined' && document.documentElement.classList.contains('site-km-mode');
-  const diffKm = { easy: 'ងាយស្រួល', medium: 'មធ្យម', hard: 'ពិបាក' }[raceDifficulty] || raceDifficulty;
+  const diffKm = { easy: 'ងាយស្រួល', medium: 'មធ្យម', hard: 'ពិបាក', expert: 'ជំនាញ', nightmare: 'ល្បឿនកំពូល' }[raceDifficulty] || raceDifficulty;
   const diffName = isKm ? diffKm : (raceDifficulty.charAt(0).toUpperCase() + raceDifficulty.slice(1));
   const lenStr = raceLength === 'text' ? (isKm ? ' · អត្ថបទពេញ' : ' · Full Text') : (' · ' + raceLength + (isKm ? 'វ' : 's'));
   raceDifficultyLabelEl.textContent = diffName + lenStr;
@@ -796,14 +972,14 @@ raceStartBtn.addEventListener('click', startRace);
 
 function raceFinish(timedOut){
   if(!raceActive) return;
+  const elapsed = Math.max(0.1, raceElapsedSeconds());
+  const {accuracy, wpm} = raceCurrentStats();
   raceActive = false;
   cancelAnimationFrame(raceTimerId);
   if(raceCorrectTotal === 0 && raceMistakes === 0){
     raceReset();
     return;
   }
-  const elapsed = raceElapsedSeconds();
-  const {accuracy, wpm} = raceCurrentStats();
   const score = raceScore(wpm, accuracy, raceMistakes);
   const charsTyped = raceCorrectTotal;
 
@@ -969,3 +1145,25 @@ function applyTypingContentData(data){
   if(data.WORD_BANK) WORD_BANK.length = 0, WORD_BANK.push(...data.WORD_BANK);
   if(data.WORD_BANK_EN) WORD_BANK_EN.length = 0, WORD_BANK_EN.push(...data.WORD_BANK_EN);
 }
+
+// Window bindings for interoperability, developer console & testing
+window.enterRaceMode = enterRaceMode;
+window.exitRaceMode = exitRaceMode;
+window.startRace = startRace;
+window.raceHandleChar = raceHandleChar;
+window.AI_BOTS = AI_BOTS;
+
+try {
+  Object.defineProperty(window, 'raceMode', { get: () => raceMode, set: v => { raceMode = v; }, configurable: true });
+  Object.defineProperty(window, 'raceActive', { get: () => raceActive, set: v => { raceActive = v; }, configurable: true });
+  Object.defineProperty(window, 'raceCountingDown', { get: () => raceCountingDown, configurable: true });
+  Object.defineProperty(window, 'raceChars', { get: () => raceChars, configurable: true });
+  Object.defineProperty(window, 'raceKeyIds', { get: () => raceKeyIds, configurable: true });
+  Object.defineProperty(window, 'raceLayers', { get: () => raceLayers, configurable: true });
+  Object.defineProperty(window, 'raceIndex', { get: () => raceIndex, configurable: true });
+  Object.defineProperty(window, 'raceCorrectTotal', { get: () => raceCorrectTotal, configurable: true });
+  Object.defineProperty(window, 'raceMistakes', { get: () => raceMistakes, configurable: true });
+  Object.defineProperty(window, 'currentAiBot', { get: () => currentAiBot, configurable: true });
+  Object.defineProperty(window, 'aiTargetWpm', { get: () => aiTargetWpm, configurable: true });
+  Object.defineProperty(window, 'aiCharsTyped', { get: () => aiCharsTyped, configurable: true });
+} catch(e) {}
