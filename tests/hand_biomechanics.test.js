@@ -490,3 +490,132 @@ test('8.1 [VERIFIED] HAND_CONFIG supports reducedMotion flag disabling animation
   kb.HAND_CONFIG.reducedMotion = false;
   assert.equal(kb.HAND_CONFIG.reducedMotion, false);
 });
+
+/* ============================================================
+   Test Suite 9: Anatomical Proportions, Perspective & Natural Curvature
+   ============================================================ */
+test('9.1 [VERIFIED] Slender anatomical finger aspect ratios (>= 4.0:1) eliminate stubby appearance', () => {
+  const nonThumbFingers = kb.FINGERS.filter(f => f.kind !== 'thumb');
+  assert.equal(nonThumbFingers.length, 8, 'There must be 8 non-thumb fingers (4 left, 4 right)');
+
+  nonThumbFingers.forEach(f => {
+    // Knuckle base width should be slender (22px - 27px, not bulky > 33px)
+    assert.ok(f.baseW >= 22.0 && f.baseW <= 27.0, `${f.id} base width (${f.baseW}) must be between 22 and 27px`);
+    // Fingertip width should be slender (13.5px - 16.5px, not blunt > 19px)
+    assert.ok(f.tipW >= 13.5 && f.tipW <= 16.5, `${f.id} tip width (${f.tipW}) must be between 13.5 and 16.5px`);
+    // Resting finger length should be naturally elongated (>= 100px)
+    assert.ok(f.restLen >= 100, `${f.id} resting length (${f.restLen}) must be at least 100px`);
+    
+    // Aspect ratio: restLen / baseW >= 4.0
+    const ratio = f.restLen / f.baseW;
+    assert.ok(ratio >= 4.0 && ratio <= 4.8, `${f.id} aspect ratio (${ratio.toFixed(2)}) must be slender between 4.0:1 and 4.8:1`);
+  });
+});
+
+test('9.2 [VERIFIED] Metacarpal knuckle arch baseline aligns at bottom row boundary for proper palm perspective', () => {
+  const mockKeys = setupMockKeyboardGeometry();
+  kb.setKeyElements(mockKeys);
+  const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
+
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+  const handL = kb.buildHand('L', leftFingers, wrapRect, null, null);
+  assert.ok(handL);
+
+  // Home row average Y in mockKeys is (130+180)/2 = 155px.
+  // palmArchBaseY = homeAvgY + 114 = 269px.
+  // The bottom row keys in mockKeys are at top: 185, bottom: 235.
+  // The knuckle arch at ~269px sits gracefully at the bottom edge of the bottom row / spacebar row.
+  const middleBase = handL.bases['lm'];
+  assert.ok(middleBase.y >= 245 && middleBase.y <= 275, `Middle knuckle Y (${middleBase.y}) should sit near 259px`);
+
+  // Distance from middle finger knuckle to home key 'd' center (155px)
+  const homeD = handL.homes['lm'];
+  const fingerLen = middleBase.y - homeD.y;
+  assert.ok(fingerLen >= 100 && fingerLen <= 118, `Visible middle finger length (${fingerLen}px) must be 100-118px`);
+});
+
+test('9.3 [VERIFIED] Cubic Bezier control points produce natural typing dome flexion and joint apex', () => {
+  const p0 = { x: 200, y: 260 }; // Knuckle base
+  const p3 = { x: 200, y: 155 }; // Home keycap fingertip
+  const inward = 1; // Left hand
+
+  const { p1, p2 } = kb.computeFingerControlPoints(p0, p3, 'middle', inward);
+  assert.ok(p1 && p2, 'computeFingerControlPoints must return p1 and p2');
+
+  // Verify natural dome posture:
+  // p1 and p2 must arch above the straight line connecting p0 and p3.
+  const frame = kb.fingerFrame(p0, p1, p2, p3, 26.5, 16.0, false);
+  assert.ok(frame && frame.left && frame.right);
+  assert.equal(frame.left.length, 21);
+
+  // At s = 0.50, the center point should be higher (lower Y) than linear interpolation
+  const midPt = kb.cPoint(p0, p1, p2, p3, 0.50);
+  const linearY = (p0.y + p3.y) * 0.5;
+  assert.ok(midPt.y < linearY, `PIP joint center Y (${midPt.y}) must be arched upward relative to linear (${linearY})`);
+
+  // Verify anatomical swell at PIP joint (s ≈ 0.48):
+  const sPIP = 0.48;
+  const ptL = frame.left[10];
+  const ptR = frame.right[10];
+  const actualW = Math.hypot(ptL.x - ptR.x, ptL.y - ptR.y);
+  const linearW = (1 - sPIP) * 26.5 + sPIP * 16.0;
+  assert.ok(actualW > linearW, `PIP joint width (${actualW.toFixed(1)}px) should exhibit anatomical knuckle swell above linear (${linearW.toFixed(1)}px)`);
+});
+
+test('9.4 [VERIFIED] Adjacent fingertips maintain clear clearance (> 30px) without collision on home row', () => {
+  const mockKeys = setupMockKeyboardGeometry();
+  kb.setKeyElements(mockKeys);
+  const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
+
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+  const handL = kb.buildHand('L', leftFingers, wrapRect, null, null);
+  assert.ok(handL);
+
+  // Check distances between adjacent home key centers for left hand: A (lp), S (lr), D (lm), F (li)
+  const leftOrder = ['lp', 'lr', 'lm', 'li'];
+  for (let i = 0; i < leftOrder.length - 1; i++) {
+    const fA = leftFingers.find(f => f.id === leftOrder[i]);
+    const fB = leftFingers.find(f => f.id === leftOrder[i + 1]);
+    const homeA = handL.homes[fA.id];
+    const homeB = handL.homes[fB.id];
+    const distFingers = Math.abs(homeB.x - homeA.x);
+    // Key centers are separated by ~48px. With tipW = 14-16px, edge-to-edge gap is > 30px
+    const tipSum = (fA.tipW + fB.tipW) * 0.5;
+    const clearance = distFingers - tipSum;
+    assert.ok(clearance >= 30, `Clearance between ${fA.id} and ${fB.id} (${clearance.toFixed(1)}px) must be >= 30px`);
+  }
+});
+
+test('9.5 [VERIFIED] Fingertips land accurately on home row target keys with proper hand positioning', () => {
+  const mockKeys = setupMockKeyboardGeometry();
+  kb.setKeyElements(mockKeys);
+  const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
+
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+  const rightFingers = kb.FINGERS.filter(f => f.hand === 'R');
+  const handL = kb.buildHand('L', leftFingers, wrapRect, null, null);
+  const handR = kb.buildHand('R', rightFingers, wrapRect, null, null);
+
+  // Left home row mappings: A->lp, S->lr, D->lm, F->li
+  const leftExpected = { a: 'lp', s: 'lr', d: 'lm', f: 'li' };
+  for (const [kId, fId] of Object.entries(leftExpected)) {
+    const homePt = handL.homes[fId];
+    const keyRect = mockKeys[kId].getBoundingClientRect();
+    const keyCx = (keyRect.left + keyRect.right) * 0.5;
+    const keyCy = (keyRect.top + keyRect.bottom) * 0.5;
+    assert.equal(homePt.x, keyCx, `Finger ${fId} X must match key ${kId} center X`);
+    assert.equal(homePt.y, keyCy, `Finger ${fId} Y must match key ${kId} center Y`);
+  }
+
+  // Right home row mappings: J->ri, K->rm, L->rr, semicolon->rp
+  const rightExpected = { j: 'ri', k: 'rm', l: 'rr', semicolon: 'rp' };
+  for (const [kId, fId] of Object.entries(rightExpected)) {
+    const homePt = handR.homes[fId];
+    const keyRect = mockKeys[kId].getBoundingClientRect();
+    const keyCx = (keyRect.left + keyRect.right) * 0.5;
+    const keyCy = (keyRect.top + keyRect.bottom) * 0.5;
+    assert.equal(homePt.x, keyCx, `Finger ${fId} X must match key ${kId} center X`);
+    assert.equal(homePt.y, keyCy, `Finger ${fId} Y must match key ${kId} center Y`);
+  }
+});
+
