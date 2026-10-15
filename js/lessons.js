@@ -295,7 +295,7 @@ function getTypingUnits(text, layoutId) {
   if (!text) return [];
   const compoundList = (typeof KHMER_COMPOUND_VOWELS !== 'undefined')
     ? KHMER_COMPOUND_VOWELS
-    : ['\u17BB\u17C6', '\u17BB\u17C7', '\u17B6\u17C6', '\u17C1\u17C7', '\u17C4\u17C7'];
+    : ((typeof window !== 'undefined' && window.KHMER_COMPOUND_VOWELS) || (typeof global !== 'undefined' && global.KHMER_COMPOUND_VOWELS) || ['\u17BB\u17C6', '\u17BB\u17C7', '\u17B6\u17C6', '\u17C1\u17C7', '\u17C4\u17C7']);
   const normFn = (typeof normalizeInput === 'function')
     ? normalizeInput
     : (typeof window !== 'undefined' && typeof window.normalizeInput === 'function' ? window.normalizeInput : (typeof global !== 'undefined' && typeof global.normalizeInput === 'function' ? global.normalizeInput : null));
@@ -2447,7 +2447,7 @@ function startLesson(idOrDef, allowDirectPractice = false){
     lessonStrip.hidden = false;
     renderLessonStrip();
   }
-  clearText();
+  if(typeof clearText === 'function'){ clearText(); } else if(typeof window !== 'undefined' && typeof window.clearText === 'function'){ window.clearText(); }
   renderLessonChars();
   updateLessonProgress();
   const audioBtn = document.getElementById('lessonAudioQuickBtn');
@@ -2696,7 +2696,7 @@ function lessonHandleChar(val, el, stroke){
         firstVal: val,
         secondExpected: compoundPair[1]
       };
-      insertText(val);
+      if(typeof insertText === 'function'){ insertText(val); } else if(typeof window !== 'undefined' && typeof window.insertText === 'function'){ window.insertText(val); }
       recordKeystroke(true);
       if(el){ el.classList.add('correct'); setTimeout(()=> el.classList.remove('correct'), 260); }
       emberBurst(el, null, 4, null);
@@ -2762,7 +2762,7 @@ function lessonHandleChar(val, el, stroke){
       val: acceptedVal,
       expected: acceptedExpected
     });
-    insertText(val);
+    if(typeof insertText === 'function'){ insertText(val); } else if(typeof window !== 'undefined' && typeof window.insertText === 'function'){ window.insertText(val); }
     recordKeystroke(true);
     lessonIndex += advanceUnits;
     if(el){ el.classList.add('correct'); setTimeout(()=> el.classList.remove('correct'), 260); }

@@ -21,7 +21,7 @@
 
   const STORAGE_KEY = 'pk_adaptive_state_v1';
   const VALID_LAYOUTS = ['english', 'nida', 'standard'];
-  const KHMER_COMPOUND_VOWELS = ['\u17BB\u17C6', '\u17BB\u17C7', '\u17B6\u17C6', '\u17C1\u17C7', '\u17C4\u17C7'];
+  const KHMER_COMPOUND_VOWELS = (typeof window !== 'undefined' && window.KHMER_COMPOUND_VOWELS) || (typeof global !== 'undefined' && global.KHMER_COMPOUND_VOWELS) || ['\u17BB\u17C6', '\u17BB\u17C7', '\u17B6\u17C6', '\u17C1\u17C7', '\u17C4\u17C7'];
 
   function getTypingUnits(text, layoutId) {
     if (typeof global !== 'undefined' && typeof global.splitIntoTypingUnits === 'function') {

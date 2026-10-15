@@ -95,7 +95,7 @@
 
     var errJoined = errors.join(" ");
     var setupMessage = errors.length > 0
-      ? "Supabase Cloud Sync is not configured (" + errJoined + "). Copy .env.example to .env.local, set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY, and run npm run build."
+      ? "Supabase Cloud Sync is operating in offline/local storage mode (" + errJoined + "). Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in js/supabase-env.js or environment variables to enable multi-device sync."
       : "";
 
     return {

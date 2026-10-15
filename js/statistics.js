@@ -727,7 +727,7 @@ function initStatisticsDashboard(){
     toggleEl.setAttribute('aria-hidden', 'true');
     function renderCredit(){
       const isKm = profileCredit.classList.contains('is-km');
-      profileCredit.firstChild.textContent = isKm ? kmText : enText;
+      if(profileCredit.firstChild) profileCredit.firstChild.textContent = isKm ? kmText : enText;
       toggleEl.textContent = isKm ? 'English' : 'ភាសាខ្មែរ';
     }
     profileCredit.textContent = enText;

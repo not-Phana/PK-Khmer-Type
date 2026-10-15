@@ -271,43 +271,56 @@
     }
 
     hookGlobalEngines(){
+      const self = this;
       // Intercept layout switches to update the dock dynamically
       const origSwitchLayout = window.switchLayout;
       if(typeof origSwitchLayout === 'function'){
-        window.switchLayout = (id, force) => {
-          origSwitchLayout(id, force);
-          this.updateLayout(id);
-          this.updateTelemetry();
-          this.scheduleWeakKeysUpdate(200);
+        window.switchLayout = function(id, force){
+          const res = origSwitchLayout.apply(this, arguments);
+          try {
+            self.updateLayout(id);
+            self.updateTelemetry();
+            self.scheduleWeakKeysUpdate(200);
+          } catch(_e){}
+          return res;
         };
       }
 
       // Intercept setActiveFinger to update target key and reaching finger
       const origSetActiveFinger = window.setActiveFinger;
       if(typeof origSetActiveFinger === 'function'){
-        window.setActiveFinger = (keyId, layer) => {
-          origSetActiveFinger(keyId, layer);
-          this.updateTargetFinger(keyId, layer);
+        window.setActiveFinger = function(keyId, layer){
+          const res = origSetActiveFinger.apply(this, arguments);
+          try {
+            self.updateTargetFinger(keyId, layer);
+          } catch(_e){}
+          return res;
         };
       }
 
       // Intercept updateLessonProgress for live telemetry synchronization
       const origUpdateLessonProgress = window.updateLessonProgress;
       if(typeof origUpdateLessonProgress === 'function'){
-        window.updateLessonProgress = () => {
-          origUpdateLessonProgress();
-          this.updateTelemetry();
-          this.scheduleWeakKeysUpdate(1000);
+        window.updateLessonProgress = function(){
+          const res = origUpdateLessonProgress.apply(this, arguments);
+          try {
+            self.updateTelemetry();
+            self.scheduleWeakKeysUpdate(1000);
+          } catch(_e){}
+          return res;
         };
       }
 
       // Intercept startLesson to refresh active telemetry and minimize dock so it never blocks practice
       const origStartLesson = window.startLesson;
       if(typeof origStartLesson === 'function'){
-        window.startLesson = (idOrDef, allowDirectPractice) => {
-          origStartLesson(idOrDef, allowDirectPractice);
-          this.updateTelemetry();
-          this.scheduleWeakKeysUpdate(300);
+        window.startLesson = function(idOrDef, allowDirectPractice){
+          const res = origStartLesson.apply(this, arguments);
+          try {
+            self.updateTelemetry();
+            self.scheduleWeakKeysUpdate(300);
+          } catch(_e){}
+          return res;
         };
       }
 
@@ -315,8 +328,10 @@
       window.addEventListener('keydown', (e) => {
         if(e.isComposing) return;
         setTimeout(() => {
-          this.updateTelemetry();
-          this.highlightHomeRowKey(e.key.toLowerCase());
+          try {
+            self.updateTelemetry();
+            if(e.key) self.highlightHomeRowKey(e.key.toLowerCase());
+          } catch(_e){}
         }, 30);
       });
     }

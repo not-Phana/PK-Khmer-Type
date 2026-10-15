@@ -3,7 +3,7 @@
    ============================================================ */
 
 /* ---------- Unicode Normalization & Character Comparison ---------- */
-const KHMER_COMPOUND_VOWELS = Object.freeze([
+var KHMER_COMPOUND_VOWELS = (typeof window !== 'undefined' && window.KHMER_COMPOUND_VOWELS) || (typeof global !== 'undefined' && global.KHMER_COMPOUND_VOWELS) || Object.freeze([
   '\u17BB\u17C6', // ុំ (comma base)
   '\u17BB\u17C7', // ុះ (comma shift)
   '\u17B6\u17C6', // ាំ (a shift)
@@ -11,7 +11,7 @@ const KHMER_COMPOUND_VOWELS = Object.freeze([
   '\u17C4\u17C7', // ោះ (semicolon shift)
 ]);
 
-const KHMER_COMPOUND_MAP = Object.freeze({
+var KHMER_COMPOUND_MAP = (typeof window !== 'undefined' && window.KHMER_COMPOUND_MAP) || (typeof global !== 'undefined' && global.KHMER_COMPOUND_MAP) || Object.freeze({
   '\u17B6\u17C6': ['\u17B6', '\u17C6'], // ាំ -> ា + ំ
   '\u17C4\u17C7': ['\u17C4', '\u17C7'], // ោះ -> ោ + ះ
   '\u17C1\u17C7': ['\u17C1', '\u17C7'], // េះ -> េ + ះ
