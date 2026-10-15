@@ -1068,8 +1068,14 @@ function checkCapsLock(e){
   const warnEl = document.getElementById('capsLockWarningHud');
   const chassisWarnEl = document.getElementById('chassisCapsWarn');
   const show = isCaps && isKhmer;
-  if(warnEl) warnEl.hidden = !show;
-  if(chassisWarnEl) chassisWarnEl.hidden = !show;
+  if(warnEl){
+    warnEl.hidden = !show;
+    warnEl.style.display = show ? 'flex' : 'none';
+  }
+  if(chassisWarnEl){
+    chassisWarnEl.hidden = !show;
+    chassisWarnEl.style.display = show ? 'inline-flex' : 'none';
+  }
 }
 window.checkCapsLock = checkCapsLock;
 
@@ -1308,8 +1314,14 @@ function resetAllInputStates(){
   physicalLayer = null;
   const warnEl = document.getElementById('capsLockWarningHud');
   const chassisWarnEl = document.getElementById('chassisCapsWarn');
-  if(warnEl) warnEl.hidden = true;
-  if(chassisWarnEl) chassisWarnEl.hidden = true;
+  if(warnEl){
+    warnEl.hidden = true;
+    warnEl.style.display = 'none';
+  }
+  if(chassisWarnEl){
+    chassisWarnEl.hidden = true;
+    chassisWarnEl.style.display = 'none';
+  }
   if(typeof keyEls === 'object' && keyEls){
     Object.values(keyEls).forEach(el => {
       if(el && el.classList){

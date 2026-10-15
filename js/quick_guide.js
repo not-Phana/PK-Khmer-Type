@@ -114,11 +114,17 @@
 
       // Check stored preference: if closed, keep hidden
       try {
+        if(!localStorage.getItem('pk_qg_min_fixed_v1')){
+          localStorage.removeItem('pk_quick_guide_minimized');
+          localStorage.setItem('pk_qg_min_fixed_v1', '1');
+        }
         if(localStorage.getItem('pk_quick_guide_closed') === 'true'){
           this.dock.hidden = true;
         }
         if(localStorage.getItem('pk_quick_guide_minimized') === 'true'){
           this.dock.classList.add('minimized');
+        } else {
+          this.dock.classList.remove('minimized');
         }
       } catch(e){}
       this.updateToggleButtonState();
@@ -163,19 +169,6 @@
           }
         });
       }
-
-      // Auto-minimize when clicking outside or clicking lessons
-      document.addEventListener('click', (e) => {
-        if(!this.dock || this.dock.hidden) return;
-        const target = e.target;
-        if(!target) return;
-        // If clicking on lessons, manuscript, keyboard, or somewhere else outside the dock
-        const isLessonCard = target.closest('.lesson-card, .lesson-level-header, #topLearnMoreBtn, [data-lesson]');
-        const isOutside = !target.closest('#guideDock') && !target.closest('#guideToggleBtn');
-        if(isLessonCard || (isOutside && target.closest('#manuscript, #board, .keyboard, #output'))){
-          this.toggleMinimize(true);
-        }
-      });
 
       // Close button in Quick Guide header
       if(this.closeBtn){
@@ -313,7 +306,6 @@
       if(typeof origStartLesson === 'function'){
         window.startLesson = (idOrDef, allowDirectPractice) => {
           origStartLesson(idOrDef, allowDirectPractice);
-          this.toggleMinimize(true);
           this.updateTelemetry();
           this.scheduleWeakKeysUpdate(300);
         };

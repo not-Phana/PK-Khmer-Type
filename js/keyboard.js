@@ -631,8 +631,14 @@ function switchLayout(id, force = false){
   if(id === 'english'){
     const warnEl = document.getElementById('capsLockWarningHud');
     const chassisWarnEl = document.getElementById('chassisCapsWarn');
-    if(warnEl) warnEl.hidden = true;
-    if(chassisWarnEl) chassisWarnEl.hidden = true;
+    if(warnEl){
+      warnEl.hidden = true;
+      warnEl.style.display = 'none';
+    }
+    if(chassisWarnEl){
+      chassisWarnEl.hidden = true;
+      chassisWarnEl.style.display = 'none';
+    }
   }
   try {
     if(typeof localStorage !== 'undefined'){
