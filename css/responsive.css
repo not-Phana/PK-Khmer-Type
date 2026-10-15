@@ -96,6 +96,7 @@
       bottom:auto !important;
       width:258px !important;
       max-height:min(465px, calc(100vh - 70px)) !important;
+    }
   }
 
   @media (max-width: 640px){

@@ -2184,9 +2184,10 @@ window.highlightLessonTarget = updateLessonKeyHighlight;
 
 function updateLessonProgress(){
   const tw = document.getElementById('lessonTimerWrap');
+  const tv = document.getElementById('lessonTimerVal');
   if (lessonHasTimer && tw) {
-    tw.style.display = 'inline';
-    document.getElementById('lessonTimerVal').textContent = Math.floor(lessonTimeLeft/60) + ':' + String(lessonTimeLeft%60).padStart(2, '0');
+    tw.style.display = 'inline-flex';
+    if (tv) tv.textContent = Math.floor(lessonTimeLeft/60) + ':' + String(lessonTimeLeft%60).padStart(2, '0');
   } else if (tw) {
     tw.style.display = 'none';
   }

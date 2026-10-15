@@ -249,21 +249,37 @@ function initStatisticsDashboard(){
     catch(e){ return { keys:0, correct:0, seconds:0, bestWpm:0, days:[] }; }
   }
   const totals = loadTotals();
-  const today = new Date().toISOString().slice(0,10);
-  if(!totals.days.includes(today)) totals.days.push(today);
+
+  function markDayPracticed(){
+    const today = new Date().toISOString().slice(0, 10);
+    if(!totals.days.includes(today)){
+      totals.days.push(today);
+    }
+  }
 
   const origRecordKeystroke = recordKeystroke;
   recordKeystroke = function(correct){
     const isAdaptiveActive = (typeof PK_ADAPTIVE !== 'undefined' && typeof PK_ADAPTIVE.isActive === 'function' && PK_ADAPTIVE.isActive());
-  if((typeof lessonActive === 'undefined' || !lessonActive) && !isAdaptiveActive) return;
+    if((typeof lessonActive === 'undefined' || !lessonActive) && !isAdaptiveActive) return;
     origRecordKeystroke(correct);
+    markDayPracticed();
     totals.keys = savedLessonStats.keys;
     totals.correct = savedLessonStats.correct;
     const wpmNow = parseInt(statWpmEl.textContent, 10) || 0;
     if(wpmNow > totals.bestWpm) totals.bestWpm = wpmNow;
     safeSet(LS.totals, JSON.stringify(totals));
   };
-  setInterval(()=>{ totals.seconds += 5; safeSet(LS.totals, JSON.stringify(totals)); }, 5000);
+
+  setInterval(() => {
+    if (document.hidden) return;
+    const isAdaptive = (typeof PK_ADAPTIVE !== 'undefined' && typeof PK_ADAPTIVE.isActive === 'function' && PK_ADAPTIVE.isActive());
+    const isLesson = (typeof lessonActive !== 'undefined' && lessonActive);
+    const isRace = (typeof raceActive !== 'undefined' && raceActive);
+    const isTrial = (typeof trialActive !== 'undefined' && trialActive);
+    if (!isAdaptive && !isLesson && !isRace && !isTrial) return;
+    totals.seconds += 5;
+    safeSet(LS.totals, JSON.stringify(totals));
+  }, 5000);
 
   function currentStreakDays(days){
     const set = new Set(days);

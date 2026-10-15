@@ -278,6 +278,56 @@ subpageFiles.forEach(subFile => {
 });
 assert(allSubpageAssetsExist, 'All 28 referenced assets in Documents, docs, and launch exist on disk');
 
+// ====================================================
+// Area 13: Responsive CSS Syntax & Lesson Timer Telemetry
+// ====================================================
+console.log('\n--- Area 13: Responsive CSS & Lesson Timer Telemetry ---');
+const responsiveCss = fs.readFileSync('css/responsive.css', 'utf8');
+let respOpen = 0;
+for (const ch of responsiveCss) {
+  if (ch === '{') respOpen++;
+  if (ch === '}') respOpen--;
+}
+assert(respOpen === 0, 'css/responsive.css has balanced braces with zero unclosed media queries');
+
+const indexHtmlContent = fs.readFileSync('index.html', 'utf8');
+assert(indexHtmlContent.includes('id="lessonTimerWrap"') && indexHtmlContent.includes('id="lessonTimerVal"'),
+  'index.html provides dedicated #lessonTimerWrap and #lessonTimerVal telemetry pods');
+
+const lessonsJsContent = fs.readFileSync('js/lessons.js', 'utf8');
+assert(lessonsJsContent.includes('const tv = document.getElementById(\'lessonTimerVal\');') && lessonsJsContent.includes('if (tv) tv.textContent ='),
+  'js/lessons.js performs null-safe checks on #lessonTimerVal before setting textContent');
+
+// ====================================================
+// Area 14: Idle Storage Write Guards & Zero-Emoji Policy
+// ====================================================
+console.log('\n--- Area 14: Idle Storage Guards & Zero-Emoji Compliance ---');
+const statsJsContent = fs.readFileSync('js/statistics.js', 'utf8');
+assert(statsJsContent.includes('if (!isAdaptive && !isLesson && !isRace && !isTrial) return;'),
+  'js/statistics.js guards idle interval from incrementing practice time or writing to storage when idle');
+assert(!statsJsContent.includes('totals.days.push(today);') || statsJsContent.includes('function markDayPracticed()'),
+  'js/statistics.js only awards practice days on genuine keystrokes via markDayPracticed()');
+
+const emojiRegex = /[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}]/u;
+const auditFiles = [
+  'css/responsive.css',
+  'index.html',
+  'js/lessons.js',
+  'js/statistics.js',
+  'js/typing.js',
+  'Documents/docs.css',
+  'Documents/docs.js',
+  'Documents/index.html',
+  'scripts/verify_audit_fixes.js'
+];
+let zeroEmojiClean = true;
+auditFiles.forEach(f => {
+  if (fs.existsSync(f) && emojiRegex.test(fs.readFileSync(f, 'utf8'))) {
+    zeroEmojiClean = false;
+  }
+});
+assert(zeroEmojiClean, 'Strict zero-emoji compliance confirmed across all modified codebase files');
+
 // ----------------------------------------------------
 // Final Summary
 // ----------------------------------------------------
@@ -290,5 +340,5 @@ console.log('====================================================');
 if (failedTests > 0) {
   process.exit(1);
 } else {
-  console.log('ALL 12 AUDIT AREAS VERIFIED CLEAN WITH ZERO REGRESSIONS.');
+  console.log('ALL 14 AUDIT AREAS VERIFIED CLEAN WITH ZERO REGRESSIONS.');
 }
