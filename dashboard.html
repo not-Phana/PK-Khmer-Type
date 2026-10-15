@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PK Khmer Type — Analytics &amp; Mastery Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="assets/dashboard-logo.svg">
+  <link rel="alternate icon" type="image/svg+xml" href="logo.svg">
+  <link rel="apple-touch-icon" href="logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Kantumruy+Pro:wght@400;500;600;700&family=Moul&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -88,17 +91,48 @@
       gap: 14px;
     }
 
+    .brand-avatar-link {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .brand-avatar-link:focus-visible {
+      outline: 2px solid var(--gold-primary);
+      outline-offset: 3px;
+    }
+
     .brand-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(255, 209, 102, 0.25), rgba(56, 189, 248, 0.15));
-      border: 1.5px solid var(--gold-primary);
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: #0a0d18;
+      border: 1.5px solid rgba(255, 209, 102, 0.45);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--gold-primary);
-      box-shadow: 0 0 20px rgba(255, 209, 102, 0.25);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 18px rgba(255, 209, 102, 0.25);
+      transition: var(--transition);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .brand-avatar-link:hover .brand-avatar {
+      border-color: var(--gold-primary);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), 0 0 28px rgba(255, 209, 102, 0.5);
+      transform: translateY(-2px) scale(1.05);
+    }
+
+    .brand-logo-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 12px;
     }
 
     .brand-info h1 {
@@ -689,10 +723,51 @@
     /* FOOTER */
     .dash-footer {
       text-align: center;
-      font-size: 12px;
+      padding: 32px 20px 24px;
       color: var(--text-dim);
-      padding-top: 20px;
+      font-size: 12px;
       border-top: 1px solid var(--border-subtle);
+      margin-top: 24px;
+    }
+
+    .dash-footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dash-footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dash-footer-logo {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 209, 102, 0.4);
+      box-shadow: 0 0 8px rgba(255, 209, 102, 0.2);
+    }
+
+    .dash-footer-name {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--gold-primary);
+      letter-spacing: 0.04em;
+    }
+
+    .dash-footer-chip {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255, 209, 102, 0.12);
+      border: 1px solid rgba(255, 209, 102, 0.3);
+      color: var(--gold-primary);
     }
   </style>
 </head>
@@ -703,12 +778,11 @@
     <!-- TOP EXECUTIVE COMMAND BAR -->
     <header class="top-command-bar">
       <div class="brand-cluster">
-        <div class="brand-avatar">
-          <svg class="svg-icon" viewBox="0 0 24 24" style="width:22px;height:22px;">
-            <rect x="2" y="4" width="20" height="16" rx="4"></rect>
-            <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M18 12h.01M8 16h8"></path>
-          </svg>
-        </div>
+        <a href="index.html" class="brand-avatar-link" title="Return to PK Khmer Type Studio" aria-label="Return to PK Khmer Type Studio">
+          <div class="brand-avatar">
+            <img src="assets/dashboard-logo.svg" onerror="this.onerror=null;this.src='logo.svg'" alt="PK Khmer Type Official Crest Logo" width="48" height="48" class="brand-logo-img">
+          </div>
+        </a>
         <div class="brand-info">
           <h1>
             <span>PK Khmer Type — Analytics &amp; Mastery Dashboard</span>
@@ -1278,7 +1352,14 @@
 
     <!-- FOOTER -->
     <footer class="dash-footer">
-      <p>PK Khmer Type Analytics Engine · Built by Phanna Kurosaki · Zero-Emoji Compliant · Connected to Local Storage</p>
+      <div class="dash-footer-inner">
+        <div class="dash-footer-brand">
+          <img src="assets/dashboard-logo.svg" onerror="this.onerror=null;this.src='logo.svg'" alt="PK Khmer Type Logo" width="22" height="22" class="dash-footer-logo">
+          <span class="dash-footer-name">PK Khmer Type</span>
+          <span class="dash-footer-chip">Analytics Engine</span>
+        </div>
+        <p>PK Khmer Type Analytics Engine · Built by Phanna Kurosaki · Zero-Emoji Compliant · Connected to Local Storage</p>
+      </div>
     </footer>
 
   </div>
