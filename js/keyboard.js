@@ -1108,14 +1108,16 @@ function computeFingerControlPoints(p0, p3, kind, inward){
 
   let p1, p2;
   if(kind === 'thumb'){
-    // Thumb: departs laterally from thenar CMC, curves inward along spacebar
+    // Thumb: departs laterally from thenar CMC, curves inward along spacebar or adducts gracefully toward Alt
+    const isAdducting = (dx * inward) < 0;
+    const archFactor = isAdducting ? 0.05 : 0.20;
     p1 = {
-      x: p0.x + dx * 0.32 - inward * (span * 0.22),
-      y: p0.y + dy * 0.38 - 6
+      x: p0.x + dx * 0.35 - inward * (span * archFactor),
+      y: p0.y + dy * 0.38 - (isAdducting ? 2 : 5)
     };
     p2 = {
-      x: p0.x + dx * 0.70 - inward * (span * 0.08),
-      y: p0.y + dy * 0.76 - 7
+      x: p0.x + dx * 0.72 - inward * (span * (isAdducting ? 0.02 : 0.08)),
+      y: p0.y + dy * 0.75 - (isAdducting ? 3 : 6)
     };
   } else if(kind === 'pinky'){
     // Pinky: natural outward convex curve along the lateral hand edge
@@ -1638,41 +1640,6 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   const order = ['pinky','ring','middle','index'].map(k=>fingers.find(f=>f.kind===k));
   if(order.some(f=> !f || !homes[f.id])) return null;
 
-  // Damped palm shift: applies only for distant reaches (Backspace, Enter, Escape, outer numbers)
-  let palmShiftX = 0, palmShiftY = 0;
-  if(activeF && activeF.kind !== 'thumb' && targetKey){
-    const targetPt = keyCenter(targetKey, wrapRect);
-    const homePt = keyCenter(activeF.home, wrapRect);
-    if(targetPt && homePt){
-      const reachDx = targetPt.x - homePt.x;
-      const reachDy = targetPt.y - homePt.y;
-      const isDistant = ['backspace', 'enter', 'grave', 'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k0', 'minus', 'equal', 'tab', 'escape', 'shiftL', 'shiftR'].includes(targetKey);
-      const factorY = isDistant ? 0.30 : 0.12;
-      const factorX = isDistant ? 0.26 : 0.10;
-      palmShiftY = reachDy * factorY;
-      palmShiftX = reachDx * factorX;
-    }
-  }
-
-  // Anatomical metacarpal knuckle arch at bottom row boundary for natural slender fingers
-  const homeXs = order.map(f=> homes[f.id].x);
-  const homeYs = order.map(f=> homes[f.id].y);
-  const homeSpanCenterX = (homeXs[0] + homeXs[3]) * 0.5 + inward * 4;
-  const homeAvgY = homeYs.reduce((a, b)=> a + b, 0) / 4;
-  const palmArchBaseY = homeAvgY + 114;
-
-  const baseKnuckles = {};
-  order.forEach(f=>{
-    const h = homes[f.id];
-    const pull = typeof f.archPull === 'number' ? f.archPull : 0.20;
-    const dy = typeof f.archDy === 'number' ? f.archDy : 0;
-    const kx = h.x + (homeSpanCenterX - h.x) * pull + palmShiftX;
-    const ky = palmArchBaseY + dy + palmShiftY;
-    baseKnuckles[f.id] = { x: kx, y: ky };
-  });
-
-  const indexBase = baseKnuckles[order[3].id];
-
   // Dynamic Spacebar keycap geometry & bounds
   const spaceElForHand = keyEls['space'] || (typeof window !== 'undefined' && window.keyEls && window.keyEls['space']) || (typeof global !== 'undefined' && global.keyEls && global.keyEls['space']);
   let spaceBounds = null;
@@ -1694,6 +1661,52 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
       };
     }
   }
+
+  // Damped palm shift: applies for distant reaches (Backspace, Enter, Escape, outer numbers)
+  // and natural whole-hand translation for thumb modifier reaches (Alt, AltGr)
+  let palmShiftX = 0, palmShiftY = 0;
+  if(activeF && activeF.kind !== 'thumb' && targetKey){
+    const targetPt = keyCenter(targetKey, wrapRect);
+    const homePt = keyCenter(activeF.home, wrapRect);
+    if(targetPt && homePt){
+      const reachDx = targetPt.x - homePt.x;
+      const reachDy = targetPt.y - homePt.y;
+      const isDistant = ['backspace', 'enter', 'grave', 'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k0', 'minus', 'equal', 'tab', 'escape', 'shiftL', 'shiftR'].includes(targetKey);
+      const factorY = isDistant ? 0.30 : 0.12;
+      const factorX = isDistant ? 0.26 : 0.10;
+      palmShiftY = reachDy * factorY;
+      palmShiftX = reachDx * factorX;
+    }
+  } else if(activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space'){
+    const targetPt = keyCenter(targetKey, wrapRect);
+    if(targetPt){
+      const naturalRestX = isLeft
+        ? (spaceBounds ? spaceBounds.left + 24 : homes[order[3].id].x + 38)
+        : (spaceBounds ? spaceBounds.right - 24 : homes[order[3].id].x - 38);
+      const reachDx = targetPt.x - naturalRestX;
+      palmShiftX = reachDx * 0.82;
+      palmShiftY = 10;
+    }
+  }
+
+  // Anatomical metacarpal knuckle arch at bottom row boundary for natural slender fingers
+  const homeXs = order.map(f=> homes[f.id].x);
+  const homeYs = order.map(f=> homes[f.id].y);
+  const homeSpanCenterX = (homeXs[0] + homeXs[3]) * 0.5 + inward * 4;
+  const homeAvgY = homeYs.reduce((a, b)=> a + b, 0) / 4;
+  const palmArchBaseY = homeAvgY + 114;
+
+  const baseKnuckles = {};
+  order.forEach(f=>{
+    const h = homes[f.id];
+    const pull = typeof f.archPull === 'number' ? f.archPull : 0.20;
+    const dy = typeof f.archDy === 'number' ? f.archDy : 0;
+    const kx = h.x + (homeSpanCenterX - h.x) * pull + palmShiftX;
+    const ky = palmArchBaseY + dy + palmShiftY;
+    baseKnuckles[f.id] = { x: kx, y: ky };
+  });
+
+  const indexBase = baseKnuckles[order[3].id];
 
   // Resting thumb tip sits cleanly inside the Spacebar bounds,
   // completely clear of KeyV, KeyB, KeyN, and KeyM.
@@ -1931,9 +1944,11 @@ function updateHandsOverlay(){
       }
     } else {
       const homeCenter = hb.homes[f.id] || keyCenter(f.home, wrapRect);
-      // Non-active fingers remain anchored at their home keys!
+      // Non-active fingers remain anchored near their home keys, with natural translation when the hand moves
+      const floatX = hb.palmShiftX ? hb.palmShiftX * 0.70 : 0;
+      const floatY = hb.palmShiftY ? hb.palmShiftY * 0.50 : 0;
       const restTip = homeCenter
-        ? { x: homeCenter.x, y: homeCenter.y + (f.tipDy || 0) }
+        ? { x: homeCenter.x + floatX, y: homeCenter.y + (f.tipDy || 0) + floatY }
         : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };
 
       if(isActive && targetKey){
@@ -2007,7 +2022,7 @@ function renderFrame(handL, handR, wrapRect){
     let tip = cur ? { x: cur.x, y: cur.y } : (target || origin);
 
     // Physiological maximum reach limit
-    const maxLen = f.kind === 'thumb' ? 135 : (f.kind === 'pinky' ? 185 : (f.kind === 'middle' ? 210 : 200));
+    const maxLen = f.kind === 'thumb' ? 95 : (f.kind === 'pinky' ? 185 : (f.kind === 'middle' ? 210 : 200));
     const d = dist(origin, tip);
     if(d > maxLen){
       const scale = maxLen / d;
