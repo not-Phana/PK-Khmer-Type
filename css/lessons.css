@@ -5881,4 +5881,160 @@ html.anim-mode-minimal .lesson-card:hover {
   }
 }
 
+/* ============================================================
+   GRANDMASTER BONUS VAULT & SEQUENTIAL AUTO-JUMP STYLES
+   ============================================================ */
+
+.lesson-level-header.bonus-level-header {
+  background: linear-gradient(90deg, rgba(255, 209, 102, 0.12), rgba(255, 170, 0, 0.04));
+  border: 1px solid rgba(255, 209, 102, 0.28);
+  box-shadow: 0 2px 10px rgba(255, 209, 102, 0.06);
+  justify-content: space-between;
+}
+
+.lesson-level-header.bonus-level-header .llh-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.bvh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bvh-badge.locked {
+  background: rgba(255, 99, 71, 0.14);
+  border: 1px solid rgba(255, 99, 71, 0.35);
+  color: #ff6b6b;
+}
+
+.bvh-badge.unlocked {
+  background: rgba(255, 209, 102, 0.18);
+  border: 1px solid rgba(255, 209, 102, 0.45);
+  color: var(--gold-bright);
+}
+
+.lesson-card.bonus-card {
+  border-color: rgba(255, 209, 102, 0.22);
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.04), rgba(20, 24, 38, 0.7));
+}
+
+.lesson-card.bonus-card:hover {
+  border-color: rgba(255, 209, 102, 0.45);
+  box-shadow: 0 4px 14px rgba(255, 209, 102, 0.12);
+}
+
+.lesson-card-bonus-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--gold-bright);
+  background: rgba(255, 209, 102, 0.16);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+/* Bonus Auto-Jump Banner */
+.bonus-auto-jump-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 6px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.14), rgba(255, 170, 0, 0.05));
+  border: 1px solid rgba(255, 209, 102, 0.38);
+  box-shadow: 0 4px 18px rgba(255, 209, 102, 0.12);
+  animation: bonus-banner-glow 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes bonus-banner-glow {
+  0% { box-shadow: 0 4px 14px rgba(255, 209, 102, 0.1); border-color: rgba(255, 209, 102, 0.3); }
+  100% { box-shadow: 0 6px 22px rgba(255, 209, 102, 0.22); border-color: rgba(255, 209, 102, 0.6); }
+}
+
+.bonus-auto-jump-banner .baj-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 209, 102, 0.2);
+  color: var(--gold-bright);
+  flex-shrink: 0;
+}
+
+.bonus-auto-jump-banner .baj-content {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.bonus-auto-jump-banner .baj-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--gold-bright);
+  text-transform: uppercase;
+}
+
+.bonus-auto-jump-banner .baj-desc {
+  font-size: 0.76rem;
+  color: var(--sand-muted);
+  margin-top: 2px;
+}
+
+.bonus-auto-jump-banner .baj-desc b.baj-sec {
+  color: var(--gold-bright);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.bonus-auto-jump-banner .baj-jump-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #12151f;
+  background: var(--gold-bright);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform .15s ease, filter .15s ease;
+  white-space: nowrap;
+}
+
+.bonus-auto-jump-banner .baj-jump-btn:hover {
+  transform: scale(1.04);
+  filter: brightness(1.1);
+}
+
+.bonus-auto-jump-banner.vault-conquered {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(255, 209, 102, 0.08));
+  border-color: rgba(56, 189, 248, 0.35);
+}
+.bonus-auto-jump-banner.vault-conquered .baj-icon {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+.bonus-auto-jump-banner.vault-conquered .baj-title {
+  color: #38bdf8;
+}
+
+
 

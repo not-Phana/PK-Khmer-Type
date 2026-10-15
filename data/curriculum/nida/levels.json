@@ -301,6 +301,31 @@
         "allLessonsCompleted": true,
         "minLevelAccuracy": 90
       }
+    },
+    {
+      "id": "nida-L13",
+      "levelNumber": 13,
+      "isBonus": true,
+      "title": "Grandmaster Bonus Vault",
+      "titleKm": "កម្រិតពិសេស - បណ្ដុំអត្ថបទកំពូល",
+      "description": "Prestigious bonus challenges unlocked only after completing all 222 base lessons.",
+      "objective": "Achieve ultimate mastery with ancient epics and classical literature",
+      "lessons": [
+        "nida-L13-01",
+        "nida-L13-02",
+        "nida-L13-03",
+        "nida-L13-04",
+        "nida-L13-05",
+        "nida-L13-06"
+      ],
+      "unlockRequirements": {
+        "previousLevel": "nida-L12",
+        "requiresAll222": true
+      },
+      "completionRequirements": {
+        "allLessonsCompleted": true,
+        "minLevelAccuracy": 92
+      }
     }
   ]
 }

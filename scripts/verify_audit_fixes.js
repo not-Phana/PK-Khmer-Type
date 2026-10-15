@@ -4,6 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
 
 let totalTests = 0;
 let passedTests = 0;
@@ -311,6 +312,7 @@ assert(!statsJsContent.includes('totals.days.push(today);') || statsJsContent.in
 const emojiRegex = /[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}]/u;
 const auditFiles = [
   'css/responsive.css',
+  'css/lessons.css',
   'index.html',
   'js/lessons.js',
   'js/statistics.js',
@@ -328,6 +330,73 @@ auditFiles.forEach(f => {
 });
 assert(zeroEmojiClean, 'Strict zero-emoji compliance confirmed across all modified codebase files');
 
+// ====================================================
+// Area 15: Grandmaster Bonus Vault (222 Lock & Sequential Auto-Jump)
+// ====================================================
+console.log('\n--- Area 15: Grandmaster Bonus Vault (222 Lock & Sequential Auto-Jump) ---');
+const curDataJs = fs.readFileSync('data/curriculum-data.js', 'utf8');
+
+// Evaluate bundled curriculum counts
+const sandbox = { console };
+sandbox.window = sandbox;
+sandbox.global = sandbox;
+vm.createContext(sandbox);
+vm.runInContext(curDataJs, sandbox);
+
+const cd = sandbox.CURRICULUM_DATA || {};
+const stdCount = cd.standard?.lessons?.length || 0;
+const nidaCount = cd.nida?.lessons?.length || 0;
+const enCount = cd.english?.lessons?.length || 0;
+const totalLessons = stdCount + nidaCount + enCount;
+
+assert(stdCount === 84 && nidaCount === 84 && enCount === 72 && totalLessons === 240,
+  `Curriculum bundle provides exactly 240 total lessons (Standard: ${stdCount}/84, NiDA: ${nidaCount}/84, English: ${enCount}/72)`);
+
+const stdBonus = (cd.standard?.lessons || []).filter(l => l.isBonus);
+const nidaBonus = (cd.nida?.lessons || []).filter(l => l.isBonus);
+const enBonus = (cd.english?.lessons || []).filter(l => l.isBonus);
+const totalBonus = stdBonus.length + nidaBonus.length + enBonus.length;
+const baseLessonsCount = totalLessons - totalBonus;
+
+assert(baseLessonsCount === 222, `Exactly 222 base lessons exist prior to Grandmaster Bonus Vault (found ${baseLessonsCount})`);
+assert(totalBonus === 18, `Exactly 18 bonus lessons created across tracks (6 Standard, 6 NiDA, 6 English)`);
+
+// Verify lock dependency logic in js/lessons.js
+assert(lessonsJsContent.includes('function countCompletedBaseLessons()') &&
+       lessonsJsContent.includes('function areAll222LessonsUnlocked()'),
+  'js/lessons.js exports countCompletedBaseLessons() and areAll222LessonsUnlocked()');
+
+assert(lessonsJsContent.includes('if(def.isBonus){') &&
+       lessonsJsContent.includes('const baseUnlocked = areAll222LessonsUnlocked();') &&
+       lessonsJsContent.includes('if(!baseUnlocked) return true;'),
+  'isLessonLocked() strictly locks all bonus lessons until areAll222LessonsUnlocked() is true');
+
+assert(lessonsJsContent.includes('if(def.bonusIndex === 0 || def.order === 1){') &&
+       lessonsJsContent.includes('return false; // First bonus lesson is unlocked!'),
+  'isLessonLocked() unlocks ONLY the first bonus lesson once base 222 lessons are unlocked');
+
+assert(lessonsJsContent.includes('const prevBest = getLessonBest(prevId);') &&
+       lessonsJsContent.includes('return !prevBest; // Unlocks only if previous bonus lesson was finished'),
+  'isLessonLocked() enforces sequential unlocking of subsequent bonus lessons');
+
+// Verify auto-jump transition logic in js/lessons.js
+assert(lessonsJsContent.includes('bonus-auto-jump-banner') &&
+       lessonsJsContent.includes('autoJumpTimer = setTimeout(') &&
+       lessonsJsContent.includes('advanceToNext();'),
+  'showLessonComplete() renders golden auto-jump banner and schedules auto-jump transition');
+
+assert(lessonsJsContent.includes('clearAutoJump()') &&
+       lessonsJsContent.includes('clearInterval(autoJumpInterval);'),
+  'Auto-jump timer and interval are cleanly cleared on manual advance, retry, or dismissal');
+
+// Verify CSS styling in css/lessons.css
+const lessonsCssContent = fs.readFileSync('css/lessons.css', 'utf8');
+assert(lessonsCssContent.includes('.bonus-level-header') &&
+       lessonsCssContent.includes('.bvh-badge') &&
+       lessonsCssContent.includes('.lesson-card.bonus-card') &&
+       lessonsCssContent.includes('.bonus-auto-jump-banner'),
+  'css/lessons.css provides dedicated Grandmaster Bonus Vault and auto-jump visual styles');
+
 // ----------------------------------------------------
 // Final Summary
 // ----------------------------------------------------
@@ -340,5 +409,5 @@ console.log('====================================================');
 if (failedTests > 0) {
   process.exit(1);
 } else {
-  console.log('ALL 14 AUDIT AREAS VERIFIED CLEAN WITH ZERO REGRESSIONS.');
+  console.log('ALL 15 AUDIT AREAS VERIFIED CLEAN WITH ZERO REGRESSIONS.');
 }

@@ -2365,6 +2365,192 @@
         "previousLesson": "en-L13-05"
       },
       "timeLimit": 60
+    },
+    {
+      "id": "en-L14-01",
+      "level": "en-L14",
+      "order": 1,
+      "isBonus": true,
+      "bonusIndex": 0,
+      "title": "The Odyssey & Ancient Homeric Epics",
+      "titleKm": "អក្សរសិល្ប៍ក្រិកបុរាណ — The Odyssey",
+      "description": "Type timeless verses from Homer's Odyssey recounting courage, resourcefulness, and the voyage home.",
+      "objective": "Type epic classical poetry with rhythm and poise",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L14-01-E01",
+        "en-L14-01-E02",
+        "en-L14-01-E03",
+        "en-L14-01-E04",
+        "en-L14-01-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L13-06",
+        "requiresAll222": true
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L14-02",
+      "level": "en-L14",
+      "order": 2,
+      "isBonus": true,
+      "bonusIndex": 1,
+      "title": "Shakespearean Soliloquies & Drama",
+      "titleKm": "ល្ខោនបុរាណសេកស្ពៀ — Soliloquies",
+      "description": "Type dramatic soliloquies from Hamlet, Macbeth, and As You Like It with exact typographic nuance.",
+      "objective": "Master theatrical syntax, archaic punctuation, and iambic verse",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L14-02-E01",
+        "en-L14-02-E02",
+        "en-L14-02-E03",
+        "en-L14-02-E04",
+        "en-L14-02-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L14-01",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L14-03",
+      "level": "en-L14",
+      "order": 3,
+      "isBonus": true,
+      "bonusIndex": 2,
+      "title": "Philosophical Meditations of Marcus Aurelius",
+      "titleKm": "ទស្សនវិជ្ជាស្តូអ៊ីក — Marcus Aurelius",
+      "description": "Reflect and type the stoic aphorisms of Roman Emperor Marcus Aurelius on reason, virtue, and peace of mind.",
+      "objective": "Type profound philosophical reflections fluidly",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L14-03-E01",
+        "en-L14-03-E02",
+        "en-L14-03-E03",
+        "en-L14-03-E04",
+        "en-L14-03-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L14-02",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L14-04",
+      "level": "en-L14",
+      "order": 4,
+      "isBonus": true,
+      "bonusIndex": 3,
+      "title": "Universal Declaration of Human Rights",
+      "titleKm": "សេចក្តីប្រកាសជាសកលស្តីពីសិទ្ធិមនុស្ស",
+      "description": "Type the monumental 1948 charter enshrining human dignity, liberty, and equal rights worldwide.",
+      "objective": "Master formal legal and human rights prose",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L14-04-E01",
+        "en-L14-04-E02",
+        "en-L14-04-E03",
+        "en-L14-04-E04",
+        "en-L14-04-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L14-03",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L14-05",
+      "level": "en-L14",
+      "order": 5,
+      "isBonus": true,
+      "bonusIndex": 4,
+      "title": "Scientific Discoveries & Cosmos",
+      "titleKm": "វិទ្យាសាស្ត្រ និងចក្រវាល — Carl Sagan",
+      "description": "Type Carl Sagan's poetic reflections on planetary stewardship, cosmic history, and the wonder of astronomy.",
+      "objective": "Type advanced scientific and lyrical prose at high speed",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L14-05-E01",
+        "en-L14-05-E02",
+        "en-L14-05-E03",
+        "en-L14-05-E04",
+        "en-L14-05-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L14-04",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L14-06",
+      "level": "en-L14",
+      "order": 6,
+      "isBonus": true,
+      "bonusIndex": 5,
+      "title": "Grandmaster Scribe Ultimate Marathon",
+      "titleKm": "មហាអត្ថបទកំពូលស្មៀនអង់គ្លេស — Marathon",
+      "description": "The ultimate endurance sprint for touch-typing masters: complex grammar, varied vocabulary, and maximum velocity.",
+      "objective": "Complete the Grandmaster English curriculum with flawless mastery",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L14-06-E01",
+        "en-L14-06-E02",
+        "en-L14-06-E03",
+        "en-L14-06-E04",
+        "en-L14-06-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L14-05",
+        "requiresAll222": false
+      },
+      "timeLimit": null
     }
   ]
 }

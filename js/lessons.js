@@ -1638,14 +1638,65 @@ function getLessonBest(id){
 let allLessonsUnlocked = false;
 try{ allLessonsUnlocked = localStorage.getItem('khmerUnlockAll') === '1'; }catch(e){}
 
+function countCompletedBaseLessons(){
+  let completed = 0;
+  const layouts = ['standard', 'nida', 'english'];
+  layouts.forEach(layout => {
+    let list = (typeof LESSON_SETS !== 'undefined' && LESSON_SETS[layout]) ? LESSON_SETS[layout] : null;
+    if(!list || !list.length){
+      if(layout === 'standard' && typeof LESSONS_STANDARD !== 'undefined') list = LESSONS_STANDARD;
+      else if(layout === 'nida' && typeof LESSONS_NIDA !== 'undefined') list = LESSONS_NIDA;
+      else if(layout === 'english' && typeof LESSONS_ENGLISH !== 'undefined') list = LESSONS_ENGLISH;
+    }
+    if(Array.isArray(list)){
+      list.forEach(def => {
+        if(!def.isBonus && getLessonBest(def.id)){
+          completed++;
+        }
+      });
+    }
+  });
+  return completed;
+}
+window.countCompletedBaseLessons = countCompletedBaseLessons;
+
+function areAll222LessonsUnlocked(){
+  if(allLessonsUnlocked) return true;
+  return countCompletedBaseLessons() >= 222;
+}
+window.areAll222LessonsUnlocked = areAll222LessonsUnlocked;
+
 function isLessonLocked(id){
-  if(allLessonsUnlocked) return false;
   if(!LESSONS || !LESSONS.length) return false;
   const idx = LESSONS.findIndex(l => String(l.id) === String(id));
-  if(idx <= 0) return false;
+  if(idx < 0) return false;
   const def = LESSONS[idx];
-  const prevReqId = def && def.unlockRequirements && def.unlockRequirements.previousLesson;
-  const prevId = prevReqId || LESSONS[idx - 1].id;
+  if(!def) return false;
+
+  // Bonus lessons locking rule:
+  // Must unlock all 222 base lessons before the Grandmaster Bonus Vault opens.
+  if(def.isBonus){
+    const baseUnlocked = areAll222LessonsUnlocked();
+    if(!baseUnlocked) return true; // Locked until all 222 base lessons are unlocked!
+
+    // When all 222 base lessons are unlocked, unlock ONLY the first bonus lesson!
+    if(def.bonusIndex === 0 || def.order === 1){
+      return false; // First bonus lesson is unlocked!
+    }
+
+    // Subsequent bonus lessons unlock sequentially only after completing the previous bonus lesson
+    const prevReqId = def.unlockRequirements && def.unlockRequirements.previousLesson;
+    const prevId = prevReqId || (idx > 0 ? LESSONS[idx - 1].id : null);
+    if(!prevId) return false;
+    const prevBest = getLessonBest(prevId);
+    return !prevBest; // Unlocks only if previous bonus lesson was finished
+  }
+
+  if(idx === 0) return false;
+  if(allLessonsUnlocked) return false;
+  const prevReqId = def.unlockRequirements && def.unlockRequirements.previousLesson;
+  const prevId = prevReqId || (idx > 0 ? LESSONS[idx - 1].id : null);
+  if(!prevId) return false;
   const prevBest = getLessonBest(prevId);
   return !prevBest; // any completed attempt on the previous lesson unlocks the next one
 }
@@ -1730,9 +1781,12 @@ function autoAdvanceLevelAccordion(completedDef){
     // Current level is completed! Collapse current level and open the next level!
     const curIdx = LEVELS.findIndex(l => String(l.id) === currentLv);
     if(curIdx >= 0 && curIdx < LEVELS.length - 1){
-      const nextLv = String(LEVELS[curIdx + 1].id);
+      const nextLvObj = LEVELS[curIdx + 1];
+      const nextLv = String(nextLvObj.id);
       collapsedLevels.add(currentLv);    // Close completed level
-      collapsedLevels.delete(nextLv);    // Open next level
+      if(!nextLvObj.isBonus || areAll222LessonsUnlocked()){
+        collapsedLevels.delete(nextLv);  // Open next level
+      }
     }
   } else {
     // Current level still has lessons, keep it open
@@ -1849,19 +1903,39 @@ function renderLessonStrip(){
       if(def.level !== lastLevel){
         const lv = LEVELS.find(l=> String(l.id) === String(def.level));
         const collapsed = collapsedLevels.has(String(def.level));
+        const isBonusLevel = !!(lv && lv.isBonus);
         const header = document.createElement('div');
-        header.className = 'lesson-level-header' + (collapsed ? ' collapsed' : '');
+        header.className = 'lesson-level-header' + (isBonusLevel ? ' bonus-level-header' : '') + (collapsed ? ' collapsed' : '');
         header.dataset.level = String(def.level);
-        header.innerHTML = `<span class="llh-chevron">${pkIcon(collapsed ? 'arrow-right' : 'arrow-down', 11)}</span><span>${lv ? (isKm && lv.titleKm ? lv.titleKm : lv.title) : (isKm ? `កម្រិត ${def.level}` : `Level ${def.level}`)}</span>`;
+
+        let bonusBadgeHtml = '';
+        if(isBonusLevel){
+          const baseCount = countCompletedBaseLessons();
+          const baseUnlocked = areAll222LessonsUnlocked();
+          if(!baseUnlocked){
+            bonusBadgeHtml = `<span class="bvh-badge locked" title="${baseCount}/222 Base Lessons Completed">${pkIcon('lock', 10)} <span>${baseCount}/222</span></span>`;
+          } else {
+            bonusBadgeHtml = `<span class="bvh-badge unlocked" title="Grandmaster Vault Unlocked">${pkIcon('award', 10)} <span>VAULT</span></span>`;
+          }
+        }
+
+        header.innerHTML = `
+          <div class="llh-left">
+            <span class="llh-chevron">${pkIcon(collapsed ? 'arrow-right' : 'arrow-down', 11)}</span>
+            <span>${lv ? (isKm && lv.titleKm ? lv.titleKm : lv.title) : (isKm ? `កម្រិត ${def.level}` : `Level ${def.level}`)}</span>
+          </div>
+          ${bonusBadgeHtml}
+        `;
         bodyEl.appendChild(header);
         listEl = document.createElement('div');
-        listEl.className = 'lesson-level-list' + (collapsed ? ' collapsed' : '');
+        listEl.className = 'lesson-level-list' + (isBonusLevel ? ' bonus-level-list' : '') + (collapsed ? ' collapsed' : '');
         bodyEl.appendChild(listEl);
         lastLevel = def.level;
       }
+      const isBonusCard = !!def.isBonus;
       const card = document.createElement('div');
       const locked = isLessonLocked(def.id);
-      card.className = 'lesson-card' + (locked ? ' locked' : '') + (currentLesson && currentLesson.id===def.id ? ' active' : '');
+      card.className = 'lesson-card' + (isBonusCard ? ' bonus-card' : '') + (locked ? ' locked' : '') + (currentLesson && currentLesson.id===def.id ? ' active' : '');
       card.dataset.lesson = def.id;
 
       const examplesHtml = def.examples && def.examples.length
@@ -1873,12 +1947,16 @@ function renderLessonStrip(){
         ? `<span class="lesson-card-best ${best.mastered?'mastered':''}">${best.mastered ? pkIcon('star', 12) + ' ' : ''}${best.accuracy}%</span>`
         : locked ? `<span class="lesson-card-lock">${pkIcon('lock', 12)}</span>` : '';
 
+      const bonusTag = isBonusCard ? `<span class="lesson-card-bonus-tag">${pkIcon('award', 10)} <span>BONUS</span></span>` : '';
+      const numLabel = isBonusCard ? `B${String((def.bonusIndex !== undefined ? def.bonusIndex + 1 : def.order) || 1).padStart(2,'0')}` : String(idx+1).padStart(2,'0');
+
       card.innerHTML = `
-        <div class="lesson-card-num">${String(idx+1).padStart(2,'0')}</div>
+        <div class="lesson-card-num">${numLabel}</div>
         <div class="lesson-card-info">
           <div class="lesson-card-head">
             <span class="lesson-card-title">${def.title}</span>
             <span class="lesson-card-type type-${def.type}">${def.type}</span>
+            ${bonusTag}
             ${statusHtml}
           </div>
           <div class="lesson-card-sub">${def.subtitle}</div>
@@ -2010,7 +2088,27 @@ lessonStrip.addEventListener('click', (e)=>{
   const card = e.target.closest('.lesson-card');
   if(!card) return;
   const id = card.dataset.lesson;
-  if(isLessonLocked(id)) return;
+  if(isLessonLocked(id)){
+    const def = LESSONS.find(l => String(l.id) === String(id));
+    if(def && def.isBonus){
+      const completed = countCompletedBaseLessons();
+      const isKm = document.documentElement.classList.contains('site-km-mode');
+      if(!areAll222LessonsUnlocked()){
+        const msgEn = `Grandmaster Vault is locked. Complete all 222 base lessons to open (${completed}/222 finished).`;
+        const msgKm = `ឃ្លាំងមេរៀនពិសេសត្រូវបានចាក់សោ។ សូមបញ្ចប់ ២២២ មេរៀនមូលដ្ឋានជាមុនសិន (${completed}/២២២ បានបញ្ចប់)។`;
+        if(typeof showToast === 'function'){
+          showToast(pkIcon('lock', 16), isKm ? 'មេរៀនពិសេសជាប់សោ' : 'Bonus Lesson Locked', isKm ? msgKm : msgEn);
+        }
+      } else {
+        const msgEn = `Bonus lessons unlock sequentially. Finish the previous bonus lesson first!`;
+        const msgKm = `មេរៀនពិសេសដោះសោតាមលំដាប់លំដោយ។ សូមបញ្ចប់មេរៀនពិសេសមុនជាមុនសិន!`;
+        if(typeof showToast === 'function'){
+          showToast(pkIcon('lock', 16), isKm ? 'មេរៀនបន្ទាប់ជាប់សោ' : 'Sequential Unlock', isKm ? msgKm : msgEn);
+        }
+      }
+    }
+    return;
+  }
   if(lessonActive && currentLesson && String(currentLesson.id) === String(id)){
     scrollToLessonStage();
     return;
@@ -2977,8 +3075,16 @@ function showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars){
   }
 
   let keyHandler = null;
+  let autoJumpTimer = null;
+  let autoJumpInterval = null;
+
+  function clearAutoJump(){
+    if(autoJumpTimer){ clearTimeout(autoJumpTimer); autoJumpTimer = null; }
+    if(autoJumpInterval){ clearInterval(autoJumpInterval); autoJumpInterval = null; }
+  }
 
   function advanceToNext(){
+    clearAutoJump();
     if(keyHandler){ window.removeEventListener('keydown', keyHandler); keyHandler = null; }
     overlay.remove();
     if(nextLesson){
@@ -2987,6 +3093,7 @@ function showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars){
   }
 
   function dismissOverlay(){
+    clearAutoJump();
     if(keyHandler){ window.removeEventListener('keydown', keyHandler); keyHandler = null; }
     if(overlay.classList.contains('is-closing')) return;
     overlay.classList.add('is-closing');
@@ -3004,6 +3111,91 @@ function showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars){
       if(e.target === overlay) finalize();
     }, { once: true });
     setTimeout(finalize, 230);
+  }
+
+  // Grandmaster Bonus Auto-Jump:
+  // If the completed lesson was a bonus lesson and a subsequent bonus lesson exists,
+  // display the golden auto-jump banner and smoothly jump directly to that lesson.
+  if(def && def.isBonus && nextLesson && nextLesson.isBonus){
+    const cardEl = overlay.querySelector('.lesson-complete-card');
+    if(cardEl){
+      const isKm = document.documentElement.classList.contains('site-km-mode');
+      const banner = document.createElement('div');
+      banner.className = 'bonus-auto-jump-banner';
+      const jumpTitle = isKm ? 'ដោះសោវគ្គពិសេសបន្ទាប់!' : 'Next Bonus Lesson Unlocked!';
+      const targetTitle = isKm ? (nextLesson.titleKm || nextLesson.title) : nextLesson.title;
+      const jumpDesc = isKm
+        ? `កំពុងផ្លាស់ប្តូរទៅ៖ ${targetTitle} ក្នុងរយៈពេល <b class="baj-sec">2</b>វ...`
+        : `Auto-jumping to: ${targetTitle} in <b class="baj-sec">2</b>s...`;
+      const btnLabel = isKm ? 'ចូលរៀនភ្លាមៗ' : 'Jump Now';
+
+      banner.innerHTML = `
+        <div class="baj-icon">
+          <svg class="pk-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="baj-content">
+          <div class="baj-title">${jumpTitle}</div>
+          <div class="baj-desc">${jumpDesc}</div>
+        </div>
+        <button type="button" class="baj-jump-btn">${btnLabel} ${pkIcon('arrow-right', 13)}</button>
+      `;
+
+      const actionsEl = cardEl.querySelector('.lesson-complete-actions');
+      if(actionsEl){
+        cardEl.insertBefore(banner, actionsEl);
+      } else {
+        cardEl.appendChild(banner);
+      }
+
+      const jumpBtn = banner.querySelector('.baj-jump-btn');
+      if(jumpBtn){
+        jumpBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          advanceToNext();
+        });
+      }
+
+      let secLeft = 2;
+      const secEl = banner.querySelector('.baj-sec');
+      autoJumpInterval = setInterval(() => {
+        secLeft--;
+        if(secEl) secEl.textContent = String(Math.max(0, secLeft));
+        if(secLeft <= 0){
+          clearInterval(autoJumpInterval);
+          autoJumpInterval = null;
+        }
+      }, 1000);
+
+      autoJumpTimer = setTimeout(() => {
+        advanceToNext();
+      }, 2000);
+    }
+  } else if(def && def.isBonus && (!nextLesson || !nextLesson.isBonus)){
+    const cardEl = overlay.querySelector('.lesson-complete-card');
+    if(cardEl){
+      const isKm = document.documentElement.classList.contains('site-km-mode');
+      const banner = document.createElement('div');
+      banner.className = 'bonus-auto-jump-banner vault-conquered';
+      const grandTitle = isKm ? 'បានបញ្ចប់ឃ្លាំងមេរៀនពិសេសទាំងស្រុង!' : 'Grandmaster Vault Conquered!';
+      const grandDesc = isKm
+        ? 'អ្នកបានឆ្លងកាត់គ្រប់មេរៀនពិសេសទាំងអស់ក្នុងកម្រិតកំពូលនេះ!'
+        : 'You have mastered every single bonus challenge in this layout!';
+      banner.innerHTML = `
+        <div class="baj-icon">
+          <svg class="pk-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        </div>
+        <div class="baj-content">
+          <div class="baj-title">${grandTitle}</div>
+          <div class="baj-desc">${grandDesc}</div>
+        </div>
+      `;
+      const actionsEl = cardEl.querySelector('.lesson-complete-actions');
+      if(actionsEl){
+        cardEl.insertBefore(banner, actionsEl);
+      } else {
+        cardEl.appendChild(banner);
+      }
+    }
   }
 
   keyHandler = (e)=>{

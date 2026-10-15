@@ -306,6 +306,31 @@
         "minLevelAccuracy": 90
       },
       "titleKm": "ល្បឿន និងភាពស្ទាត់ជំនាញ"
+    },
+    {
+      "id": "en-L14",
+      "levelNumber": 14,
+      "isBonus": true,
+      "title": "Grandmaster Bonus Vault",
+      "titleKm": "កម្រិតពិសេស - បណ្ដុំអត្ថបទកំពូល",
+      "description": "Prestigious bonus challenges unlocked only after completing all 222 base lessons.",
+      "objective": "Type classical literature and philosophical masterpieces",
+      "lessons": [
+        "en-L14-01",
+        "en-L14-02",
+        "en-L14-03",
+        "en-L14-04",
+        "en-L14-05",
+        "en-L14-06"
+      ],
+      "unlockRequirements": {
+        "previousLevel": "en-L13",
+        "requiresAll222": true
+      },
+      "completionRequirements": {
+        "allLessonsCompleted": true,
+        "minLevelAccuracy": 92
+      }
     }
   ]
 }

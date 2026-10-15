@@ -2780,6 +2780,192 @@
         "previousLesson": "standard-L12-05"
       },
       "timeLimit": 60
+    },
+    {
+      "id": "standard-L13-01",
+      "level": "standard-L13",
+      "order": 1,
+      "isBonus": true,
+      "bonusIndex": 0,
+      "title": "Angkor Inscription & Royal Heritage",
+      "titleKm": "សិលាចារឹកអង្គរ និងកេរដំណែលបុរាណ",
+      "description": "Master classical epigraphy passages recounting the construction and spiritual dedication of ancient Khmer temples.",
+      "objective": "Type ancient stone inscriptions with speed and precision",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L13-01-E01",
+        "standard-L13-01-E02",
+        "standard-L13-01-E03",
+        "standard-L13-01-E04",
+        "standard-L13-01-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L12-06",
+        "requiresAll222": true
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L13-02",
+      "level": "standard-L13",
+      "order": 2,
+      "isBonus": true,
+      "bonusIndex": 1,
+      "title": "Reamker Epic Poetry",
+      "titleKm": "រឿងរាមកេរ្តិ៍ខ្មែរ - ឈុតមហិទ្ធិឫទ្ធិ",
+      "description": "Type soaring poetic verses from the classical Khmer Ramayana depicting heroism, loyalty, and justice.",
+      "objective": "Type classical epic poetry with heroic fluency",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L13-02-E01",
+        "standard-L13-02-E02",
+        "standard-L13-02-E03",
+        "standard-L13-02-E04",
+        "standard-L13-02-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L13-01",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L13-03",
+      "level": "standard-L13",
+      "order": 3,
+      "isBonus": true,
+      "bonusIndex": 2,
+      "title": "Tum Teav Classical Romance",
+      "titleKm": "ទុំទាវ - កំណាព្យស្នេហាបុរាណ",
+      "description": "Type famous 7-syllable verses from Venerable Som's Tum Teav, the pinnacle of 19th-century Khmer romance literature.",
+      "objective": "Master classical seven-syllable poetic meters",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L13-03-E01",
+        "standard-L13-03-E02",
+        "standard-L13-03-E03",
+        "standard-L13-03-E04",
+        "standard-L13-03-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L13-02",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L13-04",
+      "level": "standard-L13",
+      "order": 4,
+      "isBonus": true,
+      "bonusIndex": 3,
+      "title": "Ancestral Codes: Chbap Srey & Pros",
+      "titleKm": "ច្បាប់ស្រី និងច្បាប់ប្រុស - ពាក្យទូន្មានដូនតា",
+      "description": "Type ancient moral instructions on etiquette, filial piety, respect for teachers, and noble conduct.",
+      "objective": "Type ancestral didactic literature with complete accuracy",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L13-04-E01",
+        "standard-L13-04-E02",
+        "standard-L13-04-E03",
+        "standard-L13-04-E04",
+        "standard-L13-04-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L13-03",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L13-05",
+      "level": "standard-L13",
+      "order": 5,
+      "isBonus": true,
+      "bonusIndex": 4,
+      "title": "Proverbs & Deep Wisdom",
+      "titleKm": "សុភាសិត និងទស្សនវិជ្ជាខ្មែរបុរាណ",
+      "description": "Master the typing of profound Khmer proverbs containing rich metaphors, internal rhymes, and diacritical precision.",
+      "objective": "Achieve deep typographic rhythm on Khmer proverbs",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L13-05-E01",
+        "standard-L13-05-E02",
+        "standard-L13-05-E03",
+        "standard-L13-05-E04",
+        "standard-L13-05-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L13-04",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L13-06",
+      "level": "standard-L13",
+      "order": 6,
+      "isBonus": true,
+      "bonusIndex": 5,
+      "title": "Grandmaster Scribe Sprint",
+      "titleKm": "មហាអត្ថបទកំពូល - សម្ភោធជ័យជំនះ",
+      "description": "The pinnacle test of Khmer touch-typing: full-length classical prose exercising all 33 consonants, vowels, and coeng subscripts.",
+      "objective": "Claim the title of Grandmaster Scribe with flawless stamina",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L13-06-E01",
+        "standard-L13-06-E02",
+        "standard-L13-06-E03",
+        "standard-L13-06-E04",
+        "standard-L13-06-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L13-05",
+        "requiresAll222": false
+      },
+      "timeLimit": null
     }
   ]
 }

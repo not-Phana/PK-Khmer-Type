@@ -258,6 +258,10 @@ function validateCurriculum(layoutId) {
 
     const lvlMatch = l.level && l.level.match(/L(\d+)/);
     const lvlNum = lvlMatch ? parseInt(lvlMatch[1], 10) : 0;
+    if (l.isBonus || lvlNum >= 13) {
+      // Grandmaster Bonus Vault lessons are standalone literature challenges
+      return;
+    }
     let minExpected = 15, maxExpected = 65;
     if (lvlNum >= 3 && lvlNum <= 5) { minExpected = 60; maxExpected = 145; }
     else if (lvlNum >= 6 && lvlNum <= 8) { minExpected = 135; maxExpected = 265; }
