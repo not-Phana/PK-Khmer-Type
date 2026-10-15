@@ -1511,7 +1511,7 @@
     "slash": "rp",
     "extra": "rp",
     "shiftR": "rp",
-    "ctrlL": "lt",
+    "ctrlL": "lp",
     "alt": "lt",
     "space": "rt",
     "altgr": "rt",

@@ -1276,6 +1276,7 @@ window.addEventListener('keyup', (e)=>{
   const id = CODE_MAP[e.code];
   if(!id) return;
   if(keyEls[id]) keyEls[id].classList.remove('pressed');
+  if(typeof triggerFingerRelease === 'function') triggerFingerRelease(id);
   if(id === 'shiftL' || id === 'shiftR'){
     if(!e.shiftKey) heldModifiers.delete('shift');
     recomputePhysicalLayer();

@@ -274,7 +274,7 @@ try {
 } catch(e){}
 
 let currentLayoutId = initialLayout;
-window.currentLayoutId = currentLayoutId;
+if(typeof window !== 'undefined') window.currentLayoutId = currentLayoutId;
 let ALL_ROWS = LAYOUTS[currentLayoutId].rows;
 
 /* physical-keyboard code -> our key id */
@@ -289,12 +289,14 @@ const CODE_MAP = {
   ShiftLeft:'shiftL', ShiftRight:'shiftR', KeyZ:'z', KeyX:'x', KeyC:'c', KeyV:'v', KeyB:'b',
   KeyN:'n', KeyM:'m', Comma:'comma', Period:'period', Slash:'slash',
   ControlLeft:'ctrlL', ControlRight:'ctrlR', AltLeft:'alt', AltRight:'altgr', Space:'space',
+  Escape:'escape', IntlBackslash:'backslash', MetaLeft:'metaL', Delete:'delete',
+  F1:'f1', F2:'f2', F3:'f3', F4:'f4', F5:'f5', F6:'f6', F7:'f7', F8:'f8', F9:'f9', F10:'f10', F11:'f11', F12:'f12'
 };
 
 
-const board = document.getElementById("keyboard");
-const boardWrap = document.getElementById("boardWrap");
-const layoutStrip = document.getElementById("layoutStrip");
+const board = typeof document !== 'undefined' ? document.getElementById("keyboard") : null;
+const boardWrap = typeof document !== 'undefined' ? document.getElementById("boardWrap") : null;
+const layoutStrip = typeof document !== 'undefined' ? document.getElementById("layoutStrip") : null;
 
 const TOOLTIP_TEXT = {
   ctrl: { title:"VK_CONTROL", body:"Ctrl key with Ctrl enabled.\nHold for shortcuts." },
@@ -318,16 +320,353 @@ const KEY_FINGER = {
   semicolon:'rp', quote:'rp', backslash:'rp',
   shiftL:'lp', z:'lp', x:'lr', c:'lm', v:'li', b:'li', n:'ri', m:'ri',
   comma:'rm', period:'rr', slash:'rp', extra:'rp', shiftR:'rp',
-  ctrlL:'lt', alt:'lt', space:'rt', altgr:'rt', ctrlR:'rp',
+  ctrlL:'lp', alt:'lt', space:'rt', altgr:'rt', ctrlR:'rp',
+  escape:'lp', metaL:'lp', delete:'rp',
+  f1:'lp', f2:'lr', f3:'lm', f4:'li', f5:'li',
+  f6:'ri', f7:'ri', f8:'rm', f9:'rr', f10:'rp', f11:'rp', f12:'rp'
 };
-window.KEY_FINGER = KEY_FINGER;
+if(typeof window !== 'undefined') window.KEY_FINGER = KEY_FINGER;
+
+const CANONICAL_FINGER_MAP = Object.freeze({
+  // Left Pinky (L5)
+  Backquote: 'L5', Digit1: 'L5', Escape: 'L5', F1: 'L5',
+  Tab: 'L5', KeyQ: 'L5', CapsLock: 'L5', KeyA: 'L5',
+  ShiftLeft: 'L5', IntlBackslash: 'L5', KeyZ: 'L5',
+  ControlLeft: 'L5', MetaLeft: 'L5',
+
+  // Left Ring (L4)
+  Digit2: 'L4', F2: 'L4', KeyW: 'L4', KeyS: 'L4', KeyX: 'L4',
+
+  // Left Middle (L3)
+  Digit3: 'L3', F3: 'L3', KeyE: 'L3', KeyD: 'L3', KeyC: 'L3',
+
+  // Left Index (L2)
+  Digit4: 'L2', Digit5: 'L2', F4: 'L2', F5: 'L2',
+  KeyR: 'L2', KeyT: 'L2', KeyF: 'L2', KeyG: 'L2',
+  KeyV: 'L2', KeyB: 'L2',
+
+  // Left Thumb (L1)
+  AltLeft: 'L1',
+
+  // Right Thumb (R1)
+  AltRight: 'R1',
+  Space: 'R1', // Default active thumb is R1 (configurable)
+
+  // Right Index (R2)
+  Digit6: 'R2', // Default R2 (configurable)
+  Digit7: 'R2', F6: 'R2', F7: 'R2',
+  KeyY: 'R2', KeyU: 'R2', KeyH: 'R2', KeyJ: 'R2',
+  KeyN: 'R2', KeyM: 'R2',
+
+  // Right Middle (R3)
+  Digit8: 'R3', F8: 'R3', KeyI: 'R3', KeyK: 'R3', Comma: 'R3',
+
+  // Right Ring (R4)
+  Digit9: 'R4', F9: 'R4', KeyO: 'R4', KeyL: 'R4', Period: 'R4',
+
+  // Right Pinky (R5)
+  Digit0: 'R5', Minus: 'R5', Equal: 'R5', Backspace: 'R5',
+  F10: 'R5', F11: 'R5', F12: 'R5',
+  KeyP: 'R5', BracketLeft: 'R5', BracketRight: 'R5', Backslash: 'R5',
+  Semicolon: 'R5', Quote: 'R5', Enter: 'R5',
+  Slash: 'R5', ShiftRight: 'R5', ControlRight: 'R5',
+  Delete: 'R5', ArrowUp: 'R5', ArrowDown: 'R5', ArrowLeft: 'R5', ArrowRight: 'R5'
+});
+if(typeof window !== 'undefined') window.CANONICAL_FINGER_MAP = CANONICAL_FINGER_MAP;
+
+const FINGER_CODE_TO_CANONICAL = Object.freeze({
+  lp: 'L5', lr: 'L4', lm: 'L3', li: 'L2', lt: 'L1',
+  rt: 'R1', ri: 'R2', rm: 'R3', rr: 'R4', rp: 'R5'
+});
+if(typeof window !== 'undefined') window.FINGER_CODE_TO_CANONICAL = FINGER_CODE_TO_CANONICAL;
+
+const CANONICAL_TO_FINGER_CODE = Object.freeze({
+  L5: 'lp', L4: 'lr', L3: 'lm', L2: 'li', L1: 'lt',
+  R1: 'rt', R2: 'ri', R3: 'rm', R4: 'rr', R5: 'rp'
+});
+if(typeof window !== 'undefined') window.CANONICAL_TO_FINGER_CODE = CANONICAL_TO_FINGER_CODE;
+
+function toCanonicalFinger(id){
+  if(!id) return null;
+  if(CANONICAL_TO_FINGER_CODE[id]) return id;
+  return FINGER_CODE_TO_CANONICAL[id] || null;
+}
+if(typeof window !== 'undefined') window.toCanonicalFinger = toCanonicalFinger;
+
+function toLegacyFinger(id){
+  if(!id) return null;
+  if(FINGER_CODE_TO_CANONICAL[id]) return id;
+  return CANONICAL_TO_FINGER_CODE[id] || null;
+}
+if(typeof window !== 'undefined') window.toLegacyFinger = toLegacyFinger;
+
+const HAND_CONFIG = {
+  sixKeyFinger: 'R2',      // 'R2' (default) | 'L2'
+  keyBFinger: 'L2',        // 'L2' (default)
+  spaceThumbMode: 'right', // 'right' (default) | 'left' | 'alternate'
+  overlayMode: 'full',     // 'full' (default) | 'ghost' | 'hidden'
+  handOpacity: 0.85,
+  reducedMotion: false,
+  lastKeystrokeHand: null
+};
+if(typeof window !== 'undefined') window.HAND_CONFIG = HAND_CONFIG;
+
+const HAND_STATES = Object.freeze({
+  ENTERING: 'entering',
+  HOME_REST: 'home_rest',
+  ANTICIPATION: 'anticipation',
+  REACHING: 'reaching',
+  PRESSING: 'pressing',
+  HOLDING: 'holding',
+  RELEASING: 'releasing',
+  RETURNING: 'returning',
+  PALM_GLIDE: 'palm_glide',
+  CHORD_COORDINATION: 'chord_coordination'
+});
+if(typeof window !== 'undefined') window.HAND_STATES = HAND_STATES;
+
+function getFingerForKey(codeOrId, options){
+  const cfg = Object.assign({}, HAND_CONFIG, options || {});
+  if(!codeOrId) return 'R1';
+
+  let keyId = codeOrId;
+  let code = null;
+
+  if(CODE_MAP[codeOrId]){
+    code = codeOrId;
+    keyId = CODE_MAP[codeOrId];
+  } else {
+    for(const [c, id] of Object.entries(CODE_MAP)){
+      if(id === keyId){ code = c; break; }
+    }
+  }
+
+  // Pedagogical option: Digit6 ownership
+  if(code === 'Digit6' || keyId === 'k6'){
+    return cfg.sixKeyFinger || 'R2';
+  }
+
+  // Pedagogical option: KeyB ownership
+  if(code === 'KeyB' || keyId === 'b'){
+    return cfg.keyBFinger || 'L2';
+  }
+
+  // Pedagogical option: Spacebar active thumb
+  if(code === 'Space' || keyId === 'space'){
+    if(cfg.spaceThumbMode === 'left') return 'L1';
+    if(cfg.spaceThumbMode === 'alternate'){
+      return (cfg.lastKeystrokeHand === 'R') ? 'L1' : 'R1';
+    }
+    return 'R1';
+  }
+
+  // Canonical physical lookup
+  if(code && CANONICAL_FINGER_MAP[code]){
+    return CANONICAL_FINGER_MAP[code];
+  }
+
+  // Fallback to KEY_FINGER table
+  const legacy = KEY_FINGER[keyId];
+  if(legacy && FINGER_CODE_TO_CANONICAL[legacy]){
+    return FINGER_CODE_TO_CANONICAL[legacy];
+  }
+
+  return 'R1';
+}
+if(typeof window !== 'undefined') window.getFingerForKey = getFingerForKey;
+
+function resolveModifierChoreography(keyId, layer, options){
+  if(!keyId || !layer || layer === 'base') return null;
+  const cfg = Object.assign({}, HAND_CONFIG, options || {});
+  const targetFinger = getFingerForKey(keyId, cfg);
+  const targetLegacyFinger = toLegacyFinger(targetFinger);
+  const isLeftHand = targetFinger.startsWith('L') || ['lp', 'lr', 'lm', 'li', 'lt'].includes(targetFinger);
+
+  if(layer === 'shift'){
+    if(keyId === 'shiftL' || keyId === 'shiftR') return null;
+    if(keyId === 'space'){
+      return {
+        modifierKey: 'shiftL',
+        modifierCode: 'ShiftLeft',
+        modifierFinger: 'L5',
+        modifierLegacyFinger: 'lp',
+        fingerId: 'lp',
+        targetKey: 'space',
+        targetFinger: getFingerForKey('space', cfg),
+        targetLegacyFinger: toLegacyFinger(getFingerForKey('space', cfg))
+      };
+    }
+    // Opposite-Hand Rule:
+    // Target on Left Hand -> ShiftRight (R5 / rp)
+    // Target on Right Hand -> ShiftLeft (L5 / lp)
+    const modifierKey = isLeftHand ? 'shiftR' : 'shiftL';
+    const modifierCode = isLeftHand ? 'ShiftRight' : 'ShiftLeft';
+    const modifierFinger = isLeftHand ? 'R5' : 'L5';
+    const modifierLegacyFinger = isLeftHand ? 'rp' : 'lp';
+
+    return {
+      modifierKey,
+      modifierCode,
+      modifierFinger,
+      modifierLegacyFinger,
+      fingerId: modifierLegacyFinger,
+      targetKey: keyId,
+      targetFinger,
+      targetLegacyFinger
+    };
+  }
+
+  if(layer === 'altgr'){
+    if(keyId === 'altgr') return null;
+    return {
+      modifierKey: 'altgr',
+      modifierCode: 'AltRight',
+      modifierFinger: 'R1',
+      modifierLegacyFinger: 'rt',
+      fingerId: 'rt',
+      targetKey: keyId,
+      targetFinger,
+      targetLegacyFinger
+    };
+  }
+
+  if(layer === 'ctrl'){
+    if(keyId === 'ctrlL' || keyId === 'ctrlR') return null;
+    const modifierKey = isLeftHand ? 'ctrlR' : 'ctrlL';
+    const modifierCode = isLeftHand ? 'ControlRight' : 'ControlLeft';
+    const modifierFinger = isLeftHand ? 'R5' : 'L5';
+    const modifierLegacyFinger = isLeftHand ? 'rp' : 'lp';
+
+    return {
+      modifierKey,
+      modifierCode,
+      modifierFinger,
+      modifierLegacyFinger,
+      fingerId: modifierLegacyFinger,
+      targetKey: keyId,
+      targetFinger,
+      targetLegacyFinger
+    };
+  }
+
+  return null;
+}
+if(typeof window !== 'undefined') window.resolveModifierChoreography = resolveModifierChoreography;
+
+function decomposeKhmerSequence(targetText, layoutId){
+  const lid = layoutId || (typeof currentLayoutId !== 'undefined' ? currentLayoutId : 'nida');
+  const table = (lid === 'nida') ? LAYOUTS.nida
+              : (lid === 'english') ? LAYOUTS.english
+              : LAYOUTS.standard;
+  if(!targetText) return [];
+
+  function findGlyph(ch){
+    if(ch === ' ' || ch === '\u200B'){
+      if(lid === 'english') return { id: 'space', layer: 'base', code: 'Space' };
+      if(lid === 'nida'){
+        return (ch === '\u200B')
+          ? { id: 'space', layer: 'base', code: 'Space' }
+          : { id: 'space', layer: 'shift', code: 'Space' };
+      }
+      return { id: 'space', layer: 'shift', code: 'Space' };
+    }
+    if(ch === '្' && lid === 'standard'){
+      return { id: 'space', layer: 'base', code: 'Space' };
+    }
+    if(table && table.rows){
+      for(const row of table.rows){
+        for(const k of row){
+          if(k.base === ch) return { id: k.id, layer: 'base', code: Object.keys(CODE_MAP).find(c=> CODE_MAP[c] === k.id) };
+          if(k.shift === ch) return { id: k.id, layer: 'shift', code: Object.keys(CODE_MAP).find(c=> CODE_MAP[c] === k.id) };
+          if(k.altgr === ch) return { id: k.id, layer: 'altgr', code: Object.keys(CODE_MAP).find(c=> CODE_MAP[c] === k.id) };
+          if(k.ctrl === ch) return { id: k.id, layer: 'ctrl', code: Object.keys(CODE_MAP).find(c=> CODE_MAP[c] === k.id) };
+        }
+      }
+    }
+    return null;
+  }
+
+  const steps = [];
+  const text = String(targetText);
+  let i = 0;
+
+  // Single-keystroke composite vowels on NiDA
+  const NIDA_COMPOSITES = {
+    '\u17B6\u17C6': { id: 'a', layer: 'shift', code: 'KeyA', desc: 'Composite Vowel ាំ (Shift+A)' },
+    '\u17C4\u17C7': { id: 'semicolon', layer: 'shift', code: 'Semicolon', desc: 'Composite Vowel ោះ (Shift+;)' },
+    '\u17C1\u17C7': { id: 'v', layer: 'shift', code: 'KeyV', desc: 'Composite Vowel េះ (Shift+V)' },
+    '\u17BB\u17C6': { id: 'comma', layer: 'base', code: 'Comma', desc: 'Composite Vowel ុំ (Comma)' },
+    '\u17BB\u17C7': { id: 'comma', layer: 'shift', code: 'Comma', desc: 'Composite Vowel ុះ (Shift+Comma)' },
+  };
+
+  while(i < text.length){
+    if(lid === 'nida' && i + 1 < text.length){
+      const two = text.slice(i, i + 2);
+      if(NIDA_COMPOSITES[two]){
+        const comp = NIDA_COMPOSITES[two];
+        const finger = getFingerForKey(comp.id);
+        const mod = resolveModifierChoreography(comp.id, comp.layer);
+        steps.push({
+          stepIndex: steps.length,
+          char: two,
+          keyId: comp.id,
+          code: comp.code,
+          layer: comp.layer,
+          finger,
+          legacyFinger: toLegacyFinger(finger),
+          modifierInfo: mod,
+          description: comp.desc
+        });
+        i += 2;
+        continue;
+      }
+    }
+
+    const ch = text[i];
+    const loc = findGlyph(ch);
+    if(loc){
+      const finger = getFingerForKey(loc.id);
+      const mod = resolveModifierChoreography(loc.id, loc.layer);
+      steps.push({
+        stepIndex: steps.length,
+        char: ch,
+        keyId: loc.id,
+        code: loc.code || loc.id,
+        layer: loc.layer,
+        finger,
+        legacyFinger: toLegacyFinger(finger),
+        modifierInfo: mod,
+        description: (ch === '្') ? 'Subscript Sign (Coeng) ្' : `Key ${loc.id}`
+      });
+    } else {
+      steps.push({
+        stepIndex: steps.length,
+        char: ch,
+        keyId: null,
+        code: null,
+        layer: 'base',
+        finger: null,
+        legacyFinger: null,
+        modifierInfo: null,
+        description: `Unmapped Character ${ch}`
+      });
+    }
+    i++;
+  }
+
+  return steps;
+}
+if(typeof window !== 'undefined') window.decomposeKhmerSequence = decomposeKhmerSequence;
 
 function buildBoard(){
+  if(!board) return;
   board.innerHTML = '';
   keyEls = {};
   glyphData = {};
-  window.keyEls = keyEls;
-  window.glyphData = glyphData;
+  if(typeof window !== 'undefined'){
+    window.keyEls = keyEls;
+    window.glyphData = glyphData;
+  }
 ALL_ROWS.forEach(rowDef=>{
   const rowEl = document.createElement('div');
   rowEl.className = 'row';
@@ -336,7 +675,10 @@ ALL_ROWS.forEach(rowDef=>{
     el.className = 'key notranslate';
     el.setAttribute('translate', 'no');
     el.dataset.key = k.id;
-    if(KEY_FINGER[k.id]) el.dataset.finger = KEY_FINGER[k.id];
+    if(KEY_FINGER[k.id]){
+      el.dataset.finger = KEY_FINGER[k.id];
+      el.dataset.canonicalFinger = toCanonicalFinger(KEY_FINGER[k.id]);
+    }
     const u = k.wide || (k.id === 'space' ? 9 : 1);
     el.style.setProperty('--u', u);
     el.style.flexGrow = u;
@@ -477,19 +819,23 @@ function syncLayoutUI(id){
     window.syncSettingsLayoutChoiceUI(targetId);
   }
 }
-window.syncLayoutUI = syncLayoutUI;
-window.switchLayout = switchLayout;
-window.setActiveLayout = function(id) { switchLayout(id, true); };
+if(typeof window !== 'undefined'){
+  window.syncLayoutUI = syncLayoutUI;
+  window.switchLayout = switchLayout;
+  window.setActiveLayout = function(id) { switchLayout(id, true); };
+}
 
 // Self-booting fallback so keyboard is guaranteed to render reliably
-if(document.readyState !== 'loading'){
-  buildBoard();
-  syncLayoutUI(currentLayoutId);
-} else {
-  document.addEventListener('DOMContentLoaded', ()=>{
-    if(board && board.children.length === 0) buildBoard();
+if(typeof document !== 'undefined'){
+  if(document.readyState !== 'loading'){
+    buildBoard();
     syncLayoutUI(currentLayoutId);
-  });
+  } else {
+    document.addEventListener('DOMContentLoaded', ()=>{
+      if(board && board.children.length === 0) buildBoard();
+      syncLayoutUI(currentLayoutId);
+    });
+  }
 }
 
 
@@ -692,33 +1038,35 @@ if(layoutStrip){
 
 
 /* ---------- finger guide (illustrated translucent hands) ---------- */
-window.KEY_FINGER = KEY_FINGER;
-window.keyEls = keyEls;
-window.currentLayer = currentLayer;
-window.setActiveFinger = setActiveFinger;
-window.render = render;
-window.LAYOUTS = LAYOUTS;
-window.glyphData = glyphData;
-const FINGERS = [
-  {id:'lp', hand:'L', home:'a', kind:'pinky',  baseW:33.5, tipW:19.5, kDist:76, restLen:72, restAng:-0.08, archPull:0.26, archDy:7,  tipDy:8},
-  {id:'lr', hand:'L', home:'s', kind:'ring',   baseW:36.0, tipW:21.8, kDist:74, restLen:76, restAng:-0.03, archPull:0.24, archDy:-1, tipDy:0},
-  {id:'lm', hand:'L', home:'d', kind:'middle', baseW:37.8, tipW:23.2, kDist:72, restLen:82, restAng:0.00,  archPull:0.24, archDy:-6, tipDy:-6},
-  {id:'li', hand:'L', home:'f', kind:'index',  baseW:36.8, tipW:22.6, kDist:74, restLen:76, restAng:0.04,  archPull:0.25, archDy:-1, tipDy:1},
-  {id:'lt', hand:'L', home:'space', kind:'thumb', baseW:38.0, tipW:23.5, kDist:66, restLen:68, restAng:0.52, archPull:0, archDy:0, tipDy:0},
-  {id:'rt', hand:'R', home:'space', kind:'thumb', baseW:38.0, tipW:23.5, kDist:66, restLen:68, restAng:-0.52, archPull:0, archDy:0, tipDy:0},
-  {id:'ri', hand:'R', home:'j', kind:'index',  baseW:36.8, tipW:22.6, kDist:74, restLen:76, restAng:-0.04, archPull:0.25, archDy:-1, tipDy:1},
-  {id:'rm', hand:'R', home:'k', kind:'middle', baseW:37.8, tipW:23.2, kDist:72, restLen:82, restAng:0.00,  archPull:0.24, archDy:-6, tipDy:-6},
-  {id:'rr', hand:'R', home:'l', kind:'ring',   baseW:36.0, tipW:21.8, kDist:74, restLen:76, restAng:0.03,  archPull:0.24, archDy:-1, tipDy:0},
-  {id:'rp', hand:'R', home:'semicolon', kind:'pinky', baseW:33.5, tipW:19.5, kDist:76, restLen:72, restAng:0.08, archPull:0.26, archDy:7, tipDy:8},
-];
-window.FINGERS = FINGERS;
+if(typeof window !== 'undefined'){
+  window.keyEls = keyEls;
+  window.currentLayer = currentLayer;
+  window.setActiveFinger = setActiveFinger;
+  window.render = render;
+  window.LAYOUTS = LAYOUTS;
+  window.glyphData = glyphData;
+}
 
-const handsOverlay = document.getElementById('handsOverlay');
-const handsToggle = document.getElementById('handsToggle');
+const FINGERS = [
+  {id:'lp', canonicalId:'L5', hand:'L', home:'a', kind:'pinky',  baseW:33.5, tipW:19.5, kDist:76, restLen:72, restAng:-0.08, archPull:0.26, archDy:7,  tipDy:8},
+  {id:'lr', canonicalId:'L4', hand:'L', home:'s', kind:'ring',   baseW:36.0, tipW:21.8, kDist:74, restLen:76, restAng:-0.03, archPull:0.24, archDy:-1, tipDy:0},
+  {id:'lm', canonicalId:'L3', hand:'L', home:'d', kind:'middle', baseW:37.8, tipW:23.2, kDist:72, restLen:82, restAng:0.00,  archPull:0.24, archDy:-6, tipDy:-6},
+  {id:'li', canonicalId:'L2', hand:'L', home:'f', kind:'index',  baseW:36.8, tipW:22.6, kDist:74, restLen:76, restAng:0.04,  archPull:0.25, archDy:-1, tipDy:1},
+  {id:'lt', canonicalId:'L1', hand:'L', home:'space', kind:'thumb', baseW:38.0, tipW:23.5, kDist:66, restLen:68, restAng:0.52, archPull:0, archDy:0, tipDy:0},
+  {id:'rt', canonicalId:'R1', hand:'R', home:'space', kind:'thumb', baseW:38.0, tipW:23.5, kDist:66, restLen:68, restAng:-0.52, archPull:0, archDy:0, tipDy:0},
+  {id:'ri', canonicalId:'R2', hand:'R', home:'j', kind:'index',  baseW:36.8, tipW:22.6, kDist:74, restLen:76, restAng:-0.04, archPull:0.25, archDy:-1, tipDy:1},
+  {id:'rm', canonicalId:'R3', hand:'R', home:'k', kind:'middle', baseW:37.8, tipW:23.2, kDist:72, restLen:82, restAng:0.00,  archPull:0.24, archDy:-6, tipDy:-6},
+  {id:'rr', canonicalId:'R4', hand:'R', home:'l', kind:'ring',   baseW:36.0, tipW:21.8, kDist:74, restLen:76, restAng:0.03,  archPull:0.24, archDy:-1, tipDy:0},
+  {id:'rp', canonicalId:'R5', hand:'R', home:'semicolon', kind:'pinky', baseW:33.5, tipW:19.5, kDist:76, restLen:72, restAng:0.08, archPull:0.26, archDy:7, tipDy:8},
+];
+if(typeof window !== 'undefined') window.FINGERS = FINGERS;
+
+const handsOverlay = typeof document !== 'undefined' ? document.getElementById('handsOverlay') : null;
+const handsToggle = typeof document !== 'undefined' ? document.getElementById('handsToggle') : null;
 let handsOn = true;
-window.handsOn = handsOn;
+if(typeof window !== 'undefined') window.handsOn = handsOn;
 const fingerEls = {}; // id -> {g, shape, shine, crease1, crease2, nail, tip}
-window.fingerEls = fingerEls;
+if(typeof window !== 'undefined') window.fingerEls = fingerEls;
 
 /* ---- svg geometry helpers ---- */
 const SVGNS = 'http://www.w3.org/2000/svg';
@@ -891,14 +1239,15 @@ function getThemeMatchedColors() {
   return { l: '#38bdf8', r: '#f472b6' };
 }
 
-const defs = document.createElementNS(SVGNS, 'defs');
-defs.id = 'handsDefs';
+const defs = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS, 'defs') : null;
+if(defs) defs.id = 'handsDefs';
 
 function updateHandsGradients(leftHex, rightHex) {
   const palL = buildHandPalette(leftHex, '#38bdf8');
   const palR = buildHandPalette(rightHex, '#f472b6');
 
-  defs.innerHTML = `
+  if(defs){
+    defs.innerHTML = `
   <linearGradient id="fingerGrad" x1="0" y1="1" x2="0.2" y2="0">
     <stop offset="0%" stop-color="${palL.mid}" stop-opacity="0"/>
     <stop offset="35%" stop-color="${palL.mid}" stop-opacity="0.22"/>
@@ -964,82 +1313,89 @@ function updateHandsGradients(leftHex, rightHex) {
     <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.42"/>
   </filter>
   `;
+  }
 
-  const r = document.documentElement;
-  r.style.setProperty('--hand-l-hex', palL.hex);
-  r.style.setProperty('--hand-l-stroke', palL.strokeRgba);
-  r.style.setProperty('--hand-l-shadow', palL.shadowRgba);
-  r.style.setProperty('--hand-l-shine', palL.light);
-  r.style.setProperty('--hand-l-crease', palL.strokeRgba);
-  r.style.setProperty('--hand-l-nail-fill', palL.nailFillRgba);
-  r.style.setProperty('--hand-l-nail-stroke', palL.light);
-  r.style.setProperty('--hand-l-tip-fill', palL.tipFillRgba);
-  r.style.setProperty('--hand-l-tip-stroke', palL.light);
-  r.style.setProperty('--hand-l-glow', palL.glowRgba);
+  const r = typeof document !== 'undefined' ? document.documentElement : null;
+  if(r && r.style){
+    r.style.setProperty('--hand-l-hex', palL.hex);
+    r.style.setProperty('--hand-l-stroke', palL.strokeRgba);
+    r.style.setProperty('--hand-l-shadow', palL.shadowRgba);
+    r.style.setProperty('--hand-l-shine', palL.light);
+    r.style.setProperty('--hand-l-crease', palL.strokeRgba);
+    r.style.setProperty('--hand-l-nail-fill', palL.nailFillRgba);
+    r.style.setProperty('--hand-l-nail-stroke', palL.light);
+    r.style.setProperty('--hand-l-tip-fill', palL.tipFillRgba);
+    r.style.setProperty('--hand-l-tip-stroke', palL.light);
+    r.style.setProperty('--hand-l-glow', palL.glowRgba);
 
-  r.style.setProperty('--hand-r-hex', palR.hex);
-  r.style.setProperty('--hand-r-stroke', palR.strokeRgba);
-  r.style.setProperty('--hand-r-shadow', palR.shadowRgba);
-  r.style.setProperty('--hand-r-shine', palR.light);
-  r.style.setProperty('--hand-r-crease', palR.strokeRgba);
-  r.style.setProperty('--hand-r-nail-fill', palR.nailFillRgba);
-  r.style.setProperty('--hand-r-nail-stroke', palR.light);
-  r.style.setProperty('--hand-r-tip-fill', palR.tipFillRgba);
-  r.style.setProperty('--hand-r-tip-stroke', palR.light);
-  r.style.setProperty('--hand-r-glow', palR.glowRgba);
+    r.style.setProperty('--hand-r-hex', palR.hex);
+    r.style.setProperty('--hand-r-stroke', palR.strokeRgba);
+    r.style.setProperty('--hand-r-shadow', palR.shadowRgba);
+    r.style.setProperty('--hand-r-shine', palR.light);
+    r.style.setProperty('--hand-r-crease', palR.strokeRgba);
+    r.style.setProperty('--hand-r-nail-fill', palR.nailFillRgba);
+    r.style.setProperty('--hand-r-nail-stroke', palR.light);
+    r.style.setProperty('--hand-r-tip-fill', palR.tipFillRgba);
+    r.style.setProperty('--hand-r-tip-stroke', palR.light);
+    r.style.setProperty('--hand-r-glow', palR.glowRgba);
+  }
 }
 
-window.PKHandsColor = {
-  PRESETS: HAND_COLOR_PRESETS,
-  applyHandColors: function(presetKey, customL, customR) {
-    presetKey = presetKey || (function(){ try { return localStorage.getItem('khmerSettingHandColorPreset'); }catch(e){ return null; } })() || 'cyber';
-    let l, r;
-    if (presetKey === 'custom') {
-      try {
-        l = customL || localStorage.getItem('khmerSettingHandColorCustomL') || '#38bdf8';
-        r = customR || localStorage.getItem('khmerSettingHandColorCustomR') || '#f472b6';
-      } catch(e) {
-        l = '#38bdf8'; r = '#f472b6';
+if(typeof window !== 'undefined'){
+  window.PKHandsColor = {
+    PRESETS: HAND_COLOR_PRESETS,
+    applyHandColors: function(presetKey, customL, customR) {
+      presetKey = presetKey || (function(){ try { return localStorage.getItem('khmerSettingHandColorPreset'); }catch(e){ return null; } })() || 'cyber';
+      let l, r;
+      if (presetKey === 'custom') {
+        try {
+          l = customL || localStorage.getItem('khmerSettingHandColorCustomL') || '#38bdf8';
+          r = customR || localStorage.getItem('khmerSettingHandColorCustomR') || '#f472b6';
+        } catch(e) {
+          l = '#38bdf8'; r = '#f472b6';
+        }
+      } else if (presetKey === 'match') {
+        const matched = getThemeMatchedColors();
+        l = matched.l;
+        r = matched.r;
+      } else if (HAND_COLOR_PRESETS[presetKey]) {
+        l = HAND_COLOR_PRESETS[presetKey].l;
+        r = HAND_COLOR_PRESETS[presetKey].r;
+      } else {
+        l = '#38bdf8';
+        r = '#f472b6';
+        presetKey = 'cyber';
       }
-    } else if (presetKey === 'match') {
-      const matched = getThemeMatchedColors();
-      l = matched.l;
-      r = matched.r;
-    } else if (HAND_COLOR_PRESETS[presetKey]) {
-      l = HAND_COLOR_PRESETS[presetKey].l;
-      r = HAND_COLOR_PRESETS[presetKey].r;
-    } else {
-      l = '#38bdf8';
-      r = '#f472b6';
-      presetKey = 'cyber';
+      updateHandsGradients(l, r);
+      try {
+        localStorage.setItem('khmerSettingHandColorPreset', presetKey);
+        if (customL) localStorage.setItem('khmerSettingHandColorCustomL', customL);
+        if (customR) localStorage.setItem('khmerSettingHandColorCustomR', customR);
+      } catch(e){}
+
+      if(typeof document !== 'undefined' && typeof document.dispatchEvent === 'function' && typeof CustomEvent !== 'undefined'){
+        document.dispatchEvent(new CustomEvent('pk-hand-colors-changed', {
+          detail: { preset: presetKey, l, r }
+        }));
+      }
+      return { preset: presetKey, l, r };
+    },
+    cycleNextPreset: function() {
+      const keys = ['cyber', 'emerald', 'ruby', 'sunset', 'ghost', 'match'];
+      let cur = 'cyber';
+      try { cur = localStorage.getItem('khmerSettingHandColorPreset') || 'cyber'; } catch(e){}
+      let idx = keys.indexOf(cur);
+      if (idx === -1) idx = 0;
+      const next = keys[(idx + 1) % keys.length];
+      return this.applyHandColors(next);
     }
-    updateHandsGradients(l, r);
-    try {
-      localStorage.setItem('khmerSettingHandColorPreset', presetKey);
-      if (customL) localStorage.setItem('khmerSettingHandColorCustomL', customL);
-      if (customR) localStorage.setItem('khmerSettingHandColorCustomR', customR);
-    } catch(e){}
+  };
+}
 
-    document.dispatchEvent(new CustomEvent('pk-hand-colors-changed', {
-      detail: { preset: presetKey, l, r }
-    }));
-    return { preset: presetKey, l, r };
-  },
-  cycleNextPreset: function() {
-    const keys = ['cyber', 'emerald', 'ruby', 'sunset', 'ghost', 'match'];
-    let cur = 'cyber';
-    try { cur = localStorage.getItem('khmerSettingHandColorPreset') || 'cyber'; } catch(e){}
-    let idx = keys.indexOf(cur);
-    if (idx === -1) idx = 0;
-    const next = keys[(idx + 1) % keys.length];
-    return this.applyHandColors(next);
-  }
-};
+if(handsOverlay && defs) handsOverlay.appendChild(defs);
+if(typeof window !== 'undefined' && window.PKHandsColor) window.PKHandsColor.applyHandColors();
 
-handsOverlay.appendChild(defs);
-window.PKHandsColor.applyHandColors();
-
-if (typeof MutationObserver !== 'undefined') {
+if (typeof MutationObserver !== 'undefined' && typeof document !== 'undefined' && document.documentElement) {
   const themeObserver = new MutationObserver(() => {
     try {
       if (localStorage.getItem('khmerSettingHandColorPreset') === 'match') {
@@ -1050,30 +1406,47 @@ if (typeof MutationObserver !== 'undefined') {
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 }
 
-const handGroupL = document.createElementNS(SVGNS,'g');
-handGroupL.setAttribute('class','hand-group side-l');
-const handGroupR = document.createElementNS(SVGNS,'g');
-handGroupR.setAttribute('class','hand-group side-r');
-handsOverlay.appendChild(handGroupL);
-handsOverlay.appendChild(handGroupR);
+const handGroupL = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'g') : null;
+if(handGroupL) handGroupL.setAttribute('class','hand-group side-l');
+const handGroupR = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'g') : null;
+if(handGroupR) handGroupR.setAttribute('class','hand-group side-r');
+if(handsOverlay && handGroupL && handGroupR){
+  handsOverlay.appendChild(handGroupL);
+  handsOverlay.appendChild(handGroupR);
+}
 
-const palmShapeL = document.createElementNS(SVGNS,'path'); palmShapeL.setAttribute('class','palm-shape');
-const palmShadeL = document.createElementNS(SVGNS,'path'); palmShadeL.setAttribute('class','palm-shade');
-const palmHiL = document.createElementNS(SVGNS,'ellipse'); palmHiL.setAttribute('class','palm-highlight');
-const palmCoreL = document.createElementNS(SVGNS,'circle'); palmCoreL.setAttribute('class','palm-core'); palmCoreL.setAttribute('r','5.5');
-const palmShapeR = document.createElementNS(SVGNS,'path'); palmShapeR.setAttribute('class','palm-shape');
-const palmShadeR = document.createElementNS(SVGNS,'path'); palmShadeR.setAttribute('class','palm-shade');
-const palmHiR = document.createElementNS(SVGNS,'ellipse'); palmHiR.setAttribute('class','palm-highlight');
-const palmCoreR = document.createElementNS(SVGNS,'circle'); palmCoreR.setAttribute('class','palm-core'); palmCoreR.setAttribute('r','5.5');
+const palmShapeL = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'path') : null;
+if(palmShapeL) palmShapeL.setAttribute('class','palm-shape');
+const palmShadeL = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'path') : null;
+if(palmShadeL) palmShadeL.setAttribute('class','palm-shade');
+const palmHiL = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'ellipse') : null;
+if(palmHiL) palmHiL.setAttribute('class','palm-highlight');
+const palmCoreL = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'circle') : null;
+if(palmCoreL){ palmCoreL.setAttribute('class','palm-core'); palmCoreL.setAttribute('r','5.5'); }
 
-handGroupL.appendChild(palmShapeL); handGroupL.appendChild(palmShadeL); handGroupL.appendChild(palmHiL); handGroupL.appendChild(palmCoreL);
-handGroupR.appendChild(palmShapeR); handGroupR.appendChild(palmShadeR); handGroupR.appendChild(palmHiR); handGroupR.appendChild(palmCoreR);
+const palmShapeR = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'path') : null;
+if(palmShapeR) palmShapeR.setAttribute('class','palm-shape');
+const palmShadeR = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'path') : null;
+if(palmShadeR) palmShadeR.setAttribute('class','palm-shade');
+const palmHiR = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'ellipse') : null;
+if(palmHiR) palmHiR.setAttribute('class','palm-highlight');
+const palmCoreR = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'circle') : null;
+if(palmCoreR){ palmCoreR.setAttribute('class','palm-core'); palmCoreR.setAttribute('r','5.5'); }
+
+if(handGroupL && palmShapeL){
+  handGroupL.appendChild(palmShapeL); handGroupL.appendChild(palmShadeL); handGroupL.appendChild(palmHiL); handGroupL.appendChild(palmCoreL);
+}
+if(handGroupR && palmShapeR){
+  handGroupR.appendChild(palmShapeR); handGroupR.appendChild(palmShadeR); handGroupR.appendChild(palmHiR); handGroupR.appendChild(palmCoreR);
+}
 
 function createFingerElement(f){
   if(fingerEls[f.id]) return fingerEls[f.id];
   const g = document.createElementNS(SVGNS,'g');
   g.setAttribute('class','finger');
+  if(!g.dataset) g.dataset = {};
   g.dataset.finger = f.id;
+  g.dataset.canonicalFinger = f.canonicalId || toCanonicalFinger(f.id);
   const shape = document.createElementNS(SVGNS,'path'); shape.setAttribute('class','finger-shape');
   const crease1 = document.createElementNS(SVGNS,'path'); crease1.setAttribute('class','finger-crease');
   const joint1 = document.createElementNS(SVGNS,'circle'); joint1.setAttribute('class','finger-joint');
@@ -1098,9 +1471,11 @@ function createFingerElement(f){
   fingerEls[f.id] = {g, shape, crease1, crease2, joint1, joint2, shine, shine2, energy, nail, tip, impactRing, impactRing2, impactSparks, reticle};
   return fingerEls[f.id];
 }
-window.createFingerElement = createFingerElement;
+if(typeof window !== 'undefined') window.createFingerElement = createFingerElement;
 
-FINGERS.forEach(createFingerElement);
+if(typeof document !== 'undefined' && typeof SVGNS !== 'undefined' && handGroupL){
+  FINGERS.forEach(createFingerElement);
+}
 
 let activeFinger = null;
 let activeTargetKey = null;
@@ -1108,51 +1483,57 @@ let activeShiftFinger = null;
 let activeShiftTargetKey = null;
 
 function modifierInfoFor(keyId, layer){
-  if(!keyId || !layer || layer === 'base') return null;
-  const fid = KEY_FINGER[keyId];
-  const f = fid && FINGERS.find(x=> x.id === fid);
-  const isLeftHand = f ? (f.hand === 'L') : false;
-
-  if(layer === 'shift'){
-    if(keyId === 'shiftL' || keyId === 'shiftR') return null;
-    const targetKey = isLeftHand ? 'shiftR' : 'shiftL';
-    const fingerId = isLeftHand ? 'rp' : 'lp';
-    return { fingerId, targetKey };
-  }
-
-  if(layer === 'ctrl'){
-    if(keyId === 'ctrlL' || keyId === 'ctrlR') return null;
-    if(isLeftHand && keyEls['ctrlR']){
-      return { fingerId: 'rp', targetKey: 'ctrlR' };
-    }
-    return { fingerId: 'lp', targetKey: 'ctrlL' };
-  }
-
-  if(layer === 'altgr'){
-    if(keyId === 'altgr') return null;
-    return { fingerId: 'rt', targetKey: 'altgr' };
-  }
-
-  return null;
+  const mod = resolveModifierChoreography(keyId, layer);
+  if(!mod) return null;
+  return {
+    fingerId: mod.modifierLegacyFinger,
+    targetKey: mod.modifierKey,
+    modifierCode: mod.modifierCode,
+    modifierFinger: mod.modifierFinger,
+    targetFinger: mod.targetFinger
+  };
 }
+if(typeof window !== 'undefined') window.modifierInfoFor = modifierInfoFor;
 
+function setKeyElements(els){
+  if(!els) return;
+  Object.assign(keyEls, els);
+}
+if(typeof window !== 'undefined') window.setKeyElements = setKeyElements;
 
 function keyCenter(id, wrapRect){
-  const el = keyEls[id];
+  const el = keyEls[id] || (typeof window !== 'undefined' && window.keyEls && window.keyEls[id]) || (typeof global !== 'undefined' && global.keyEls && global.keyEls[id]);
   if(!el) return null;
   const r = el.getBoundingClientRect();
   return { x: r.left + r.width/2 - wrapRect.left, y: r.top + r.height/2 - wrapRect.top };
 }
 
-/* Kinematic Hand Builder:
-   Computes natural anatomical proportions, compact metacarpal arch, and whole-hand
-   reach motion so all 5 digits and the palm fuse into a single seamless silhouette. */
-function buildHand(hand, fingers, wrapRect, activeF, targetKey){
-  const inward = hand === 'L' ? 1 : -1;
+function keyBounds(id, wrapRect){
+  const el = keyEls[id] || (typeof window !== 'undefined' && window.keyEls && window.keyEls[id]) || (typeof global !== 'undefined' && global.keyEls && global.keyEls[id]);
+  if(!el) return null;
+  const r = el.getBoundingClientRect();
+  return {
+    left: r.left - wrapRect.left,
+    right: r.right - wrapRect.left,
+    top: r.top - wrapRect.top,
+    bottom: r.bottom - wrapRect.top,
+    width: r.width,
+    height: r.height,
+    cx: r.left + r.width/2 - wrapRect.left,
+    cy: r.top + r.height/2 - wrapRect.top
+  };
+}
 
-  // Defensive fallback: ensure right pinky is always anchored even if external buffer dropped it
+/* Kinematic Hand Builder:
+   Computes natural anatomical proportions, compact metacarpal arch, and damped
+   palm glide so the active finger articulates while non-active fingers stay anchored. */
+function buildHand(hand, fingers, wrapRect, activeF, targetKey){
+  const isLeft = hand === 'L';
+  const inward = isLeft ? 1 : -1;
+
+  // Defensive fallback: ensure right pinky is always anchored
   if(hand === 'R' && !fingers.some(f=> f.kind === 'pinky')){
-    const rpDef = {id:'rp', hand:'R', home:'semicolon', kind:'pinky', baseW:33.5, tipW:19.5, archPull:0.26, archDy:7, tipDy:8, kDist:76, restLen:72, restAng:0.08};
+    const rpDef = {id:'rp', canonicalId:'R5', hand:'R', home:'semicolon', kind:'pinky', baseW:33.5, tipW:19.5, archPull:0.26, archDy:7, tipDy:8, kDist:76, restLen:72, restAng:0.08};
     fingers.push(rpDef);
     if(!FINGERS.some(f=> f.id === 'rp')) FINGERS.push(rpDef);
   }
@@ -1164,7 +1545,6 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
     if(c) homes[f.id] = c;
   });
 
-  // If semicolon key center failed to resolve for right pinky, approximate from ring finger
   if(hand === 'R' && (!homes['rp'] || !fingers.some(f=> f.id === 'rp'))){
     const ring = fingers.find(f=> f.kind === 'ring');
     if(ring && homes[ring.id]){
@@ -1175,22 +1555,23 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   const order = ['pinky','ring','middle','index'].map(k=>fingers.find(f=>f.kind===k));
   if(order.some(f=> !f || !homes[f.id])) return null;
 
-  // Whole-hand reach translation (fingers float palm; thumbs articulate independently)
-  let shiftX = 0, shiftY = 0;
+  // Damped palm shift: applies only for distant reaches (Backspace, Enter, Escape, outer numbers)
+  let palmShiftX = 0, palmShiftY = 0;
   if(activeF && activeF.kind !== 'thumb' && targetKey){
     const targetPt = keyCenter(targetKey, wrapRect);
     const homePt = keyCenter(activeF.home, wrapRect);
     if(targetPt && homePt){
       const reachDx = targetPt.x - homePt.x;
       const reachDy = targetPt.y - homePt.y;
-      const factorY = (activeF.kind === 'pinky') ? 0.72 : (reachDy < 0 ? 0.65 : 0.45);
-      const factorX = (activeF.kind === 'pinky') ? 0.62 : (reachDy < 0 ? 0.45 : 0.40);
-      shiftY = reachDy * factorY;
-      shiftX = reachDx * factorX;
+      const isDistant = ['backspace', 'enter', 'grave', 'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k0', 'minus', 'equal', 'tab', 'escape', 'shiftL', 'shiftR'].includes(targetKey);
+      const factorY = isDistant ? 0.30 : 0.12;
+      const factorX = isDistant ? 0.26 : 0.10;
+      palmShiftY = reachDy * factorY;
+      palmShiftX = reachDx * factorX;
     }
   }
 
-  // Compact human metacarpal knuckle arch ~74px below home row centers for realistic 75-85px fingers
+  // Compact human metacarpal knuckle arch ~74px below home row centers
   const homeXs = order.map(f=> homes[f.id].x);
   const homeYs = order.map(f=> homes[f.id].y);
   const homeSpanCenterX = (homeXs[0] + homeXs[3]) * 0.5 + inward * 4;
@@ -1202,26 +1583,56 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
     const h = homes[f.id];
     const pull = typeof f.archPull === 'number' ? f.archPull : 0.24;
     const dy = typeof f.archDy === 'number' ? f.archDy : 0;
-    const kx = h.x + (homeSpanCenterX - h.x) * pull + shiftX;
-    const ky = palmArchBaseY + dy + shiftY;
+    const kx = h.x + (homeSpanCenterX - h.x) * pull + palmShiftX;
+    const ky = palmArchBaseY + dy + palmShiftY;
     baseKnuckles[f.id] = { x: kx, y: ky };
   });
 
   const indexBase = baseKnuckles[order[3].id];
 
-  // Anatomical thumb CMC/thenar base at the lower radial palm
-  const thumbF = fingers.find(f=>f.kind==='thumb');
-  const spaceElForHand = keyEls['space'];
-  let spaceMidY = indexBase.y + 36;
+  // Dynamic Spacebar keycap geometry & bounds
+  const spaceElForHand = keyEls['space'] || (typeof window !== 'undefined' && window.keyEls && window.keyEls['space']) || (typeof global !== 'undefined' && global.keyEls && global.keyEls['space']);
+  let spaceBounds = null;
+  let spaceCenter = null;
   if(spaceElForHand){
     const sr = spaceElForHand.getBoundingClientRect();
-    if(sr.height > 0){
-      spaceMidY = (sr.top + sr.height * 0.50) - wrapRect.top;
+    if(sr.width > 0 && sr.height > 0){
+      spaceBounds = {
+        left: sr.left - wrapRect.left,
+        right: sr.right - wrapRect.left,
+        top: sr.top - wrapRect.top,
+        bottom: sr.bottom - wrapRect.top,
+        width: sr.width,
+        height: sr.height
+      };
+      spaceCenter = {
+        x: spaceBounds.left + spaceBounds.width * 0.5,
+        y: spaceBounds.top + spaceBounds.height * 0.5
+      };
     }
   }
+
+  // Resting thumb tip sits cleanly inside the Spacebar bounds,
+  // completely clear of KeyV, KeyB, KeyN, and KeyM.
+  let defaultThumbTip;
+  if(spaceBounds && spaceCenter){
+    const thumbXOffset = Math.max(36, Math.min(95, spaceBounds.width * 0.16));
+    defaultThumbTip = {
+      x: isLeft ? (spaceCenter.x - thumbXOffset) : (spaceCenter.x + thumbXOffset),
+      y: spaceBounds.top + spaceBounds.height * 0.50
+    };
+  } else {
+    defaultThumbTip = {
+      x: indexBase.x + inward * 46,
+      y: indexBase.y + 70
+    };
+  }
+
+  // Anatomical thumb CMC/thenar base: positioned at lower radial palm
+  const thumbF = fingers.find(f=>f.kind==='thumb');
   const thumbBase = {
-    x: indexBase.x - inward * 6,
-    y: indexBase.y + 66
+    x: indexBase.x - inward * 12,
+    y: defaultThumbTip.y + 16
   };
   baseKnuckles[thumbF.id] = thumbBase;
 
@@ -1230,9 +1641,11 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
     homes,
     order,
     thumbF,
-    spaceMidY,
-    shiftX,
-    shiftY
+    defaultThumbTip,
+    spaceBounds,
+    spaceCenter,
+    palmShiftX,
+    palmShiftY
   };
 }
 
@@ -1301,7 +1714,7 @@ function buildUnifiedHandSVG(hand, order, thumbF, frames, bases){
   const webC2 = { x: thumbInnerStart.x - dir * 10, y: webMidY + 3 };
   cmds.push(`C ${webC1.x.toFixed(1)} ${webC1.y.toFixed(1)} ${webC2.x.toFixed(1)} ${webC2.y.toFixed(1)} ${thumbInnerStart.x.toFixed(1)} ${thumbInnerStart.y.toFixed(1)}`);
 
-  // Thumb inner edge -> tip -> thumb outer edge (all the way down to CMC joint at index 2)
+  // Thumb inner edge -> tip -> thumb outer edge (down to CMC joint)
   for(let i = thumbInnerStartIdx + 1; i <= n; i++){
     cmds.push(`L ${thumbInnerPts[i].x.toFixed(1)} ${thumbInnerPts[i].y.toFixed(1)}`);
   }
@@ -1312,13 +1725,13 @@ function buildUnifiedHandSVG(hand, order, thumbF, frames, bases){
     cmds.push(`L ${thumbOuterPts[i].x.toFixed(1)} ${thumbOuterPts[i].y.toFixed(1)}`);
   }
 
-  // Seamless transition from thumb CMC outer edge into wide anatomical wrist (~102px wide)
+  // Seamless transition from thumb CMC outer edge into wide anatomical wrist
   const thumbOuterBase = thumbOuterPts[thumbOuterEndIdx];
   const wristCenterX = (pinkyBase.x + indexBase.x) * 0.5 + dir * 4;
-  const wristY = indexBase.y + 92;
+  const wristY = Math.max(indexBase.y + 96, bases[thumbF.id] ? bases[thumbF.id].y + 18 : indexBase.y + 96);
 
-  const wristInner = { x: wristCenterX + dir * 46, y: wristY - 2 };
-  const wristOuter = { x: wristCenterX - dir * 56, y: wristY };
+  const wristInner = { x: wristCenterX + dir * 48, y: wristY - 2 };
+  const wristOuter = { x: wristCenterX - dir * 58, y: wristY };
 
   const radC1 = { x: thumbOuterBase.x - dir * 10, y: thumbOuterBase.y + 10 };
   const radC2 = { x: wristInner.x + dir * 8, y: wristInner.y - 10 };
@@ -1332,7 +1745,7 @@ function buildUnifiedHandSVG(hand, order, thumbF, frames, bases){
   const ulnC2 = { x: p0.x - dir * 4, y: p0.y + 30 };
   cmds.push(`C ${ulnC1.x.toFixed(1)} ${ulnC1.y.toFixed(1)} ${ulnC2.x.toFixed(1)} ${ulnC2.y.toFixed(1)} ${p0.x.toFixed(1)} ${p0.y.toFixed(1)} Z`);
 
-  // Subtle dorsal extensor tendon lines on the back of the hand
+  // Subtle dorsal extensor tendon lines
   const shadePath = [0, 1, 2, 3].map(idx => {
     const kb = bases[order[idx].id];
     const ex = kb.x + (wristCenterX - kb.x) * 0.42;
@@ -1355,28 +1768,48 @@ function buildUnifiedHandSVG(hand, order, thumbF, frames, bases){
   };
 }
 
+let handAnimFrame = null;
+const currentFingerPositions = {}; // id -> { x, y }
+const targetFingerPositions = {};  // id -> { x, y }
+const fingerBiomechanicalStates = {}; // id -> state string
+
+FINGERS.forEach(f => {
+  fingerBiomechanicalStates[f.id] = HAND_STATES.HOME_REST;
+});
+
+function recalibrateCoordinates(){
+  if(!boardWrap || !handsOverlay) return;
+  const wrapRect = boardWrap.getBoundingClientRect();
+  if(!wrapRect.width || !wrapRect.height) return;
+  handsOverlay.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
+  handsOverlay.setAttribute('width', wrapRect.width);
+  handsOverlay.setAttribute('height', wrapRect.height);
+}
+
 function updateHandsOverlay(){
   if(!handsOverlay) return;
-  if(!handsOn){
+  if(!handsOn || HAND_CONFIG.overlayMode === 'hidden'){
     handsOverlay.classList.add('hidden');
     handsOverlay.style.display = 'none';
     return;
   }
   handsOverlay.classList.remove('hidden');
   handsOverlay.style.display = '';
+  handsOverlay.classList.toggle('mode-ghost', HAND_CONFIG.overlayMode === 'ghost');
+
   const wrapRect = boardWrap.getBoundingClientRect();
   if(!wrapRect.width || !wrapRect.height) return;
   handsOverlay.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
   handsOverlay.setAttribute('width', wrapRect.width);
   handsOverlay.setAttribute('height', wrapRect.height);
 
-  // Resilient safeguards: guarantee right pinky is always present in FINGERS and DOM
+  // Safeguard: guarantee right pinky is always present in FINGERS and DOM
   if(!FINGERS.some(f => f.id === 'rp')){
-    const rpDef = {id:'rp', hand:'R', home:'semicolon', kind:'pinky', baseW:33.5, tipW:19.5, archPull:0.26, archDy:7, tipDy:8, kDist:76, restLen:72, restAng:0.08};
+    const rpDef = {id:'rp', canonicalId:'R5', hand:'R', home:'semicolon', kind:'pinky', baseW:33.5, tipW:19.5, archPull:0.26, archDy:7, tipDy:8, kDist:76, restLen:72, restAng:0.08};
     FINGERS.push(rpDef);
   }
   if(!fingerEls['rp']){
-    const rpDef = FINGERS.find(f => f.id === 'rp') || {id:'rp', hand:'R', home:'semicolon', kind:'pinky', baseW:33.5, tipW:19.5, archPull:0.26, archDy:7, tipDy:8, kDist:76, restLen:72, restAng:0.08};
+    const rpDef = FINGERS.find(f => f.id === 'rp') || {id:'rp', canonicalId:'R5', hand:'R', home:'semicolon', kind:'pinky', baseW:33.5, tipW:19.5, archPull:0.26, archDy:7, tipDy:8, kDist:76, restLen:72, restAng:0.08};
     createFingerElement(rpDef);
   }
 
@@ -1392,8 +1825,69 @@ function updateHandsOverlay(){
   const handL = buildHand('L', leftFingers, wrapRect, activeLeft, targetLeft);
   const handR = buildHand('R', rightFingers, wrapRect, activeRight, targetRight);
 
+  // Compute target tip positions for each finger
+  FINGERS.forEach(f=>{
+    const hb = f.hand === 'L' ? handL : handR;
+    if(!hb || !hb.bases[f.id]) return;
+    const isPrimary = activeFinger === f.id;
+    const isShiftActive = activeShiftFinger === f.id;
+    const isActive = isPrimary || isShiftActive;
+    const targetKey = isPrimary && activeTargetKey ? activeTargetKey
+      : (isShiftActive && activeShiftTargetKey ? activeShiftTargetKey : null);
+
+    let targetPt;
+    if(f.kind === 'thumb'){
+      if(isActive && targetKey && targetKey !== 'space'){
+        const rawTip = keyCenter(targetKey, wrapRect);
+        targetPt = rawTip ? { x: rawTip.x, y: rawTip.y } : hb.defaultThumbTip;
+      } else {
+        targetPt = hb.defaultThumbTip;
+      }
+    } else {
+      const homeCenter = hb.homes[f.id] || keyCenter(f.home, wrapRect);
+      // Non-active fingers remain anchored at their home keys!
+      const restTip = homeCenter
+        ? { x: homeCenter.x, y: homeCenter.y + (f.tipDy || 0) }
+        : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };
+
+      if(isActive && targetKey){
+        const rawTarget = keyCenter(targetKey, wrapRect);
+        targetPt = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : restTip;
+      } else {
+        targetPt = restTip;
+      }
+    }
+
+    targetFingerPositions[f.id] = targetPt;
+
+    // Check reduced motion
+    const prefersReducedMotion = HAND_CONFIG.reducedMotion ||
+      (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+    if(prefersReducedMotion || !currentFingerPositions[f.id]){
+      currentFingerPositions[f.id] = { x: targetPt.x, y: targetPt.y };
+    }
+
+    // Update biomechanical state
+    if(isShiftActive){
+      fingerBiomechanicalStates[f.id] = HAND_STATES.HOLDING;
+    } else if(isPrimary){
+      fingerBiomechanicalStates[f.id] = HAND_STATES.REACHING;
+    } else if(fingerBiomechanicalStates[f.id] !== HAND_STATES.PRESSING){
+      fingerBiomechanicalStates[f.id] = HAND_STATES.HOME_REST;
+    }
+  });
+
+  renderFrame(handL, handR, wrapRect);
+}
+
+function renderFrame(handL, handR, wrapRect){
   const framesL = {};
   const framesR = {};
+  let needsAnim = false;
+
+  const prefersReducedMotion = HAND_CONFIG.reducedMotion ||
+    (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   FINGERS.forEach(f=>{
     const fe = fingerEls[f.id];
@@ -1403,44 +1897,31 @@ function updateHandsOverlay(){
     const isPrimary = activeFinger === f.id;
     const isShiftActive = activeShiftFinger === f.id;
     const isActive = isPrimary || isShiftActive;
-    const targetKey = isPrimary && activeTargetKey ? activeTargetKey
-      : (isShiftActive && activeShiftTargetKey ? activeShiftTargetKey : null);
     const inward = f.hand === 'L' ? 1 : -1;
 
-    let tip;
-    if(f.kind === 'thumb'){
-      const indexBase = hb.bases[hb.order[3].id];
-      const defaultThumbTip = {
-        x: indexBase.x + inward * 66,
-        y: indexBase.y + 19
-      };
-      if(isActive && targetKey){
-        const rawTip = keyCenter(targetKey, wrapRect);
-        if(rawTip && targetKey !== 'space'){
-          tip = rawTip;
-        } else {
-          tip = { x: defaultThumbTip.x + inward * 4, y: defaultThumbTip.y - 4 };
-        }
-      } else {
-        tip = defaultThumbTip;
-      }
-    } else {
-      const homeCenter = hb.homes[f.id] || keyCenter(f.home, wrapRect);
-      const restTip = homeCenter
-        ? { x: homeCenter.x + hb.shiftX, y: homeCenter.y + (f.tipDy || 0) + hb.shiftY }
-        : { x: origin.x, y: origin.y - 74 };
+    let cur = currentFingerPositions[f.id];
+    const target = targetFingerPositions[f.id] || cur;
 
-      if(isActive && targetKey){
-        const rawTarget = keyCenter(targetKey, wrapRect);
-        tip = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : restTip;
+    if(!prefersReducedMotion && cur && target){
+      const dx = target.x - cur.x;
+      const dy = target.y - cur.y;
+      if(Math.abs(dx) > 0.4 || Math.abs(dy) > 0.4){
+        cur.x += dx * 0.32;
+        cur.y += dy * 0.32;
+        needsAnim = true;
       } else {
-        tip = restTip;
+        cur.x = target.x;
+        cur.y = target.y;
       }
+    } else if(target){
+      cur = { x: target.x, y: target.y };
+      currentFingerPositions[f.id] = cur;
     }
-    if(!tip) return;
 
-    // Physiological maximum reach limit scaled for realistic 75-85px finger lengths
-    const maxLen = f.kind === 'thumb' ? 105 : (f.kind === 'pinky' ? 118 : (f.kind === 'middle' ? 138 : 130));
+    let tip = cur ? { x: cur.x, y: cur.y } : (target || origin);
+
+    // Physiological maximum reach limit
+    const maxLen = f.kind === 'thumb' ? 110 : (f.kind === 'pinky' ? 122 : (f.kind === 'middle' ? 140 : 132));
     const d = dist(origin, tip);
     if(d > maxLen){
       const scale = maxLen / d;
@@ -1450,7 +1931,7 @@ function updateHandsOverlay(){
     let mid;
     if(f.kind === 'thumb'){
       mid = {
-        x: (origin.x + tip.x) * 0.5 + inward * 10,
+        x: (origin.x + tip.x) * 0.5 - inward * 4,
         y: (origin.y + tip.y) * 0.5 - 6
       };
     } else {
@@ -1489,12 +1970,12 @@ function updateHandsOverlay(){
     const nailPt = qPoint(origin, mid, tip, 0.87);
     fe.nail.setAttribute('d', buildNailPath(frame));
 
-    fe.tip.setAttribute('cx', nailPt.x);
-    fe.tip.setAttribute('cy', nailPt.y);
-    fe.impactRing.setAttribute('cx', nailPt.x);
-    fe.impactRing.setAttribute('cy', nailPt.y);
-    fe.impactRing2.setAttribute('cx', nailPt.x);
-    fe.impactRing2.setAttribute('cy', nailPt.y);
+    fe.tip.setAttribute('cx', nailPt.x.toFixed(1));
+    fe.tip.setAttribute('cy', nailPt.y.toFixed(1));
+    fe.impactRing.setAttribute('cx', nailPt.x.toFixed(1));
+    fe.impactRing.setAttribute('cy', nailPt.y.toFixed(1));
+    fe.impactRing2.setAttribute('cx', nailPt.x.toFixed(1));
+    fe.impactRing2.setAttribute('cy', nailPt.y.toFixed(1));
     fe.impactSparks.setAttribute('transform', `translate(${nailPt.x.toFixed(1)} ${nailPt.y.toFixed(1)})`);
     fe.reticle.setAttribute('transform', `translate(${nailPt.x.toFixed(1)} ${nailPt.y.toFixed(1)})`);
     fe.g.classList.toggle('active', isActive);
@@ -1516,6 +1997,13 @@ function updateHandsOverlay(){
     palmHiR.setAttribute('rx', svgR.highlight.rx); palmHiR.setAttribute('ry', svgR.highlight.ry);
     palmCoreR.setAttribute('cx', svgR.core.x); palmCoreR.setAttribute('cy', svgR.core.y);
   }
+
+  if(needsAnim && typeof window !== 'undefined' && window.requestAnimationFrame){
+    if(handAnimFrame) cancelAnimationFrame(handAnimFrame);
+    handAnimFrame = requestAnimationFrame(() => renderFrame(handL, handR, wrapRect));
+  } else {
+    handAnimFrame = null;
+  }
 }
 
 function setActiveFinger(keyId, layer){
@@ -1534,21 +2022,20 @@ function setActiveFinger(keyId, layer){
 }
 
 /* the instant a key is struck: flashes the finger and sends a bright
-   expanding ring + spark burst out from the fingertip */
+   expanding ring burst out from the fingertip */
 function strikeFinger(fe){
   if(!fe || !handsOn) return;
   fe.g.classList.remove('struck');
-  void fe.g.getBoundingClientRect(); // restart finger flash without sparks
+  void fe.g.getBoundingClientRect(); // restart animation
   fe.g.classList.add('struck');
+  fe.g.classList.add('pressed');
   clearTimeout(fe._strikeT1);
-  fe._strikeT1 = setTimeout(()=> fe.g.classList.remove('struck'), 160);
+  fe._strikeT1 = setTimeout(()=> {
+    fe.g.classList.remove('struck');
+  }, 220);
 }
 
-/* fired the instant a key is struck: flashes the correct finger and sends
-   a bright expanding ring out from the fingertip, on top of the steady
-   "next key" glow from setActiveFinger/lesson guidance. When the struck
-   key lives on a modifier layer (Shift, Ctrl, AltGr), the modifier finger
-   flashes on the modifier key at the same moment, as if it were held down for the combo. */
+/* fired the instant a key is struck */
 let freeTypeFingerResetTimer = null;
 function triggerFingerPress(keyId){
   if(!handsOn) return;
@@ -1558,28 +2045,63 @@ function triggerFingerPress(keyId){
 
   const isGuidedSession = (typeof lessonActive !== 'undefined' && lessonActive) ||
                           (typeof raceActive !== 'undefined' && raceActive) ||
-                          Boolean(window.adaptiveActive);
+                          (typeof window !== 'undefined' && Boolean(window.adaptiveActive));
   if(!isGuidedSession){
     setActiveFinger(keyId, lyr);
     clearTimeout(freeTypeFingerResetTimer);
     freeTypeFingerResetTimer = setTimeout(()=>{
       const stillUnguided = !(typeof lessonActive !== 'undefined' && lessonActive) &&
                             !(typeof raceActive !== 'undefined' && raceActive) &&
-                            !window.adaptiveActive;
+                            (typeof window !== 'undefined' ? !window.adaptiveActive : true);
       if(stillUnguided && activeTargetKey === keyId){
         setActiveFinger(null);
       }
     }, 650);
   }
 
+  fingerBiomechanicalStates[fid] = HAND_STATES.PRESSING;
   strikeFinger(fingerEls[fid]);
 
   if(lyr && lyr !== 'base'){
     const mod = modifierInfoFor(keyId, lyr);
-    if(mod && mod.fingerId && mod.fingerId !== fid) strikeFinger(fingerEls[mod.fingerId]);
+    if(mod && mod.fingerId && mod.fingerId !== fid){
+      fingerBiomechanicalStates[mod.fingerId] = HAND_STATES.HOLDING;
+      strikeFinger(fingerEls[mod.fingerId]);
+    }
+  }
+
+  // Update last keystroke hand for alternating spacebar mode
+  const fDef = FINGERS.find(f => f.id === fid);
+  if(fDef){
+    HAND_CONFIG.lastKeystrokeHand = fDef.hand;
   }
 }
-window.triggerFingerPress = triggerFingerPress;
+if(typeof window !== 'undefined') window.triggerFingerPress = triggerFingerPress;
+
+function triggerFingerRelease(keyId){
+  if(!handsOn) return;
+  const fid = keyId ? KEY_FINGER[keyId] : null;
+  if(!fid) return;
+  const fe = fingerEls[fid];
+  if(fe){
+    fe.g.classList.remove('struck');
+    fe.g.classList.remove('pressed');
+  }
+  fingerBiomechanicalStates[fid] = HAND_STATES.RELEASING;
+  const el = keyEls[keyId];
+  if(el){
+    el.classList.remove('pressed');
+  }
+}
+if(typeof window !== 'undefined') window.triggerFingerRelease = triggerFingerRelease;
+
+if(typeof ResizeObserver !== 'undefined' && boardWrap){
+  const ro = new ResizeObserver(()=>{
+    recalibrateCoordinates();
+    updateHandsOverlay();
+  });
+  ro.observe(boardWrap);
+}
 
 function syncHandsToggleUI(){
   if(!handsToggle) return;
@@ -1594,15 +2116,19 @@ function syncHandsToggleUI(){
     window.PKQuickGuide.updateToolStatuses();
   }
 }
-window.syncHandsToggleUI = syncHandsToggleUI;
+if(typeof window !== 'undefined') window.syncHandsToggleUI = syncHandsToggleUI;
 
-handsToggle.addEventListener('click', ()=>{
-  handsOn = !handsOn;
-  syncHandsToggleUI();
-  updateHandsOverlay();
-});
+if(handsToggle){
+  handsToggle.addEventListener('click', ()=>{
+    handsOn = !handsOn;
+    syncHandsToggleUI();
+    updateHandsOverlay();
+  });
+}
 
-window.addEventListener('resize', updateHandsOverlay);
+if(typeof window !== 'undefined'){
+  window.addEventListener('resize', updateHandsOverlay);
+}
 
 
 function currentLayer(){
@@ -1668,5 +2194,35 @@ function applyKeyboardData(data){
   if(data.KEY_FINGER) Object.assign(KEY_FINGER, data.KEY_FINGER);
   if(data.CODE_MAP) Object.assign(CODE_MAP, data.CODE_MAP);
 }
-window.renderHands = updateHandsOverlay;
-window.updateHandsOverlay = updateHandsOverlay;
+if(typeof window !== 'undefined'){
+  window.renderHands = updateHandsOverlay;
+  window.updateHandsOverlay = updateHandsOverlay;
+}
+
+if(typeof module !== 'undefined' && module.exports){
+  module.exports = {
+    LAYOUTS,
+    CODE_MAP,
+    KEY_FINGER,
+    FINGERS,
+    CANONICAL_FINGER_MAP,
+    FINGER_CODE_TO_CANONICAL,
+    CANONICAL_TO_FINGER_CODE,
+    HAND_CONFIG,
+    HAND_STATES,
+    toCanonicalFinger,
+    toLegacyFinger,
+    getFingerForKey,
+    resolveModifierChoreography,
+    decomposeKhmerSequence,
+    buildHand,
+    keyCenter,
+    keyBounds,
+    updateHandsOverlay,
+    setActiveFinger,
+    triggerFingerPress,
+    triggerFingerRelease,
+    modifierInfoFor,
+    setKeyElements
+  };
+}
