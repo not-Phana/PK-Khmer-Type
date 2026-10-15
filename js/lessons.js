@@ -2738,7 +2738,7 @@ function completeLesson(){
   const attempts = lessonChars.length + lessonMistakes;
   if (attempts === 0) return;
   const elapsed = Math.max(0.5, (Date.now() - (lessonStartTime || Date.now())) / 1000);
-  const accuracy = Math.min(100, Math.max(0, Math.round((lessonChars.length / attempts) * 100)));
+  const accuracy = attempts > 0 && lessonChars.length > 0 ? Math.min(100, Math.max(0, Math.round((lessonChars.length / attempts) * 100))) : 0;
   const def = currentLesson;
   const id = def.id;
   const mistakeChars = Object.keys(lessonMistakeChars);

@@ -1312,6 +1312,8 @@ function resetAllInputStates(){
   if(typeof cancelPendingCtrl === 'function') cancelPendingCtrl();
   if(heldModifiers && heldModifiers.clear) heldModifiers.clear();
   physicalLayer = null;
+  if(typeof lockedLayer !== 'undefined') lockedLayer = null;
+  if(typeof hoverLayer !== 'undefined') hoverLayer = null;
   const warnEl = document.getElementById('capsLockWarningHud');
   const chassisWarnEl = document.getElementById('chassisCapsWarn');
   if(warnEl){
@@ -1327,6 +1329,11 @@ function resetAllInputStates(){
       if(el && el.classList){
         el.classList.remove('pressed', 'active', 'key-hit', 'key-err');
       }
+    });
+  }
+  if(typeof document !== 'undefined' && document.querySelectorAll){
+    document.querySelectorAll('.key.pressed, .key.active').forEach(el => {
+      el.classList.remove('pressed', 'active');
     });
   }
   if(typeof setActiveFinger === 'function'){
