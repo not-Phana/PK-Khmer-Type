@@ -698,7 +698,7 @@ test('4.4 Account Deletion removes user profile, settings, lesson progress, file
 /* ============================================================
    5. Curriculum & Progress Engine Regression Tests
    ============================================================ */
-test('5.1 All 3 curricula (Khmer Standard, Khmer NiDA, English) remain intact with 222 lessons', () => {
+test('5.1 All 3 curricula (Khmer Standard, Khmer NiDA, English) maintain 222 base lessons and 276 total lessons', () => {
   const stdRaw = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/curriculum/standard/lessons.json'), 'utf8'));
   const nidaRaw = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/curriculum/nida/lessons.json'), 'utf8'));
   const enRaw = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/curriculum/english/lessons.json'), 'utf8'));
@@ -707,10 +707,15 @@ test('5.1 All 3 curricula (Khmer Standard, Khmer NiDA, English) remain intact wi
   const nidaLessons = Array.isArray(nidaRaw) ? nidaRaw : nidaRaw.lessons;
   const enLessons = Array.isArray(enRaw) ? enRaw : enRaw.lessons;
 
-  assert.equal(stdLessons.length, 78, 'Khmer Standard curriculum must have 78 lessons');
-  assert.equal(nidaLessons.length, 78, 'Khmer NiDA curriculum must have 78 lessons');
-  assert.equal(enLessons.length, 66, 'English curriculum must have 66 lessons');
-  assert.equal(stdLessons.length + nidaLessons.length + enLessons.length, 222, 'Total lessons must equal 222');
+  const stdBase = stdLessons.filter(l => !l.isBonus);
+  const nidaBase = nidaLessons.filter(l => !l.isBonus);
+  const enBase = enLessons.filter(l => !l.isBonus);
+
+  assert.equal(stdBase.length, 78, 'Khmer Standard curriculum must have 78 base lessons');
+  assert.equal(nidaBase.length, 78, 'Khmer NiDA curriculum must have 78 base lessons');
+  assert.equal(enBase.length, 66, 'English curriculum must have 66 base lessons');
+  assert.equal(stdBase.length + nidaBase.length + enBase.length, 222, 'Total base lessons must equal 222');
+  assert.equal(stdLessons.length + nidaLessons.length + enLessons.length, 276, 'Total lessons including Grandmaster Vault must equal 276');
 });
 
 test('5.2 PK_PROGRESS records lesson attempts locally and automatically queues Cloud Sync', () => {
@@ -965,6 +970,3 @@ test('6.2 AuthProvider handles Registration, Email Verification Pending, Duplica
   assert.equal(lsDump.includes('InitialPassword123!'), false, 'Raw password must never be stored in localStorage');
   assert.equal(lsDump.includes('UpdatedPassword456!'), false, 'Updated password must never be stored in localStorage');
 });
-
-
-

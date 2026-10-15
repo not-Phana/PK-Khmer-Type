@@ -477,7 +477,6 @@ function buildCourse(){
     return id;
   }
   const modLabel = {base:'No modifier', shift:'Hold Shift', ctrl:'Hold Ctrl', altgr:'Hold AltGr'};
-  function chipList(ids){ return ids.map(id => `${charFor(id,'base')} (${keyLabel(id)})`).join('  '); }
 
   /* ===== LEVEL 1 — Home Row Basics (Lessons 1-8) =====
      Starts strictly with Anchor Keys F & J (ថ & ញ). No G (ង) or H (ហ) until later! */
@@ -3938,8 +3937,3 @@ function applyLessonsData(data){
     document.addEventListener('DOMContentLoaded', setupHubEvents);
   }
 })();
-
-
-
-
-

@@ -728,24 +728,6 @@ function scalePt(a,s){ return {x:a.x*s, y:a.y*s}; }
 function dist(a,b){ return Math.hypot(a.x-b.x, a.y-b.y); }
 function norm(v){ const l = Math.hypot(v.x,v.y) || 1; return {x:v.x/l, y:v.y/l}; }
 
-function roundedPolyPath(pts, r){
-  const n = pts.length;
-  let d = '';
-  for(let i=0;i<n;i++){
-    const prev = pts[(i-1+n)%n];
-    const cur = pts[i];
-    const next = pts[(i+1)%n];
-    const v1 = norm(sub(cur, prev));
-    const v2 = norm(sub(next, cur));
-    const cut1 = Math.min(r, dist(cur,prev)/2.2);
-    const cut2 = Math.min(r, dist(cur,next)/2.2);
-    const p1 = sub(cur, scalePt(v1, cut1));
-    const p2 = add(cur, scalePt(v2, cut2));
-    d += (i===0 ? `M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} ` : `L ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} `);
-    d += `Q ${cur.x.toFixed(1)} ${cur.y.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)} `;
-  }
-  return d + 'Z';
-}
 
 /* quadratic bezier point + tangent, used to build a tapered finger */
 function qPoint(o,c,t,s){ const m=1-s; return { x:m*m*o.x+2*m*s*c.x+s*s*t.x, y:m*m*o.y+2*m*s*c.y+s*s*t.y }; }
@@ -1154,10 +1136,6 @@ function modifierInfoFor(keyId, layer){
   return null;
 }
 
-function shiftFingerFor(keyId){
-  const mod = modifierInfoFor(keyId, 'shift');
-  return mod ? mod.fingerId : null;
-}
 
 function keyCenter(id, wrapRect){
   const el = keyEls[id];

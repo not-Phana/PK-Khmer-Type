@@ -615,25 +615,6 @@ function initStatisticsDashboard(){
     }
   }
 
-  const RANKS = [
-    { min:0,  name:'Novice Scribe' },
-    { min:5,  name:'Apprentice Scribe' },
-    { min:12, name:'Temple Scribe' },
-    { min:22, name:'Keeper of Letters' },
-    { min:35, name:'Master Calligrapher' },
-    { min:(typeof LESSONS !== "undefined" ? LESSONS.length : 60), name:'Khmer Sage' },
-  ];
-  function rankForMastered(n){
-    let r = RANKS[0].name;
-    for(const tier of RANKS){ if(n >= tier.min) r = tier.name; }
-    return r;
-  }
-  const ROMAN = ['I','II','III','IV','V','VI'];
-  function rankInfo(n){
-    let idx = 0;
-    for(let i=0;i<RANKS.length;i++){ if(n >= RANKS[i].min) idx = i; }
-    return { idx, name: RANKS[idx].name, next: RANKS[idx+1] || null };
-  }
 
   function refreshProfileUI(){
     profileNameDisplay.textContent = profile.name || 'Phanna Kurosaki';

@@ -95,4 +95,3 @@ console.log(`Total Home-Row Lessons Audited: ${totalLessonsAudited}`);
 console.log(`Total Unexpected Keys Found: ${totalUnexpectedKeys}`);
 console.log(`Status: ${totalUnexpectedKeys === 0 ? 'ALL CHECKS PASSED (Flawless Pedagogical Progression)' : 'FAIL'}`);
 console.log('========================================================================================\n');
-

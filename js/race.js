@@ -316,7 +316,6 @@ let raceCorrectTotal = 0;
 let raceStartTime = 0;
 let raceTimerId = null;
 let raceCountdownTimer = null;
-let raceTimeLimitId = null;
 let raceLastStreakCorrect = 0;
 let raceLbDifficulty = 'easy';
 let raceLbLength = '30';

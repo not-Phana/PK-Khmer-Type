@@ -132,4 +132,3 @@ if (courseExists('standard')) {
 } else {
   console.log(`\n[SKIP] Standard curriculum not yet created (data/curriculum/standard/ missing).`);
 }
-

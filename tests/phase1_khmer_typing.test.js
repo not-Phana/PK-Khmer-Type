@@ -140,4 +140,3 @@ test('1.6 Compound Vowel Deconstruction mapping table integrity', () => {
   assert.deepEqual(window.KHMER_COMPOUND_MAP['\u17BB\u17C6'], ['\u17BB', '\u17C6']); // ុំ
   assert.deepEqual(window.KHMER_COMPOUND_MAP['\u17BB\u17C7'], ['\u17BB', '\u17C7']); // ុះ
 });
-

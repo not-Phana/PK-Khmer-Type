@@ -117,7 +117,6 @@ const outputEl = document.getElementById("output");
 const placeholderEl = document.getElementById("placeholder");
 const clearBtn = document.getElementById("clearBtn");
 const copyBtn = document.getElementById("copyBtn");
-const manuscriptEl = document.getElementById("manuscript");
 
 /* ---------- Manuscript Helper Functions ---------- */
 function getManuscriptText(){
@@ -806,11 +805,6 @@ function press(el){
   setTimeout(()=> el.classList.remove('pressed'), 110);
 }
 
-function updatePlaceholder(){
-  const hasText = outputEl.textContent.replace(/\u200b/g,'').trim().length > 0
-    || Array.from(outputEl.childNodes).some(n => n.nodeType===3 && n.textContent.length>0);
-  placeholderEl.style.display = (outputEl.querySelector('.cursor') && outputEl.textContent.trim().length===0) ? 'inline' : 'none';
-}
 
 function insertText(str){
   markTypingBurst();
