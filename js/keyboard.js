@@ -1229,31 +1229,9 @@ function frameToPath(frame, baseW, tipW){
   return d;
 }
 
-/* Anatomical squoval fingernail plate path in typing perspective */
+/* Fingernail plate path — disabled to eliminate boxy fingernail artifacts and keep natural smooth fingertips */
 function buildNailPath(frame){
-  const { tip, tipTan, tipW, isThumb } = frame;
-  const nx = -tipTan.y;
-  const ny = tipTan.x;
-  const nw = tipW * (isThumb ? 0.36 : 0.34);
-  const nl = tipW * (isThumb ? 0.58 : 0.66);
-  const center = {
-    x: tip.x - tipTan.x * (nl * 0.24),
-    y: tip.y - tipTan.y * (nl * 0.24)
-  };
-  const top = { x: center.x + tipTan.x * (nl * 0.54), y: center.y + tipTan.y * (nl * 0.54) };
-  const bot = { x: center.x - tipTan.x * (nl * 0.46), y: center.y - tipTan.y * (nl * 0.46) };
-
-  const tl = { x: top.x - nx * (nw * 0.88), y: top.y - ny * (nw * 0.88) };
-  const tr = { x: top.x + nx * (nw * 0.88), y: top.y + ny * (nw * 0.88) };
-  const bl = { x: bot.x - nx * (nw * 0.92), y: bot.y - ny * (nw * 0.92) };
-  const br = { x: bot.x + nx * (nw * 0.92), y: bot.y + ny * (nw * 0.92) };
-
-  const topCtrlL = { x: top.x - nx * (nw * 0.42) + tipTan.x * 2.2, y: top.y - ny * (nw * 0.42) + tipTan.y * 2.2 };
-  const topCtrlR = { x: top.x + nx * (nw * 0.42) + tipTan.x * 2.2, y: top.y + ny * (nw * 0.42) + tipTan.y * 2.2 };
-  const botCtrlR = { x: bot.x + nx * (nw * 0.44) - tipTan.x * 1.6, y: bot.y + ny * (nw * 0.44) - tipTan.y * 1.6 };
-  const botCtrlL = { x: bot.x - nx * (nw * 0.44) - tipTan.x * 1.6, y: bot.y - ny * (nw * 0.44) - tipTan.y * 1.6 };
-
-  return `M ${bl.x.toFixed(1)} ${bl.y.toFixed(1)} L ${tl.x.toFixed(1)} ${tl.y.toFixed(1)} C ${topCtrlL.x.toFixed(1)} ${topCtrlL.y.toFixed(1)} ${topCtrlR.x.toFixed(1)} ${topCtrlR.y.toFixed(1)} ${tr.x.toFixed(1)} ${tr.y.toFixed(1)} L ${br.x.toFixed(1)} ${br.y.toFixed(1)} C ${botCtrlR.x.toFixed(1)} ${botCtrlR.y.toFixed(1)} ${botCtrlL.x.toFixed(1)} ${botCtrlL.y.toFixed(1)} ${bl.x.toFixed(1)} ${bl.y.toFixed(1)} Z`;
+  return '';
 }
 
 function creaseAt(frame, s){
@@ -1715,14 +1693,17 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   // completely clear of KeyV, KeyB, KeyN, and KeyM.
   let defaultThumbTip;
   if(spaceBounds && spaceCenter){
-    const thumbXOffset = Math.max(40, Math.min(105, spaceBounds.width * 0.165));
+    const naturalX = indexBase.x + inward * 38;
+    const clampedX = isLeft
+      ? Math.max(spaceBounds.left + 24, Math.min(spaceCenter.x - 16, naturalX))
+      : Math.min(spaceBounds.right - 24, Math.max(spaceCenter.x + 16, naturalX));
     defaultThumbTip = {
-      x: isLeft ? (spaceCenter.x - thumbXOffset) : (spaceCenter.x + thumbXOffset),
+      x: clampedX,
       y: spaceBounds.top + spaceBounds.height * 0.46
     };
   } else {
     defaultThumbTip = {
-      x: indexBase.x + inward * 46,
+      x: indexBase.x + inward * 38,
       y: palmArchBaseY + 18
     };
   }
@@ -1730,7 +1711,7 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   // Anatomical thumb CMC/thenar base: positioned at lower radial palm
   const thumbF = fingers.find(f=>f.kind==='thumb');
   const thumbBase = {
-    x: indexBase.x - inward * 30,
+    x: indexBase.x + inward * 14,
     y: palmArchBaseY + 36
   };
   baseKnuckles[thumbF.id] = thumbBase;
@@ -2035,7 +2016,7 @@ function renderFrame(handL, handR, wrapRect){
     fe.shape.setAttribute('d', frameToPath(frame, f.baseW, f.tipW));
 
     if(f.kind === 'thumb'){
-      fe.crease1.setAttribute('d', creaseAt(frame, 0.65));
+      fe.crease1.setAttribute('d', '');
       fe.crease2.setAttribute('d', '');
     } else {
       fe.crease1.setAttribute('d', creaseAt(frame, 0.49));
@@ -2044,25 +2025,20 @@ function renderFrame(handL, handR, wrapRect){
     fe.joint1.setAttribute('r', '0');
     fe.joint2.setAttribute('r', '0');
 
-    // Soft anatomical edge highlight along the dorsal ridge
-    const sh1 = pointAtFrame(frame, 0.28);
-    const sh2 = pointAtFrame(frame, 0.55);
-    const sh3 = pointAtFrame(frame, 0.80);
-    fe.shine.setAttribute('d', `M ${sh1.x.toFixed(1)} ${sh1.y.toFixed(1)} Q ${sh2.x.toFixed(1)} ${sh2.y.toFixed(1)} ${sh3.x.toFixed(1)} ${sh3.y.toFixed(1)}`);
+    fe.shine.setAttribute('d', '');
     fe.shine2.setAttribute('d', '');
-    fe.energy.setAttribute('d', `M ${origin.x.toFixed(1)} ${origin.y.toFixed(1)} C ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)} ${tip.x.toFixed(1)} ${tip.y.toFixed(1)}`);
+    fe.energy.setAttribute('d', '');
+    fe.nail.setAttribute('d', '');
 
-    const nailPt = cPoint(origin, p1, p2, tip, 0.88);
-    fe.nail.setAttribute('d', buildNailPath(frame));
-
-    fe.tip.setAttribute('cx', nailPt.x.toFixed(1));
-    fe.tip.setAttribute('cy', nailPt.y.toFixed(1));
-    fe.impactRing.setAttribute('cx', nailPt.x.toFixed(1));
-    fe.impactRing.setAttribute('cy', nailPt.y.toFixed(1));
-    fe.impactRing2.setAttribute('cx', nailPt.x.toFixed(1));
-    fe.impactRing2.setAttribute('cy', nailPt.y.toFixed(1));
-    fe.impactSparks.setAttribute('transform', `translate(${nailPt.x.toFixed(1)} ${nailPt.y.toFixed(1)})`);
-    fe.reticle.setAttribute('transform', `translate(${nailPt.x.toFixed(1)} ${nailPt.y.toFixed(1)})`);
+    const padPt = cPoint(origin, p1, p2, tip, 0.94);
+    fe.tip.setAttribute('cx', padPt.x.toFixed(1));
+    fe.tip.setAttribute('cy', padPt.y.toFixed(1));
+    fe.impactRing.setAttribute('cx', padPt.x.toFixed(1));
+    fe.impactRing.setAttribute('cy', padPt.y.toFixed(1));
+    fe.impactRing2.setAttribute('cx', padPt.x.toFixed(1));
+    fe.impactRing2.setAttribute('cy', padPt.y.toFixed(1));
+    fe.impactSparks.setAttribute('transform', `translate(${padPt.x.toFixed(1)} ${padPt.y.toFixed(1)})`);
+    fe.reticle.setAttribute('transform', `translate(${padPt.x.toFixed(1)} ${padPt.y.toFixed(1)})`);
     fe.g.classList.toggle('active', isActive);
   });
 
