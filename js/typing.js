@@ -22,8 +22,13 @@ const KHMER_COMPOUND_MAP = Object.freeze({
 function normalizeInput(text){
   if(text === null || text === undefined) return '';
   let str = typeof text === 'string' ? text : String(text);
-  str = str.replace(/\u17C1\u17B6/g, '\u17C4')
-           .replace(/\u17C1\u17B8/g, '\u17BE');
+  str = str.replace(/\u17C1\u17B6|\u17B6\u17C1/g, '\u17C4')
+           .replace(/\u17C1\u17B8|\u17B8\u17C1/g, '\u17BE')
+           .replace(/\u17C6\u17BB/g, '\u17BB\u17C6')
+           .replace(/\u17C6\u17B6/g, '\u17B6\u17C6')
+           .replace(/\u17C7\u17BB/g, '\u17BB\u17C7')
+           .replace(/\u17C7\u17C1/g, '\u17C1\u17C7')
+           .replace(/\u17C7\u17C4/g, '\u17C4\u17C7');
   return str.normalize('NFC');
 }
 

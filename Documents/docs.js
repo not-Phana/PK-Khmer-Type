@@ -507,5 +507,201 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('mouseenter', () => activateCommandSpec(key));
     card.addEventListener('click', () => activateCommandSpec(key));
   });
+
+  // =========================================================================
+  // 9. CYBERPUNK 3D SWITCH CHAMBER INTERACTIVE CONSOLE
+  // =========================================================================
+  function initCyberpunkSwitchChamber() {
+    const showcaseCard = document.getElementById('keycap3dShowcaseCard');
+    const switchRig = document.getElementById('wipInteractiveSwitch');
+    const actuateBadge = document.getElementById('wipActuateBadge');
+    const chamberEl = document.getElementById('wipSwitchChamber');
+    if (!showcaseCard || !switchRig) return;
+
+    let actuationCount = 0;
+    const actuateTag = document.getElementById('wipActuateTag');
+    const telemForce = document.getElementById('wipTelemForce');
+    const telemProfile = document.getElementById('wipTelemProfile');
+    const profileName = document.getElementById('wipProfileName');
+
+    // Web Audio Synthesizer for Lubed Mechanical Keyclick ("Thock")
+    let audioCtx = null;
+    function playMechanicalThock(pitchMultiplier = 1.0) {
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        if (!audioCtx) audioCtx = new AudioContextClass();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const now = audioCtx.currentTime;
+
+        // 1. Tactile snap click (high-frequency crisp impulse)
+        const snapOsc = audioCtx.createOscillator();
+        const snapGain = audioCtx.createGain();
+        snapOsc.type = 'triangle';
+        snapOsc.frequency.setValueAtTime(2400 * pitchMultiplier, now);
+        snapOsc.frequency.exponentialRampToValueAtTime(320 * pitchMultiplier, now + 0.025);
+        snapGain.gain.setValueAtTime(0.22, now);
+        snapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+        snapOsc.connect(snapGain);
+        snapGain.connect(audioCtx.destination);
+        snapOsc.start(now);
+        snapOsc.stop(now + 0.04);
+        snapOsc.onended = () => {
+          snapOsc.disconnect();
+          snapGain.disconnect();
+        };
+
+        // 2. Resonant case thud / bottom-out (deep body sound)
+        const thudOsc = audioCtx.createOscillator();
+        const thudGain = audioCtx.createGain();
+        thudOsc.type = 'sine';
+        thudOsc.frequency.setValueAtTime(195 * pitchMultiplier, now + 0.005);
+        thudOsc.frequency.exponentialRampToValueAtTime(65 * pitchMultiplier, now + 0.065);
+        thudGain.gain.setValueAtTime(0.35, now + 0.005);
+        thudGain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        thudOsc.connect(thudGain);
+        thudGain.connect(audioCtx.destination);
+        thudOsc.start(now + 0.005);
+        thudOsc.stop(now + 0.085);
+        thudOsc.onended = () => {
+          thudOsc.disconnect();
+          thudGain.disconnect();
+        };
+      } catch (_) {}
+    }
+
+    // Actuate key action
+    let actuateTimer = null;
+    function triggerActuation() {
+      actuationCount++;
+      if (actuateTag) actuateTag.textContent = `ACTUATE: #${actuationCount}`;
+      if (telemForce) {
+        telemForce.textContent = '65 gf (Bottom Out)';
+        setTimeout(() => {
+          if (telemForce) telemForce.textContent = '55 gf';
+        }, 280);
+      }
+
+      showcaseCard.classList.add('is-actuating');
+      switchRig.classList.add('is-pressed');
+      playMechanicalThock(1.0 + (Math.random() * 0.12 - 0.06));
+
+      clearTimeout(actuateTimer);
+      actuateTimer = setTimeout(() => {
+        showcaseCard.classList.remove('is-actuating');
+        switchRig.classList.remove('is-pressed');
+      }, 180);
+    }
+
+    switchRig.addEventListener('click', triggerActuation);
+    switchRig.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        triggerActuation();
+      }
+    });
+
+    if (actuateBadge) {
+      actuateBadge.addEventListener('click', (e) => {
+        e.stopPropagation();
+        triggerActuation();
+      });
+    }
+
+    // 3D Mouse Parallax Tilt on Chamber
+    if (chamberEl) {
+      chamberEl.addEventListener('mousemove', (e) => {
+        const rect = chamberEl.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotX = Math.max(-16, Math.min(16, -y / 7));
+        const rotY = Math.max(-16, Math.min(16, x / 7));
+        switchRig.style.transform = `perspective(700px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+      });
+      chamberEl.addEventListener('mouseleave', () => {
+        switchRig.style.transform = '';
+      });
+    }
+
+    // Feature Chip Controls
+    const featAnatomy = document.getElementById('wipFeatAnatomy');
+    const featExplode = document.getElementById('wipFeatExplode');
+    const featCurve = document.getElementById('wipFeatCurve');
+    const featRgb = document.getElementById('wipFeatRgb');
+    const featProfiles = document.getElementById('wipFeatProfiles');
+    const featSound = document.getElementById('wipFeatSound');
+
+    // 1. Switch Anatomy
+    if (featAnatomy) {
+      featAnatomy.addEventListener('click', () => {
+        const isActive = showcaseCard.classList.toggle('is-anatomy');
+        featAnatomy.classList.toggle('is-active', isActive);
+      });
+    }
+
+    // 2. Explode View
+    if (featExplode) {
+      featExplode.addEventListener('click', () => {
+        const isActive = showcaseCard.classList.toggle('is-exploded');
+        featExplode.classList.toggle('is-active', isActive);
+      });
+    }
+
+    // 3. Actuation Curve Drawer
+    if (featCurve) {
+      featCurve.addEventListener('click', () => {
+        const isOpen = showcaseCard.classList.toggle('is-curve-open');
+        featCurve.classList.toggle('is-active', isOpen);
+      });
+    }
+
+    // 4. RGB Spectra Cycle (Angkor -> Cyan -> Magenta -> Mint)
+    const rgbThemes = ['', 'theme-cyan', 'theme-magenta', 'theme-mint'];
+    let rgbIdx = 0;
+    if (featRgb) {
+      featRgb.addEventListener('click', () => {
+        rgbIdx = (rgbIdx + 1) % rgbThemes.length;
+        rgbThemes.forEach(t => t && showcaseCard.classList.remove(t));
+        if (rgbThemes[rgbIdx]) {
+          showcaseCard.classList.add(rgbThemes[rgbIdx]);
+          featRgb.classList.add('is-active');
+        } else {
+          featRgb.classList.remove('is-active');
+        }
+      });
+    }
+
+    // 5. Keycap Profile Cycle (OEM -> Cherry -> SA -> XDA)
+    const profiles = ['OEM', 'Cherry', 'SA', 'XDA'];
+    let profileIdx = 0;
+    if (featProfiles) {
+      featProfiles.addEventListener('click', () => {
+        profileIdx = (profileIdx + 1) % profiles.length;
+        const cur = profiles[profileIdx];
+        if (profileName) profileName.textContent = cur;
+        if (telemProfile) telemProfile.textContent = cur;
+        featProfiles.classList.add('is-active');
+      });
+    }
+
+    // 6. Rapid Multi-Thock Acoustic Demo
+    if (featSound) {
+      featSound.addEventListener('click', () => {
+        featSound.classList.add('is-active');
+        const pitches = [0.94, 1.05, 1.0];
+        pitches.forEach((p, idx) => {
+          setTimeout(() => {
+            triggerActuation();
+            if (idx === pitches.length - 1) {
+              setTimeout(() => featSound.classList.remove('is-active'), 300);
+            }
+          }, idx * 130);
+        });
+      });
+    }
+  }
+
+  initCyberpunkSwitchChamber();
 });
 

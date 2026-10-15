@@ -73,14 +73,18 @@ function keyLabel(id){
   return id.toUpperCase();
 }
 
-/* Return required space layer: 'shift' on Khmer layouts, 'base' on English */
-function spaceLayerFor(table){
+/* Return required space layer: 'base' on English and NiDA ZWSP (\u200B), 'shift' on Standard / visible space */
+function spaceLayerFor(table, ch){
   if(typeof currentLayoutId !== 'undefined' && currentLayoutId === 'english') return 'base';
   if(table && table === KEY_BY_ID_EN) return 'base';
+  if((typeof currentLayoutId !== 'undefined' && currentLayoutId === 'nida') || (table && table === KEY_BY_ID_NIDA)){
+    if(ch === '\u200B') return 'base';
+    return 'shift';
+  }
   return 'shift';
 }
-function spaceEntry(table){
-  return { id: 'space', layer: spaceLayerFor(table), ch: ' ' };
+function spaceEntry(table, ch = ' '){
+  return { id: 'space', layer: spaceLayerFor(table, ch), ch: ch };
 }
 
 /* entry = one drillable {key id, layer, character} triple.
@@ -101,7 +105,7 @@ function resolveCharLocation(ch, table){
     : (typeof currentLayoutId !== 'undefined' && currentLayoutId==='english') ? KEY_BY_ID_EN
     : KEY_BY_ID);
   if(!src) return null;
-  if(ch === ' ' || ch === '\u200B') return spaceEntry(src);
+  if(ch === ' ' || ch === '\u200B') return spaceEntry(src, ch);
   if(ch === '្' && (src === KEY_BY_ID || (typeof currentLayoutId !== 'undefined' && currentLayoutId === 'standard'))){
     return { id: 'space', layer: 'base', ch: '្' };
   }
@@ -1370,7 +1374,7 @@ function restoreLessonAfterLayoutSwitch(newLayout){
   lessonLayers = saved.layers;
   lessonKeyIds = saved.keyIds;
   lessonSections = saved.sections || [];
-  lessonIndex = saved.index;
+  lessonIndex = Math.max(0, Math.min(lessonChars.length, (typeof saved.index === 'number') ? saved.index : 0));
   lessonMistakes = saved.mistakes;
   lessonMistakeChars = saved.mistakeChars || {};
   lessonAcceptedUnits = saved.acceptedUnits || [];

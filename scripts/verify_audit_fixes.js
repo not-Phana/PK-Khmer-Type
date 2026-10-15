@@ -217,6 +217,67 @@ const supabaseConfigJs = fs.readFileSync('js/supabase-config.js', 'utf8');
 assert(supabaseConfigJs.includes('https://not-phana.github.io/PK-Khmer-Type/'),
   'js/supabase-config.js uses correct GitHub Pages canonical base URL');
 
+// ====================================================
+// Area 10: Round 3 — Khmer Unicode, Diacritics & NiDA Space Mapping
+// ====================================================
+console.log('\n--- Area 10: Khmer Unicode, Diacritics & Space Mapping ---');
+const typingContent = fs.readFileSync('js/typing.js', 'utf8');
+assert(typingContent.includes('\\u17C6\\u17BB') && typingContent.includes('\\u17BB\\u17C6'),
+  'js/typing.js normalizes inverted diacritic sequence for um');
+assert(typingContent.includes('\\u17C6\\u17B6') && typingContent.includes('\\u17B6\\u17C6'),
+  'js/typing.js normalizes inverted diacritic sequence for aam');
+
+const lessonsContent = fs.readFileSync('js/lessons.js', 'utf8');
+assert(lessonsContent.includes("if(ch === '\\u200B') return 'base';"),
+  'js/lessons.js maps zero-width space on NiDA to base layer spacebar');
+assert(lessonsContent.includes('lessonIndex = Math.max(0, Math.min(lessonChars.length'),
+  'js/lessons.js clamps restored lessonIndex against out-of-bounds');
+
+// ====================================================
+// Area 11: Round 3 — Leaderboard XSS & Storage Crash Guards
+// ====================================================
+console.log('\n--- Area 11: Leaderboard XSS & Storage Crash Guards ---');
+const statsContent = fs.readFileSync('js/statistics.js', 'utf8');
+assert(statsContent.includes('function escapeHtml(s)'),
+  'js/statistics.js defines local escapeHtml helper to prevent XSS');
+assert(statsContent.includes('${escapeHtml(e.name || \'\')}'),
+  'js/statistics.js escapes leaderboard entry names');
+assert(statsContent.includes('function safeGet(k, fallback)'),
+  'js/statistics.js defines local safeGet with try/catch fallback');
+
+// ====================================================
+// Area 12: Round 3 — Sub-Page Assets & Section Anchors
+// ====================================================
+console.log('\n--- Area 12: Sub-Page Assets & Section Anchors ---');
+const documentsHtml = fs.readFileSync('Documents/index.html', 'utf8');
+assert(documentsHtml.includes('id="keycap-3d"'),
+  'Documents/index.html contains target section id="keycap-3d"');
+
+const subpageFiles = ['Documents/index.html', 'docs/index.html', 'launch/index.html'];
+let allSubpageAssetsExist = true;
+subpageFiles.forEach(subFile => {
+  if (!fs.existsSync(subFile)) {
+    allSubpageAssetsExist = false;
+    return;
+  }
+  const content = fs.readFileSync(subFile, 'utf8');
+  const dir = path.dirname(subFile);
+  const tagRegex = /<(script|link|img)\s+[^>]*?(src|href)=["']([^"']+)["'][^>]*>/gi;
+  let m;
+  while ((m = tagRegex.exec(content)) !== null) {
+    const url = m[3];
+    if (/^(https?:|\/\/|data:|mailto:|#)/i.test(url)) continue;
+    const clean = url.split('?')[0].split('#')[0];
+    if (!clean) continue;
+    const target = clean.startsWith('/') ? path.resolve('.', clean.slice(1)) : path.resolve(dir, clean);
+    if (!fs.existsSync(target)) {
+      allSubpageAssetsExist = false;
+      console.error(`Subpage asset missing: ${target} referenced in ${subFile}`);
+    }
+  }
+});
+assert(allSubpageAssetsExist, 'All 28 referenced assets in Documents, docs, and launch exist on disk');
+
 // ----------------------------------------------------
 // Final Summary
 // ----------------------------------------------------
@@ -229,5 +290,5 @@ console.log('====================================================');
 if (failedTests > 0) {
   process.exit(1);
 } else {
-  console.log('ALL 9 AUDIT AREAS VERIFIED CLEAN WITH ZERO REGRESSIONS.');
+  console.log('ALL 12 AUDIT AREAS VERIFIED CLEAN WITH ZERO REGRESSIONS.');
 }

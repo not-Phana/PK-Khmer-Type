@@ -464,12 +464,13 @@
           <span class="doc-i18n" data-en="This feature is actively under development &mdash; the interactive 3D keyboard experience is arriving soon." data-km="មុខងារនេះនៅតែកំពុងអភិវឌ្ឍ &mdash; បទពិសោធន៍ក្តារចុច 3D ពេញលេញនឹងមកដល់ឆាប់ៗ។ សូមរង់ចាំ!">This feature is actively under development &mdash; the interactive 3D keyboard experience is arriving soon.</span>
         </div>
 
-        <!-- 3D Viewport Stage — Redesigned WIP v2 -->
-        <div class="keycap3d-card wip-card-only wip-card-v2">
+        <!-- 3D Viewport Stage — Cyberpunk 3D Switch Chamber -->
+        <div class="keycap3d-card wip-card-only wip-card-v2" id="keycap3dShowcaseCard">
 
           <!-- Decorative layers -->
           <div class="wip-scanlines" aria-hidden="true"></div>
           <div class="wip-grid" aria-hidden="true"></div>
+          <div class="wip-scanner-beam" aria-hidden="true"></div>
 
           <!-- Floating particles -->
           <div class="wip-particles" aria-hidden="true">
@@ -483,45 +484,151 @@
             <span class="wip-particle"></span><span class="wip-particle"></span>
           </div>
 
-          <!-- HUD corner brackets -->
-          <div class="wip-corner wip-corner-tl" aria-hidden="true"></div>
-          <div class="wip-corner wip-corner-tr" aria-hidden="true"></div>
-          <div class="wip-corner wip-corner-bl" aria-hidden="true"></div>
-          <div class="wip-corner wip-corner-br" aria-hidden="true"></div>
+          <!-- HUD corner brackets with telemetry tags -->
+          <div class="wip-corner wip-corner-tl" aria-hidden="true"><span class="wip-corner-text">SYS.3D // V2.8</span></div>
+          <div class="wip-corner wip-corner-tr" aria-hidden="true"><span class="wip-corner-text" id="wipFpsTag">60.0 FPS</span></div>
+          <div class="wip-corner wip-corner-bl" aria-hidden="true"><span class="wip-corner-text">POLY: 1,420</span></div>
+          <div class="wip-corner wip-corner-br" aria-hidden="true"><span class="wip-corner-text" id="wipActuateTag">ACTUATE: #0</span></div>
 
           <!-- Main two-column stage -->
           <div class="wip-stage">
 
-            <!-- Left: Orbital icon rig -->
-            <div class="wip-orbital-wrap" aria-hidden="true">
-              <div class="wip-orbital wip-orbital-outer"></div>
-              <div class="wip-orbital wip-orbital-mid"></div>
-              <div class="wip-orbital wip-orbital-inner"></div>
-              <div class="wip-core-icon">
-                <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="4" width="20" height="16" rx="2.5"/>
-                  <line x1="6" y1="8" x2="6.01" y2="8"/>
-                  <line x1="10" y1="8" x2="10.01" y2="8"/>
-                  <line x1="14" y1="8" x2="14.01" y2="8"/>
-                  <line x1="18" y1="8" x2="18.01" y2="8"/>
-                  <line x1="6" y1="12" x2="6.01" y2="12"/>
-                  <line x1="18" y1="12" x2="18.01" y2="12"/>
-                  <line x1="7" y1="16" x2="17" y2="16"/>
-                  <line x1="10" y1="12" x2="14" y2="12"/>
+            <!-- Left: Interactive Holographic Mechanical Switch Chamber -->
+            <div class="wip-viewport-chamber" id="wipSwitchChamber">
+              <!-- Holographic HUD Radar Rings -->
+              <div class="wip-holo-rings" aria-hidden="true">
+                <div class="wip-holo-ring wip-holo-ring-outer"></div>
+                <div class="wip-holo-ring wip-holo-ring-mid"></div>
+                <div class="wip-holo-ring wip-holo-ring-inner"></div>
+                <div class="wip-crosshair-h"></div>
+                <div class="wip-crosshair-v"></div>
+                <div class="wip-radar-sweep"></div>
+              </div>
+
+              <!-- Interactive 3D Isometric Switch & Keycap Rig -->
+              <div class="wip-switch-rig" id="wipInteractiveSwitch" role="button" tabindex="0" aria-label="Interactive 3D mechanical keycap - Click to actuate">
+                <!-- Anatomy Callouts Overlay -->
+                <div class="wip-anatomy-callouts" aria-hidden="true">
+                  <span class="wip-callout-tag wip-callout-keycap">OEM Keycap (PBT)</span>
+                  <span class="wip-callout-tag wip-callout-stem">MX Cross Stem</span>
+                  <span class="wip-callout-tag wip-callout-spring">Coiled Spring</span>
+                  <span class="wip-callout-tag wip-callout-base">Gold Contact Leaf</span>
+                </div>
+
+                <!-- Ripple ring effect on actuation -->
+                <div class="wip-actuation-ripple" id="wipActuationRipple" aria-hidden="true"></div>
+
+                <!-- Isometric SVG Assembly -->
+                <svg class="wip-switch-svg" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="wipKeyTopGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#2a334a"/>
+                      <stop offset="50%" stop-color="#161c2e"/>
+                      <stop offset="100%" stop-color="#0e1322"/>
+                    </linearGradient>
+                    <linearGradient id="wipKeySideLGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#1e2538"/>
+                      <stop offset="100%" stop-color="#0a0d18"/>
+                    </linearGradient>
+                    <linearGradient id="wipKeySideRGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#252d42"/>
+                      <stop offset="100%" stop-color="#121624"/>
+                    </linearGradient>
+                    <linearGradient id="wipGoldGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#ffe699"/>
+                      <stop offset="40%" stop-color="#ffd166"/>
+                      <stop offset="100%" stop-color="#b8860b"/>
+                    </linearGradient>
+                    <linearGradient id="wipStemGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#ff7b54"/>
+                      <stop offset="50%" stop-color="#ff4757"/>
+                      <stop offset="100%" stop-color="#b33939"/>
+                    </linearGradient>
+                    <linearGradient id="wipHousingGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="rgba(255,209,102,0.22)"/>
+                      <stop offset="100%" stop-color="rgba(10,13,24,0.65)"/>
+                    </linearGradient>
+                    <filter id="wipGlowFilter" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="3" result="blur"/>
+                      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                    </filter>
+                  </defs>
+
+                  <!-- 1. Base Housing (Grounded) -->
+                  <g class="wip-part-housing-base">
+                    <!-- Base plate shadow -->
+                    <ellipse cx="120" cy="195" rx="68" ry="24" fill="rgba(0,0,0,0.55)" filter="url(#wipGlowFilter)" />
+                    <!-- Base PCB socket mount -->
+                    <polygon points="120,165 178,185 120,205 62,185" fill="#0d111c" stroke="rgba(255,157,46,0.3)" stroke-width="1.5"/>
+                    <polygon points="62,185 120,205 120,218 62,198" fill="#080a12" stroke="rgba(255,157,46,0.2)" stroke-width="1"/>
+                    <polygon points="120,205 178,185 178,198 120,218" fill="#05070e" stroke="rgba(255,157,46,0.2)" stroke-width="1"/>
+                    <!-- Gold Contact Leaf -->
+                    <path d="M110,188 L114,178 L126,178 L130,188" stroke="url(#wipGoldGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- 2. Coiled Spring (Compresses on click) -->
+                  <g class="wip-part-spring" id="wipPartSpring">
+                    <path d="M116,148 Q124,145 124,151 Q116,155 116,160 Q124,163 124,168 Q116,172 116,177 Q124,180 120,185"
+                          fill="none" stroke="url(#wipGoldGrad)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+
+                  <!-- 3. Polycarbonate Upper Housing -->
+                  <g class="wip-part-housing-upper">
+                    <polygon points="120,135 168,152 120,169 72,152" fill="url(#wipHousingGrad)" stroke="rgba(255,209,102,0.45)" stroke-width="1.2"/>
+                    <polygon points="72,152 120,169 120,184 72,167" fill="rgba(255,157,46,0.08)" stroke="rgba(255,209,102,0.3)" stroke-width="1"/>
+                    <polygon points="120,169 168,152 168,167 120,184" fill="rgba(255,157,46,0.12)" stroke="rgba(255,209,102,0.3)" stroke-width="1"/>
+                    <!-- Chimney Collar Hole -->
+                    <polygon points="120,144 140,151 120,158 100,151" fill="#080b14" stroke="rgba(255,209,102,0.5)" stroke-width="1"/>
+                  </g>
+
+                  <!-- 4. Moving MX Stem (Travels down on actuation) -->
+                  <g class="wip-part-stem" id="wipPartStem">
+                    <rect x="116" y="118" width="8" height="26" rx="2" fill="url(#wipStemGrad)"/>
+                    <rect x="109" y="125" width="22" height="8" rx="2" fill="url(#wipStemGrad)"/>
+                    <rect x="117" y="120" width="6" height="22" rx="1.5" fill="#ff6b81"/>
+                  </g>
+
+                  <!-- 5. Sculpted OEM Keycap (Moves down on actuation) -->
+                  <g class="wip-part-keycap" id="wipPartKeycap">
+                    <!-- Keycap Underglow Halo -->
+                    <ellipse cx="120" cy="116" rx="46" ry="16" fill="rgba(255,157,46,0.18)" filter="url(#wipGlowFilter)" class="wip-key-underglow"/>
+
+                    <!-- Left side facet -->
+                    <polygon points="70,88 120,108 120,126 70,106" fill="url(#wipKeySideLGrad)" stroke="rgba(255,209,102,0.3)" stroke-width="1"/>
+                    <!-- Right side facet -->
+                    <polygon points="120,108 170,88 170,106 120,126" fill="url(#wipKeySideRGrad)" stroke="rgba(255,209,102,0.3)" stroke-width="1"/>
+                    <!-- Top dished surface -->
+                    <polygon points="120,62 164,80 120,98 76,80" fill="url(#wipKeyTopGrad)" stroke="url(#wipGoldGrad)" stroke-width="1.8"/>
+
+                    <!-- Keycap Inset Border / Sculpt Rim -->
+                    <polygon points="120,66 158,80 120,94 82,80" fill="none" stroke="rgba(255,209,102,0.4)" stroke-width="0.8"/>
+
+                    <!-- Glowing Khmer Consonant Legend: 'ក' + secondary 'K' -->
+                    <g transform="translate(120, 81) scale(1, 0.6) rotate(-28)">
+                      <text x="-7" y="5" font-family="'Kantumruy Pro', 'Hanuman', 'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="url(#wipGoldGrad)" text-anchor="middle" filter="url(#wipGlowFilter)" id="wipLegendGlyph">ក</text>
+                      <text x="8" y="-4" font-family="'Space Grotesk', monospace" font-size="9" font-weight="700" fill="#ffd166" opacity="0.85">K</text>
+                    </g>
+                  </g>
                 </svg>
+
+                <!-- Floating Actuation Interaction Pill -->
+                <button type="button" class="wip-actuate-badge" id="wipActuateBadge" title="Press switch actuation">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="6 9 12 15 18 9"/></svg>
+                  <span>Click Key to Actuate</span>
+                </button>
               </div>
-              <div class="wip-orb-dot wip-orb-dot-1">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-              </div>
-              <div class="wip-orb-dot wip-orb-dot-2">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              </div>
-              <div class="wip-orb-dot wip-orb-dot-3">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+
+              <!-- Live Chamber Telemetry Ticker -->
+              <div class="wip-chamber-telemetry">
+                <span class="wip-telem-item"><strong class="wip-telem-k">FORCE:</strong> <span class="wip-telem-v" id="wipTelemForce">55 gf</span></span>
+                <span class="wip-telem-sep">&bull;</span>
+                <span class="wip-telem-item"><strong class="wip-telem-k">TRAVEL:</strong> <span class="wip-telem-v" id="wipTelemTravel">4.0 mm</span></span>
+                <span class="wip-telem-sep">&bull;</span>
+                <span class="wip-telem-item"><strong class="wip-telem-k">PROFILE:</strong> <span class="wip-telem-v" id="wipTelemProfile">OEM</span></span>
               </div>
             </div>
 
-            <!-- Right: info column -->
+            <!-- Right: Info column & Interactive Feature Console -->
             <div class="wip-text-col">
 
               <!-- Status chips -->
@@ -551,44 +658,63 @@
                 A fully interactive 3D mechanical keyboard with switch anatomy dissection, keycap profile viewer, live actuation simulation, and multi-layout rendering.
               </p>
 
-              <!-- Coming-soon feature chips -->
+              <!-- Interactive Feature Console Chips -->
               <div class="wip-feature-chips">
-                <div class="wip-feat-chip">
+                <button type="button" class="wip-feat-chip" id="wipFeatAnatomy" title="Toggle switch anatomy callouts">
                   <span class="wip-feat-icon">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                   </span>
                   <span>Switch Anatomy</span>
-                </div>
-                <div class="wip-feat-chip">
+                </button>
+                <button type="button" class="wip-feat-chip" id="wipFeatExplode" title="Toggle 3D exploded view">
                   <span class="wip-feat-icon">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
                   </span>
                   <span>Explode View</span>
-                </div>
-                <div class="wip-feat-chip">
+                </button>
+                <button type="button" class="wip-feat-chip" id="wipFeatCurve" title="Inspect force displacement curve">
                   <span class="wip-feat-icon">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                   </span>
                   <span>Actuation Curve</span>
-                </div>
-                <div class="wip-feat-chip">
+                </button>
+                <button type="button" class="wip-feat-chip" id="wipFeatRgb" title="Cycle RGB lighting spectrum">
                   <span class="wip-feat-icon">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
                   </span>
-                  <span>RGB Lighting</span>
-                </div>
-                <div class="wip-feat-chip">
+                  <span>RGB Spectra</span>
+                </button>
+                <button type="button" class="wip-feat-chip" id="wipFeatProfiles" title="Cycle keycap profile sculpts">
                   <span class="wip-feat-icon">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                   </span>
-                  <span>Keycap Profiles</span>
-                </div>
-                <div class="wip-feat-chip">
+                  <span>Profiles: <strong id="wipProfileName">OEM</strong></span>
+                </button>
+                <button type="button" class="wip-feat-chip" id="wipFeatSound" title="Synthesize lubed mechanical switch thock">
                   <span class="wip-feat-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3l14 9-14 9V3z"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
                   </span>
-                  <span>Drag &amp; Rotate</span>
+                  <span>Lubed Thock</span>
+                </button>
+              </div>
+
+              <!-- Interactive Actuation Curve Mini Drawer -->
+              <div class="wip-curve-drawer" id="wipCurveDrawer">
+                <div class="wip-curve-header">
+                  <span>Tactile Force Curve (Linear / Tactile Hybrid &bull; 55gf Bump)</span>
+                  <span class="wip-curve-val">Travel: 2.0mm @ 55gf</span>
                 </div>
+                <svg class="wip-curve-svg" viewBox="0 0 320 50" fill="none">
+                  <!-- Force curve path with tactile bump -->
+                  <path d="M 10 42 C 40 40, 80 34, 110 20 C 130 10, 150 25, 180 25 C 230 25, 270 12, 305 4" stroke="var(--wip-accent)" stroke-width="2.2" stroke-linecap="round"/>
+                  <!-- Actuation tactile bump point -->
+                  <circle cx="110" cy="20" r="4.5" fill="var(--wip-accent)" filter="url(#wipGlowFilter)"/>
+                  <line x1="110" y1="20" x2="110" y2="48" stroke="var(--wip-accent-glow)" stroke-dasharray="2 2"/>
+                  <!-- Bottom out point -->
+                  <circle cx="305" cy="4" r="3.5" fill="var(--doc-mint)"/>
+                  <!-- Axis baseline -->
+                  <line x1="10" y1="46" x2="310" y2="46" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+                </svg>
               </div>
 
               <!-- Build progress -->
@@ -605,19 +731,19 @@
                   <div class="wip-progress-glow"></div>
                 </div>
                 <div class="wip-progress-stages">
-                  <span class="wip-stage done">
+                  <span class="wip-stage-pill done" title="3D Mesh Geometry modeled &amp; verified">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><polyline points="20 6 9 17 4 12"/></svg>
                     Geometry
                   </span>
-                  <span class="wip-stage done">
+                  <span class="wip-stage-pill done" title="PBR Materials &amp; legend texturing complete">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><polyline points="20 6 9 17 4 12"/></svg>
                     Materials
                   </span>
-                  <span class="wip-stage active">
+                  <span class="wip-stage-pill active" title="Kinematic spring tension &amp; collision tuning in progress">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/></svg>
                     Physics
                   </span>
-                  <span class="wip-stage pending">
+                  <span class="wip-stage-pill pending" title="Interactive UI controls &amp; camera bindings">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                     UI Controls
                   </span>

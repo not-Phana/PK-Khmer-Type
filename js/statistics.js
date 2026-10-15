@@ -223,6 +223,26 @@ function checkStreakAchievement(s){
 
 
 function initStatisticsDashboard(){
+  function escapeHtml(s){
+    return String(s || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+
+  function safeGet(k, fallback){
+    try {
+      if (typeof localStorage === 'undefined') return fallback;
+      const v = localStorage.getItem(k);
+      return v !== null ? v : fallback;
+    } catch(e) {
+      return fallback;
+    }
+  }
+
+  function safeSet(k, val){
+    try {
+      if (typeof localStorage !== 'undefined') localStorage.setItem(k, val);
+    } catch(e) {}
+  }
+
   /* ---------- global (all-time) stats tracking ---------- */
   function loadTotals(){
     try{ return JSON.parse(safeGet(LS.totals, 'null')) || { keys:0, correct:0, seconds:0, bestWpm:0, days:[] }; }
