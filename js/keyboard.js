@@ -1290,11 +1290,11 @@ function buildHandPalette(hex, fallbackHex) {
     mid: rgbToHex(r * 0.68, g * 0.68, b * 0.68),
     bright: rgbToHex(r, g, b),
     light: rgbToHex(r + (255 - r) * 0.75, g + (255 - g) * 0.75, b + (255 - b) * 0.75),
-    glowRgba: `rgba(${r}, ${g}, ${b}, 0.85)`,
-    strokeRgba: `rgba(${r}, ${g}, ${b}, 0.62)`,
-    shadowRgba: `rgba(${r}, ${g}, ${b}, 0.32)`,
+    glowRgba: `rgba(${r}, ${g}, ${b}, 0.90)`,
+    strokeRgba: `rgba(${r}, ${g}, ${b}, 0.78)`,
+    shadowRgba: `rgba(${r}, ${g}, ${b}, 0.38)`,
     nailFillRgba: `rgba(${r}, ${g}, ${b}, 0.28)`,
-    tipFillRgba: `rgba(${r}, ${g}, ${b}, 0.65)`
+    tipFillRgba: `rgba(${r}, ${g}, ${b}, 0.70)`
   };
 }
 
@@ -1327,67 +1327,73 @@ function updateHandsGradients(leftHex, rightHex) {
     defs.innerHTML = `
   <linearGradient id="fingerGrad" x1="0" y1="1" x2="0.2" y2="0">
     <stop offset="0%" stop-color="${palL.mid}" stop-opacity="0"/>
-    <stop offset="35%" stop-color="${palL.mid}" stop-opacity="0.22"/>
-    <stop offset="85%" stop-color="${palL.bright}" stop-opacity="0.45"/>
-    <stop offset="100%" stop-color="${palL.light}" stop-opacity="0.65"/>
+    <stop offset="35%" stop-color="${palL.mid}" stop-opacity="0.25"/>
+    <stop offset="85%" stop-color="${palL.bright}" stop-opacity="0.52"/>
+    <stop offset="100%" stop-color="${palL.light}" stop-opacity="0.75"/>
   </linearGradient>
   <linearGradient id="fingerGradR" x1="0" y1="1" x2="0.2" y2="0">
     <stop offset="0%" stop-color="${palR.mid}" stop-opacity="0"/>
-    <stop offset="35%" stop-color="${palR.mid}" stop-opacity="0.22"/>
-    <stop offset="85%" stop-color="${palR.bright}" stop-opacity="0.45"/>
-    <stop offset="100%" stop-color="${palR.light}" stop-opacity="0.65"/>
+    <stop offset="35%" stop-color="${palR.mid}" stop-opacity="0.25"/>
+    <stop offset="85%" stop-color="${palR.bright}" stop-opacity="0.52"/>
+    <stop offset="100%" stop-color="${palR.light}" stop-opacity="0.75"/>
   </linearGradient>
   <linearGradient id="fingerGradActive" x1="0" y1="1" x2="0.15" y2="0">
     <stop offset="0%" stop-color="${palL.deep}" stop-opacity="0"/>
-    <stop offset="20%" stop-color="${palL.bright}" stop-opacity="0.65"/>
-    <stop offset="62%" stop-color="${palL.bright}" stop-opacity="0.92"/>
-    <stop offset="86%" stop-color="#ffd166" stop-opacity="0.98"/>
+    <stop offset="18%" stop-color="${palL.bright}" stop-opacity="0.72"/>
+    <stop offset="60%" stop-color="${palL.bright}" stop-opacity="0.95"/>
+    <stop offset="85%" stop-color="#ffd166" stop-opacity="0.98"/>
     <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
   </linearGradient>
   <linearGradient id="fingerGradActiveR" x1="0" y1="1" x2="0.15" y2="0">
     <stop offset="0%" stop-color="${palR.deep}" stop-opacity="0"/>
-    <stop offset="20%" stop-color="${palR.bright}" stop-opacity="0.65"/>
-    <stop offset="62%" stop-color="${palR.bright}" stop-opacity="0.92"/>
-    <stop offset="86%" stop-color="#ffd166" stop-opacity="0.98"/>
+    <stop offset="18%" stop-color="${palR.bright}" stop-opacity="0.72"/>
+    <stop offset="60%" stop-color="${palR.bright}" stop-opacity="0.95"/>
+    <stop offset="85%" stop-color="#ffd166" stop-opacity="0.98"/>
     <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
   </linearGradient>
   <linearGradient id="palmGrad" x1="0" y1="1" x2="0.18" y2="0">
-    <stop offset="0%" stop-color="${palL.dark}" stop-opacity="0.62"/>
-    <stop offset="36%" stop-color="${palL.deep}" stop-opacity="0.76"/>
-    <stop offset="68%" stop-color="${palL.mid}" stop-opacity="0.86"/>
-    <stop offset="90%" stop-color="${palL.bright}" stop-opacity="0.93"/>
-    <stop offset="100%" stop-color="${palL.light}" stop-opacity="0.97"/>
+    <stop offset="0%" stop-color="${palL.light}" stop-opacity="0.42"/>
+    <stop offset="7%" stop-color="${palL.dark}" stop-opacity="0.66"/>
+    <stop offset="38%" stop-color="${palL.deep}" stop-opacity="0.78"/>
+    <stop offset="70%" stop-color="${palL.mid}" stop-opacity="0.88"/>
+    <stop offset="90%" stop-color="${palL.bright}" stop-opacity="0.95"/>
+    <stop offset="100%" stop-color="${palL.light}" stop-opacity="0.98"/>
   </linearGradient>
   <linearGradient id="palmGradR" x1="0" y1="1" x2="0.18" y2="0">
-    <stop offset="0%" stop-color="${palR.dark}" stop-opacity="0.62"/>
-    <stop offset="36%" stop-color="${palR.deep}" stop-opacity="0.76"/>
-    <stop offset="68%" stop-color="${palR.mid}" stop-opacity="0.86"/>
-    <stop offset="90%" stop-color="${palR.bright}" stop-opacity="0.93"/>
-    <stop offset="100%" stop-color="${palR.light}" stop-opacity="0.97"/>
+    <stop offset="0%" stop-color="${palR.light}" stop-opacity="0.42"/>
+    <stop offset="7%" stop-color="${palR.dark}" stop-opacity="0.66"/>
+    <stop offset="38%" stop-color="${palR.deep}" stop-opacity="0.78"/>
+    <stop offset="70%" stop-color="${palR.mid}" stop-opacity="0.88"/>
+    <stop offset="90%" stop-color="${palR.bright}" stop-opacity="0.95"/>
+    <stop offset="100%" stop-color="${palR.light}" stop-opacity="0.98"/>
   </linearGradient>
   <radialGradient id="palmHighlight" cx="50%" cy="45%" r="52%">
-    <stop offset="0%" stop-color="${palL.bright}" stop-opacity="0.42"/>
+    <stop offset="0%" stop-color="${palL.light}" stop-opacity="0.55"/>
+    <stop offset="50%" stop-color="${palL.bright}" stop-opacity="0.25"/>
     <stop offset="100%" stop-color="${palL.bright}" stop-opacity="0"/>
   </radialGradient>
   <radialGradient id="palmHighlightR" cx="50%" cy="45%" r="52%">
-    <stop offset="0%" stop-color="${palR.bright}" stop-opacity="0.42"/>
+    <stop offset="0%" stop-color="${palR.light}" stop-opacity="0.55"/>
+    <stop offset="50%" stop-color="${palR.bright}" stop-opacity="0.25"/>
     <stop offset="100%" stop-color="${palR.bright}" stop-opacity="0"/>
   </radialGradient>
   <radialGradient id="jointGlow" cx="50%" cy="50%" r="50%">
-    <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
     <stop offset="100%" stop-color="${palL.mid}" stop-opacity="0"/>
   </radialGradient>
   <radialGradient id="jointGlowR" cx="50%" cy="50%" r="50%">
-    <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
     <stop offset="100%" stop-color="${palR.mid}" stop-opacity="0"/>
   </radialGradient>
-  <filter id="handShadow" x="-35%" y="-35%" width="170%" height="170%">
-    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="${palL.bright}" flood-opacity="0.28"/>
-    <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.42"/>
+  <filter id="handShadow" x="-40%" y="-40%" width="180%" height="180%">
+    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.55"/>
+    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="${palL.bright}" flood-opacity="0.45"/>
+    <feDropShadow dx="0" dy="8" stdDeviation="22" flood-color="${palL.mid}" flood-opacity="0.25"/>
   </filter>
-  <filter id="handShadowR" x="-35%" y="-35%" width="170%" height="170%">
-    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="${palR.bright}" flood-opacity="0.28"/>
-    <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.42"/>
+  <filter id="handShadowR" x="-40%" y="-40%" width="180%" height="180%">
+    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.55"/>
+    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="${palR.bright}" flood-opacity="0.45"/>
+    <feDropShadow dx="0" dy="8" stdDeviation="22" flood-color="${palR.mid}" flood-opacity="0.25"/>
   </filter>
   `;
   }
