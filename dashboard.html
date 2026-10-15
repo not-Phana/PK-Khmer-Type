@@ -819,9 +819,9 @@
       <div class="filter-group">
         <span class="filter-label">Curriculum Track:</span>
         <div class="segmented-control" id="trackFilter">
-          <button class="segment-btn active" data-track="standard" type="button">Khmer Standard (77)</button>
-          <button class="segment-btn" data-track="nida" type="button">Khmer NiDA (77)</button>
-          <button class="segment-btn" data-track="english" type="button">English US (64)</button>
+          <button class="segment-btn active" data-track="standard" type="button">Khmer Standard (78)</button>
+          <button class="segment-btn" data-track="nida" type="button">Khmer NiDA (78)</button>
+          <button class="segment-btn" data-track="english" type="button">English US (66)</button>
         </div>
       </div>
 
@@ -836,7 +836,7 @@
 
       <div class="data-mode-toggle">
         <span>Source:</span>
-        <strong style="color:var(--gold-primary);" id="dataSourceLabel">Local Storage (Active)</strong>
+        <strong style="color:var(--gold-primary);" id="dataSourceLabel">Local Storage (Fresh Profile · 0 Sessions)</strong>
       </div>
     </section>
 
@@ -851,10 +851,9 @@
             <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
           </div>
         </div>
-        <div class="hero-val" id="metricWpm">42 <span style="font-size:16px; color:var(--text-dim);">WPM</span></div>
+        <div class="hero-val" id="metricWpm">0 <span style="font-size:16px; color:var(--text-dim);">WPM</span></div>
         <div class="hero-sub" id="metricWpmSub">
-          <span class="trend-up">↑ +8.4 WPM</span>
-          <span>from baseline</span>
+          <span style="color:var(--text-dim);">No drills recorded yet</span>
         </div>
       </div>
 
@@ -866,7 +865,7 @@
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
           </div>
         </div>
-        <div class="hero-val" style="color:var(--emerald-neon);" id="metricAcc">98.2%</div>
+        <div class="hero-val" style="color:var(--emerald-neon);" id="metricAcc">—%</div>
         <div class="hero-sub" id="metricAccSub">
           <span>Target: 95.0% Mastery Threshold</span>
         </div>
@@ -880,9 +879,9 @@
             <svg class="svg-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="6" y1="12" x2="18" y2="12"></line></svg>
           </div>
         </div>
-        <div class="hero-val" id="metricKeys">14,820</div>
+        <div class="hero-val" id="metricKeys">0</div>
         <div class="hero-sub" id="metricKeysSub">
-          <span>Recorded across all modules</span>
+          <span>0 Keystrokes recorded</span>
         </div>
       </div>
 
@@ -894,9 +893,9 @@
             <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15 8 21 9 17 14 18 20 12 17 6 20 7 14 3 9 9 8 12 2"></polygon></svg>
           </div>
         </div>
-        <div class="hero-val" id="metricLessons">34 <span style="font-size:16px; color:var(--text-dim);">/ 77</span></div>
+        <div class="hero-val" id="metricLessons">0 <span style="font-size:16px; color:var(--text-dim);">/ 78</span></div>
         <div class="hero-sub" id="metricLessonsSub">
-          <span style="color:var(--gold-primary); font-weight:700;">44.1% Curriculum Complete</span>
+          <span style="color:var(--text-dim);">0.0% Curriculum Complete</span>
         </div>
       </div>
 
@@ -908,9 +907,9 @@
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2c1.5 3 4 5 4 9a6 6 0 1 1-12 0c0-4 2.5-6 4-9 1 2 2 3 4 0z"></path></svg>
           </div>
         </div>
-        <div class="hero-val" style="color:var(--gold-primary);" id="metricStreak">12 <span style="font-size:16px; color:var(--text-dim);">Days</span></div>
+        <div class="hero-val" style="color:var(--gold-primary);" id="metricStreak">0 <span style="font-size:16px; color:var(--text-dim);">Days</span></div>
         <div class="hero-sub" id="metricStreakSub">
-          <span>Personal Best: 16 Consecutive Days</span>
+          <span>Start your practice streak today</span>
         </div>
       </div>
 
@@ -922,70 +921,118 @@
       <!-- LEFT COLUMN -->
       <div style="display:flex; flex-direction:column; gap:20px;">
         
-        <!-- MODULE: CURRICULUM PROGRESSION ACROSS 7 UNITS -->
+        <!-- MODULE: CURRICULUM PROGRESSION ACROSS 13 UNITS -->
         <div class="dash-module">
           <div class="module-head">
             <h2 class="module-title">
               <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
               <span id="curriculumModuleTitle">Curriculum Mastery by Unit (Khmer Standard)</span>
             </h2>
-            <span class="module-badge" id="curriculumModuleBadge">77 Total Lessons</span>
+            <span class="module-badge" id="curriculumModuleBadge">78 Total Lessons</span>
           </div>
 
           <div class="curriculum-units-list" id="curriculumUnitsList">
             
             <div class="unit-row">
               <div class="unit-meta">
-                <span class="unit-name">Unit 1: Home Row Foundation (ថ, ក, ដ, ស, ា, ់...)</span>
-                <span class="unit-count">12 / 12 Mastered (100%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:100%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 2: Top Row &amp; Reach Expansion (ឆ, ឹ, េ, រ, ត...)</span>
-                <span class="unit-count">10 / 12 Mastered (83%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:83%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 3: Bottom Row Anchors (ឋ, ខ, ច, វ, ប, ន...)</span>
-                <span class="unit-count">8 / 12 Mastered (66%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:66%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 4: Shift Consonants &amp; Aspirates (ឈ, ឺ, ែ, ឬ, ធ...)</span>
-                <span class="unit-count">4 / 12 Mastered (33%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:33%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 5: Subscripts &amp; Coeng Ligatures (្ក, ្ខ, ្គ, ្ង...)</span>
-                <span class="unit-count">0 / 12 In Progress (0%)</span>
+                <span class="unit-name">Unit 1: Keyboard Orientation</span>
+                <span class="unit-count">0 / 4 Mastered (0%)</span>
               </div>
               <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
             </div>
 
             <div class="unit-row">
               <div class="unit-meta">
-                <span class="unit-name">Unit 6: Compound Vowels &amp; Independent Vowels (ឦ, ឧ, ឪ...)</span>
-                <span class="unit-count">0 / 10 Locked</span>
+                <span class="unit-name">Unit 2: Home Row Consonants</span>
+                <span class="unit-count">0 / 5 Mastered (0%)</span>
               </div>
               <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
             </div>
 
             <div class="unit-row">
               <div class="unit-meta">
-                <span class="unit-name">Unit 7: Real Khmer Literature &amp; Fluency Passages</span>
-                <span class="unit-count">0 / 7 Locked</span>
+                <span class="unit-name">Unit 3: Home Row Vowels &amp; Signs</span>
+                <span class="unit-count">0 / 4 Mastered (0%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            </div>
+
+            <div class="unit-row">
+              <div class="unit-meta">
+                <span class="unit-name">Unit 4: Top Row Reaches</span>
+                <span class="unit-count">0 / 6 Mastered (0%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            </div>
+
+            <div class="unit-row">
+              <div class="unit-meta">
+                <span class="unit-name">Unit 5: Bottom Row Reaches</span>
+                <span class="unit-count">0 / 5 Mastered (0%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            </div>
+
+            <div class="unit-row">
+              <div class="unit-meta">
+                <span class="unit-name">Unit 6: Spacebar Subscript Clusters</span>
+                <span class="unit-count">0 / 8 Mastered (0%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            </div>
+
+            <div class="unit-row">
+              <div class="unit-meta">
+                <span class="unit-name">Unit 7: Standard Shift Consonants</span>
+                <span class="unit-count">0 / 8 Mastered (0%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            </div>
+
+            <div class="unit-row">
+              <div class="unit-meta">
+                <span class="unit-name">Unit 8: Standard Shift Vowels</span>
+                <span class="unit-count">0 / 7 Mastered (0%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            </div>
+
+            <div class="unit-row">
+              <div class="unit-meta">
+                <span class="unit-name">Unit 9: Coeng Combinations</span>
+                <span class="unit-count">0 / 6 Mastered (0%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            </div>
+
+            <div class="unit-row">
+              <div class="unit-meta">
+                <span class="unit-name">Unit 10: Diacritics &amp; Signs</span>
+                <span class="unit-count">0 / 5 Mastered (0%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            </div>
+
+            <div class="unit-row">
+              <div class="unit-meta">
+                <span class="unit-name">Unit 11: Word Practice</span>
+                <span class="unit-count">0 / 8 Mastered (0%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            </div>
+
+            <div class="unit-row">
+              <div class="unit-meta">
+                <span class="unit-name">Unit 12: Sentences &amp; Paragraphs</span>
+                <span class="unit-count">0 / 6 Mastered (0%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            </div>
+
+            <div class="unit-row">
+              <div class="unit-meta">
+                <span class="unit-name">Unit 13: Speed &amp; Mastery</span>
+                <span class="unit-count">0 / 6 Mastered (0%)</span>
               </div>
               <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
             </div>
@@ -1009,72 +1056,72 @@
 
           <div class="keyboard-heatmap-wrap" id="keyboardHeatmapWrap">
             <div class="hm-row">
-              <div class="hm-key mid" title="` / « — Accuracy: 88%">«</div>
-              <div class="hm-key high" title="1 / ១ — Accuracy: 96%">១</div>
-              <div class="hm-key high" title="2 / ២ — Accuracy: 98%">២</div>
-              <div class="hm-key high" title="3 / ៣ — Accuracy: 97%">៣</div>
-              <div class="hm-key high" title="4 / ៤ — Accuracy: 99%">៤</div>
-              <div class="hm-key high" title="5 / ៥ — Accuracy: 95%">៥</div>
-              <div class="hm-key high" title="6 / ៦ — Accuracy: 96%">៦</div>
-              <div class="hm-key mid" title="7 / ៧ — Accuracy: 89%">៧</div>
-              <div class="hm-key mid" title="8 / ៨ — Accuracy: 88%">៨</div>
-              <div class="hm-key mid" title="9 / ៩ — Accuracy: 87%">៩</div>
-              <div class="hm-key high" title="0 / ០ — Accuracy: 96%">០</div>
-              <div class="hm-key" title="- / ឥ">-</div>
-              <div class="hm-key" title="= / ឲ">=</div>
-              <div class="hm-key w-15">Bksp</div>
+              <div class="hm-key" title="Key ` / « — Not yet typed">«</div>
+              <div class="hm-key" title="Key 1 / ១ — Not yet typed">១</div>
+              <div class="hm-key" title="Key 2 / ២ — Not yet typed">២</div>
+              <div class="hm-key" title="Key 3 / ៣ — Not yet typed">៣</div>
+              <div class="hm-key" title="Key 4 / ៤ — Not yet typed">៤</div>
+              <div class="hm-key" title="Key 5 / ៥ — Not yet typed">៥</div>
+              <div class="hm-key" title="Key 6 / ៦ — Not yet typed">៦</div>
+              <div class="hm-key" title="Key 7 / ៧ — Not yet typed">៧</div>
+              <div class="hm-key" title="Key 8 / ៨ — Not yet typed">៨</div>
+              <div class="hm-key" title="Key 9 / ៩ — Not yet typed">៩</div>
+              <div class="hm-key" title="Key 0 / ០ — Not yet typed">០</div>
+              <div class="hm-key" title="Key - / ឥ — Not yet typed">-</div>
+              <div class="hm-key" title="Key = / ឲ — Not yet typed">=</div>
+              <div class="hm-key w-15" title="Backspace">Bksp</div>
             </div>
             <div class="hm-row">
-              <div class="hm-key w-15">Tab</div>
-              <div class="hm-key low" title="Q / ឆ — Accuracy: 72% (Weak Key)">ឆ</div>
-              <div class="hm-key mid" title="W / ឹ — Accuracy: 84%">ឹ</div>
-              <div class="hm-key high" title="E / េ — Accuracy: 96%">េ</div>
-              <div class="hm-key high" title="R / រ — Accuracy: 98%">រ</div>
-              <div class="hm-key high" title="T / ត — Accuracy: 97%">ត</div>
-              <div class="hm-key high" title="Y / យ — Accuracy: 96%">យ</div>
-              <div class="hm-key high" title="U / ុ — Accuracy: 97%">ុ</div>
-              <div class="hm-key high" title="I / ិ — Accuracy: 99%">ិ</div>
-              <div class="hm-key mid" title="O / ោ — Accuracy: 88%">ោ</div>
-              <div class="hm-key low" title="P / ផ — Accuracy: 74% (Weak Key)">ផ</div>
-              <div class="hm-key" title="[ / ើ">ើ</div>
-              <div class="hm-key" title="] / ឿ">ឿ</div>
-              <div class="hm-key w-15">\</div>
+              <div class="hm-key w-15" title="Tab">Tab</div>
+              <div class="hm-key" title="Key Q / ឆ — Not yet typed">ឆ</div>
+              <div class="hm-key" title="Key W / ឹ — Not yet typed">ឹ</div>
+              <div class="hm-key" title="Key E / េ — Not yet typed">េ</div>
+              <div class="hm-key" title="Key R / រ — Not yet typed">រ</div>
+              <div class="hm-key" title="Key T / ត — Not yet typed">ត</div>
+              <div class="hm-key" title="Key Y / យ — Not yet typed">យ</div>
+              <div class="hm-key" title="Key U / ុ — Not yet typed">ុ</div>
+              <div class="hm-key" title="Key I / ិ — Not yet typed">ិ</div>
+              <div class="hm-key" title="Key O / ោ — Not yet typed">ោ</div>
+              <div class="hm-key" title="Key P / ផ — Not yet typed">ផ</div>
+              <div class="hm-key" title="Key [ / ើ — Not yet typed">ើ</div>
+              <div class="hm-key" title="Key ] / ឿ — Not yet typed">ឿ</div>
+              <div class="hm-key w-15" title="Key \">\</div>
             </div>
             <div class="hm-row">
-              <div class="hm-key w-15">Caps</div>
-              <div class="hm-key mid" title="A / ា — Accuracy: 89%">ា</div>
-              <div class="hm-key high" title="S / ស — Accuracy: 97%">ស</div>
-              <div class="hm-key high" title="D / ដ — Accuracy: 98%">ដ</div>
-              <div class="hm-key high" title="F / ថ — Accuracy: 99% (Anchor)">ថ</div>
-              <div class="hm-key high" title="G / ង — Accuracy: 95%">ង</div>
-              <div class="hm-key high" title="H / ហ — Accuracy: 96%">ហ</div>
-              <div class="hm-key high" title="J / ញ — Accuracy: 98%">ញ</div>
-              <div class="hm-key high" title="K / ក — Accuracy: 99%">ក</div>
-              <div class="hm-key high" title="L / ល — Accuracy: 97%">ល</div>
-              <div class="hm-key low" title="; / ះ — Accuracy: 78% (Weak Key)">ះ</div>
-              <div class="hm-key mid" title="' / ់ — Accuracy: 86%">់</div>
-              <div class="hm-key w-20">Enter</div>
+              <div class="hm-key w-15" title="Caps Lock">Caps</div>
+              <div class="hm-key" title="Key A / ា — Not yet typed">ា</div>
+              <div class="hm-key" title="Key S / ស — Not yet typed">ស</div>
+              <div class="hm-key" title="Key D / ដ — Not yet typed">ដ</div>
+              <div class="hm-key" title="Key F / ថ — Not yet typed">ថ</div>
+              <div class="hm-key" title="Key G / ង — Not yet typed">ង</div>
+              <div class="hm-key" title="Key H / ហ — Not yet typed">ហ</div>
+              <div class="hm-key" title="Key J / ញ — Not yet typed">ញ</div>
+              <div class="hm-key" title="Key K / ក — Not yet typed">ក</div>
+              <div class="hm-key" title="Key L / ល — Not yet typed">ល</div>
+              <div class="hm-key" title="Key ; / ះ — Not yet typed">ះ</div>
+              <div class="hm-key" title="Key ' / ់ — Not yet typed">់</div>
+              <div class="hm-key w-20" title="Enter">Enter</div>
             </div>
             <div class="hm-row">
-              <div class="hm-key w-20">Shift</div>
-              <div class="hm-key low" title="Z / ឋ — Accuracy: 68% (Weak Key)">ឋ</div>
-              <div class="hm-key mid" title="X / ខ — Accuracy: 82%">ខ</div>
-              <div class="hm-key high" title="C / ច — Accuracy: 96%">ច</div>
-              <div class="hm-key high" title="V / វ — Accuracy: 97%">វ</div>
-              <div class="hm-key high" title="B / ប — Accuracy: 96%">ប</div>
-              <div class="hm-key high" title="N / ន — Accuracy: 98%">ន</div>
-              <div class="hm-key high" title="M / ម — Accuracy: 97%">ម</div>
-              <div class="hm-key mid" title=", / អ — Accuracy: 88%">អ</div>
-              <div class="hm-key high" title=". / ។ — Accuracy: 96%">។</div>
-              <div class="hm-key mid" title="/ / ? — Accuracy: 84%">?</div>
-              <div class="hm-key w-20">Shift</div>
+              <div class="hm-key w-20" title="Shift">Shift</div>
+              <div class="hm-key" title="Key Z / ឋ — Not yet typed">ឋ</div>
+              <div class="hm-key" title="Key X / ខ — Not yet typed">ខ</div>
+              <div class="hm-key" title="Key C / ច — Not yet typed">ច</div>
+              <div class="hm-key" title="Key V / វ — Not yet typed">វ</div>
+              <div class="hm-key" title="Key B / ប — Not yet typed">ប</div>
+              <div class="hm-key" title="Key N / ន — Not yet typed">ន</div>
+              <div class="hm-key" title="Key M / ម — Not yet typed">ម</div>
+              <div class="hm-key" title="Key , / អ — Not yet typed">អ</div>
+              <div class="hm-key" title="Key . / ។ — Not yet typed">។</div>
+              <div class="hm-key" title="Key / / ? — Not yet typed">?</div>
+              <div class="hm-key w-20" title="Shift">Shift</div>
             </div>
             <div class="hm-row">
-              <div class="hm-key w-15">Ctrl</div>
-              <div class="hm-key w-15">Alt</div>
-              <div class="hm-key w-space high" title="Spacebar — Accuracy: 99.4%">Spacebar (ដកឃ្លា)</div>
-              <div class="hm-key w-15">AltGr</div>
-              <div class="hm-key w-15">Ctrl</div>
+              <div class="hm-key w-15" title="Ctrl">Ctrl</div>
+              <div class="hm-key w-15" title="Alt">Alt</div>
+              <div class="hm-key w-space" title="Spacebar — Not yet typed">Spacebar (ដកឃ្លា)</div>
+              <div class="hm-key w-15" title="AltGr">AltGr</div>
+              <div class="hm-key w-15" title="Ctrl">Ctrl</div>
             </div>
           </div>
         </div>
@@ -1102,44 +1149,12 @@
             </thead>
             <tbody id="sessionsTableBody">
               <tr>
-                <td><strong>Lesson 12: Home Row Word Integration</strong></td>
-                <td>Standard</td>
-                <td><span style="color:var(--emerald-neon); font-weight:700;">99.2%</span></td>
-                <td><strong>46 WPM</strong></td>
-                <td>01:45</td>
-                <td><span style="color:var(--emerald-neon); font-weight:700;">PASSED</span></td>
-              </tr>
-              <tr>
-                <td><strong>Lesson 11: Coordination G (ង) &amp; H (ហ)</strong></td>
-                <td>Standard</td>
-                <td><span style="color:var(--emerald-neon); font-weight:700;">98.4%</span></td>
-                <td><strong>42 WPM</strong></td>
-                <td>01:20</td>
-                <td><span style="color:var(--emerald-neon); font-weight:700;">PASSED</span></td>
-              </tr>
-              <tr>
-                <td><strong>Adaptive Practice: Weak-Key Remediation</strong></td>
-                <td>Adaptive</td>
-                <td><span style="color:var(--gold-primary); font-weight:700;">93.5%</span></td>
-                <td><strong>36 WPM</strong></td>
-                <td>03:12</td>
-                <td><span style="color:var(--gold-primary); font-weight:700;">IMPROVED</span></td>
-              </tr>
-              <tr>
-                <td><strong>Typing Race: Normal Difficulty (30s)</strong></td>
-                <td>Arcade</td>
-                <td><span style="color:var(--emerald-neon); font-weight:700;">97.0%</span></td>
-                <td><strong>54 WPM</strong></td>
-                <td>00:30</td>
-                <td><span style="color:var(--cyan-neon); font-weight:700;">NEW BEST</span></td>
-              </tr>
-              <tr>
-                <td><strong>Lesson 10: Anchor Keys Review Drill</strong></td>
-                <td>Standard</td>
-                <td><span style="color:var(--emerald-neon); font-weight:700;">100.0%</span></td>
-                <td><strong>44 WPM</strong></td>
-                <td>01:05</td>
-                <td><span style="color:var(--emerald-neon); font-weight:700;">FLAWLESS</span></td>
+                <td colspan="6" style="text-align:center; padding:36px 16px; color:var(--text-muted);">
+                  <svg class="svg-icon" viewBox="0 0 24 24" style="width:28px; height:28px; margin-bottom:8px; color:var(--gold-primary); display:block; margin-left:auto; margin-right:auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">No Practice Sessions Recorded Yet</div>
+                  <div style="font-size:12px; margin-bottom:12px;">Complete a lesson or drill in the practice room to record your telemetry history.</div>
+                  <a href="index.html" class="drill-mini-btn" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:12px;">Start First Lesson &rarr;</a>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -1164,43 +1179,43 @@
 
           <div class="finger-bars-grid" id="fingerBarsGrid">
             <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:35%;"></div></div>
-              <span class="f-pct">7%</span>
+              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
+              <span class="f-pct">0%</span>
               <span class="f-label">L-Pinky</span>
             </div>
             <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:55%;"></div></div>
-              <span class="f-pct">11%</span>
+              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
+              <span class="f-pct">0%</span>
               <span class="f-label">L-Ring</span>
             </div>
             <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill emerald" style="height:75%;"></div></div>
-              <span class="f-pct">16%</span>
+              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
+              <span class="f-pct">0%</span>
               <span class="f-label">L-Mid</span>
             </div>
             <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill gold" style="height:92%;"></div></div>
-              <span class="f-pct">24%</span>
+              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
+              <span class="f-pct">0%</span>
               <span class="f-label">L-Idx</span>
             </div>
             <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill gold" style="height:86%;"></div></div>
-              <span class="f-pct">21%</span>
+              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
+              <span class="f-pct">0%</span>
               <span class="f-label">R-Idx</span>
             </div>
             <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill emerald" style="height:65%;"></div></div>
-              <span class="f-pct">12%</span>
+              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
+              <span class="f-pct">0%</span>
               <span class="f-label">R-Mid</span>
             </div>
             <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:40%;"></div></div>
-              <span class="f-pct">6%</span>
+              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
+              <span class="f-pct">0%</span>
               <span class="f-label">R-Ring</span>
             </div>
             <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:25%;"></div></div>
-              <span class="f-pct">3%</span>
+              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
+              <span class="f-pct">0%</span>
               <span class="f-label">R-Pinky</span>
             </div>
           </div>
@@ -1217,51 +1232,12 @@
           </div>
 
           <div class="weak-keys-list" id="weakKeysList">
-            
-            <div class="weak-key-item">
-              <div class="weak-key-left">
-                <div class="key-badge-square">Z</div>
-                <div class="weak-key-meta">
-                  <h4>ឋ (Tho · Key Z)</h4>
-                  <p>Accuracy: 68% · Mean Latency: 290ms</p>
-                </div>
-              </div>
-              <a href="index.html?practice=weak&key=z" class="drill-mini-btn">Drill</a>
+            <div id="weakKeysEmptyState" style="text-align:center; padding:28px 16px; color:var(--text-muted);">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="width:28px; height:28px; margin-bottom:8px; color:var(--gold-primary); display:block; margin-left:auto; margin-right:auto;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">No Stumbling Keys Detected Yet</div>
+              <div style="font-size:12px; max-width:320px; margin:0 auto 14px;">Practice lessons in the training room to generate personalized key diagnostic data.</div>
+              <a href="index.html" class="drill-mini-btn" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:12px;">Start Training</a>
             </div>
-
-            <div class="weak-key-item">
-              <div class="weak-key-left">
-                <div class="key-badge-square">Q</div>
-                <div class="weak-key-meta">
-                  <h4>ឆ (Chho · Key Q)</h4>
-                  <p>Accuracy: 72% · Mean Latency: 310ms</p>
-                </div>
-              </div>
-              <a href="index.html?practice=weak&key=q" class="drill-mini-btn">Drill</a>
-            </div>
-
-            <div class="weak-key-item">
-              <div class="weak-key-left">
-                <div class="key-badge-square">P</div>
-                <div class="weak-key-meta">
-                  <h4>ផ (Pho · Key P)</h4>
-                  <p>Accuracy: 74% · Mean Latency: 340ms</p>
-                </div>
-              </div>
-              <a href="index.html?practice=weak&key=p" class="drill-mini-btn">Drill</a>
-            </div>
-
-            <div class="weak-key-item">
-              <div class="weak-key-left">
-                <div class="key-badge-square">;</div>
-                <div class="weak-key-meta">
-                  <h4>ះ (Reahmuk · Semicolon)</h4>
-                  <p>Accuracy: 78% · Mean Latency: 270ms</p>
-                </div>
-              </div>
-              <a href="index.html?practice=weak&key=semicolon" class="drill-mini-btn">Drill</a>
-            </div>
-
           </div>
         </div>
 
@@ -1272,56 +1248,56 @@
               <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>
               <span>Achievements &amp; Badges</span>
             </h2>
-            <span class="module-badge">4 / 8 Unlocked</span>
+            <span class="module-badge" id="achievementsBadge">0 / 8 Unlocked</span>
           </div>
 
           <div class="achievements-grid">
             
-            <div class="trophy-card unlocked">
+            <div class="trophy-card" id="trophy-angkor">
               <div class="trophy-head">
                 <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15 8 21 9 17 14 18 20 12 17 6 20 7 14 3 9 9 8 12 2"></polygon></svg>
+                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 </div>
-                <span class="trophy-status status-unlocked">UNLOCKED</span>
+                <span class="trophy-status status-locked">LOCKED</span>
               </div>
               <span class="trophy-name">Angkor Foundation</span>
               <span class="trophy-desc">Completed Unit 1 Home Row curriculum with 95%+ accuracy.</span>
             </div>
 
-            <div class="trophy-card unlocked">
+            <div class="trophy-card" id="trophy-speed">
               <div class="trophy-head">
                 <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 </div>
-                <span class="trophy-status status-unlocked">UNLOCKED</span>
+                <span class="trophy-status status-locked">LOCKED</span>
               </div>
               <span class="trophy-name">Speed Artisan</span>
               <span class="trophy-desc">Sustained 50+ WPM burst pace in Khmer Standard layout.</span>
             </div>
 
-            <div class="trophy-card unlocked">
+            <div class="trophy-card" id="trophy-streak">
               <div class="trophy-head">
                 <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2c1.5 3 4 5 4 9a6 6 0 1 1-12 0c0-4 2.5-6 4-9 1 2 2 3 4 0z"></path></svg>
+                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 </div>
-                <span class="trophy-status status-unlocked">UNLOCKED</span>
+                <span class="trophy-status status-locked">LOCKED</span>
               </div>
               <span class="trophy-name">7-Day Devotion</span>
               <span class="trophy-desc">Maintained a 7-day uninterrupted practice streak.</span>
             </div>
 
-            <div class="trophy-card unlocked">
+            <div class="trophy-card" id="trophy-flawless">
               <div class="trophy-head">
                 <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 </div>
-                <span class="trophy-status status-unlocked">UNLOCKED</span>
+                <span class="trophy-status status-locked">LOCKED</span>
               </div>
               <span class="trophy-name">Flawless Monk</span>
               <span class="trophy-desc">Finished an entire lesson with 100.0% accuracy and zero fixes.</span>
             </div>
 
-            <div class="trophy-card">
+            <div class="trophy-card" id="trophy-coeng">
               <div class="trophy-head">
                 <div class="trophy-icon">
                   <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -1332,7 +1308,7 @@
               <span class="trophy-desc">Type 100 conjoined subscript consonants without a mistake.</span>
             </div>
 
-            <div class="trophy-card">
+            <div class="trophy-card" id="trophy-century">
               <div class="trophy-head">
                 <div class="trophy-icon">
                   <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -1341,6 +1317,28 @@
               </div>
               <span class="trophy-name">Century Scribe</span>
               <span class="trophy-desc">Surpass 100 WPM speed in the English QWERTY track.</span>
+            </div>
+
+            <div class="trophy-card" id="trophy-initiate">
+              <div class="trophy-head">
+                <div class="trophy-icon">
+                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <span class="trophy-status status-locked">LOCKED</span>
+              </div>
+              <span class="trophy-name">Initiate Scribe</span>
+              <span class="trophy-desc">Complete your very first typing drill or record 25 keystrokes.</span>
+            </div>
+
+            <div class="trophy-card" id="trophy-millennium">
+              <div class="trophy-head">
+                <div class="trophy-icon">
+                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <span class="trophy-status status-locked">LOCKED</span>
+              </div>
+              <span class="trophy-name">Millennium Scribe</span>
+              <span class="trophy-desc">Record over 1,000 keystrokes across learning sessions.</span>
             </div>
 
           </div>
@@ -1373,438 +1371,660 @@
       const dateEl = document.getElementById('currentDateDisplay');
       if (dateEl) dateEl.textContent = `${months[d.getMonth()]} ${d.getFullYear()}`;
 
-      // Complete Multi-Track Curriculum & Telemetry Data
-      const TRACK_PROFILES = {
+      // Complete Multi-Track Curriculum Metadata
+      const TRACK_METADATA = {
         standard: {
           name: 'Khmer Standard',
-          badgeName: 'Khmer Standard (77 Lessons)',
-          totalLessons: 77,
-          baseline: {
-            wpm: 42,
-            wpmGain: '+8.4',
-            accuracy: 98.2,
-            keys: 14820,
-            completedLessons: 34,
-            streak: 12,
-            bestStreak: 16
-          },
-          units: [
-            { name: 'Unit 1: Home Row Foundation (ថ, ក, ដ, ស, ា, ់...)', count: '12 / 12 Mastered', pct: 100 },
-            { name: 'Unit 2: Top Row & Reach Expansion (ឆ, ឹ, េ, រ, ត...)', count: '10 / 12 Mastered', pct: 83 },
-            { name: 'Unit 3: Bottom Row Anchors (ឋ, ខ, ច, វ, ប, ន...)', count: '8 / 12 Mastered', pct: 66 },
-            { name: 'Unit 4: Shift Consonants & Aspirates (ឈ, ឺ, ែ, ឬ, ធ...)', count: '4 / 12 Mastered', pct: 33 },
-            { name: 'Unit 5: Subscripts & Coeng Ligatures (្ក, ្ខ, ្គ, ្ង...)', count: '0 / 12 In Progress', pct: 0 },
-            { name: 'Unit 6: Compound Vowels & Independent Vowels (ឦ, ឧ, ឪ...)', count: '0 / 10 Locked', pct: 0 },
-            { name: 'Unit 7: Real Khmer Literature & Fluency Passages', count: '0 / 7 Locked', pct: 0 }
-          ],
-          heatmapRows: [
-            [
-              { label: '«', key: '`', tier: 'mid', acc: '88%' },
-              { label: '១', key: '1', tier: 'high', acc: '96%' },
-              { label: '២', key: '2', tier: 'high', acc: '98%' },
-              { label: '៣', key: '3', tier: 'high', acc: '97%' },
-              { label: '៤', key: '4', tier: 'high', acc: '99%' },
-              { label: '៥', key: '5', tier: 'high', acc: '95%' },
-              { label: '៦', key: '6', tier: 'high', acc: '96%' },
-              { label: '៧', key: '7', tier: 'mid', acc: '89%' },
-              { label: '៨', key: '8', tier: 'mid', acc: '88%' },
-              { label: '៩', key: '9', tier: 'mid', acc: '87%' },
-              { label: '០', key: '0', tier: 'high', acc: '96%' },
-              { label: '-', key: '-', tier: '', acc: '82%' },
-              { label: '=', key: '=', tier: '', acc: '80%' },
-              { label: 'Bksp', key: 'backspace', cls: 'w-15', tier: '', acc: '99%' }
-            ],
-            [
-              { label: 'Tab', key: 'tab', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'ឆ', key: 'Q', tier: 'low', acc: '72% (Weak Key)' },
-              { label: 'ឹ', key: 'W', tier: 'mid', acc: '84%' },
-              { label: 'េ', key: 'E', tier: 'high', acc: '96%' },
-              { label: 'រ', key: 'R', tier: 'high', acc: '98%' },
-              { label: 'ត', key: 'T', tier: 'high', acc: '97%' },
-              { label: 'យ', key: 'Y', tier: 'high', acc: '96%' },
-              { label: 'ុ', key: 'U', tier: 'high', acc: '97%' },
-              { label: 'ិ', key: 'I', tier: 'high', acc: '99%' },
-              { label: 'ោ', key: 'O', tier: 'mid', acc: '88%' },
-              { label: 'ផ', key: 'P', tier: 'low', acc: '74% (Weak Key)' },
-              { label: 'ើ', key: '[', tier: '', acc: '80%' },
-              { label: 'ឿ', key: ']', tier: '', acc: '81%' },
-              { label: '\\', key: '\\', cls: 'w-15', tier: '', acc: '90%' }
-            ],
-            [
-              { label: 'Caps', key: 'caps', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'ា', key: 'A', tier: 'mid', acc: '89%' },
-              { label: 'ស', key: 'S', tier: 'high', acc: '97%' },
-              { label: 'ដ', key: 'D', tier: 'high', acc: '98%' },
-              { label: 'ថ', key: 'F', tier: 'high', acc: '99% (Anchor)' },
-              { label: 'ង', key: 'G', tier: 'high', acc: '95%' },
-              { label: 'ហ', key: 'H', tier: 'high', acc: '96%' },
-              { label: 'ញ', key: 'J', tier: 'high', acc: '98%' },
-              { label: 'ក', key: 'K', tier: 'high', acc: '99%' },
-              { label: 'ល', key: 'L', tier: 'high', acc: '97%' },
-              { label: 'ះ', key: ';', tier: 'low', acc: '78% (Weak Key)' },
-              { label: '់', key: "'", tier: 'mid', acc: '86%' },
-              { label: 'Enter', key: 'enter', cls: 'w-20', tier: '', acc: '99%' }
-            ],
-            [
-              { label: 'Shift', key: 'shift', cls: 'w-20', tier: '', acc: '99%' },
-              { label: 'ឋ', key: 'Z', tier: 'low', acc: '68% (Weak Key)' },
-              { label: 'ខ', key: 'X', tier: 'mid', acc: '82%' },
-              { label: 'ច', key: 'C', tier: 'high', acc: '96%' },
-              { label: 'វ', key: 'V', tier: 'high', acc: '97%' },
-              { label: 'ប', key: 'B', tier: 'high', acc: '96%' },
-              { label: 'ន', key: 'N', tier: 'high', acc: '98%' },
-              { label: 'ម', key: 'M', tier: 'high', acc: '97%' },
-              { label: 'អ', key: ',', tier: 'mid', acc: '88%' },
-              { label: '។', key: '.', tier: 'high', acc: '96%' },
-              { label: '?', key: '/', tier: 'mid', acc: '84%' },
-              { label: 'Shift', key: 'shift', cls: 'w-20', tier: '', acc: '99%' }
-            ],
-            [
-              { label: 'Ctrl', key: 'ctrl', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'Alt', key: 'alt', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'Spacebar (ដកឃ្លា)', key: 'space', cls: 'w-space high', tier: 'high', acc: '99.4%' },
-              { label: 'AltGr', key: 'altgr', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'Ctrl', key: 'ctrl', cls: 'w-15', tier: '', acc: '99%' }
-            ]
-          ],
-          fingers: [
-            { name: 'L-Pinky', pct: 7, height: 35, cls: '' },
-            { name: 'L-Ring', pct: 11, height: 55, cls: '' },
-            { name: 'L-Mid', pct: 16, height: 75, cls: 'emerald' },
-            { name: 'L-Idx', pct: 24, height: 92, cls: 'gold' },
-            { name: 'R-Idx', pct: 21, height: 86, cls: 'gold' },
-            { name: 'R-Mid', pct: 12, height: 65, cls: 'emerald' },
-            { name: 'R-Ring', pct: 6, height: 40, cls: '' },
-            { name: 'R-Pinky', pct: 3, height: 25, cls: '' }
-          ],
-          weakKeys: [
-            { key: 'Z', glyph: 'ឋ', name: 'ឋ (Tho · Key Z)', acc: '68%', latency: '290ms', drillKey: 'z' },
-            { key: 'Q', glyph: 'ឆ', name: 'ឆ (Chho · Key Q)', acc: '72%', latency: '310ms', drillKey: 'q' },
-            { key: 'P', glyph: 'ផ', name: 'ផ (Pho · Key P)', acc: '74%', latency: '340ms', drillKey: 'p' },
-            { key: ';', glyph: 'ះ', name: 'ះ (Reahmuk · Semicolon)', acc: '78%', latency: '270ms', drillKey: 'semicolon' }
-          ],
-          sessions: [
-            { title: 'Lesson 12: Home Row Word Integration', track: 'Standard', acc: '99.2%', wpm: '46 WPM', dur: '01:45', res: 'PASSED', resColor: 'var(--emerald-neon)' },
-            { title: 'Lesson 11: Coordination G (ង) & H (ហ)', track: 'Standard', acc: '98.4%', wpm: '42 WPM', dur: '01:20', res: 'PASSED', resColor: 'var(--emerald-neon)' },
-            { title: 'Adaptive Practice: Weak-Key Remediation', track: 'Standard', acc: '93.5%', wpm: '36 WPM', dur: '03:12', res: 'IMPROVED', resColor: 'var(--gold-primary)' },
-            { title: 'Typing Race: Normal Difficulty (30s)', track: 'Standard', acc: '97.0%', wpm: '54 WPM', dur: '00:30', res: 'NEW BEST', resColor: 'var(--cyan-neon)' },
-            { title: 'Lesson 10: Anchor Keys Review Drill', track: 'Standard', acc: '100.0%', wpm: '44 WPM', dur: '01:05', res: 'FLAWLESS', resColor: 'var(--emerald-neon)' }
+          badgeName: 'Khmer Standard (78 Lessons)',
+          totalLessons: 78,
+          levels: [
+            { id: 'standard-L00', title: 'Unit 1: Keyboard Orientation', count: 4, lessons: ['standard-L00-01','standard-L00-02','standard-L00-03','standard-L00-04'] },
+            { id: 'standard-L01', title: 'Unit 2: Home Row Consonants', count: 5, lessons: ['standard-L01-01','standard-L01-02','standard-L01-03','standard-L01-04','standard-L01-05'] },
+            { id: 'standard-L02', title: 'Unit 3: Home Row Vowels & Signs', count: 4, lessons: ['standard-L02-01','standard-L02-02','standard-L02-03','standard-L02-04'] },
+            { id: 'standard-L03', title: 'Unit 4: Top Row Reaches', count: 6, lessons: ['standard-L03-01','standard-L03-02','standard-L03-03','standard-L03-04','standard-L03-05','standard-L03-06'] },
+            { id: 'standard-L04', title: 'Unit 5: Bottom Row Reaches', count: 5, lessons: ['standard-L04-01','standard-L04-02','standard-L04-03','standard-L04-04','standard-L04-05'] },
+            { id: 'standard-L05', title: 'Unit 6: Spacebar Subscript Clusters', count: 8, lessons: ['standard-L05-01','standard-L05-02','standard-L05-03','standard-L05-04','standard-L05-05','standard-L05-06','standard-L05-07','standard-L05-08'] },
+            { id: 'standard-L06', title: 'Unit 7: Standard Shift Consonants', count: 8, lessons: ['standard-L06-01','standard-L06-02','standard-L06-03','standard-L06-04','standard-L06-05','standard-L06-06','standard-L06-07','standard-L06-08'] },
+            { id: 'standard-L07', title: 'Unit 8: Standard Shift Vowels', count: 7, lessons: ['standard-L07-01','standard-L07-02','standard-L07-03','standard-L07-04','standard-L07-05','standard-L07-06','standard-L07-07'] },
+            { id: 'standard-L08', title: 'Unit 9: Coeng Combinations', count: 6, lessons: ['standard-L08-01','standard-L08-02','standard-L08-03','standard-L08-04','standard-L08-05','standard-L08-06'] },
+            { id: 'standard-L09', title: 'Unit 10: Diacritics & Signs', count: 5, lessons: ['standard-L09-01','standard-L09-02','standard-L09-03','standard-L09-04','standard-L09-05'] },
+            { id: 'standard-L10', title: 'Unit 11: Word Practice', count: 8, lessons: ['standard-L10-01','standard-L10-02','standard-L10-03','standard-L10-04','standard-L10-05','standard-L10-06','standard-L10-07','standard-L10-08'] },
+            { id: 'standard-L11', title: 'Unit 12: Sentences & Paragraphs', count: 6, lessons: ['standard-L11-01','standard-L11-02','standard-L11-03','standard-L11-04','standard-L11-05','standard-L11-06'] },
+            { id: 'standard-L12', title: 'Unit 13: Speed & Mastery', count: 6, lessons: ['standard-L12-01','standard-L12-02','standard-L12-03','standard-L12-04','standard-L12-05','standard-L12-06'] }
           ]
         },
-
         nida: {
           name: 'Khmer NiDA',
-          badgeName: 'Khmer NiDA Unicode (77 Lessons)',
-          totalLessons: 77,
-          baseline: {
-            wpm: 39,
-            wpmGain: '+6.1',
-            accuracy: 97.4,
-            keys: 11430,
-            completedLessons: 27,
-            streak: 9,
-            bestStreak: 14
-          },
-          units: [
-            { name: 'Unit 1: NiDA Home Row Anchors (ក, ដ, ថ, ស, ា, ់...)', count: '12 / 12 Mastered', pct: 100 },
-            { name: 'Unit 2: NiDA Upper Row Mechanics (េ, រ, ត, យ, ុ, ិ...)', count: '9 / 12 Mastered', pct: 75 },
-            { name: 'Unit 3: NiDA Lower Row Consonants (ខ, ច, វ, ប, ន, ម...)', count: '5 / 12 Mastered', pct: 41 },
-            { name: 'Unit 4: NiDA Shift Layer & Aspirates (ធ, ឈ, ភ, ឃ, ង...)', count: '1 / 12 Mastered', pct: 8 },
-            { name: 'Unit 5: NiDA Coeng (Subscript) Combinations (្)', count: '0 / 12 In Progress', pct: 0 },
-            { name: 'Unit 6: NiDA Independent Vowels & Signs (ឰ, ឪ, ឫ...)', count: '0 / 10 Locked', pct: 0 },
-            { name: 'Unit 7: Classical NiDA Literature & Prose', count: '0 / 7 Locked', pct: 0 }
-          ],
-          heatmapRows: [
-            [
-              { label: '!', key: '`', tier: 'mid', acc: '87%' },
-              { label: '១', key: '1', tier: 'high', acc: '95%' },
-              { label: '២', key: '2', tier: 'high', acc: '97%' },
-              { label: '៣', key: '3', tier: 'high', acc: '96%' },
-              { label: '៤', key: '4', tier: 'high', acc: '98%' },
-              { label: '៥', key: '5', tier: 'high', acc: '96%' },
-              { label: '៦', key: '6', tier: 'high', acc: '97%' },
-              { label: '៧', key: '7', tier: 'mid', acc: '90%' },
-              { label: '៨', key: '8', tier: 'mid', acc: '89%' },
-              { label: '៩', key: '9', tier: 'mid', acc: '88%' },
-              { label: '០', key: '0', tier: 'high', acc: '96%' },
-              { label: '-', key: '-', tier: '', acc: '84%' },
-              { label: '=', key: '=', tier: '', acc: '83%' },
-              { label: 'Bksp', key: 'backspace', cls: 'w-15', tier: '', acc: '99%' }
-            ],
-            [
-              { label: 'Tab', key: 'tab', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'ឆ', key: 'Q', tier: 'low', acc: '73% (Weak Key)' },
-              { label: 'ឹ', key: 'W', tier: 'mid', acc: '86%' },
-              { label: 'េ', key: 'E', tier: 'high', acc: '97%' },
-              { label: 'រ', key: 'R', tier: 'high', acc: '98%' },
-              { label: 'ត', key: 'T', tier: 'high', acc: '96%' },
-              { label: 'យ', key: 'Y', tier: 'high', acc: '95%' },
-              { label: 'ុ', key: 'U', tier: 'high', acc: '98%' },
-              { label: 'ិ', key: 'I', tier: 'high', acc: '99%' },
-              { label: 'ោ', key: 'O', tier: 'mid', acc: '87%' },
-              { label: 'ផ', key: 'P', tier: 'mid', acc: '85%' },
-              { label: 'ៀ', key: '[', tier: 'low', acc: '65% (Weak Key)' },
-              { label: 'ឪ', key: ']', tier: 'low', acc: '70% (Weak Key)' },
-              { label: '\\', key: '\\', cls: 'w-15', tier: '', acc: '90%' }
-            ],
-            [
-              { label: 'Caps', key: 'caps', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'ា', key: 'A', tier: 'mid', acc: '91%' },
-              { label: 'ស', key: 'S', tier: 'high', acc: '98%' },
-              { label: 'ដ', key: 'D', tier: 'high', acc: '97%' },
-              { label: 'ថ', key: 'F', tier: 'high', acc: '98% (Anchor)' },
-              { label: 'ង', key: 'G', tier: 'high', acc: '96%' },
-              { label: 'ហ', key: 'H', tier: 'high', acc: '95%' },
-              { label: 'ញ', key: 'J', tier: 'high', acc: '97%' },
-              { label: 'ក', key: 'K', tier: 'high', acc: '99%' },
-              { label: 'ល', key: 'L', tier: 'high', acc: '96%' },
-              { label: 'ើ', key: ';', tier: 'mid', acc: '85%' },
-              { label: '់', key: "'", tier: 'mid', acc: '88%' },
-              { label: 'Enter', key: 'enter', cls: 'w-20', tier: '', acc: '99%' }
-            ],
-            [
-              { label: 'Shift', key: 'shift', cls: 'w-20', tier: '', acc: '99%' },
-              { label: 'ឋ', key: 'Z', tier: 'low', acc: '76% (Weak Key)' },
-              { label: 'ខ', key: 'X', tier: 'mid', acc: '84%' },
-              { label: 'ច', key: 'C', tier: 'high', acc: '96%' },
-              { label: 'វ', key: 'V', tier: 'high', acc: '97%' },
-              { label: 'ប', key: 'B', tier: 'high', acc: '95%' },
-              { label: 'ន', key: 'N', tier: 'high', acc: '98%' },
-              { label: 'ម', key: 'M', tier: 'high', acc: '97%' },
-              { label: 'អ', key: ',', tier: 'mid', acc: '89%' },
-              { label: '។', key: '.', tier: 'high', acc: '96%' },
-              { label: '?', key: '/', tier: 'mid', acc: '83%' },
-              { label: 'Shift', key: 'shift', cls: 'w-20', tier: '', acc: '99%' }
-            ],
-            [
-              { label: 'Ctrl', key: 'ctrl', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'Alt', key: 'alt', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'Spacebar (ដកឃ្លា)', key: 'space', cls: 'w-space high', tier: 'high', acc: '99.2%' },
-              { label: 'AltGr', key: 'altgr', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'Ctrl', key: 'ctrl', cls: 'w-15', tier: '', acc: '99%' }
-            ]
-          ],
-          fingers: [
-            { name: 'L-Pinky', pct: 8, height: 40, cls: '' },
-            { name: 'L-Ring', pct: 12, height: 58, cls: '' },
-            { name: 'L-Mid', pct: 15, height: 72, cls: 'emerald' },
-            { name: 'L-Idx', pct: 22, height: 88, cls: 'gold' },
-            { name: 'R-Idx', pct: 23, height: 90, cls: 'gold' },
-            { name: 'R-Mid', pct: 11, height: 60, cls: 'emerald' },
-            { name: 'R-Ring', pct: 6, height: 38, cls: '' },
-            { name: 'R-Pinky', pct: 3, height: 26, cls: '' }
-          ],
-          weakKeys: [
-            { key: '[', glyph: 'ៀ', name: 'ៀ (Iea · Bracket L)', acc: '65%', latency: '320ms', drillKey: 'bracketL' },
-            { key: ']', glyph: 'ឪ', name: 'ឪ (Ov · Bracket R)', acc: '70%', latency: '340ms', drillKey: 'bracketR' },
-            { key: 'Q', glyph: 'ឆ', name: 'ឆ (Chho · Key Q)', acc: '73%', latency: '295ms', drillKey: 'q' },
-            { key: 'Z', glyph: 'ឋ', name: 'ឋ (Tho · Key Z)', acc: '76%', latency: '280ms', drillKey: 'z' }
-          ],
-          sessions: [
-            { title: 'Lesson 08: NiDA Home Row Complete Words', track: 'NiDA', acc: '98.8%', wpm: '39 WPM', dur: '01:30', res: 'PASSED', resColor: 'var(--emerald-neon)' },
-            { title: 'Lesson 07: NiDA Top Row Vowel Reach', track: 'NiDA', acc: '96.5%', wpm: '37 WPM', dur: '01:15', res: 'PASSED', resColor: 'var(--emerald-neon)' },
-            { title: 'Lesson 05: NiDA Center Consonant Shift', track: 'NiDA', acc: '94.2%', wpm: '35 WPM', dur: '02:10', res: 'IMPROVED', resColor: 'var(--gold-primary)' },
-            { title: 'Adaptive Practice: NiDA Subscript Coordination', track: 'NiDA', acc: '92.0%', wpm: '31 WPM', dur: '02:45', res: 'PRACTICED', resColor: 'var(--cyan-neon)' },
-            { title: 'Lesson 03: NiDA 4-Key Core Alternation', track: 'NiDA', acc: '100.0%', wpm: '41 WPM', dur: '00:55', res: 'FLAWLESS', resColor: 'var(--emerald-neon)' }
+          badgeName: 'Khmer NiDA Unicode (78 Lessons)',
+          totalLessons: 78,
+          levels: [
+            { id: 'nida-L00', title: 'Unit 1: Keyboard Orientation', count: 4, lessons: ['nida-L00-01','nida-L00-02','nida-L00-03','nida-L00-04'] },
+            { id: 'nida-L01', title: 'Unit 2: Home Row Consonants', count: 5, lessons: ['nida-L01-01','nida-L01-02','nida-L01-03','nida-L01-04','nida-L01-05'] },
+            { id: 'nida-L02', title: 'Unit 3: Home Row Vowels & Bantoc', count: 4, lessons: ['nida-L02-01','nida-L02-02','nida-L02-03','nida-L02-04'] },
+            { id: 'nida-L03', title: 'Unit 4: Top Row Common', count: 6, lessons: ['nida-L03-01','nida-L03-02','nida-L03-03','nida-L03-04','nida-L03-05','nida-L03-06'] },
+            { id: 'nida-L04', title: 'Unit 5: Bottom Row Common', count: 5, lessons: ['nida-L04-01','nida-L04-02','nida-L04-03','nida-L04-04','nida-L04-05'] },
+            { id: 'nida-L05', title: 'Unit 6: Remaining Base Layer & Coeng', count: 8, lessons: ['nida-L05-01','nida-L05-02','nida-L05-03','nida-L05-04','nida-L05-05','nida-L05-06','nida-L05-07','nida-L05-08'] },
+            { id: 'nida-L06', title: 'Unit 7: Shift Consonants', count: 8, lessons: ['nida-L06-01','nida-L06-02','nida-L06-03','nida-L06-04','nida-L06-05','nida-L06-06','nida-L06-07','nida-L06-08'] },
+            { id: 'nida-L07', title: 'Unit 8: Shift Vowels & Compounds', count: 7, lessons: ['nida-L07-01','nida-L07-02','nida-L07-03','nida-L07-04','nida-L07-05','nida-L07-06','nida-L07-07'] },
+            { id: 'nida-L08', title: 'Unit 9: Coeng Combinations', count: 6, lessons: ['nida-L08-01','nida-L08-02','nida-L08-03','nida-L08-04','nida-L08-05','nida-L08-06'] },
+            { id: 'nida-L09', title: 'Unit 10: Diacritics & Signs', count: 5, lessons: ['nida-L09-01','nida-L09-02','nida-L09-03','nida-L09-04','nida-L09-05'] },
+            { id: 'nida-L10', title: 'Unit 11: Word Practice', count: 8, lessons: ['nida-L10-01','nida-L10-02','nida-L10-03','nida-L10-04','nida-L10-05','nida-L10-06','nida-L10-07','nida-L10-08'] },
+            { id: 'nida-L11', title: 'Unit 12: Sentences & Paragraphs', count: 6, lessons: ['nida-L11-01','nida-L11-02','nida-L11-03','nida-L11-04','nida-L11-05','nida-L11-06'] },
+            { id: 'nida-L12', title: 'Unit 13: Speed & Mastery', count: 6, lessons: ['nida-L12-01','nida-L12-02','nida-L12-03','nida-L12-04','nida-L12-05','nida-L12-06'] }
           ]
         },
-
         english: {
           name: 'English US',
-          badgeName: 'English US QWERTY (64 Lessons)',
-          totalLessons: 64,
-          baseline: {
-            wpm: 56,
-            wpmGain: '+12.6',
-            accuracy: 98.8,
-            keys: 22680,
-            completedLessons: 48,
-            streak: 15,
-            bestStreak: 21
-          },
-          units: [
-            { name: 'Unit 1: Core Home Row Anchors (F, J, D, K, S, L, A, ;)', count: '10 / 10 Mastered', pct: 100 },
-            { name: 'Unit 2: Upper Row Reach (E, R, T, U, I, O, P, Q, W, Y)', count: '12 / 12 Mastered', pct: 100 },
-            { name: 'Unit 3: Bottom Row & Capital Shifts (Z, X, C, V, B, N, M)', count: '11 / 12 Mastered', pct: 91 },
-            { name: 'Unit 4: Numbers & Special Characters (1-0, -, =, /, .)', count: '7 / 10 Mastered', pct: 70 },
-            { name: 'Unit 5: High-Frequency English N-Grams & Bigrams', count: '5 / 10 Mastered', pct: 50 },
-            { name: 'Unit 6: Speed Prose, Punctuation & Velocity Drills', count: '3 / 10 Mastered', pct: 30 }
-          ],
-          heatmapRows: [
-            [
-              { label: '~', key: '`', tier: 'mid', acc: '91%' },
-              { label: '1', key: '1', tier: 'high', acc: '97%' },
-              { label: '2', key: '2', tier: 'high', acc: '98%' },
-              { label: '3', key: '3', tier: 'high', acc: '98%' },
-              { label: '4', key: '4', tier: 'high', acc: '99%' },
-              { label: '5', key: '5', tier: 'high', acc: '96%' },
-              { label: '6', key: '6', tier: 'high', acc: '97%' },
-              { label: '7', key: '7', tier: 'mid', acc: '92%' },
-              { label: '8', key: '8', tier: 'high', acc: '95%' },
-              { label: '9', key: '9', tier: 'high', acc: '96%' },
-              { label: '0', key: '0', tier: 'high', acc: '97%' },
-              { label: '-', key: '-', tier: '', acc: '88%' },
-              { label: '=', key: '=', tier: '', acc: '86%' },
-              { label: 'Bksp', key: 'backspace', cls: 'w-15', tier: '', acc: '99%' }
-            ],
-            [
-              { label: 'Tab', key: 'tab', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'Q', key: 'Q', tier: 'low', acc: '77% (Weak Key)' },
-              { label: 'W', key: 'W', tier: 'high', acc: '96%' },
-              { label: 'E', key: 'E', tier: 'high', acc: '99%' },
-              { label: 'R', key: 'R', tier: 'high', acc: '98%' },
-              { label: 'T', key: 'T', tier: 'high', acc: '99%' },
-              { label: 'Y', key: 'Y', tier: 'high', acc: '96%' },
-              { label: 'U', key: 'U', tier: 'high', acc: '98%' },
-              { label: 'I', key: 'I', tier: 'high', acc: '99%' },
-              { label: 'O', key: 'O', tier: 'high', acc: '98%' },
-              { label: 'P', key: 'P', tier: 'low', acc: '74% (Weak Key)' },
-              { label: '[', key: '[', tier: '', acc: '85%' },
-              { label: ']', key: ']', tier: '', acc: '84%' },
-              { label: '\\', key: '\\', cls: 'w-15', tier: '', acc: '92%' }
-            ],
-            [
-              { label: 'Caps', key: 'caps', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'A', key: 'A', tier: 'high', acc: '98%' },
-              { label: 'S', key: 'S', tier: 'high', acc: '99%' },
-              { label: 'D', key: 'D', tier: 'high', acc: '99%' },
-              { label: 'F', key: 'F', tier: 'high', acc: '100% (Anchor)' },
-              { label: 'G', key: 'G', tier: 'high', acc: '97%' },
-              { label: 'H', key: 'H', tier: 'high', acc: '97%' },
-              { label: 'J', key: 'J', tier: 'high', acc: '100% (Anchor)' },
-              { label: 'K', key: 'K', tier: 'high', acc: '99%' },
-              { label: 'L', key: 'L', tier: 'high', acc: '98%' },
-              { label: ';', key: ';', tier: 'low', acc: '81% (Weak Key)' },
-              { label: "'", key: "'", tier: 'mid', acc: '89%' },
-              { label: 'Enter', key: 'enter', cls: 'w-20', tier: '', acc: '99%' }
-            ],
-            [
-              { label: 'Shift', key: 'shift', cls: 'w-20', tier: '', acc: '99%' },
-              { label: 'Z', key: 'Z', tier: 'mid', acc: '86%' },
-              { label: 'X', key: 'X', tier: 'mid', acc: '88%' },
-              { label: 'C', key: 'C', tier: 'high', acc: '97%' },
-              { label: 'V', key: 'V', tier: 'high', acc: '98%' },
-              { label: 'B', key: 'B', tier: 'low', acc: '71% (Weak Key)' },
-              { label: 'N', key: 'N', tier: 'high', acc: '98%' },
-              { label: 'M', key: 'M', tier: 'high', acc: '98%' },
-              { label: ',', key: ',', tier: 'high', acc: '96%' },
-              { label: '.', key: '.', tier: 'high', acc: '97%' },
-              { label: '/', key: '/', tier: 'mid', acc: '88%' },
-              { label: 'Shift', key: 'shift', cls: 'w-20', tier: '', acc: '99%' }
-            ],
-            [
-              { label: 'Ctrl', key: 'ctrl', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'Alt', key: 'alt', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'Spacebar', key: 'space', cls: 'w-space high', tier: 'high', acc: '99.8%' },
-              { label: 'AltGr', key: 'altgr', cls: 'w-15', tier: '', acc: '99%' },
-              { label: 'Ctrl', key: 'ctrl', cls: 'w-15', tier: '', acc: '99%' }
-            ]
-          ],
-          fingers: [
-            { name: 'L-Pinky', pct: 9, height: 42, cls: '' },
-            { name: 'L-Ring', pct: 13, height: 60, cls: '' },
-            { name: 'L-Mid', pct: 18, height: 78, cls: 'emerald' },
-            { name: 'L-Idx', pct: 21, height: 86, cls: 'gold' },
-            { name: 'R-Idx', pct: 19, height: 82, cls: 'gold' },
-            { name: 'R-Mid', pct: 12, height: 58, cls: 'emerald' },
-            { name: 'R-Ring', pct: 6, height: 36, cls: '' },
-            { name: 'R-Pinky', pct: 2, height: 22, cls: '' }
-          ],
-          weakKeys: [
-            { key: 'B', glyph: 'B', name: 'B (Left Index Reach · Key B)', acc: '71%', latency: '250ms', drillKey: 'b' },
-            { key: 'P', glyph: 'P', name: 'P (Right Pinky Stretch · Key P)', acc: '74%', latency: '270ms', drillKey: 'p' },
-            { key: 'Q', glyph: 'Q', name: 'Q (Left Pinky Reach · Key Q)', acc: '77%', latency: '260ms', drillKey: 'q' },
-            { key: ';', glyph: ';', name: '; (Right Pinky · Semicolon)', acc: '81%', latency: '240ms', drillKey: 'semicolon' }
-          ],
-          sessions: [
-            { title: 'Lesson 24: Bottom Row Punctuation Mastery', track: 'English', acc: '99.4%', wpm: '58 WPM', dur: '01:10', res: 'PASSED', resColor: 'var(--emerald-neon)' },
-            { title: 'Lesson 21: Capital Letters Alternating Shift', track: 'English', acc: '98.1%', wpm: '54 WPM', dur: '01:25', res: 'PASSED', resColor: 'var(--emerald-neon)' },
-            { title: 'Typing Race: English Common Quotes', track: 'English', acc: '99.0%', wpm: '65 WPM', dur: '00:30', res: 'NEW BEST', resColor: 'var(--cyan-neon)' },
-            { title: 'Lesson 18: High-Frequency English Words', track: 'English', acc: '97.6%', wpm: '52 WPM', dur: '01:40', res: 'PASSED', resColor: 'var(--emerald-neon)' },
-            { title: 'Lesson 12: Home Row + Top Row Speed Sprint', track: 'English', acc: '100.0%', wpm: '61 WPM', dur: '00:50', res: 'FLAWLESS', resColor: 'var(--emerald-neon)' }
+          badgeName: 'English US QWERTY (66 Lessons)',
+          totalLessons: 66,
+          levels: [
+            { id: 'en-L00', title: 'Unit 1: Anchor Keys & Orientation', count: 4, lessons: ['en-L00-01','en-L00-02','en-L00-03','en-L00-04'] },
+            { id: 'en-L01', title: 'Unit 2: Core Home Row: D, K, S, L', count: 4, lessons: ['en-L01-01','en-L01-02','en-L01-03','en-L01-04'] },
+            { id: 'en-L02', title: 'Unit 3: Full Core Home Row & Words', count: 5, lessons: ['en-L02-01','en-L02-02','en-L02-03','en-L02-04','en-L02-05'] },
+            { id: 'en-L03', title: 'Unit 4: Home Row Reaches', count: 4, lessons: ['en-L03-01','en-L03-02','en-L03-03','en-L03-04'] },
+            { id: 'en-L04', title: 'Unit 5: Top Row Vowels', count: 5, lessons: ['en-L04-01','en-L04-02','en-L04-03','en-L04-04','en-L04-05'] },
+            { id: 'en-L05', title: 'Unit 6: Top Row Remaining', count: 5, lessons: ['en-L05-01','en-L05-02','en-L05-03','en-L05-04','en-L05-05'] },
+            { id: 'en-L06', title: 'Unit 7: Bottom Row', count: 6, lessons: ['en-L06-01','en-L06-02','en-L06-03','en-L06-04','en-L06-05','en-L06-06'] },
+            { id: 'en-L07', title: 'Unit 8: Full Alphabet', count: 4, lessons: ['en-L07-01','en-L07-02','en-L07-03','en-L07-04'] },
+            { id: 'en-L08', title: 'Unit 9: Capital Letters', count: 5, lessons: ['en-L08-01','en-L08-02','en-L08-03','en-L08-04','en-L08-05'] },
+            { id: 'en-L09', title: 'Unit 10: Number Row', count: 4, lessons: ['en-L09-01','en-L09-02','en-L09-03','en-L09-04'] },
+            { id: 'en-L10', title: 'Unit 11: Punctuation & Symbols', count: 5, lessons: ['en-L10-01','en-L10-02','en-L10-03','en-L10-04','en-L10-05'] },
+            { id: 'en-L11', title: 'Unit 12: Sentences', count: 5, lessons: ['en-L11-01','en-L11-02','en-L11-03','en-L11-04','en-L11-05'] },
+            { id: 'en-L12', title: 'Unit 13: Paragraphs', count: 4, lessons: ['en-L12-01','en-L12-02','en-L12-03','en-L12-04'] },
+            { id: 'en-L13', title: 'Unit 14: Speed & Mastery', count: 6, lessons: ['en-L13-01','en-L13-02','en-L13-03','en-L13-04','en-L13-05','en-L13-06'] }
           ]
         }
       };
 
-      const TIMEFRAME_MODIFIERS = {
-        all: {
-          keyMult: 1.0,
-          wpmOffset: 0,
-          accOffset: 0,
-          streakFactor: 1.0,
-          subWpm: 'from baseline',
-          subKeys: 'Recorded across all modules',
-          subAcc: 'Target: 95.0% Mastery Threshold',
-          subStreak: (best) => `Personal Best: ${best} Consecutive Days`
-        },
-        '30d': {
-          keyMult: 0.72,
-          wpmOffset: 2.5,
-          accOffset: 0.4,
-          streakFactor: 0.9,
-          subWpm: '↑ +3.2 WPM vs 60d prior',
-          subKeys: 'Past 30-day training cycle',
-          subAcc: 'Monthly consistency index',
-          subStreak: (best) => 'Active 30-day momentum'
-        },
-        '7d': {
-          keyMult: 0.24,
-          wpmOffset: 4.8,
-          accOffset: 0.8,
-          streakFactor: 0.7,
-          subWpm: '↑ Peak weekly sprint',
-          subKeys: 'Past 7 days volume',
-          subAcc: 'Current week rolling accuracy',
-          subStreak: (best) => 'Current 7-day devotion streak'
-        }
+      // Physical Keyboard ANSI 104 Heatmap Keycaps
+      const KEYBOARD_LAYOUTS = {
+        standard: [
+          [
+            { label: '«', id: 'grave' }, { label: '១', id: '1' }, { label: '២', id: '2' }, { label: '៣', id: '3' }, { label: '៤', id: '4' },
+            { label: '៥', id: '5' }, { label: '៦', id: '6' }, { label: '៧', id: '7' }, { label: '៨', id: '8' }, { label: '៩', id: '9' },
+            { label: '០', id: '0' }, { label: '-', id: 'minus' }, { label: '=', id: 'equal' }, { label: 'Bksp', id: 'backspace', cls: 'w-15' }
+          ],
+          [
+            { label: 'Tab', id: 'tab', cls: 'w-15' }, { label: 'ឆ', id: 'q' }, { label: 'ឹ', id: 'w' }, { label: 'េ', id: 'e' }, { label: 'រ', id: 'r' },
+            { label: 'ត', id: 't' }, { label: 'យ', id: 'y' }, { label: 'ុ', id: 'u' }, { label: 'ិ', id: 'i' }, { label: 'ោ', id: 'o' },
+            { label: 'ផ', id: 'p' }, { label: 'ើ', id: 'bracketL' }, { label: 'ឿ', id: 'bracketR' }, { label: '\\', id: 'backslash', cls: 'w-15' }
+          ],
+          [
+            { label: 'Caps', id: 'caps', cls: 'w-15' }, { label: 'ា', id: 'a' }, { label: 'ស', id: 's' }, { label: 'ដ', id: 'd' }, { label: 'ថ', id: 'f' },
+            { label: 'ង', id: 'g' }, { label: 'ហ', id: 'h' }, { label: 'ញ', id: 'j' }, { label: 'ក', id: 'k' }, { label: 'ល', id: 'l' },
+            { label: 'ះ', id: 'semicolon' }, { label: '់', id: 'quote' }, { label: 'Enter', id: 'enter', cls: 'w-20' }
+          ],
+          [
+            { label: 'Shift', id: 'shiftL', cls: 'w-20' }, { label: 'ឋ', id: 'z' }, { label: 'ខ', id: 'x' }, { label: 'ច', id: 'c' }, { label: 'វ', id: 'v' },
+            { label: 'ប', id: 'b' }, { label: 'ន', id: 'n' }, { label: 'ម', id: 'm' }, { label: 'អ', id: 'comma' }, { label: '។', id: 'period' },
+            { label: '?', id: 'slash' }, { label: 'Shift', id: 'shiftR', cls: 'w-20' }
+          ],
+          [
+            { label: 'Ctrl', id: 'ctrlL', cls: 'w-15' }, { label: 'Alt', id: 'alt', cls: 'w-15' },
+            { label: 'Spacebar (ដកឃ្លា)', id: 'space', cls: 'w-space' },
+            { label: 'AltGr', id: 'altgr', cls: 'w-15' }, { label: 'Ctrl', id: 'ctrlR', cls: 'w-15' }
+          ]
+        ],
+        nida: [
+          [
+            { label: '«', id: 'grave' }, { label: '១', id: '1' }, { label: '២', id: '2' }, { label: '៣', id: '3' }, { label: '៤', id: '4' },
+            { label: '៥', id: '5' }, { label: '៦', id: '6' }, { label: '៧', id: '7' }, { label: '៨', id: '8' }, { label: '៩', id: '9' },
+            { label: '០', id: '0' }, { label: 'ឥ', id: 'minus' }, { label: 'ឲ', id: 'equal' }, { label: 'Bksp', id: 'backspace', cls: 'w-15' }
+          ],
+          [
+            { label: 'Tab', id: 'tab', cls: 'w-15' }, { label: 'ឆ', id: 'q' }, { label: 'ឹ', id: 'w' }, { label: 'េ', id: 'e' }, { label: 'រ', id: 'r' },
+            { label: 'ត', id: 't' }, { label: 'យ', id: 'y' }, { label: 'ុ', id: 'u' }, { label: 'ិ', id: 'i' }, { label: 'ោ', id: 'o' },
+            { label: 'ផ', id: 'p' }, { label: 'ៀ', id: 'bracketL' }, { label: 'ឪ', id: 'bracketR' }, { label: 'ឮ', id: 'backslash', cls: 'w-15' }
+          ],
+          [
+            { label: 'Caps', id: 'caps', cls: 'w-15' }, { label: 'ា', id: 'a' }, { label: 'ស', id: 's' }, { label: 'ដ', id: 'd' }, { label: 'ថ', id: 'f' },
+            { label: 'ង', id: 'g' }, { label: 'ហ', id: 'h' }, { label: '្', id: 'j' }, { label: 'ក', id: 'k' }, { label: 'ល', id: 'l' },
+            { label: 'ើ', id: 'semicolon' }, { label: '់', id: 'quote' }, { label: 'Enter', id: 'enter', cls: 'w-20' }
+          ],
+          [
+            { label: 'Shift', id: 'shiftL', cls: 'w-20' }, { label: 'ឋ', id: 'z' }, { label: 'ខ', id: 'x' }, { label: 'ច', id: 'c' }, { label: 'វ', id: 'v' },
+            { label: 'ប', id: 'b' }, { label: 'ន', id: 'n' }, { label: 'ម', id: 'm' }, { label: 'ុំ', id: 'comma' }, { label: '។', id: 'period' },
+            { label: '៊', id: 'slash' }, { label: 'Shift', id: 'shiftR', cls: 'w-20' }
+          ],
+          [
+            { label: 'Ctrl', id: 'ctrlL', cls: 'w-15' }, { label: 'Alt', id: 'alt', cls: 'w-15' },
+            { label: 'Spacebar (ដកឃ្លា)', id: 'space', cls: 'w-space' },
+            { label: 'AltGr', id: 'altgr', cls: 'w-15' }, { label: 'Ctrl', id: 'ctrlR', cls: 'w-15' }
+          ]
+        ],
+        english: [
+          [
+            { label: '~', id: 'grave' }, { label: '1', id: '1' }, { label: '2', id: '2' }, { label: '3', id: '3' }, { label: '4', id: '4' },
+            { label: '5', id: '5' }, { label: '6', id: '6' }, { label: '7', id: '7' }, { label: '8', id: '8' }, { label: '9', id: '9' },
+            { label: '0', id: '0' }, { label: '-', id: 'minus' }, { label: '=', id: 'equal' }, { label: 'Bksp', id: 'backspace', cls: 'w-15' }
+          ],
+          [
+            { label: 'Tab', id: 'tab', cls: 'w-15' }, { label: 'Q', id: 'q' }, { label: 'W', id: 'w' }, { label: 'E', id: 'e' }, { label: 'R', id: 'r' },
+            { label: 'T', id: 't' }, { label: 'Y', id: 'y' }, { label: 'U', id: 'u' }, { label: 'I', id: 'i' }, { label: 'O', id: 'o' },
+            { label: 'P', id: 'p' }, { label: '[', id: 'bracketL' }, { label: ']', id: 'bracketR' }, { label: '\\', id: 'backslash', cls: 'w-15' }
+          ],
+          [
+            { label: 'Caps', id: 'caps', cls: 'w-15' }, { label: 'A', id: 'a' }, { label: 'S', id: 's' }, { label: 'D', id: 'd' }, { label: 'F', id: 'f' },
+            { label: 'G', id: 'g' }, { label: 'H', id: 'h' }, { label: 'J', id: 'j' }, { label: 'K', id: 'k' }, { label: 'L', id: 'l' },
+            { label: ';', id: 'semicolon' }, { label: "'", id: 'quote' }, { label: 'Enter', id: 'enter', cls: 'w-20' }
+          ],
+          [
+            { label: 'Shift', id: 'shiftL', cls: 'w-20' }, { label: 'Z', id: 'z' }, { label: 'X', id: 'x' }, { label: 'C', id: 'c' }, { label: 'V', id: 'v' },
+            { label: 'B', id: 'b' }, { label: 'N', id: 'n' }, { label: 'M', id: 'm' }, { label: ',', id: 'comma' }, { label: '.', id: 'period' },
+            { label: '/', id: 'slash' }, { label: 'Shift', id: 'shiftR', cls: 'w-20' }
+          ],
+          [
+            { label: 'Ctrl', id: 'ctrlL', cls: 'w-15' }, { label: 'Alt', id: 'alt', cls: 'w-15' },
+            { label: 'Spacebar', id: 'space', cls: 'w-space' },
+            { label: 'AltGr', id: 'altgr', cls: 'w-15' }, { label: 'Ctrl', id: 'ctrlR', cls: 'w-15' }
+          ]
+        ]
       };
+
+      const FINGER_DEFS = [
+        { id: 'lp', name: 'L-Pinky' },
+        { id: 'lr', name: 'L-Ring' },
+        { id: 'lm', name: 'L-Mid' },
+        { id: 'li', name: 'L-Idx' },
+        { id: 'ri', name: 'R-Idx' },
+        { id: 'rm', name: 'R-Mid' },
+        { id: 'rr', name: 'R-Ring' },
+        { id: 'rp', name: 'R-Pinky' }
+      ];
 
       let currentTrack = 'standard';
       let currentTimeframe = 'all';
 
-      function renderDashboard() {
-        const profile = TRACK_PROFILES[currentTrack] || TRACK_PROFILES.standard;
-        const timeMod = TIMEFRAME_MODIFIERS[currentTimeframe] || TIMEFRAME_MODIFIERS.all;
-
-        // Check for live user localStorage data
-        let liveCourse = null;
+      // Safe LocalStorage Reader
+      function readAllLocalStorage() {
+        let progress = null, tracker = null, lessonStats = null, trialBest = 0, raceStats = null, authSession = null;
         try {
           const rawP = localStorage.getItem('khmerProgress_v2');
-          if (rawP) {
-            const p = JSON.parse(rawP);
-            if (p && p.courses && p.courses[currentTrack]) {
-              liveCourse = p.courses[currentTrack];
+          if (rawP) progress = JSON.parse(rawP);
+        } catch (e) {}
+        try {
+          const rawT = localStorage.getItem('khmerTrackingData_v1');
+          if (rawT) tracker = JSON.parse(rawT);
+        } catch (e) {}
+        try {
+          const rawS = localStorage.getItem('khmerLessonStats');
+          if (rawS) lessonStats = JSON.parse(rawS);
+        } catch (e) {}
+        try {
+          trialBest = parseInt(localStorage.getItem('khmerTrialBest') || '0', 10) || 0;
+        } catch (e) {}
+        try {
+          const rawR = localStorage.getItem('khmerRaceStats');
+          if (rawR) raceStats = JSON.parse(rawR);
+        } catch (e) {}
+        try {
+          const rawA = localStorage.getItem('khmerAuthSession');
+          if (rawA) authSession = JSON.parse(rawA);
+        } catch (e) {}
+
+        return { progress, tracker, lessonStats, trialBest, raceStats, authSession };
+      }
+
+      // Aggregate all genuine sessions
+      function extractAllSessions(storageData) {
+        const sessions = [];
+        const { progress, tracker } = storageData;
+
+        // 1. History completions from Progress V2
+        if (progress && progress.history && Array.isArray(progress.history.recentCompletions)) {
+          progress.history.recentCompletions.forEach(c => {
+            if (!c) return;
+            const lid = c.layout ? String(c.layout).toLowerCase() : 'standard';
+            const normLayout = lid.includes('eng') ? 'english' : (lid.includes('nida') ? 'nida' : 'standard');
+            const trackName = normLayout === 'standard' ? 'Standard' : (normLayout === 'nida' ? 'NiDA' : 'English');
+            sessions.push({
+              title: `Lesson ${c.lessonId || 'Drill'}`,
+              track: trackName,
+              layoutId: normLayout,
+              acc: Math.min(100, Math.max(0, Number(c.accuracy) || 0)),
+              wpm: Math.max(0, Number(c.wpm) || 0),
+              durSec: Math.max(0, Number(c.timeSec) || 0),
+              timestamp: c.timestamp || Date.now(),
+              passed: c.passed !== false
+            });
+          });
+        }
+
+        // 2. Individual lesson recentAttempts from courses
+        if (progress && progress.courses) {
+          Object.keys(progress.courses).forEach(cid => {
+            const course = progress.courses[cid];
+            if (course && course.lessons) {
+              const normLayout = cid.includes('eng') ? 'english' : (cid.includes('nida') ? 'nida' : 'standard');
+              const trackName = normLayout === 'standard' ? 'Standard' : (normLayout === 'nida' ? 'NiDA' : 'English');
+              Object.keys(course.lessons).forEach(lid => {
+                const l = course.lessons[lid];
+                if (l && Array.isArray(l.recentAttempts)) {
+                  l.recentAttempts.forEach(att => {
+                    if (!att || !att.timestamp) return;
+                    // Deduplicate if already present with similar timestamp
+                    if (!sessions.some(s => Math.abs(s.timestamp - att.timestamp) < 1500)) {
+                      sessions.push({
+                        title: `Lesson ${lid}`,
+                        track: trackName,
+                        layoutId: normLayout,
+                        acc: Math.min(100, Math.max(0, Number(att.accuracy) || 0)),
+                        wpm: Math.max(0, Number(att.wpm) || 0),
+                        durSec: Math.max(0, Number(att.timeSec) || 0),
+                        timestamp: att.timestamp,
+                        passed: att.passed !== false
+                      });
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+
+        // 3. Sessions buffer from Tracker V1
+        if (tracker && Array.isArray(tracker.sessions)) {
+          tracker.sessions.forEach(ts => {
+            if (!ts || !ts.startTime) return;
+            if (!sessions.some(s => Math.abs(s.timestamp - ts.startTime) < 2000)) {
+              const lid = (ts.layoutsUsed && ts.layoutsUsed[0]) || 'standard';
+              const normLayout = lid.includes('eng') ? 'english' : (lid.includes('nida') ? 'nida' : 'standard');
+              const trackName = normLayout === 'standard' ? 'Standard' : (normLayout === 'nida' ? 'NiDA' : 'English');
+              const title = (ts.lessonsPracticed && ts.lessonsPracticed[0]) ? `Lesson ${ts.lessonsPracticed[0]}` : 'Adaptive Practice';
+              const totalUnits = (ts.totalCorrect || 0) + (ts.totalMistakes || 0);
+              const acc = totalUnits > 0 ? Math.round((ts.totalCorrect / totalUnits) * 100) : 100;
+              const durSec = Math.round((ts.activeTypingDurationMs || 0) / 1000);
+              const mins = durSec / 60;
+              const wpm = (mins > 0 && totalUnits > 0) ? Math.round((ts.totalCorrect / 5) / mins) : 0;
+              sessions.push({
+                title,
+                track: trackName,
+                layoutId: normLayout,
+                acc,
+                wpm,
+                durSec,
+                timestamp: ts.startTime,
+                passed: acc >= 85
+              });
+            }
+          });
+        }
+
+        sessions.sort((a, b) => b.timestamp - a.timestamp);
+        return sessions;
+      }
+
+      // Calculate genuine practice streak from session timestamps
+      function calculateStreaks(timestamps) {
+        if (!timestamps || !timestamps.length) return { current: 0, best: 0 };
+        const uniqueDates = Array.from(new Set(timestamps.map(ts => {
+          const dt = new Date(ts);
+          return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+        }))).sort().reverse();
+
+        if (!uniqueDates.length) return { current: 0, best: 0 };
+
+        const today = new Date();
+        const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+
+        let currentStreak = 0;
+        const checkDate = uniqueDates[0] === todayStr ? today : (uniqueDates[0] === yesterdayStr ? yesterday : null);
+
+        if (checkDate) {
+          const cur = new Date(checkDate);
+          while (true) {
+            const curStr = `${cur.getFullYear()}-${String(cur.getMonth() + 1).padStart(2, '0')}-${String(cur.getDate()).padStart(2, '0')}`;
+            if (uniqueDates.includes(curStr)) {
+              currentStreak++;
+              cur.setDate(cur.getDate() - 1);
+            } else {
+              break;
             }
           }
-        } catch(e) {}
-
-        const hasRealData = liveCourse && (liveCourse.totalTypingUnits > 0 || Object.keys(liveCourse.lessons || {}).length > 0);
-
-        // Calculate metrics
-        let totalKeys = Math.round(profile.baseline.keys * timeMod.keyMult);
-        let speedWpm = Math.round(profile.baseline.wpm + timeMod.wpmOffset);
-        let accuracy = Math.min(100, (profile.baseline.accuracy + timeMod.accOffset)).toFixed(1);
-        let completedLessons = profile.baseline.completedLessons;
-        let streakDays = Math.max(1, Math.round(profile.baseline.streak * timeMod.streakFactor));
-
-        if (hasRealData) {
-          if (liveCourse.totalTypingUnits > 0) totalKeys = liveCourse.totalTypingUnits;
-          if (liveCourse.overallAccuracy > 0) accuracy = liveCourse.overallAccuracy.toFixed(1);
-          const doneLessons = Object.values(liveCourse.lessons || {}).filter(l => l.completed).length;
-          if (doneLessons > 0) completedLessons = doneLessons;
-          const maxWpm = Math.max(...Object.values(liveCourse.lessons || {}).map(l => l.bestWpm || 0), 0);
-          if (maxWpm > 0) speedWpm = maxWpm;
         }
+
+        let bestStreak = currentStreak;
+        let running = 0;
+        const ascDates = [...uniqueDates].sort();
+        for (let i = 0; i < ascDates.length; i++) {
+          if (i === 0) {
+            running = 1;
+          } else {
+            const prev = new Date(ascDates[i - 1]);
+            const curr = new Date(ascDates[i]);
+            const diffDays = Math.round((curr - prev) / (1000 * 60 * 60 * 24));
+            if (diffDays === 1) {
+              running++;
+            } else if (diffDays > 1) {
+              running = 1;
+            }
+          }
+          if (running > bestStreak) bestStreak = running;
+        }
+
+        return { current: currentStreak, best: bestStreak };
+      }
+
+      // Check key stats in tracker and progress
+      function getKeyStats(keyId, label, trackStats, courseKeys) {
+        let stat = null;
+        if (trackStats) {
+          stat = trackStats[keyId] ||
+                 trackStats[keyId.toLowerCase()] ||
+                 trackStats[keyId.toUpperCase()] ||
+                 (label ? trackStats[label] : null);
+        }
+        if (!stat && courseKeys) {
+          stat = courseKeys[keyId] ||
+                 courseKeys[keyId.toLowerCase()] ||
+                 (label ? courseKeys[label] : null);
+        }
+        if (!stat || !stat.attempts || stat.attempts < 1) {
+          return { attempts: 0, accuracy: null, tier: '' };
+        }
+        const acc = Math.round((stat.correct / stat.attempts) * 100);
+        let tier = '';
+        if (acc >= 95) tier = 'high';
+        else if (acc >= 85) tier = 'mid';
+        else tier = 'low';
+        return { attempts: stat.attempts, accuracy: acc, tier: tier };
+      }
+
+      // Compute finger workload from tracker and progress
+      function getFingerWorkload(fingerStats, progressFingers) {
+        let total = 0;
+        const counts = {};
+        FINGER_DEFS.forEach(f => {
+          let attempts = 0;
+          if (fingerStats && fingerStats[f.id]) attempts = fingerStats[f.id].attempts || 0;
+          if (!attempts && progressFingers && progressFingers[f.id]) attempts = progressFingers[f.id].attempts || 0;
+          counts[f.id] = attempts;
+          total += attempts;
+        });
+
+        return FINGER_DEFS.map(f => {
+          const attempts = counts[f.id] || 0;
+          const pct = total > 0 ? Math.round((attempts / total) * 100) : 0;
+          const height = total > 0 ? Math.min(100, Math.max(6, Math.round(pct * 3.5))) : 0;
+          let cls = '';
+          if (pct >= 20) cls = 'gold';
+          else if (pct >= 10) cls = 'emerald';
+          return { name: f.name, pct, height, cls, attempts };
+        });
+      }
+
+      // Compute weak stumbling keys
+      function getWeakKeys(trackStats, courseKeys) {
+        const merged = {};
+        if (trackStats) {
+          Object.entries(trackStats).forEach(([k, v]) => {
+            if (v && v.attempts > 0) merged[k] = v;
+          });
+        }
+        if (courseKeys) {
+          Object.entries(courseKeys).forEach(([k, v]) => {
+            if (v && v.attempts > 0 && !merged[k]) merged[k] = v;
+          });
+        }
+
+        const list = [];
+        Object.entries(merged).forEach(([keyId, stat]) => {
+          if (!stat || stat.attempts < 2) return;
+          const acc = stat.attempts > 0 ? Math.round((stat.correct / stat.attempts) * 100) : 100;
+          if (acc < 90 || (stat.incorrect && stat.incorrect > 0)) {
+            list.push({
+              keyId,
+              stat,
+              acc,
+              latency: stat.avgResponseTimeMs ? `${stat.avgResponseTimeMs}ms` : '—'
+            });
+          }
+        });
+
+        list.sort((a, b) => a.acc - b.acc || (b.stat.incorrect || 0) - (a.stat.incorrect || 0));
+        return list.slice(0, 4);
+      }
+
+      // Evaluate and unlock trophies based on genuine achievements
+      function updateAchievements(telemetry) {
+        const { allSessions, totalKeysAll, totalLessonsAll, streak, progress, lessonStats } = telemetry;
+
+        const standardCourse = progress?.courses?.standard;
+        const nidaCourse = progress?.courses?.nida;
+        const englishCourse = progress?.courses?.english;
+
+        const isLevelDoneWithAcc = (course, lessonIds, minAcc) => {
+          if (!course || !course.lessons) return false;
+          return lessonIds.every(lid => {
+            const l = course.lessons[lid];
+            return l && l.completed && (l.bestAccuracy || 0) >= minAcc;
+          });
+        };
+
+        const stdL00 = ['standard-L00-01','standard-L00-02','standard-L00-03','standard-L00-04'];
+        const stdL01 = ['standard-L01-01','standard-L01-02','standard-L01-03','standard-L01-04','standard-L01-05'];
+        const nidaL00 = ['nida-L00-01','nida-L00-02','nida-L00-03','nida-L00-04'];
+        const nidaL01 = ['nida-L01-01','nida-L01-02','nida-L01-03','nida-L01-04','nida-L01-05'];
+
+        // 1. Angkor Foundation
+        const angkorUnlocked = isLevelDoneWithAcc(standardCourse, stdL00, 95) ||
+                               isLevelDoneWithAcc(standardCourse, stdL01, 95) ||
+                               isLevelDoneWithAcc(nidaCourse, nidaL00, 95) ||
+                               isLevelDoneWithAcc(nidaCourse, nidaL01, 95);
+
+        // 2. Speed Artisan (50+ WPM in Khmer Standard)
+        const maxStdWpm = Math.max(
+          ...(Object.values(standardCourse?.lessons || {}).map(l => l.bestWpm || 0)),
+          (lessonStats?.bestWpm || 0),
+          0
+        );
+        const speedUnlocked = maxStdWpm >= 50;
+
+        // 3. 7-Day Devotion
+        const streakUnlocked = (streak.current >= 7 || streak.best >= 7);
+
+        // 4. Flawless Monk (100% accuracy, zero fixes)
+        const flawlessUnlocked = allSessions.some(s => s.acc === 100 && s.passed) ||
+          Object.values(standardCourse?.lessons || {}).some(l => l.completed && l.bestAccuracy === 100 && (l.totalMistakes === 0 || l.bestAttempt?.mistakes === 0)) ||
+          Object.values(nidaCourse?.lessons || {}).some(l => l.completed && l.bestAccuracy === 100 && (l.totalMistakes === 0 || l.bestAttempt?.mistakes === 0)) ||
+          Object.values(englishCourse?.lessons || {}).some(l => l.completed && l.bestAccuracy === 100 && (l.totalMistakes === 0 || l.bestAttempt?.mistakes === 0));
+
+        // 5. Coeng Master (100 subscript conjoined consonants without mistake)
+        const coengStats = (progress?.courses?.standard?.keys?.space) || (telemetry.rawTracker?.keyStats?.standard?.space) || (telemetry.rawTracker?.keyStats?.nida?.j);
+        const coengUnlocked = coengStats && coengStats.correct >= 100 && coengStats.accuracy >= 98;
+
+        // 6. Century Scribe (100+ WPM in English QWERTY track)
+        const maxEngWpm = Math.max(...(Object.values(englishCourse?.lessons || {}).map(l => l.bestWpm || 0)), 0);
+        const centuryUnlocked = maxEngWpm >= 100;
+
+        // 7. Initiate Scribe (first drill completed or 25 keys logged)
+        const initiateUnlocked = totalKeysAll >= 25 || totalLessonsAll >= 1 || allSessions.length >= 1;
+
+        // 8. Millennium Scribe (1,000 keystrokes logged)
+        const millenniumUnlocked = totalKeysAll >= 1000;
+
+        const achievements = [
+          { id: 'trophy-angkor', unlocked: angkorUnlocked, icon: '<polygon points="12 2 15 8 21 9 17 14 18 20 12 17 6 20 7 14 3 9 9 8 12 2"></polygon>' },
+          { id: 'trophy-speed', unlocked: speedUnlocked, icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>' },
+          { id: 'trophy-streak', unlocked: streakUnlocked, icon: '<path d="M12 2c1.5 3 4 5 4 9a6 6 0 1 1-12 0c0-4 2.5-6 4-9 1 2 2 3 4 0z"></path>' },
+          { id: 'trophy-flawless', unlocked: flawlessUnlocked, icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>' },
+          { id: 'trophy-coeng', unlocked: coengUnlocked, icon: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline>' },
+          { id: 'trophy-century', unlocked: centuryUnlocked, icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>' },
+          { id: 'trophy-initiate', unlocked: initiateUnlocked, icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line>' },
+          { id: 'trophy-millennium', unlocked: millenniumUnlocked, icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>' }
+        ];
+
+        let unlockedCount = 0;
+        achievements.forEach(ach => {
+          const card = document.getElementById(ach.id);
+          if (!card) return;
+          const statusEl = card.querySelector('.trophy-status');
+          const iconEl = card.querySelector('.trophy-icon');
+          if (ach.unlocked) {
+            unlockedCount++;
+            card.classList.add('unlocked');
+            if (statusEl) {
+              statusEl.className = 'trophy-status status-unlocked';
+              statusEl.textContent = 'UNLOCKED';
+            }
+            if (iconEl) {
+              iconEl.innerHTML = `<svg class="svg-icon" viewBox="0 0 24 24">${ach.icon}</svg>`;
+            }
+          } else {
+            card.classList.remove('unlocked');
+            if (statusEl) {
+              statusEl.className = 'trophy-status status-locked';
+              statusEl.textContent = 'LOCKED';
+            }
+            if (iconEl) {
+              iconEl.innerHTML = `<svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+            }
+          }
+        });
+
+        const badgeEl = document.getElementById('achievementsBadge');
+        if (badgeEl) badgeEl.textContent = `${unlockedCount} / 8 Unlocked`;
+      }
+
+      // Main Render Engine
+      function renderDashboard() {
+        const storageData = readAllLocalStorage();
+        const profile = TRACK_METADATA[currentTrack] || TRACK_METADATA.standard;
+        const allSessions = extractAllSessions(storageData);
+
+        // Filter sessions by selected timeframe
+        const now = Date.now();
+        const filteredSessions = allSessions.filter(s => {
+          if (currentTimeframe === '7d') return s.timestamp >= now - 7 * 86400000;
+          if (currentTimeframe === '30d') return s.timestamp >= now - 30 * 86400000;
+          return true;
+        });
+
+        // Filter sessions for the active track
+        const trackSessions = filteredSessions.filter(s => s.layoutId === currentTrack);
+
+        // Real Telemetry Calculation
+        const course = storageData.progress?.courses?.[currentTrack];
+        const allCourses = storageData.progress?.courses;
+
+        // Total keystrokes across all tracks
+        let totalKeysAll = 0;
+        if (allCourses) {
+          Object.values(allCourses).forEach(c => {
+            let cKeys = c.totalTypingUnits || 0;
+            if (cKeys === 0 && c.lessons) {
+              cKeys = Object.values(c.lessons).reduce((acc, l) => acc + (l.totalTypingUnits || 0), 0);
+            }
+            totalKeysAll += cKeys;
+          });
+        }
+        if (totalKeysAll === 0 && storageData.progress && storageData.progress.totalTypingUnits) {
+          totalKeysAll = storageData.progress.totalTypingUnits;
+        }
+        if (storageData.tracker && storageData.tracker.keyStats) {
+          let trackerTotal = 0;
+          Object.values(storageData.tracker.keyStats).forEach(track => {
+            Object.values(track).forEach(k => { trackerTotal += (k.total || 0); });
+          });
+          if (trackerTotal > totalKeysAll) totalKeysAll = trackerTotal;
+        }
+        if (storageData.lessonStats && storageData.lessonStats.keys > totalKeysAll) {
+          totalKeysAll = storageData.lessonStats.keys;
+        }
+
+        // Total completed lessons across all tracks
+        let totalLessonsAll = 0;
+        if (allCourses) {
+          Object.values(allCourses).forEach(c => {
+            totalLessonsAll += Object.values(c.lessons || {}).filter(l => l.completed).length;
+          });
+        }
+
+        // Metrics for active track
+        let totalKeys = 0;
+        let speedWpm = 0;
+        let accuracy = 0;
+        let completedLessons = 0;
+
+        if (currentTimeframe === 'all') {
+          if (course) {
+            totalKeys = course.totalTypingUnits || 0;
+            if (totalKeys === 0 && course.lessons) {
+              totalKeys = Object.values(course.lessons).reduce((acc, l) => acc + (l.totalTypingUnits || 0), 0);
+            }
+            if (course.overallAccuracy > 0) accuracy = course.overallAccuracy;
+            completedLessons = Object.values(course.lessons || {}).filter(l => l.completed).length;
+            const lessonWpms = Object.values(course.lessons || {}).map(l => l.bestWpm || 0);
+            if (lessonWpms.length > 0) speedWpm = Math.max(...lessonWpms, 0);
+
+            // If overallAccuracy is not set or 0, compute average from completed lessons
+            if (!accuracy && course.lessons) {
+              const completedList = Object.values(course.lessons).filter(l => l.completed && (l.bestAccuracy || l.accuracy));
+              if (completedList.length > 0) {
+                const sum = completedList.reduce((acc, l) => acc + (l.bestAccuracy || l.accuracy || 0), 0);
+                accuracy = Math.round((sum / completedList.length) * 10) / 10;
+              }
+            }
+          }
+          if (totalKeys === 0 && storageData.tracker && storageData.tracker.keyStats && storageData.tracker.keyStats[currentTrack]) {
+            const keyStrokes = Object.values(storageData.tracker.keyStats[currentTrack]).reduce((acc, k) => acc + (k.total || 0), 0);
+            if (keyStrokes > 0) totalKeys = keyStrokes;
+          }
+          if (totalKeys === 0 && currentTrack === 'standard' && storageData.progress && storageData.progress.totalTypingUnits) {
+            totalKeys = storageData.progress.totalTypingUnits;
+          }
+          // If still zero keys or zero accuracy, derive from trackSessions
+          if (trackSessions.length > 0) {
+            if (totalKeys === 0) {
+              totalKeys = trackSessions.reduce((acc, s) => acc + (s.keys || Math.round((s.wpm * 5) * (s.durSec / 60))), 0);
+            }
+            if (!accuracy) {
+              const accSum = trackSessions.reduce((acc, s) => acc + s.acc, 0);
+              accuracy = Math.round((accSum / trackSessions.length) * 10) / 10;
+            }
+            if (speedWpm === 0) {
+              speedWpm = Math.max(...trackSessions.map(s => s.wpm), 0);
+            }
+          }
+          // Fallback to top-bar lessonStats if single course was active
+          if (totalKeys === 0 && currentTrack === 'standard' && storageData.lessonStats && storageData.lessonStats.keys > 0) {
+            totalKeys = storageData.lessonStats.keys;
+            accuracy = storageData.lessonStats.accuracy || 100;
+            speedWpm = storageData.lessonStats.bestWpm || storageData.lessonStats.wpm || 0;
+          }
+        } else {
+          // Time-windowed metrics from filtered sessions
+          if (trackSessions.length > 0) {
+            const accSum = trackSessions.reduce((acc, s) => acc + s.acc, 0);
+            accuracy = Math.round((accSum / trackSessions.length) * 10) / 10;
+            speedWpm = Math.max(...trackSessions.map(s => s.wpm), 0);
+            const uniqueLids = new Set(trackSessions.filter(s => s.passed).map(s => s.title));
+            completedLessons = uniqueLids.size;
+            totalKeys = trackSessions.reduce((acc, s) => acc + Math.round((s.wpm * 5) * (s.durSec / 60)), 0);
+          }
+        }
+
+        // Streak calculation
+        const streak = calculateStreaks(allSessions.map(s => s.timestamp));
 
         // 1. Update Hero Cards
         const metricWpmEl = document.getElementById('metricWpm');
-        if (metricWpmEl) metricWpmEl.innerHTML = `${speedWpm} <span style="font-size:16px; color:var(--text-dim);">WPM</span>`;
+        if (metricWpmEl) {
+          metricWpmEl.innerHTML = `${speedWpm} <span style="font-size:16px; color:var(--text-dim);">WPM</span>`;
+        }
 
         const metricAccEl = document.getElementById('metricAcc');
-        if (metricAccEl) metricAccEl.textContent = `${accuracy}%`;
+        if (metricAccEl) {
+          metricAccEl.textContent = (accuracy > 0) ? `${accuracy.toFixed(1)}%` : '—%';
+        }
 
         const metricKeysEl = document.getElementById('metricKeys');
-        if (metricKeysEl) metricKeysEl.textContent = totalKeys.toLocaleString();
+        if (metricKeysEl) {
+          metricKeysEl.textContent = totalKeys.toLocaleString();
+        }
 
         const metricLessonsEl = document.getElementById('metricLessons');
         if (metricLessonsEl) {
@@ -1813,25 +2033,47 @@
 
         const metricStreakEl = document.getElementById('metricStreak');
         if (metricStreakEl) {
-          metricStreakEl.innerHTML = `${streakDays} <span style="font-size:16px; color:var(--text-dim);">Days</span>`;
+          metricStreakEl.innerHTML = `${streak.current} <span style="font-size:16px; color:var(--text-dim);">Days</span>`;
         }
 
         // Update Hero Subtexts
         const pctCompleted = ((completedLessons / profile.totalLessons) * 100).toFixed(1);
         const wpmSub = document.getElementById('metricWpmSub');
-        if (wpmSub) wpmSub.innerHTML = `<span class="trend-up">↑ ${profile.baseline.wpmGain} WPM</span> <span>${timeMod.subWpm}</span>`;
+        if (wpmSub) {
+          if (speedWpm > 0) {
+            wpmSub.innerHTML = `<span class="trend-up">Peak Speed</span> <span>across recorded drills</span>`;
+          } else {
+            wpmSub.innerHTML = `<span style="color:var(--text-dim);">No drills recorded yet</span>`;
+          }
+        }
 
         const accSub = document.getElementById('metricAccSub');
-        if (accSub) accSub.innerHTML = `<span>${timeMod.subAcc}</span>`;
+        if (accSub) {
+          accSub.innerHTML = (accuracy > 0)
+            ? `<span>Overall session accuracy</span>`
+            : `<span>Target: 95.0% Mastery Threshold</span>`;
+        }
 
         const keysSub = document.getElementById('metricKeysSub');
-        if (keysSub) keysSub.innerHTML = `<span>${timeMod.subKeys}</span>`;
+        if (keysSub) {
+          keysSub.innerHTML = (totalKeys > 0)
+            ? `<span>Logged across learning sessions</span>`
+            : `<span>0 Keystrokes recorded</span>`;
+        }
 
         const lessonsSub = document.getElementById('metricLessonsSub');
-        if (lessonsSub) lessonsSub.innerHTML = `<span style="color:var(--gold-primary); font-weight:700;">${pctCompleted}% Curriculum Complete</span>`;
+        if (lessonsSub) {
+          lessonsSub.innerHTML = (completedLessons > 0)
+            ? `<span style="color:var(--gold-primary); font-weight:700;">${pctCompleted}% Curriculum Complete</span>`
+            : `<span style="color:var(--text-dim);">0.0% Curriculum Complete</span>`;
+        }
 
         const streakSub = document.getElementById('metricStreakSub');
-        if (streakSub) streakSub.innerHTML = `<span>${timeMod.subStreak(profile.baseline.bestStreak)}</span>`;
+        if (streakSub) {
+          streakSub.innerHTML = (streak.best > 0)
+            ? `<span>Personal Best: ${streak.best} Consecutive Days</span>`
+            : `<span>Start your practice streak today</span>`;
+        }
 
         // Update Header Badges
         const activeLayoutBadge = document.getElementById('activeLayoutBadge');
@@ -1839,10 +2081,16 @@
 
         const dataSourceLabel = document.getElementById('dataSourceLabel');
         if (dataSourceLabel) {
-          dataSourceLabel.textContent = hasRealData ? `Live Storage (${profile.name})` : `Local Storage (Active Profile)`;
+          if (storageData.authSession && storageData.authSession.email) {
+            dataSourceLabel.textContent = `Cloud Sync (${storageData.authSession.email})`;
+          } else if (totalKeysAll > 0 || allSessions.length > 0) {
+            dataSourceLabel.textContent = `Local Storage (Active Profile · ${totalKeysAll.toLocaleString()} Keystrokes)`;
+          } else {
+            dataSourceLabel.textContent = `Local Storage (Fresh Profile · 0 Sessions)`;
+          }
         }
 
-        // 2. Update Curriculum Units List
+        // 2. Update Curriculum Units List (13 Levels for Khmer Standard/NiDA, 14 for English)
         const currTitle = document.getElementById('curriculumModuleTitle');
         if (currTitle) currTitle.textContent = `Curriculum Mastery by Unit (${profile.name})`;
 
@@ -1851,28 +2099,47 @@
 
         const unitsList = document.getElementById('curriculumUnitsList');
         if (unitsList) {
-          unitsList.innerHTML = profile.units.map(u => `
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">${u.name}</span>
-                <span class="unit-count">${u.count} (${u.pct}%)</span>
+          unitsList.innerHTML = profile.levels.map(lv => {
+            let doneCount = 0;
+            if (course && course.lessons) {
+              lv.lessons.forEach(lid => {
+                if (course.lessons[lid] && course.lessons[lid].completed) doneCount++;
+              });
+            }
+            const pct = Math.round((doneCount / lv.count) * 100);
+            return `
+              <div class="unit-row">
+                <div class="unit-meta">
+                  <span class="unit-name">${lv.title}</span>
+                  <span class="unit-count">${doneCount} / ${lv.count} Mastered (${pct}%)</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>
               </div>
-              <div class="progress-track"><div class="progress-fill" style="width:${u.pct}%;"></div></div>
-            </div>
-          `).join('');
+            `;
+          }).join('');
         }
 
         // 3. Update Keyboard Heatmap
         const heatmapTitle = document.getElementById('heatmapModuleTitle');
         if (heatmapTitle) heatmapTitle.textContent = `Physical Keyboard Mastery Heatmap (${profile.name})`;
 
+        const trackStats = storageData.tracker?.keyStats?.[currentTrack] || {};
+        const courseKeys = course?.keys || {};
+        const layoutRows = KEYBOARD_LAYOUTS[currentTrack] || KEYBOARD_LAYOUTS.standard;
+
         const heatmapWrap = document.getElementById('keyboardHeatmapWrap');
         if (heatmapWrap) {
-          heatmapWrap.innerHTML = profile.heatmapRows.map(row => `
+          heatmapWrap.innerHTML = layoutRows.map(row => `
             <div class="hm-row">
-              ${row.map(k => `
-                <div class="hm-key ${k.cls || ''} ${k.tier || ''}" title="${k.key} / ${k.label} — Accuracy: ${k.acc}">${k.label}</div>
-              `).join('')}
+              ${row.map(k => {
+                const ks = getKeyStats(k.id, k.label, trackStats, courseKeys);
+                const titleText = (ks.attempts > 0)
+                  ? `Key ${k.id.toUpperCase()} / ${k.label} — Accuracy: ${ks.accuracy}% (${ks.attempts} strokes)`
+                  : `Key ${k.id.toUpperCase()} / ${k.label} — Not yet typed`;
+                return `
+                  <div class="hm-key ${k.cls || ''} ${ks.tier}" title="${titleText}">${k.label}</div>
+                `;
+              }).join('')}
             </div>
           `).join('');
         }
@@ -1880,7 +2147,8 @@
         // 4. Update 8-Finger Workload Distribution
         const fingerBars = document.getElementById('fingerBarsGrid');
         if (fingerBars) {
-          fingerBars.innerHTML = profile.fingers.map(f => `
+          const fingerData = getFingerWorkload(storageData.tracker?.fingerStats, storageData.progress?.fingers);
+          fingerBars.innerHTML = fingerData.map(f => `
             <div class="finger-col">
               <div class="f-bar-wrap"><div class="f-bar-fill ${f.cls}" style="height:${f.height}%;"></div></div>
               <span class="f-pct">${f.pct}%</span>
@@ -1895,33 +2163,85 @@
 
         const weakList = document.getElementById('weakKeysList');
         if (weakList) {
-          weakList.innerHTML = profile.weakKeys.map(wk => `
-            <div class="weak-key-item">
-              <div class="weak-key-left">
-                <div class="key-badge-square">${wk.key}</div>
-                <div class="weak-key-meta">
-                  <h4>${wk.name}</h4>
-                  <p>Accuracy: ${wk.acc} · Mean Latency: ${wk.latency}</p>
+          const weakKeys = getWeakKeys(trackStats, courseKeys);
+          if (weakKeys.length > 0) {
+            weakList.innerHTML = weakKeys.map(wk => `
+              <div class="weak-key-item">
+                <div class="weak-key-left">
+                  <div class="key-badge-square">${wk.keyId.length === 1 ? wk.keyId.toUpperCase() : wk.keyId}</div>
+                  <div class="weak-key-meta">
+                    <h4>Key ${wk.keyId}</h4>
+                    <p>Accuracy: ${wk.acc}% · Mean Latency: ${wk.latency}</p>
+                  </div>
                 </div>
+                <a href="index.html?practice=weak&key=${encodeURIComponent(wk.keyId)}&layout=${currentTrack}" class="drill-mini-btn" title="Launch targeted drill for ${wk.keyId}">Drill</a>
               </div>
-              <a href="index.html?practice=weak&key=${wk.drillKey}&layout=${currentTrack}" class="drill-mini-btn" title="Launch targeted drill for ${wk.key}">Drill</a>
-            </div>
-          `).join('');
+            `).join('');
+          } else if (totalKeys > 0) {
+            weakList.innerHTML = `
+              <div style="text-align:center; padding:24px 16px; color:var(--text-muted); background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.25); border-radius:var(--radius-sm);">
+                <svg class="svg-icon" viewBox="0 0 24 24" style="width:28px; height:28px; margin-bottom:8px; color:var(--emerald-neon); display:block; margin-left:auto; margin-right:auto;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <div style="color:var(--emerald-neon); font-weight:700; margin-bottom:4px;">Mastery Optimal — Zero Stumbling Keys Detected</div>
+                <div style="font-size:12px;">All typed keys are performing above 90% accuracy threshold. Keep up the flawless rhythm!</div>
+              </div>
+            `;
+          } else {
+            weakList.innerHTML = `
+              <div id="weakKeysEmptyState" style="text-align:center; padding:28px 16px; color:var(--text-muted);">
+                <svg class="svg-icon" viewBox="0 0 24 24" style="width:28px; height:28px; margin-bottom:8px; color:var(--gold-primary); display:block; margin-left:auto; margin-right:auto;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">No Stumbling Keys Detected Yet</div>
+                <div style="font-size:12px; max-width:320px; margin:0 auto 14px;">Practice lessons in the training room to generate personalized key diagnostic data.</div>
+                <a href="index.html" class="drill-mini-btn" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:12px;">Start Training</a>
+              </div>
+            `;
+          }
         }
 
-        // 6. Update Recent Sessions History Table
+        // 6. Update Achievements & Badges
+        updateAchievements({
+          allSessions,
+          totalKeysAll,
+          totalLessonsAll,
+          streak,
+          progress: storageData.progress,
+          lessonStats: storageData.lessonStats,
+          rawTracker: storageData.tracker
+        });
+
+        // 7. Update Recent Sessions History Table
         const sessionsTbody = document.getElementById('sessionsTableBody');
         if (sessionsTbody) {
-          sessionsTbody.innerHTML = profile.sessions.map(s => `
-            <tr>
-              <td><strong>${s.title}</strong></td>
-              <td>${s.track}</td>
-              <td><span style="color:${s.resColor}; font-weight:700;">${s.acc}</span></td>
-              <td><strong>${s.wpm}</strong></td>
-              <td>${s.dur}</td>
-              <td><span style="color:${s.resColor}; font-weight:700;">${s.res}</span></td>
-            </tr>
-          `).join('');
+          const displaySessions = (trackSessions.length > 0) ? trackSessions.slice(0, 5) : filteredSessions.slice(0, 5);
+          if (displaySessions.length > 0) {
+            sessionsTbody.innerHTML = displaySessions.map(s => {
+              const resColor = s.acc === 100 ? 'var(--emerald-neon)' : (s.acc >= 85 ? 'var(--emerald-neon)' : 'var(--gold-primary)');
+              const resText = s.acc === 100 ? 'FLAWLESS' : (s.acc >= 85 ? 'PASSED' : 'PRACTICED');
+              const mins = Math.floor(s.durSec / 60);
+              const secs = s.durSec % 60;
+              const durStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+              return `
+                <tr>
+                  <td><strong>${s.title}</strong></td>
+                  <td>${s.track}</td>
+                  <td><span style="color:${resColor}; font-weight:700;">${s.acc.toFixed(1)}%</span></td>
+                  <td><strong>${Math.round(s.wpm)} WPM</strong></td>
+                  <td>${durStr}</td>
+                  <td><span style="color:${resColor}; font-weight:700;">${resText}</span></td>
+                </tr>
+              `;
+            }).join('');
+          } else {
+            sessionsTbody.innerHTML = `
+              <tr>
+                <td colspan="6" style="text-align:center; padding:36px 16px; color:var(--text-muted);">
+                  <svg class="svg-icon" viewBox="0 0 24 24" style="width:28px; height:28px; margin-bottom:8px; color:var(--gold-primary); display:block; margin-left:auto; margin-right:auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">No Practice Sessions Recorded Yet</div>
+                  <div style="font-size:12px; margin-bottom:12px;">Complete a lesson or drill in the practice room to record your telemetry history.</div>
+                  <a href="index.html" class="drill-mini-btn" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:12px;">Start First Lesson &rarr;</a>
+                </td>
+              </tr>
+            `;
+          }
         }
       }
 
@@ -1947,23 +2267,23 @@
         });
       });
 
-      // Export Report
+      // Export Scribe Report
       const exportBtn = document.getElementById('exportReportBtn');
       if (exportBtn) {
         exportBtn.addEventListener('click', () => {
-          const profile = TRACK_PROFILES[currentTrack] || TRACK_PROFILES.standard;
+          const profile = TRACK_METADATA[currentTrack] || TRACK_METADATA.standard;
           const report = {
-            app: "PK Khmer Type Analytics Command Center",
-            author: "Phanna Kurosaki",
+            app: 'PK Khmer Type Analytics Command Center',
+            author: 'Phanna Kurosaki',
             exportDate: new Date().toISOString(),
             track: profile.name,
             timeframe: currentTimeframe,
             metrics: {
-              keysLogged: document.getElementById('metricKeys')?.textContent,
-              wpm: document.getElementById('metricWpm')?.textContent.trim(),
-              accuracy: document.getElementById('metricAcc')?.textContent,
-              lessonsCompleted: document.getElementById('metricLessons')?.textContent.trim(),
-              streak: document.getElementById('metricStreak')?.textContent.trim()
+              keysLogged: document.getElementById('metricKeys')?.textContent?.trim() || '0',
+              wpm: document.getElementById('metricWpm')?.textContent?.trim() || '0 WPM',
+              accuracy: document.getElementById('metricAcc')?.textContent?.trim() || '0.0%',
+              lessonsCompleted: document.getElementById('metricLessons')?.textContent?.trim() || '0 / 78',
+              streak: document.getElementById('metricStreak')?.textContent?.trim() || '0 Days'
             }
           };
 
@@ -1980,6 +2300,7 @@
       // Initial Render
       renderDashboard();
     });
+
   </script>
 </body>
 </html>
