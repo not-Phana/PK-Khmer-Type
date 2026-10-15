@@ -326,6 +326,58 @@
         "allLessonsCompleted": true,
         "minLevelAccuracy": 92
       }
+    },
+    {
+      "id": "nida-L14",
+      "levelNumber": 14,
+      "isBonus": true,
+      "bonusTier": 2,
+      "title": "Buddhist Wisdom, Pali Roots & Smot Poetry",
+      "titleKm": "គម្ពីរបុរាណ ពាក្យបាលី-សំស្ក្រឹត & កាព្យស្មូត",
+      "description": "Sacred suttas, classical chanting meters, and high-register Dhammic terminology.",
+      "objective": "Master classical Dhammic literature and rhythmic poetry",
+      "lessons": [
+        "nida-L14-01",
+        "nida-L14-02",
+        "nida-L14-03",
+        "nida-L14-04",
+        "nida-L14-05",
+        "nida-L14-06"
+      ],
+      "unlockRequirements": {
+        "previousLevel": "nida-L13",
+        "requiresAll222": false
+      },
+      "completionRequirements": {
+        "allLessonsCompleted": true,
+        "minLevelAccuracy": 92
+      }
+    },
+    {
+      "id": "nida-L15",
+      "levelNumber": 15,
+      "isBonus": true,
+      "bonusTier": 3,
+      "title": "Constitutional Codes, Heritage & Ultramarathon",
+      "titleKm": "រដ្ឋធម្មនុញ្ញ បេតិកភណ្ឌ & មហាសម្ភោធកំពូល",
+      "description": "The ultimate touch-typing summit: formal legal articles, ecological prose, and scribe marathons.",
+      "objective": "Attain supreme Grandmaster status across all 33 consonants, vowels, and diacritics",
+      "lessons": [
+        "nida-L15-01",
+        "nida-L15-02",
+        "nida-L15-03",
+        "nida-L15-04",
+        "nida-L15-05",
+        "nida-L15-06"
+      ],
+      "unlockRequirements": {
+        "previousLevel": "nida-L14",
+        "requiresAll222": false
+      },
+      "completionRequirements": {
+        "allLessonsCompleted": true,
+        "minLevelAccuracy": 92
+      }
     }
   ]
 }

@@ -2966,6 +2966,378 @@
         "requiresAll222": false
       },
       "timeLimit": null
+    },
+    {
+      "id": "standard-L14-01",
+      "level": "standard-L14",
+      "order": 1,
+      "isBonus": true,
+      "bonusIndex": 6,
+      "title": "Mangala Sutta & Supreme Blessings",
+      "titleKm": "មង្គលសូត្រ ៣៨ ប្រការ — សេចក្តីចម្រើនដ៏ឧត្តម",
+      "description": "Type classical Pali-Khmer verses from the Mangala Sutta on virtue and nobility.",
+      "objective": "Type classical blessing maxims with precision",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L14-01-E01",
+        "standard-L14-01-E02",
+        "standard-L14-01-E03",
+        "standard-L14-01-E04",
+        "standard-L14-01-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L13-06",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L14-02",
+      "level": "standard-L14",
+      "order": 2,
+      "isBonus": true,
+      "bonusIndex": 7,
+      "title": "Karaniya Metta Sutta: Universal Loving-Kindness",
+      "titleKm": "ករណីយមេត្តសូត្រ — មេត្តាធម៌ជាសកល",
+      "description": "Type verses praising boundless goodwill, peace, and loving-kindness for all beings.",
+      "objective": "Type universal goodwill verses with rhythmic flow",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L14-02-E01",
+        "standard-L14-02-E02",
+        "standard-L14-02-E03",
+        "standard-L14-02-E04",
+        "standard-L14-02-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L14-01",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L14-03",
+      "level": "standard-L14",
+      "order": 3,
+      "isBonus": true,
+      "bonusIndex": 8,
+      "title": "Classical Smot Melody Verses",
+      "titleKm": "កាព្យស្មូតខ្មែរបុរាណ — ទំនុកបទបំពេរលំអាន",
+      "description": "Type classical Khmer smot poetry honoring mother, father, and virtuous guides.",
+      "objective": "Master traditional Cambodian seven-syllable smot meters",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L14-03-E01",
+        "standard-L14-03-E02",
+        "standard-L14-03-E03",
+        "standard-L14-03-E04",
+        "standard-L14-03-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L14-02",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L14-04",
+      "level": "standard-L14",
+      "order": 4,
+      "isBonus": true,
+      "bonusIndex": 9,
+      "title": "Four Sublime Abodes & Noble Truths",
+      "titleKm": "ព្រហ្មវិហារធម៌ និងអរិយសច្ច — មេត្តា ករុណា",
+      "description": "Type foundational Buddhist philosophical concepts on equanimity, joy, and truth.",
+      "objective": "Type deep philosophical reflections without hesitation",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L14-04-E01",
+        "standard-L14-04-E02",
+        "standard-L14-04-E03",
+        "standard-L14-04-E04",
+        "standard-L14-04-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L14-03",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L14-05",
+      "level": "standard-L14",
+      "order": 5,
+      "isBonus": true,
+      "bonusIndex": 10,
+      "title": "High Pali-Sanskrit Compound Roots",
+      "titleKm": "ពាក្យបាលី-សំស្ក្រឹតជាន់ខ្ពស់ — វិជ្ជា និងសីលធម៌",
+      "description": "Practice advanced compound loanwords enriching the classical Khmer literary register.",
+      "objective": "Master high-register multisyllabic compound words",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L14-05-E01",
+        "standard-L14-05-E02",
+        "standard-L14-05-E03",
+        "standard-L14-05-E04",
+        "standard-L14-05-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L14-04",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L14-06",
+      "level": "standard-L14",
+      "order": 6,
+      "isBonus": true,
+      "bonusIndex": 11,
+      "title": "Grandmaster Monastic Scribe Marathon",
+      "titleKm": "មហាគាថាពុទ្ធសាសនាសម្ភោធ — ល្ប្បឿនកំពូល",
+      "description": "An extended spiritual sprint exercising complex subscripts and diacritical balance.",
+      "objective": "Claim the Monastic Scribe mantle with speed and stamina",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L14-06-E01",
+        "standard-L14-06-E02",
+        "standard-L14-06-E03",
+        "standard-L14-06-E04",
+        "standard-L14-06-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L14-05",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L15-01",
+      "level": "standard-L15",
+      "order": 1,
+      "isBonus": true,
+      "bonusIndex": 12,
+      "title": "The Constitution of the Kingdom of Cambodia",
+      "titleKm": "រដ្ឋធម្មនុញ្ញនៃព្រះរាជាណាចក្រកម្ពុជា — មាត្រាគ្រឹះ",
+      "description": "Type foundational constitutional articles on national sovereignty, democracy, and human rights.",
+      "objective": "Master formal legal phrasing and governmental typography",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L15-01-E01",
+        "standard-L15-01-E02",
+        "standard-L15-01-E03",
+        "standard-L15-01-E04",
+        "standard-L15-01-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L14-06",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L15-02",
+      "level": "standard-L15",
+      "order": 2,
+      "isBonus": true,
+      "bonusIndex": 13,
+      "title": "Environmental Conservation & Tonle Sap Heritage",
+      "titleKm": "ការអភិរក្សបរិស្ថាន និងបឹងទន្លេសាប",
+      "description": "Type ecological prose celebrating the Great Lake biosphere and wildlife sanctuaries.",
+      "objective": "Type ecological and environmental terminology fluently",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L15-02-E01",
+        "standard-L15-02-E02",
+        "standard-L15-02-E03",
+        "standard-L15-02-E04",
+        "standard-L15-02-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L15-01",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L15-03",
+      "level": "standard-L15",
+      "order": 3,
+      "isBonus": true,
+      "bonusIndex": 14,
+      "title": "Cambodian Renaissance & Economic Innovation",
+      "titleKm": "ការអភិវឌ្ឍសង្គម-សេដ្ឋកិច្ច និងនវានុវត្តន៍",
+      "description": "Type contemporary literature on digital entrepreneurship, education, and social progress.",
+      "objective": "Type modern technological and economic vocabulary rapidly",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L15-03-E01",
+        "standard-L15-03-E02",
+        "standard-L15-03-E03",
+        "standard-L15-03-E04",
+        "standard-L15-03-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L15-02",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L15-04",
+      "level": "standard-L15",
+      "order": 4,
+      "isBonus": true,
+      "bonusIndex": 15,
+      "title": "Cambodian Science, Medicine & Health Literacy",
+      "titleKm": "សុខាភិបាល វិទ្យាសាស្ត្រ និងសុខុមាលភាព",
+      "description": "Type health science and wellness prose on public health, medical care, and fitness.",
+      "objective": "Type scientific and public wellness prose with precision",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L15-04-E01",
+        "standard-L15-04-E02",
+        "standard-L15-04-E03",
+        "standard-L15-04-E04",
+        "standard-L15-04-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L15-03",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L15-05",
+      "level": "standard-L15",
+      "order": 5,
+      "isBonus": true,
+      "bonusIndex": 16,
+      "title": "Cultural Diplomacy & UNESCO World Heritage",
+      "titleKm": "ការទូតវប្បធម៌ និងបេតិកភណ្ឌពិភពលោក",
+      "description": "Type prose honoring Angkor, Preah Vihear, Sambor Prei Kuk, and Koh Ker.",
+      "objective": "Celebrate Cambodian monuments through rapid, flawless typing",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L15-05-E01",
+        "standard-L15-05-E02",
+        "standard-L15-05-E03",
+        "standard-L15-05-E04",
+        "standard-L15-05-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L15-04",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "standard-L15-06",
+      "level": "standard-L15",
+      "order": 6,
+      "isBonus": true,
+      "bonusIndex": 17,
+      "title": "Supreme Grandmaster Scribe Ultramarathon",
+      "titleKm": "មហាសម្ភោធជ័យជំនះអក្សរខ្មែរគ្រប់ទម្រង់ — ដំណាក់កាលកំពូល",
+      "description": "The definitive pinnacle drill of the entire course: all letters, all diacritics, and pure stamina.",
+      "objective": "Achieve ultimate mastery and eternal Grandmaster status",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "standard-L15-06-E01",
+        "standard-L15-06-E02",
+        "standard-L15-06-E03",
+        "standard-L15-06-E04",
+        "standard-L15-06-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "standard-L15-05",
+        "requiresAll222": false
+      },
+      "timeLimit": null
     }
   ]
 }

@@ -2551,6 +2551,378 @@
         "requiresAll222": false
       },
       "timeLimit": null
+    },
+    {
+      "id": "en-L15-01",
+      "level": "en-L15",
+      "order": 1,
+      "isBonus": true,
+      "bonusIndex": 6,
+      "title": "Plato's Allegory of the Cave & The Republic",
+      "titleKm": "ទស្សនវិជ្ជាផ្លាតូ — Allegory of the Cave",
+      "description": "Type passages from Plato on illumination, shadows, and the search for objective truth.",
+      "objective": "Type classical philosophical metaphors with poise",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L15-01-E01",
+        "en-L15-01-E02",
+        "en-L15-01-E03",
+        "en-L15-01-E04",
+        "en-L15-01-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L14-06",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L15-02",
+      "level": "en-L15",
+      "order": 2,
+      "isBonus": true,
+      "bonusIndex": 7,
+      "title": "Abraham Lincoln & The Gettysburg Address",
+      "titleKm": "សុន្ទរកថាប្រវត្តិសាស្ត្រ — Abraham Lincoln",
+      "description": "Type Lincoln's timeless 1863 dedication to human liberty and government of the people.",
+      "objective": "Master soaring political rhetoric and cadence",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L15-02-E01",
+        "en-L15-02-E02",
+        "en-L15-02-E03",
+        "en-L15-02-E04",
+        "en-L15-02-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L15-01",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L15-03",
+      "level": "en-L15",
+      "order": 3,
+      "isBonus": true,
+      "bonusIndex": 8,
+      "title": "Martin Luther King Jr. & The Dream of Justice",
+      "titleKm": "សុន្ទរកថាសិទ្ធិសេរីភាព — Martin Luther King Jr.",
+      "description": "Type landmark civil rights declarations on equality, love, and the moral universe.",
+      "objective": "Type inspiring civil rights prose with impassioned focus",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L15-03-E01",
+        "en-L15-03-E02",
+        "en-L15-03-E03",
+        "en-L15-03-E04",
+        "en-L15-03-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L15-02",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L15-04",
+      "level": "en-L15",
+      "order": 4,
+      "isBonus": true,
+      "bonusIndex": 9,
+      "title": "Seneca on the Shortness of Life",
+      "titleKm": "ទស្សនវិជ្ជាស្តូអ៊ីក — Seneca on Life",
+      "description": "Type Stoic wisdom on mastering time, avoiding procrastination, and serene living.",
+      "objective": "Type classical Roman Stoic philosophy fluently",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L15-04-E01",
+        "en-L15-04-E02",
+        "en-L15-04-E03",
+        "en-L15-04-E04",
+        "en-L15-04-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L15-03",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L15-05",
+      "level": "en-L15",
+      "order": 5,
+      "isBonus": true,
+      "bonusIndex": 10,
+      "title": "Voltaire & Enlightenment Reason",
+      "titleKm": "ទស្សនវិជ្ជាសម័យពុទ្ធិ — Voltaire",
+      "description": "Type Enlightenment aphorisms on tolerance, inquiry, and cultivating one's garden.",
+      "objective": "Master sharp satirical and enlightenment prose",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L15-05-E01",
+        "en-L15-05-E02",
+        "en-L15-05-E03",
+        "en-L15-05-E04",
+        "en-L15-05-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L15-04",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L15-06",
+      "level": "en-L15",
+      "order": 6,
+      "isBonus": true,
+      "bonusIndex": 11,
+      "title": "The Socratic Method & The Apology",
+      "titleKm": "វិធីសាស្ត្រសូក្រាត — The Socratic Apology",
+      "description": "Type Socrates' immortal defense of the examined life and intellectual humility.",
+      "objective": "Type Socratic dialogue with poise and clarity",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L15-06-E01",
+        "en-L15-06-E02",
+        "en-L15-06-E03",
+        "en-L15-06-E04",
+        "en-L15-06-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L15-05",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L16-01",
+      "level": "en-L16",
+      "order": 1,
+      "isBonus": true,
+      "bonusIndex": 12,
+      "title": "Alan Turing on Computing Machinery and Intelligence",
+      "titleKm": "វិទ្យាសាស្ត្រកុំព្យូទ័រ — Alan Turing",
+      "description": "Type Turing's groundbreaking 1950 paper introducing the imitation game and machine learning.",
+      "objective": "Type foundational computer science prose at speed",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L16-01-E01",
+        "en-L16-01-E02",
+        "en-L16-01-E03",
+        "en-L16-01-E04",
+        "en-L16-01-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L15-06",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L16-02",
+      "level": "en-L16",
+      "order": 2,
+      "isBonus": true,
+      "bonusIndex": 13,
+      "title": "Ada Lovelace & The Analytical Engine",
+      "titleKm": "ក្បួនកូដដំបូងគេបង្អស់ — Ada Lovelace",
+      "description": "Type Lovelace's poetic visionary notes on universal symbolic programming.",
+      "objective": "Type nineteenth-century computational prose fluently",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L16-02-E01",
+        "en-L16-02-E02",
+        "en-L16-02-E03",
+        "en-L16-02-E04",
+        "en-L16-02-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L16-01",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L16-03",
+      "level": "en-L16",
+      "order": 3,
+      "isBonus": true,
+      "bonusIndex": 14,
+      "title": "The Unix Philosophy & Software Architecture",
+      "titleKm": "ទស្សនវិជ្ជាប្រព័ន្ធយូនីក — Unix Philosophy",
+      "description": "Type core principles of simplicity, composability, and clean streaming interfaces.",
+      "objective": "Type technical software architecture maxims with speed",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L16-03-E01",
+        "en-L16-03-E02",
+        "en-L16-03-E03",
+        "en-L16-03-E04",
+        "en-L16-03-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L16-02",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L16-04",
+      "level": "en-L16",
+      "order": 4,
+      "isBonus": true,
+      "bonusIndex": 15,
+      "title": "Quantum Foundations & Physics of Computation",
+      "titleKm": "រូបវិទ្យាកង់ទិច — Quantum Computation",
+      "description": "Type physics prose exploring superposition, unitary gates, and entanglement.",
+      "objective": "Type advanced quantum computing vocabulary accurately",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L16-04-E01",
+        "en-L16-04-E02",
+        "en-L16-04-E03",
+        "en-L16-04-E04",
+        "en-L16-04-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L16-03",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L16-05",
+      "level": "en-L16",
+      "order": 5,
+      "isBonus": true,
+      "bonusIndex": 16,
+      "title": "Cryptography, Shannon Entropy & Information Theory",
+      "titleKm": "ទ្រឹស្តីព័ត៌មាន — Claude Shannon",
+      "description": "Type mathematical reflections on bandwidth, entropy, and public-key cryptography.",
+      "objective": "Type information theory and cryptographic literature",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L16-05-E01",
+        "en-L16-05-E02",
+        "en-L16-05-E03",
+        "en-L16-05-E04",
+        "en-L16-05-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L16-04",
+        "requiresAll222": false
+      },
+      "timeLimit": null
+    },
+    {
+      "id": "en-L16-06",
+      "level": "en-L16",
+      "order": 6,
+      "isBonus": true,
+      "bonusIndex": 17,
+      "title": "Supreme Grandmaster Polyglot Ultramarathon",
+      "titleKm": "មហាអត្ថបទកំពូលភាសាអង់គ្លេស — The Final Summit",
+      "description": "The crowning achievement: a tour-de-force drill spanning history, science, and literature.",
+      "objective": "Claim the ultimate title of Supreme Grandmaster Polyglot",
+      "type": "drill",
+      "newKeys": [],
+      "requiredKeys": [],
+      "fingerFocus": [],
+      "difficulty": 10,
+      "accuracyTarget": 92,
+      "speedTarget": null,
+      "mistakeTolerance": 4,
+      "exerciseRefs": [
+        "en-L16-06-E01",
+        "en-L16-06-E02",
+        "en-L16-06-E03",
+        "en-L16-06-E04",
+        "en-L16-06-E05"
+      ],
+      "unlockRequirements": {
+        "previousLesson": "en-L16-05",
+        "requiresAll222": false
+      },
+      "timeLimit": null
     }
   ]
 }

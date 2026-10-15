@@ -1662,6 +1662,9 @@ window.countCompletedBaseLessons = countCompletedBaseLessons;
 
 function areAll222LessonsUnlocked(){
   if(allLessonsUnlocked) return true;
+  try {
+    if (localStorage.getItem('khmerUnlock222Vault') === '1') return true;
+  } catch(e) {}
   return countCompletedBaseLessons() >= 222;
 }
 window.areAll222LessonsUnlocked = areAll222LessonsUnlocked;
@@ -1680,7 +1683,7 @@ function isLessonLocked(id){
     if(!baseUnlocked) return true; // Locked until all 222 base lessons are unlocked!
 
     // When all 222 base lessons are unlocked, unlock ONLY the first bonus lesson!
-    if(def.bonusIndex === 0 || def.order === 1){
+    if(def.bonusIndex === 0){
       return false; // First bonus lesson is unlocked!
     }
 
@@ -2949,6 +2952,18 @@ function completeLesson(){
     window.dispatchEvent(new CustomEvent('pkLessonCompleted', { detail: { lesson: def, accuracy, elapsed, isNewBest } }));
   } catch(e){}
 
+  // Trigger Grandmaster Vault 222-completion celebratory fanfare
+  if(!def.isBonus && countCompletedBaseLessons() >= 222){
+    try {
+      if(!localStorage.getItem('khmerVaultCelebrated')){
+        localStorage.setItem('khmerVaultCelebrated', '1');
+        if(typeof showGrandmasterVaultFanfareModal === 'function'){
+          setTimeout(() => showGrandmasterVaultFanfareModal(), 900);
+        }
+      }
+    } catch(e){}
+  }
+
   showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars);
 }
 
@@ -3562,14 +3577,16 @@ function applyLessonsData(data){
     const tabAlphabet = document.getElementById('lmTabBtn-alphabet');
     const tabLessons = document.getElementById('lmTabBtn-lessons');
     const tabMaster = document.getElementById('lmTabBtn-master');
+    const tabVault = document.getElementById('lmTabBtn-vault');
 
     const panelAlphabet = document.getElementById('lmPanel-alphabet');
     const panelLessons = document.getElementById('lmPanel-lessons');
     const panelMaster = document.getElementById('lmPanel-master');
+    const panelVault = document.getElementById('lmPanel-vault');
 
     function switchTab(tabId) {
-      const tabs = [tabAlphabet, tabLessons, tabMaster];
-      const panels = [panelAlphabet, panelLessons, panelMaster];
+      const tabs = [tabAlphabet, tabLessons, tabMaster, tabVault];
+      const panels = [panelAlphabet, panelLessons, panelMaster, panelVault];
 
       tabs.forEach(t => { if(t) t.classList.remove('active'), t.setAttribute('aria-selected', 'false'); });
       panels.forEach(p => { if(p) p.classList.remove('active'), p.hidden = true; });
@@ -3585,12 +3602,17 @@ function applyLessonsData(data){
       } else if(tabId === 'master') {
         if(tabMaster) tabMaster.classList.add('active'), tabMaster.setAttribute('aria-selected', 'true');
         if(panelMaster) panelMaster.classList.add('active'), panelMaster.hidden = false;
+      } else if(tabId === 'vault') {
+        if(tabVault) tabVault.classList.add('active'), tabVault.setAttribute('aria-selected', 'true');
+        if(panelVault) panelVault.classList.add('active'), panelVault.hidden = false;
+        renderHubVault();
       }
     }
 
     if(tabAlphabet) tabAlphabet.onclick = () => switchTab('alphabet');
     if(tabLessons) tabLessons.onclick = () => switchTab('lessons');
     if(tabMaster) tabMaster.onclick = () => switchTab('master');
+    if(tabVault) tabVault.onclick = () => switchTab('vault');
 
     // Layout pills in alphabet matrix
     const alphaPillGroup = document.getElementById('lmAlphaLayoutSelector');
@@ -3632,6 +3654,209 @@ function applyLessonsData(data){
     }
   }
 
+  function renderHubVault() {
+    const progressCard = document.getElementById('lmVaultProgressCard');
+    const tiersGrid = document.getElementById('lmVaultTiersGrid');
+    if (!progressCard || !tiersGrid) return;
+
+    const completed = countCompletedBaseLessons();
+    const isUnlocked = areAll222LessonsUnlocked();
+    const isPreview = (function(){
+      try { return localStorage.getItem('khmerUnlock222Vault') === '1'; }catch(e){ return false; }
+    })();
+    const isKm = document.documentElement.classList.contains('site-km-mode');
+    const pct = Math.min(100, Math.round((completed / 222) * 100));
+
+    progressCard.innerHTML = `
+      <div class="lm-vp-top">
+        <div class="lm-vp-status ${isUnlocked ? 'unlocked' : 'locked'}">
+          <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${isUnlocked ? '<polyline points="20 6 9 17 4 12"/>' : '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'}</svg>
+          <span>${isUnlocked ? (isPreview ? (isKm ? 'បានបើកការមើលសាកល្បង' : 'PREVIEW MODE ACTIVE // ALL DRILLS UNLOCKED') : (isKm ? 'បានដោះសោស្ថាពរ' : 'GRANDMASTER VAULT UNLOCKED')) : (isKm ? 'ជាប់សោ // តម្រូវឱ្យចប់ ២២២ មេរៀនមូលដ្ឋាន' : 'LOCKED // 222 BASE LESSONS PREREQUISITE')}</span>
+        </div>
+        <div class="lm-vp-count">
+          <span class="lm-vp-num">${completed}</span><span class="lm-vp-max"> / 222</span>
+          <span class="lm-vp-lbl">${isKm ? 'មេរៀនមូលដ្ឋាន' : 'Core Lessons Completed'}</span>
+        </div>
+      </div>
+      <div class="lm-vp-meter-track" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100">
+        <div class="lm-vp-meter-fill ${isUnlocked ? 'complete' : ''}" style="width: ${pct}%;"></div>
+      </div>
+      <div class="lm-vp-footer">
+        <div class="lm-vp-hint ${isUnlocked ? 'unlocked' : ''}">
+          ${isUnlocked
+            ? `<svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> <span>${isKm ? 'ដំណាក់កាលទាំង ៣ ត្រូវបានបើកដំណើរការ។ មេរៀននីមួយៗដោះសោបន្តបន្ទាប់គ្នា!' : 'All 3 Grandmaster tiers active. Lessons unlock sequentially as you conquer each drill!'}</span>`
+            : `<span>${isKm ? `នៅសល់ ${Math.max(0, 222 - completed)} មេរៀនទៀតដើម្បីដោះសោ ឬបើកការមើលសាកល្បងភ្លាមៗ៖` : `${Math.max(0, 222 - completed)} lessons remaining to unlock naturally, or test immediately via Preview:`}</span>`}
+        </div>
+        <button type="button" class="lm-vp-preview-toggle-btn" id="lmVaultPreviewToggleBtn">
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>${isPreview ? (isKm ? 'បិទការមើលសាកល្បង' : 'Disable Preview Mode') : (isKm ? 'បើកការមើលសាកល្បង' : 'Preview Grandmaster Vault')}</span>
+        </button>
+      </div>
+    `;
+
+    const toggleBtn = progressCard.querySelector('#lmVaultPreviewToggleBtn');
+    if (toggleBtn) {
+      toggleBtn.onclick = function() {
+        const nextState = !isPreview;
+        try { localStorage.setItem('khmerUnlock222Vault', nextState ? '1' : '0'); } catch(e){}
+        const settingsSwitch = document.getElementById('previewBonusVaultToggle');
+        if (settingsSwitch && typeof setSwitchUI === 'function') setSwitchUI(settingsSwitch, nextState);
+        if (typeof renderLessonStrip === 'function') renderLessonStrip();
+        renderHubVault();
+        if (typeof showToast === 'function') {
+          showToast(pkIcon('trophy', 18), nextState ? 'Grandmaster Vault Preview Active' : 'Prerequisite Restored', nextState ? 'All 54 bonus drills unlocked for preview & testing.' : 'Bonus drills require completing all 222 base lessons.');
+        }
+      };
+    }
+
+    const tiers = [
+      {
+        tierNum: 1,
+        titleEn: 'Tier 1: Speed Acceleration & Pro Stamina',
+        titleKm: 'ដំណាក់កាលទី ១៖ ល្បឿនលឿន & ការស៊ូទ្រាំកម្រិតខ្ពស់',
+        descEn: 'High-cadence rhythmic bursts and stamina endurance drills across 18 specialized lessons (Levels 13/14).',
+        descKm: 'លំហាត់បង្កើនចង្វាក់វាយល្បឿនលឿន និងការស៊ូទ្រាំសាច់ដុំម្រាមដៃក្នុង ១៨ មេរៀន (កម្រិត ១៣/១៤)។',
+        tracks: [
+          { trackId: 'standard', name: 'Khmer Standard', levelId: 'standard-L13' },
+          { trackId: 'nida', name: 'Khmer NiDA', levelId: 'nida-L13' },
+          { trackId: 'english', name: 'English QWERTY', levelId: 'en-L14' }
+        ]
+      },
+      {
+        tierNum: 2,
+        titleEn: 'Tier 2: Royal Court Chronicles, Epics & Classical Poetry',
+        titleKm: 'ដំណាក់កាលទី ២៖ រាជពង្សាវតារ អក្សរសិល្ប៍បុរាណ & កាព្យ',
+        descEn: 'Master intricate Cambodian royal vocabulary, Reamker classical epics, and poetic meter across 18 lessons (Levels 14/15).',
+        descKm: 'ហាត់វាយពាក្យរាជសព្ទ វណ្ណកម្មរឿងរាមកេរ្តិ៍ និងកម្រងកាព្យបុរាណក្នុង ១៨ មេរៀន (កម្រិត ១៤/១៥)។',
+        tracks: [
+          { trackId: 'standard', name: 'Khmer Standard', levelId: 'standard-L14' },
+          { trackId: 'nida', name: 'Khmer NiDA', levelId: 'nida-L14' },
+          { trackId: 'english', name: 'English QWERTY', levelId: 'en-L15' }
+        ]
+      },
+      {
+        tierNum: 3,
+        titleEn: 'Tier 3: Diplomatic Treaties, Constitutional Law & Philosophy',
+        titleKm: 'ដំណាក់កាលទី ៣៖ សន្ធិសញ្ញាការទូត ច្បាប់រដ្ឋធម្មនុញ្ញ & ទស្សនវិជ្ជា',
+        descEn: 'The ultimate professional typing challenge: formal legal statutes, national constitution clauses, and philosophical essays across 18 lessons (Levels 15/16).',
+        descKm: 'ការប្រកួតប្រជែងវាយអត្ថបទផ្លូវការកំពូល៖ បទប្បញ្ញត្តិច្បាប់ រដ្ឋធម្មនុញ្ញជាតិ និងទស្សនវិជ្ជាសកលក្នុង ១៨ មេរៀន (កម្រិត ១៥/១៦)។',
+        tracks: [
+          { trackId: 'standard', name: 'Khmer Standard', levelId: 'standard-L15' },
+          { trackId: 'nida', name: 'Khmer NiDA', levelId: 'nida-L15' },
+          { trackId: 'english', name: 'English QWERTY', levelId: 'en-L16' }
+        ]
+      }
+    ];
+
+    tiersGrid.innerHTML = '';
+
+    tiers.forEach(tier => {
+      const tierCard = document.createElement('article');
+      tierCard.className = 'lm-vault-tier-card';
+
+      let lessonsHtml = '';
+      tier.tracks.forEach(trackGroup => {
+        let list = (typeof LESSON_SETS !== 'undefined' && LESSON_SETS[trackGroup.trackId]) ? LESSON_SETS[trackGroup.trackId] : null;
+        if (!list || !list.length) {
+          if (trackGroup.trackId === 'standard' && typeof LESSONS_STANDARD !== 'undefined') list = LESSONS_STANDARD;
+          else if (trackGroup.trackId === 'nida' && typeof LESSONS_NIDA !== 'undefined') list = LESSONS_NIDA;
+          else if (trackGroup.trackId === 'english' && typeof LESSONS_ENGLISH !== 'undefined') list = LESSONS_ENGLISH;
+        }
+
+        const tierLessons = Array.isArray(list) ? list.filter(l => l.level === trackGroup.levelId) : [];
+        if (tierLessons.length > 0) {
+          lessonsHtml += `<div class="lm-vt-track-header"><span class="lm-vt-track-pill ${trackGroup.trackId}">${trackGroup.name} (${tierLessons.length})</span></div><div class="lm-vt-lessons-row-group">`;
+          tierLessons.forEach(l => {
+            const best = getLessonBest(l.id);
+            const locked = isLessonLocked(l.id);
+            const statusIcon = best && best.mastered
+              ? `<svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5fd694" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`
+              : locked
+              ? `<svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
+              : `<svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+
+            const title = (isKm && l.titleKm) ? l.titleKm : l.title;
+            lessonsHtml += `
+              <div class="lm-vt-lesson-row ${locked ? 'locked' : 'unlocked'} ${best && best.mastered ? 'mastered' : ''}">
+                <div class="lm-vt-lr-left">
+                  <span class="lm-vt-lr-status">${statusIcon}</span>
+                  <span class="lm-vt-lr-code">${l.id}</span>
+                  <span class="lm-vt-lr-title">${title}</span>
+                </div>
+                <div class="lm-vt-lr-right">
+                  ${best ? `<span class="lm-vt-lr-score">${best.accuracy}%</span>` : ''}
+                  <button type="button" class="lm-vt-lr-launch-btn" ${locked ? 'disabled' : ''} onclick="window.launchMasterLesson('${l.id}', '${trackGroup.trackId}')">
+                    <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    <span>${locked ? (isKm ? 'ជាប់សោ' : 'Locked') : (isKm ? 'ចាប់ផ្តើម' : 'Start')}</span>
+                  </button>
+                </div>
+              </div>
+            `;
+          });
+          lessonsHtml += `</div>`;
+        }
+      });
+
+      tierCard.innerHTML = `
+        <div class="lm-vt-header">
+          <div class="lm-vt-eyebrow">
+            <span class="lm-vt-tier-badge">TIER ${tier.tierNum} // 18 DRILLS</span>
+          </div>
+          <h4 class="lm-vt-title">${isKm ? tier.titleKm : tier.titleEn}</h4>
+          <p class="lm-vt-desc">${isKm ? tier.descKm : tier.descEn}</p>
+        </div>
+        <div class="lm-vt-body">
+          ${lessonsHtml}
+        </div>
+      `;
+
+      tiersGrid.appendChild(tierCard);
+    });
+  }
+  window.renderHubVault = renderHubVault;
+
+  function showGrandmasterVaultFanfareModal() {
+    const modal = document.getElementById('grandmasterFanfareModal');
+    if (!modal) return;
+    modal.hidden = false;
+    const countEl = document.getElementById('gmFanfareBaseCount');
+    if (countEl) countEl.textContent = `${countCompletedBaseLessons()} / 222`;
+
+    const enterBtn = document.getElementById('enterGrandmasterVaultBtn');
+    const closeBtn = document.getElementById('closeGrandmasterFanfareBtn');
+
+    if (enterBtn) {
+      enterBtn.onclick = function() {
+        closeGrandmasterFanfareModal();
+        openLearnMoreHub('vault');
+      };
+    }
+    if (closeBtn) {
+      closeBtn.onclick = closeGrandmasterFanfareModal;
+    }
+    modal.onclick = function(e) {
+      if (e.target === modal) closeGrandmasterFanfareModal();
+    };
+
+    if (typeof playChime === 'function') playChime();
+    if (typeof confettiBurst === 'function') {
+      confettiBurst(window.innerWidth / 2, window.innerHeight * 0.35, 45);
+    }
+  }
+
+  function closeGrandmasterFanfareModal() {
+    const modal = document.getElementById('grandmasterFanfareModal');
+    if (!modal) return;
+    if (typeof window.closeModalAnimated === 'function') {
+      window.closeModalAnimated(modal);
+    } else {
+      modal.hidden = true;
+    }
+  }
+
+  window.showGrandmasterVaultFanfareModal = showGrandmasterVaultFanfareModal;
+  window.closeGrandmasterFanfareModal = closeGrandmasterFanfareModal;
+
   function openLearnMoreHub(initialTab) {
     const modal = getHubModal();
     if(!modal) return;
@@ -3644,12 +3869,14 @@ function applyLessonsData(data){
     const tabAlphabet = document.getElementById('lmTabBtn-alphabet');
     const tabLessons = document.getElementById('lmTabBtn-lessons');
     const tabMaster = document.getElementById('lmTabBtn-master');
+    const tabVault = document.getElementById('lmTabBtn-vault');
     const panelAlphabet = document.getElementById('lmPanel-alphabet');
     const panelLessons = document.getElementById('lmPanel-lessons');
     const panelMaster = document.getElementById('lmPanel-master');
+    const panelVault = document.getElementById('lmPanel-vault');
 
-    [tabAlphabet, tabLessons, tabMaster].forEach(t => { if(t) t.classList.remove('active'); });
-    [panelAlphabet, panelLessons, panelMaster].forEach(p => { if(p) p.classList.remove('active'), p.hidden = true; });
+    [tabAlphabet, tabLessons, tabMaster, tabVault].forEach(t => { if(t) t.classList.remove('active'); });
+    [panelAlphabet, panelLessons, panelMaster, panelVault].forEach(p => { if(p) p.classList.remove('active'), p.hidden = true; });
 
     if(initialTab === 'lessons') {
       if(tabLessons) tabLessons.classList.add('active');
@@ -3658,6 +3885,10 @@ function applyLessonsData(data){
     } else if(initialTab === 'master') {
       if(tabMaster) tabMaster.classList.add('active');
       if(panelMaster) panelMaster.classList.add('active'), panelMaster.hidden = false;
+    } else if(initialTab === 'vault') {
+      if(tabVault) tabVault.classList.add('active');
+      if(panelVault) panelVault.classList.add('active'), panelVault.hidden = false;
+      renderHubVault();
     } else {
       if(tabAlphabet) tabAlphabet.classList.add('active');
       if(panelAlphabet) panelAlphabet.classList.add('active'), panelAlphabet.hidden = false;

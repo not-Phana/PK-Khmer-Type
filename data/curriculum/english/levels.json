@@ -331,6 +331,58 @@
         "allLessonsCompleted": true,
         "minLevelAccuracy": 92
       }
+    },
+    {
+      "id": "en-L15",
+      "levelNumber": 15,
+      "isBonus": true,
+      "bonusTier": 2,
+      "title": "World Philosophy & Master Speeches",
+      "titleKm": "ទស្សនវិជ្ជាសកល និងសុន្ទរកថាកំពូល",
+      "description": "Platonic dialogues, Abraham Lincoln, MLK, Seneca, Voltaire, and the Socratic method.",
+      "objective": "Master eloquence, rhetorical rhythm, and philosophical prose",
+      "lessons": [
+        "en-L15-01",
+        "en-L15-02",
+        "en-L15-03",
+        "en-L15-04",
+        "en-L15-05",
+        "en-L15-06"
+      ],
+      "unlockRequirements": {
+        "previousLevel": "en-L14",
+        "requiresAll222": false
+      },
+      "completionRequirements": {
+        "allLessonsCompleted": true,
+        "minLevelAccuracy": 92
+      }
+    },
+    {
+      "id": "en-L16",
+      "levelNumber": 16,
+      "isBonus": true,
+      "bonusTier": 3,
+      "title": "Computer Science, Logic & Tech Ultramarathon",
+      "titleKm": "វិទ្យាសាស្ត្រកុំព្យូទ័រ តក្កវិជ្ជា & មហាសម្ភោធកំពូល",
+      "description": "Alan Turing, Ada Lovelace, Unix philosophy, quantum foundations, information theory, and polyglot marathon.",
+      "objective": "Conquer the absolute highest summit of English touch-typing",
+      "lessons": [
+        "en-L16-01",
+        "en-L16-02",
+        "en-L16-03",
+        "en-L16-04",
+        "en-L16-05",
+        "en-L16-06"
+      ],
+      "unlockRequirements": {
+        "previousLevel": "en-L15",
+        "requiresAll222": false
+      },
+      "completionRequirements": {
+        "allLessonsCompleted": true,
+        "minLevelAccuracy": 92
+      }
     }
   ]
 }

@@ -1401,6 +1401,306 @@
       "type": "drill",
       "content": "សូមអបអរសាទរលោកអ្នកដែលបានឆ្លងកាត់គ្រប់ការសាកល្បង និងក្លាយជាមហាកំពូលស្មៀនខ្មែរពិតប្រាកដ ៕",
       "description": "ជ័យជំនះនៃមហាកំពូលស្មៀនខ្មែរ"
+    },
+    "standard-L14-01-E01": {
+      "type": "drill",
+      "content": "ការមិនសេពគប់នូវបុគ្គលពាលទាំងឡាយ",
+      "description": "Mangala Sutta: Avoiding the Foolish"
+    },
+    "standard-L14-01-E02": {
+      "type": "drill",
+      "content": "ការសេពគប់នូវបុគ្គលជាបណ្ឌិតទាំងឡាយ និងការបូជាដល់បុគ្គលដែលគួរបូជា",
+      "description": "Mangala Sutta: Associating with the Wise"
+    },
+    "standard-L14-01-E03": {
+      "type": "drill",
+      "content": "ការនៅក្នុងប្រទេសដ៏សមគួរ ភាពជាអ្នកបានធ្វើបុណ្យទុកមកហើយក្នុងកាលមុន និងការដំកល់ខ្លួនទុកដោយប្រពៃ",
+      "description": "Mangala Sutta: Living in a Fitting Land"
+    },
+    "standard-L14-01-E04": {
+      "type": "drill",
+      "content": "សេចក្តីដឹងគុណដែលអ្នកដទៃធ្វើដល់ខ្លួន ការប្រព្រឹត្តធម៌ដ៏ប្រសើរ និងការជួយសង្គ្រោះដល់ញាតិទាំងឡាយ នេះជាមង្គលដ៏ឧត្តម",
+      "description": "Mangala Sutta: Gratitude and Noble Conduct"
+    },
+    "standard-L14-01-E05": {
+      "type": "drill",
+      "content": "ចិត្តនៃបុគ្គលណា ដែលលោកធម៌ទាំងឡាយប៉ះពាល់ហើយ មិនរំភើបញាប់ញ័រ មិនមានសេចក្តីសោក មានធូលីគឺកិលេសទៅប្រាសហើយ ជាចិត្តក្សេមក្សាន្ត នេះជាមង្គលដ៏ឧត្តមក្នុងលោក",
+      "description": "Mangala Sutta: The Unshakeable Mind"
+    },
+    "standard-L14-02-E01": {
+      "type": "drill",
+      "content": "សូមសត្វទាំងពួងបានសេចក្តីសុខក្សេមក្សាន្ត",
+      "description": "Metta Sutta: Universal Well-Being"
+    },
+    "standard-L14-02-E02": {
+      "type": "drill",
+      "content": "សូមកុំឱ្យមានការបៀតបៀនគ្នាទៅវិញទៅមកក្នុងទីណាមួយឡើយ",
+      "description": "Metta Sutta: Non-Harm and Peace"
+    },
+    "standard-L14-02-E03": {
+      "type": "drill",
+      "content": "មាតាថែរក្សាបុត្របង្កើតតែមួយដោយអាយុយ៉ាងណា បុគ្គលគប្បីចម្រើនមេត្តាចិត្តរក្សាសត្វទាំងពួងយ៉ាងនោះដែរ",
+      "description": "Metta Sutta: A Mother's Protection"
+    },
+    "standard-L14-02-E04": {
+      "type": "drill",
+      "content": "បុគ្គលគប្បីផ្សាយមេត្តាចិត្តឥតមានប្រមាណ ទៅក្នុងសត្វលោកទាំងមូល ទាំងខាងលើ ទាំងខាងក្រោម ទាំងទិសទទឹង ឥតចង្អៀត ឥតពៀរ ឥតសត្រូវ",
+      "description": "Metta Sutta: Boundless Goodwill"
+    },
+    "standard-L14-02-E05": {
+      "type": "drill",
+      "content": "ទោះឈរ ដើរ អង្គុយ ឬដេកក្តី បុគ្គលគួរតម្កល់នូវសតិនេះទុកឱ្យមាំមួន អ្នកប្រាជ្ញទាំងឡាយហៅការរស់នៅបែបនេះថា ជាព្រហ្មវិហារធម៌ដ៏ប្រសើរក្នុងលោកនេះ",
+      "description": "Metta Sutta: Constant Mindfulness of Metta"
+    },
+    "standard-L14-03-E01": {
+      "type": "drill",
+      "content": "ឱព្រះគុណថ្លៃ ធ្ងន់លើសធរណី",
+      "description": "Smot Verse: Filial Reverence"
+    },
+    "standard-L14-03-E02": {
+      "type": "drill",
+      "content": "ម្តាយបីថ្នាក់ថ្នម តាំងពីតូចស្មើ មិនឱ្យហ្មងសៅ ត្រជាក់ក្នុងឱរា",
+      "description": "Smot Verse: Maternal Tender Care"
+    },
+    "standard-L14-03-E03": {
+      "type": "drill",
+      "content": "ទឹកដោះម្តាយថ្លៃ ស្រក់តក់បន្តក់ចិញ្ចឹមរូបកាយ ទោះបីនឿយហត់ខំទ្រាំពុះពារមិនគិតជីវិត",
+      "description": "Smot Verse: Unconditional Sacrifice"
+    },
+    "standard-L14-03-E04": {
+      "type": "drill",
+      "content": "កូនសូមក្រាបថ្វាយបង្គំព្រះគុណ ទាំងយប់ទាំងថ្ងៃ សូមឱ្យមាតាបិតាបានក្តីសុខក្សេមក្សាន្តជានិរន្តរ៍តរៀងទៅ",
+      "description": "Smot Verse: Devotional Prayers"
+    },
+    "standard-L14-03-E05": {
+      "type": "drill",
+      "content": "ចូរអ្នកទាំងឡាយកុំបីធ្វេសប្រហែសនឹងគុណអ្នកមានគុណ ត្រូវដឹងគុណតបគុណដោយចិត្តស្មោះត្រង់ ទើបជីវិតមានសិរីសួស្តីនិងសេចក្តីចម្រើនរុងរឿង",
+      "description": "Smot Verse: Living with Sincere Gratitude"
+    },
+    "standard-L14-04-E01": {
+      "type": "drill",
+      "content": "មេត្តា ករុណា មុទិតា និងឧបេក្ខា",
+      "description": "Brahmavihara: Four Cardinal Virtues"
+    },
+    "standard-L14-04-E02": {
+      "type": "drill",
+      "content": "មេត្តាគឺបំណងឱ្យអ្នកដទៃបានសុខ ករុណាគឺជួយរំលត់ទុក្ខរបស់អ្នកដទៃ",
+      "description": "Brahmavihara: Goodwill and Compassion"
+    },
+    "standard-L14-04-E03": {
+      "type": "drill",
+      "content": "មុទិតាគឺត្រេកអរចំពោះសេចក្តីសុខរបស់គេ ឧបេក្ខាគឺតម្កល់ចិត្តជាកណ្តាលមិនលម្អៀងដោយកម្លាំងសេចក្តីស្រឡាញ់ឬស្អប់",
+      "description": "Brahmavihara: Altruistic Joy and Equanimity"
+    },
+    "standard-L14-04-E04": {
+      "type": "drill",
+      "content": "អរិយសច្ចទាំងបួនប្រការរួមមាន ទុក្ខសច្ច សមុទយសច្ច និរោធសច្ច និងមគ្គសច្ច ដែលជាផ្លូវឆ្ពោះទៅកាន់សេចក្តីស្ងប់រម្ងាប់",
+      "description": "Noble Truths: Path to Liberation"
+    },
+    "standard-L14-04-E05": {
+      "type": "drill",
+      "content": "ការអប់រំចិត្តឱ្យស្អាតបរិសុទ្ធ ចាកផុតពីកិលេសគ្រឿងសៅហ្មង នាំមកនូវសេចក្តីសុខពិតប្រាកដក្នុងបច្ចុប្បន្ន និងអនាគតកាល",
+      "description": "Noble Truths: Inner Peace and Clarity"
+    },
+    "standard-L14-05-E01": {
+      "type": "drill",
+      "content": "វិចារណញាណ និងសាមគ្គីភាព",
+      "description": "High Lexicon: Discernment and Unity"
+    },
+    "standard-L14-05-E02": {
+      "type": "drill",
+      "content": "ការអភិវឌ្ឍប្រកបដោយចីរភាព និងគុណធម៌សង្គម",
+      "description": "High Lexicon: Sustainable Progress"
+    },
+    "standard-L14-05-E03": {
+      "type": "drill",
+      "content": "សច្ចធម៌ យុត្តិធម៌ និងសមភាព គឺជាគ្រឹះនៃសង្គមដ៏រុងរឿងនិងសុខដុមរមនា",
+      "description": "High Lexicon: Truth, Justice, and Harmony"
+    },
+    "standard-L14-05-E04": {
+      "type": "drill",
+      "content": "ពុទ្ធសាសនានិងវប្បធម៌ខ្មែរ បានចាក់ឫសយ៉ាងជ្រៅក្នុងផ្នត់គំនិតនិងការរស់នៅរបស់ប្រជាជនតាំងពីបុរាណរហូតមកដល់បច្ចុប្បន្ន",
+      "description": "High Lexicon: Deep Roots of Khmer Heritage"
+    },
+    "standard-L14-05-E05": {
+      "type": "drill",
+      "content": "បញ្ញាញាណដែលកើតចេញពីការស្តាប់ ការត្រិះរិះពិចារណា និងការអនុវត្តជាក់ស្តែង ជួយឱ្យមនុស្សយល់ដឹងពីការពិតនៃជីវិតនិងលោកិយ",
+      "description": "High Lexicon: Three Wisdom Foundations"
+    },
+    "standard-L14-06-E01": {
+      "type": "drill",
+      "content": "នត្ថិ សន្តិ បរំ សុខំ សេចក្តីសុខដទៃក្រៅពីសេចក្តីស្ងប់មិនមានឡើយ",
+      "description": "Monastic Sprint: Supreme Stillness"
+    },
+    "standard-L14-06-E02": {
+      "type": "drill",
+      "content": "ការឈ្នះខ្លួនឯងប្រសើរជាងការឈ្នះអ្នកដទៃរាប់ពាន់ដងក្នុងសង្គ្រាម",
+      "description": "Monastic Sprint: Conquering the Self"
+    },
+    "standard-L14-06-E03": {
+      "type": "drill",
+      "content": "ពន្លឺព្រះអាទិត្យបំភ្លឺផែនដីនៅពេលថ្ងៃ ពន្លឺព្រះចន្ទបំភ្លឺផ្ទៃមេឃនៅពេលយប់ រីឯពន្លឺនៃបញ្ញាបរិសុទ្ធបំភ្លឺគ្រប់ពេលវេលា",
+      "description": "Monastic Sprint: The Inextinguishable Light of Wisdom"
+    },
+    "standard-L14-06-E04": {
+      "type": "drill",
+      "content": "បុគ្គលប្រកបដោយសីលនិងបញ្ញា តែងរុងរឿងក្នុងចំណោមមនុស្សទាំងឡាយ ដូចផ្កាឈូកដែលរីកស្គុះស្គាយក្នុងទឹកថ្លាត្រជាក់",
+      "description": "Monastic Sprint: The Lotus Blooming"
+    },
+    "standard-L14-06-E05": {
+      "type": "drill",
+      "content": "ការវាយអត្ថបទដ៏ស្ទាត់ជំនាញប្រៀបបាននឹងចិត្តដែលត្រូវបានបង្ហាត់យ៉ាងល្អ រមែងនាំមកនូវភាពត្រឹមត្រូវ រហ័សរហួន និងសេចក្តីស្ងប់ក្នុងគ្រប់ចង្វាក់នៃម្រាមដៃ",
+      "description": "Monastic Sprint: Scribe's Meditative Cadence"
+    },
+    "standard-L15-01-E01": {
+      "type": "drill",
+      "content": "ព្រះរាជាណាចក្រកម្ពុជា ជាតិ សាសនា ព្រះមហាក្សត្រ",
+      "description": "Constitution: National Motto"
+    },
+    "standard-L15-01-E02": {
+      "type": "drill",
+      "content": "ប្រទេសកម្ពុជាអនុវត្តនយោបាយប្រជាធិបតេយ្យសេរីពហុបក្ស",
+      "description": "Constitution: Pluralistic Democracy"
+    },
+    "standard-L15-01-E03": {
+      "type": "drill",
+      "content": "ប្រជាពលរដ្ឋខ្មែរមានភាពស្មើគ្នាចំពោះមុខច្បាប់ ដោយគ្មានការរើសអើងពូជសាសន៍ ពណ៌សម្បុរ ឬភេទឡើយ",
+      "description": "Constitution: Equality Before the Law"
+    },
+    "standard-L15-01-E04": {
+      "type": "drill",
+      "content": "អធិបតេយ្យភាពជាតិកើតចេញពីប្រជាជនខ្មែរគ្រប់រូប ហើយអំណាចទាំងអស់ក្នុងរដ្ឋត្រូវបានបែងចែកជានីតិបញ្ញត្តិ នីតិប្រតិបត្តិ និងតុលាការ",
+      "description": "Constitution: Separation of State Powers"
+    },
+    "standard-L15-01-E05": {
+      "type": "drill",
+      "content": "រដ្ឋធម្មនុញ្ញគឺជាច្បាប់កំពូលនៃព្រះរាជាណាចក្រកម្ពុជា ច្បាប់និងសេចក្តីសម្រេចទាំងឡាយនៃស្ថាប័ននានាត្រូវតែស្របទៅតាមរដ្ឋធម្មនុញ្ញជាដាច់ខាត",
+      "description": "Constitution: Supremacy of the Constitution"
+    },
+    "standard-L15-02-E01": {
+      "type": "drill",
+      "content": "បឹងទន្លេសាបជាដង្ហើមសេដ្ឋកិច្ចនិងធម្មជាតិខ្មែរ",
+      "description": "Environment: Great Tonle Sap Lake"
+    },
+    "standard-L15-02-E02": {
+      "type": "drill",
+      "content": "ការការពារព្រៃលិចទឹកជួយរក្សាពូជត្រីនិងលំនឹងប្រព័ន្ធបរិស្ថានធម្មជាតិ",
+      "description": "Environment: Flooded Forest Conservation"
+    },
+    "standard-L15-02-E03": {
+      "type": "drill",
+      "content": "ធនធានធម្មជាតិព្រៃឈើ សត្វព្រៃ និងប្រភពទឹកស្អាត គឺជាសម្បត្តិរួមដែលយើងទាំងអស់គ្នាត្រូវរួមគ្នាថែរក្សាការពារ",
+      "description": "Environment: Collective Natural Heritage"
+    },
+    "standard-L15-02-E04": {
+      "type": "drill",
+      "content": "តំបន់ជីវមណ្ឌលបឹងទន្លេសាបត្រូវបានទទួលស្គាល់ដោយអង្គការយូណេស្កូ ជាទីតាំងធម្មជាតិដែលមានជីវចម្រុះដ៏សម្បូរបែបបំផុតមួយក្នុងពិភពលោក",
+      "description": "Environment: UNESCO Biosphere Reserve"
+    },
+    "standard-L15-02-E05": {
+      "type": "drill",
+      "content": "ការអភិវឌ្ឍដោយចីរភាពតម្រូវឱ្យមានតុល្យភាពរវាងការរីកចម្រើនសេដ្ឋកិច្ចនិងការការពារបរិស្ថាន ដើម្បីធានាអនាគតបៃតងសម្រាប់កូនចៅជំនាន់ក្រោយ",
+      "description": "Environment: Green Future and Intergenerational Equity"
+    },
+    "standard-L15-03-E01": {
+      "type": "drill",
+      "content": "បច្ចេកវិទ្យាឌីជីថលនិងនវានុវត្តន៍សម្រាប់យុវជន",
+      "description": "Innovation: Digital Renaissance"
+    },
+    "standard-L15-03-E02": {
+      "type": "drill",
+      "content": "ការបណ្តុះបណ្តាលជំនាញបច្ចេកទេសនិងចំណេះដឹងជួយពង្រឹងសេដ្ឋកិច្ចជាតិ",
+      "description": "Innovation: Technical Empowerment"
+    },
+    "standard-L15-03-E03": {
+      "type": "drill",
+      "content": "ការប្រើប្រាស់ប្រព័ន្ធទូទាត់អេឡិចត្រូនិកទំនើប បានជួយសម្រួលដល់ការធ្វើពាណិជ្ជកម្មនិងបង្កើនប្រសិទ្ធភាពសេដ្ឋកិច្ចទូទាំងប្រទេស",
+      "description": "Innovation: Modern Electronic Payments"
+    },
+    "standard-L15-03-E04": {
+      "type": "drill",
+      "content": "សហគ្រិនភាពនិងគំនិតច្នៃប្រឌិតថ្មីៗរបស់យុវជនកម្ពុជា កំពុងជំរុញប្រទេសជាតិឆ្ពោះទៅកាន់សេដ្ឋកិច្ចឌីជីថលប្រកបដោយថាមពលនិងភាពប្រកួតប្រជែង",
+      "description": "Innovation: Youth Entrepreneurship and Vigor"
+    },
+    "standard-L15-03-E05": {
+      "type": "drill",
+      "content": "ការវិនិយោគលើវិស័យអប់រំ វិទ្យាសាស្ត្រ និងការស្រាវជ្រាវ គឺជាកាតាលីករដ៏សំខាន់បំផុតក្នុងការកសាងសង្គមជាតិមួយដែលមានចំណេះដឹងនិងវិបុលភាពយូរអង្វែង",
+      "description": "Innovation: Long-Term Knowledge Society"
+    },
+    "standard-L15-04-E01": {
+      "type": "drill",
+      "content": "សុខភាពល្អគឺជាទ្រព្យសម្បត្តិដ៏មានតម្លៃបំផុត",
+      "description": "Health: The Greatest Treasure"
+    },
+    "standard-L15-04-E02": {
+      "type": "drill",
+      "content": "ការហូបស្អាត ផឹកស្អាត និងរស់នៅស្អាត ជួយការពាររាងកាយពីរោគាទាំងពួង",
+      "description": "Health: Clean Living and Hygiene"
+    },
+    "standard-L15-04-E03": {
+      "type": "drill",
+      "content": "វេជ្ជសាស្ត្រទំនើបនិងឱសថបុរាណខ្មែរ បានសហការគ្នាយ៉ាងល្អក្នុងការថែទាំសុខុមាលភាពប្រជាពលរដ្ឋនៅគ្រប់តំបន់",
+      "description": "Health: Integrative Medical Practice"
+    },
+    "standard-L15-04-E04": {
+      "type": "drill",
+      "content": "ការហាត់ប្រាណជាប្រចាំ ការបរិភោគអាហាររូបត្ថម្ភគ្រប់គ្រាន់ និងការសម្រាកឱ្យបានត្រឹមត្រូវ ជួយពង្រឹងកម្លាំងកាយមាំមួននិងសុខភាពផ្លូវចិត្ត",
+      "description": "Health: Resilience and Mental Balance"
+    },
+    "standard-L15-04-E05": {
+      "type": "drill",
+      "content": "ការយល់ដឹងអំពីសុខភាពសហគមន៍និងការការពារជំងឺឆ្លង ជាកាតព្វកិច្ចរបស់ពលរដ្ឋគ្រប់រូប ដើម្បីរួមគ្នាថែរក្សាសហគមន៍ឱ្យមានសុវត្ថិភាពនិងសុភមង្គល",
+      "description": "Health: Community Health Consciousness"
+    },
+    "standard-L15-05-E01": {
+      "type": "drill",
+      "content": "ប្រាសាទអង្គរវត្តជាដួងព្រលឹងនិងមោទនភាពជាតិខ្មែរ",
+      "description": "Monuments: Angkor Wat's Soul"
+    },
+    "standard-L15-05-E02": {
+      "type": "drill",
+      "content": "របាំព្រះរាជទ្រព្យនិងល្ខោនខោល បានទទួលការចុះបញ្ជីបេតិកភណ្ឌអរូបីពិភពលោក",
+      "description": "Monuments: Royal Ballet and Lakhon Khol"
+    },
+    "standard-L15-05-E03": {
+      "type": "drill",
+      "content": "ប្រាសាទព្រះវិហារ ប្រាសាទសម្បូរព្រៃគុហ៍ និងប្រាសាទកោះកេរ បង្ហាញពីភាពអស្ចារ្យនៃស្ថាបត្យកម្មខ្មែរក្នុងសម័យបុរាណ",
+      "description": "Monuments: Ancient Architectural Triumphs"
+    },
+    "standard-L15-05-E04": {
+      "type": "drill",
+      "content": "វប្បធម៌ សិល្ប៍សាស្ត្រ និងប្រពៃណីទំនៀមទម្លាប់ខ្មែរ ជាស្ពានតភ្ជាប់ចំណងមិត្តភាពរវាងប្រជាជនកម្ពុជានិងបណ្តាប្រទេសនានាជុំវិញសកលលោក",
+      "description": "Monuments: Cultural Bridges to Humanity"
+    },
+    "standard-L15-05-E05": {
+      "type": "drill",
+      "content": "ការថែរក្សាការពារបេតិកភណ្ឌដូនតា មិនត្រឹមតែជាកាតព្វកិច្ចចំពោះប្រវត្តិសាស្ត្រប៉ុណ្ណោះទេ ប៉ុន្តែជាមូលដ្ឋានគ្រឹះនៃអត្តសញ្ញាណជាតិដ៏រឹងមាំសម្រាប់មនុស្សជំនាន់ក្រោយ",
+      "description": "Monuments: Indestructible National Identity"
+    },
+    "standard-L15-06-E01": {
+      "type": "drill",
+      "content": "អក្សរខ្មែរគ្រប់តួ អក្សរសិល្ប៍គ្រប់ទម្រង់ រុងរឿងលើទឹកដីសុវណ្ណភូមិ",
+      "description": "Ultramarathon: Golden Homeland Splendor"
+    },
+    "standard-L15-06-E02": {
+      "type": "drill",
+      "content": "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ន ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
+      "description": "Ultramarathon: 33 Consonants Grand Review"
+    },
+    "standard-L15-06-E03": {
+      "type": "drill",
+      "content": "ការរួមបញ្ចូលគ្នាតួអក្សរចម្រុះ ជើងអក្សរ និងវណ្ណយុត្តិទាំងអស់ បង្កើតបានជាភាសាមួយដ៏សម្បូរបែបនិងពិរោះរណ្តំ",
+      "description": "Ultramarathon: Complex Ligatures and Diacritics"
+    },
+    "standard-L15-06-E04": {
+      "type": "drill",
+      "content": "អ្នកដែលបានឆ្លងកាត់ការហ្វឹកហាត់គ្រប់មេរៀនទាំងអស់ ឥឡូវនេះបានក្លាយជាស្មៀនកំពូលដែលមានសមត្ថភាពវាយអក្សរខ្មែរដោយឥតស្ទាក់ស្ទើរ",
+      "description": "Ultramarathon: The Master Scribe Reaches the Summit"
+    },
+    "standard-L15-06-E05": {
+      "type": "drill",
+      "content": "សូមអបអរសាទរចំពោះជ័យជំនះដ៏អស្ចារ្យនេះ អ្នកបានបញ្ចប់ការហ្វឹកហាត់កម្រិតកំពូលទាំងស្រុង ហើយបានកាន់កាប់នូវភាពស្ទាត់ជំនាញវាយក្តារចុចខ្មែរយ៉ាងពេញលេញបរិបូរណ៍",
+      "description": "Ultramarathon: Grandmaster Scribe Coronation"
     }
   }
 }

@@ -6036,5 +6036,472 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #38bdf8;
 }
 
+/* ============================================================
+   GRANDMASTER VAULT HUB & 222 FANFARE CELEBRATION STYLES
+   ============================================================ */
+
+/* Vault Tab in Learn More Hub */
+.lm-tab-btn#lmTabBtn-vault {
+  border-color: rgba(255, 209, 102, 0.28);
+  background: rgba(255, 209, 102, 0.05);
+}
+.lm-tab-btn#lmTabBtn-vault:hover {
+  border-color: rgba(255, 209, 102, 0.6);
+  background: rgba(255, 209, 102, 0.12);
+}
+.lm-tab-btn#lmTabBtn-vault.active {
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.2) 0%, rgba(255, 170, 0, 0.1) 100%);
+  border-color: #ffd166;
+  color: #ffd166;
+  box-shadow: 0 0 16px rgba(255, 209, 102, 0.2);
+}
+
+/* Vault Intro Banner */
+.lm-vault-intro {
+  margin-bottom: 20px;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.08) 0%, rgba(20, 24, 38, 0.7) 100%);
+  border: 1px solid rgba(255, 209, 102, 0.25);
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+.lm-vault-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.12);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-bottom: 10px;
+}
+.lm-vault-title {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink, #f8fafc);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.lm-vault-desc {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+/* Vault Progress Card */
+.lm-vault-progress-card {
+  background: rgba(17, 22, 38, 0.85);
+  border: 1px solid rgba(255, 209, 102, 0.22);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+.lm-vp-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.lm-vp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.lm-vp-status.locked {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.12);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+.lm-vp-status.unlocked {
+  color: #5fd694;
+  background: rgba(95, 214, 148, 0.12);
+  border: 1px solid rgba(95, 214, 148, 0.35);
+}
+.lm-vp-count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.lm-vp-num {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffd166;
+}
+.lm-vp-max {
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+.lm-vp-lbl {
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  margin-left: 4px;
+}
+.lm-vp-meter-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.lm-vp-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #ffd166);
+  border-radius: 999px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lm-vp-meter-fill.complete {
+  background: linear-gradient(90deg, #5fd694, #ffd166);
+}
+.lm-vp-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.lm-vp-hint {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.lm-vp-hint.unlocked {
+  color: #5fd694;
+}
+.lm-vp-preview-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.1);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  border-radius: 6px;
+  padding: 5px 11px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+.lm-vp-preview-toggle-btn:hover {
+  background: rgba(255, 209, 102, 0.2);
+  border-color: #ffd166;
+  transform: translateY(-1px);
+}
+
+/* 3 Thematic Tiers Grid */
+.lm-vault-tiers-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.lm-vault-tier-card {
+  background: rgba(17, 22, 38, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 16px 18px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.lm-vault-tier-card:hover {
+  border-color: rgba(255, 209, 102, 0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.lm-vt-header {
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.lm-vt-eyebrow {
+  margin-bottom: 4px;
+}
+.lm-vt-tier-badge {
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.1);
+  border: 1px solid rgba(255, 209, 102, 0.3);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.lm-vt-title {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink, #f8fafc);
+  margin: 4px 0 3px;
+}
+.lm-vt-desc {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.45;
+}
+.lm-vt-track-header {
+  margin: 12px 0 6px;
+}
+.lm-vt-track-pill {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  display: inline-block;
+}
+.lm-vt-track-pill.standard {
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.12);
+  border: 1px solid rgba(255, 209, 102, 0.3);
+}
+.lm-vt-track-pill.nida {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+.lm-vt-track-pill.english {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+}
+.lm-vt-lessons-row-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.lm-vt-lesson-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  gap: 10px;
+  transition: all 0.15s ease;
+}
+.lm-vt-lesson-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 209, 102, 0.25);
+}
+.lm-vt-lesson-row.mastered {
+  border-color: rgba(95, 214, 148, 0.3);
+  background: rgba(95, 214, 148, 0.03);
+}
+.lm-vt-lr-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+.lm-vt-lr-status {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.lm-vt-lr-code {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+.lm-vt-lr-title {
+  font-size: 0.78rem;
+  color: var(--ink, #f8fafc);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lm-vt-lr-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.lm-vt-lr-score {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #5fd694;
+  background: rgba(95, 214, 148, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.lm-vt-lr-launch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #12151f;
+  background: #ffd166;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+.lm-vt-lr-launch-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+.lm-vt-lr-launch-btn:disabled {
+  background: rgba(255, 255, 255, 0.08);
+  color: #64748b;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ============================================================
+   GRANDMASTER 222-COMPLETION FANFARE MODAL
+   ============================================================ */
+
+.gm-fanfare-card {
+  max-width: 520px;
+  text-align: center;
+  padding: 32px 28px;
+  background: linear-gradient(180deg, #161c2e 0%, #0d111d 100%);
+  border: 1px solid rgba(255, 209, 102, 0.45);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 32px rgba(255, 209, 102, 0.18);
+  border-radius: 20px;
+  animation: fanfareEntry 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes fanfareEntry {
+  from { opacity: 0; transform: scale(0.92) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.gm-fanfare-crown-halo {
+  margin: 0 auto 16px;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(255, 209, 102, 0.25) 0%, rgba(255, 209, 102, 0.05) 70%, transparent 100%);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  box-shadow: 0 0 32px rgba(255, 209, 102, 0.25);
+}
+.gm-fanfare-crown-icon {
+  color: #ffd166;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: crownPulse 2s ease-in-out infinite alternate;
+}
+@keyframes crownPulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(255, 209, 102, 0.4)); }
+  100% { transform: scale(1.06); filter: drop-shadow(0 0 16px rgba(255, 209, 102, 0.8)); }
+}
+.gm-fanfare-eyebrow {
+  margin-bottom: 8px;
+}
+.gm-fanfare-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.12);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.gm-fanfare-title {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--ink, #f8fafc);
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+.gm-fanfare-sub {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #cbd5e1;
+  margin: 0 0 20px;
+}
+.gm-fanfare-stats-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.gm-fstat-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gm-fstat-item.gold {
+  border-color: rgba(255, 209, 102, 0.35);
+  background: rgba(255, 209, 102, 0.08);
+}
+.gm-fstat-num {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffd166;
+}
+.gm-fstat-lbl {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+.gm-fanfare-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.gm-enter-vault-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ffd166 0%, #f59e0b 100%);
+  color: #12151f;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(255, 209, 102, 0.3);
+  transition: all 0.16s ease;
+}
+.gm-enter-vault-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255, 209, 102, 0.45);
+}
+
 
 

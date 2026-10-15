@@ -205,8 +205,9 @@ function ensureUpgradedSettingsModalDOM() {
       </div>
 
       <div class="settings-section" data-cat-section="typing">
-        <div class="settings-section-header"><h3 class="settings-section-title">Typing, Lessons &amp; Practice</h3><span class="settings-section-count">5 settings</span></div>
-        <div class="settings-row" data-search="unlock all lessons sandbox free practice 77 levels"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Unlock All Lessons (Sandbox Mode)</span><span class="settings-row-km">បើកមេរៀនទាំងអស់</span></div><div class="settings-row-desc">Unlock all 77 lessons across every curriculum so you can jump to any level freely.</div></div><div class="settings-row-control"><div class="toggle-switch" id="unlockAllLessonsToggle" role="switch" aria-checked="false" tabindex="0"></div></div></div>
+        <div class="settings-section-header"><h3 class="settings-section-title">Typing, Lessons &amp; Practice</h3><span class="settings-section-count">6 settings</span></div>
+        <div class="settings-row" data-search="unlock all lessons sandbox free practice 276 levels"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Unlock All Lessons (Sandbox Mode)</span><span class="settings-row-km">បើកមេរៀនទាំងអស់</span></div><div class="settings-row-desc">Unlock all 276 lessons across every curriculum (222 base + 54 bonus vault) so you can jump freely.</div></div><div class="settings-row-control"><div class="toggle-switch" id="unlockAllLessonsToggle" role="switch" aria-checked="false" tabindex="0"></div></div></div>
+        <div class="settings-row" data-search="preview grandmaster vault bonus lessons 222 unlock"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Preview Grandmaster Vault (Unlock 222 Base Requirement)</span><span class="settings-row-km">ដោះសោឃ្លាំងមេរៀនពិសេស</span></div><div class="settings-row-desc">Instantly unlock the 222 base lesson prerequisite to test and practice all 54 Grandmaster Bonus drills.</div></div><div class="settings-row-control"><div class="toggle-switch" id="previewBonusVaultToggle" role="switch" aria-checked="false" tabindex="0"></div></div></div>
         <div class="settings-row" data-search="strict mistake mode stop on error accuracy"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Strict Mistake Mode (Stop on Error)</span><span class="settings-row-km">តម្រូវឱ្យវាយត្រូវមុនទៅមុខ</span></div><div class="settings-row-desc">Require typing the exact target character before the prompt cursor advances.</div></div><div class="settings-row-control"><div class="toggle-switch on" id="strictModeToggle" role="switch" aria-checked="true" tabindex="0"></div></div></div>
         <div class="settings-row" data-search="auto advance next exercise drill lesson"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Auto-Advance Next Exercise</span><span class="settings-row-km">បន្តលំហាត់បន្ទាប់ស្វ័យប្រវត្តិ</span></div><div class="settings-row-desc">Automatically advance to the next drill step upon finishing an exercise.</div></div><div class="settings-row-control"><div class="toggle-switch on" id="autoAdvanceToggle" role="switch" aria-checked="true" tabindex="0"></div></div></div>
         <div class="settings-row" data-search="live speed wpm accuracy counter hud stats"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Show Live Speed &amp; Accuracy Counters</span><span class="settings-row-km">បង្ហាញល្បឿន និងភាពត្រឹមត្រូវផ្ទាល់</span></div><div class="settings-row-desc">Display real-time WPM and accuracy telemetry while practicing.</div></div><div class="settings-row-control"><div class="toggle-switch on" id="liveStatsHudToggle" role="switch" aria-checked="true" tabindex="0"></div></div></div>
@@ -1605,6 +1606,22 @@ function initSettingsToggles() {
   });
   const initialUnlockAll = safeGet("khmerUnlockAll", safeGet("pk_unlock_all_lessons", "0")) === "1";
   setSwitchUI(unlockAllLessonsToggle, initialUnlockAll);
+
+  const previewBonusVaultToggle = document.getElementById("previewBonusVaultToggle");
+  function applyPreviewBonusVault(on) {
+    setSwitchUI(previewBonusVaultToggle, on);
+    safeSet("khmerUnlock222Vault", on ? "1" : "0");
+    if (typeof renderLessonStrip === "function") renderLessonStrip();
+    if (typeof window.renderHubVault === "function") window.renderHubVault();
+  }
+  bindSwitch(previewBonusVaultToggle, (on) => {
+    applyPreviewBonusVault(on);
+    if (typeof showToast === "function") {
+      showToast(pkIcon("trophy", 18), on ? "Grandmaster Vault Preview Active" : "Base Lesson Prerequisite Restored", on ? "All 54 bonus drills unlocked for preview & testing." : "Bonus drills require completing all 222 base lessons.");
+    }
+  });
+  const initialPreviewBonusVault = safeGet("khmerUnlock222Vault", "0") === "1";
+  setSwitchUI(previewBonusVaultToggle, initialPreviewBonusVault);
 
   const strictModeToggle = document.getElementById("strictModeToggle");
   function applyStrictMode(on) {

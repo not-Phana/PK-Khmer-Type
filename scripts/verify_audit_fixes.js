@@ -349,8 +349,8 @@ const nidaCount = cd.nida?.lessons?.length || 0;
 const enCount = cd.english?.lessons?.length || 0;
 const totalLessons = stdCount + nidaCount + enCount;
 
-assert(stdCount === 84 && nidaCount === 84 && enCount === 72 && totalLessons === 240,
-  `Curriculum bundle provides exactly 240 total lessons (Standard: ${stdCount}/84, NiDA: ${nidaCount}/84, English: ${enCount}/72)`);
+assert(stdCount === 96 && nidaCount === 96 && enCount === 84 && totalLessons === 276,
+  `Curriculum bundle provides exactly 276 total lessons (Standard: ${stdCount}/96, NiDA: ${nidaCount}/96, English: ${enCount}/84)`);
 
 const stdBonus = (cd.standard?.lessons || []).filter(l => l.isBonus);
 const nidaBonus = (cd.nida?.lessons || []).filter(l => l.isBonus);
@@ -359,7 +359,7 @@ const totalBonus = stdBonus.length + nidaBonus.length + enBonus.length;
 const baseLessonsCount = totalLessons - totalBonus;
 
 assert(baseLessonsCount === 222, `Exactly 222 base lessons exist prior to Grandmaster Bonus Vault (found ${baseLessonsCount})`);
-assert(totalBonus === 18, `Exactly 18 bonus lessons created across tracks (6 Standard, 6 NiDA, 6 English)`);
+assert(totalBonus === 54, `Exactly 54 bonus lessons created across tracks (18 Standard, 18 NiDA, 18 English)`);
 
 // Verify lock dependency logic in js/lessons.js
 assert(lessonsJsContent.includes('function countCompletedBaseLessons()') &&
@@ -371,13 +371,24 @@ assert(lessonsJsContent.includes('if(def.isBonus){') &&
        lessonsJsContent.includes('if(!baseUnlocked) return true;'),
   'isLessonLocked() strictly locks all bonus lessons until areAll222LessonsUnlocked() is true');
 
-assert(lessonsJsContent.includes('if(def.bonusIndex === 0 || def.order === 1){') &&
+assert(lessonsJsContent.includes('if(def.bonusIndex === 0){') &&
        lessonsJsContent.includes('return false; // First bonus lesson is unlocked!'),
   'isLessonLocked() unlocks ONLY the first bonus lesson once base 222 lessons are unlocked');
 
 assert(lessonsJsContent.includes('const prevBest = getLessonBest(prevId);') &&
        lessonsJsContent.includes('return !prevBest; // Unlocks only if previous bonus lesson was finished'),
   'isLessonLocked() enforces sequential unlocking of subsequent bonus lessons');
+
+// Verify Learn More Hub Grandmaster Vault tab & Fanfare Modal in index.html & js/lessons.js
+assert(indexHtml.includes('id="lmTabBtn-vault"') &&
+       indexHtml.includes('id="lmPanel-vault"') &&
+       indexHtml.includes('id="grandmasterFanfareModal"'),
+  'index.html provides Grandmaster Vault tab button, panel, and 222 fanfare modal');
+
+assert(lessonsJsContent.includes('function renderHubVault()') &&
+       lessonsJsContent.includes('function showGrandmasterVaultFanfareModal()') &&
+       lessonsJsContent.includes('function closeGrandmasterFanfareModal()'),
+  'js/lessons.js provides renderHubVault() and show/closeGrandmasterFanfareModal()');
 
 // Verify auto-jump transition logic in js/lessons.js
 assert(lessonsJsContent.includes('bonus-auto-jump-banner') &&

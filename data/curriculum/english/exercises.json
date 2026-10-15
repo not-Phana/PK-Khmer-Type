@@ -1216,6 +1216,306 @@
       "type": "drill",
       "content": "You stand crowned as an undisputed Grandmaster Scribe of PK Khmer Type. Flawless mastery achieved!",
       "description": "The Grandmaster Scribe Final Seal"
+    },
+    "en-L15-01-E01": {
+      "type": "drill",
+      "content": "The truth is often hidden in shadows.",
+      "description": "Plato: Illusions of the Cave"
+    },
+    "en-L15-01-E02": {
+      "type": "drill",
+      "content": "Behold human beings living in an underground cave facing only reflections on the wall.",
+      "description": "Plato: The Captives' Perspective"
+    },
+    "en-L15-01-E03": {
+      "type": "drill",
+      "content": "When one is released and turns toward the bright sunlight, the initial glare is painful and bewildering.",
+      "description": "Plato: Turning Toward the Light"
+    },
+    "en-L15-01-E04": {
+      "type": "drill",
+      "content": "Gradually the eyes adjust to behold real trees, stars, and finally the sun itself, understanding the true cause of all visible things.",
+      "description": "Plato: Beholding the True Sun"
+    },
+    "en-L15-01-E05": {
+      "type": "drill",
+      "content": "Returning back down into the darkness requires patience, for those who have seen the light of wisdom must guide their fellow citizens toward justice and truth.",
+      "description": "Plato: The Philosopher's Duty"
+    },
+    "en-L15-02-E01": {
+      "type": "drill",
+      "content": "Four score and seven years ago our fathers brought forth.",
+      "description": "Lincoln: Conceived in Liberty"
+    },
+    "en-L15-02-E02": {
+      "type": "drill",
+      "content": "Conceived in liberty and dedicated to the proposition that all men are created equal.",
+      "description": "Lincoln: The Universal Proposition"
+    },
+    "en-L15-02-E03": {
+      "type": "drill",
+      "content": "Now we are engaged in a great civil war, testing whether that nation or any nation so conceived can long endure.",
+      "description": "Lincoln: The Great Test of Endurance"
+    },
+    "en-L15-02-E04": {
+      "type": "drill",
+      "content": "We have come to dedicate a portion of that field as a final resting place for those who gave their lives that that nation might live.",
+      "description": "Lincoln: Consecrating the Battlefield"
+    },
+    "en-L15-02-E05": {
+      "type": "drill",
+      "content": "It is rather for us to be here dedicated to the great task remaining before us, that government of the people, by the people, for the people, shall not perish from the earth.",
+      "description": "Lincoln: Government of the People"
+    },
+    "en-L15-03-E01": {
+      "type": "drill",
+      "content": "Injustice anywhere is a threat to justice everywhere.",
+      "description": "King: Interconnected Destinies"
+    },
+    "en-L15-03-E02": {
+      "type": "drill",
+      "content": "The arc of the moral universe is long, but it bends toward justice.",
+      "description": "King: The Moral Arc"
+    },
+    "en-L15-03-E03": {
+      "type": "drill",
+      "content": "I have a dream that my four little children will one day live in a nation where they will not be judged by the color of their skin.",
+      "description": "King: Content of Character"
+    },
+    "en-L15-03-E04": {
+      "type": "drill",
+      "content": "Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that.",
+      "description": "King: The Triumph of Light"
+    },
+    "en-L15-03-E05": {
+      "type": "drill",
+      "content": "With this faith, we will be able to hew out of the mountain of despair a stone of hope, transforming jangling discords into a beautiful symphony of brotherhood.",
+      "description": "King: Symphony of Brotherhood"
+    },
+    "en-L15-04-E01": {
+      "type": "drill",
+      "content": "Life is long if you know how to use it.",
+      "description": "Seneca: The Value of Time"
+    },
+    "en-L15-04-E02": {
+      "type": "drill",
+      "content": "We are not given a short life but we make it short, and we are not ill-supplied but wasteful of it.",
+      "description": "Seneca: Squandering Days"
+    },
+    "en-L15-04-E03": {
+      "type": "drill",
+      "content": "Putting things off is the biggest waste of life: it snatches away each day as it comes and denies us the present.",
+      "description": "Seneca: Procrastination's Toll"
+    },
+    "en-L15-04-E04": {
+      "type": "drill",
+      "content": "The whole future lies in uncertainty; live immediately. Dedicate your mind to virtue and the calm contemplation of nature.",
+      "description": "Seneca: Live Immediately"
+    },
+    "en-L15-04-E05": {
+      "type": "drill",
+      "content": "He who devotes every hour to his own needs, who organizes each day as if it were a complete lifetime, neither longs for nor fears tomorrow.",
+      "description": "Seneca: Serenity in the Present"
+    },
+    "en-L15-05-E01": {
+      "type": "drill",
+      "content": "Judge a man by his questions rather than his answers.",
+      "description": "Voltaire: The Inquiring Spirit"
+    },
+    "en-L15-05-E02": {
+      "type": "drill",
+      "content": "Appreciation is a wonderful thing: it makes what is excellent in others belong to us as well.",
+      "description": "Voltaire: Generous Appreciation"
+    },
+    "en-L15-05-E03": {
+      "type": "drill",
+      "content": "I may disagree with what you have to say, but I will defend to the death your right to say it.",
+      "description": "Voltaire: Freedom of Discourse"
+    },
+    "en-L15-05-E04": {
+      "type": "drill",
+      "content": "Doubt is not a pleasant condition, but certainty is an absurd one. Reason and toleration are the true guardians of humanity.",
+      "description": "Voltaire: Intellectual Humility"
+    },
+    "en-L15-05-E05": {
+      "type": "drill",
+      "content": "Let us read, and let us dance; these two amusements will never do any harm to the world. Above all, let us cultivate our own garden with diligence.",
+      "description": "Voltaire: Cultivating the Garden"
+    },
+    "en-L15-06-E01": {
+      "type": "drill",
+      "content": "The unexamined life is not worth living.",
+      "description": "Socrates: The Examined Life"
+    },
+    "en-L15-06-E02": {
+      "type": "drill",
+      "content": "I know that I am intelligent, because I know that I know nothing.",
+      "description": "Socrates: The First Step to Wisdom"
+    },
+    "en-L15-06-E03": {
+      "type": "drill",
+      "content": "To find yourself, think for yourself. True wisdom comes to each of us when we realize how little we understand.",
+      "description": "Socrates: Independent Reflection"
+    },
+    "en-L15-06-E04": {
+      "type": "drill",
+      "content": "Employ your time in improving yourself by other men writings, so that you shall come easily by what others have labored hard for.",
+      "description": "Socrates: Learning from the Masters"
+    },
+    "en-L15-06-E05": {
+      "type": "drill",
+      "content": "Virtue does not come from wealth, but from virtue comes money and every other good of man, both public and private. The greatest good is to converse daily about goodness.",
+      "description": "Socrates: The True Source of Wealth"
+    },
+    "en-L16-01-E01": {
+      "type": "drill",
+      "content": "Can machines think? We begin with the imitation game.",
+      "description": "Turing: The Imitation Game"
+    },
+    "en-L16-01-E02": {
+      "type": "drill",
+      "content": "A computer can be called intelligent if it could deceive a human into believing that it was also human.",
+      "description": "Turing: Defining Mechanical Intelligence"
+    },
+    "en-L16-01-E03": {
+      "type": "drill",
+      "content": "We can only see a short distance ahead, but we can see plenty there that needs to be done.",
+      "description": "Turing: The Horizon of Possibility"
+    },
+    "en-L16-01-E04": {
+      "type": "drill",
+      "content": "Mathematical reasoning may be regarded rather schematically as the exercise of a combination of two facilities: intuition and ingenuity.",
+      "description": "Turing: Intuition and Ingenuity"
+    },
+    "en-L16-01-E05": {
+      "type": "drill",
+      "content": "The idea behind digital computers may be explained by saying that these machines are intended to carry out any operations which could be done by a human computer following strict rules.",
+      "description": "Turing: Universal State Machines"
+    },
+    "en-L16-02-E01": {
+      "type": "drill",
+      "content": "The Analytical Engine weaves algebraical patterns.",
+      "description": "Lovelace: The Poetic Science"
+    },
+    "en-L16-02-E02": {
+      "type": "drill",
+      "content": "It operates on numbers, but could weave threads of any symbol or musical harmony.",
+      "description": "Lovelace: Symbolic Computation"
+    },
+    "en-L16-02-E03": {
+      "type": "drill",
+      "content": "In distributing and combining the truths of analysis, the engine creates a new, vast, and powerful language for future use.",
+      "description": "Lovelace: A New Symbolic Language"
+    },
+    "en-L16-02-E04": {
+      "type": "drill",
+      "content": "We may say most aptly that the Analytical Engine weaves algebraical patterns just as the Jacquard loom weaves flowers and leaves.",
+      "description": "Lovelace: Jacquard Looms of Logic"
+    },
+    "en-L16-02-E05": {
+      "type": "drill",
+      "content": "The distinctive characteristic of the engine is the introduction of the principle of operational cycling, linking abstract science with tangible execution.",
+      "description": "Lovelace: Algorithmic Looping"
+    },
+    "en-L16-03-E01": {
+      "type": "drill",
+      "content": "Write programs that do one thing and do it well.",
+      "description": "Unix: The Core Tenet"
+    },
+    "en-L16-03-E02": {
+      "type": "drill",
+      "content": "Write programs to work together. Write programs to handle text streams because that is a universal interface.",
+      "description": "Unix: Composable Streams"
+    },
+    "en-L16-03-E03": {
+      "type": "drill",
+      "content": "Simplicity is prerequisite for reliability. Complex systems that work inevitably evolve from simple systems that worked.",
+      "description": "Unix: Gall's Law of Systems"
+    },
+    "en-L16-03-E04": {
+      "type": "drill",
+      "content": "Make each program do one thing well. To do a new job, build afresh rather than complicate old programs by adding new features.",
+      "description": "Unix: Modular Renewal"
+    },
+    "en-L16-03-E05": {
+      "type": "drill",
+      "content": "Design for simplicity, tenacity, and composability. When components communicate via standard protocols, the entire operating ecosystem achieves boundless flexibility.",
+      "description": "Unix: Boundless Ecosystems"
+    },
+    "en-L16-04-E01": {
+      "type": "drill",
+      "content": "Information is physical; computation is mechanical.",
+      "description": "Quantum: Landauer's Principle"
+    },
+    "en-L16-04-E02": {
+      "type": "drill",
+      "content": "In quantum systems, states exist in coherent superposition until irreversible observation occurs.",
+      "description": "Quantum: Superposition and Collapse"
+    },
+    "en-L16-04-E03": {
+      "type": "drill",
+      "content": "Entanglement binds quantum particles across arbitrary distance, demonstrating non-local correlated correlations beyond classical limits.",
+      "description": "Quantum: Spooky Correlation"
+    },
+    "en-L16-04-E04": {
+      "type": "drill",
+      "content": "Reversible logic gates conserve entropy, allowing quantum circuits to execute unitary transformations with vanishing thermodynamic dissipation.",
+      "description": "Quantum: Reversible Unitary Gates"
+    },
+    "en-L16-04-E05": {
+      "type": "drill",
+      "content": "By harnessing linear superpositions and constructive interference of phase amplitudes, quantum algorithms explore computational spaces exponentially faster than classical state machines.",
+      "description": "Quantum: Exponential Phase Speedup"
+    },
+    "en-L16-05-E01": {
+      "type": "drill",
+      "content": "Information is the reduction of uncertainty.",
+      "description": "Shannon: Defining Information"
+    },
+    "en-L16-05-E02": {
+      "type": "drill",
+      "content": "The fundamental problem of communication is reproducing at one point a message chosen at another point.",
+      "description": "Shannon: The Communication Problem"
+    },
+    "en-L16-05-E03": {
+      "type": "drill",
+      "content": "Entropy measures the average amount of information produced by a stochastic source of data.",
+      "description": "Shannon: Information Entropy"
+    },
+    "en-L16-05-E04": {
+      "type": "drill",
+      "content": "When transmission channels introduce noise, error-correcting codes ensure arbitrary fidelity whenever the source rate remains strictly below channel capacity.",
+      "description": "Shannon: Channel Capacity Theorem"
+    },
+    "en-L16-05-E05": {
+      "type": "drill",
+      "content": "Public key cryptography establishes symmetric secrets over insecure media through computational asymmetry, turning one-way mathematical functions into unbreakable shields of privacy.",
+      "description": "Shannon: Cryptographic Shields"
+    },
+    "en-L16-06-E01": {
+      "type": "drill",
+      "content": "Welcome to the highest summit of touch-typing mastery.",
+      "description": "Ultramarathon: The Final Summit"
+    },
+    "en-L16-06-E02": {
+      "type": "drill",
+      "content": "Speed, rhythm, and accuracy unite as fingers glide across rows without conscious effort or fatigue.",
+      "description": "Ultramarathon: Effortless Cadence"
+    },
+    "en-L16-06-E03": {
+      "type": "drill",
+      "content": "From the ancient epics of Homer to modern algorithms that map the stars, language is the bridge between human thought and eternity.",
+      "description": "Ultramarathon: The Cosmic Bridge of Thought"
+    },
+    "en-L16-06-E04": {
+      "type": "drill",
+      "content": "You have proven disciplined focus, mastering hundreds of exercises, thousands of sentences, and tens of thousands of flawless keystrokes.",
+      "description": "Ultramarathon: Proof of Absolute Focus"
+    },
+    "en-L16-06-E05": {
+      "type": "drill",
+      "content": "You are now officially a Grandmaster Scribe. The entire keyboard is your instrument, ready to express whatever ideas, stories, and innovations you choose to create!",
+      "description": "Ultramarathon: Scribe Coronation"
     }
   }
 }
