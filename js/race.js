@@ -67,7 +67,8 @@ function startTrial(){
   trialPanel.hidden = false;
   boardWrap.classList.add('trial-active');
   trialToggle.classList.add('on');
-  clearText();
+  if(typeof clearText === 'function') clearText();
+  else if(typeof window !== 'undefined' && typeof window.clearText === 'function') window.clearText();
   newTrialWord();
   updateStatsDisplay();
 }
@@ -124,7 +125,11 @@ function trialHandleChar(val, el){
         streakCelebrationBurst(streak >= 10 ? 36 : 22, el);
       }
       if(isNewBest && streak > 1) triggerRecordCelebration();
-      setTimeout(()=>{ clearText(); newTrialWord(); }, 950);
+      setTimeout(()=>{
+        if(typeof clearText === 'function') clearText();
+        else if(typeof window !== 'undefined' && typeof window.clearText === 'function') window.clearText();
+        newTrialWord();
+      }, 950);
     }
   } else {
     streak = 0;

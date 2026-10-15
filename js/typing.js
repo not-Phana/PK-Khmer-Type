@@ -1252,7 +1252,7 @@ window.addEventListener('keydown', (e)=>{
 
   // Dual Input Compatibility:
   // 1. If event.key is already in the Khmer Unicode range, process it directly without double-mapping event.code
-  const isKhmerChar = e.key && /[\u1780-\u17FF\u19E0-\u19FF]/.test(e.key);
+  const isKhmerChar = e.key && (/[\u1780-\u17FF\u19E0-\u19FF]/.test(e.key) || e.key === "\u200B");
   if(isKhmerChar){
     hideNidaSwitchHud();
     if(keyEls[id]) keyEls[id].classList.add('pressed');

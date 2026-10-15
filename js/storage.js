@@ -1854,19 +1854,25 @@ window.AccountProgress = AccountProgress;
     });
   }
 
-  document.getElementById('accountViewStatsBtn').addEventListener('click', () => {
-    authModal.hidden = true;
-    const btn = document.getElementById('statsOpenBtn');
-    if (btn) btn.click();
-  });
-  document.getElementById('accountSettingsBtn').addEventListener('click', () => {
-    authModal.hidden = true;
-    const btn = document.getElementById('settingsOpenBtn');
-    if (btn) btn.click();
-  });
+  const accountViewStatsBtn = document.getElementById('accountViewStatsBtn');
+  if (accountViewStatsBtn) {
+    accountViewStatsBtn.addEventListener('click', () => {
+      authModal.hidden = true;
+      const btn = document.getElementById('statsOpenBtn');
+      if (btn) btn.click();
+    });
+  }
+  const accountSettingsBtn = document.getElementById('accountSettingsBtn');
+  if (accountSettingsBtn) {
+    accountSettingsBtn.addEventListener('click', () => {
+      authModal.hidden = true;
+      const btn = document.getElementById('settingsOpenBtn');
+      if (btn) btn.click();
+    });
+  }
 
-  authOpenBtn.addEventListener('click', openAccountModal);
-  authAccountChip.addEventListener('click', openAccountModal);
+  if (authOpenBtn) authOpenBtn.addEventListener('click', openAccountModal);
+  if (authAccountChip) authAccountChip.addEventListener('click', openAccountModal);
   if (cloudSyncStatusBadge) {
     cloudSyncStatusBadge.addEventListener('click', openAccountModal);
   }
@@ -1874,18 +1880,24 @@ window.AccountProgress = AccountProgress;
   function closeAuthModal() {
     closeModalAnimated(authModal);
   }
-  authCloseBtn.addEventListener('click', closeAuthModal);
-  authModal.addEventListener('click', (e) => {
-    if (e.target === authModal) closeAuthModal();
-  });
-  authModal.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAuthModal();
-  });
+  if (authCloseBtn) authCloseBtn.addEventListener('click', closeAuthModal);
+  if (authModal) {
+    authModal.addEventListener('click', (e) => {
+      if (e.target === authModal) closeAuthModal();
+    });
+    authModal.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeAuthModal();
+    });
+  }
 
-  document.getElementById('gotoSignUpBtn').addEventListener('click', () => showAuthPanel(signUpForm, 'Sign Up'));
-  document.getElementById('gotoSignInBtn').addEventListener('click', () => showAuthPanel(signInForm, 'Sign In'));
-  document.getElementById('forgotPasswordLink').addEventListener('click', () => showAuthPanel(forgotForm, 'Reset Password'));
-  document.getElementById('backToSignInBtn').addEventListener('click', () => showAuthPanel(signInForm, 'Sign In'));
+  const gotoSignUpBtn = document.getElementById('gotoSignUpBtn');
+  if (gotoSignUpBtn) gotoSignUpBtn.addEventListener('click', () => showAuthPanel(signUpForm, 'Sign Up'));
+  const gotoSignInBtn = document.getElementById('gotoSignInBtn');
+  if (gotoSignInBtn) gotoSignInBtn.addEventListener('click', () => showAuthPanel(signInForm, 'Sign In'));
+  const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+  if (forgotPasswordLink) forgotPasswordLink.addEventListener('click', () => showAuthPanel(forgotForm, 'Reset Password'));
+  const backToSignInBtn = document.getElementById('backToSignInBtn');
+  if (backToSignInBtn) backToSignInBtn.addEventListener('click', () => showAuthPanel(signInForm, 'Sign In'));
 
   const verifyBackToSignInBtn = document.getElementById('verifyBackToSignInBtn');
   if (verifyBackToSignInBtn) {
@@ -2193,9 +2205,10 @@ window.AccountProgress = AccountProgress;
   }
 
   /* ---------- Sign Out ---------- */
-  document.getElementById('signOutBtn').addEventListener('click', async () => {
-    const signOutBtn = document.getElementById('signOutBtn');
-    if (signOutBtn) signOutBtn.disabled = true;
+  const signOutBtn = document.getElementById('signOutBtn');
+  if (signOutBtn) {
+    signOutBtn.addEventListener('click', async () => {
+      signOutBtn.disabled = true;
 
     const outgoingUser = await AuthProvider.getCurrentUser();
     if (window.PKCloudSync && typeof window.PKCloudSync.flushOfflineQueue === 'function') {
@@ -2224,31 +2237,40 @@ window.AccountProgress = AccountProgress;
       );
     } catch (e) {}
     location.reload();
-  });
+    });
+  }
 
   /* ---------- Terms & Conditions Modal ---------- */
   const termsModal = document.getElementById('termsModal');
   const termsCloseBtn = document.getElementById('termsCloseBtn');
   const termsAckBtn = document.getElementById('termsAckBtn');
   function openTermsModal() {
-    termsModal.hidden = false;
-    requestAnimationFrame(() => termsAckBtn.focus());
+    if (termsModal) {
+      termsModal.hidden = false;
+      if (termsAckBtn) requestAnimationFrame(() => termsAckBtn.focus());
+    }
   }
   function closeTermsModal() {
-    closeModalAnimated(termsModal);
+    if (termsModal) closeModalAnimated(termsModal);
   }
-  document.getElementById('authTermsLink').addEventListener('click', openTermsModal);
-  termsCloseBtn.addEventListener('click', closeTermsModal);
-  termsAckBtn.addEventListener('click', () => {
-    document.getElementById('signUpTerms').checked = true;
-    closeTermsModal();
-  });
-  termsModal.addEventListener('click', (e) => {
-    if (e.target === termsModal) closeTermsModal();
-  });
-  termsModal.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeTermsModal();
-  });
+  const authTermsLink = document.getElementById('authTermsLink');
+  if (authTermsLink) authTermsLink.addEventListener('click', openTermsModal);
+  if (termsCloseBtn) termsCloseBtn.addEventListener('click', closeTermsModal);
+  if (termsAckBtn) {
+    termsAckBtn.addEventListener('click', () => {
+      const signUpTerms = document.getElementById('signUpTerms');
+      if (signUpTerms) signUpTerms.checked = true;
+      closeTermsModal();
+    });
+  }
+  if (termsModal) {
+    termsModal.addEventListener('click', (e) => {
+      if (e.target === termsModal) closeTermsModal();
+    });
+    termsModal.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeTermsModal();
+    });
+  }
 
   /* ---------- Supabase Auth State Listener & Recovery URL Detection ---------- */
   function checkUrlForRecoveryOrAuthCallback() {

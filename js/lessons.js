@@ -1669,10 +1669,23 @@ function areAll222LessonsUnlocked(){
 window.areAll222LessonsUnlocked = areAll222LessonsUnlocked;
 
 function isLessonLocked(id){
-  if(!LESSONS || !LESSONS.length) return false;
-  const idx = LESSONS.findIndex(l => String(l.id) === String(id));
-  if(idx < 0) return false;
-  const def = LESSONS[idx];
+  let list = LESSONS;
+  let idx = (list && list.length) ? list.findIndex(l => String(l.id) === String(id)) : -1;
+  if(idx < 0 && typeof LESSON_SETS !== 'undefined' && LESSON_SETS){
+    for(const k of Object.keys(LESSON_SETS)){
+      const subList = LESSON_SETS[k];
+      if(Array.isArray(subList)){
+        const found = subList.findIndex(l => String(l.id) === String(id));
+        if(found >= 0){
+          list = subList;
+          idx = found;
+          break;
+        }
+      }
+    }
+  }
+  if(!list || idx < 0) return false;
+  const def = list[idx];
   if(!def) return false;
 
   // Bonus lessons locking rule:
@@ -1688,7 +1701,7 @@ function isLessonLocked(id){
 
     // Subsequent bonus lessons unlock sequentially only after completing the previous bonus lesson
     const prevReqId = def.unlockRequirements && def.unlockRequirements.previousLesson;
-    const prevId = prevReqId || (idx > 0 ? LESSONS[idx - 1].id : null);
+    const prevId = prevReqId || (idx > 0 ? list[idx - 1].id : null);
     if(!prevId) return false;
     const prevBest = getLessonBest(prevId);
     return !prevBest; // Unlocks only if previous bonus lesson was finished
@@ -1697,7 +1710,7 @@ function isLessonLocked(id){
   if(idx === 0) return false;
   if(allLessonsUnlocked) return false;
   const prevReqId = def.unlockRequirements && def.unlockRequirements.previousLesson;
-  const prevId = prevReqId || (idx > 0 ? LESSONS[idx - 1].id : null);
+  const prevId = prevReqId || (idx > 0 ? list[idx - 1].id : null);
   if(!prevId) return false;
   const prevBest = getLessonBest(prevId);
   return !prevBest; // any completed attempt on the previous lesson unlocks the next one
@@ -3048,6 +3061,7 @@ function showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars){
       </div>`;
   }
 
+  const wasRemedial = remedialActive;
   remedialActive = false;
 
   document.body.appendChild(overlay);
@@ -3128,9 +3142,11 @@ function showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars){
   }
 
   // Grandmaster Bonus Auto-Jump:
-  // If the completed lesson was a bonus lesson and a subsequent bonus lesson exists,
+  // If the completed lesson was a bonus lesson, passed threshold, and subsequent bonus lesson exists,
   // display the golden auto-jump banner and smoothly jump directly to that lesson.
-  if(def && def.isBonus && nextLesson && nextLesson.isBonus){
+  const bonusThreshold = (def && def.threshold) || 85;
+  const isBonusPassed = accuracy >= bonusThreshold;
+  if(def && def.isBonus && isBonusPassed && nextLesson && nextLesson.isBonus){
     const cardEl = overlay.querySelector('.lesson-complete-card');
     if(cardEl){
       const isKm = document.documentElement.classList.contains('site-km-mode');
@@ -3184,7 +3200,7 @@ function showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars){
         advanceToNext();
       }, 2000);
     }
-  } else if(def && def.isBonus && (!nextLesson || !nextLesson.isBonus)){
+  } else if(def && def.isBonus && isBonusPassed && (!nextLesson || !nextLesson.isBonus)){
     const cardEl = overlay.querySelector('.lesson-complete-card');
     if(cardEl){
       const isKm = document.documentElement.classList.contains('site-km-mode');
@@ -3227,7 +3243,7 @@ function showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars){
   if(retryBtn){
     retryBtn.addEventListener('click', ()=>{
       dismissOverlay();
-      startLesson(remedialActive ? def : def.id);
+      startLesson(wasRemedial ? def : def.id);
     });
   }
   const nextBtn = overlay.querySelector('.lc-next');
@@ -3912,6 +3928,17 @@ function applyLessonsData(data){
   window.closeLearnMoreHub = closeLearnMoreHub;
 
   window.launchMasterLesson = function(lessonId, layoutId) {
+    if(isLessonLocked(lessonId)) {
+      if(typeof showToast === 'function') {
+        const isKm = document.documentElement.classList.contains('site-km-mode');
+        showToast(
+          pkIcon('lock', 16),
+          isKm ? 'វគ្គនេះជាប់សោ' : 'Lesson Locked',
+          isKm ? 'សូមបញ្ចប់មេរៀនគ្រឹះទាំង ២២២ ជាមុនសិន។' : 'Complete all 222 base lessons to unlock the Grandmaster Vault.'
+        );
+      }
+      return;
+    }
     if(layoutId && typeof switchLayout === 'function' && currentLayoutId !== layoutId) {
       switchLayout(layoutId);
     }

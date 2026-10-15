@@ -441,9 +441,11 @@ function stopAmbience() {
     ambienceNodes = null;
     setTimeout(() => {
       try {
-        oldNodes.drone1.stop();
-        oldNodes.drone2.stop();
-        oldNodes.lfo.stop();
+        if (oldNodes.drone1) { oldNodes.drone1.stop(); oldNodes.drone1.disconnect(); }
+        if (oldNodes.drone2) { oldNodes.drone2.stop(); oldNodes.drone2.disconnect(); }
+        if (oldNodes.lfo) { oldNodes.lfo.stop(); oldNodes.lfo.disconnect(); }
+        if (oldNodes.lfoGain) oldNodes.lfoGain.disconnect();
+        if (oldNodes.master) oldNodes.master.disconnect();
       } catch (e) {}
     }, 550);
   } catch (e) {
@@ -487,6 +489,12 @@ function playChime() {
       gain.gain.exponentialRampToValueAtTime(0.12 * volScale, t + i * 0.07 + 0.02);
       gain.gain.exponentialRampToValueAtTime(0.0001, t + i * 0.07 + 0.5);
       osc.connect(gain).connect(audioCtx.destination);
+      osc.onended = () => {
+        try {
+          osc.disconnect();
+          gain.disconnect();
+        } catch (_e) {}
+      };
       osc.start(t + i * 0.07);
       osc.stop(t + i * 0.07 + 0.55);
     });
@@ -2404,6 +2412,20 @@ if (document.readyState === "loading") {
       osc1.connect(gain);
       osc2.connect(gain);
       gain.connect(ctx.destination);
+
+      let stoppedCount = 0;
+      const cleanupHolo = () => {
+        stoppedCount++;
+        if (stoppedCount >= 2) {
+          try {
+            osc1.disconnect();
+            osc2.disconnect();
+            gain.disconnect();
+          } catch (_e) {}
+        }
+      };
+      osc1.onended = cleanupHolo;
+      osc2.onended = cleanupHolo;
 
       osc1.start(now);
       osc2.start(now);

@@ -257,6 +257,27 @@ function initStatisticsDashboard(){
     }
   }
 
+  let totalsSaveTimer = null;
+  function scheduleTotalsSave(){
+    if(!totalsSaveTimer){
+      totalsSaveTimer = setTimeout(() => {
+        totalsSaveTimer = null;
+        safeSet(LS.totals, JSON.stringify(totals));
+      }, 1000);
+    }
+  }
+  function flushTotalsSaveImmediately(){
+    if(totalsSaveTimer){
+      clearTimeout(totalsSaveTimer);
+      totalsSaveTimer = null;
+    }
+    safeSet(LS.totals, JSON.stringify(totals));
+  }
+  if(typeof window !== 'undefined'){
+    window.addEventListener('beforeunload', flushTotalsSaveImmediately);
+    window.addEventListener('pkLessonCompleted', flushTotalsSaveImmediately);
+  }
+
   const origRecordKeystroke = recordKeystroke;
   recordKeystroke = function(correct){
     const isAdaptiveActive = (typeof PK_ADAPTIVE !== 'undefined' && typeof PK_ADAPTIVE.isActive === 'function' && PK_ADAPTIVE.isActive());
@@ -267,7 +288,7 @@ function initStatisticsDashboard(){
     totals.correct = savedLessonStats.correct;
     const wpmNow = parseInt(statWpmEl.textContent, 10) || 0;
     if(wpmNow > totals.bestWpm) totals.bestWpm = wpmNow;
-    safeSet(LS.totals, JSON.stringify(totals));
+    scheduleTotalsSave();
   };
 
   setInterval(() => {

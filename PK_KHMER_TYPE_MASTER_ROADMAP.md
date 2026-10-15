@@ -48,7 +48,7 @@ flowchart TD
     classDef gate fill:#2c1b4d,stroke:#a06bff,stroke-width:2px,stroke-dasharray: 5 5,color:#fff;
 
     %% COMPLETED BASELINE
-    subgraph BASELINE ["🏁 COMPLETED FOUNDATION (PHASES 1–9)"]
+    subgraph BASELINE ["[MILESTONE] COMPLETED FOUNDATION (PHASES 1–9)"]
         P1_P2["Phase 1 & 2: Validator & Bundler Normalization"]:::done
         P3_P5["Phases 3–5: 218 Lessons Built (EN, NiDA, STD)"]:::done
         P6_P7["Phases 6 & 7: Runtime Hydration & Progress Isolation"]:::done
@@ -115,7 +115,7 @@ flowchart TD
         PHASE15["Phase 15: Final Release Audit & Delivery"]:::planned
         RELEASE_GATE["Quality Gate Verification (0 Errors, 100% Pass)"]:::gate
         DOCS["Final User & Developer Documentation"]:::planned
-        SIGN_OFF["🏆 PK Khmer Type Production Ready"]:::done
+        SIGN_OFF["[ACHIEVEMENT] PK Khmer Type Production Ready"]:::done
         PHASE15 --> RELEASE_GATE
         RELEASE_GATE --> DOCS
         DOCS --> SIGN_OFF

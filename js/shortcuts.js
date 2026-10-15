@@ -346,8 +346,14 @@
 
     if(isTextInput) return;
 
-    // Shortcuts Cheat Sheet (? or Ctrl+/ or F1)
-    if(e.key === '?' || (e.ctrlKey && e.key === '/') || e.key === 'F1'){
+    const isPracticeActive = (typeof lessonActive !== 'undefined' && lessonActive) ||
+      (typeof adaptiveActive !== 'undefined' && adaptiveActive) ||
+      (typeof raceMode !== 'undefined' && raceMode) ||
+      (typeof trialActive !== 'undefined' && trialActive);
+
+    // Shortcuts Cheat Sheet: Ctrl+/ or F1 anywhere, or '?' only when not in active practice
+    const isShortcutHelp = (e.ctrlKey && e.key === '/') || e.key === 'F1' || (e.key === '?' && !isPracticeActive && !e.ctrlKey && !e.altKey && !e.metaKey);
+    if(isShortcutHelp){
       e.preventDefault();
       toggleShortcutsModal();
       return;
