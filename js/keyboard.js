@@ -1808,7 +1808,7 @@ function buildUnifiedHandSVG(hand, order, thumbF, frames, bases){
   // Seamless transition from thumb CMC outer edge into wide anatomical wrist
   const thumbOuterBase = thumbOuterPts[thumbOuterEndIdx];
   const wristCenterX = (pinkyBase.x + indexBase.x) * 0.5 + dir * 4;
-  const wristY = Math.max(indexBase.y + 115, bases[thumbF.id] ? bases[thumbF.id].y + 24 : indexBase.y + 115);
+  const wristY = Math.max(indexBase.y + 98, bases[thumbF.id] ? bases[thumbF.id].y + 18 : indexBase.y + 98);
 
   const wristInner = { x: wristCenterX + dir * 48, y: wristY - 2 };
   const wristOuter = { x: wristCenterX - dir * 56, y: wristY };
