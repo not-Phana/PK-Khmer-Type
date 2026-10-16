@@ -210,26 +210,33 @@ test('UNC-13: Row 4 ISO keyboard layout alignment, key widths, and finger assign
   assert.equal(keyboardJson.KEY_FINGER.extra, 'lp', 'extra key must map to Left Pinky (lp)');
   assert.equal(keyboardJson.CODE_MAP.IntlBackslash, 'extra', 'IntlBackslash must map to extra');
 
-  // Verify Row 4 structure across standard, nida, and english
-  ['standard', 'nida', 'english'].forEach(layoutId => {
+  // 1. Verify Standard layout (ISO 102/105 keyboard with extra key)
+  const stdRow4 = keyboardJson.LAYOUTS.standard.rows[3];
+  assert.equal(stdRow4.length, 13, 'standard Row 4 must have exactly 13 keys');
+  assert.equal(stdRow4[0].id, 'shiftL');
+  assert.equal(stdRow4[0].wide, 1.25, 'standard shiftL must be 1.25u');
+  assert.equal(stdRow4[1].id, 'extra', 'standard extra key must be immediately after shiftL');
+  assert.equal(stdRow4[1].wide || 1, 1, 'standard extra key must be 1.0u');
+  assert.equal(stdRow4[2].id, 'z');
+  assert.equal(stdRow4[10].id, 'period');
+  assert.equal(stdRow4[11].id, 'slash');
+  assert.equal(stdRow4[12].id, 'shiftR');
+  assert.equal(stdRow4[12].wide, 2.75, 'standard shiftR must be 2.75u');
+  const stdTotal = stdRow4.reduce((sum, k) => sum + (k.wide || 1), 0);
+  assert.equal(stdTotal, 15.0, 'standard Row 4 total width must equal 15.0u');
+
+  // 2. Verify NiDA and English layouts (ANSI US keyboards without extra key)
+  ['nida', 'english'].forEach(layoutId => {
     const row4 = keyboardJson.LAYOUTS[layoutId].rows[3];
-    assert.equal(row4.length, 13, `${layoutId} Row 4 must have exactly 13 keys`);
-
+    assert.equal(row4.length, 12, `${layoutId} Row 4 must have exactly 12 keys (no extra key)`);
     assert.equal(row4[0].id, 'shiftL');
-    assert.equal(row4[0].wide, 1.25, `${layoutId} shiftL must be 1.25u`);
-
-    assert.equal(row4[1].id, 'extra', `${layoutId} extra key must be immediately after shiftL`);
-    assert.equal(row4[1].wide || 1, 1, `${layoutId} extra key must be 1.0u`);
-
-    assert.equal(row4[2].id, 'z');
-    assert.equal(row4[9].id, 'comma');
-    assert.equal(row4[10].id, 'period');
-    assert.equal(row4[11].id, 'slash', `${layoutId} key after period must be slash`);
-
-    assert.equal(row4[12].id, 'shiftR');
-    assert.equal(row4[12].wide, 2.75, `${layoutId} shiftR must be 2.75u`);
-
-    // Verify row total width equals 15.0u
+    assert.equal(row4[0].wide, 2.25, `${layoutId} shiftL must be 2.25u`);
+    assert.equal(row4[1].id, 'z', `${layoutId} key after shiftL must be z directly`);
+    assert.equal(row4[9].id, 'period');
+    assert.equal(row4[10].id, 'slash');
+    assert.equal(row4[11].id, 'shiftR');
+    assert.equal(row4[11].wide, 2.75, `${layoutId} shiftR must be 2.75u`);
+    assert.ok(!row4.some(k => k.id === 'extra'), `${layoutId} must not contain extra key`);
     const totalWidth = row4.reduce((sum, k) => sum + (k.wide || 1), 0);
     assert.equal(totalWidth, 15.0, `${layoutId} Row 4 total width must equal 15.0u`);
   });

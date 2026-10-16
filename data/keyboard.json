@@ -342,7 +342,7 @@
             "id": "extra",
             "base": "",
             "ctrl": "",
-            "altgr": "¶",
+            "altgr": "",
             "shift": "",
             "kind": "glyph"
           },
@@ -821,15 +821,7 @@
             "kind": "mod",
             "label": "Shift",
             "cls": "key-shift",
-            "wide": 1.25
-          },
-          {
-            "id": "extra",
-            "base": "",
-            "ctrl": "",
-            "altgr": "",
-            "shift": "",
-            "kind": "glyph"
+            "wide": 2.25
           },
           {
             "id": "z",
@@ -1306,15 +1298,7 @@
             "kind": "mod",
             "label": "Shift",
             "cls": "key-shift",
-            "wide": 1.25
-          },
-          {
-            "id": "extra",
-            "base": "",
-            "ctrl": "",
-            "altgr": "",
-            "shift": "",
-            "kind": "glyph"
+            "wide": 2.25
           },
           {
             "id": "z",

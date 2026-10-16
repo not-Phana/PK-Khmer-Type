@@ -57,7 +57,7 @@ const ROW3 = [
 
 const ROW4 = [
   {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:1.25},
-  KEY('extra','','','¶',''),
+  KEY('extra','','','',''),
   KEY('z','ឋ','','#','ឍ'),
   KEY('x','ខ','','@','ឃ'),
   KEY('c','ច','','&','ជ'),
@@ -131,8 +131,7 @@ const ROW3_NIDA = [
 ];
 
 const ROW4_NIDA = [
-  {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:1.25},
-  KEY('extra','','','',''),
+  {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:2.25},
   KEY('z','ឋ','','','ឍ'),
   KEY('x','ខ','','','ឃ'),
   KEY('c','ច','','','ជ'),
@@ -206,8 +205,7 @@ const ROW3_EN = [
 ];
 
 const ROW4_EN = [
-  {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:1.25},
-  KEY('extra','','','',''),
+  {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:2.25},
   KEY('z','z','','','Z'),
   KEY('x','x','','','X'),
   KEY('c','c','','','C'),
