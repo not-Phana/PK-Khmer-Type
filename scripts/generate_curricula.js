@@ -39,9 +39,6 @@ function resolveCharLocation(ch, table){
 // ============================================================
 function generateEnglishCurriculum() {
   const levels = [
-    { id: "en-L00", levelNumber: 0, title: "Keyboard Orientation", description: "Identify physical anchor keys and home row posture", objective: "Feel F and J bumps, place index fingers correctly", lcount: 4 },
-    { id: "en-L01", levelNumber: 1, title: "Home Row Core", description: "F, J and Space keys", objective: "Build muscle memory for anchor keys and spacebar", lcount: 4 },
-    { id: "en-L02", levelNumber: 2, title: "Full Home Row", description: "D, K, S, L, A, Semicolon", objective: "Type all home row characters accurately", lcount: 5 },
     { id: "en-L00", levelNumber: 0, title: "Anchor Keys & Orientation", description: "Identify physical anchor keys and home row posture", objective: "Feel F and J bumps, place index fingers correctly", lcount: 4 },
     { id: "en-L01", levelNumber: 1, title: "Core Home Row: D, K, S, L", description: "Middle and ring finger home-row keys", objective: "Master D, K, S, and L from anchor positions", lcount: 4 },
     { id: "en-L02", levelNumber: 2, title: "Full Core Home Row & Words", description: "A, Semicolon, and core home-row words", objective: "Type all 8 core home-row keys and common words", lcount: 5 },
@@ -57,9 +54,6 @@ function generateEnglishCurriculum() {
     { id: "en-L12", levelNumber: 12, title: "Paragraphs", description: "Multi-sentence continuous prose", objective: "Maintain typing rhythm across paragraphs", lcount: 4 },
     { id: "en-L13", levelNumber: 13, title: "Speed & Mastery", description: "Timed speed challenges", objective: "Achieve high speed and accuracy mastery", lcount: 4 }
   ];
-// English curriculum is verified and preserved in data/curriculum/english/
-function generateEnglishCurriculum() {}
-
   const levelsOutput = {
     version: "1.0.0",
     layout: "english",
@@ -77,7 +71,6 @@ function generateEnglishCurriculum() {}
   };
 
   const lessonSpecs = [
-    // L00: Orientation
     // L00: Orientation & Anchors (F, J, Space)
     { id: "en-L00-01", level: "en-L00", order: 1, title: "Left Index Anchor (F)", type: "key-id",
       newKeys: [
@@ -91,7 +84,6 @@ function generateEnglishCurriculum() {}
         { type: "single-char", content: "ff ff ff ff", description: "Double taps on F" }
       ]
     },
-    { id: "en-L00-02", level: "en-L00", order: 2, title: "Right Index Anchor (J)", type: "key-id", newKeys: [{ keyId: "j", layer: "base", char: "j", finger: "ri" }], fingerFocus: ["ri"],
     { id: "en-L00-02", level: "en-L00", order: 2, title: "Right Index Anchor (J)", type: "key-id",
       newKeys: [{ keyId: "j", layer: "base", char: "j", finger: "ri" }],
       fingerFocus: ["ri"],
@@ -101,7 +93,6 @@ function generateEnglishCurriculum() {}
         { type: "single-char", content: "jj jj jj jj", description: "Double taps on J" }
       ]
     },
-    { id: "en-L00-03", level: "en-L00", order: 3, title: "F and J Alternation", type: "drill", newKeys: [], fingerFocus: ["li", "ri"],
     { id: "en-L00-03", level: "en-L00", order: 3, title: "F and J Alternation", type: "drill",
       newKeys: [],
       fingerFocus: ["li", "ri"],
@@ -111,7 +102,6 @@ function generateEnglishCurriculum() {}
         { type: "drill", content: "f j f j fj jf", description: "Smooth hand-to-hand transition" }
       ]
     },
-    { id: "en-L00-04", level: "en-L00", order: 4, title: "Tactile Rest & Rhythm", type: "review", newKeys: [], fingerFocus: ["li", "ri", "thumb"],
     { id: "en-L00-04", level: "en-L00", order: 4, title: "Tactile Rest & Rhythm", type: "review",
       newKeys: [],
       fingerFocus: ["li", "ri", "thumb"],
@@ -122,8 +112,6 @@ function generateEnglishCurriculum() {}
       ]
     },
 
-    // L01: Home Row Core
-    { id: "en-L01-01", level: "en-L01", order: 1, title: "F and J Together", type: "single-char", newKeys: [], fingerFocus: ["li", "ri"],
     // L01: Core Home Row: D, K, S, L
     { id: "en-L01-01", level: "en-L01", order: 1, title: "Middle Fingers: D and K", type: "single-char",
       newKeys: [
@@ -132,15 +120,11 @@ function generateEnglishCurriculum() {}
       ],
       fingerFocus: ["lm", "rm"],
       exercises: [
-        { type: "single-char", content: "fjf jfj fjf", description: "Alternating index anchors" },
-        { type: "single-char", content: "ff jj ff jj", description: "Pairs of F and J" },
-        { type: "single-char", content: "f j f j fj jf", description: "Rhythm transitions" }
         { type: "single-char", content: "ddd kkk dkd kdk", description: "Middle finger isolation" },
         { type: "drill", content: "df jk fd kj", description: "Index and middle coordination" },
         { type: "drill", content: "dk fk dj jk d k", description: "Cross-hand middle drills" }
       ]
     },
-    { id: "en-L01-02", level: "en-L01", order: 2, title: "Thumb Spacebar", type: "drill", newKeys: [{ keyId: "space", layer: "base", char: " ", finger: "rt" }], fingerFocus: ["li", "ri", "rt"],
     { id: "en-L01-02", level: "en-L01", order: 2, title: "Ring Fingers: S and L", type: "single-char",
       newKeys: [
         { keyId: "s", layer: "base", char: "s", finger: "lr" },
@@ -148,44 +132,30 @@ function generateEnglishCurriculum() {}
       ],
       fingerFocus: ["lr", "rr"],
       exercises: [
-        { type: "drill", content: "f j f j", description: "Single anchors with space" },
-        { type: "drill", content: "ff jj ff jj", description: "Double anchors with space" },
-        { type: "drill", content: "fj jf fj jf", description: "Alternating pairs with space" }
         { type: "single-char", content: "sss lll sls lsl", description: "Ring finger isolation" },
         { type: "drill", content: "sk ld sl ks", description: "Ring and middle coordination" },
         { type: "drill", content: "sd kl fl js s l", description: "Three-finger transitions" }
       ]
     },
-    { id: "en-L01-03", level: "en-L01", order: 3, title: "Anchor Speed Drill", type: "drill", newKeys: [], fingerFocus: ["li", "ri", "rt"],
     { id: "en-L01-03", level: "en-L01", order: 3, title: "Six-Key Core Drills", type: "drill",
       newKeys: [],
       fingerFocus: ["li", "ri", "lm", "rm", "lr", "rr"],
       exercises: [
-        { type: "drill", content: "fff jjj fjf jfj", description: "Fast triplets" },
-        { type: "drill", content: "ff jj f j fj", description: "Mixed rhythm" },
-        { type: "drill", content: "fjf jfj ff jj f j", description: "Mastery anchor flow" }
         { type: "drill", content: "fs jl sf lj", description: "Index to ring patterns" },
         { type: "drill", content: "dk sl fj kd ls jf", description: "Alternating core pairs" },
         { type: "drill", content: "sldk fjsl dksl flsk", description: "Six-key coordination flow" }
       ]
     },
-    { id: "en-L01-04", level: "en-L01", order: 4, title: "Anchor Balance & Mastery", type: "test", newKeys: [], fingerFocus: ["li", "ri", "rt"],
     { id: "en-L01-04", level: "en-L01", order: 4, title: "Core Flow & Rhythm", type: "review",
       newKeys: [],
       fingerFocus: ["li", "ri", "lm", "rm", "lr", "rr", "thumb"],
       exercises: [
-        { type: "drill", content: "f j ff jj fff jjj", description: "Progressive anchor buildup" },
-        { type: "drill", content: "fj jf fjf jfj f j", description: "Alternating rhythm mastery" },
-        { type: "drill", content: "f f j j ff jj fj jf", description: "Anchor mastery speed check" }
         { type: "drill", content: "f d s j k l", description: "Hand outward rhythm" },
         { type: "drill", content: "s d f j k l", description: "Left-to-right core wave" },
         { type: "drill", content: "lsdk fjsl sl dk fj", description: "Six-key fluency test" }
       ]
     },
 
-    // L02: Full Home Row Expansion
-    { id: "en-L02-01", level: "en-L02", order: 1, title: "Middle Fingers: D and K", type: "single-char",
-      newKeys: [{ keyId: "d", layer: "base", char: "d", finger: "lm" }, { keyId: "k", layer: "base", char: "k", finger: "rm" }], fingerFocus: ["lm", "rm"],
     // L02: Full Core Home Row: A, Semicolon & Words
     { id: "en-L02-01", level: "en-L02", order: 1, title: "Pinky Fingers: A and Semicolon", type: "single-char",
       newKeys: [
@@ -194,63 +164,42 @@ function generateEnglishCurriculum() {}
       ],
       fingerFocus: ["lp", "rp"],
       exercises: [
-        { type: "single-char", content: "ddd kkk dkd kdk", description: "Middle finger isolation" },
-        { type: "drill", content: "df jk fd kj", description: "Index and middle coordination" },
-        { type: "drill", content: "dk fk dj jk d k", description: "Cross-hand middle drills" }
         { type: "single-char", content: "aaa ;;; a;a ;a;", description: "Pinky finger isolation" },
         { type: "drill", content: "as l; sa ;l", description: "Pinky and ring transitions" },
         { type: "drill", content: "a s d f j k l ;", description: "Full 8-key baseline" }
       ]
     },
-    { id: "en-L02-02", level: "en-L02", order: 2, title: "Ring Fingers: S and L", type: "single-char",
-      newKeys: [{ keyId: "s", layer: "base", char: "s", finger: "lr" }, { keyId: "l", layer: "base", char: "l", finger: "rr" }], fingerFocus: ["lr", "rr"],
     { id: "en-L02-02", level: "en-L02", order: 2, title: "All 8 Core Keys Combined", type: "drill",
       newKeys: [],
       fingerFocus: ["lp", "lr", "lm", "li", "ri", "rm", "rr", "rp"],
       exercises: [
-        { type: "single-char", content: "sss lll sls lsl", description: "Ring finger isolation" },
-        { type: "drill", content: "sk ld sl ks", description: "Ring and middle coordination" },
-        { type: "drill", content: "sd kl fl js s l", description: "Three-finger transitions" }
         { type: "drill", content: "asdf jkl; ;lkj fdsa", description: "Home-row 8-finger wave" },
         { type: "drill", content: "a; sl dk fj", description: "Symmetric outside-in pairs" },
         { type: "drill", content: "fj dk sl a; ;l kj fd sa", description: "Inside-out and outside-in flow" }
       ]
     },
-    { id: "en-L02-03", level: "en-L02", order: 3, title: "Pinky Fingers: A and Semicolon", type: "single-char",
-      newKeys: [{ keyId: "a", layer: "base", char: "a", finger: "lp" }, { keyId: "semicolon", layer: "base", char: ";", finger: "rp" }], fingerFocus: ["lp", "rp"],
     { id: "en-L02-03", level: "en-L02", order: 3, title: "Core Home Row Words", type: "word",
       newKeys: [],
       fingerFocus: ["lp", "lr", "lm", "li", "ri", "rm", "rr", "rp"],
       exercises: [
-        { type: "single-char", content: "aaa ;;; a;a ;a;", description: "Pinky finger isolation" },
-        { type: "drill", content: "as df jk l;", description: "Home row finger wave" },
-        { type: "drill", content: "a s d f j k l ;", description: "Full 8-key baseline" }
         { type: "word", content: ["as", "ask", "sad", "dad"], description: "Simple core home-row words" },
         { type: "word", content: ["fall", "lass", "flask", "lad"], description: "Four and five-letter core words" },
         { type: "word", content: ["salad", "all", "add", "alas"], description: "Rhythmic core home-row vocabulary" }
       ]
     },
-    { id: "en-L02-04", level: "en-L02", order: 4, title: "Home Row Words", type: "word", newKeys: [], fingerFocus: ["lp", "lr", "lm", "li", "ri", "rm", "rr", "rp"],
     { id: "en-L02-04", level: "en-L02", order: 4, title: "Core Home Row Phrases & Flow", type: "drill",
       newKeys: [],
       fingerFocus: ["lp", "lr", "lm", "li", "ri", "rm", "rr", "rp", "thumb"],
       exercises: [
-        { type: "word", content: ["as", "ask", "sad", "dad"], description: "Simple home row words" },
-        { type: "word", content: ["fall", "lass", "flask", "lad"], description: "Four and five-letter words" },
-        { type: "word", content: ["salad", "all", "add", "alas"], description: "Rhythmic home row vocabulary" }
         { type: "drill", content: "ask dad as a lad", description: "Short core phrases" },
         { type: "drill", content: "a sad salad fall", description: "Continuous core typing" },
         { type: "drill", content: "add a flask alas all ask sad", description: "Consolidated core home-row flow" }
       ]
     },
-    { id: "en-L02-05", level: "en-L02", order: 5, title: "Home Row Review & Fluency", type: "review", newKeys: [], fingerFocus: ["lp", "lr", "lm", "li", "ri", "rm", "rr", "rp"],
     { id: "en-L02-05", level: "en-L02", order: 5, title: "Core Home Row Review & Fluency", type: "review",
       newKeys: [],
       fingerFocus: ["lp", "lr", "lm", "li", "ri", "rm", "rr", "rp"],
       exercises: [
-        { type: "drill", content: "ask dad as a lad", description: "Short phrases" },
-        { type: "drill", content: "a sad salad fall", description: "Continuous typing" },
-        { type: "drill", content: "add a flask alas all ask sad", description: "Consolidated home row review" }
         { type: "drill", content: "a s d f j k l ; as df jk l;", description: "Core 8-key baseline check" },
         { type: "word", content: ["dad", "sad", "ask", "fall", "salad", "flask"], description: "Core word fluency review" },
         { type: "drill", content: "alas a lad ask all dad fall sad", description: "Final 8-key core test" }
@@ -985,8 +934,6 @@ function generateNidaCurriculum() {
         { type: "word", content: ["ស៊ុប", "ហ៊ាន", "កុំ", "សុំ"], description: "Words with ៊" }
       ]
     },
-    { id: "nida-L05-06", level: "nida-L05", order: 6, title: "Subscript Key ្ (J)", titleKm: "ជើង ្ (J)",
-      newKeys: [{ keyId: "j", layer: "base", char: "្", finger: "ri" }], fingerFocus: ["ri"],
     { id: "nida-L05-06", level: "nida-L05", order: 6, title: "ញ (J) and Subscript ្ (Shift+J)", titleKm: "ញ (J) និង ជើង ្ (Shift+J)",
       newKeys: [
         { keyId: "j", layer: "base", char: "ញ", finger: "ri" },
@@ -1060,15 +1007,11 @@ function generateNidaCurriculum() {
         { type: "word", content: ["ឌី", "គណនា", "បុណ្យ", "គុណ"], description: "Words with ឌ and ណ" }
       ]
     },
-    { id: "nida-L06-05", level: "nida-L06", order: 5, title: "ញ (Shift+J) and អ (Shift+G)", titleKm: "ញ និង អ",
     { id: "nida-L06-05", level: "nida-L06", order: 5, title: "អ (Shift+G)", titleKm: "អ (Shift+G)",
       newKeys: [
-        { keyId: "j", layer: "shift", char: "ញ", finger: "ri" },
         { keyId: "g", layer: "shift", char: "អ", finger: "li" }
       ],
       exercises: [
-        { type: "single-char", content: "ញញញ អអអ ញអញ", description: "Shift consonants ញ and អ" },
-        { type: "word", content: ["ញាតិ", "ញញឹម", "អ្នក", "អាន"], description: "Words with ញ and អ" }
         { type: "single-char", content: "អអអ អអអ អអអ", description: "Shift consonant អ" },
         { type: "word", content: ["អ្នក", "អាន", "ញាតិ", "ញញឹម"], description: "Words with អ and ញ" }
       ]
@@ -1395,21 +1338,12 @@ function generateNidaCurriculum() {
   console.log(`Generated NiDA curriculum: ${levelsOutput.levels.length} levels, ${lessonsOutput.lessons.length} lessons, ${Object.keys(exercisesOutput.exercises).length} exercises.`);
 }
 
-generateEnglishCurriculum();
-// generateEnglishCurriculum(); // English is already generated and verified
-generateNidaCurriculum();
+if (require.main === module) {
+  console.log("PK Khmer Type: generate_curricula.js syntax verified.");
+  console.log("To bundle all curricula (Standard, NiDA, English), use: node scripts/bundle_curricula.js");
+}
 
-// Generate bundled data/curriculum-data.js for instant offline/browser startup
-const nidaData = {
-  levels: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/curriculum/nida/levels.json'), 'utf8')).levels,
-  lessons: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/curriculum/nida/lessons.json'), 'utf8')).lessons,
-  exercises: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/curriculum/nida/exercises.json'), 'utf8')).exercises
+module.exports = {
+  generateEnglishCurriculum,
+  generateNidaCurriculum
 };
-const englishData = {
-  levels: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/curriculum/english/levels.json'), 'utf8')).levels,
-  lessons: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/curriculum/english/lessons.json'), 'utf8')).lessons,
-  exercises: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/curriculum/english/exercises.json'), 'utf8')).exercises
-};
-const bundleContent = `/* PK Khmer Type — Pre-bundled Curriculum Data for Zero-Delay Offline Startup */\n(typeof window !== "undefined" ? window : global).CURRICULUM_DATA = ${JSON.stringify({ nida: nidaData, english: englishData })};\n`;
-fs.writeFileSync(path.join(__dirname, '../data/curriculum-data.js'), bundleContent, 'utf8');
-console.log(`Curriculum bundle generated: data/curriculum-data.js`);

@@ -665,7 +665,7 @@ function initStatisticsDashboard(){
     profileSidebar.classList.add('tier-5');
 
     const tiles = [
-      [TOTAL_LESSONS_ALL_LAYOUTS, isKm ? 'មេរៀនបានបង្កើត' : 'Lessons Crafted', pkIcon('book', 20), '#ffd166'],
+      [lessonTotal, isKm ? 'មេរៀនបានបង្កើត' : 'Lessons Crafted', pkIcon('book', 20), '#ffd166'],
       [layoutCount, isKm ? 'ប្លង់ក្តារចុច' : 'Layouts Designed', pkIcon('keyboard', 20), '#2dd4a7'],
       ['100%', isKm ? 'បង្កើតដោយផ្ទាល់' : 'Solo-Built', pkIcon('tool', 20), '#ff5a70'],
       ['2026', isKm ? 'បង្កើតតាំងពី' : 'Founder Since', pkIcon('crown', 20), '#ffd166'],

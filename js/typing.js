@@ -919,6 +919,9 @@ function typeKey(id, ev){
   if(el) press(el);
   triggerFingerPress(id);
   if(ev) burst(el, ev); else burst(el);
+  if(ev && typeof triggerFingerRelease === 'function'){
+    setTimeout(() => triggerFingerRelease(id), 130);
+  }
 
   const stroke = resolveKeyStroke(id);
   if(!stroke) return;

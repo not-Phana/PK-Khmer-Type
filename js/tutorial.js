@@ -273,8 +273,11 @@
       window.addEventListener('pkLessonCompleted', this.boundOnLessonComplete);
 
       // Check if tutorial was in progress or is a new user
-      const savedStep = localStorage.getItem(LS_SAVED_STEP);
-      if(savedStep && localStorage.getItem(LS_COMPLETED) !== '1' && localStorage.getItem(LS_SKIPPED) !== '1'){
+      let savedStep = null;
+      try { savedStep = localStorage.getItem(LS_SAVED_STEP); } catch(e){}
+      let isDone = false;
+      try { isDone = localStorage.getItem(LS_COMPLETED) === '1' || localStorage.getItem(LS_SKIPPED) === '1'; } catch(e){}
+      if(savedStep && !isDone){
         setTimeout(() => this.resume(savedStep), 500);
       } else if(this.isNewUser()){
         setTimeout(() => this.showWelcome(), 600);
@@ -429,9 +432,12 @@
       document.body.appendChild(wrap);
 
       // Wire basic buttons
-      document.getElementById('pkTutCloseBtn').addEventListener('click', () => this.skip());
-      document.getElementById('pkTutSkipBtn').addEventListener('click', () => this.skip());
-      document.getElementById('pkTutPillSkipBtn').addEventListener('click', () => this.skip());
+      const tutClose = document.getElementById('pkTutCloseBtn');
+      if (tutClose) tutClose.addEventListener('click', () => this.skip());
+      const tutSkip = document.getElementById('pkTutSkipBtn');
+      if (tutSkip) tutSkip.addEventListener('click', () => this.skip());
+      const tutPillSkip = document.getElementById('pkTutPillSkipBtn');
+      if (tutPillSkip) tutPillSkip.addEventListener('click', () => this.skip());
 
       // Wire language switchers
       const langEn = document.getElementById('pkTutModalLangEn');
