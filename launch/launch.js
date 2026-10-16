@@ -674,6 +674,12 @@
     const order = ['pinky', 'ring', 'middle', 'index'].map((k) => fingers.find((f) => f.kind === k));
     if (order.some((f) => !f || !homes[f.id])) return null;
 
+    const homeXs = order.map((f) => homes[f.id].x);
+    const homeYs = order.map((f) => homes[f.id].y);
+    const homeSpanCenterX = (homeXs[0] + homeXs[3]) * 0.5 + inward * 4;
+    const homeAvgY = homeYs.reduce((a, b) => a + b, 0) / 4;
+    const palmArchBaseY = homeAvgY + 74;
+
     let shiftX = 0, shiftY = 0;
     if (activeF && activeF.kind !== 'thumb' && targetKey) {
       const targetPt = keyCenter(targetKey, wrapRect);
@@ -690,18 +696,14 @@
     } else if (activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space') {
       const targetPt = keyCenter(targetKey, wrapRect);
       if (targetPt) {
-        const naturalRestX = inward === 1 ? 264 : 536;
-        const reachDx = targetPt.x - naturalRestX;
-        shiftY = 38;
-        shiftX = reachDx * 0.70;
+        const indexHomeX = homes[order[3].id].x;
+        const restIndexBaseX = indexHomeX + (homeSpanCenterX - indexHomeX) * (order[3].archPull || 0.24);
+        const restThumbBaseX = restIndexBaseX + inward * 10;
+        const desiredThumbBaseX = targetPt.x + inward * 4;
+        shiftX = desiredThumbBaseX - restThumbBaseX;
+        shiftY = 68;
       }
     }
-
-    const homeXs = order.map((f) => homes[f.id].x);
-    const homeYs = order.map((f) => homes[f.id].y);
-    const homeSpanCenterX = (homeXs[0] + homeXs[3]) * 0.5 + inward * 4;
-    const homeAvgY = homeYs.reduce((a, b) => a + b, 0) / 4;
-    const palmArchBaseY = homeAvgY + 74;
 
     const baseKnuckles = {};
     order.forEach((f) => {
@@ -723,7 +725,7 @@
       if (sr.height > 0) spaceMidY = (sr.top + sr.height * 0.50) - wrapRect.top;
     }
     const thumbBase = {
-      x: indexBase.x - inward * 6,
+      x: indexBase.x + inward * 10,
       y: indexBase.y + 66,
     };
     baseKnuckles[thumbF.id] = thumbBase;

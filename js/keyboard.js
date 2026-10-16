@@ -1748,6 +1748,13 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
     }
   }
 
+  // Anatomical metacarpal knuckle arch at bottom row boundary for natural slender fingers
+  const homeXs = order.map(f=> homes[f.id].x);
+  const homeYs = order.map(f=> homes[f.id].y);
+  const homeSpanCenterX = (homeXs[0] + homeXs[3]) * 0.5 + inward * 4;
+  const homeAvgY = homeYs.reduce((a, b)=> a + b, 0) / 4;
+  const palmArchBaseY = homeAvgY + 114;
+
   // Damped palm shift: applies for distant reaches (Backspace, Enter, Escape, outer numbers),
   // bottom-row corner modifiers (Ctrl, Win), lateral modifiers (Shift, Caps),
   // and natural whole-hand translation for thumb modifier reaches (Alt, AltGr)
@@ -1787,25 +1794,16 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   } else if(activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space'){
     const targetPt = keyCenter(targetKey, wrapRect);
     if(targetPt){
-      const naturalRestX = isLeft
-        ? (spaceBounds ? spaceBounds.left + 24 : homes[order[3].id].x + 38)
-        : (spaceBounds ? spaceBounds.right - 24 : homes[order[3].id].x - 38);
-      const reachDx = targetPt.x - naturalRestX;
-      const indexHomeY = homes[order[3].id] ? homes[order[3].id].y : 130;
-      const reachDy = Math.max(0, targetPt.y - indexHomeY);
-      // Biomechanical whole-hand glide: hand lowers and translates naturally toward Alt/AltGr
-      palmShiftY = Math.max(16, reachDy * 0.35);
-      const isOutwardReach = (reachDx * inward) < 0;
-      palmShiftX = isOutwardReach ? (reachDx * 1.08) : (reachDx * 0.70);
+      // Resting thumb base X before shift
+      const indexHomeX = homes[order[3].id].x;
+      const restIndexBaseX = indexHomeX + (homeSpanCenterX - indexHomeX) * (order[3].archPull || 0.20);
+      const restThumbBaseX = restIndexBaseX + inward * 10;
+      // Biomechanical whole-hand glide: hand lowers off keyboard and translates so thumb base aligns with modifier key
+      const desiredThumbBaseX = targetPt.x + inward * 4;
+      palmShiftX = desiredThumbBaseX - restThumbBaseX;
+      palmShiftY = 68;
     }
   }
-
-  // Anatomical metacarpal knuckle arch at bottom row boundary for natural slender fingers
-  const homeXs = order.map(f=> homes[f.id].x);
-  const homeYs = order.map(f=> homes[f.id].y);
-  const homeSpanCenterX = (homeXs[0] + homeXs[3]) * 0.5 + inward * 4;
-  const homeAvgY = homeYs.reduce((a, b)=> a + b, 0) / 4;
-  const palmArchBaseY = homeAvgY + 114;
 
   const baseKnuckles = {};
   order.forEach(f=>{
@@ -1846,8 +1844,8 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   const isModifierThumb = Boolean(activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space');
   const naturalBaseX = indexBase.x + inward * 10;
   const thumbBase = {
-    x: isModifierThumb ? (indexBase.x - inward * 8) : naturalBaseX,
-    y: palmArchBaseY + (isModifierThumb ? 28 : 34) + palmShiftY
+    x: naturalBaseX,
+    y: palmArchBaseY + (isModifierThumb ? 32 : 34) + palmShiftY
   };
   baseKnuckles[thumbF.id] = thumbBase;
 
@@ -2100,8 +2098,13 @@ function updateHandsOverlay(){
     } else {
       const homeCenter = hb.homes[f.id] || keyCenter(f.home, wrapRect);
       // Non-active fingers remain anchored near their home keys, with natural translation when the hand moves
-      const floatX = hb.palmShiftX ? hb.palmShiftX * 0.70 : 0;
-      const floatY = hb.palmShiftY ? hb.palmShiftY * 0.50 : 0;
+      const isModifierThumb = Boolean(activeFinger && (activeTargetKey === 'alt' || activeTargetKey === 'altgr'));
+      const floatX = isModifierThumb
+        ? (hb.palmShiftX ? hb.palmShiftX * 0.85 : 0)
+        : (hb.palmShiftX ? hb.palmShiftX * 0.70 : 0);
+      const floatY = isModifierThumb
+        ? (hb.palmShiftY ? hb.palmShiftY * 0.70 : 0)
+        : (hb.palmShiftY ? hb.palmShiftY * 0.50 : 0);
       const restTip = homeCenter
         ? { x: homeCenter.x + floatX, y: homeCenter.y + (f.tipDy || 0) + floatY }
         : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };

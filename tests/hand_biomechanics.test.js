@@ -883,6 +883,52 @@ test('10.6 [VERIFIED FIXED] Left Pinky reach to Win key eliminates phantom home-
   assert.ok(svg && svg.palmPath && svg.palmPath.length > 500, 'Unified hand SVG must generate valid palm contour');
 });
 
+test('10.7 [VERIFIED FIXED] Alt and AltGr thumb reaches lower whole hand off keyboard and eliminate palm-crossing contortion', () => {
+  const mockKeys = setupMockKeyboardGeometry();
+  kb.setKeyElements(mockKeys);
+  const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
+
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+  const ltDef = leftFingers.find(f => f.id === 'lt');
+  const rightFingers = kb.FINGERS.filter(f => f.hand === 'R');
+  const rtDef = rightFingers.find(f => f.id === 'rt');
+
+  // 1. Left Hand on Alt
+  const handL = kb.buildHand('L', leftFingers, wrapRect, ltDef, 'alt');
+  assert.ok(handL, 'Left hand on alt must build successfully');
+  const altCenter = kb.keyCenter('alt', wrapRect);
+  const ltBase = handL.bases.lt;
+  const liBase = handL.bases.li;
+
+  // Verify hand lowers off keyboard (palmShiftY >= 50px)
+  assert.ok(handL.palmShiftY >= 50, `Left hand must lower off keyboard during Alt reach (got ${handL.palmShiftY.toFixed(1)}px, expected >= 50px)`);
+
+  // Verify thumb is on the radial side of index (thumbBase.x > indexBase.x for Left Hand)
+  assert.ok(ltBase.x > liBase.x, `Left thumb base (${ltBase.x.toFixed(1)}px) must remain strictly on the radial side of index (${liBase.x.toFixed(1)}px)`);
+
+  // Verify thumb base aligns directly behind Alt key without crossing palm laterally
+  const dxL = Math.abs(altCenter.x - ltBase.x);
+  assert.ok(dxL < 25, `Lateral offset between thumb base and Alt key must be small (got ${dxL.toFixed(1)}px, expected < 25px)`);
+
+  // 2. Right Hand on AltGr
+  const handR = kb.buildHand('R', rightFingers, wrapRect, rtDef, 'altgr');
+  assert.ok(handR, 'Right hand on altgr must build successfully');
+  const altgrCenter = kb.keyCenter('altgr', wrapRect);
+  const rtBase = handR.bases.rt;
+  const riBase = handR.bases.ri;
+
+  // Verify hand lowers off keyboard (palmShiftY >= 50px)
+  assert.ok(handR.palmShiftY >= 50, `Right hand must lower off keyboard during AltGr reach (got ${handR.palmShiftY.toFixed(1)}px, expected >= 50px)`);
+
+  // Verify thumb is on the radial side of index (thumbBase.x < indexBase.x for Right Hand)
+  assert.ok(rtBase.x < riBase.x, `Right thumb base (${rtBase.x.toFixed(1)}px) must remain strictly on the radial side of index (${riBase.x.toFixed(1)}px)`);
+
+  // Verify thumb base aligns directly behind AltGr key without crossing palm laterally
+  const dxR = Math.abs(altgrCenter.x - rtBase.x);
+  assert.ok(dxR < 25, `Lateral offset between thumb base and AltGr key must be small (got ${dxR.toFixed(1)}px, expected < 25px)`);
+});
+
+
 
 
 
