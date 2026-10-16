@@ -758,6 +758,7 @@ ALL_ROWS.forEach(rowDef=>{
         ev.preventDefault();
         physicalLayer = layerName;
         el.classList.add('pressed');
+        setPhysicalModifierHeld(k.id, true);
         render();
         burst(el, ev);
         playClick('down');
@@ -766,6 +767,7 @@ ALL_ROWS.forEach(rowDef=>{
         if(physicalLayer === layerName){
           physicalLayer = null;
           el.classList.remove('pressed');
+          setPhysicalModifierHeld(k.id, false);
           render();
           playClick('up');
         }
@@ -1577,6 +1579,44 @@ let activeFinger = null;
 let activeTargetKey = null;
 let activeShiftFinger = null;
 let activeShiftTargetKey = null;
+const heldPhysicalModifiers = new Set();
+
+function setPhysicalModifierHeld(keyId, isHeld){
+  if(!keyId) return;
+  if(isHeld){
+    heldPhysicalModifiers.add(keyId);
+    const fid = KEY_FINGER[keyId];
+    if(fid){
+      fingerBiomechanicalStates[fid] = HAND_STATES.HOLDING;
+      const fe = fingerEls[fid];
+      if(fe) fe.g.classList.add('pressed');
+    }
+  } else {
+    heldPhysicalModifiers.delete(keyId);
+    const fid = KEY_FINGER[keyId];
+    if(fid){
+      fingerBiomechanicalStates[fid] = HAND_STATES.RESTING;
+      const fe = fingerEls[fid];
+      if(fe) fe.g.classList.remove('pressed');
+    }
+  }
+  updateHandsOverlay();
+}
+if(typeof window !== 'undefined') window.setPhysicalModifierHeld = setPhysicalModifierHeld;
+
+function clearAllPhysicalModifiersHeld(){
+  heldPhysicalModifiers.forEach(keyId => {
+    const fid = KEY_FINGER[keyId];
+    if(fid){
+      fingerBiomechanicalStates[fid] = HAND_STATES.RESTING;
+      const fe = fingerEls[fid];
+      if(fe) fe.g.classList.remove('pressed');
+    }
+  });
+  heldPhysicalModifiers.clear();
+  updateHandsOverlay();
+}
+if(typeof window !== 'undefined') window.clearAllPhysicalModifiersHeld = clearAllPhysicalModifiersHeld;
 
 function modifierInfoFor(keyId, layer){
   const mod = resolveModifierChoreography(keyId, layer);
@@ -1926,11 +1966,37 @@ function updateHandsOverlay(){
   const leftFingers = FINGERS.filter(f=>f.hand==='L');
   const rightFingers = FINGERS.filter(f=>f.hand==='R');
 
-  const activeLeft = leftFingers.find(f=> f.id === activeFinger) || leftFingers.find(f=> f.id === activeShiftFinger);
-  const targetLeft = activeLeft ? (activeLeft.id === activeFinger ? activeTargetKey : activeShiftTargetKey) : null;
+  // Check if a physical modifier key (Shift, AltGr, Alt, Ctrl) is currently held down
+  const heldLeftMod = Array.from(heldPhysicalModifiers).find(k => KEY_FINGER[k] && KEY_FINGER[k].startsWith('l'));
+  const heldRightMod = Array.from(heldPhysicalModifiers).find(k => KEY_FINGER[k] && KEY_FINGER[k].startsWith('r'));
 
-  const activeRight = rightFingers.find(f=> f.id === activeFinger) || rightFingers.find(f=> f.id === activeShiftFinger);
-  const targetRight = activeRight ? (activeRight.id === activeFinger ? activeTargetKey : activeShiftTargetKey) : null;
+  let activeLeft = null;
+  let targetLeft = null;
+  if(heldLeftMod){
+    const fid = KEY_FINGER[heldLeftMod];
+    activeLeft = leftFingers.find(f => f.id === fid);
+    targetLeft = heldLeftMod;
+  } else if(activeFinger && leftFingers.some(f => f.id === activeFinger)){
+    activeLeft = leftFingers.find(f => f.id === activeFinger);
+    targetLeft = activeTargetKey;
+  } else if(activeShiftFinger && leftFingers.some(f => f.id === activeShiftFinger)){
+    activeLeft = leftFingers.find(f => f.id === activeShiftFinger);
+    targetLeft = activeShiftTargetKey;
+  }
+
+  let activeRight = null;
+  let targetRight = null;
+  if(heldRightMod){
+    const fid = KEY_FINGER[heldRightMod];
+    activeRight = rightFingers.find(f => f.id === fid);
+    targetRight = heldRightMod;
+  } else if(activeFinger && rightFingers.some(f => f.id === activeFinger)){
+    activeRight = rightFingers.find(f => f.id === activeFinger);
+    targetRight = activeTargetKey;
+  } else if(activeShiftFinger && rightFingers.some(f => f.id === activeShiftFinger)){
+    activeRight = rightFingers.find(f => f.id === activeShiftFinger);
+    targetRight = activeShiftTargetKey;
+  }
 
   const handL = buildHand('L', leftFingers, wrapRect, activeLeft, targetLeft);
   const handR = buildHand('R', rightFingers, wrapRect, activeRight, targetRight);
@@ -1939,11 +2005,10 @@ function updateHandsOverlay(){
   FINGERS.forEach(f=>{
     const hb = f.hand === 'L' ? handL : handR;
     if(!hb || !hb.bases[f.id]) return;
-    const isPrimary = activeFinger === f.id;
-    const isShiftActive = activeShiftFinger === f.id;
-    const isActive = isPrimary || isShiftActive;
-    const targetKey = isPrimary && activeTargetKey ? activeTargetKey
-      : (isShiftActive && activeShiftTargetKey ? activeShiftTargetKey : null);
+    const isLeftActive = f.hand === 'L' && activeLeft && activeLeft.id === f.id;
+    const isRightActive = f.hand === 'R' && activeRight && activeRight.id === f.id;
+    const isActive = Boolean(isLeftActive || isRightActive);
+    const targetKey = f.hand === 'L' ? targetLeft : targetRight;
 
     let targetPt;
     if(f.kind === 'thumb'){
@@ -1981,9 +2046,11 @@ function updateHandsOverlay(){
     }
 
     // Update biomechanical state
-    if(isShiftActive){
+    const isHeldMod = (f.hand === 'L' && heldLeftMod && activeLeft && activeLeft.id === f.id) ||
+                      (f.hand === 'R' && heldRightMod && activeRight && activeRight.id === f.id);
+    if(isHeldMod || (activeShiftFinger === f.id)){
       fingerBiomechanicalStates[f.id] = HAND_STATES.HOLDING;
-    } else if(isPrimary){
+    } else if((activeFinger === f.id)){
       fingerBiomechanicalStates[f.id] = HAND_STATES.REACHING;
     } else if(fingerBiomechanicalStates[f.id] !== HAND_STATES.PRESSING){
       fingerBiomechanicalStates[f.id] = HAND_STATES.HOME_REST;
@@ -2008,7 +2075,8 @@ function renderFrame(handL, handR, wrapRect){
     const origin = hb.bases[f.id];
     const isPrimary = activeFinger === f.id;
     const isShiftActive = activeShiftFinger === f.id;
-    const isActive = isPrimary || isShiftActive;
+    const isHeld = Boolean(heldPhysicalModifiers && Array.from(heldPhysicalModifiers).some(k => KEY_FINGER[k] === f.id));
+    const isActive = isPrimary || isShiftActive || isHeld;
     const inward = f.hand === 'L' ? 1 : -1;
 
     let cur = currentFingerPositions[f.id];
@@ -2139,7 +2207,8 @@ function triggerFingerPress(keyId){
   const isGuidedSession = (typeof lessonActive !== 'undefined' && lessonActive) ||
                           (typeof raceActive !== 'undefined' && raceActive) ||
                           (typeof window !== 'undefined' && Boolean(window.adaptiveActive));
-  if(!isGuidedSession){
+  const isModifier = ['shiftL', 'shiftR', 'ctrlL', 'ctrlR', 'alt', 'altgr'].includes(keyId);
+  if(!isGuidedSession && !isModifier){
     setActiveFinger(keyId, lyr);
     clearTimeout(freeTypeFingerResetTimer);
     freeTypeFingerResetTimer = setTimeout(()=>{
@@ -2317,6 +2386,8 @@ if(typeof module !== 'undefined' && module.exports){
     triggerFingerRelease,
     modifierInfoFor,
     setKeyElements,
+    setPhysicalModifierHeld,
+    clearAllPhysicalModifiersHeld,
     computeFingerControlPoints,
     fingerFrame,
     cPoint,

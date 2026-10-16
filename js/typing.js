@@ -1038,6 +1038,7 @@ function applyPendingCtrl(){
   heldModifiers.add('ctrl');
   recomputePhysicalLayer();
   if(keyEls[id]) keyEls[id].classList.add('pressed');
+  if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld(id, true);
   triggerFingerPress(id);
   playClick('down');
 }
@@ -1106,6 +1107,7 @@ window.addEventListener('keydown', (e)=>{
     heldModifiers.add('shift');
     recomputePhysicalLayer();
     if(keyEls[id]) keyEls[id].classList.add('pressed');
+    if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld(id, true);
     triggerFingerPress(id);
     playClick('down');
     return;
@@ -1118,6 +1120,7 @@ window.addEventListener('keydown', (e)=>{
       cancelPendingCtrl();
       heldModifiers.delete('ctrl');
       heldModifiers.add('altgr');
+      if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld('altgr', true);
       recomputePhysicalLayer();
       return;
     }
@@ -1133,6 +1136,7 @@ window.addEventListener('keydown', (e)=>{
     heldModifiers.add('ctrl');
     recomputePhysicalLayer();
     if(keyEls[id]) keyEls[id].classList.add('pressed');
+    if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld(id, true);
     triggerFingerPress(id);
     playClick('down');
     return;
@@ -1145,10 +1149,12 @@ window.addEventListener('keydown', (e)=>{
     if(keyEls['ctrlL']) keyEls['ctrlL'].classList.remove('pressed');
     if(keyEls['ctrlR']) keyEls['ctrlR'].classList.remove('pressed');
     if(typeof triggerFingerRelease === 'function') triggerFingerRelease('ctrlL');
+    if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld('ctrlL', false);
 
     heldModifiers.add('altgr');
     recomputePhysicalLayer();
     if(keyEls[id]) keyEls[id].classList.add('pressed');
+    if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld(id, true);
     triggerFingerPress(id);
     playClick('down');
     return;
@@ -1156,6 +1162,7 @@ window.addEventListener('keydown', (e)=>{
   if(id === 'alt'){
     if(e.repeat) return;
     if(keyEls[id]) keyEls[id].classList.add('pressed');
+    if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld(id, true);
     triggerFingerPress(id);
     playClick('down');
     return;
@@ -1280,6 +1287,7 @@ window.addEventListener('keyup', (e)=>{
   if(id === 'shiftL' || id === 'shiftR'){
     if(!e.shiftKey) heldModifiers.delete('shift');
     recomputePhysicalLayer();
+    if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld(id, false);
     playClick('up');
   } else if(id === 'ctrlL' || id === 'ctrlR'){
     // If AltGr is held, ignore synthetic Windows ControlLeft keyup
@@ -1290,6 +1298,7 @@ window.addEventListener('keyup', (e)=>{
     cancelPendingCtrl();
     if(!e.ctrlKey) heldModifiers.delete('ctrl');
     recomputePhysicalLayer();
+    if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld(id, false);
     playClick('up');
   } else if(id === 'altgr'){
     cancelPendingCtrl();
@@ -1298,9 +1307,14 @@ window.addEventListener('keyup', (e)=>{
     if(keyEls['ctrlL']) keyEls['ctrlL'].classList.remove('pressed');
     if(keyEls['ctrlR']) keyEls['ctrlR'].classList.remove('pressed');
     if(typeof triggerFingerRelease === 'function') triggerFingerRelease('ctrlL');
+    if(typeof setPhysicalModifierHeld === 'function'){
+      setPhysicalModifierHeld('ctrlL', false);
+      setPhysicalModifierHeld('altgr', false);
+    }
     recomputePhysicalLayer();
     playClick('up');
   } else if(id === 'alt'){
+    if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld('alt', false);
     playClick('up');
   } else if(id !== 'caps'){
     playClick('up');
@@ -1311,6 +1325,7 @@ function resetAllInputStates(){
   isComposing = false;
   if(typeof cancelPendingCtrl === 'function') cancelPendingCtrl();
   if(heldModifiers && heldModifiers.clear) heldModifiers.clear();
+  if(typeof clearAllPhysicalModifiersHeld === 'function') clearAllPhysicalModifiersHeld();
   physicalLayer = null;
   if(typeof lockedLayer !== 'undefined') lockedLayer = null;
   if(typeof hoverLayer !== 'undefined') hoverLayer = null;

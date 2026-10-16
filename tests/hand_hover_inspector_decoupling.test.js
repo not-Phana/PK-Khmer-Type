@@ -166,3 +166,40 @@ test('1.3 [VERIFIED FIXED] Smooth cursor detects AltGr key element with dedicate
   assert.equal(mockGetInteractiveRole({ 'data-code': 'AltRight', text: 'AltGr' }), 'ALTGR');
   assert.equal(mockGetInteractiveRole({ 'data-key': 'space', text: 'Space' }), 'SPACE');
 });
+
+test('1.4 [VERIFIED FIXED] Physical modifier holding points assigned finger directly to Shift key', () => {
+  assert.ok(typeof kb.setPhysicalModifierHeld === 'function', 'setPhysicalModifierHeld must be exported');
+  assert.ok(typeof kb.clearAllPhysicalModifiersHeld === 'function', 'clearAllPhysicalModifiersHeld must be exported');
+
+  const mockKeys = {
+    a: { getBoundingClientRect: () => ({ left: 101, right: 145, top: 130, bottom: 180, width: 44, height: 50 }) },
+    s: { getBoundingClientRect: () => ({ left: 149, right: 193, top: 130, bottom: 180, width: 44, height: 50 }) },
+    d: { getBoundingClientRect: () => ({ left: 197, right: 241, top: 130, bottom: 180, width: 44, height: 50 }) },
+    f: { getBoundingClientRect: () => ({ left: 245, right: 289, top: 130, bottom: 180, width: 44, height: 50 }) },
+    j: { getBoundingClientRect: () => ({ left: 500, right: 544, top: 130, bottom: 180, width: 44, height: 50 }) },
+    k: { getBoundingClientRect: () => ({ left: 548, right: 592, top: 130, bottom: 180, width: 44, height: 50 }) },
+    l: { getBoundingClientRect: () => ({ left: 596, right: 640, top: 130, bottom: 180, width: 44, height: 50 }) },
+    semicolon: { getBoundingClientRect: () => ({ left: 644, right: 688, top: 130, bottom: 180, width: 44, height: 50 }) },
+    shiftL: { getBoundingClientRect: () => ({ left: 20, right: 119, top: 185, bottom: 235, width: 99, height: 50 }) },
+    shiftR: { getBoundingClientRect: () => ({ left: 692, right: 791, top: 185, bottom: 235, width: 99, height: 50 }) },
+    space: { getBoundingClientRect: () => ({ left: 280, right: 600, top: 240, bottom: 290, width: 320, height: 50 }) }
+  };
+  kb.setKeyElements(mockKeys);
+
+  const wrapRect = { left: 0, top: 0, right: 1000, bottom: 400, width: 1000, height: 400 };
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+
+  // Holding Left Shift physically
+  kb.setPhysicalModifierHeld('shiftL', true);
+
+  const handL = kb.buildHand('L', leftFingers, wrapRect, leftFingers.find(f => f.id === 'lp'), 'shiftL');
+  assert.ok(handL, 'buildHand for Left Hand on shiftL must construct successfully');
+
+  const shiftLCenter = kb.keyCenter('shiftL', wrapRect);
+  assert.equal(shiftLCenter.x, 69.5, 'Left Shift center X must be 69.5');
+  assert.equal(shiftLCenter.y, 210, 'Left Shift center Y must be 210');
+
+  // Releasing Left Shift
+  kb.setPhysicalModifierHeld('shiftL', false);
+  kb.clearAllPhysicalModifiersHeld();
+});
