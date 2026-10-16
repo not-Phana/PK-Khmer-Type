@@ -216,6 +216,15 @@
       fingerDesc: 'Left Thumb',
       note: 'System modifier key.'
     },
+    win: {
+      symbol: '<svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>',
+      titleEn: 'Windows Key',
+      titleKm: 'គ្រាប់ចុច Windows',
+      category: 'System Key',
+      recipe: '<kbd>Win</kbd>',
+      fingerDesc: 'Left Pinky',
+      note: 'Windows / Meta system key.'
+    },
     altgr: {
       symbol: '⌥',
       titleEn: 'AltGr',
@@ -241,7 +250,7 @@
     shiftL: 'Shift',
     z: 'Z', x: 'X', c: 'C', v: 'V', b: 'B', n: 'N', m: 'M',
     comma: ',', period: '.', slash: '/', shiftR: 'Shift',
-    ctrlL: 'Ctrl', alt: 'Alt', space: 'Space', altgr: 'AltGr', ctrlR: 'Ctrl'
+    ctrlL: 'Ctrl', win: 'Win', alt: 'Alt', space: 'Space', altgr: 'AltGr', ctrlR: 'Ctrl'
   };
 
   function getHumanKeyLabel(keyId) {

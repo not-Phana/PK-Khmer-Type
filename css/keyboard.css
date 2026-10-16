@@ -626,9 +626,9 @@
 
   .key.space,
   .key[data-key="space"] {
-    --u: 9 !important;
-    flex: 9 1 calc(8 * var(--key-gap, 7px)) !important;
-    flex-grow: 9 !important;
+    --u: 8.25 !important;
+    flex: 8.25 1 calc(7.25 * var(--key-gap, 7px)) !important;
+    flex-grow: 8.25 !important;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -667,6 +667,32 @@
   }
   .key.mod:hover{
     background:linear-gradient(180deg, #1c2140, #141830);
+  }
+
+  .key.key-win{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    font-size:0.72rem;
+  }
+  .key.key-win .win-icon{
+    width:13px;
+    height:13px;
+    color:var(--ink-dim);
+    display:inline-block;
+    vertical-align:middle;
+    flex-shrink:0;
+    transition:color 0.15s ease, transform 0.15s ease;
+  }
+  .key.key-win:hover .win-icon,
+  .key.key-win.pressed .win-icon{
+    color:var(--ink);
+  }
+  .key.key-win.pressed{
+    background:linear-gradient(180deg, #141830, #0a0d18);
+    transform:translateY(2px);
+    border-bottom-width:1px;
   }
 
   .key.key-ctrl:hover, .key.key-ctrl.locked{

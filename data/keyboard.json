@@ -440,20 +440,27 @@
             "kind": "mod",
             "label": "Ctrl",
             "cls": "key-ctrl",
-            "wide": 1.5
+            "wide": 1.25
+          },
+          {
+            "id": "win",
+            "kind": "mod",
+            "label": "Win",
+            "cls": "key-win",
+            "wide": 1.25
           },
           {
             "id": "alt",
             "kind": "mod",
             "label": "Alt",
-            "wide": 1.5
+            "wide": 1.25
           },
           {
             "id": "space",
             "kind": "mod",
             "label": "",
             "cls": "space",
-            "wide": 9
+            "wide": 8.25
           },
           {
             "id": "altgr",
@@ -917,20 +924,27 @@
             "kind": "mod",
             "label": "Ctrl",
             "cls": "key-ctrl",
-            "wide": 1.5
+            "wide": 1.25
+          },
+          {
+            "id": "win",
+            "kind": "mod",
+            "label": "Win",
+            "cls": "key-win",
+            "wide": 1.25
           },
           {
             "id": "alt",
             "kind": "mod",
             "label": "Alt",
-            "wide": 1.5
+            "wide": 1.25
           },
           {
             "id": "space",
             "kind": "mod",
             "label": "",
             "cls": "space",
-            "wide": 9
+            "wide": 8.25
           },
           {
             "id": "altgr",
@@ -1394,20 +1408,27 @@
             "kind": "mod",
             "label": "Ctrl",
             "cls": "key-ctrl",
-            "wide": 1.5
+            "wide": 1.25
+          },
+          {
+            "id": "win",
+            "kind": "mod",
+            "label": "Win",
+            "cls": "key-win",
+            "wide": 1.25
           },
           {
             "id": "alt",
             "kind": "mod",
             "label": "Alt",
-            "wide": 1.5
+            "wide": 1.25
           },
           {
             "id": "space",
             "kind": "mod",
             "label": "",
             "cls": "space",
-            "wide": 9
+            "wide": 8.25
           },
           {
             "id": "altgr",
@@ -1496,6 +1517,7 @@
     "slash": "rp",
     "shiftR": "rp",
     "ctrlL": "lp",
+    "win": "lp",
     "alt": "lt",
     "space": "rt",
     "altgr": "rt",
@@ -1672,6 +1694,10 @@
     "ControlRight": "ctrlR",
     "AltLeft": "alt",
     "AltRight": "altgr",
-    "Space": "space"
+    "Space": "space",
+    "MetaLeft": "win",
+    "MetaRight": "win",
+    "OSLeft": "win",
+    "OSRight": "win"
   }
 }

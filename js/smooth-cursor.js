@@ -262,6 +262,7 @@
       if (code.includes('Control') || keyId.startsWith('ctrl')) return 'CTRL';
       if (keyId === 'altgr' || code === 'AltRight') return 'ALTGR';
       if (code.includes('Alt') || keyId === 'alt') return 'ALT';
+      if (code.includes('Meta') || keyId === 'win' || keyId === 'metaL') return 'WIN';
       if (code === 'Enter' || keyId === 'enter') return 'ENTER';
       if (code === 'Backspace' || keyId === 'backspace') return 'BACKSPACE';
       if (code === 'Tab' || keyId === 'tab') return 'TAB';

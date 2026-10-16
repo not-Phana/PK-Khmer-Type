@@ -76,9 +76,10 @@
   ];
 
   const ROW5 = [
-    { id: 'ctrlL', kind: 'mod', label: 'Ctrl', cls: 'key-ctrl', wide: 1.5 },
-    { id: 'alt', kind: 'mod', label: 'Alt', wide: 1.5 },
-    { id: 'space', kind: 'mod', label: '', cls: 'space' },
+    { id: 'ctrlL', kind: 'mod', label: 'Ctrl', cls: 'key-ctrl', wide: 1.25 },
+    { id: 'win', kind: 'mod', label: 'Win', cls: 'key-win', wide: 1.25 },
+    { id: 'alt', kind: 'mod', label: 'Alt', wide: 1.25 },
+    { id: 'space', kind: 'mod', label: '', cls: 'space', wide: 8.25 },
     { id: 'altgr', kind: 'mod', label: 'AltGr', cls: 'key-altgr', wide: 1.5 },
     { id: 'ctrlR', kind: 'mod', label: 'Ctrl', cls: 'key-ctrl', wide: 1.5 },
   ];
@@ -150,9 +151,10 @@
   ];
 
   const ROW5_NIDA = [
-    { id: 'ctrlL', kind: 'mod', label: 'Ctrl', cls: 'key-ctrl', wide: 1.5 },
-    { id: 'alt', kind: 'mod', label: 'Alt', wide: 1.5 },
-    { id: 'space', kind: 'mod', label: '', cls: 'space' },
+    { id: 'ctrlL', kind: 'mod', label: 'Ctrl', cls: 'key-ctrl', wide: 1.25 },
+    { id: 'win', kind: 'mod', label: 'Win', cls: 'key-win', wide: 1.25 },
+    { id: 'alt', kind: 'mod', label: 'Alt', wide: 1.25 },
+    { id: 'space', kind: 'mod', label: '', cls: 'space', wide: 8.25 },
     { id: 'altgr', kind: 'mod', label: 'AltGr', cls: 'key-altgr', wide: 1.5 },
     { id: 'ctrlR', kind: 'mod', label: 'Ctrl', cls: 'key-ctrl', wide: 1.5 },
   ];
@@ -224,9 +226,10 @@
   ];
 
   const ROW5_EN = [
-    { id: 'ctrlL', kind: 'mod', label: 'Ctrl', cls: 'key-ctrl', wide: 1.5 },
-    { id: 'alt', kind: 'mod', label: 'Alt', wide: 1.5 },
-    { id: 'space', kind: 'mod', label: '', cls: 'space' },
+    { id: 'ctrlL', kind: 'mod', label: 'Ctrl', cls: 'key-ctrl', wide: 1.25 },
+    { id: 'win', kind: 'mod', label: 'Win', cls: 'key-win', wide: 1.25 },
+    { id: 'alt', kind: 'mod', label: 'Alt', wide: 1.25 },
+    { id: 'space', kind: 'mod', label: '', cls: 'space', wide: 8.25 },
     { id: 'altgr', kind: 'mod', label: 'AltGr', cls: 'key-altgr', wide: 1.5 },
     { id: 'ctrlR', kind: 'mod', label: 'Ctrl', cls: 'key-ctrl', wide: 1.5 },
   ];
@@ -303,6 +306,7 @@
     KeyN: 'n', KeyM: 'm', Comma: 'comma', Period: 'period', Slash: 'slash',
     ControlLeft: 'ctrlL', ControlRight: 'ctrlR', AltLeft: 'alt', AltRight: 'altgr', Space: 'space',
     IntlBackslash: 'extra',
+    MetaLeft: 'win', MetaRight: 'win', OSLeft: 'win', OSRight: 'win',
   };
 
   const KEY_FINGER = {
@@ -314,7 +318,7 @@
     semicolon: 'rp', quote: 'rp', backslash: 'rp',
     shiftL: 'lp', extra: 'lp', z: 'lp', x: 'lr', c: 'lm', v: 'li', b: 'li', n: 'ri', m: 'ri',
     comma: 'rm', period: 'rr', slash: 'rp', shiftR: 'rp',
-    ctrlL: 'lt', alt: 'lt', space: 'rt', altgr: 'rt', ctrlR: 'rp',
+    ctrlL: 'lt', win: 'lp', alt: 'lt', space: 'rt', altgr: 'rt', ctrlR: 'rp',
   };
 
   const FINGER_NAMES = {
@@ -1180,6 +1184,9 @@
             } else {
               btn.innerHTML = '<span class="space-label">Space</span>';
             }
+          } else if (k.id === 'win') {
+            btn.classList.add('key-win');
+            btn.innerHTML = '<svg class="win-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg><span>Win</span>';
           } else {
             btn.textContent = k.label || k.id;
           }

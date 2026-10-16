@@ -72,9 +72,10 @@ const ROW4 = [
 ];
 
 const ROW5 = [
-  {id:'ctrlL', kind:'mod', label:'Ctrl', cls:'key-ctrl', wide:1.5},
-  {id:'alt', kind:'mod', label:'Alt', wide:1.5},
-  {id:'space', kind:'mod', label:'', cls:'space', wide:9},
+  {id:'ctrlL', kind:'mod', label:'Ctrl', cls:'key-ctrl', wide:1.25},
+  {id:'win', kind:'mod', label:'Win', cls:'key-win', wide:1.25},
+  {id:'alt', kind:'mod', label:'Alt', wide:1.25},
+  {id:'space', kind:'mod', label:'', cls:'space', wide:8.25},
   {id:'altgr', kind:'mod', label:'AltGr', cls:'key-altgr', wide:1.5},
   {id:'ctrlR', kind:'mod', label:'Ctrl', cls:'key-ctrl', wide:1.5},
 ];
@@ -146,9 +147,10 @@ const ROW4_NIDA = [
 ];
 
 const ROW5_NIDA = [
-  {id:'ctrlL', kind:'mod', label:'Ctrl', cls:'key-ctrl', wide:1.5},
-  {id:'alt', kind:'mod', label:'Alt', wide:1.5},
-  {id:'space', kind:'mod', label:'', cls:'space', wide:9},
+  {id:'ctrlL', kind:'mod', label:'Ctrl', cls:'key-ctrl', wide:1.25},
+  {id:'win', kind:'mod', label:'Win', cls:'key-win', wide:1.25},
+  {id:'alt', kind:'mod', label:'Alt', wide:1.25},
+  {id:'space', kind:'mod', label:'', cls:'space', wide:8.25},
   {id:'altgr', kind:'mod', label:'AltGr', cls:'key-altgr', wide:1.5},
   {id:'ctrlR', kind:'mod', label:'Ctrl', cls:'key-ctrl', wide:1.5},
 ];
@@ -220,9 +222,10 @@ const ROW4_EN = [
 ];
 
 const ROW5_EN = [
-  {id:'ctrlL', kind:'mod', label:'Ctrl', cls:'key-ctrl', wide:1.5},
-  {id:'alt', kind:'mod', label:'Alt', wide:1.5},
-  {id:'space', kind:'mod', label:'', cls:'space', wide:9},
+  {id:'ctrlL', kind:'mod', label:'Ctrl', cls:'key-ctrl', wide:1.25},
+  {id:'win', kind:'mod', label:'Win', cls:'key-win', wide:1.25},
+  {id:'alt', kind:'mod', label:'Alt', wide:1.25},
+  {id:'space', kind:'mod', label:'', cls:'space', wide:8.25},
   {id:'altgr', kind:'mod', label:'AltGr', cls:'key-altgr', wide:1.5},
   {id:'ctrlR', kind:'mod', label:'Ctrl', cls:'key-ctrl', wide:1.5},
 ];
@@ -287,7 +290,7 @@ const CODE_MAP = {
   ShiftLeft:'shiftL', ShiftRight:'shiftR', KeyZ:'z', KeyX:'x', KeyC:'c', KeyV:'v', KeyB:'b',
   KeyN:'n', KeyM:'m', Comma:'comma', Period:'period', Slash:'slash',
   ControlLeft:'ctrlL', ControlRight:'ctrlR', AltLeft:'alt', AltRight:'altgr', Space:'space',
-  Escape:'escape', IntlBackslash:'extra', MetaLeft:'metaL', Delete:'delete',
+  Escape:'escape', IntlBackslash:'extra', MetaLeft:'win', MetaRight:'win', OSLeft:'win', OSRight:'win', Delete:'delete',
   F1:'f1', F2:'f2', F3:'f3', F4:'f4', F5:'f5', F6:'f6', F7:'f7', F8:'f8', F9:'f9', F10:'f10', F11:'f11', F12:'f12'
 };
 
@@ -318,7 +321,7 @@ const KEY_FINGER = {
   semicolon:'rp', quote:'rp', backslash:'rp',
   shiftL:'lp', extra:'lp', z:'lp', x:'lr', c:'lm', v:'li', b:'li', n:'ri', m:'ri',
   comma:'rm', period:'rr', slash:'rp', shiftR:'rp',
-  ctrlL:'lp', alt:'lt', space:'rt', altgr:'rt', ctrlR:'rp',
+  ctrlL:'lp', win:'lp', alt:'lt', space:'rt', altgr:'rt', ctrlR:'rp',
   escape:'lp', metaL:'lp', delete:'rp',
   f1:'lp', f2:'lr', f3:'lm', f4:'li', f5:'li',
   f6:'ri', f7:'ri', f8:'rm', f9:'rr', f10:'rp', f11:'rp', f12:'rp'
@@ -330,7 +333,7 @@ const CANONICAL_FINGER_MAP = Object.freeze({
   Backquote: 'L5', Digit1: 'L5', Escape: 'L5', F1: 'L5',
   Tab: 'L5', KeyQ: 'L5', CapsLock: 'L5', KeyA: 'L5',
   ShiftLeft: 'L5', IntlBackslash: 'L5', KeyZ: 'L5',
-  ControlLeft: 'L5', MetaLeft: 'L5',
+  ControlLeft: 'L5', MetaLeft: 'L5', MetaRight: 'L5', OSLeft: 'L5', OSRight: 'L5',
 
   // Left Ring (L4)
   Digit2: 'L4', F2: 'L4', KeyW: 'L4', KeyS: 'L4', KeyX: 'L4',
@@ -689,7 +692,8 @@ ALL_ROWS.forEach(rowDef=>{
     else if(k.id === 'tab') el.dataset.code = 'Tab';
     else if(k.id === 'caps') el.dataset.code = 'CapsLock';
     else if(k.id === 'extra') el.dataset.code = 'IntlBackslash';
-    const u = k.wide || (k.id === 'space' ? 9 : 1);
+    else if(k.id === 'win') el.dataset.code = 'MetaLeft';
+    const u = k.wide || (k.id === 'space' ? 8.25 : 1);
     el.style.setProperty('--u', u);
     el.style.flexGrow = u;
     if(k.cls) el.classList.add(k.cls);
@@ -707,6 +711,8 @@ ALL_ROWS.forEach(rowDef=>{
         } else {
           el.innerHTML = '<span class="space-label">Space</span>';
         }
+      } else if(k.id === 'win'){
+        el.innerHTML = '<svg class="win-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg><span>Win</span>';
       }
     } else {
       const g = document.createElement('span');
@@ -2227,7 +2233,7 @@ function triggerFingerPress(keyId){
   const isGuidedSession = (typeof lessonActive !== 'undefined' && lessonActive) ||
                           (typeof raceActive !== 'undefined' && raceActive) ||
                           (typeof window !== 'undefined' && Boolean(window.adaptiveActive));
-  const isModifier = ['shiftL', 'shiftR', 'ctrlL', 'ctrlR', 'alt', 'altgr'].includes(keyId);
+  const isModifier = ['shiftL', 'shiftR', 'ctrlL', 'ctrlR', 'alt', 'altgr', 'win'].includes(keyId);
   if(!isGuidedSession && !isModifier){
     setActiveFinger(keyId, lyr);
     clearTimeout(freeTypeFingerResetTimer);
@@ -2369,7 +2375,7 @@ function applyKeyboardData(data){
     ['standard', 'nida', 'english'].forEach(l => {
       if(LAYOUTS[l] && LAYOUTS[l].rows && LAYOUTS[l].rows[4]){
         const sp = LAYOUTS[l].rows[4].find(k => k.id === 'space');
-        if(sp && !sp.wide) sp.wide = 9;
+        if(sp && !sp.wide) sp.wide = 8.25;
       }
     });
   }

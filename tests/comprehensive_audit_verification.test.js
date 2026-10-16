@@ -244,5 +244,29 @@ test('UNC-13: Row 4 ISO keyboard layout alignment, key widths, and finger assign
   // Verify js/keyboard.js declarations
   assert.ok(keyboardJs.includes("IntlBackslash:'extra'"), 'js/keyboard.js CODE_MAP must map IntlBackslash to extra');
   assert.ok(keyboardJs.includes("extra:'lp'"), 'js/keyboard.js KEY_FINGER must map extra to lp');
+  assert.equal(keyboardJson.KEY_FINGER.win, 'lp', 'win key must map to Left Pinky (lp)');
+  assert.equal(keyboardJson.CODE_MAP.MetaLeft, 'win', 'MetaLeft must map to win');
+  assert.ok(keyboardJs.includes("MetaLeft:'win'"), 'js/keyboard.js CODE_MAP must map MetaLeft to win');
+  assert.ok(keyboardJs.includes("win:'lp'"), 'js/keyboard.js KEY_FINGER must map win to lp');
+
+  // 3. Verify Row 5 across standard, nida, and english layouts (with Windows key)
+  ['standard', 'nida', 'english'].forEach(layoutId => {
+    const row5 = keyboardJson.LAYOUTS[layoutId].rows[4];
+    assert.equal(row5.length, 6, `${layoutId} Row 5 must have exactly 6 keys (ctrlL, win, alt, space, altgr, ctrlR)`);
+    assert.equal(row5[0].id, 'ctrlL');
+    assert.equal(row5[0].wide, 1.25, `${layoutId} ctrlL must be 1.25u`);
+    assert.equal(row5[1].id, 'win');
+    assert.equal(row5[1].wide, 1.25, `${layoutId} win must be 1.25u between ctrlL and alt`);
+    assert.equal(row5[2].id, 'alt');
+    assert.equal(row5[2].wide, 1.25, `${layoutId} alt must be 1.25u`);
+    assert.equal(row5[3].id, 'space');
+    assert.equal(row5[3].wide, 8.25, `${layoutId} space must be 8.25u`);
+    assert.equal(row5[4].id, 'altgr');
+    assert.equal(row5[4].wide, 1.5, `${layoutId} altgr must be 1.5u`);
+    assert.equal(row5[5].id, 'ctrlR');
+    assert.equal(row5[5].wide, 1.5, `${layoutId} ctrlR must be 1.5u`);
+    const totalRow5Width = row5.reduce((sum, k) => sum + (k.wide || 1), 0);
+    assert.equal(totalRow5Width, 15.0, `${layoutId} Row 5 total width must equal 15.0u`);
+  });
 });
 

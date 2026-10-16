@@ -869,7 +869,7 @@ window.backspaceText = backspaceText;
 function resolveKeyStroke(id){
   if(!id) return null;
 
-  if(['shiftL','shiftR','ctrlL','ctrlR','alt','altgr'].includes(id)){
+  if(['shiftL','shiftR','ctrlL','ctrlR','alt','altgr','win'].includes(id)){
     return { id, kind: 'modifier' };
   }
   if(id === 'caps'){
@@ -1159,7 +1159,7 @@ window.addEventListener('keydown', (e)=>{
     playClick('down');
     return;
   }
-  if(id === 'alt'){
+  if(id === 'alt' || id === 'win'){
     if(e.repeat) return;
     if(keyEls[id]) keyEls[id].classList.add('pressed');
     if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld(id, true);
@@ -1313,8 +1313,8 @@ window.addEventListener('keyup', (e)=>{
     }
     recomputePhysicalLayer();
     playClick('up');
-  } else if(id === 'alt'){
-    if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld('alt', false);
+  } else if(id === 'alt' || id === 'win'){
+    if(typeof setPhysicalModifierHeld === 'function') setPhysicalModifierHeld(id, false);
     playClick('up');
   } else if(id !== 'caps'){
     playClick('up');

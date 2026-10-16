@@ -336,7 +336,7 @@
     semicolon:'rp', quote:'rp', backslash:'rp',
     shiftL:'lp', extra:'lp', z:'lp', x:'lr', c:'lm', v:'li', b:'li', n:'ri', m:'ri',
     comma:'rm', period:'rr', slash:'rp', shiftR:'rp',
-    ctrlL:'lt', alt:'lt', space:'rt', altgr:'rt', ctrlR:'rp'
+    ctrlL:'lt', win:'lp', alt:'lt', space:'rt', altgr:'rt', ctrlR:'rp'
   };
 
   function resolveKeyAndFinger(layoutId, unit) {
