@@ -256,14 +256,16 @@
     const keyEl = el.closest('.key');
     if (keyEl) {
       const code = keyEl.getAttribute('data-code') || '';
-      if (code === 'Space') return 'SPACE';
-      if (code.includes('Shift')) return 'SHIFT';
-      if (code.includes('Control')) return 'CTRL';
-      if (code.includes('Alt')) return 'ALT';
-      if (code === 'Enter') return 'ENTER';
-      if (code === 'Backspace') return 'BACKSPACE';
-      if (code === 'Tab') return 'TAB';
-      if (code === 'CapsLock') return 'CAPS LOCK';
+      const keyId = keyEl.getAttribute('data-key') || '';
+      if (code === 'Space' || keyId === 'space') return 'SPACE';
+      if (code.includes('Shift') || keyId.startsWith('shift')) return 'SHIFT';
+      if (code.includes('Control') || keyId.startsWith('ctrl')) return 'CTRL';
+      if (keyId === 'altgr' || code === 'AltRight') return 'ALTGR';
+      if (code.includes('Alt') || keyId === 'alt') return 'ALT';
+      if (code === 'Enter' || keyId === 'enter') return 'ENTER';
+      if (code === 'Backspace' || keyId === 'backspace') return 'BACKSPACE';
+      if (code === 'Tab' || keyId === 'tab') return 'TAB';
+      if (code === 'CapsLock' || keyId === 'caps') return 'CAPS LOCK';
       
       const charSpan = keyEl.querySelector('.key-main, .main-char, .char-main');
       const ch = (charSpan && charSpan.textContent.trim()) || keyEl.textContent.trim();

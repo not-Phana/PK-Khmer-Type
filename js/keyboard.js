@@ -679,6 +679,17 @@ ALL_ROWS.forEach(rowDef=>{
       el.dataset.finger = KEY_FINGER[k.id];
       el.dataset.canonicalFinger = toCanonicalFinger(KEY_FINGER[k.id]);
     }
+    if(k.id === 'altgr') el.dataset.code = 'AltRight';
+    else if(k.id === 'space') el.dataset.code = 'Space';
+    else if(k.id === 'alt') el.dataset.code = 'AltLeft';
+    else if(k.id === 'ctrlL') el.dataset.code = 'ControlLeft';
+    else if(k.id === 'ctrlR') el.dataset.code = 'ControlRight';
+    else if(k.id === 'shiftL') el.dataset.code = 'ShiftLeft';
+    else if(k.id === 'shiftR') el.dataset.code = 'ShiftRight';
+    else if(k.id === 'enter') el.dataset.code = 'Enter';
+    else if(k.id === 'backspace') el.dataset.code = 'Backspace';
+    else if(k.id === 'tab') el.dataset.code = 'Tab';
+    else if(k.id === 'caps') el.dataset.code = 'CapsLock';
     const u = k.wide || (k.id === 'space' ? 9 : 1);
     el.style.setProperty('--u', u);
     el.style.flexGrow = u;
@@ -2022,7 +2033,7 @@ function renderFrame(handL, handR, wrapRect){
     let tip = cur ? { x: cur.x, y: cur.y } : (target || origin);
 
     // Physiological maximum reach limit
-    const maxLen = f.kind === 'thumb' ? 95 : (f.kind === 'pinky' ? 185 : (f.kind === 'middle' ? 210 : 200));
+    const maxLen = f.kind === 'thumb' ? 115 : (f.kind === 'pinky' ? 185 : (f.kind === 'middle' ? 210 : 200));
     const d = dist(origin, tip);
     if(d > maxLen){
       const scale = maxLen / d;

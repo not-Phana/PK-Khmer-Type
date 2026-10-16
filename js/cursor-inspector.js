@@ -403,10 +403,9 @@
     return document.querySelector(`.key[data-key="${keyId}"]`) || (global.keyEls && global.keyEls[keyId]) || document.getElementById('key-' + keyId);
   }
 
-  /* ---- Render HUD Content for a Key ---- */
+  /* ---- Render HUD Content for a Key & Synchronize Hand Kinematics ---- */
   function inspectKey(keyId, ev) {
-    if (!inspectorEnabled) return;
-    ensureDOM();
+    if (!keyId) return;
     currentInspectedKeyId = keyId;
 
     const keyEl = getKeyEl(keyId);
@@ -414,6 +413,22 @@
     const layer = typeof global.currentLayer === 'function' ? global.currentLayer() : 'base';
     const fid = (global.KEY_FINGER && global.KEY_FINGER[keyId]) || null;
     const finfo = (fid && FINGER_INFO[fid]) || { nameEn: 'Touch Key', nameKm: 'ម្រាមដៃ', color: '#ffd166' };
+
+    // 1. Kinematic Hand Guide Sync — ALWAYS active so 3D hands track mouse hover even with Mouse Inspector OFF!
+    if (typeof global.setActiveFinger === 'function') {
+      global.setActiveFinger(keyId, layer);
+    }
+
+    // 2. Quick Guide Mini-Keys Sync
+    highlightQuickGuideMiniKey(keyId, fid);
+
+    // If mouse inspector HUD is toggled OFF by user, do not render HUD popup card or audio
+    if (!inspectorEnabled) {
+      if (hudEl) hudEl.classList.remove('visible');
+      return;
+    }
+
+    ensureDOM();
 
     // 1. Dedicated Special / Modifier Key Profile
     if (SPECIAL_KEYS[keyId]) {
@@ -597,6 +612,7 @@
   }
 
   function uninspectKey() {
+    if (!currentInspectedKeyId) return;
     currentInspectedKeyId = null;
     if (hudEl) hudEl.classList.remove('visible');
 
@@ -885,7 +901,7 @@
         if (keyEl && keyEl.dataset && keyEl.dataset.key) {
           if (currentInspectedKeyId !== keyEl.dataset.key) {
             inspectKey(keyEl.dataset.key, ev);
-          } else {
+          } else if (inspectorEnabled) {
             updatePosition(ev.clientX, ev.clientY);
           }
         }
@@ -893,8 +909,14 @@
       board.addEventListener('mouseout', (ev) => {
         const keyEl = ev.target.closest('.key');
         if (keyEl && (!ev.relatedTarget || !keyEl.contains(ev.relatedTarget))) {
-          uninspectKey();
+          const nextKey = ev.relatedTarget && ev.relatedTarget.closest ? ev.relatedTarget.closest('.key') : null;
+          if (!nextKey) {
+            uninspectKey();
+          }
         }
+      });
+      board.addEventListener('mouseleave', () => {
+        uninspectKey();
       });
 
       // Interactive mouse click on keys
