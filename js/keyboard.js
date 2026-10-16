@@ -1132,21 +1132,21 @@ function computeFingerControlPoints(p0, p3, kind, inward){
       // Graceful flexed thumb reaching Alt/AltGr: natural anatomical MCP arch and soft descent onto keycap
       p1 = {
         x: p0.x + dx * 0.32 - inward * (span * 0.12),
-        y: p0.y + dy * 0.30 - 10
+        y: p0.y + dy * 0.30 - Math.min(10, span * 0.20)
       };
       p2 = {
         x: p0.x + dx * 0.70 - inward * (span * 0.05),
-        y: p0.y + dy * 0.68 - 6
+        y: p0.y + dy * 0.68 - Math.min(6, span * 0.14)
       };
     } else {
       // Natural resting or Spacebar sweep
       p1 = {
-        x: p0.x + dx * 0.35 - inward * (span * 0.20),
-        y: p0.y + dy * 0.38 - 5
+        x: p0.x + dx * 0.35 - inward * (span * 0.18),
+        y: p0.y + dy * 0.38 - Math.min(5, span * 0.12)
       };
       p2 = {
         x: p0.x + dx * 0.72 - inward * (span * 0.08),
-        y: p0.y + dy * 0.75 - 6
+        y: p0.y + dy * 0.75 - Math.min(6, span * 0.14)
       };
     }
   } else if(kind === 'pinky'){
@@ -1784,27 +1784,28 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   // completely clear of KeyV, KeyB, KeyN, and KeyM.
   let defaultThumbTip;
   if(spaceBounds && spaceCenter){
-    const naturalX = indexBase.x + inward * 38;
-    const clampedX = isLeft
-      ? Math.max(spaceBounds.left + 24, Math.min(spaceCenter.x - 16, naturalX))
-      : Math.min(spaceBounds.right - 24, Math.max(spaceCenter.x + 16, naturalX));
+    const naturalX = isLeft
+      ? Math.max(spaceBounds.left + 24, Math.min(spaceCenter.x - 16, indexBase.x + inward * 34))
+      : Math.min(spaceBounds.right - 24, Math.max(spaceCenter.x + 16, indexBase.x - 8));
     defaultThumbTip = {
-      x: clampedX,
+      x: naturalX,
       y: spaceBounds.top + spaceBounds.height * 0.46
     };
   } else {
     defaultThumbTip = {
-      x: indexBase.x + inward * 38,
+      x: isLeft ? indexBase.x + 34 : indexBase.x - 8,
       y: palmArchBaseY + 18
     };
   }
 
   // Anatomical thumb CMC/thenar base: positioned at lower radial palm
+  // Guarantees proper inward span (> 20px) matching thumb rest kinematics
   const thumbF = fingers.find(f=>f.kind==='thumb');
   const isModifierThumb = Boolean(activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space');
+  const naturalBaseX = defaultThumbTip ? (defaultThumbTip.x - inward * 24) : (indexBase.x + inward * 14);
   const thumbBase = {
-    x: indexBase.x + (isModifierThumb ? -inward * 8 : inward * 14),
-    y: palmArchBaseY + (isModifierThumb ? 24 : 36) + palmShiftY
+    x: isModifierThumb ? (indexBase.x - inward * 8) : naturalBaseX,
+    y: palmArchBaseY + (isModifierThumb ? 24 : 34) + palmShiftY
   };
   baseKnuckles[thumbF.id] = thumbBase;
 
@@ -1839,12 +1840,9 @@ function buildUnifiedHandSVG(hand, order, thumbF, frames, bases){
   });
 
   const thumbFr = frames[thumbF.id];
-  const idxInnerPt = fingerList[3].innerPts[4];
-  // Dynamically resolve topological inner vs outer thumb contours based on proximity to index purlicue web
-  const dLeftToIdx = Math.hypot(thumbFr.left[4].x - idxInnerPt.x, thumbFr.left[4].y - idxInnerPt.y);
-  const dRightToIdx = Math.hypot(thumbFr.right[4].x - idxInnerPt.x, thumbFr.right[4].y - idxInnerPt.y);
-  const thumbInnerPts = dLeftToIdx <= dRightToIdx ? thumbFr.left : thumbFr.right;
-  const thumbOuterPts = dLeftToIdx <= dRightToIdx ? thumbFr.right : thumbFr.left;
+  // Deterministic topological inner vs outer thumb contours based on anatomical mirror symmetry
+  const thumbInnerPts = isLeft ? thumbFr.left : thumbFr.right;
+  const thumbOuterPts = isLeft ? thumbFr.right : thumbFr.left;
 
   const pinkyBase = bases[order[0].id];
   const indexBase = bases[order[3].id];
@@ -1881,13 +1879,26 @@ function buildUnifiedHandSVG(hand, order, thumbF, frames, bases){
     }
   }
 
-  // Purlicue (thumb-index web): smooth U-saddle from index inner base to thumb inner edge
+  // Purlicue (thumb-index web): G1-continuous smooth U-saddle from index inner base to thumb inner edge
   const idxInnerEnd = fingerList[3].innerPts[4];
-  const thumbInnerStartIdx = 8;
+  const thumbInnerStartIdx = 6;
   const thumbInnerStart = thumbInnerPts[thumbInnerStartIdx];
-  const webMidY = Math.max(idxInnerEnd.y, thumbInnerStart.y) + 7;
-  const webC1 = { x: idxInnerEnd.x + dir * 2, y: webMidY - 2 };
-  const webC2 = { x: thumbInnerStart.x - dir * 10, y: webMidY + 3 };
+
+  const dIdxX = idxInnerEnd.x - fingerList[3].innerPts[5].x;
+  const dIdxY = idxInnerEnd.y - fingerList[3].innerPts[5].y;
+  const idxLen = Math.hypot(dIdxX, dIdxY) || 1;
+  const idxTan = { x: dIdxX / idxLen, y: dIdxY / idxLen };
+
+  const nextPt = thumbInnerPts[thumbInnerStartIdx + 1];
+  const dThX = nextPt.x - thumbInnerStart.x;
+  const dThY = nextPt.y - thumbInnerStart.y;
+  const thLen = Math.hypot(dThX, dThY) || 1;
+  const thTan = { x: dThX / thLen, y: dThY / thLen };
+
+  const webDist = Math.hypot(thumbInnerStart.x - idxInnerEnd.x, thumbInnerStart.y - idxInnerEnd.y);
+  const webReach = Math.min(22, webDist * 0.38);
+  const webC1 = { x: idxInnerEnd.x + idxTan.x * webReach, y: idxInnerEnd.y + idxTan.y * webReach };
+  const webC2 = { x: thumbInnerStart.x - thTan.x * webReach, y: thumbInnerStart.y - thTan.y * webReach };
   cmds.push(`C ${webC1.x.toFixed(1)} ${webC1.y.toFixed(1)} ${webC2.x.toFixed(1)} ${webC2.y.toFixed(1)} ${thumbInnerStart.x.toFixed(1)} ${thumbInnerStart.y.toFixed(1)}`);
 
   // Thumb inner edge -> tip -> thumb outer edge (down to CMC joint)
