@@ -1161,6 +1161,10 @@ window.AccountProgress = AccountProgress;
   const cloudThumbnailCache = new Map(); // fileId -> { blob, blobUrl }
   let activeLightboxItem = null;
 
+  function escapeHtml(s) {
+    return String(s ?? '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+  }
+
   function formatCloudFileInfo(f) {
     const rawName = String(f.file_name || 'file');
     const lower = rawName.toLowerCase();
@@ -1194,12 +1198,12 @@ window.AccountProgress = AccountProgress;
     return {
       rawName,
       smartTitle,
-      tagText,
+      tagText: escapeHtml(tagText),
       tagClass,
       isJsonBackup,
       isImage,
-      safeRawName: rawName.replace(/[<>&"]/g, ''),
-      safeTitle: smartTitle.replace(/[<>&"]/g, '')
+      safeRawName: escapeHtml(rawName),
+      safeTitle: escapeHtml(smartTitle)
     };
   }
 
@@ -1298,7 +1302,7 @@ window.AccountProgress = AccountProgress;
     try {
       const res = await window.PKCloudSync.listUserFiles();
       if (!res.ok) {
-        listEl.innerHTML = `<div class="acc-cloud-files-empty">${res.error || 'Could not load cloud files.'}</div>`;
+        listEl.innerHTML = `<div class="acc-cloud-files-empty">${escapeHtml(res.error || 'Could not load cloud files.')}</div>`;
         if (quotaEl) quotaEl.textContent = 'Unavailable';
         return;
       }
@@ -1323,6 +1327,7 @@ window.AccountProgress = AccountProgress;
           const info = formatCloudFileInfo(f);
           const kb = Math.max(1, Math.round((Number(f.size_bytes) || 0) / 1024));
           const dateStr = f.updated_at ? new Date(f.updated_at).toLocaleDateString() : '';
+          const safeId = escapeHtml(f.id);
 
           let thumbIcon = '';
           if (info.isJsonBackup) {
@@ -1330,7 +1335,7 @@ window.AccountProgress = AccountProgress;
               <svg class="pk-icon acc-file-thumb-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             </div>`;
           } else if (info.isImage) {
-            thumbIcon = `<div class="acc-file-thumb-wrap is-image" data-thumb-id="${f.id}" title="Click to view full image">
+            thumbIcon = `<div class="acc-file-thumb-wrap is-image" data-thumb-id="${safeId}" title="Click to view full image">
               <svg class="pk-icon acc-file-thumb-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             </div>`;
           } else {
@@ -1339,7 +1344,7 @@ window.AccountProgress = AccountProgress;
             </div>`;
           }
 
-          return `<div class="acc-cloud-file-card" data-file-id="${f.id}">
+          return `<div class="acc-cloud-file-card" data-file-id="${safeId}">
             ${thumbIcon}
             <div class="acc-file-body">
               <div class="acc-file-title-row">
@@ -1355,22 +1360,22 @@ window.AccountProgress = AccountProgress;
               </div>
             </div>
             <div class="acc-file-btns">
-              ${info.isJsonBackup ? `<button type="button" class="acc-file-act-btn restore" data-action="restore" data-id="${f.id}" title="Restore backup snapshot">
+              ${info.isJsonBackup ? `<button type="button" class="acc-file-act-btn restore" data-action="restore" data-id="${safeId}" title="Restore backup snapshot">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
                 <span>Restore</span>
               </button>` : ''}
-              ${info.isImage ? `<button type="button" class="acc-file-act-btn avatar-btn" data-action="set-avatar" data-id="${f.id}" title="Set this image as your profile avatar">
+              ${info.isImage ? `<button type="button" class="acc-file-act-btn avatar-btn" data-action="set-avatar" data-id="${safeId}" title="Set this image as your profile avatar">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span>Avatar</span>
               </button>` : ''}
-              ${info.isImage ? `<button type="button" class="acc-file-act-btn" data-action="preview" data-id="${f.id}" title="View full image">
+              ${info.isImage ? `<button type="button" class="acc-file-act-btn" data-action="preview" data-id="${safeId}" title="View full image">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                 <span>View</span>
               </button>` : ''}
-              <button type="button" class="acc-file-act-btn" data-action="download" data-id="${f.id}" title="Download file to computer">
+              <button type="button" class="acc-file-act-btn" data-action="download" data-id="${safeId}" title="Download file to computer">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               </button>
-              <button type="button" class="acc-file-act-btn danger" data-action="delete" data-id="${f.id}" title="Delete permanently from cloud">
+              <button type="button" class="acc-file-act-btn danger" data-action="delete" data-id="${safeId}" title="Delete permanently from cloud">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
               </button>
             </div>
@@ -2372,20 +2377,47 @@ function initStorageActions() {
     importProgressInput.addEventListener('change', () => {
       const file = importProgressInput.files && importProgressInput.files[0];
       if (!file) return;
+      // DoS guard: reject files exceeding 10MB
+      if (file.size > 10 * 1024 * 1024) {
+        alert('File exceeds the 10MB limit.');
+        importProgressInput.value = '';
+        return;
+      }
       const reader = new FileReader();
       reader.onload = async () => {
         try {
-          const data = JSON.parse(reader.result);
+          const rawText = reader.result;
+          const data = JSON.parse(rawText);
+          if (!data || typeof data !== 'object' || Array.isArray(data)) {
+            throw new Error('Invalid backup format');
+          }
           const ok = await templeConfirm(
             'This will overwrite your current progress and settings with the imported backup.',
             { title: 'Restore backup?', confirmLabel: 'Restore', icon: pkIcon('scroll', 24) }
           );
           if (!ok) return;
+
+          const FORBIDDEN_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
+          const SAFE_PREFIXES = ['khmer', 'pk_', 'kk_'];
+          let totalBytesImported = 0;
+          const MAX_TOTAL_BYTES = 5 * 1024 * 1024; // 5MB max quota
+
           Object.keys(data).forEach((k) => {
-            if (k.startsWith('khmer') || k.startsWith('pk_') || k.startsWith('kk_')) {
-              localStorage.setItem(k, data[k]);
+            if (FORBIDDEN_KEYS.has(k) || typeof k !== 'string' || k.length > 128) return;
+            const matchesPrefix = SAFE_PREFIXES.some((pfx) => k.startsWith(pfx));
+            if (!matchesPrefix) return;
+
+            const val = data[k];
+            if (typeof val === 'function' || typeof val === 'symbol') return;
+            const serialized = typeof val === 'string' ? val : JSON.stringify(val);
+            if (typeof serialized === 'string' && serialized.length <= 1024 * 1024) {
+              if (totalBytesImported + serialized.length <= MAX_TOTAL_BYTES) {
+                totalBytesImported += serialized.length;
+                localStorage.setItem(k, serialized);
+              }
             }
           });
+
           if (window.PKCloudSync && typeof window.PKCloudSync.syncAllNow === 'function') {
             await window.PKCloudSync.syncAllNow();
           }

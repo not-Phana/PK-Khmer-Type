@@ -2175,15 +2175,24 @@
         return { ok: false, error: "Invalid backup snapshot format." };
       }
 
-      if (parsed.settings && typeof parsed.settings === "object") {
-        var mergedSet = mergeSettings(collectLocalSettingsSnapshot(), parsed.settings);
+      if (parsed.settings && typeof parsed.settings === "object" && !Array.isArray(parsed.settings)) {
+        var sanitizedSettings = {};
+        for (var sk in parsed.settings) {
+          if (sk !== "__proto__" && sk !== "constructor" && sk !== "prototype" && ALLOWED_SETTING_KEYS.indexOf(sk) !== -1) {
+            sanitizedSettings[sk] = parsed.settings[sk];
+          }
+        }
+        var mergedSet = mergeSettings(collectLocalSettingsSnapshot(), sanitizedSettings);
         applySettingsSnapshotToLocal(mergedSet);
       }
-      if (parsed.lessonProgress && typeof parsed.lessonProgress === "object") {
+      if (parsed.lessonProgress && typeof parsed.lessonProgress === "object" && !Array.isArray(parsed.lessonProgress)) {
         var curMap = collectLocalLessonProgressMap();
-        var fakeRows = Object.keys(parsed.lessonProgress).map(function (lid) {
-          return { lesson_id: lid, progress: parsed.lessonProgress[lid] };
-        });
+        var fakeRows = [];
+        for (var lid in parsed.lessonProgress) {
+          if (lid !== "__proto__" && lid !== "constructor" && lid !== "prototype" && validateLessonId(lid)) {
+            fakeRows.push({ lesson_id: lid, progress: parsed.lessonProgress[lid] });
+          }
+        }
         var rec = reconcileLessonProgressMaps(curMap, fakeRows);
         applyMergedLessonProgressToLocal(rec.mergedMap);
       }

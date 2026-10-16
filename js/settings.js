@@ -1115,10 +1115,43 @@ function initSettingsToggles() {
   }
   applyWallpaperBlur(safeGet(LS.wallpaperBlur, "0"));
 
+  function isSafeImageUrl(url) {
+    if (!url || typeof url !== "string") return false;
+    var trimmed = url.trim();
+    if (trimmed.length === 0 || trimmed.length > 4096) return false;
+    if (/^data:image\/(png|jpe?g|webp|gif|bmp);base64,[A-Za-z0-9+/=]+$/i.test(trimmed)) {
+      return true;
+    }
+    if (/^blob:[a-zA-Z0-9-.:/]+$/i.test(trimmed)) {
+      return true;
+    }
+    if (/^(\/|\.\/|assets\/)/i.test(trimmed)) {
+      return !/[<>"'()\\]/.test(trimmed);
+    }
+    try {
+      var base = (typeof window !== "undefined" && window.location && window.location.origin) ? window.location.origin : "http://localhost";
+      var parsed = new URL(trimmed, base);
+      if (parsed.protocol === "https:" || parsed.protocol === "http:") {
+        return !/[<>"'()\\]/.test(trimmed);
+      }
+    } catch (_e) {
+      return false;
+    }
+    return false;
+  }
+  if (typeof window !== "undefined") {
+    window.isSafeImageUrl = isSafeImageUrl;
+  }
+
   function applyWallpaper(url, dimPct) {
     if (!url || !customWallpaperLayer) return;
+    if (!isSafeImageUrl(url)) {
+      console.warn("PK Khmer Type: Rejected unsafe wallpaper URL.");
+      return;
+    }
     dimPct = dimPct !== undefined ? dimPct : (parseInt(safeGet(WALLPAPER_DIM_KEY, "65"), 10) || 65);
-    customWallpaperLayer.style.backgroundImage = 'url("' + url + '")';
+    var sanitizedUrl = url.replace(/["'\\]/g, "");
+    customWallpaperLayer.style.backgroundImage = 'url("' + sanitizedUrl + '")';
     document.documentElement.style.setProperty("--wallpaper-dim", (dimPct / 100).toString());
     document.body.classList.add("has-custom-wallpaper");
     if (removeWallpaperBtn) removeWallpaperBtn.style.display = "inline-flex";
@@ -1210,6 +1243,14 @@ function initSettingsToggles() {
       const url = prompt("Enter image URL (PNG, JPG, WebP):", current.startsWith("http") ? current : "");
       if (url && url.trim()) {
         const cleanUrl = url.trim();
+        if (!isSafeImageUrl(cleanUrl)) {
+          if (typeof showToast === "function") {
+            showToast(pkIcon("zap", 18), "Invalid Image URL", "Please enter a valid HTTP/HTTPS image URL.");
+          } else {
+            alert("Invalid image URL. Only HTTP and HTTPS URLs are permitted.");
+          }
+          return;
+        }
         safeSet(WALLPAPER_KEY, cleanUrl);
         safeSet("khmerCustomWallpaperUrl", cleanUrl);
         applyWallpaper(cleanUrl);

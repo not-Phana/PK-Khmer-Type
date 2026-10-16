@@ -2,6 +2,25 @@
    PK Khmer Type — Application Bootstrapper & Lifecycle
    ============================================================ */
 
+/* Anti-clickjacking / UI Redressing Frame-Busting Defense */
+(function preventClickjacking() {
+  if (typeof window !== "undefined" && window.top && window.self && window.top !== window.self) {
+    try {
+      if (window.top.location.hostname !== window.self.location.hostname) {
+        window.top.location = window.self.location;
+      }
+    } catch (_e) {
+      try {
+        window.top.location = window.self.location;
+      } catch (_err) {
+        if (typeof document !== "undefined" && document.documentElement) {
+          document.documentElement.style.display = "none";
+        }
+      }
+    }
+  }
+})();
+
 async function loadExternalData(){
   try {
     const [kbRes, lsRes, tcRes] = await Promise.all([
