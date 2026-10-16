@@ -687,11 +687,15 @@
       if (targetPt && homePt) {
         const reachDx = targetPt.x - homePt.x;
         const reachDy = targetPt.y - homePt.y;
+        const isCornerMod = ['ctrlL', 'ctrlR', 'win', 'metaL'].includes(targetKey);
         const isLateralMod = ['shiftL', 'shiftR', 'caps'].includes(targetKey);
         const isPerimeterKey = ['enter', 'backspace'].includes(targetKey);
         let factorX = 0.10;
         let factorY = 0.12;
-        if (isLateralMod) {
+        if (isCornerMod) {
+          factorX = 0.85;
+          factorY = 0.55;
+        } else if (isLateralMod) {
           factorX = 0.50;
           factorY = 0.35;
         } else if (isPerimeterKey) {
@@ -893,7 +897,9 @@
 
       const activeModHand = f.hand === 'L' ? activeLeft : activeRight;
       const targetModKey = f.hand === 'L' ? targetLeft : targetRight;
-      const isModifierThumb = Boolean(activeModHand && activeModHand.kind === 'thumb' && (targetModKey === 'alt' || targetModKey === 'altgr'));
+      const isRow5Modifier = Boolean(activeModHand && targetModKey && (
+        ['alt', 'altgr', 'ctrlL', 'ctrlR', 'win', 'metaL'].includes(targetModKey)
+      ));
 
       let tip;
       if (f.kind === 'thumb') {
@@ -909,11 +915,21 @@
           } else {
             tip = { x: defaultThumbTip.x + inward * 4, y: defaultThumbTip.y - 4 };
           }
+        } else if (isRow5Modifier) {
+          const thumbLen = 65;
+          const thAng = inward * 0.38;
+          tip = {
+            x: origin.x + Math.sin(thAng) * thumbLen,
+            y: origin.y - Math.cos(thAng) * thumbLen,
+          };
         } else {
           tip = defaultThumbTip;
         }
-      } else if (isModifierThumb) {
-        // When whole hand lowers off keyboard for Alt/AltGr, non-active fingers
+      } else if (isActive && targetKey) {
+        const rawTarget = keyCenter(targetKey, wrapRect);
+        tip = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : { x: origin.x, y: origin.y - 74 };
+      } else if (isRow5Modifier) {
+        // When whole hand lowers off keyboard for Row 5 modifiers, non-active fingers
         // rest naturally relaxed and curled with the hand, strictly aligned with their own knuckles.
         const curlLen = f.kind === 'pinky' ? 68 : f.kind === 'middle' ? 78 : 74;
         const ang = (f.restAng || 0);
@@ -930,12 +946,7 @@
         const restTip = homeCenter
           ? { x: homeCenter.x + floatX, y: homeCenter.y + (f.tipDy || 0) + floatY }
           : { x: origin.x, y: origin.y - 74 };
-        if (isActive && targetKey) {
-          const rawTarget = keyCenter(targetKey, wrapRect);
-          tip = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : restTip;
-        } else {
-          tip = restTip;
-        }
+        tip = restTip;
       }
       if (!tip) return;
 

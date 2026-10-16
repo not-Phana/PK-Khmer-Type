@@ -1766,6 +1766,7 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
       const reachDx = targetPt.x - homePt.x;
       const reachDy = targetPt.y - homePt.y;
 
+      const isCornerMod = ['ctrlL', 'ctrlR', 'win', 'metaL'].includes(targetKey);
       const isLateralMod = ['shiftL', 'shiftR', 'caps'].includes(targetKey);
       const isPerimeterKey = ['enter', 'backspace'].includes(targetKey);
       const isDistant = ['grave', 'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k0', 'minus', 'equal', 'tab', 'escape', 'delete', 'extra'].includes(targetKey);
@@ -1773,7 +1774,11 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
       let factorX = 0.10;
       let factorY = 0.12;
 
-      if(isLateralMod){
+      if(isCornerMod){
+        // Bottom Row 5 corner modifiers (Ctrl, Win): hand glides off keyboard so pinky aligns naturally
+        factorX = 0.85;
+        factorY = 0.55;
+      } else if(isLateralMod){
         // Outer lateral modifiers (Shift, Caps): gentle outward float to keep home row connection natural
         factorX = 0.50;
         factorY = 0.35;
@@ -2092,19 +2097,35 @@ function updateHandsOverlay(){
     const targetKey = f.hand === 'L' ? targetLeft : targetRight;
 
     const activeModHand = f.hand === 'L' ? activeLeft : activeRight;
-    const isModifierThumb = Boolean(activeModHand && activeModHand.kind === 'thumb' && (targetKey === 'alt' || targetKey === 'altgr'));
+    const isRow5Modifier = Boolean(activeModHand && targetKey && (
+      ['alt', 'altgr', 'ctrlL', 'ctrlR', 'win', 'metaL'].includes(targetKey)
+    ));
 
     let targetPt;
     if(f.kind === 'thumb'){
       if(isActive && targetKey && targetKey !== 'space'){
         const rawTip = keyCenter(targetKey, wrapRect);
         targetPt = rawTip ? { x: rawTip.x, y: rawTip.y } : hb.defaultThumbTip;
+      } else if(isRow5Modifier){
+        // When whole hand lowers off keyboard for Row 5 modifiers, non-active thumb
+        // glides and rests naturally relaxed forward from its own knuckle
+        const thumbLen = 65;
+        const inward = f.hand === 'L' ? 1 : -1;
+        const thAng = inward * 0.38;
+        targetPt = {
+          x: hb.bases[f.id].x + Math.sin(thAng) * thumbLen,
+          y: hb.bases[f.id].y - Math.cos(thAng) * thumbLen
+        };
       } else {
         targetPt = hb.defaultThumbTip;
       }
-    } else if(isModifierThumb){
-      // When whole hand lowers off keyboard for Alt/AltGr, non-active fingers
-      // rest naturally relaxed and curled with the hand, strictly aligned with their own knuckles.
+    } else if(isActive && targetKey){
+      const rawTarget = keyCenter(targetKey, wrapRect);
+      targetPt = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };
+    } else if(isRow5Modifier){
+      // When whole hand lowers off keyboard for Row 5 modifiers (Ctrl, Win, Alt, AltGr),
+      // non-active fingers do not stay pinned to the keyboard ("hand dont necessary need the hand always on the keyboard").
+      // They rest naturally relaxed and curled with the hand, strictly aligned with their own knuckles.
       const curlLen = f.kind === 'pinky' ? 68 : f.kind === 'middle' ? 78 : 74;
       const ang = (f.restAng || 0);
       targetPt = {
@@ -2122,12 +2143,7 @@ function updateHandsOverlay(){
         ? { x: homeCenter.x + floatX, y: homeCenter.y + (f.tipDy || 0) + floatY }
         : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };
 
-      if(isActive && targetKey){
-        const rawTarget = keyCenter(targetKey, wrapRect);
-        targetPt = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : restTip;
-      } else {
-        targetPt = restTip;
-      }
+      targetPt = restTip;
     }
 
     targetFingerPositions[f.id] = targetPt;
