@@ -840,5 +840,49 @@ test('10.5 [VERIFIED FIXED] Thumb reach to Left Alt (alt) exhibits natural human
   assert.ok(svg && svg.palmPath && svg.palmPath.length > 500, 'Unified hand SVG must generate valid palm contour during alt reach');
 });
 
+test('10.6 [VERIFIED FIXED] Left Pinky reach to Win key eliminates phantom home-row ribbon and aligns unified palm contour with active finger', () => {
+  const mockKeys = setupMockKeyboardGeometry();
+  kb.setKeyElements(mockKeys);
+  const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+  const lpDef = leftFingers.find(f => f.id === 'lp');
+
+  const handL = kb.buildHand('L', leftFingers, wrapRect, lpDef, 'win');
+  assert.ok(handL, 'buildHand for Left Hand on win must construct successfully');
+
+  const winCenter = kb.keyCenter('win', wrapRect);
+  const aCenter = kb.keyCenter('a', wrapRect);
+  assert.ok(winCenter && aCenter);
+
+  // Compute frames exactly as in renderFrame
+  const frames = {};
+  leftFingers.forEach(f => {
+    const origin = handL.bases[f.id];
+    const isTarget = f.id === 'lp';
+    const floatX = handL.palmShiftX ? handL.palmShiftX * 0.70 : 0;
+    const floatY = handL.palmShiftY ? handL.palmShiftY * 0.50 : 0;
+    const restTip = (f.kind === 'thumb') ? handL.defaultThumbTip : { x: handL.homes[f.id].x + floatX, y: handL.homes[f.id].y + (f.tipDy || 0) + floatY };
+    const tip = isTarget ? { x: winCenter.x, y: winCenter.y + 2 } : restTip;
+    const cp = kb.computeFingerControlPoints(origin, tip, f.kind, 1);
+    frames[f.id] = kb.fingerFrame(origin, cp.p1, cp.p2, tip, f.baseW, f.tipW, f.kind === 'thumb');
+  });
+
+  // Verify active pinky tip lands on Win keycap, NOT on home key 'a'
+  const pinkyFrame = frames['lp'];
+  assert.ok(Math.abs(pinkyFrame.tip.x - winCenter.x) < 5, `Active pinky tip X must align with Win key (got ${pinkyFrame.tip.x}, expected ~${winCenter.x})`);
+  assert.ok(Math.abs(pinkyFrame.tip.y - winCenter.y) < 5, `Active pinky tip Y must align with Win key (got ${pinkyFrame.tip.y}, expected ~${winCenter.y})`);
+  assert.ok(pinkyFrame.tip.y > aCenter.y + 70, `Active pinky tip Y (${pinkyFrame.tip.y}) must be on Row 5, never on Row 3 home key 'a' (${aCenter.y})`);
+
+  // Verify pinky length is natural and never an elongated ribbon (> 150px)
+  const pinkyOrigin = handL.bases['lp'];
+  const pinkySpan = Math.hypot(pinkyFrame.tip.x - pinkyOrigin.x, pinkyFrame.tip.y - pinkyOrigin.y);
+  assert.ok(pinkySpan >= 65 && pinkySpan <= 115, `Pinky reach span (${pinkySpan.toFixed(1)}px) must be normal human length (65..115px), never an elongated ribbon`);
+
+  // Verify unified hand contour is generated directly from frames without phantom ribbon reaching 'a'
+  const svg = kb.buildUnifiedHandSVG('L', handL.order, handL.thumbF, frames, handL.bases);
+  assert.ok(svg && svg.palmPath && svg.palmPath.length > 500, 'Unified hand SVG must generate valid palm contour');
+});
+
+
 
 

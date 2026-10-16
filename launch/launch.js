@@ -674,8 +674,28 @@
     const order = ['pinky', 'ring', 'middle', 'index'].map((k) => fingers.find((f) => f.kind === k));
     if (order.some((f) => !f || !homes[f.id])) return null;
 
-    // Steady Home Row: hands remain anchored on home row without shifting across the keyboard
     let shiftX = 0, shiftY = 0;
+    if (activeF && activeF.kind !== 'thumb' && targetKey) {
+      const targetPt = keyCenter(targetKey, wrapRect);
+      const homePt = keyCenter(activeF.home, wrapRect);
+      if (targetPt && homePt) {
+        const reachDx = targetPt.x - homePt.x;
+        const reachDy = targetPt.y - homePt.y;
+        const isCornerMod = ['ctrlL', 'ctrlR', 'win', 'metaL'].includes(targetKey);
+        const factorY = isCornerMod ? 0.65 : (activeF.kind === 'pinky' ? 0.72 : (reachDy < 0 ? 0.65 : 0.45));
+        const factorX = isCornerMod ? 0.85 : (activeF.kind === 'pinky' ? 0.62 : (reachDy < 0 ? 0.45 : 0.40));
+        shiftY = reachDy * factorY;
+        shiftX = reachDx * factorX;
+      }
+    } else if (activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space') {
+      const targetPt = keyCenter(targetKey, wrapRect);
+      if (targetPt) {
+        const naturalRestX = inward === 1 ? 264 : 536;
+        const reachDx = targetPt.x - naturalRestX;
+        shiftY = 38;
+        shiftX = reachDx * 0.70;
+      }
+    }
 
     const homeXs = order.map((f) => homes[f.id].x);
     const homeYs = order.map((f) => homes[f.id].y);
