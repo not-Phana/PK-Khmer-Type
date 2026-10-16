@@ -408,6 +408,7 @@ const HAND_CONFIG = {
   overlayMode: 'full',     // 'full' (default) | 'ghost' | 'hidden'
   handOpacity: 0.85,
   reducedMotion: false,
+  steadyHomeRow: true,     // Hands remain steady on home row (ASDF / JKL;), only illuminating the active finger
   lastKeystrokeHand: null
 };
 if(typeof window !== 'undefined') window.HAND_CONFIG = HAND_CONFIG;
@@ -2099,9 +2100,9 @@ function updateHandsOverlay(){
       }
     } else {
       const homeCenter = hb.homes[f.id] || keyCenter(f.home, wrapRect);
-      // Non-active fingers remain anchored near their home keys, with natural translation when the hand moves
-      const floatX = hb.palmShiftX ? hb.palmShiftX * 0.70 : 0;
-      const floatY = hb.palmShiftY ? hb.palmShiftY * 0.50 : 0;
+      // Non-active fingers remain anchored on home keys: zero drift in steadyHomeRow mode
+      const floatX = HAND_CONFIG.steadyHomeRow ? 0 : (hb.palmShiftX ? hb.palmShiftX * 0.70 : 0);
+      const floatY = HAND_CONFIG.steadyHomeRow ? 0 : (hb.palmShiftY ? hb.palmShiftY * 0.50 : 0);
       const restTip = homeCenter
         ? { x: homeCenter.x + floatX, y: homeCenter.y + (f.tipDy || 0) + floatY }
         : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };
@@ -2222,7 +2223,18 @@ function renderFrame(handL, handR, wrapRect){
   });
 
   if(handL && Object.keys(framesL).length === 5){
-    const svgL = buildUnifiedHandSVG('L', handL.order, handL.thumbF, framesL, handL.bases);
+    let displayFramesL = framesL;
+    if(HAND_CONFIG.steadyHomeRow){
+      displayFramesL = {};
+      const leftFingers = FINGERS.filter(f=>f.hand==='L');
+      leftFingers.forEach(f => {
+        const origin = handL.bases[f.id];
+        const restTip = (f.kind === 'thumb') ? handL.defaultThumbTip : { x: handL.homes[f.id].x, y: handL.homes[f.id].y + (f.tipDy || 0) };
+        const res = computeFingerControlPoints(origin, restTip, f.kind, 1);
+        displayFramesL[f.id] = fingerFrame(origin, res.p1, res.p2, restTip, f.baseW, f.tipW, f.kind === 'thumb');
+      });
+    }
+    const svgL = buildUnifiedHandSVG('L', handL.order, handL.thumbF, displayFramesL, handL.bases);
     palmShapeL.setAttribute('d', svgL.palmPath);
     palmShadeL.setAttribute('d', svgL.shadePath);
     palmHiL.setAttribute('cx', svgL.highlight.cx); palmHiL.setAttribute('cy', svgL.highlight.cy);
@@ -2230,7 +2242,18 @@ function renderFrame(handL, handR, wrapRect){
     palmCoreL.setAttribute('cx', svgL.core.x); palmCoreL.setAttribute('cy', svgL.core.y);
   }
   if(handR && Object.keys(framesR).length === 5){
-    const svgR = buildUnifiedHandSVG('R', handR.order, handR.thumbF, framesR, handR.bases);
+    let displayFramesR = framesR;
+    if(HAND_CONFIG.steadyHomeRow){
+      displayFramesR = {};
+      const rightFingers = FINGERS.filter(f=>f.hand==='R');
+      rightFingers.forEach(f => {
+        const origin = handR.bases[f.id];
+        const restTip = (f.kind === 'thumb') ? handR.defaultThumbTip : { x: handR.homes[f.id].x, y: handR.homes[f.id].y + (f.tipDy || 0) };
+        const res = computeFingerControlPoints(origin, restTip, f.kind, -1);
+        displayFramesR[f.id] = fingerFrame(origin, res.p1, res.p2, restTip, f.baseW, f.tipW, f.kind === 'thumb');
+      });
+    }
+    const svgR = buildUnifiedHandSVG('R', handR.order, handR.thumbF, displayFramesR, handR.bases);
     palmShapeR.setAttribute('d', svgR.palmPath);
     palmShadeR.setAttribute('d', svgR.shadePath);
     palmHiR.setAttribute('cx', svgR.highlight.cx); palmHiR.setAttribute('cy', svgR.highlight.cy);
