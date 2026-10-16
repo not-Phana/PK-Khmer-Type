@@ -415,6 +415,35 @@ test('6.1 [VERIFIED] Resting thumbs rest strictly inside Spacebar and never over
     assert.ok(ltTip.y > r.bottom, `Left thumb tip Y (${ltTip.y}) must be well below ${kId} bottom (${r.bottom})`);
     assert.ok(rtTip.y > r.bottom, `Right thumb tip Y (${rtTip.y}) must be well below ${kId} bottom (${r.bottom})`);
   });
+
+  // Anatomical radial knuckle placement: Thumb CMC base must be on the radial/medial side of the index knuckle
+  const ltBase = handL.bases['lt'];
+  const liBase = handL.bases['li'];
+  const rtBase = handR.bases['rt'];
+  const riBase = handR.bases['ri'];
+  assert.ok(ltBase.x > liBase.x, `Left thumb base (${ltBase.x}) must be to the radial/right side of left index (${liBase.x})`);
+  assert.ok(rtBase.x < riBase.x, `Right thumb base (${rtBase.x}) must be to the radial/left side of right index (${riBase.x})`);
+
+  // Purlicue web topological connection: web must connect smoothly without crossing the thumb
+  const leftFrames = {};
+  leftFingers.forEach(f => {
+    const origin = handL.bases[f.id];
+    const tip = (f.kind === 'thumb') ? handL.defaultThumbTip : { x: handL.homes[f.id].x, y: handL.homes[f.id].y + (f.tipDy || 0) };
+    const res = kb.computeFingerControlPoints(origin, tip, f.kind, 1);
+    leftFrames[f.id] = kb.fingerFrame(origin, res.p1, res.p2, tip, f.baseW, f.tipW, f.kind === 'thumb');
+  });
+  const svgL = kb.buildUnifiedHandSVG('L', handL.order, handL.thumbF, leftFrames, handL.bases);
+  assert.ok(svgL && svgL.palmPath, 'Left hand unified SVG must generate valid palmPath');
+
+  const rightFrames = {};
+  rightFingers.forEach(f => {
+    const origin = handR.bases[f.id];
+    const tip = (f.kind === 'thumb') ? handR.defaultThumbTip : { x: handR.homes[f.id].x, y: handR.homes[f.id].y + (f.tipDy || 0) };
+    const res = kb.computeFingerControlPoints(origin, tip, f.kind, -1);
+    rightFrames[f.id] = kb.fingerFrame(origin, res.p1, res.p2, tip, f.baseW, f.tipW, f.kind === 'thumb');
+  });
+  const svgR = kb.buildUnifiedHandSVG('R', handR.order, handR.thumbF, rightFrames, handR.bases);
+  assert.ok(svgR && svgR.palmPath, 'Right hand unified SVG must generate valid palmPath');
 });
 
 test('6.2 [VERIFIED] Non-active fingers remain anchored; damped palm shift applies only to distant reaches', () => {

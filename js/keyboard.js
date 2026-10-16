@@ -1785,24 +1785,24 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   let defaultThumbTip;
   if(spaceBounds && spaceCenter){
     const naturalX = isLeft
-      ? Math.max(spaceBounds.left + 24, Math.min(spaceCenter.x - 16, indexBase.x + inward * 34))
-      : Math.min(spaceBounds.right - 24, Math.max(spaceCenter.x + 16, indexBase.x - 8));
+      ? Math.max(spaceBounds.left + 24, Math.min(spaceCenter.x - 14, indexBase.x + inward * 34))
+      : Math.min(spaceBounds.right - 24, Math.max(spaceCenter.x + 14, indexBase.x + inward * 24));
     defaultThumbTip = {
       x: naturalX,
       y: spaceBounds.top + spaceBounds.height * 0.46
     };
   } else {
     defaultThumbTip = {
-      x: isLeft ? indexBase.x + 34 : indexBase.x - 8,
+      x: indexBase.x + inward * 28,
       y: palmArchBaseY + 18
     };
   }
 
   // Anatomical thumb CMC/thenar base: positioned at lower radial palm
-  // Guarantees proper inward span (> 20px) matching thumb rest kinematics
+  // Guarantees proper inward span matching natural thumb rest kinematics without crossing index finger
   const thumbF = fingers.find(f=>f.kind==='thumb');
   const isModifierThumb = Boolean(activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space');
-  const naturalBaseX = defaultThumbTip ? (defaultThumbTip.x - inward * 24) : (indexBase.x + inward * 14);
+  const naturalBaseX = indexBase.x + inward * 10;
   const thumbBase = {
     x: isModifierThumb ? (indexBase.x - inward * 8) : naturalBaseX,
     y: palmArchBaseY + (isModifierThumb ? 24 : 34) + palmShiftY
@@ -2427,6 +2427,7 @@ if(typeof module !== 'undefined' && module.exports){
     clearAllPhysicalModifiersHeld,
     computeFingerControlPoints,
     fingerFrame,
+    buildUnifiedHandSVG,
     cPoint,
     cTangent
   };
