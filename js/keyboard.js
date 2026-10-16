@@ -1780,13 +1780,13 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
         factorX = 0.85;
         factorY = 0.55;
       } else if(isLateralMod){
-        // Outer lateral modifiers (Shift, Caps): whole-hand outward translation so pinky knuckle aligns behind keycap
-        factorX = 0.82;
-        factorY = 0.55;
+        // Outer lateral modifiers (Shift, Caps): gentle outward float to keep home row connection natural
+        factorX = 0.50;
+        factorY = 0.35;
       } else if(isPerimeterKey){
-        // Outer perimeter keys (Enter, Backspace): whole-hand glide so pinky knuckle aligns behind keycap
-        factorX = 0.82;
-        factorY = targetKey === 'backspace' ? 0.65 : 0.25;
+        // Enter / Backspace: natural wrist pivot to reach key while fingers remain anchored near home row
+        factorX = 0.45;
+        factorY = targetKey === 'backspace' ? 0.60 : 0.15;
       } else if(isDistant){
         // Distant top row & perimeter keys (Escape, numbers): gentle wrist float
         factorX = 0.26;
@@ -1865,6 +1865,8 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
     defaultThumbTip,
     spaceBounds,
     spaceCenter,
+    shiftX: palmShiftX,
+    shiftY: palmShiftY,
     palmShiftX,
     palmShiftY
   };
@@ -2096,35 +2098,20 @@ function updateHandsOverlay(){
     const targetKey = f.hand === 'L' ? targetLeft : targetRight;
 
     const activeModHand = f.hand === 'L' ? activeLeft : activeRight;
-    const isPerimeterGlide = Boolean(activeModHand && targetKey && (
-      ['shiftL', 'shiftR', 'caps', 'enter', 'backspace', 'ctrlL', 'ctrlR', 'win', 'metaL', 'alt', 'altgr'].includes(targetKey)
-    ));
+    const isModifierThumb = Boolean(activeModHand && activeModHand.kind === 'thumb' && (targetKey === 'alt' || targetKey === 'altgr'));
 
     let targetPt;
     if(f.kind === 'thumb'){
       if(isActive && targetKey && targetKey !== 'space'){
         const rawTip = keyCenter(targetKey, wrapRect);
         targetPt = rawTip ? { x: rawTip.x, y: rawTip.y } : hb.defaultThumbTip;
-      } else if(isPerimeterGlide){
-        // Non-active thumb glides and rests naturally relaxed forward from its own base
-        const thumbLen = 65;
-        const inward = f.hand === 'L' ? 1 : -1;
-        const thAng = inward * 0.38;
-        targetPt = {
-          x: hb.bases[f.id].x + Math.sin(thAng) * thumbLen,
-          y: hb.bases[f.id].y - Math.cos(thAng) * thumbLen
-        };
       } else {
         targetPt = hb.defaultThumbTip;
       }
-    } else if(isActive && targetKey){
-      const rawTarget = keyCenter(targetKey, wrapRect);
-      targetPt = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };
-    } else if(isPerimeterGlide){
-      // When whole hand glides for perimeter / modifier reaches (Shift, Enter, Backspace, Alt, AltGr, Ctrl, Win),
-      // non-active fingers do not remain pinned to the keyboard.
-      // They rest naturally relaxed and curled with the hand, strictly aligned with their own knuckles.
-      const curlLen = f.kind === 'pinky' ? 68 : (f.kind === 'middle' ? 82 : (f.kind === 'ring' ? 78 : 74));
+    } else if(isModifierThumb){
+      // When whole hand lowers off keyboard for Alt/AltGr, non-active fingers
+      // rest naturally relaxed and curled with the hand, strictly aligned with their own knuckles.
+      const curlLen = f.kind === 'pinky' ? 68 : f.kind === 'middle' ? 78 : 74;
       const ang = (f.restAng || 0);
       targetPt = {
         x: hb.bases[f.id].x + Math.sin(ang) * curlLen,
@@ -2133,13 +2120,20 @@ function updateHandsOverlay(){
     } else {
       const homeCenter = hb.homes[f.id] || keyCenter(f.home, wrapRect);
       // Non-active fingers remain anchored near their home keys, with natural translation when the hand moves
-      const floatX = hb.palmShiftX ? hb.palmShiftX * 0.70 : 0;
-      const floatY = hb.palmShiftY ? hb.palmShiftY * 0.50 : 0;
+      const sX = typeof hb.palmShiftX === 'number' ? hb.palmShiftX : (hb.shiftX || 0);
+      const sY = typeof hb.palmShiftY === 'number' ? hb.palmShiftY : (hb.shiftY || 0);
+      const floatX = sX * 0.35;
+      const floatY = Math.min(0, sY * 0.20);
       const restTip = homeCenter
         ? { x: homeCenter.x + floatX, y: homeCenter.y + (f.tipDy || 0) + floatY }
         : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };
 
-      targetPt = restTip;
+      if(isActive && targetKey){
+        const rawTarget = keyCenter(targetKey, wrapRect);
+        targetPt = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : restTip;
+      } else {
+        targetPt = restTip;
+      }
     }
 
     targetFingerPositions[f.id] = targetPt;

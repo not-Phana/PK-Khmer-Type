@@ -936,7 +936,7 @@ test('10.7 [VERIFIED FIXED] Alt and AltGr thumb reaches lower whole hand off key
   assert.ok(dxR < 25, `Lateral offset between thumb base and AltGr key must be small (got ${dxR.toFixed(1)}px, expected < 25px)`);
 });
 
-test('10.8 [VERIFIED FIXED] Shift and Enter whole-hand glide aligns pinky knuckle and relaxes non-active fingers off keyboard', () => {
+test('10.8 [VERIFIED FIXED] Shift and Enter reaches maintain home-row anchoring for non-active fingers with natural wrist pivot', () => {
   const mockKeys = setupMockKeyboardGeometry();
   kb.setKeyElements(mockKeys);
   const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
@@ -946,34 +946,62 @@ test('10.8 [VERIFIED FIXED] Shift and Enter whole-hand glide aligns pinky knuckl
   const rightFingers = kb.FINGERS.filter(f => f.hand === 'R');
   const rpDef = rightFingers.find(f => f.id === 'rp');
 
-  // 1. Left Shift reach
+  // 1. Left Shift reach: hand applies natural outward wrist pivot, non-active fingers stay anchored on ASDF
   const handShiftL = kb.buildHand('L', leftFingers, wrapRect, lpDef, 'shiftL');
   assert.ok(handShiftL, 'Left hand on shiftL must build successfully');
   const shiftLCenter = kb.keyCenter('shiftL', wrapRect);
   const lpBase = handShiftL.bases.lp;
   const dxShiftL = Math.abs(shiftLCenter.x - lpBase.x);
-  assert.ok(dxShiftL < 35, `Pinky knuckle must align closely behind ShiftLeft keycap (got ${dxShiftL.toFixed(1)}px, expected < 35px)`);
+  assert.ok(dxShiftL < 65, `Pinky knuckle must align naturally behind ShiftLeft keycap (got ${dxShiftL.toFixed(1)}px, expected < 65px)`);
   assert.ok(handShiftL.palmShiftX < -30, `Hand must translate outward toward Left Shift (got ${handShiftL.palmShiftX.toFixed(1)}px)`);
+  const spanShiftL = Math.hypot(shiftLCenter.x - lpBase.x, shiftLCenter.y - lpBase.y);
+  assert.ok(spanShiftL <= 120, `Pinky reach span to Left Shift (${spanShiftL.toFixed(1)}px) must remain within natural limits (<= 120px)`);
 
-  // 2. Right Shift reach
+  // Verify non-active left fingers (ring, middle, index) stay anchored on Row 3 (Y <= 165px)
+  leftFingers.filter(f => f.id !== 'lp' && f.kind !== 'thumb').forEach(f => {
+    const home = handShiftL.homes[f.id];
+    const sY = handShiftL.palmShiftY || 0;
+    const tipY = home.y + (f.tipDy || 0) + Math.min(0, sY * 0.20);
+    assert.ok(tipY <= 165, `Left finger ${f.id} tip Y (${tipY}px) must stay anchored near home row, never falling to Row 4`);
+  });
+
+  // 2. Right Shift reach: hand applies natural outward wrist pivot, non-active fingers stay anchored on JKL
   const handShiftR = kb.buildHand('R', rightFingers, wrapRect, rpDef, 'shiftR');
   assert.ok(handShiftR, 'Right hand on shiftR must build successfully');
   const shiftRCenter = kb.keyCenter('shiftR', wrapRect);
   const rpBaseShiftR = handShiftR.bases.rp;
   const dxShiftR = Math.abs(shiftRCenter.x - rpBaseShiftR.x);
-  assert.ok(dxShiftR < 40, `Pinky knuckle must align closely behind ShiftRight keycap (got ${dxShiftR.toFixed(1)}px, expected < 40px)`);
-  assert.ok(handShiftR.palmShiftX > 50, `Hand must translate outward toward Right Shift (got ${handShiftR.palmShiftX.toFixed(1)}px)`);
+  assert.ok(dxShiftR < 80, `Pinky knuckle must align naturally behind ShiftRight keycap (got ${dxShiftR.toFixed(1)}px, expected < 80px)`);
+  assert.ok(handShiftR.palmShiftX > 40, `Hand must translate outward toward Right Shift (got ${handShiftR.palmShiftX.toFixed(1)}px)`);
+  const spanShiftR = Math.hypot(shiftRCenter.x - rpBaseShiftR.x, shiftRCenter.y - rpBaseShiftR.y);
+  assert.ok(spanShiftR <= 125, `Pinky reach span to Right Shift (${spanShiftR.toFixed(1)}px) must remain within natural limits (<= 125px)`);
 
-  // 3. Enter reach
+  // Verify non-active right fingers (index, middle, ring) stay anchored on Row 3 (Y <= 165px)
+  rightFingers.filter(f => f.id !== 'rp' && f.kind !== 'thumb').forEach(f => {
+    const home = handShiftR.homes[f.id];
+    const sY = handShiftR.palmShiftY || 0;
+    const tipY = home.y + (f.tipDy || 0) + Math.min(0, sY * 0.20);
+    assert.ok(tipY <= 165, `Right finger ${f.id} tip Y (${tipY}px) must stay anchored near home row, never falling to Row 4`);
+  });
+
+  // 3. Enter reach: hand applies natural wrist pivot, non-active fingers stay anchored on JKL
   const handEnter = kb.buildHand('R', rightFingers, wrapRect, rpDef, 'enter');
   assert.ok(handEnter, 'Right hand on enter must build successfully');
   const enterCenter = kb.keyCenter('enter', wrapRect);
   const rpBaseEnter = handEnter.bases.rp;
   const dxEnter = Math.abs(enterCenter.x - rpBaseEnter.x);
-  assert.ok(dxEnter < 45, `Pinky knuckle must align closely behind Enter keycap (got ${dxEnter.toFixed(1)}px, expected < 45px)`);
-  assert.ok(handEnter.palmShiftX > 50, `Hand must translate outward toward Enter (got ${handEnter.palmShiftX.toFixed(1)}px)`);
+  assert.ok(dxEnter < 90, `Pinky knuckle must align naturally behind Enter keycap (got ${dxEnter.toFixed(1)}px, expected < 90px)`);
+  assert.ok(handEnter.palmShiftX > 40, `Hand must translate outward toward Enter (got ${handEnter.palmShiftX.toFixed(1)}px)`);
   const enterSpan = Math.hypot(enterCenter.x - rpBaseEnter.x, enterCenter.y - rpBaseEnter.y);
-  assert.ok(enterSpan <= 140, `Pinky reach span to Enter (${enterSpan.toFixed(1)}px) must remain within natural limits (<= 140px)`);
+  assert.ok(enterSpan <= 155, `Pinky reach span to Enter (${enterSpan.toFixed(1)}px) must remain within natural limits (<= 155px)`);
+
+  // Verify non-active right fingers stay anchored on Row 3 (Y <= 165px)
+  rightFingers.filter(f => f.id !== 'rp' && f.kind !== 'thumb').forEach(f => {
+    const home = handEnter.homes[f.id];
+    const sY = handEnter.palmShiftY || 0;
+    const tipY = home.y + (f.tipDy || 0) + Math.min(0, sY * 0.20);
+    assert.ok(tipY <= 165, `Right finger ${f.id} tip Y (${tipY}px) on Enter reach must stay anchored near home row, never falling to Row 4`);
+  });
 });
 
 

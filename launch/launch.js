@@ -694,13 +694,13 @@
         let factorY = 0.45;
         if (isCornerMod) {
           factorX = 0.85;
-          factorY = 0.65;
-        } else if (isLateralMod) {
-          factorX = 0.82;
           factorY = 0.55;
+        } else if (isLateralMod) {
+          factorX = 0.50;
+          factorY = 0.35;
         } else if (isPerimeterKey) {
-          factorX = 0.82;
-          factorY = targetKey === 'backspace' ? 0.65 : 0.25;
+          factorX = 0.45;
+          factorY = targetKey === 'backspace' ? 0.60 : 0.15;
         } else {
           factorY = activeF.kind === 'pinky' ? 0.72 : (reachDy < 0 ? 0.65 : 0.45);
           factorX = activeF.kind === 'pinky' ? 0.62 : (reachDy < 0 ? 0.45 : 0.40);
@@ -899,9 +899,8 @@
       const inward = f.hand === 'L' ? 1 : -1;
 
       const activeModHand = f.hand === 'L' ? activeLeft : activeRight;
-      const isPerimeterGlide = Boolean(activeModHand && targetKey && (
-        ['shiftL', 'shiftR', 'caps', 'enter', 'backspace', 'ctrlL', 'ctrlR', 'win', 'metaL', 'alt', 'altgr'].includes(targetKey)
-      ));
+      const targetModKey = f.hand === 'L' ? targetLeft : targetRight;
+      const isModifierThumb = Boolean(activeModHand && activeModHand.kind === 'thumb' && (targetModKey === 'alt' || targetModKey === 'altgr'));
 
       let tip;
       if (f.kind === 'thumb') {
@@ -917,21 +916,13 @@
           } else {
             tip = { x: defaultThumbTip.x + inward * 4, y: defaultThumbTip.y - 4 };
           }
-        } else if (isPerimeterGlide) {
-          const thumbLen = 65;
-          const thAng = inward * 0.38;
-          tip = {
-            x: origin.x + Math.sin(thAng) * thumbLen,
-            y: origin.y - Math.cos(thAng) * thumbLen,
-          };
         } else {
           tip = defaultThumbTip;
         }
-      } else if (isActive && targetKey) {
-        const rawTarget = keyCenter(targetKey, wrapRect);
-        tip = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : { x: origin.x, y: origin.y - 74 };
-      } else if (isPerimeterGlide) {
-        const curlLen = f.kind === 'pinky' ? 68 : (f.kind === 'middle' ? 82 : (f.kind === 'ring' ? 78 : 74));
+      } else if (isModifierThumb) {
+        // When whole hand lowers off keyboard for Alt/AltGr, non-active fingers
+        // rest naturally relaxed and curled with the hand, strictly aligned with their own knuckles.
+        const curlLen = f.kind === 'pinky' ? 68 : f.kind === 'middle' ? 78 : 74;
         const ang = (f.restAng || 0);
         tip = {
           x: origin.x + Math.sin(ang) * curlLen,
@@ -939,10 +930,19 @@
         };
       } else {
         const homeCenter = hb.homes[f.id] || keyCenter(f.home, wrapRect);
+        const sX = typeof hb.palmShiftX === 'number' ? hb.palmShiftX : (hb.shiftX || 0);
+        const sY = typeof hb.palmShiftY === 'number' ? hb.palmShiftY : (hb.shiftY || 0);
+        const floatX = sX * 0.35;
+        const floatY = Math.min(0, sY * 0.20);
         const restTip = homeCenter
-          ? { x: homeCenter.x + hb.shiftX, y: homeCenter.y + (f.tipDy || 0) + hb.shiftY }
+          ? { x: homeCenter.x + floatX, y: homeCenter.y + (f.tipDy || 0) + floatY }
           : { x: origin.x, y: origin.y - 74 };
-        tip = restTip;
+        if (isActive && targetKey) {
+          const rawTarget = keyCenter(targetKey, wrapRect);
+          tip = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : restTip;
+        } else {
+          tip = restTip;
+        }
       }
       if (!tip) return;
 
