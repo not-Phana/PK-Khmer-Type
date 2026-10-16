@@ -687,23 +687,16 @@
       if (targetPt && homePt) {
         const reachDx = targetPt.x - homePt.x;
         const reachDy = targetPt.y - homePt.y;
-        const isCornerMod = ['ctrlL', 'ctrlR', 'win', 'metaL'].includes(targetKey);
         const isLateralMod = ['shiftL', 'shiftR', 'caps'].includes(targetKey);
         const isPerimeterKey = ['enter', 'backspace'].includes(targetKey);
-        let factorX = 0.40;
-        let factorY = 0.45;
-        if (isCornerMod) {
-          factorX = 0.85;
-          factorY = 0.55;
-        } else if (isLateralMod) {
+        let factorX = 0.10;
+        let factorY = 0.12;
+        if (isLateralMod) {
           factorX = 0.50;
           factorY = 0.35;
         } else if (isPerimeterKey) {
           factorX = 0.45;
           factorY = targetKey === 'backspace' ? 0.60 : 0.15;
-        } else {
-          factorY = activeF.kind === 'pinky' ? 0.72 : (reachDy < 0 ? 0.65 : 0.45);
-          factorX = activeF.kind === 'pinky' ? 0.62 : (reachDy < 0 ? 0.45 : 0.40);
         }
         shiftY = reachDy * factorY;
         shiftX = reachDx * factorX;

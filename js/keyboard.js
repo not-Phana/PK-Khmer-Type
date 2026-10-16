@@ -1766,7 +1766,6 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
       const reachDx = targetPt.x - homePt.x;
       const reachDy = targetPt.y - homePt.y;
 
-      const isCornerMod = ['ctrlL', 'ctrlR', 'win', 'metaL'].includes(targetKey);
       const isLateralMod = ['shiftL', 'shiftR', 'caps'].includes(targetKey);
       const isPerimeterKey = ['enter', 'backspace'].includes(targetKey);
       const isDistant = ['grave', 'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k0', 'minus', 'equal', 'tab', 'escape', 'delete', 'extra'].includes(targetKey);
@@ -1774,12 +1773,7 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
       let factorX = 0.10;
       let factorY = 0.12;
 
-      if(isCornerMod){
-        // Bottom-row corner modifiers (Ctrl, Win): human hand rotates and translates down and outward
-        // so pinky knuckle aligns directly behind the corner keycap without unnatural sideways stretching
-        factorX = 0.85;
-        factorY = 0.55;
-      } else if(isLateralMod){
+      if(isLateralMod){
         // Outer lateral modifiers (Shift, Caps): gentle outward float to keep home row connection natural
         factorX = 0.50;
         factorY = 0.35;
