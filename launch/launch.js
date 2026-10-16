@@ -696,11 +696,11 @@
     } else if (activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space') {
       const targetPt = keyCenter(targetKey, wrapRect);
       if (targetPt) {
+        const desiredThumbBaseX = targetPt.x + inward * 6;
+        const desiredIndexBaseX = desiredThumbBaseX - inward * 34;
         const indexHomeX = homes[order[3].id].x;
         const restIndexBaseX = indexHomeX + (homeSpanCenterX - indexHomeX) * (order[3].archPull || 0.24);
-        const restThumbBaseX = restIndexBaseX + inward * 10;
-        const desiredThumbBaseX = targetPt.x + inward * 4;
-        shiftX = desiredThumbBaseX - restThumbBaseX;
+        shiftX = desiredIndexBaseX - restIndexBaseX;
         shiftY = 68;
       }
     }
@@ -725,7 +725,9 @@
       if (sr.height > 0) spaceMidY = (sr.top + sr.height * 0.50) - wrapRect.top;
     }
     const thumbBase = {
-      x: indexBase.x + inward * 10,
+      x: (activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space')
+        ? (indexBase.x + inward * 34)
+        : (indexBase.x + inward * 10),
       y: indexBase.y + 66,
     };
     baseKnuckles[thumbF.id] = thumbBase;
@@ -898,6 +900,13 @@
         } else {
           tip = defaultThumbTip;
         }
+      } else if (Boolean((f.hand === 'L' ? activeLeft : activeRight)?.kind === 'thumb' && (targetKey === 'alt' || targetKey === 'altgr'))) {
+        const curlLen = f.kind === 'pinky' ? 68 : f.kind === 'middle' ? 78 : 74;
+        const ang = (f.restAng || 0);
+        tip = {
+          x: origin.x + Math.sin(ang) * curlLen,
+          y: origin.y - Math.cos(ang) * curlLen,
+        };
       } else {
         const homeCenter = hb.homes[f.id] || keyCenter(f.home, wrapRect);
         const restTip = homeCenter

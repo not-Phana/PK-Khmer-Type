@@ -906,6 +906,10 @@ test('10.7 [VERIFIED FIXED] Alt and AltGr thumb reaches lower whole hand off key
   // Verify thumb is on the radial side of index (thumbBase.x > indexBase.x for Left Hand)
   assert.ok(ltBase.x > liBase.x, `Left thumb base (${ltBase.x.toFixed(1)}px) must remain strictly on the radial side of index (${liBase.x.toFixed(1)}px)`);
 
+  // Verify anatomical knuckle clearance between index knuckle and thumb base (>= 28px)
+  const knuckleDistL = Math.abs(ltBase.x - liBase.x);
+  assert.ok(knuckleDistL >= 28, `Knuckle clearance between thumb and index must be >= 28px to prevent overlap (got ${knuckleDistL.toFixed(1)}px)`);
+
   // Verify thumb base aligns directly behind Alt key without crossing palm laterally
   const dxL = Math.abs(altCenter.x - ltBase.x);
   assert.ok(dxL < 25, `Lateral offset between thumb base and Alt key must be small (got ${dxL.toFixed(1)}px, expected < 25px)`);
@@ -922,6 +926,10 @@ test('10.7 [VERIFIED FIXED] Alt and AltGr thumb reaches lower whole hand off key
 
   // Verify thumb is on the radial side of index (thumbBase.x < indexBase.x for Right Hand)
   assert.ok(rtBase.x < riBase.x, `Right thumb base (${rtBase.x.toFixed(1)}px) must remain strictly on the radial side of index (${riBase.x.toFixed(1)}px)`);
+
+  // Verify anatomical knuckle clearance between index knuckle and thumb base (>= 28px)
+  const knuckleDistR = Math.abs(rtBase.x - riBase.x);
+  assert.ok(knuckleDistR >= 28, `Knuckle clearance between thumb and index must be >= 28px to prevent overlap (got ${knuckleDistR.toFixed(1)}px)`);
 
   // Verify thumb base aligns directly behind AltGr key without crossing palm laterally
   const dxR = Math.abs(altgrCenter.x - rtBase.x);

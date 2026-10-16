@@ -1794,13 +1794,14 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   } else if(activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space'){
     const targetPt = keyCenter(targetKey, wrapRect);
     if(targetPt){
-      // Resting thumb base X before shift
+      // To prevent thumb and index finger collision ("finger in finger"),
+      // the thumb base aligns with the modifier key (targetPt.x + inward * 6),
+      // and the index knuckle is positioned ulnar to the thumb by natural anatomical thenar distance (34px).
+      const desiredThumbBaseX = targetPt.x + inward * 6;
+      const desiredIndexBaseX = desiredThumbBaseX - inward * 34;
       const indexHomeX = homes[order[3].id].x;
       const restIndexBaseX = indexHomeX + (homeSpanCenterX - indexHomeX) * (order[3].archPull || 0.20);
-      const restThumbBaseX = restIndexBaseX + inward * 10;
-      // Biomechanical whole-hand glide: hand lowers off keyboard and translates so thumb base aligns with modifier key
-      const desiredThumbBaseX = targetPt.x + inward * 4;
-      palmShiftX = desiredThumbBaseX - restThumbBaseX;
+      palmShiftX = desiredIndexBaseX - restIndexBaseX;
       palmShiftY = 68;
     }
   }
@@ -1842,10 +1843,12 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   // Guarantees proper inward span matching natural thumb rest kinematics without crossing index finger
   const thumbF = fingers.find(f=>f.kind==='thumb');
   const isModifierThumb = Boolean(activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space');
-  const naturalBaseX = indexBase.x + inward * 10;
+  const naturalBaseX = isModifierThumb
+    ? (indexBase.x + inward * 34)
+    : (indexBase.x + inward * 10);
   const thumbBase = {
     x: naturalBaseX,
-    y: palmArchBaseY + (isModifierThumb ? 32 : 34) + palmShiftY
+    y: palmArchBaseY + 34 + palmShiftY
   };
   baseKnuckles[thumbF.id] = thumbBase;
 
@@ -2087,6 +2090,9 @@ function updateHandsOverlay(){
     const isActive = Boolean(isLeftActive || isRightActive);
     const targetKey = f.hand === 'L' ? targetLeft : targetRight;
 
+    const activeModHand = f.hand === 'L' ? activeLeft : activeRight;
+    const isModifierThumb = Boolean(activeModHand && activeModHand.kind === 'thumb' && (targetKey === 'alt' || targetKey === 'altgr'));
+
     let targetPt;
     if(f.kind === 'thumb'){
       if(isActive && targetKey && targetKey !== 'space'){
@@ -2095,16 +2101,20 @@ function updateHandsOverlay(){
       } else {
         targetPt = hb.defaultThumbTip;
       }
+    } else if(isModifierThumb){
+      // When whole hand lowers off keyboard for Alt/AltGr, non-active fingers
+      // rest naturally relaxed and curled with the hand, strictly aligned with their own knuckles.
+      const curlLen = f.kind === 'pinky' ? 68 : f.kind === 'middle' ? 78 : 74;
+      const ang = (f.restAng || 0);
+      targetPt = {
+        x: hb.bases[f.id].x + Math.sin(ang) * curlLen,
+        y: hb.bases[f.id].y - Math.cos(ang) * curlLen
+      };
     } else {
       const homeCenter = hb.homes[f.id] || keyCenter(f.home, wrapRect);
       // Non-active fingers remain anchored near their home keys, with natural translation when the hand moves
-      const isModifierThumb = Boolean(activeFinger && (activeTargetKey === 'alt' || activeTargetKey === 'altgr'));
-      const floatX = isModifierThumb
-        ? (hb.palmShiftX ? hb.palmShiftX * 0.85 : 0)
-        : (hb.palmShiftX ? hb.palmShiftX * 0.70 : 0);
-      const floatY = isModifierThumb
-        ? (hb.palmShiftY ? hb.palmShiftY * 0.70 : 0)
-        : (hb.palmShiftY ? hb.palmShiftY * 0.50 : 0);
+      const floatX = hb.palmShiftX ? hb.palmShiftX * 0.70 : 0;
+      const floatY = hb.palmShiftY ? hb.palmShiftY * 0.50 : 0;
       const restTip = homeCenter
         ? { x: homeCenter.x + floatX, y: homeCenter.y + (f.tipDy || 0) + floatY }
         : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };
