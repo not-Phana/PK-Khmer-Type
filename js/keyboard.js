@@ -1126,17 +1126,17 @@ function computeFingerControlPoints(p0, p3, kind, inward){
 
   let p1, p2;
   if(kind === 'thumb'){
-    // Thumb: departs laterally from thenar CMC, curves inward along spacebar or flexes anatomically toward Alt/AltGr
-    const isAdducting = (dx * inward) < 0;
-    if(isAdducting){
-      // Graceful flexed thumb reaching Alt/AltGr: natural anatomical MCP arch and soft descent onto keycap
+    // Thumb: departs laterally from thenar CMC, curves naturally along keycap chord with dorsal flexure
+    const isModifierReach = Math.abs(dx) > 20 || dy < -45;
+    if(isModifierReach){
+      // Graceful flexed thumb reaching Alt/AltGr: natural anatomical MCP arch and soft pad landing
       p1 = {
-        x: p0.x + dx * 0.32 - inward * (span * 0.12),
-        y: p0.y + dy * 0.30 - Math.min(10, span * 0.20)
+        x: p0.x + dx * 0.34 - inward * Math.min(8, span * 0.08),
+        y: p0.y + dy * 0.34 - Math.min(10, span * 0.16)
       };
       p2 = {
-        x: p0.x + dx * 0.70 - inward * (span * 0.05),
-        y: p0.y + dy * 0.68 - Math.min(6, span * 0.14)
+        x: p0.x + dx * 0.72 - inward * Math.min(4, span * 0.04),
+        y: p0.y + dy * 0.72 - Math.min(6, span * 0.10)
       };
     } else {
       // Natural resting or Spacebar sweep
@@ -1249,15 +1249,17 @@ function tipCapBetween(fromPt, toPt, tipTan, tipW, isThumb = false){
   return `C ${c1.x.toFixed(1)} ${c1.y.toFixed(1)}, ${c2.x.toFixed(1)} ${c2.y.toFixed(1)}, ${toPt.x.toFixed(1)} ${toPt.y.toFixed(1)} `;
 }
 
-/* Open-base finger path for active finger illumination (no circular seam across knuckle) */
+/* Seamless sculpted finger path for active finger illumination with feathered root */
 function frameToPath(frame, baseW, tipW){
   const {left, right, tipTan, isThumb} = frame;
-  const startIdx = isThumb ? 2 : 4;
   const n = left.length - 1;
-  let d = `M ${left[startIdx].x.toFixed(1)} ${left[startIdx].y.toFixed(1)} `;
-  for(let i = startIdx + 1; i <= n; i++) d += `L ${left[i].x.toFixed(1)} ${left[i].y.toFixed(1)} `;
+  let d = `M ${left[0].x.toFixed(1)} ${left[0].y.toFixed(1)} `;
+  for(let i = 1; i <= n; i++) d += `L ${left[i].x.toFixed(1)} ${left[i].y.toFixed(1)} `;
   d += tipCapBetween(left[n], right[n], tipTan, tipW, isThumb);
-  for(let i = n - 1; i >= startIdx; i--) d += `L ${right[i].x.toFixed(1)} ${right[i].y.toFixed(1)} `;
+  for(let i = n - 1; i >= 0; i--) d += `L ${right[i].x.toFixed(1)} ${right[i].y.toFixed(1)} `;
+  const bMidX = (left[0].x + right[0].x) * 0.5;
+  const bMidY = (left[0].y + right[0].y) * 0.5 + (isThumb ? 8 : 4);
+  d += `C ${right[0].x.toFixed(1)} ${right[0].y.toFixed(1)} ${bMidX.toFixed(1)} ${bMidY.toFixed(1)} ${left[0].x.toFixed(1)} ${left[0].y.toFixed(1)} Z`;
   return d;
 }
 
@@ -1371,16 +1373,32 @@ function updateHandsGradients(leftHex, rightHex) {
   </linearGradient>
   <linearGradient id="fingerGradActive" x1="0" y1="1" x2="0.15" y2="0">
     <stop offset="0%" stop-color="${palL.deep}" stop-opacity="0"/>
-    <stop offset="18%" stop-color="${palL.bright}" stop-opacity="0.72"/>
-    <stop offset="60%" stop-color="${palL.bright}" stop-opacity="0.95"/>
-    <stop offset="85%" stop-color="#ffd166" stop-opacity="0.98"/>
+    <stop offset="24%" stop-color="${palL.deep}" stop-opacity="0"/>
+    <stop offset="50%" stop-color="${palL.bright}" stop-opacity="0.65"/>
+    <stop offset="78%" stop-color="${palL.bright}" stop-opacity="0.95"/>
+    <stop offset="90%" stop-color="#ffd166" stop-opacity="0.98"/>
     <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
   </linearGradient>
   <linearGradient id="fingerGradActiveR" x1="0" y1="1" x2="0.15" y2="0">
     <stop offset="0%" stop-color="${palR.deep}" stop-opacity="0"/>
-    <stop offset="18%" stop-color="${palR.bright}" stop-opacity="0.72"/>
-    <stop offset="60%" stop-color="${palR.bright}" stop-opacity="0.95"/>
-    <stop offset="85%" stop-color="#ffd166" stop-opacity="0.98"/>
+    <stop offset="24%" stop-color="${palR.deep}" stop-opacity="0"/>
+    <stop offset="50%" stop-color="${palR.bright}" stop-opacity="0.65"/>
+    <stop offset="78%" stop-color="${palR.bright}" stop-opacity="0.95"/>
+    <stop offset="90%" stop-color="#ffd166" stop-opacity="0.98"/>
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
+  </linearGradient>
+  <linearGradient id="activeStrokeGradL" x1="0" y1="1" x2="0.15" y2="0">
+    <stop offset="0%" stop-color="${palL.bright}" stop-opacity="0"/>
+    <stop offset="20%" stop-color="${palL.bright}" stop-opacity="0"/>
+    <stop offset="48%" stop-color="${palL.bright}" stop-opacity="0.65"/>
+    <stop offset="78%" stop-color="#ffffff" stop-opacity="0.95"/>
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
+  </linearGradient>
+  <linearGradient id="activeStrokeGradR" x1="0" y1="1" x2="0.15" y2="0">
+    <stop offset="0%" stop-color="${palR.bright}" stop-opacity="0"/>
+    <stop offset="20%" stop-color="${palR.bright}" stop-opacity="0"/>
+    <stop offset="48%" stop-color="${palR.bright}" stop-opacity="0.65"/>
+    <stop offset="78%" stop-color="#ffffff" stop-opacity="0.95"/>
     <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
   </linearGradient>
   <linearGradient id="palmGrad" x1="0" y1="1" x2="0.18" y2="0">
@@ -1776,9 +1794,9 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
       const indexHomeY = homes[order[3].id] ? homes[order[3].id].y : 130;
       const reachDy = Math.max(0, targetPt.y - indexHomeY);
       // Biomechanical whole-hand glide: hand lowers and translates naturally toward Alt/AltGr
-      palmShiftY = Math.max(14, reachDy * 0.35);
+      palmShiftY = Math.max(16, reachDy * 0.35);
       const isOutwardReach = (reachDx * inward) < 0;
-      palmShiftX = isOutwardReach ? (reachDx * 1.35) : (reachDx * 0.70);
+      palmShiftX = isOutwardReach ? (reachDx * 1.08) : (reachDx * 0.70);
     }
   }
 
@@ -1829,7 +1847,7 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   const naturalBaseX = indexBase.x + inward * 10;
   const thumbBase = {
     x: isModifierThumb ? (indexBase.x - inward * 8) : naturalBaseX,
-    y: palmArchBaseY + (isModifierThumb ? 24 : 34) + palmShiftY
+    y: palmArchBaseY + (isModifierThumb ? 28 : 34) + palmShiftY
   };
   baseKnuckles[thumbF.id] = thumbBase;
 
@@ -2451,6 +2469,7 @@ if(typeof module !== 'undefined' && module.exports){
     clearAllPhysicalModifiersHeld,
     computeFingerControlPoints,
     fingerFrame,
+    frameToPath,
     buildUnifiedHandSVG,
     cPoint,
     cTangent

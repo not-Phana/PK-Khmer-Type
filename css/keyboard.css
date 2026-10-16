@@ -482,12 +482,12 @@
     100%{ r:26px; stroke-width:0.3px; opacity:0; }
   }
 
-  /* Active reaching finger — seamless open-base golden/accent spotlight */
+  /* Active reaching finger — seamless feathered-root golden/accent spotlight */
   .hands-overlay .finger.active .finger-shape,
   .hands-overlay .finger.pressed .finger-shape,
   .hands-overlay .finger.struck .finger-shape{
     fill:url(#fingerGradActive);
-    stroke:rgba(255, 255, 255, 0.95);
+    stroke:url(#activeStrokeGradL);
     stroke-width:1.8;
     opacity:1;
     filter:
@@ -499,7 +499,7 @@
   .hands-overlay .hand-group.side-r .finger.pressed .finger-shape,
   .hands-overlay .hand-group.side-r .finger.struck .finger-shape{
     fill:url(#fingerGradActiveR);
-    stroke:rgba(255, 255, 255, 0.95);
+    stroke:url(#activeStrokeGradR);
     stroke-width:1.8;
     opacity:1;
     filter:

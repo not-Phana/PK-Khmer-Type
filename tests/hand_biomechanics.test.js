@@ -792,4 +792,53 @@ test('10.4 [VERIFIED FIXED] Lateral modifiers (shiftL, shiftR) apply balanced ou
   assert.ok(angleR >= 45, `Right Shift reach angle (${angleR.toFixed(1)} deg) must be >= 45 deg`);
 });
 
+test('10.5 [VERIFIED FIXED] Thumb reach to Left Alt (alt) exhibits natural human thumb length and seamless feathered root', () => {
+  const mockKeys = setupMockKeyboardGeometry();
+  kb.setKeyElements(mockKeys);
+  const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+  const ltDef = leftFingers.find(f => f.id === 'lt');
+
+  const handL = kb.buildHand('L', leftFingers, wrapRect, ltDef, 'alt');
+  assert.ok(handL, 'buildHand for Left Hand on alt must construct successfully');
+
+  // Whole hand translates naturally toward Alt
+  assert.ok(handL.palmShiftX < 0, `Palm must shift laterally toward Alt (got ${handL.palmShiftX.toFixed(1)}px)`);
+  assert.ok(handL.palmShiftY > 15, `Palm must lower toward row 5 (got ${handL.palmShiftY.toFixed(1)}px)`);
+
+  const altCenter = kb.keyCenter('alt', wrapRect);
+  const thumbBase = handL.bases.lt;
+  assert.ok(thumbBase, 'Thumb base must exist');
+
+  const dx = altCenter.x - thumbBase.x;
+  const dy = altCenter.y - thumbBase.y;
+  const span = Math.hypot(dx, dy);
+
+  // Assert natural human thumb length (realistic range: 75px to 115px, never a stubby 40px pipe)
+  assert.ok(span >= 75 && span <= 115, `Thumb reach span (${span.toFixed(1)}px) must be a realistic human thumb length (75..115px)`);
+
+  // Assert natural upward/inward flexion angle
+  const angleDeg = Math.atan2(Math.abs(dy), Math.abs(dx)) * 180 / Math.PI;
+  assert.ok(angleDeg >= 30, `Thumb reach angle (${angleDeg.toFixed(1)} deg) must be naturally diagonal (>= 30 deg)`);
+
+  // Assert frameToPath generates seamless anatomical root curve without severed flat chord
+  const cp = kb.computeFingerControlPoints(thumbBase, altCenter, 'thumb', 1);
+  const frame = kb.fingerFrame(thumbBase, cp.p1, cp.p2, altCenter, ltDef.baseW, ltDef.tipW, true);
+  const pathD = kb.frameToPath(frame, ltDef.baseW, ltDef.tipW);
+  assert.ok(pathD.endsWith('Z'), 'Active finger path must close with a smooth anatomical knuckle contour');
+  assert.ok(pathD.includes('C'), 'Active finger path must include Bezier root contour');
+
+  // Assert unified hand SVG contour integrity
+  const frames = {};
+  leftFingers.forEach(f => {
+    const origin = handL.bases[f.id];
+    const tip = (f.kind === 'thumb') ? altCenter : { x: handL.homes[f.id].x + handL.palmShiftX * 0.70, y: handL.homes[f.id].y + (f.tipDy || 0) + handL.palmShiftY * 0.50 };
+    const res = kb.computeFingerControlPoints(origin, tip, f.kind, 1);
+    frames[f.id] = kb.fingerFrame(origin, res.p1, res.p2, tip, f.baseW, f.tipW, f.kind === 'thumb');
+  });
+  const svg = kb.buildUnifiedHandSVG('L', handL.order, handL.thumbF, frames, handL.bases);
+  assert.ok(svg && svg.palmPath && svg.palmPath.length > 500, 'Unified hand SVG must generate valid palm contour during alt reach');
+});
+
+
 

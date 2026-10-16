@@ -687,6 +687,14 @@
         shiftY = reachDy * factorY;
         shiftX = reachDx * factorX;
       }
+    } else if (activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space') {
+      const targetPt = keyCenter(targetKey, wrapRect);
+      if (targetPt) {
+        const naturalRestX = inward === 1 ? 264 : 536;
+        const reachDx = targetPt.x - naturalRestX;
+        shiftY = 38;
+        shiftX = reachDx * 0.70;
+      }
     }
 
     const homeXs = order.map((f) => homes[f.id].x);
