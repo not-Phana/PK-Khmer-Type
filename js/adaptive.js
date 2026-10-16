@@ -334,8 +334,8 @@
     p:'rp', bracketL:'rp', bracketR:'rp', enter:'rp',
     caps:'lp', a:'lp', s:'lr', d:'lm', f:'li', g:'li', h:'ri', j:'ri', k:'rm', l:'rr',
     semicolon:'rp', quote:'rp', backslash:'rp',
-    shiftL:'lp', z:'lp', x:'lr', c:'lm', v:'li', b:'li', n:'ri', m:'ri',
-    comma:'rm', period:'rr', slash:'rp', extra:'rp', shiftR:'rp',
+    shiftL:'lp', extra:'lp', z:'lp', x:'lr', c:'lm', v:'li', b:'li', n:'ri', m:'ri',
+    comma:'rm', period:'rr', slash:'rp', shiftR:'rp',
     ctrlL:'lt', alt:'lt', space:'rt', altgr:'rt', ctrlR:'rp'
   };
 

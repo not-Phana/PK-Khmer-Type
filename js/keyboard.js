@@ -56,7 +56,8 @@ const ROW3 = [
 ];
 
 const ROW4 = [
-  {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:2.25},
+  {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:1.25},
+  KEY('extra','','','¶',''),
   KEY('z','ឋ','','#','ឍ'),
   KEY('x','ខ','','@','ឃ'),
   KEY('c','ច','','&','ជ'),
@@ -67,8 +68,7 @@ const ROW4 = [
   KEY('comma','អ','<','‹',','),
   KEY('period','។','>','›','.'),
   KEY('slash','','”','៕','?'),
-  KEY('extra','','','¶',''),
-  {id:'shiftR', kind:'mod', label:'Shift', cls:'key-shift', wide:1.75},
+  {id:'shiftR', kind:'mod', label:'Shift', cls:'key-shift', wide:2.75},
 ];
 
 const ROW5 = [
@@ -131,7 +131,8 @@ const ROW3_NIDA = [
 ];
 
 const ROW4_NIDA = [
-  {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:2.25},
+  {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:1.25},
+  KEY('extra','','','',''),
   KEY('z','ឋ','','','ឍ'),
   KEY('x','ខ','','','ឃ'),
   KEY('c','ច','','','ជ'),
@@ -142,8 +143,7 @@ const ROW4_NIDA = [
   KEY('comma','ុំ','',',','ុះ'),
   KEY('period','។','','.','៕'),
   KEY('slash','៊','','/','?'),
-  KEY('extra','','','',''),
-  {id:'shiftR', kind:'mod', label:'Shift', cls:'key-shift', wide:1.75},
+  {id:'shiftR', kind:'mod', label:'Shift', cls:'key-shift', wide:2.75},
 ];
 
 const ROW5_NIDA = [
@@ -206,7 +206,8 @@ const ROW3_EN = [
 ];
 
 const ROW4_EN = [
-  {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:2.25},
+  {id:'shiftL', kind:'mod', label:'Shift', cls:'key-shift', wide:1.25},
+  KEY('extra','','','',''),
   KEY('z','z','','','Z'),
   KEY('x','x','','','X'),
   KEY('c','c','','','C'),
@@ -217,8 +218,7 @@ const ROW4_EN = [
   KEY('comma',',','','','<'),
   KEY('period','.','','','>'),
   KEY('slash','/','','','?'),
-  KEY('extra','','','',''),
-  {id:'shiftR', kind:'mod', label:'Shift', cls:'key-shift', wide:1.75},
+  {id:'shiftR', kind:'mod', label:'Shift', cls:'key-shift', wide:2.75},
 ];
 
 const ROW5_EN = [
@@ -289,7 +289,7 @@ const CODE_MAP = {
   ShiftLeft:'shiftL', ShiftRight:'shiftR', KeyZ:'z', KeyX:'x', KeyC:'c', KeyV:'v', KeyB:'b',
   KeyN:'n', KeyM:'m', Comma:'comma', Period:'period', Slash:'slash',
   ControlLeft:'ctrlL', ControlRight:'ctrlR', AltLeft:'alt', AltRight:'altgr', Space:'space',
-  Escape:'escape', IntlBackslash:'backslash', MetaLeft:'metaL', Delete:'delete',
+  Escape:'escape', IntlBackslash:'extra', MetaLeft:'metaL', Delete:'delete',
   F1:'f1', F2:'f2', F3:'f3', F4:'f4', F5:'f5', F6:'f6', F7:'f7', F8:'f8', F9:'f9', F10:'f10', F11:'f11', F12:'f12'
 };
 
@@ -318,8 +318,8 @@ const KEY_FINGER = {
   p:'rp', bracketL:'rp', bracketR:'rp', enter:'rp',
   caps:'lp', a:'lp', s:'lr', d:'lm', f:'li', g:'li', h:'ri', j:'ri', k:'rm', l:'rr',
   semicolon:'rp', quote:'rp', backslash:'rp',
-  shiftL:'lp', z:'lp', x:'lr', c:'lm', v:'li', b:'li', n:'ri', m:'ri',
-  comma:'rm', period:'rr', slash:'rp', extra:'rp', shiftR:'rp',
+  shiftL:'lp', extra:'lp', z:'lp', x:'lr', c:'lm', v:'li', b:'li', n:'ri', m:'ri',
+  comma:'rm', period:'rr', slash:'rp', shiftR:'rp',
   ctrlL:'lp', alt:'lt', space:'rt', altgr:'rt', ctrlR:'rp',
   escape:'lp', metaL:'lp', delete:'rp',
   f1:'lp', f2:'lr', f3:'lm', f4:'li', f5:'li',
@@ -690,6 +690,7 @@ ALL_ROWS.forEach(rowDef=>{
     else if(k.id === 'backspace') el.dataset.code = 'Backspace';
     else if(k.id === 'tab') el.dataset.code = 'Tab';
     else if(k.id === 'caps') el.dataset.code = 'CapsLock';
+    else if(k.id === 'extra') el.dataset.code = 'IntlBackslash';
     const u = k.wide || (k.id === 'space' ? 9 : 1);
     el.style.setProperty('--u', u);
     el.style.flexGrow = u;

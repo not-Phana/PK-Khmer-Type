@@ -336,7 +336,15 @@
             "kind": "mod",
             "label": "Shift",
             "cls": "key-shift",
-            "wide": 2.25
+            "wide": 1.25
+          },
+          {
+            "id": "extra",
+            "base": "",
+            "ctrl": "",
+            "altgr": "¶",
+            "shift": "",
+            "kind": "glyph"
           },
           {
             "id": "z",
@@ -419,19 +427,11 @@
             "kind": "glyph"
           },
           {
-            "id": "extra",
-            "base": "",
-            "ctrl": "",
-            "altgr": "¶",
-            "shift": "",
-            "kind": "glyph"
-          },
-          {
             "id": "shiftR",
             "kind": "mod",
             "label": "Shift",
             "cls": "key-shift",
-            "wide": 1.75
+            "wide": 2.75
           }
         ],
         [
@@ -821,7 +821,15 @@
             "kind": "mod",
             "label": "Shift",
             "cls": "key-shift",
-            "wide": 2.25
+            "wide": 1.25
+          },
+          {
+            "id": "extra",
+            "base": "",
+            "ctrl": "",
+            "altgr": "",
+            "shift": "",
+            "kind": "glyph"
           },
           {
             "id": "z",
@@ -904,19 +912,11 @@
             "kind": "glyph"
           },
           {
-            "id": "extra",
-            "base": "",
-            "ctrl": "",
-            "altgr": "",
-            "shift": "",
-            "kind": "glyph"
-          },
-          {
             "id": "shiftR",
             "kind": "mod",
             "label": "Shift",
             "cls": "key-shift",
-            "wide": 1.75
+            "wide": 2.75
           }
         ],
         [
@@ -1306,7 +1306,15 @@
             "kind": "mod",
             "label": "Shift",
             "cls": "key-shift",
-            "wide": 2.25
+            "wide": 1.25
+          },
+          {
+            "id": "extra",
+            "base": "",
+            "ctrl": "",
+            "altgr": "",
+            "shift": "",
+            "kind": "glyph"
           },
           {
             "id": "z",
@@ -1389,19 +1397,11 @@
             "kind": "glyph"
           },
           {
-            "id": "extra",
-            "base": "",
-            "ctrl": "",
-            "altgr": "",
-            "shift": "",
-            "kind": "glyph"
-          },
-          {
             "id": "shiftR",
             "kind": "mod",
             "label": "Shift",
             "cls": "key-shift",
-            "wide": 1.75
+            "wide": 2.75
           }
         ],
         [
@@ -1499,6 +1499,7 @@
     "quote": "rp",
     "backslash": "rp",
     "shiftL": "lp",
+    "extra": "lp",
     "z": "lp",
     "x": "lr",
     "c": "lm",
@@ -1509,7 +1510,6 @@
     "comma": "rm",
     "period": "rr",
     "slash": "rp",
-    "extra": "rp",
     "shiftR": "rp",
     "ctrlL": "lp",
     "alt": "lt",
@@ -1672,6 +1672,7 @@
     "Quote": "quote",
     "Backslash": "backslash",
     "ShiftLeft": "shiftL",
+    "IntlBackslash": "extra",
     "ShiftRight": "shiftR",
     "KeyZ": "z",
     "KeyX": "x",

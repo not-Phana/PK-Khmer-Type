@@ -374,7 +374,7 @@
     if (currentInspectedKeyId) {
       const bottomRowOrHomeKeys = new Set([
         'caps', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'semicolon', 'quote', 'enter',
-        'shiftL', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'comma', 'period', 'slash', 'extra', 'shiftR'
+        'shiftL', 'extra', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'comma', 'period', 'slash', 'shiftR'
       ]);
       if (bottomRowOrHomeKeys.has(currentInspectedKeyId) && (y - hudH - gap >= 12)) {
         // Place HUD above home/bottom row keys so the 3D hands below remain unobstructed

@@ -201,3 +201,41 @@ test('UNC-12: Caps Lock Warning HUD and Chassis Indicator', () => {
   assert.ok(lessonsCss.includes('.caps-lock-warning-hud'));
   assert.ok(lessonsCss.includes('.chassis-caps-warn'));
 });
+
+test('UNC-13: Row 4 ISO keyboard layout alignment, key widths, and finger assignments', () => {
+  const keyboardJson = JSON.parse(fs.readFileSync(path.join(projectRoot, 'data/keyboard.json'), 'utf8'));
+  const keyboardJs = fs.readFileSync(path.join(projectRoot, 'js/keyboard.js'), 'utf8');
+
+  // Verify KEY_FINGER and CODE_MAP in data/keyboard.json
+  assert.equal(keyboardJson.KEY_FINGER.extra, 'lp', 'extra key must map to Left Pinky (lp)');
+  assert.equal(keyboardJson.CODE_MAP.IntlBackslash, 'extra', 'IntlBackslash must map to extra');
+
+  // Verify Row 4 structure across standard, nida, and english
+  ['standard', 'nida', 'english'].forEach(layoutId => {
+    const row4 = keyboardJson.LAYOUTS[layoutId].rows[3];
+    assert.equal(row4.length, 13, `${layoutId} Row 4 must have exactly 13 keys`);
+
+    assert.equal(row4[0].id, 'shiftL');
+    assert.equal(row4[0].wide, 1.25, `${layoutId} shiftL must be 1.25u`);
+
+    assert.equal(row4[1].id, 'extra', `${layoutId} extra key must be immediately after shiftL`);
+    assert.equal(row4[1].wide || 1, 1, `${layoutId} extra key must be 1.0u`);
+
+    assert.equal(row4[2].id, 'z');
+    assert.equal(row4[9].id, 'comma');
+    assert.equal(row4[10].id, 'period');
+    assert.equal(row4[11].id, 'slash', `${layoutId} key after period must be slash`);
+
+    assert.equal(row4[12].id, 'shiftR');
+    assert.equal(row4[12].wide, 2.75, `${layoutId} shiftR must be 2.75u`);
+
+    // Verify row total width equals 15.0u
+    const totalWidth = row4.reduce((sum, k) => sum + (k.wide || 1), 0);
+    assert.equal(totalWidth, 15.0, `${layoutId} Row 4 total width must equal 15.0u`);
+  });
+
+  // Verify js/keyboard.js declarations
+  assert.ok(keyboardJs.includes("IntlBackslash:'extra'"), 'js/keyboard.js CODE_MAP must map IntlBackslash to extra');
+  assert.ok(keyboardJs.includes("extra:'lp'"), 'js/keyboard.js KEY_FINGER must map extra to lp');
+});
+

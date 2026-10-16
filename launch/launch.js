@@ -60,7 +60,8 @@
   ];
 
   const ROW4 = [
-    { id: 'shiftL', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 2.25 },
+    { id: 'shiftL', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 1.25 },
+    KEY('extra', '', '', '¶', ''),
     KEY('z', 'ឋ', '', '#', 'ឍ'),
     KEY('x', 'ខ', '', '@', 'ឃ'),
     KEY('c', 'ច', '', '&', 'ជ'),
@@ -71,8 +72,7 @@
     KEY('comma', 'អ', '<', '‹', ','),
     KEY('period', '។', '>', '›', '.'),
     KEY('slash', '', '”', '៕', '?'),
-    KEY('extra', '', '', '¶', ''),
-    { id: 'shiftR', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 1.75 },
+    { id: 'shiftR', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 2.75 },
   ];
 
   const ROW5 = [
@@ -135,7 +135,8 @@
   ];
 
   const ROW4_NIDA = [
-    { id: 'shiftL', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 2.25 },
+    { id: 'shiftL', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 1.25 },
+    KEY('extra', '', '', '', ''),
     KEY('z', 'ឋ', '', '', 'ឍ'),
     KEY('x', 'ខ', '', '', 'ឃ'),
     KEY('c', 'ច', '', '', 'ជ'),
@@ -146,8 +147,7 @@
     KEY('comma', 'ុំ', '', ',', 'ុះ'),
     KEY('period', '។', '', '.', '៕'),
     KEY('slash', '៊', '', '/', '?'),
-    KEY('extra', '', '', '', ''),
-    { id: 'shiftR', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 1.75 },
+    { id: 'shiftR', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 2.75 },
   ];
 
   const ROW5_NIDA = [
@@ -210,7 +210,8 @@
   ];
 
   const ROW4_EN = [
-    { id: 'shiftL', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 2.25 },
+    { id: 'shiftL', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 1.25 },
+    KEY('extra', '', '', '', ''),
     KEY('z', 'z', '', '', 'Z'),
     KEY('x', 'x', '', '', 'X'),
     KEY('c', 'c', '', '', 'C'),
@@ -221,8 +222,7 @@
     KEY('comma', ',', '', '', '<'),
     KEY('period', '.', '', '', '>'),
     KEY('slash', '/', '', '', '?'),
-    KEY('extra', '', '', '', ''),
-    { id: 'shiftR', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 1.75 },
+    { id: 'shiftR', kind: 'mod', label: 'Shift', cls: 'key-shift', wide: 2.75 },
   ];
 
   const ROW5_EN = [
@@ -304,6 +304,7 @@
     ShiftLeft: 'shiftL', ShiftRight: 'shiftR', KeyZ: 'z', KeyX: 'x', KeyC: 'c', KeyV: 'v', KeyB: 'b',
     KeyN: 'n', KeyM: 'm', Comma: 'comma', Period: 'period', Slash: 'slash',
     ControlLeft: 'ctrlL', ControlRight: 'ctrlR', AltLeft: 'alt', AltRight: 'altgr', Space: 'space',
+    IntlBackslash: 'extra',
   };
 
   const KEY_FINGER = {
@@ -313,8 +314,8 @@
     p: 'rp', bracketL: 'rp', bracketR: 'rp', enter: 'rp',
     caps: 'lp', a: 'lp', s: 'lr', d: 'lm', f: 'li', g: 'li', h: 'ri', j: 'ri', k: 'rm', l: 'rr',
     semicolon: 'rp', quote: 'rp', backslash: 'rp',
-    shiftL: 'lp', z: 'lp', x: 'lr', c: 'lm', v: 'li', b: 'li', n: 'ri', m: 'ri',
-    comma: 'rm', period: 'rr', slash: 'rp', extra: 'rp', shiftR: 'rp',
+    shiftL: 'lp', extra: 'lp', z: 'lp', x: 'lr', c: 'lm', v: 'li', b: 'li', n: 'ri', m: 'ri',
+    comma: 'rm', period: 'rr', slash: 'rp', shiftR: 'rp',
     ctrlL: 'lt', alt: 'lt', space: 'rt', altgr: 'rt', ctrlR: 'rp',
   };
 

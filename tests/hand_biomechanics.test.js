@@ -155,6 +155,7 @@ test('1.2 [VERIFIED] getFingerForKey resolves both physical codes and internal k
   assert.equal(kb.getFingerForKey('Space'), 'R1');
   assert.equal(kb.getFingerForKey('Backspace'), 'R5');
   assert.equal(kb.getFingerForKey('Escape'), 'L5');
+  assert.equal(kb.getFingerForKey('IntlBackslash'), 'L5');
 
   // Internal key IDs
   assert.equal(kb.getFingerForKey('f'), 'L2');
@@ -163,6 +164,7 @@ test('1.2 [VERIFIED] getFingerForKey resolves both physical codes and internal k
   assert.equal(kb.getFingerForKey('backspace'), 'R5');
   assert.equal(kb.getFingerForKey('escape'), 'L5');
   assert.equal(kb.getFingerForKey('enter'), 'R5');
+  assert.equal(kb.getFingerForKey('extra'), 'L5');
 });
 
 /* ============================================================
