@@ -1121,17 +1121,29 @@ function computeFingerControlPoints(p0, p3, kind, inward){
 
   let p1, p2;
   if(kind === 'thumb'){
-    // Thumb: departs laterally from thenar CMC, curves inward along spacebar or adducts gracefully toward Alt
+    // Thumb: departs laterally from thenar CMC, curves inward along spacebar or flexes anatomically toward Alt/AltGr
     const isAdducting = (dx * inward) < 0;
-    const archFactor = isAdducting ? 0.05 : 0.20;
-    p1 = {
-      x: p0.x + dx * 0.35 - inward * (span * archFactor),
-      y: p0.y + dy * 0.38 - (isAdducting ? 2 : 5)
-    };
-    p2 = {
-      x: p0.x + dx * 0.72 - inward * (span * (isAdducting ? 0.02 : 0.08)),
-      y: p0.y + dy * 0.75 - (isAdducting ? 3 : 6)
-    };
+    if(isAdducting){
+      // Graceful flexed thumb reaching Alt/AltGr: natural anatomical MCP arch and soft descent onto keycap
+      p1 = {
+        x: p0.x + dx * 0.32 - inward * (span * 0.12),
+        y: p0.y + dy * 0.30 - 10
+      };
+      p2 = {
+        x: p0.x + dx * 0.70 - inward * (span * 0.05),
+        y: p0.y + dy * 0.68 - 6
+      };
+    } else {
+      // Natural resting or Spacebar sweep
+      p1 = {
+        x: p0.x + dx * 0.35 - inward * (span * 0.20),
+        y: p0.y + dy * 0.38 - 5
+      };
+      p2 = {
+        x: p0.x + dx * 0.72 - inward * (span * 0.08),
+        y: p0.y + dy * 0.75 - 6
+      };
+    }
   } else if(kind === 'pinky'){
     // Pinky: natural outward convex curve along the lateral hand edge
     p1 = {
@@ -1235,7 +1247,7 @@ function tipCapBetween(fromPt, toPt, tipTan, tipW, isThumb = false){
 /* Open-base finger path for active finger illumination (no circular seam across knuckle) */
 function frameToPath(frame, baseW, tipW){
   const {left, right, tipTan, isThumb} = frame;
-  const startIdx = isThumb ? 7 : 4;
+  const startIdx = isThumb ? 2 : 4;
   const n = left.length - 1;
   let d = `M ${left[startIdx].x.toFixed(1)} ${left[startIdx].y.toFixed(1)} `;
   for(let i = startIdx + 1; i <= n; i++) d += `L ${left[i].x.toFixed(1)} ${left[i].y.toFixed(1)} `;
@@ -1735,8 +1747,12 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
         ? (spaceBounds ? spaceBounds.left + 24 : homes[order[3].id].x + 38)
         : (spaceBounds ? spaceBounds.right - 24 : homes[order[3].id].x - 38);
       const reachDx = targetPt.x - naturalRestX;
-      palmShiftX = reachDx * 0.82;
-      palmShiftY = 10;
+      const indexHomeY = homes[order[3].id] ? homes[order[3].id].y : 130;
+      const reachDy = Math.max(0, targetPt.y - indexHomeY);
+      // Biomechanical whole-hand glide: hand lowers and translates naturally toward Alt/AltGr
+      palmShiftY = Math.max(14, reachDy * 0.35);
+      const isOutwardReach = (reachDx * inward) < 0;
+      palmShiftX = isOutwardReach ? (reachDx * 1.35) : (reachDx * 0.70);
     }
   }
 
@@ -1780,9 +1796,10 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
 
   // Anatomical thumb CMC/thenar base: positioned at lower radial palm
   const thumbF = fingers.find(f=>f.kind==='thumb');
+  const isModifierThumb = Boolean(activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space');
   const thumbBase = {
-    x: indexBase.x + inward * 14,
-    y: palmArchBaseY + 36
+    x: indexBase.x + (isModifierThumb ? -inward * 8 : inward * 14),
+    y: palmArchBaseY + (isModifierThumb ? 24 : 36) + palmShiftY
   };
   baseKnuckles[thumbF.id] = thumbBase;
 
@@ -1817,8 +1834,12 @@ function buildUnifiedHandSVG(hand, order, thumbF, frames, bases){
   });
 
   const thumbFr = frames[thumbF.id];
-  const thumbInnerPts = isLeft ? thumbFr.left : thumbFr.right;
-  const thumbOuterPts = isLeft ? thumbFr.right : thumbFr.left;
+  const idxInnerPt = fingerList[3].innerPts[4];
+  // Dynamically resolve topological inner vs outer thumb contours based on proximity to index purlicue web
+  const dLeftToIdx = Math.hypot(thumbFr.left[4].x - idxInnerPt.x, thumbFr.left[4].y - idxInnerPt.y);
+  const dRightToIdx = Math.hypot(thumbFr.right[4].x - idxInnerPt.x, thumbFr.right[4].y - idxInnerPt.y);
+  const thumbInnerPts = dLeftToIdx <= dRightToIdx ? thumbFr.left : thumbFr.right;
+  const thumbOuterPts = dLeftToIdx <= dRightToIdx ? thumbFr.right : thumbFr.left;
 
   const pinkyBase = bases[order[0].id];
   const indexBase = bases[order[3].id];

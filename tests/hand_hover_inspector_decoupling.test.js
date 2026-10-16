@@ -203,3 +203,53 @@ test('1.4 [VERIFIED FIXED] Physical modifier holding points assigned finger dire
   kb.setPhysicalModifierHeld('shiftL', false);
   kb.clearAllPhysicalModifiersHeld();
 });
+
+test('1.5 [VERIFIED FIXED] Left Alt reach generates natural anatomical biomechanics (hand translation, span < 115px, and downward flex angle)', () => {
+  assert.equal(kb.KEY_FINGER['alt'], 'lt', 'Left Alt must map to lt (Left Thumb)');
+  assert.equal(kb.CANONICAL_FINGER_MAP['AltLeft'], 'L1', 'AltLeft must map to canonical L1 (Left Thumb)');
+
+  const mockKeys = {
+    a: { getBoundingClientRect: () => ({ left: 112, right: 172, top: 105, bottom: 155, width: 60, height: 50 }) },
+    s: { getBoundingClientRect: () => ({ left: 179, right: 239, top: 105, bottom: 155, width: 60, height: 50 }) },
+    d: { getBoundingClientRect: () => ({ left: 246, right: 306, top: 105, bottom: 155, width: 60, height: 50 }) },
+    f: { getBoundingClientRect: () => ({ left: 313, right: 373, top: 105, bottom: 155, width: 60, height: 50 }) },
+    space: { getBoundingClientRect: () => ({ left: 194, right: 734, top: 225, bottom: 275, width: 540, height: 50 }) },
+    alt: { getBoundingClientRect: () => ({ left: 97, right: 187, top: 225, bottom: 275, width: 90, height: 50 }) }
+  };
+  kb.setKeyElements(mockKeys);
+
+  const wrapRect = { left: 0, top: 0, right: 1000, bottom: 400, width: 1000, height: 400 };
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+  const activeLeft = leftFingers.find(f => f.id === 'lt');
+
+  const handL = kb.buildHand('L', leftFingers, wrapRect, activeLeft, 'alt');
+  assert.ok(handL, 'buildHand for Left Hand on alt must construct successfully');
+
+  // Palm shift must translate hand laterally and downward
+  assert.ok(handL.palmShiftX < 0, 'Palm must shift leftward toward Alt');
+  assert.ok(handL.palmShiftY > 15, 'Palm must lower downward toward Row 5');
+
+  const altCenter = kb.keyCenter('alt', wrapRect);
+  assert.ok(altCenter, 'Alt center must exist');
+  assert.equal(altCenter.x, 142, 'Alt center X must match key geometry');
+
+  const thumbBase = handL.bases.lt;
+  assert.ok(thumbBase, 'Thumb base must exist');
+
+  const dx = altCenter.x - thumbBase.x;
+  const dy = altCenter.y - thumbBase.y;
+  const reachDist = Math.hypot(dx, dy);
+
+  // Assert natural human thumb reach limits
+  assert.ok(reachDist < 115, `Reach distance (${reachDist.toFixed(1)}px) must be within maximum thumb reach limit of 115px`);
+  assert.ok(reachDist > 55, `Reach distance (${reachDist.toFixed(1)}px) must be a realistic thumb length (> 55px)`);
+
+  // Assert natural downward-angled flex reach (not a flat 90-degree horizontal rod)
+  const angleDeg = Math.atan2(Math.abs(dy), Math.abs(dx)) * 180 / Math.PI;
+  assert.ok(angleDeg >= 30, `Thumb reach angle (${angleDeg.toFixed(1)} deg) must be comfortably diagonal (>= 30 deg), not flat horizontal`);
+
+  // Assert control points form an anatomical flexed arch
+  const ctrl = kb.computeFingerControlPoints(thumbBase, altCenter, 'thumb', 1);
+  assert.ok(ctrl.p1 && ctrl.p2, 'Control points must be computed');
+  assert.ok(ctrl.p1.y < thumbBase.y, 'Thumb p1 must crest upward/dorsally above the straight chord');
+});
