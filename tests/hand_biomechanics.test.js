@@ -78,6 +78,20 @@ function setupMockKeyboardGeometry() {
   // Spacebar (y: 240 to 290)
   keyMap['space'] = createMockKeyElement({ left: 240, right: 560, top: 240, bottom: 290, width: 320, height: 50 });
 
+  // Row 5 modifier keys (y: 240 to 290)
+  keyMap['ctrlL'] = createMockKeyElement({ left: 10, right: 65, top: 240, bottom: 290, width: 55, height: 50 });
+  keyMap['win'] = createMockKeyElement({ left: 70, right: 125, top: 240, bottom: 290, width: 55, height: 50 });
+  keyMap['alt'] = createMockKeyElement({ left: 130, right: 185, top: 240, bottom: 290, width: 55, height: 50 });
+  keyMap['altgr'] = createMockKeyElement({ left: 565, right: 630, top: 240, bottom: 290, width: 65, height: 50 });
+  keyMap['ctrlR'] = createMockKeyElement({ left: 635, right: 701, top: 240, bottom: 290, width: 66, height: 50 });
+
+  // Row 4 lateral modifiers (y: 185 to 235)
+  keyMap['shiftL'] = createMockKeyElement({ left: 10, right: 75, top: 185, bottom: 235, width: 65, height: 50 });
+  keyMap['shiftR'] = createMockKeyElement({ left: 620, right: 708, top: 185, bottom: 235, width: 88, height: 50 });
+
+  // Row 3 lateral modifier (y: 130 to 180)
+  keyMap['caps'] = createMockKeyElement({ left: 10, right: 90, top: 130, bottom: 180, width: 80, height: 50 });
+
   // Distant reaches
   keyMap['backspace'] = createMockKeyElement({ left: 672, right: 716, top: 20, bottom: 70, width: 44, height: 50 });
   keyMap['escape'] = createMockKeyElement({ left: 20, right: 64, top: 20, bottom: 70, width: 44, height: 50 });
@@ -649,4 +663,133 @@ test('9.5 [VERIFIED] Fingertips land accurately on home row target keys with pro
     assert.equal(homePt.y, keyCy, `Finger ${fId} Y must match key ${kId} center Y`);
   }
 });
+
+/* ============================================================
+   Test Suite 10: Corner and Lateral Modifier Biomechanics
+   ============================================================ */
+test('10.1 [VERIFIED FIXED] Left Pinky reach to Left Ctrl (ctrlL) translates hand down and outward with natural angle', () => {
+  const mockKeys = setupMockKeyboardGeometry();
+  kb.setKeyElements(mockKeys);
+  const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+  const lpDef = leftFingers.find(f => f.id === 'lp');
+
+  const handL = kb.buildHand('L', leftFingers, wrapRect, lpDef, 'ctrlL');
+  assert.ok(handL, 'buildHand for Left Hand on ctrlL must construct successfully');
+
+  // Palm shift must translate hand down and outward toward bottom-left corner
+  assert.ok(handL.palmShiftX < -40, `Palm must translate outward to left (got ${handL.palmShiftX.toFixed(1)}px, expected < -40px)`);
+  assert.ok(handL.palmShiftY > 30, `Palm must lower downward toward Row 5 (got ${handL.palmShiftY.toFixed(1)}px, expected > 30px)`);
+
+  const ctrlTarget = kb.keyCenter('ctrlL', wrapRect);
+  assert.ok(ctrlTarget, 'ctrlL key center must exist');
+
+  const lpKnuckle = handL.bases.lp;
+  assert.ok(lpKnuckle, 'lp knuckle must exist');
+
+  const dx = ctrlTarget.x - lpKnuckle.x;
+  const dy = ctrlTarget.y - lpKnuckle.y;
+  const span = Math.hypot(dx, dy);
+
+  // Assert natural human pinky reach span (realistic range: 60px to 115px)
+  assert.ok(span >= 60 && span <= 115, `Pinky reach span (${span.toFixed(1)}px) must be within natural physiological limits (60..115px)`);
+
+  // Assert natural reach angle (must be >= 45 degrees from horizontal, never an unnatural flat sideways rod across Win)
+  const angleDeg = Math.atan2(Math.abs(dy), Math.abs(dx)) * 180 / Math.PI;
+  assert.ok(angleDeg >= 45, `Pinky reach angle (${angleDeg.toFixed(1)} deg) must be naturally diagonal or steep (>= 45 deg), not flat horizontal across Win`);
+
+  // Assert pinky knuckle is positioned near the corner keycap without sideways distortion
+  assert.ok(Math.abs(dx) < 45, `Lateral distance dx (${dx.toFixed(1)}px) must remain compact (< 45px) so pinky does not stretch sideways across Win`);
+
+  // Purlicue web and unified hand contour integrity during corner reach
+  const frames = {};
+  leftFingers.forEach(f => {
+    const origin = handL.bases[f.id];
+    const tip = (f.kind === 'pinky') ? ctrlTarget : ((f.kind === 'thumb') ? handL.defaultThumbTip : { x: handL.homes[f.id].x + handL.palmShiftX * 0.70, y: handL.homes[f.id].y + (f.tipDy || 0) + handL.palmShiftY * 0.50 });
+    const cp = kb.computeFingerControlPoints(origin, tip, f.kind, 1);
+    frames[f.id] = kb.fingerFrame(origin, cp.p1, cp.p2, tip, f.baseW, f.tipW, f.kind === 'thumb');
+  });
+  const svg = kb.buildUnifiedHandSVG('L', handL.order, handL.thumbF, frames, handL.bases);
+  assert.ok(svg && svg.palmPath && svg.palmPath.length > 500, 'Unified hand SVG must generate valid palm contour during ctrlL reach');
+});
+
+test('10.2 [VERIFIED FIXED] Left Pinky reach to Win key (win) generates natural downward translation and vertical reach', () => {
+  const mockKeys = setupMockKeyboardGeometry();
+  kb.setKeyElements(mockKeys);
+  const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+  const lpDef = leftFingers.find(f => f.id === 'lp');
+
+  const handL = kb.buildHand('L', leftFingers, wrapRect, lpDef, 'win');
+  assert.ok(handL, 'buildHand for Left Hand on win must construct successfully');
+
+  assert.ok(handL.palmShiftX < 0, `Palm must shift leftward for win (got ${handL.palmShiftX.toFixed(1)}px)`);
+  assert.ok(handL.palmShiftY > 30, `Palm must lower downward toward Row 5 (got ${handL.palmShiftY.toFixed(1)}px, expected > 30px)`);
+
+  const winTarget = kb.keyCenter('win', wrapRect);
+  const lpKnuckle = handL.bases.lp;
+  const dx = winTarget.x - lpKnuckle.x;
+  const dy = winTarget.y - lpKnuckle.y;
+  const span = Math.hypot(dx, dy);
+
+  assert.ok(span >= 60 && span <= 115, `Win reach span (${span.toFixed(1)}px) must be within natural limits`);
+  const angleDeg = Math.atan2(Math.abs(dy), Math.abs(dx)) * 180 / Math.PI;
+  assert.ok(angleDeg >= 55, `Win reach angle (${angleDeg.toFixed(1)} deg) must be steep and natural (>= 55 deg)`);
+});
+
+test('10.3 [VERIFIED FIXED] Right Pinky reach to Right Ctrl (ctrlR) translates hand down and outward to right corner', () => {
+  const mockKeys = setupMockKeyboardGeometry();
+  kb.setKeyElements(mockKeys);
+  const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
+  const rightFingers = kb.FINGERS.filter(f => f.hand === 'R');
+  const rpDef = rightFingers.find(f => f.id === 'rp');
+
+  const handR = kb.buildHand('R', rightFingers, wrapRect, rpDef, 'ctrlR');
+  assert.ok(handR, 'buildHand for Right Hand on ctrlR must construct successfully');
+
+  // Palm shift must translate hand down and outward to right
+  assert.ok(handR.palmShiftX > 50, `Right palm must translate outward to right (got ${handR.palmShiftX.toFixed(1)}px, expected > 50px)`);
+  assert.ok(handR.palmShiftY > 30, `Right palm must lower downward toward Row 5 (got ${handR.palmShiftY.toFixed(1)}px, expected > 30px)`);
+
+  const ctrlRTarget = kb.keyCenter('ctrlR', wrapRect);
+  const rpKnuckle = handR.bases.rp;
+  const dx = ctrlRTarget.x - rpKnuckle.x;
+  const dy = ctrlRTarget.y - rpKnuckle.y;
+  const span = Math.hypot(dx, dy);
+
+  assert.ok(span >= 60 && span <= 115, `Right Ctrl reach span (${span.toFixed(1)}px) must be within natural limits`);
+  const angleDeg = Math.atan2(Math.abs(dy), Math.abs(dx)) * 180 / Math.PI;
+  assert.ok(angleDeg >= 45, `Right Ctrl reach angle (${angleDeg.toFixed(1)} deg) must be naturally diagonal (>= 45 deg)`);
+});
+
+test('10.4 [VERIFIED FIXED] Lateral modifiers (shiftL, shiftR) apply balanced outward palm shift preventing extreme sideways angles', () => {
+  const mockKeys = setupMockKeyboardGeometry();
+  kb.setKeyElements(mockKeys);
+  const wrapRect = { left: 0, top: 0, width: 800, height: 400 };
+  const leftFingers = kb.FINGERS.filter(f => f.hand === 'L');
+  const rightFingers = kb.FINGERS.filter(f => f.hand === 'R');
+  const lpDef = leftFingers.find(f => f.id === 'lp');
+  const rpDef = rightFingers.find(f => f.id === 'rp');
+
+  // Left Shift reach
+  const handShiftL = kb.buildHand('L', leftFingers, wrapRect, lpDef, 'shiftL');
+  assert.ok(handShiftL);
+  assert.ok(handShiftL.palmShiftX < -25, `Left Shift palmShiftX (${handShiftL.palmShiftX.toFixed(1)}px) must provide balanced outward translation`);
+  const shiftLTarget = kb.keyCenter('shiftL', wrapRect);
+  const dxL = shiftLTarget.x - handShiftL.bases.lp.x;
+  const dyL = shiftLTarget.y - handShiftL.bases.lp.y;
+  const angleL = Math.atan2(Math.abs(dyL), Math.abs(dxL)) * 180 / Math.PI;
+  assert.ok(angleL >= 45, `Left Shift reach angle (${angleL.toFixed(1)} deg) must be >= 45 deg`);
+
+  // Right Shift reach
+  const handShiftR = kb.buildHand('R', rightFingers, wrapRect, rpDef, 'shiftR');
+  assert.ok(handShiftR);
+  assert.ok(handShiftR.palmShiftX > 35, `Right Shift palmShiftX (${handShiftR.palmShiftX.toFixed(1)}px) must provide balanced outward translation`);
+  const shiftRTarget = kb.keyCenter('shiftR', wrapRect);
+  const dxR = shiftRTarget.x - handShiftR.bases.rp.x;
+  const dyR = shiftRTarget.y - handShiftR.bases.rp.y;
+  const angleR = Math.atan2(Math.abs(dyR), Math.abs(dxR)) * 180 / Math.PI;
+  assert.ok(angleR >= 45, `Right Shift reach angle (${angleR.toFixed(1)} deg) must be >= 45 deg`);
+});
+
 

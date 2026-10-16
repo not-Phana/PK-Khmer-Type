@@ -1730,7 +1730,8 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
     }
   }
 
-  // Damped palm shift: applies for distant reaches (Backspace, Enter, Escape, outer numbers)
+  // Damped palm shift: applies for distant reaches (Backspace, Enter, Escape, outer numbers),
+  // bottom-row corner modifiers (Ctrl, Win), lateral modifiers (Shift, Caps),
   // and natural whole-hand translation for thumb modifier reaches (Alt, AltGr)
   let palmShiftX = 0, palmShiftY = 0;
   if(activeF && activeF.kind !== 'thumb' && targetKey){
@@ -1739,11 +1740,31 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
     if(targetPt && homePt){
       const reachDx = targetPt.x - homePt.x;
       const reachDy = targetPt.y - homePt.y;
-      const isDistant = ['backspace', 'enter', 'grave', 'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k0', 'minus', 'equal', 'tab', 'escape', 'shiftL', 'shiftR'].includes(targetKey);
-      const factorY = isDistant ? 0.30 : 0.12;
-      const factorX = isDistant ? 0.26 : 0.10;
-      palmShiftY = reachDy * factorY;
+
+      const isCornerMod = ['ctrlL', 'ctrlR', 'win', 'metaL'].includes(targetKey);
+      const isLateralMod = ['shiftL', 'shiftR', 'caps'].includes(targetKey);
+      const isDistant = ['backspace', 'enter', 'grave', 'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k0', 'minus', 'equal', 'tab', 'escape', 'delete', 'extra'].includes(targetKey);
+
+      let factorX = 0.10;
+      let factorY = 0.12;
+
+      if(isCornerMod){
+        // Bottom-row corner modifiers (Ctrl, Win): human hand rotates and translates down and outward
+        // so pinky knuckle aligns directly behind the corner keycap without unnatural sideways stretching
+        factorX = 0.85;
+        factorY = 0.55;
+      } else if(isLateralMod){
+        // Outer lateral modifiers (Shift, Caps): moderate outward translation to maintain natural finger angle
+        factorX = 0.50;
+        factorY = 0.35;
+      } else if(isDistant){
+        // Distant top row & perimeter keys (Backspace, Enter, Escape, numbers): gentle wrist float
+        factorX = 0.26;
+        factorY = 0.30;
+      }
+
       palmShiftX = reachDx * factorX;
+      palmShiftY = reachDy * factorY;
     }
   } else if(activeF && activeF.kind === 'thumb' && targetKey && targetKey !== 'space'){
     const targetPt = keyCenter(targetKey, wrapRect);
@@ -1782,19 +1803,22 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
 
   // Resting thumb tip sits cleanly inside the Spacebar bounds,
   // completely clear of KeyV, KeyB, KeyN, and KeyM.
+  // When the hand translates during distant reaches or corner modifiers,
+  // the resting thumb naturally glides along with the hand.
   let defaultThumbTip;
   if(spaceBounds && spaceCenter){
-    const naturalX = isLeft
-      ? Math.max(spaceBounds.left + 24, Math.min(spaceCenter.x - 14, indexBase.x + inward * 34))
-      : Math.min(spaceBounds.right - 24, Math.max(spaceCenter.x + 14, indexBase.x + inward * 24));
+    const naturalRestX = isLeft
+      ? Math.max(spaceBounds.left + 24, Math.min(spaceCenter.x - 14, (indexBase.x - palmShiftX) + inward * 34))
+      : Math.min(spaceBounds.right - 24, Math.max(spaceCenter.x + 14, (indexBase.x - palmShiftX) + inward * 24));
+    const naturalRestY = spaceBounds.top + spaceBounds.height * 0.46;
     defaultThumbTip = {
-      x: naturalX,
-      y: spaceBounds.top + spaceBounds.height * 0.46
+      x: naturalRestX + palmShiftX * 0.70,
+      y: naturalRestY + palmShiftY * 0.50
     };
   } else {
     defaultThumbTip = {
       x: indexBase.x + inward * 28,
-      y: palmArchBaseY + 18
+      y: palmArchBaseY + 18 + palmShiftY * 0.50
     };
   }
 
@@ -2211,7 +2235,7 @@ function setActiveFinger(keyId, layer){
   const mod = modifierInfoFor(keyId, lyr);
   if(mod){
     activeShiftFinger = mod.fingerId;
-    activeShiftTargetKey = mod.targetKey;
+    activeShiftTargetKey = mod.modifierKey || mod.targetKey;
   } else {
     activeShiftFinger = null;
     activeShiftTargetKey = null;

@@ -681,8 +681,9 @@
       if (targetPt && homePt) {
         const reachDx = targetPt.x - homePt.x;
         const reachDy = targetPt.y - homePt.y;
-        const factorY = activeF.kind === 'pinky' ? 0.72 : (reachDy < 0 ? 0.65 : 0.45);
-        const factorX = activeF.kind === 'pinky' ? 0.62 : (reachDy < 0 ? 0.45 : 0.40);
+        const isCornerMod = ['ctrlL', 'ctrlR', 'win', 'metaL'].includes(targetKey);
+        const factorY = isCornerMod ? 0.65 : (activeF.kind === 'pinky' ? 0.72 : (reachDy < 0 ? 0.65 : 0.45));
+        const factorX = isCornerMod ? 0.85 : (activeF.kind === 'pinky' ? 0.62 : (reachDy < 0 ? 0.45 : 0.40));
         shiftY = reachDy * factorY;
         shiftX = reachDx * factorX;
       }
