@@ -373,7 +373,7 @@
     sunset: { name: 'Sunset & Violet', l: '#fb923c', r: '#a78bfa' },
     ghost: { name: 'Frost Silver', l: '#94a3b8', r: '#e2e8f0' },
   };
-  let currentHandPresetIdx = 0;
+  let currentHandPresetIdx = 1;
   const HAND_PRESET_KEYS = Object.keys(HAND_COLOR_PRESETS);
 
   const fingerEls = {};
@@ -651,7 +651,7 @@
       fingerEls[f.id] = { g, shape, crease1, crease2, joint1, joint2, shine, nail, tip };
     });
 
-    const preset = HAND_COLOR_PRESETS.cyber;
+    const preset = HAND_COLOR_PRESETS.emerald;
     updateHandsGradients(preset.l, preset.r);
   }
 
@@ -1012,6 +1012,8 @@
       palmHiR.setAttribute('cx', svgR.highlight.cx); palmHiR.setAttribute('cy', svgR.highlight.cy);
       palmHiR.setAttribute('rx', svgR.highlight.rx); palmHiR.setAttribute('ry', svgR.highlight.ry);
     }
+
+    syncHeroHands();
   }
 
   function setActiveFinger(keyId, layer) {
@@ -1644,26 +1646,162 @@
   }
 
   /* ============================================================
-     HERO STUDIO MECHANICAL DECK INTERACTION & AMBIENT ENGINE
+     HERO STUDIO APPARATUS DECK (AUTHENTIC APP KEYBOARD SHOWCASE)
      ============================================================ */
+  let heroCurrentLayout = 'standard';
+
+  function syncHeroHands() {
+    const heroHands = byId('heroHandsOverlay');
+    const mainHands = byId('handsOverlay');
+    if (!heroHands || !mainHands) return;
+
+    const vb = mainHands.getAttribute('viewBox');
+    if (vb) {
+      heroHands.setAttribute('viewBox', vb);
+      heroHands.setAttribute('preserveAspectRatio', 'none');
+    }
+    heroHands.innerHTML = mainHands.innerHTML;
+  }
+
   function setupHeroStudioDeck() {
-    const heroKeyboard = byId('heroMechKeyboard');
+    const heroKeyboard = byId('heroKeyboard');
     if (!heroKeyboard) return;
 
-    // Click handler for all hero mech keys
-    heroKeyboard.addEventListener('pointerdown', (ev) => {
-      const keyEl = ev.target.closest('.mech-key');
-      if (!keyEl) return;
-      playClick('down');
-      keyEl.classList.add('is-pressed');
-    });
+    const heroInspectorGlyph = byId('heroInspectorGlyph');
+    const heroInspectorCode = byId('heroInspectorCode');
+    const heroInspectorName = byId('heroInspectorName');
+    const heroInspectorLayer = byId('heroInspectorLayer');
+    const heroInspectorShift = byId('heroInspectorShift');
+    const heroInspectorFinger = byId('heroInspectorFinger');
+    const heroChassisLayoutLabel = byId('heroChassisLayoutLabel');
 
-    window.addEventListener('pointerup', () => {
-      heroKeyboard.querySelectorAll('.mech-key.is-pressed').forEach((k) => {
-        k.classList.remove('is-pressed');
-        playClick('up');
+    function updateHeroInspector(glyph, keyObj, keyId) {
+      if (heroInspectorGlyph) heroInspectorGlyph.textContent = glyph || (keyObj?.label || '·');
+      if (heroInspectorCode) heroInspectorCode.textContent = keyId ? `KEY ${keyId.toUpperCase()}` : 'KEY READY';
+
+      const char = glyph || '';
+      let nameText = 'Standard Key';
+      let uniCode = '—';
+
+      if (char) {
+        const cp = char.codePointAt(0);
+        uniCode = `U+${cp.toString(16).toUpperCase().padStart(4, '0')}`;
+        nameText = KHMER_NAMES[char] || `Character '${char}'`;
+      } else if (keyObj?.kind === 'mod') {
+        nameText = `${keyObj.label || keyId.toUpperCase()} Modifier`;
+      }
+
+      if (heroInspectorName) heroInspectorName.textContent = nameText;
+      if (heroInspectorLayer) heroInspectorLayer.textContent = `${heroCurrentLayout.toUpperCase()} · BASE`;
+      if (heroInspectorShift) heroInspectorShift.textContent = keyObj?.shift ? `Shift: ${keyObj.shift}` : (uniCode !== '—' ? uniCode : 'Modifier');
+      const fid = KEY_FINGER[keyId];
+      if (heroInspectorFinger) heroInspectorFinger.textContent = FINGER_NAMES[fid] || 'Touch Position';
+    }
+
+    function buildHeroAppDeck(layoutId) {
+      heroCurrentLayout = layoutId || 'standard';
+      const layout = LAYOUTS[heroCurrentLayout] || LAYOUTS.standard;
+      if (heroChassisLayoutLabel) {
+        heroChassisLayoutLabel.textContent = layout.deckId || heroCurrentLayout.toUpperCase();
+      }
+
+      heroKeyboard.replaceChildren();
+
+      layout.rows.forEach((row, rowIndex) => {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'row';
+        rowEl.setAttribute('role', 'group');
+        rowEl.setAttribute('aria-label', `Row ${rowIndex + 1}`);
+
+        row.forEach((k) => {
+          const glyph = characterFor(k, 'base', layout);
+          const btn = document.createElement('div');
+          const isModifier = k.kind === 'mod';
+          const isSpace = k.id === 'space';
+          const isBlank = !isModifier && !glyph;
+
+          btn.className = 'key notranslate';
+          btn.setAttribute('translate', 'no');
+          btn.dataset.key = k.id;
+          if (k.wide) btn.style.flexGrow = k.wide;
+          if (k.cls) btn.classList.add(k.cls);
+          if (isModifier) btn.classList.add('is-modifier');
+          if (isBlank) btn.classList.add('empty');
+
+          // Homing keys
+          if (heroCurrentLayout === 'english') {
+            if (k.id === 'f' || k.id === 'j') btn.classList.add('homing');
+          } else {
+            if (k.id === 'f' || k.id === 'k') btn.classList.add('homing');
+          }
+
+          // Active target highlight matching the authentic app screenshot (d = ដ in standard/nida, f in english)
+          if ((heroCurrentLayout !== 'english' && k.id === 'd') || (heroCurrentLayout === 'english' && k.id === 'f')) {
+            btn.classList.add('is-target');
+          }
+
+          if (isModifier) {
+            if (isSpace) {
+              btn.classList.add('space');
+              if (heroCurrentLayout === 'standard') {
+                btn.innerHTML = '<span class="space-glyph">្</span><span class="space-label">ជើង (Coeng)</span><span class="shift-badge">Space</span>';
+              } else if (heroCurrentLayout === 'nida') {
+                btn.innerHTML = '<span class="space-glyph">␣</span><span class="space-label">ដកឃ្លា · Spacebar</span>';
+              } else {
+                btn.innerHTML = '<span class="space-label">Space</span>';
+              }
+            } else if (k.id === 'win') {
+              btn.classList.add('key-win');
+              btn.innerHTML = '<svg class="win-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg><span>Win</span>';
+            } else {
+              btn.textContent = k.label || k.id;
+            }
+          } else {
+            const g = document.createElement('span');
+            g.className = 'glyph notranslate';
+            g.setAttribute('translate', 'no');
+            g.textContent = glyph || k.base || '';
+            btn.appendChild(g);
+
+            if (k.shift) {
+              const hint = document.createElement('span');
+              hint.className = 'shift-badge notranslate';
+              hint.setAttribute('translate', 'no');
+              hint.textContent = k.shift;
+              btn.appendChild(hint);
+            }
+          }
+
+          // Interactive feedback
+          btn.addEventListener('mouseenter', () => {
+            updateHeroInspector(glyph || (isSpace ? ' ' : ''), k, k.id);
+          });
+
+          btn.addEventListener('pointerdown', (ev) => {
+            burst(btn, ev);
+            playClick('down');
+            btn.classList.add('pressed');
+            updateHeroInspector(glyph || (isSpace ? ' ' : ''), k, k.id);
+          });
+
+          btn.addEventListener('pointerup', () => {
+            playClick('up');
+            btn.classList.remove('pressed');
+          });
+
+          btn.addEventListener('pointercancel', () => {
+            btn.classList.remove('pressed');
+          });
+
+          rowEl.appendChild(btn);
+        });
+
+        heroKeyboard.appendChild(rowEl);
       });
-    });
+    }
+
+    // Build standard layout initial deck
+    buildHeroAppDeck('standard');
 
     // Caption layout switcher tabs
     const captionTabs = document.querySelectorAll('.hero-caption-tab');
@@ -1671,86 +1809,10 @@
       tab.addEventListener('click', () => {
         const layoutId = tab.dataset.heroLayout;
         captionTabs.forEach((t) => t.classList.toggle('is-active', t === tab));
-        applyHeroLayout(layoutId);
+        buildHeroAppDeck(layoutId);
+        syncHeroHands();
       });
     });
-
-    function applyHeroLayout(layoutId) {
-      const layoutData = LAYOUTS[layoutId] || LAYOUTS.standard;
-      const flatKeys = {};
-      layoutData.rows.forEach((row) => {
-        row.forEach((k) => {
-          if (k.id) flatKeys[k.id] = k;
-        });
-      });
-
-      heroKeyboard.querySelectorAll('.mech-key[data-k]').forEach((keyEl) => {
-        const kId = keyEl.dataset.k;
-        const keyDef = flatKeys[kId];
-        if (!keyDef) return;
-
-        if (kId === 'space') {
-          const badge = keyEl.querySelector('.mk-space-badge');
-          const label = keyEl.querySelector('.mk-space-label');
-          if (layoutId === 'standard') {
-            if (badge) badge.textContent = '្';
-            if (label) label.textContent = 'SPACEBAR · COENG (ជើង) LAYER';
-          } else if (layoutId === 'nida') {
-            if (badge) badge.textContent = '␣';
-            if (label) label.textContent = 'SPACEBAR · STANDARD WHITESPACE';
-          } else {
-            if (badge) badge.textContent = '␣';
-            if (label) label.textContent = 'SPACEBAR · TOUCH TYPING ANCHOR';
-          }
-          return;
-        }
-
-        const sub = keyEl.querySelector('.mk-sub');
-        const main = keyEl.querySelector('.mk-main');
-        if (main && keyDef.base !== undefined) main.textContent = keyDef.base;
-        if (sub && keyDef.shift !== undefined) sub.textContent = keyDef.shift;
-
-        // Homing styling
-        if (layoutId === 'english') {
-          keyEl.classList.toggle('k-homing', kId === 'f' || kId === 'j');
-          if (kId === 'k') keyEl.classList.remove('k-homing');
-        } else {
-          keyEl.classList.toggle('k-homing', kId === 'f' || kId === 'k');
-          if (kId === 'j') keyEl.classList.remove('k-homing');
-        }
-      });
-    }
-
-    // Subtle ambient typing loop for hero demo
-    const promptDisplay = byId('heroPromptText');
-    if (!promptDisplay) return;
-
-    const sampleWords = [
-      'សួស្តីកម្ពុជា · រៀនវាយអក្សរខ្មែរដោយទំនុកចិត្ត',
-      'ថដសាញកលះ · លំហាត់ជួរកណ្ដាលមូលដ្ឋាន',
-      'ស្ទាត់ជំនាញវាយអក្សរខ្មែរគ្រប់តួអក្សរ',
-    ];
-    let phraseIdx = 0;
-    let charIdx = 0;
-    let isTyping = true;
-
-    function tickHeroTyping() {
-      if (document.hidden || !isTyping) return;
-      const currentPhrase = sampleWords[phraseIdx];
-      charIdx++;
-      if (charIdx > currentPhrase.length) {
-        charIdx = 0;
-        phraseIdx = (phraseIdx + 1) % sampleWords.length;
-      }
-
-      const typedPart = currentPhrase.slice(0, charIdx);
-      const remainPart = currentPhrase.slice(charIdx);
-      promptDisplay.innerHTML = `<span class="prompt-typed">${typedPart}</span><span class="prompt-cursor"></span><span class="prompt-remain">${remainPart}</span>`;
-    }
-
-    window.setInterval(tickHeroTyping, 2800);
-    heroKeyboard.addEventListener('pointerenter', () => { isTyping = false; });
-    heroKeyboard.addEventListener('pointerleave', () => { isTyping = true; });
   }
 
   function initialize() {
@@ -1769,6 +1831,7 @@
     window.requestAnimationFrame(() => {
       updateHandsOverlay();
       window.setTimeout(updateHandsOverlay, 120);
+      window.setTimeout(updateHandsOverlay, 350);
     });
   }
 

@@ -83,143 +83,61 @@
           <span>PK KHMER TYPE STUDIO DECK</span>
           <span>CHERRY / TOPRE ACOUSTICS</span>
         </div>
-        <div class="hero-image-wrap hero-studio-deck" id="heroStudioDeck">
-          <!-- Studio Header Bar -->
-          <div class="hero-deck-header">
-            <div class="deck-window-dots" aria-hidden="true">
-              <span class="dot dot-close"></span>
-              <span class="dot dot-minimize"></span>
-              <span class="dot dot-maximize"></span>
+        <div class="hero-image-wrap hero-board-wrap-outer">
+          <!-- Authentic App Keyboard Deck Replica -->
+          <div class="board-wrap hero-board-wrap notranslate" id="heroBoardWrap" translate="no">
+            <div class="torch left"><div class="glow"></div><div class="flame"></div><div class="stick"></div></div>
+            <div class="torch right"><div class="glow"></div><div class="flame"></div><div class="stick"></div></div>
+            <div class="board-chassis-bar" id="heroBoardChassisBar">
+              <div class="chassis-deck-id">
+                <span class="chassis-led-dot" aria-hidden="true"></span>
+                <span class="chassis-name">PK-KHMER</span>
+                <span class="chassis-slash">/</span>
+                <span class="chassis-layout-label" id="heroChassisLayoutLabel">STANDARD</span>
+                <span class="chassis-version-badge"><span class="chassis-ver-pulse" aria-hidden="true"></span> v2.4 Beta</span>
+              </div>
+              <div class="chassis-actions">
+                <a href="../dashboard.html" class="chassis-dash-btn" title="View Live Analytics &amp; Mastery Dashboard" aria-label="Open Mastery Dashboard">
+                  <svg class="chassis-dash-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                  <span>Dashboard</span>
+                  <span class="chassis-badge">STATS</span>
+                </a>
+                <a href="../Documents/index.html" class="chassis-docs-btn" title="PK Khmer Type Architecture Guide" aria-label="Open Documentation">
+                  <svg class="chassis-docs-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  <span>Documents</span>
+                  <span class="chassis-badge">DOCS</span>
+                </a>
+                <a href="../Documents/index.html#keycap-3d" class="chassis-3d-btn" title="Interactive 3D Mechanical Experience" aria-label="Open 3D Studio">
+                  <svg class="chassis-3d-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                  <span>3D Studio</span>
+                  <span class="chassis-badge">3D</span>
+                </a>
+              </div>
             </div>
-            <div class="deck-title-pill">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
-              <span>PK STUDIO · HARDWARE-ACCURATE MECHANICAL SIMULATOR</span>
-            </div>
-            <div class="deck-status-chips">
-              <span class="status-chip chip-live"><span class="chip-pulse" aria-hidden="true"></span> 60 FPS</span>
-              <span class="status-chip chip-audio">CHERRY MX AUDIO</span>
-            </div>
-          </div>
 
-          <!-- Typing Telemetry HUD -->
-          <div class="hero-telemetry-strip">
-            <div class="telemetry-prompt-box">
-              <span class="prompt-tag">LIVE EXERCISE</span>
-              <div class="prompt-display notranslate" translate="no" id="heroPromptText">
-                <span class="prompt-typed">សួស្តីកម្ពុ</span><span class="prompt-cursor"></span><span class="prompt-remain">ជា · រៀនវាយអក្សរខ្មែរដោយទំនុកចិត្ត</span>
-              </div>
+            <!-- Dynamic Keyboard Surface & 3D Kinematic Hands Overlay -->
+            <div class="keyboard-stage" id="heroKeyboardStage">
+              <div class="keyboard notranslate" id="heroKeyboard" translate="no" aria-label="Authentic App Keyboard Deck"></div>
+              <svg class="hands-overlay" id="heroHandsOverlay" aria-hidden="true"></svg>
             </div>
-            <div class="telemetry-metrics">
-              <div class="metric-item">
-                <span class="metric-val">58</span>
-                <span class="metric-lbl">WPM</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-val accent">100%</span>
-                <span class="metric-lbl">ACCURACY</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-val gold">ថ / ក</span>
-                <span class="metric-lbl">HOMING</span>
-              </div>
-            </div>
-          </div>
 
-          <!-- Razor-Sharp Hardware Mechanical Deck -->
-          <div class="hero-mech-keyboard notranslate" id="heroMechKeyboard" translate="no" aria-label="Interactive Vector Mechanical Keyboard Deck">
-            <!-- Row 1: Numbers & Diacritics -->
-            <div class="mech-row">
-              <div class="mech-key k-mod k-tilde" data-k="grave"><span class="mk-main">`</span></div>
-              <div class="mech-key" data-k="k1"><span class="mk-sub">!</span><span class="mk-main">១</span></div>
-              <div class="mech-key" data-k="k2"><span class="mk-sub">ៗ</span><span class="mk-main">២</span></div>
-              <div class="mech-key" data-k="k3"><span class="mk-sub">"</span><span class="mk-main">៣</span></div>
-              <div class="mech-key" data-k="k4"><span class="mk-sub">៛</span><span class="mk-main">៤</span></div>
-              <div class="mech-key" data-k="k5"><span class="mk-sub">%</span><span class="mk-main">៥</span></div>
-              <div class="mech-key" data-k="k6"><span class="mk-sub">៍</span><span class="mk-main">៦</span></div>
-              <div class="mech-key" data-k="k7"><span class="mk-sub">័</span><span class="mk-main">៧</span></div>
-              <div class="mech-key" data-k="k8"><span class="mk-sub">៏</span><span class="mk-main">៨</span></div>
-              <div class="mech-key" data-k="k9"><span class="mk-sub">៎</span><span class="mk-main">៩</span></div>
-              <div class="mech-key" data-k="k0"><span class="mk-sub">៌</span><span class="mk-main">០</span></div>
-              <div class="mech-key" data-k="minus"><span class="mk-sub">_</span><span class="mk-main">-</span></div>
-              <div class="mech-key" data-k="equal"><span class="mk-sub">+</span><span class="mk-main">=</span></div>
-              <div class="mech-key k-mod k-backspace" data-k="backspace">⌫ Backspace</div>
-            </div>
-            <!-- Row 2: Top Row -->
-            <div class="mech-row">
-              <div class="mech-key k-mod k-tab" data-k="tab">Tab ⇥</div>
-              <div class="mech-key" data-k="q"><span class="mk-sub">ឈ</span><span class="mk-main">ឆ</span></div>
-              <div class="mech-key" data-k="w"><span class="mk-sub">ឺ</span><span class="mk-main">ឹ</span></div>
-              <div class="mech-key" data-k="e"><span class="mk-sub">ែ</span><span class="mk-main">េ</span></div>
-              <div class="mech-key" data-k="r"><span class="mk-sub">ឬ</span><span class="mk-main">រ</span></div>
-              <div class="mech-key" data-k="t"><span class="mk-sub">ទ</span><span class="mk-main">ត</span></div>
-              <div class="mech-key" data-k="y"><span class="mk-sub">ួ</span><span class="mk-main">យ</span></div>
-              <div class="mech-key" data-k="u"><span class="mk-sub">ូ</span><span class="mk-main">ុ</span></div>
-              <div class="mech-key" data-k="i"><span class="mk-sub">ី</span><span class="mk-main">ិ</span></div>
-              <div class="mech-key" data-k="o"><span class="mk-sub">ៅ</span><span class="mk-main">ោ</span></div>
-              <div class="mech-key" data-k="p"><span class="mk-sub">ភ</span><span class="mk-main">ផ</span></div>
-              <div class="mech-key" data-k="bracketL"><span class="mk-sub">ោះ</span><span class="mk-main">ើ</span></div>
-              <div class="mech-key" data-k="bracketR"><span class="mk-sub">ៀ</span><span class="mk-main">ឿ</span></div>
-              <div class="mech-key k-mod k-enter" data-k="enter">↵ Enter</div>
-            </div>
-            <!-- Row 3: Home Row -->
-            <div class="mech-row">
-              <div class="mech-key k-mod k-caps" data-k="caps">Caps ⇪</div>
-              <div class="mech-key" data-k="a"><span class="mk-sub">ៃ</span><span class="mk-main">ា</span></div>
-              <div class="mech-key" data-k="s"><span class="mk-sub">ាំ</span><span class="mk-main">ស</span></div>
-              <div class="mech-key" data-k="d"><span class="mk-sub">ឌ</span><span class="mk-main">ដ</span></div>
-              <div class="mech-key k-homing" data-k="f" title="Homing Key F (ថ)">
-                <span class="mk-sub">ធ</span><span class="mk-main">ថ</span>
-                <span class="homing-pip" aria-hidden="true"></span>
+            <!-- Key Telemetry Inspector HUD -->
+            <div class="key-inspector-hud" aria-live="polite" aria-atomic="true">
+              <div class="inspector-main">
+                <div class="inspector-glyph-box" id="heroInspectorGlyph">Shift</div>
+                <div class="inspector-details">
+                  <span class="inspector-code" id="heroInspectorCode">KEY SHIFTL</span>
+                  <span class="inspector-name" id="heroInspectorName">Shift Modifier</span>
+                </div>
               </div>
-              <div class="mech-key" data-k="g"><span class="mk-sub">ុះ</span><span class="mk-main">ង</span></div>
-              <div class="mech-key" data-k="h"><span class="mk-sub">៏</span><span class="mk-main">ហ</span></div>
-              <div class="mech-key" data-k="j"><span class="mk-sub">ុំ</span><span class="mk-main">ញ</span></div>
-              <div class="mech-key k-homing" data-k="k" title="Homing Key K (ក)">
-                <span class="mk-sub">គ</span><span class="mk-main">ក</span>
-                <span class="homing-pip" aria-hidden="true"></span>
+              <div class="inspector-chips">
+                <span class="inspector-chip chip-gold" id="heroInspectorLayer">SHIFT LAYER</span>
+                <span class="inspector-chip chip-cyan" id="heroInspectorShift">Modifier</span>
+                <span class="inspector-chip" id="heroInspectorFinger">Left Pinky</span>
               </div>
-              <div class="mech-key" data-k="l"><span class="mk-sub">ឡ</span><span class="mk-main">ល</span></div>
-              <div class="mech-key" data-k="semicolon"><span class="mk-sub">៖</span><span class="mk-main">ះ</span></div>
-              <div class="mech-key" data-k="quote"><span class="mk-sub">៉</span><span class="mk-main">់</span></div>
-              <div class="mech-key k-mod" data-k="backslash"><span class="mk-main">\</span></div>
             </div>
-            <!-- Row 4: Bottom Row -->
-            <div class="mech-row">
-              <div class="mech-key k-mod k-shift-l" data-k="shiftL">⇧ Shift</div>
-              <div class="mech-key" data-k="z"><span class="mk-sub">ឍ</span><span class="mk-main">ឋ</span></div>
-              <div class="mech-key" data-k="x"><span class="mk-sub">ឃ</span><span class="mk-main">ខ</span></div>
-              <div class="mech-key" data-k="c"><span class="mk-sub">ជ</span><span class="mk-main">ច</span></div>
-              <div class="mech-key" data-k="v"><span class="mk-sub">េះ</span><span class="mk-main">វ</span></div>
-              <div class="mech-key" data-k="b"><span class="mk-sub">ព</span><span class="mk-main">ប</span></div>
-              <div class="mech-key" data-k="n"><span class="mk-sub">ណ</span><span class="mk-main">ន</span></div>
-              <div class="mech-key" data-k="m"><span class="mk-sub">ំ</span><span class="mk-main">ម</span></div>
-              <div class="mech-key" data-k="comma"><span class="mk-sub">,</span><span class="mk-main">អ</span></div>
-              <div class="mech-key" data-k="period"><span class="mk-sub">.</span><span class="mk-main">។</span></div>
-              <div class="mech-key" data-k="slash"><span class="mk-sub">?</span><span class="mk-main">៕</span></div>
-              <div class="mech-key k-mod k-shift-r" data-k="shiftR">⇧ Shift</div>
-            </div>
-            <!-- Row 5: Modifier & Subscript Space -->
-            <div class="mech-row">
-              <div class="mech-key k-mod" data-k="ctrlL">Ctrl</div>
-              <div class="mech-key k-mod" data-k="win">Win</div>
-              <div class="mech-key k-mod" data-k="alt">Alt</div>
-              <div class="mech-key k-space" data-k="space">
-                <span class="mk-space-badge">្</span>
-                <span class="mk-space-label">SPACEBAR · COENG (ជើង) LAYER</span>
-              </div>
-              <div class="mech-key k-mod" data-k="altgr">AltGr</div>
-              <div class="mech-key k-mod" data-k="ctrlR">Ctrl</div>
-            </div>
-          </div>
 
-          <!-- Floating Badges -->
-          <div class="image-badge-floating badge-top-right">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
-            <span>3D FINGER GUIDE · 44% OPACITY</span>
-          </div>
-          <div class="image-badge-floating badge-bottom-left">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span>STRICT 100% MASTERY ENGINE</span>
+            <p class="keyboard-footnote">Type on your physical keyboard or click any key to test keycaps, sounds, and Unicode mappings.</p>
           </div>
         </div>
         <figcaption class="visual-caption">
