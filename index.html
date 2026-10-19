@@ -263,6 +263,7 @@
   <link rel="stylesheet" href="css/responsive.css?v=85">
   <link rel="stylesheet" href="css/settings.css?v=85">
   <link rel="stylesheet" href="css/tutorial.css?v=85">
+  <link rel="stylesheet" href="css/custom-lessons.css?v=86">
   <script>
     try {
       var p = localStorage.getItem('khmerSettingPerformanceMode');
@@ -2309,6 +2310,10 @@
   <div class="lesson-strip-header">
     <span class="lsh-title"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="10" y1="6" x2="16" y2="6"></line><line x1="10" y1="10" x2="14" y2="10"></line></svg> <span class="i18n-t" data-en="LESSONS" data-km="មេរៀន">LESSONS</span></span>
     <div class="lsh-actions">
+      <button type="button" class="lsh-custom-btn" id="lshCustomLessonsBtn" title="Custom Lessons (Create & Practice)">
+        <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <span class="i18n-t" data-en="Custom" data-km="ផ្ទាល់ខ្លួន">Custom</span>
+      </button>
       <button type="button" class="lsh-adaptive-btn" id="lshAdaptiveBtn" title="Launch Adaptive Practice">
         <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
         <span class="i18n-t" data-en="Adaptive" data-km="បន្ស៊ាំ">Adaptive</span>
@@ -4004,8 +4009,208 @@
         <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         <span class="i18n-t" data-en="Enter Grandmaster Vault" data-km="ចូលទៅកាន់ឃ្លាំងមេរៀនពិសេស">Enter Grandmaster Vault</span>
       </button>
+      <button type="button" class="modal-secondary-btn gm-custom-btn" id="gmCreateCustomBtn">
+        <svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <span class="i18n-t" data-en="Craft Custom Lessons" data-km="បង្កើតមេរៀនផ្ទាល់ខ្លួន">Craft Custom Lessons</span>
+      </button>
       <button type="button" class="modal-secondary-btn" id="closeGrandmasterFanfareBtn">
         <span class="i18n-t" data-en="Continue Practice" data-km="បន្តការអនុវត្ត">Continue Practice</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================= Custom Lessons Hub Modal ================= -->
+<div class="modal-backdrop cl-hub-backdrop" id="customLessonsModal" hidden role="dialog" aria-modal="true" aria-labelledby="clHubTitle">
+  <div class="modal-card cl-modal-card">
+    <div class="cl-modal-head">
+      <div class="cl-head-left">
+        <div class="cl-head-icon" aria-hidden="true">
+          <svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div class="cl-head-title-wrap">
+          <h2 id="clHubTitle" class="i18n-t" data-en="Custom Lessons Hub" data-km="ឃ្លាំងមេរៀនផ្ទាល់ខ្លួន">Custom Lessons Hub</h2>
+        </div>
+        <span class="cl-count-badge" id="clHubCountBadge" title="Total Custom Lessons">0</span>
+      </div>
+      <div class="cl-head-actions">
+        <button type="button" class="cl-primary-btn" id="clHubNewBtn">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span class="i18n-t" data-en="New Lesson" data-km="មេរៀនថ្មី">New Lesson</span>
+        </button>
+        <button type="button" class="cl-close-btn" id="clHubCloseBtn" aria-label="Close Custom Lessons Hub">
+          <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="cl-modal-body">
+      <div class="cl-hub-toolbar">
+        <div class="cl-search-box">
+          <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="clSearchInput" class="cl-search-input" placeholder="Search lessons or content…" aria-label="Search custom lessons">
+        </div>
+        <div class="cl-filters" role="group" aria-label="Difficulty Filter">
+          <button type="button" class="cl-filter-pill active" data-filter="all"><span class="i18n-t" data-en="All" data-km="ទាំងអស់">All</span></button>
+          <button type="button" class="cl-filter-pill" data-filter="beginner"><span class="i18n-t" data-en="Beginner" data-km="ដំបូង">Beginner</span></button>
+          <button type="button" class="cl-filter-pill" data-filter="intermediate"><span class="i18n-t" data-en="Intermediate" data-km="មធ្យម">Intermediate</span></button>
+          <button type="button" class="cl-filter-pill" data-filter="advanced"><span class="i18n-t" data-en="Advanced" data-km="កម្រិតខ្ពស់">Advanced</span></button>
+        </div>
+      </div>
+
+      <div class="cl-empty-state" id="clEmptyState">
+        <div class="cl-empty-icon-halo">
+          <svg class="pk-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <h3 class="cl-empty-title i18n-t" data-en="Craft Your First Custom Lesson" data-km="បង្កើតមេរៀនផ្ទាល់ខ្លួនដំបូងរបស់អ្នក">Craft Your First Custom Lesson</h3>
+        <p class="cl-empty-desc i18n-t" data-en="Create customized typing exercises with your own vocabulary, literature, or targeted characters for Khmer Standard, NiDA, and English keyboards." data-km="បង្កើតលំហាត់វាយអក្សរតាមតម្រូវការជាមួយនឹងពាក្យ អត្ថបទ ឬតួអក្សរដែលអ្នកចង់ហ្វឹកហាត់លើក្តារចុចខ្មែរស្តង់ដារ និដា និងអង់គ្លេស។">Create customized typing exercises with your own vocabulary, literature, or targeted characters for Khmer Standard, NiDA, and English keyboards.</p>
+        <button type="button" class="cl-primary-btn" id="clEmptyCreateBtn">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span class="i18n-t" data-en="Create Lesson Now" data-km="បង្កើតមេរៀនឥឡូវនេះ">Create Lesson Now</span>
+        </button>
+      </div>
+
+      <div class="cl-lesson-list" id="clLessonList" hidden></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Custom Lesson Creator / Editor Modal ================= -->
+<div class="modal-backdrop cl-editor-backdrop" id="customLessonEditorModal" hidden role="dialog" aria-modal="true" aria-labelledby="clEditorTitleHeading">
+  <div class="modal-card cl-modal-card cl-editor-card">
+    <div class="cl-modal-head">
+      <div class="cl-head-left">
+        <div class="cl-head-icon" aria-hidden="true">
+          <svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div class="cl-head-title-wrap">
+          <h2 id="clEditorTitleHeading" class="i18n-t" data-en="Create Custom Lesson" data-km="បង្កើតមេរៀនថ្មី">Create Custom Lesson</h2>
+        </div>
+      </div>
+      <button type="button" class="cl-close-btn" id="clEditorCloseBtn" aria-label="Close Lesson Creator">
+        <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="cl-modal-body">
+      <div id="clEditorErrors" class="cl-error-box" hidden></div>
+
+      <div class="cl-form-grid">
+        <div class="cl-form-group full-width">
+          <label for="clInputTitle" class="cl-form-label">
+            <span class="i18n-t" data-en="Lesson Title" data-km="ចំណងជើងមេរៀន">Lesson Title</span>
+          </label>
+          <input type="text" id="clInputTitle" class="cl-form-input" placeholder="e.g. Home Row Consonant Mastery" maxlength="80" required>
+        </div>
+
+        <div class="cl-form-group full-width">
+          <label for="clInputDesc" class="cl-form-label">
+            <span class="i18n-t" data-en="Description / Notes" data-km="ការពិពណ៌នា / កំណត់ចំណាំ">Description / Notes</span>
+            <span class="cl-optional-txt i18n-t" data-en="(Optional)" data-km="(មិនទាមទារ)">(Optional)</span>
+          </label>
+          <input type="text" id="clInputDesc" class="cl-form-input" placeholder="e.g. Focused drill on index and middle finger reaches" maxlength="140">
+        </div>
+
+        <div class="cl-form-group">
+          <label for="clSelectDiff" class="cl-form-label">
+            <span class="i18n-t" data-en="Difficulty" data-km="កម្រិតលំបាក">Difficulty</span>
+          </label>
+          <select id="clSelectDiff" class="cl-form-select">
+            <option value="beginner">Beginner / ដំបូង</option>
+            <option value="intermediate">Intermediate / មធ្យម</option>
+            <option value="advanced">Advanced / កម្រិតខ្ពស់</option>
+          </select>
+        </div>
+
+        <div class="cl-form-group">
+          <label for="clSelectLayout" class="cl-form-label">
+            <span class="i18n-t" data-en="Target Layout" data-km="ប្លង់ក្តារចុចគោលដៅ">Target Layout</span>
+          </label>
+          <select id="clSelectLayout" class="cl-form-select">
+            <option value="standard">Khmer Standard / ខ្មែរស្តង់ដារ</option>
+            <option value="nida">Khmer NiDA / ខ្មែរ និដា</option>
+            <option value="english">English QWERTY / អង់គ្លេស QWERTY</option>
+            <option value="any">Any Layout / គ្រប់ប្លង់</option>
+          </select>
+        </div>
+
+        <div class="cl-form-group full-width">
+          <div class="cl-starter-bar-wrap">
+            <span class="cl-starter-label i18n-t" data-en="Quick Starter Templates (Click to add)" data-km="គំរូមេរៀនរហ័ស (ចុចដើម្បីបន្ថែម)">Quick Starter Templates (Click to add)</span>
+            <div class="cl-starter-chips" id="clStarterChipsBar"></div>
+          </div>
+        </div>
+
+        <div class="cl-form-group full-width">
+          <div class="cl-form-label">
+            <span class="i18n-t" data-en="Practice Content (Khmer or English)" data-km="ខ្លឹមសារហ្វឹកហាត់ (ខ្មែរ ឬអង់គ្លេស)">Practice Content (Khmer or English)</span>
+            <div class="cl-tools-bar">
+              <button type="button" class="cl-tool-btn" id="clToolRepeat2x" title="Repeat text 2 times">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                <span>2×</span>
+              </button>
+              <button type="button" class="cl-tool-btn" id="clToolRepeat3x" title="Repeat text 3 times">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                <span>3×</span>
+              </button>
+              <button type="button" class="cl-tool-btn" id="clToolShuffle" title="Shuffle word order">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+                <span class="i18n-t" data-en="Shuffle" data-km="ច្របល់">Shuffle</span>
+              </button>
+              <button type="button" class="cl-tool-btn" id="clToolAddSpaces" title="Insert space between letters">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                <span class="i18n-t" data-en="Spaces" data-km="ដកឃ្លា">Spaces</span>
+              </button>
+              <button type="button" class="cl-tool-btn" id="clToolCleanSpaces" title="Clean multiple spaces">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                <span class="i18n-t" data-en="Clean" data-km="សម្អាត">Clean</span>
+              </button>
+            </div>
+          </div>
+          <textarea id="clTextContent" class="cl-form-textarea" rows="5" placeholder="Type or paste the exact Khmer or English text you wish to practice..."></textarea>
+        </div>
+
+        <div class="cl-form-group full-width">
+          <div class="cl-telemetry-bar">
+            <span class="cl-telemetry-item"><span class="i18n-t" data-en="Characters:" data-km="តួអក្សរ៖">Characters:</span> <b id="clCountChars">0</b></span>
+            <span class="cl-telemetry-item"><span class="i18n-t" data-en="Typing Units:" data-km="តួវាយ៖">Typing Units:</span> <b id="clCountUnits">0</b></span>
+            <span class="cl-telemetry-item"><span class="i18n-t" data-en="Words:" data-km="ពាក្យ៖">Words:</span> <b id="clCountWords">0</b></span>
+            <span class="cl-telemetry-item"><span class="i18n-t" data-en="Est. Duration:" data-km="រយៈពេលប៉ាន់ស្មាន៖">Est. Duration:</span> <b id="clCountTime">~0s</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cl-modal-foot">
+      <button type="button" class="cl-sec-btn" id="clEditorCancelBtn">
+        <span class="i18n-t" data-en="Cancel" data-km="បោះបង់">Cancel</span>
+      </button>
+      <button type="button" class="cl-sec-btn" id="clEditorSaveBtn">
+        <span class="i18n-t" data-en="Save Lesson" data-km="រក្សាទុកមេរៀន">Save Lesson</span>
+      </button>
+      <button type="button" class="cl-primary-btn" id="clEditorSavePracticeBtn">
+        <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+        <span class="i18n-t" data-en="Save &amp; Practice" data-km="រក្សាទុក និងហាត់">Save &amp; Practice</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Custom Lesson Confirmation Modal ================= -->
+<div class="modal-backdrop cl-confirm-backdrop" id="customLessonConfirmModal" hidden role="alertdialog" aria-modal="true" aria-labelledby="clConfirmTitle" aria-describedby="clConfirmDesc">
+  <div class="modal-card cl-confirm-card">
+    <div class="cl-confirm-icon" aria-hidden="true">
+      <svg class="pk-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <h3 id="clConfirmTitle">Are you sure?</h3>
+    <p id="clConfirmDesc">This action cannot be undone.</p>
+    <div class="cl-confirm-actions">
+      <button type="button" class="modal-secondary-btn" id="clConfirmCancelBtn">
+        <span class="i18n-t" data-en="Cancel" data-km="បោះបង់">Cancel</span>
+      </button>
+      <button type="button" class="auth-submit-btn" id="clConfirmSubmitBtn">
+        <span class="i18n-t" data-en="Confirm" data-km="បញ្ជាក់">Confirm</span>
       </button>
     </div>
   </div>
@@ -4066,6 +4271,7 @@
   <script defer src="js/feedback.js?v=86"></script>
   <script defer src="js/adaptive.js?v=86"></script>
   <script defer src="js/lessons.js?v=86"></script>
+  <script defer src="js/custom-lessons.js?v=86"></script>
   <script defer src="js/race.js?v=86"></script>
   <script defer src="js/statistics.js?v=86"></script>
   <script defer src="js/settings.js?v=86"></script>

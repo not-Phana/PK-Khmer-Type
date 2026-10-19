@@ -2863,7 +2863,17 @@ function completeLesson(){
 
   let isNewBest = false;
   let bestRecord = null;
-  if(!remedialActive){
+  if(def.isCustom && typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.recordAttempt === 'function'){
+    const custProg = PK_CUSTOM_LESSONS.recordAttempt(def.id, {
+      accuracy: accuracy,
+      wpm: lessonWpm,
+      timeSec: elapsed,
+      mistakes: lessonMistakes
+    });
+    if(custProg){
+      isNewBest = custProg.bestAccuracy === accuracy || custProg.bestWpm === lessonWpm;
+    }
+  } else if(!remedialActive && !def.isCustom){
     const prevBest = getLessonBest(id);
     const mastered = accuracy >= (def.threshold || 85);
     bestRecord = {
@@ -2900,7 +2910,7 @@ function completeLesson(){
   }
 
   // Phase 7 Persistent Progress Tracking
-  if(typeof PK_PROGRESS !== 'undefined' && typeof PK_PROGRESS.recordLessonAttempt === 'function'){
+  if(!def.isCustom && typeof PK_PROGRESS !== 'undefined' && typeof PK_PROGRESS.recordLessonAttempt === 'function'){
     const attemptRes = PK_PROGRESS.recordLessonAttempt({
       layoutId: currentLayoutId,
       lessonId: id,
@@ -3200,6 +3210,58 @@ function showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars){
         advanceToNext();
       }, 2000);
     }
+  } else if(def && def.isCustom){
+    const cardEl = overlay.querySelector('.lesson-complete-card');
+    if(cardEl){
+      const isKm = document.documentElement.classList.contains('site-km-mode');
+      const actionsEl = cardEl.querySelector('.lesson-complete-actions');
+      if(actionsEl){
+        actionsEl.innerHTML = `
+          <button type="button" class="lc-custom-hub primary">${pkIcon('book', 14)} <span class="i18n-t" data-en="Custom Lessons" data-km="មេរៀនផ្ទាល់ខ្លួន">${isKm ? 'មេរៀនផ្ទាល់ខ្លួន' : 'Custom Lessons'}</span></button>
+          <button type="button" class="lc-retry">${pkIcon('reset', 14)} <span class="i18n-t" data-en="Retry" data-km="ព្យាយាមម្តងទៀត">${isKm ? 'ព្យាយាមម្តងទៀត' : 'Retry'}</span></button>
+          <button type="button" class="lc-close"><span class="i18n-t" data-en="Close" data-km="បិទ">${isKm ? 'បិទ' : 'Close'}</span></button>
+        `;
+        const hubBtn = actionsEl.querySelector('.lc-custom-hub');
+        if(hubBtn){
+          hubBtn.addEventListener('click', () => {
+            dismissOverlay();
+            if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.openHub === 'function'){
+              PK_CUSTOM_LESSONS.openHub();
+            }
+          });
+        }
+      }
+    }
+  } else if(def && !def.isCustom && (countCompletedBaseLessons() >= 222 || !nextLesson)){
+    const cardEl = overlay.querySelector('.lesson-complete-card');
+    if(cardEl && !cardEl.querySelector('.custom-lesson-complete-cta')){
+      const isKm = document.documentElement.classList.contains('site-km-mode');
+      const cta = document.createElement('div');
+      cta.className = 'custom-lesson-complete-cta';
+      cta.innerHTML = `
+        <div class="cl-cta-icon" aria-hidden="true">
+          <svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div class="cl-cta-text">
+          <div class="cl-cta-title i18n-t" data-en="Craft Your Own Lessons" data-km="បង្កើតមេរៀនផ្ទាល់ខ្លួនរបស់អ្នក">${isKm ? 'បង្កើតមេរៀនផ្ទាល់ខ្លួនរបស់អ្នក' : 'Craft Your Own Lessons'}</div>
+          <div class="cl-cta-desc i18n-t" data-en="Create customized practice drills with your own words or text." data-km="បង្កើតលំហាត់វាយអក្សរផ្ទាល់ខ្លួនដោយប្រើពាក្យ ឬអត្ថបទដែលអ្នកចង់បាន។">${isKm ? 'បង្កើតលំហាត់វាយអក្សរផ្ទាល់ខ្លួនដោយប្រើពាក្យ ឬអត្ថបទដែលអ្នកចង់បាន។' : 'Create customized practice drills with your own words or text.'}</div>
+        </div>
+        <button type="button" class="cl-cta-btn" id="clCompleteCtaBtn"><span class="i18n-t" data-en="Create Lesson" data-km="បង្កើតមេរៀន">${isKm ? 'បង្កើតមេរៀន' : 'Create Lesson'}</span></button>
+      `;
+      const actionsEl = cardEl.querySelector('.lesson-complete-actions');
+      if(actionsEl) cardEl.insertBefore(cta, actionsEl);
+      else cardEl.appendChild(cta);
+
+      const ctaBtn = cta.querySelector('#clCompleteCtaBtn');
+      if(ctaBtn){
+        ctaBtn.addEventListener('click', () => {
+          dismissOverlay();
+          if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.openEditor === 'function'){
+            PK_CUSTOM_LESSONS.openEditor(null);
+          }
+        });
+      }
+    }
   } else if(def && def.isBonus && isBonusPassed && (!nextLesson || !nextLesson.isBonus)){
     const cardEl = overlay.querySelector('.lesson-complete-card');
     if(cardEl){
@@ -3243,7 +3305,11 @@ function showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars){
   if(retryBtn){
     retryBtn.addEventListener('click', ()=>{
       dismissOverlay();
-      startLesson(wasRemedial ? def : def.id);
+      if(def.isCustom && typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.startPractice === 'function'){
+        PK_CUSTOM_LESSONS.startPractice(def.id);
+      } else {
+        startLesson(wasRemedial ? def : def.id);
+      }
     });
   }
   const nextBtn = overlay.querySelector('.lc-next');
@@ -3839,6 +3905,16 @@ function applyLessonsData(data){
 
     const enterBtn = document.getElementById('enterGrandmasterVaultBtn');
     const closeBtn = document.getElementById('closeGrandmasterFanfareBtn');
+    const customBtn = document.getElementById('gmCreateCustomBtn');
+
+    if (customBtn) {
+      customBtn.onclick = function() {
+        closeGrandmasterFanfareModal();
+        if (typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.openHub === 'function') {
+          PK_CUSTOM_LESSONS.openHub();
+        }
+      };
+    }
 
     if (enterBtn) {
       enterBtn.onclick = function() {
