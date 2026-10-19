@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-v2.4%20Pro%20Studio-ffd166?style=for-the-badge" alt="Version 2.4 Pro Studio">
+  <img src="https://img.shields.io/badge/Version-v2.4%20Beta-ffd166?style=for-the-badge" alt="Version 2.4 Beta">
   <img src="https://img.shields.io/badge/Language-Khmer%20%7C%20English-ffd166?style=for-the-badge" alt="Bilingual Khmer & English">
   <img src="https://img.shields.io/badge/Engine-Vanilla%20ES6%2B%20%7C%20CSS3-ff9d2e?style=for-the-badge" alt="Vanilla JS & CSS3">
   <img src="https://img.shields.io/badge/Performance-Zero--Lag%20Mode-34d399?style=for-the-badge" alt="Zero-Lag Performance Mode">
@@ -38,7 +38,7 @@
 
 ## Overview
 
-**PK Khmer Type (v2.4 Pro Studio Edition)** is a standalone, zero-dependency browser typing studio built specifically for mastering the Khmer abugida script (**Khmer Standard** and **Official Khmer NiDA**) alongside **English (US) QWERTY**.
+**PK Khmer Type (v2.4 Beta Studio Edition)** is a standalone, zero-dependency browser typing studio built specifically for mastering the Khmer abugida script (**Khmer Standard** and **Official Khmer NiDA**) alongside **English (US) QWERTY**.
 
 Designed to run effortlessly both **online via any static server** and **100% offline directly from the filesystem (`file:///`)**, it combines a 222-lesson progressive curriculum with a hardware-accurate mechanical keyboard simulator, dual-hand 3D kinematic finger guides, a dedicated live analytics dashboard (`dashboard.html`), an interactive launch showcase (`launch/index.html`), 8 bespoke color themes, frosted glassmorphism, instant Zero-Lag Performance mode, and cinematic Focus Mode.
 
