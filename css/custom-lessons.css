@@ -804,3 +804,91 @@
     align-items: flex-end;
   }
 }
+
+
+/* Top Action Nav Button */
+.top-action-btn.custom-lessons-nav-btn {
+  border-color: rgba(255, 209, 102, 0.4) !important;
+  background: rgba(255, 209, 102, 0.1) !important;
+  color: #ffd166 !important;
+  font-weight: 700 !important;
+}
+
+.top-action-btn.custom-lessons-nav-btn:hover {
+  border-color: #ffd166 !important;
+  box-shadow: 0 0 16px rgba(255, 209, 102, 0.35) !important;
+  background: rgba(255, 209, 102, 0.24) !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+/* Custom Sidebar Card in Lesson Strip */
+.custom-sidebar-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.12) 0%, rgba(18, 24, 46, 0.88) 100%) !important;
+  border: 1px solid rgba(255, 209, 102, 0.38) !important;
+  border-radius: 11px !important;
+  padding: 8px 12px !important;
+  margin: 4px 4px 8px !important;
+  box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.custom-sidebar-card:hover {
+  transform: translateY(-2px) scale(1.01) !important;
+  border-color: #ffd166 !important;
+  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.65), 0 0 20px rgba(255, 209, 102, 0.25) !important;
+}
+
+.csc-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.csc-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffd166;
+  letter-spacing: 0.3px;
+}
+
+.csc-sub {
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.csc-btn {
+  background: linear-gradient(135deg, #ffd166 0%, #f39c12 100%) !important;
+  color: #0b0f19 !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  border-radius: 6px !important;
+  padding: 4px 10px !important;
+  border: none !important;
+  box-shadow: 0 3px 10px rgba(243, 156, 18, 0.35) !important;
+  cursor: pointer !important;
+  flex-shrink: 0;
+  transition: all 0.18s ease !important;
+}
+
+.csc-btn:hover {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
+.lm-custom-tab-btn {
+  border-color: rgba(255, 209, 102, 0.35) !important;
+  color: #ffd166 !important;
+}

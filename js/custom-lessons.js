@@ -940,6 +940,14 @@
         });
       }
 
+      // Top Command Bar open button
+      const topBtn = document.getElementById('topCustomLessonsBtn');
+      if(topBtn){
+        topBtn.addEventListener('click', () => {
+          this.openHub();
+        });
+      }
+
       // Hub Close button
       const hubCloseBtn = document.getElementById('clHubCloseBtn');
       if(hubCloseBtn){

@@ -1844,6 +1844,9 @@ function renderLessonStrip(){
     topBar.innerHTML = `
       <span class="lsh-title">${pkIcon('book', 14)} <span class="i18n-t" data-en="LESSONS" data-km="មេរៀន">LESSONS</span></span>
       <div class="lsh-actions">
+        <button type="button" class="lsh-custom-btn" id="lshCustomLessonsBtn" title="${isKm ? 'មេរៀនផ្ទាល់ខ្លួន (បង្កើត និងហ្វឹកហាត់)' : 'Custom Lessons (Create & Practice)'}" aria-label="Custom Lessons">
+          ${pkIcon('edit', 12)} <span class="i18n-t" data-en="Custom" data-km="ផ្ទាល់ខ្លួន">Custom</span>
+        </button>
         <button type="button" class="lsh-adaptive-btn" id="lshAdaptiveBtn" title="Start Adaptive Practice" aria-label="Start Adaptive Practice">
           ${pkIcon('refresh', 12)} <span class="i18n-t" data-en="Adaptive" data-km="ការអនុវត្តបន្ស៊ាំ">Adaptive</span>
         </button>
@@ -1910,6 +1913,23 @@ function renderLessonStrip(){
     const bodyEl = document.createElement('div');
     bodyEl.className = 'lesson-strip-body';
     bodyEl.id = 'lessonStripBody';
+    
+    const customCard = document.createElement('div');
+    customCard.className = 'custom-sidebar-card';
+    customCard.id = 'customSidebarCard';
+    customCard.innerHTML = `
+      <div class="csc-left">
+        <div class="csc-title">
+          ${pkIcon('edit', 13)}
+          <span class="i18n-t" data-en="Custom Lessons" data-km="មេរៀនផ្ទាល់ខ្លួន">Custom Lessons</span>
+        </div>
+        <div class="csc-sub" id="customSidebarSub">${isKm ? 'បង្កើត ឬហ្វឹកហាត់មេរៀនផ្ទាល់ខ្លួន' : 'Craft & practice your own drills'}</div>
+      </div>
+      <button type="button" class="csc-btn" id="customSidebarBtn">
+        <span class="i18n-t" data-en="Craft" data-km="បង្កើត">Craft</span>
+      </button>
+    `;
+    bodyEl.appendChild(customCard);
     bodyEl.appendChild(adaptiveCard);
 
     let lastLevel = null;
@@ -2039,6 +2059,15 @@ lessonStrip.addEventListener('input', (e)=>{
 /* Toggle a level section open/closed, toggle 1-col/2-col expand, or start lesson */
 lessonStrip.addEventListener('click', (e)=>{
   e.stopPropagation();
+
+  // If clicked custom lessons button or custom sidebar card
+  const customBtn = e.target.closest('#lshCustomLessonsBtn, #customSidebarBtn, #customSidebarCard');
+  if(customBtn){
+    if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.openHub === 'function'){
+      PK_CUSTOM_LESSONS.openHub();
+    }
+    return;
+  }
 
   // If clicked adaptive practice button or sidebar card
   const adaptiveBtn = e.target.closest('#lshAdaptiveBtn, #adaptiveStartBtn, #adaptiveSidebarCard');
@@ -3637,6 +3666,15 @@ function applyLessonsData(data){
     hubInitialized = true;
 
     const modal = getHubModal();
+    const tabCustom = document.getElementById('lmTabBtn-custom');
+    if(tabCustom){
+      tabCustom.onclick = function() {
+        closeLearnMoreHub();
+        if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.openHub === 'function'){
+          PK_CUSTOM_LESSONS.openHub();
+        }
+      };
+    }
     const closeBtn = document.getElementById('learnMoreHubCloseBtn');
     const doneBtn = document.getElementById('learnMoreHubDoneBtn');
     const topBtn = document.getElementById('topLearnMoreBtn');
