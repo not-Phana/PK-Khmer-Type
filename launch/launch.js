@@ -1643,12 +1643,123 @@
     items.forEach((el) => observer.observe(el));
   }
 
+  /* ============================================================
+     HERO STUDIO MECHANICAL DECK INTERACTION & AMBIENT ENGINE
+     ============================================================ */
+  function setupHeroStudioDeck() {
+    const heroKeyboard = byId('heroMechKeyboard');
+    if (!heroKeyboard) return;
+
+    // Click handler for all hero mech keys
+    heroKeyboard.addEventListener('pointerdown', (ev) => {
+      const keyEl = ev.target.closest('.mech-key');
+      if (!keyEl) return;
+      playClick('down');
+      keyEl.classList.add('is-pressed');
+    });
+
+    window.addEventListener('pointerup', () => {
+      heroKeyboard.querySelectorAll('.mech-key.is-pressed').forEach((k) => {
+        k.classList.remove('is-pressed');
+        playClick('up');
+      });
+    });
+
+    // Caption layout switcher tabs
+    const captionTabs = document.querySelectorAll('.hero-caption-tab');
+    captionTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const layoutId = tab.dataset.heroLayout;
+        captionTabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+        applyHeroLayout(layoutId);
+      });
+    });
+
+    function applyHeroLayout(layoutId) {
+      const layoutData = LAYOUTS[layoutId] || LAYOUTS.standard;
+      const flatKeys = {};
+      layoutData.rows.forEach((row) => {
+        row.forEach((k) => {
+          if (k.id) flatKeys[k.id] = k;
+        });
+      });
+
+      heroKeyboard.querySelectorAll('.mech-key[data-k]').forEach((keyEl) => {
+        const kId = keyEl.dataset.k;
+        const keyDef = flatKeys[kId];
+        if (!keyDef) return;
+
+        if (kId === 'space') {
+          const badge = keyEl.querySelector('.mk-space-badge');
+          const label = keyEl.querySelector('.mk-space-label');
+          if (layoutId === 'standard') {
+            if (badge) badge.textContent = '្';
+            if (label) label.textContent = 'SPACEBAR · COENG (ជើង) LAYER';
+          } else if (layoutId === 'nida') {
+            if (badge) badge.textContent = '␣';
+            if (label) label.textContent = 'SPACEBAR · STANDARD WHITESPACE';
+          } else {
+            if (badge) badge.textContent = '␣';
+            if (label) label.textContent = 'SPACEBAR · TOUCH TYPING ANCHOR';
+          }
+          return;
+        }
+
+        const sub = keyEl.querySelector('.mk-sub');
+        const main = keyEl.querySelector('.mk-main');
+        if (main && keyDef.base !== undefined) main.textContent = keyDef.base;
+        if (sub && keyDef.shift !== undefined) sub.textContent = keyDef.shift;
+
+        // Homing styling
+        if (layoutId === 'english') {
+          keyEl.classList.toggle('k-homing', kId === 'f' || kId === 'j');
+          if (kId === 'k') keyEl.classList.remove('k-homing');
+        } else {
+          keyEl.classList.toggle('k-homing', kId === 'f' || kId === 'k');
+          if (kId === 'j') keyEl.classList.remove('k-homing');
+        }
+      });
+    }
+
+    // Subtle ambient typing loop for hero demo
+    const promptDisplay = byId('heroPromptText');
+    if (!promptDisplay) return;
+
+    const sampleWords = [
+      'សួស្តីកម្ពុជា · រៀនវាយអក្សរខ្មែរដោយទំនុកចិត្ត',
+      'ថដសាញកលះ · លំហាត់ជួរកណ្ដាលមូលដ្ឋាន',
+      'ស្ទាត់ជំនាញវាយអក្សរខ្មែរគ្រប់តួអក្សរ',
+    ];
+    let phraseIdx = 0;
+    let charIdx = 0;
+    let isTyping = true;
+
+    function tickHeroTyping() {
+      if (document.hidden || !isTyping) return;
+      const currentPhrase = sampleWords[phraseIdx];
+      charIdx++;
+      if (charIdx > currentPhrase.length) {
+        charIdx = 0;
+        phraseIdx = (phraseIdx + 1) % sampleWords.length;
+      }
+
+      const typedPart = currentPhrase.slice(0, charIdx);
+      const remainPart = currentPhrase.slice(charIdx);
+      promptDisplay.innerHTML = `<span class="prompt-typed">${typedPart}</span><span class="prompt-cursor"></span><span class="prompt-remain">${remainPart}</span>`;
+    }
+
+    window.setInterval(tickHeroTyping, 2800);
+    heroKeyboard.addEventListener('pointerenter', () => { isTyping = false; });
+    heroKeyboard.addEventListener('pointerleave', () => { isTyping = true; });
+  }
+
   function initialize() {
     initHandsDOM();
     setupMotion();
     setupControls();
     attachKeyboardEvents();
     setupReveals();
+    setupHeroStudioDeck();
 
     renderPrompt();
     renderKeyboard();

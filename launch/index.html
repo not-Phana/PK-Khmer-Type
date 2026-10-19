@@ -83,8 +83,136 @@
           <span>PK KHMER TYPE STUDIO DECK</span>
           <span>CHERRY / TOPRE ACOUSTICS</span>
         </div>
-        <div class="hero-image-wrap">
-          <img class="hero-image" src="../assets/pk-khmer-type-khmer-typing-trainer.png" alt="PK Khmer Type Studio interface with 3D finger posture guide and interactive Khmer Standard keyboard" width="1200" height="675" fetchpriority="high">
+        <div class="hero-image-wrap hero-studio-deck" id="heroStudioDeck">
+          <!-- Studio Header Bar -->
+          <div class="hero-deck-header">
+            <div class="deck-window-dots" aria-hidden="true">
+              <span class="dot dot-close"></span>
+              <span class="dot dot-minimize"></span>
+              <span class="dot dot-maximize"></span>
+            </div>
+            <div class="deck-title-pill">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+              <span>PK STUDIO · HARDWARE-ACCURATE MECHANICAL SIMULATOR</span>
+            </div>
+            <div class="deck-status-chips">
+              <span class="status-chip chip-live"><span class="chip-pulse" aria-hidden="true"></span> 60 FPS</span>
+              <span class="status-chip chip-audio">CHERRY MX AUDIO</span>
+            </div>
+          </div>
+
+          <!-- Typing Telemetry HUD -->
+          <div class="hero-telemetry-strip">
+            <div class="telemetry-prompt-box">
+              <span class="prompt-tag">LIVE EXERCISE</span>
+              <div class="prompt-display notranslate" translate="no" id="heroPromptText">
+                <span class="prompt-typed">សួស្តីកម្ពុ</span><span class="prompt-cursor"></span><span class="prompt-remain">ជា · រៀនវាយអក្សរខ្មែរដោយទំនុកចិត្ត</span>
+              </div>
+            </div>
+            <div class="telemetry-metrics">
+              <div class="metric-item">
+                <span class="metric-val">58</span>
+                <span class="metric-lbl">WPM</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-val accent">100%</span>
+                <span class="metric-lbl">ACCURACY</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-val gold">ថ / ក</span>
+                <span class="metric-lbl">HOMING</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Razor-Sharp Hardware Mechanical Deck -->
+          <div class="hero-mech-keyboard notranslate" id="heroMechKeyboard" translate="no" aria-label="Interactive Vector Mechanical Keyboard Deck">
+            <!-- Row 1: Numbers & Diacritics -->
+            <div class="mech-row">
+              <div class="mech-key k-mod k-tilde" data-k="grave"><span class="mk-main">`</span></div>
+              <div class="mech-key" data-k="k1"><span class="mk-sub">!</span><span class="mk-main">១</span></div>
+              <div class="mech-key" data-k="k2"><span class="mk-sub">ៗ</span><span class="mk-main">២</span></div>
+              <div class="mech-key" data-k="k3"><span class="mk-sub">"</span><span class="mk-main">៣</span></div>
+              <div class="mech-key" data-k="k4"><span class="mk-sub">៛</span><span class="mk-main">៤</span></div>
+              <div class="mech-key" data-k="k5"><span class="mk-sub">%</span><span class="mk-main">៥</span></div>
+              <div class="mech-key" data-k="k6"><span class="mk-sub">៍</span><span class="mk-main">៦</span></div>
+              <div class="mech-key" data-k="k7"><span class="mk-sub">័</span><span class="mk-main">៧</span></div>
+              <div class="mech-key" data-k="k8"><span class="mk-sub">៏</span><span class="mk-main">៨</span></div>
+              <div class="mech-key" data-k="k9"><span class="mk-sub">៎</span><span class="mk-main">៩</span></div>
+              <div class="mech-key" data-k="k0"><span class="mk-sub">៌</span><span class="mk-main">០</span></div>
+              <div class="mech-key" data-k="minus"><span class="mk-sub">_</span><span class="mk-main">-</span></div>
+              <div class="mech-key" data-k="equal"><span class="mk-sub">+</span><span class="mk-main">=</span></div>
+              <div class="mech-key k-mod k-backspace" data-k="backspace">⌫ Backspace</div>
+            </div>
+            <!-- Row 2: Top Row -->
+            <div class="mech-row">
+              <div class="mech-key k-mod k-tab" data-k="tab">Tab ⇥</div>
+              <div class="mech-key" data-k="q"><span class="mk-sub">ឈ</span><span class="mk-main">ឆ</span></div>
+              <div class="mech-key" data-k="w"><span class="mk-sub">ឺ</span><span class="mk-main">ឹ</span></div>
+              <div class="mech-key" data-k="e"><span class="mk-sub">ែ</span><span class="mk-main">េ</span></div>
+              <div class="mech-key" data-k="r"><span class="mk-sub">ឬ</span><span class="mk-main">រ</span></div>
+              <div class="mech-key" data-k="t"><span class="mk-sub">ទ</span><span class="mk-main">ត</span></div>
+              <div class="mech-key" data-k="y"><span class="mk-sub">ួ</span><span class="mk-main">យ</span></div>
+              <div class="mech-key" data-k="u"><span class="mk-sub">ូ</span><span class="mk-main">ុ</span></div>
+              <div class="mech-key" data-k="i"><span class="mk-sub">ី</span><span class="mk-main">ិ</span></div>
+              <div class="mech-key" data-k="o"><span class="mk-sub">ៅ</span><span class="mk-main">ោ</span></div>
+              <div class="mech-key" data-k="p"><span class="mk-sub">ភ</span><span class="mk-main">ផ</span></div>
+              <div class="mech-key" data-k="bracketL"><span class="mk-sub">ោះ</span><span class="mk-main">ើ</span></div>
+              <div class="mech-key" data-k="bracketR"><span class="mk-sub">ៀ</span><span class="mk-main">ឿ</span></div>
+              <div class="mech-key k-mod k-enter" data-k="enter">↵ Enter</div>
+            </div>
+            <!-- Row 3: Home Row -->
+            <div class="mech-row">
+              <div class="mech-key k-mod k-caps" data-k="caps">Caps ⇪</div>
+              <div class="mech-key" data-k="a"><span class="mk-sub">ៃ</span><span class="mk-main">ា</span></div>
+              <div class="mech-key" data-k="s"><span class="mk-sub">ាំ</span><span class="mk-main">ស</span></div>
+              <div class="mech-key" data-k="d"><span class="mk-sub">ឌ</span><span class="mk-main">ដ</span></div>
+              <div class="mech-key k-homing" data-k="f" title="Homing Key F (ថ)">
+                <span class="mk-sub">ធ</span><span class="mk-main">ថ</span>
+                <span class="homing-pip" aria-hidden="true"></span>
+              </div>
+              <div class="mech-key" data-k="g"><span class="mk-sub">ុះ</span><span class="mk-main">ង</span></div>
+              <div class="mech-key" data-k="h"><span class="mk-sub">៏</span><span class="mk-main">ហ</span></div>
+              <div class="mech-key" data-k="j"><span class="mk-sub">ុំ</span><span class="mk-main">ញ</span></div>
+              <div class="mech-key k-homing" data-k="k" title="Homing Key K (ក)">
+                <span class="mk-sub">គ</span><span class="mk-main">ក</span>
+                <span class="homing-pip" aria-hidden="true"></span>
+              </div>
+              <div class="mech-key" data-k="l"><span class="mk-sub">ឡ</span><span class="mk-main">ល</span></div>
+              <div class="mech-key" data-k="semicolon"><span class="mk-sub">៖</span><span class="mk-main">ះ</span></div>
+              <div class="mech-key" data-k="quote"><span class="mk-sub">៉</span><span class="mk-main">់</span></div>
+              <div class="mech-key k-mod" data-k="backslash"><span class="mk-main">\</span></div>
+            </div>
+            <!-- Row 4: Bottom Row -->
+            <div class="mech-row">
+              <div class="mech-key k-mod k-shift-l" data-k="shiftL">⇧ Shift</div>
+              <div class="mech-key" data-k="z"><span class="mk-sub">ឍ</span><span class="mk-main">ឋ</span></div>
+              <div class="mech-key" data-k="x"><span class="mk-sub">ឃ</span><span class="mk-main">ខ</span></div>
+              <div class="mech-key" data-k="c"><span class="mk-sub">ជ</span><span class="mk-main">ច</span></div>
+              <div class="mech-key" data-k="v"><span class="mk-sub">េះ</span><span class="mk-main">វ</span></div>
+              <div class="mech-key" data-k="b"><span class="mk-sub">ព</span><span class="mk-main">ប</span></div>
+              <div class="mech-key" data-k="n"><span class="mk-sub">ណ</span><span class="mk-main">ន</span></div>
+              <div class="mech-key" data-k="m"><span class="mk-sub">ំ</span><span class="mk-main">ម</span></div>
+              <div class="mech-key" data-k="comma"><span class="mk-sub">,</span><span class="mk-main">អ</span></div>
+              <div class="mech-key" data-k="period"><span class="mk-sub">.</span><span class="mk-main">។</span></div>
+              <div class="mech-key" data-k="slash"><span class="mk-sub">?</span><span class="mk-main">៕</span></div>
+              <div class="mech-key k-mod k-shift-r" data-k="shiftR">⇧ Shift</div>
+            </div>
+            <!-- Row 5: Modifier & Subscript Space -->
+            <div class="mech-row">
+              <div class="mech-key k-mod" data-k="ctrlL">Ctrl</div>
+              <div class="mech-key k-mod" data-k="win">Win</div>
+              <div class="mech-key k-mod" data-k="alt">Alt</div>
+              <div class="mech-key k-space" data-k="space">
+                <span class="mk-space-badge">្</span>
+                <span class="mk-space-label">SPACEBAR · COENG (ជើង) LAYER</span>
+              </div>
+              <div class="mech-key k-mod" data-k="altgr">AltGr</div>
+              <div class="mech-key k-mod" data-k="ctrlR">Ctrl</div>
+            </div>
+          </div>
+
+          <!-- Floating Badges -->
           <div class="image-badge-floating badge-top-right">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
             <span>3D FINGER GUIDE · 44% OPACITY</span>
@@ -95,9 +223,18 @@
           </div>
         </div>
         <figcaption class="visual-caption">
-          <span>KHMER STANDARD</span>
-          <span>OFFICIAL NiDA</span>
-          <span>ENGLISH US QWERTY</span>
+          <button type="button" class="hero-caption-tab is-active" data-hero-layout="standard">
+            <span class="hero-tab-dot" aria-hidden="true"></span>
+            <span>KHMER STANDARD (77 LESSONS)</span>
+          </button>
+          <button type="button" class="hero-caption-tab" data-hero-layout="nida">
+            <span class="hero-tab-dot" aria-hidden="true"></span>
+            <span>OFFICIAL NiDA (77 LESSONS)</span>
+          </button>
+          <button type="button" class="hero-caption-tab" data-hero-layout="english">
+            <span class="hero-tab-dot" aria-hidden="true"></span>
+            <span>ENGLISH US QWERTY (64 LESSONS)</span>
+          </button>
         </figcaption>
       </figure>
     </section>
@@ -114,8 +251,35 @@
         <div class="layout-preview-grid reveal" aria-label="Interactive layout gallery">
           <!-- Card 1: Standard -->
           <article class="layout-card">
-            <div class="layout-card-img-wrap">
-              <img class="layout-card-img" src="../assets/pk-khmer-type-standard-khmer-keyboard-layout.png" alt="Khmer Standard keyboard layout diagram" loading="lazy" width="826" height="354">
+            <div class="layout-card-blueprint notranslate" translate="no" aria-label="Khmer Standard Layout Blueprint">
+              <div class="blueprint-meta">
+                <span class="bp-title">KHMER STANDARD (ANSI)</span>
+                <span class="bp-pill bp-gold">HOMING: ថ / ក</span>
+              </div>
+              <div class="bp-grid">
+                <div class="bp-row">
+                  <span class="bp-key">១</span><span class="bp-key">២</span><span class="bp-key">៣</span><span class="bp-key">៤</span><span class="bp-key">៥</span><span class="bp-key">៦</span><span class="bp-key">៧</span><span class="bp-key">៨</span><span class="bp-key">៩</span><span class="bp-key">០</span><span class="bp-key">-</span><span class="bp-key">=</span><span class="bp-key bp-mod">⌫</span>
+                </div>
+                <div class="bp-row">
+                  <span class="bp-key bp-mod">⇥</span><span class="bp-key">ឆ</span><span class="bp-key">ឹ</span><span class="bp-key">េ</span><span class="bp-key">រ</span><span class="bp-key">ត</span><span class="bp-key">យ</span><span class="bp-key">ុ</span><span class="bp-key">ិ</span><span class="bp-key">ោ</span><span class="bp-key">ផ</span><span class="bp-key">ើ</span><span class="bp-key">ឿ</span><span class="bp-key bp-mod">↵</span>
+                </div>
+                <div class="bp-row">
+                  <span class="bp-key bp-mod">⇪</span><span class="bp-key">ា</span><span class="bp-key">ស</span><span class="bp-key">ដ</span><span class="bp-key bp-homing" title="Homing Key F (ថ)">ថ</span><span class="bp-key">ង</span><span class="bp-key">ហ</span><span class="bp-key">ញ</span><span class="bp-key bp-homing" title="Homing Key K (ក)">ក</span><span class="bp-key">ល</span><span class="bp-key">ះ</span><span class="bp-key">់</span><span class="bp-key bp-mod">\</span>
+                </div>
+                <div class="bp-row">
+                  <span class="bp-key bp-mod">⇧</span><span class="bp-key">ឋ</span><span class="bp-key">ខ</span><span class="bp-key">ច</span><span class="bp-key">វ</span><span class="bp-key">ប</span><span class="bp-key">ន</span><span class="bp-key">ម</span><span class="bp-key">អ</span><span class="bp-key">។</span><span class="bp-key">៕</span><span class="bp-key bp-mod">⇧</span>
+                </div>
+                <div class="bp-row bp-space-row">
+                  <span class="bp-key bp-mod">Ctrl</span>
+                  <span class="bp-key bp-space bp-space-gold"><span class="space-coeng-glyph">្</span> Spacebar · Subscript Coeng Layer</span>
+                  <span class="bp-key bp-mod">AltGr</span>
+                </div>
+              </div>
+              <div class="blueprint-footer">
+                <span class="bp-badge">Coeng on Spacebar</span>
+                <span class="bp-badge">Shift Consonants</span>
+                <span class="bp-badge">Full Vowel Set</span>
+              </div>
             </div>
             <div class="layout-card-info">
               <div class="layout-card-header">
@@ -132,8 +296,35 @@
 
           <!-- Card 2: NiDA -->
           <article class="layout-card">
-            <div class="layout-card-img-wrap">
-              <img class="layout-card-img" src="../assets/pk-khmer-type-khmer-nida-keyboard-layout.png" alt="Khmer NiDA official keyboard layout diagram" loading="lazy" width="827" height="366">
+            <div class="layout-card-blueprint bp-nida notranslate" translate="no" aria-label="Khmer NiDA Layout Blueprint">
+              <div class="blueprint-meta">
+                <span class="bp-title">OFFICIAL NiDA (WINDOWS)</span>
+                <span class="bp-pill bp-cyan">HOMING: ថ / ក</span>
+              </div>
+              <div class="bp-grid">
+                <div class="bp-row">
+                  <span class="bp-key">«</span><span class="bp-key">១</span><span class="bp-key">២</span><span class="bp-key">៣</span><span class="bp-key">៤</span><span class="bp-key">៥</span><span class="bp-key">៦</span><span class="bp-key">៧</span><span class="bp-key">៨</span><span class="bp-key">៩</span><span class="bp-key">០</span><span class="bp-key">ឥ</span><span class="bp-key">ឲ</span><span class="bp-key bp-mod">⌫</span>
+                </div>
+                <div class="bp-row">
+                  <span class="bp-key bp-mod">⇥</span><span class="bp-key">ឆ</span><span class="bp-key">ឹ</span><span class="bp-key">េ</span><span class="bp-key">រ</span><span class="bp-key">ត</span><span class="bp-key">យ</span><span class="bp-key">ុ</span><span class="bp-key">ិ</span><span class="bp-key">ោ</span><span class="bp-key">ផ</span><span class="bp-key">ៀ</span><span class="bp-key">ឪ</span><span class="bp-key bp-mod">↵</span>
+                </div>
+                <div class="bp-row">
+                  <span class="bp-key bp-mod">⇪</span><span class="bp-key">ា</span><span class="bp-key">ស</span><span class="bp-key">ដ</span><span class="bp-key bp-homing" title="Homing Key F (ថ)">ថ</span><span class="bp-key">ង</span><span class="bp-key">ហ</span><span class="bp-key bp-coeng" title="Subscript Coeng Key (J)">្</span><span class="bp-key bp-homing" title="Homing Key K (ក)">ក</span><span class="bp-key">ល</span><span class="bp-key">ើ</span><span class="bp-key">់</span><span class="bp-key bp-mod">ឮ</span>
+                </div>
+                <div class="bp-row">
+                  <span class="bp-key bp-mod">⇧</span><span class="bp-key">ឋ</span><span class="bp-key">ខ</span><span class="bp-key">ច</span><span class="bp-key">វ</span><span class="bp-key">ប</span><span class="bp-key">ន</span><span class="bp-key">ម</span><span class="bp-key">ុំ</span><span class="bp-key">។</span><span class="bp-key">៊</span><span class="bp-key bp-mod">⇧</span>
+                </div>
+                <div class="bp-row bp-space-row">
+                  <span class="bp-key bp-mod">Ctrl</span>
+                  <span class="bp-key bp-space bp-space-cyan">Spacebar · Standard Whitespace (␣)</span>
+                  <span class="bp-key bp-mod">AltGr</span>
+                </div>
+              </div>
+              <div class="blueprint-footer">
+                <span class="bp-badge">Coeng on J Key (្)</span>
+                <span class="bp-badge">NiDA Specification</span>
+                <span class="bp-badge">Standard Space</span>
+              </div>
             </div>
             <div class="layout-card-info">
               <div class="layout-card-header">
@@ -150,8 +341,35 @@
 
           <!-- Card 3: English -->
           <article class="layout-card">
-            <div class="layout-card-img-wrap">
-              <img class="layout-card-img" src="../assets/pk-khmer-type-english-qwerty-keyboard-layout.png" alt="English US QWERTY keyboard layout diagram" loading="lazy" width="829" height="343">
+            <div class="layout-card-blueprint bp-english notranslate" translate="no" aria-label="English US QWERTY Blueprint">
+              <div class="blueprint-meta">
+                <span class="bp-title">US QWERTY (ANSI 104)</span>
+                <span class="bp-pill bp-emerald">HOMING: F / J</span>
+              </div>
+              <div class="bp-grid">
+                <div class="bp-row">
+                  <span class="bp-key">`</span><span class="bp-key">1</span><span class="bp-key">2</span><span class="bp-key">3</span><span class="bp-key">4</span><span class="bp-key">5</span><span class="bp-key">6</span><span class="bp-key">7</span><span class="bp-key">8</span><span class="bp-key">9</span><span class="bp-key">0</span><span class="bp-key">-</span><span class="bp-key">=</span><span class="bp-key bp-mod">⌫</span>
+                </div>
+                <div class="bp-row">
+                  <span class="bp-key bp-mod">⇥</span><span class="bp-key">Q</span><span class="bp-key">W</span><span class="bp-key">E</span><span class="bp-key">R</span><span class="bp-key">T</span><span class="bp-key">Y</span><span class="bp-key">U</span><span class="bp-key">I</span><span class="bp-key">O</span><span class="bp-key">P</span><span class="bp-key">[</span><span class="bp-key">]</span><span class="bp-key bp-mod">↵</span>
+                </div>
+                <div class="bp-row">
+                  <span class="bp-key bp-mod">⇪</span><span class="bp-key">A</span><span class="bp-key">S</span><span class="bp-key">D</span><span class="bp-key bp-homing" title="Homing Key F">F</span><span class="bp-key">G</span><span class="bp-key">H</span><span class="bp-key bp-homing" title="Homing Key J">J</span><span class="bp-key">K</span><span class="bp-key">L</span><span class="bp-key">;</span><span class="bp-key">'</span><span class="bp-key bp-mod">\</span>
+                </div>
+                <div class="bp-row">
+                  <span class="bp-key bp-mod">⇧</span><span class="bp-key">Z</span><span class="bp-key">X</span><span class="bp-key">C</span><span class="bp-key">V</span><span class="bp-key">B</span><span class="bp-key">N</span><span class="bp-key">M</span><span class="bp-key">,</span><span class="bp-key">.</span><span class="bp-key">/</span><span class="bp-key bp-mod">⇧</span>
+                </div>
+                <div class="bp-row bp-space-row">
+                  <span class="bp-key bp-mod">Ctrl</span>
+                  <span class="bp-key bp-space bp-space-emerald">Spacebar · Touch Typing Anchor (␣)</span>
+                  <span class="bp-key bp-mod">AltGr</span>
+                </div>
+              </div>
+              <div class="blueprint-footer">
+                <span class="bp-badge">International Standard</span>
+                <span class="bp-badge">Home Anchors F &amp; J</span>
+                <span class="bp-badge">Universal Base</span>
+              </div>
             </div>
             <div class="layout-card-info">
               <div class="layout-card-header">
@@ -292,9 +510,63 @@
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
           </div>
-          <figure class="feature-image-frame">
-            <img src="../assets/pk-khmer-type-khmer-nida-keyboard-layout.png" alt="Khmer NiDA official layout preview" loading="lazy" width="827" height="366">
-            <figcaption>OFFICIAL WINDOWS NiDA SPECIFICATION</figcaption>
+          <figure class="feature-image-frame feature-vector-frame notranslate" translate="no">
+            <div class="vector-matrix-card">
+              <div class="matrix-card-header">
+                <span class="mch-title">KHMER HARDWARE MODIFIER ARCHITECTURE</span>
+                <span class="mch-badge">4-TIER ACCESS</span>
+              </div>
+              <div class="matrix-layers-list">
+                <div class="matrix-layer-row is-active">
+                  <div class="ml-badge ml-base">BASE</div>
+                  <div class="ml-desc">Primary Consonants &amp; Dependent Vowels</div>
+                  <div class="ml-samples">
+                    <span class="ml-glyph">ក</span>
+                    <span class="ml-glyph">ខ</span>
+                    <span class="ml-glyph">ច</span>
+                    <span class="ml-glyph">ថ</span>
+                    <span class="ml-glyph">ដ</span>
+                    <span class="ml-glyph">ា</span>
+                    <span class="ml-glyph">ិ</span>
+                  </div>
+                </div>
+                <div class="matrix-layer-row">
+                  <div class="ml-badge ml-shift">SHIFT</div>
+                  <div class="ml-desc">Second Register &amp; Upper Vowels</div>
+                  <div class="ml-samples">
+                    <span class="ml-glyph">គ</span>
+                    <span class="ml-glyph">ឃ</span>
+                    <span class="ml-glyph">ជ</span>
+                    <span class="ml-glyph">ធ</span>
+                    <span class="ml-glyph">ឌ</span>
+                    <span class="ml-glyph">ី</span>
+                    <span class="ml-glyph">ែ</span>
+                  </div>
+                </div>
+                <div class="matrix-layer-row">
+                  <div class="ml-badge ml-altgr">ALTGR</div>
+                  <div class="ml-desc">Independent Vowels &amp; Currency</div>
+                  <div class="ml-samples">
+                    <span class="ml-glyph">ឦ</span>
+                    <span class="ml-glyph">ឧ</span>
+                    <span class="ml-glyph">ឪ</span>
+                    <span class="ml-glyph">ឰ</span>
+                    <span class="ml-glyph">៛</span>
+                    <span class="ml-glyph">៕</span>
+                  </div>
+                </div>
+                <div class="matrix-layer-row">
+                  <div class="ml-badge ml-coeng">COENG</div>
+                  <div class="ml-desc">Subscript Consonant Ligatures (ជើង)</div>
+                  <div class="ml-samples">
+                    <span class="ml-glyph hl">្ + ក → ្ក</span>
+                    <span class="ml-glyph hl">្ + រ → ្រ</span>
+                    <span class="ml-glyph hl">្ + ញ → ្ញ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <figcaption>HARDWARE MODIFIER &amp; SUBSCRIPT ARCHITECTURE</figcaption>
           </figure>
         </article>
 
@@ -309,9 +581,48 @@
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
           </div>
-          <figure class="feature-image-frame">
-            <img src="../assets/pk-khmer-type-khmer-typing-trainer.png" alt="PK Khmer Type live typing trainer screen" loading="lazy" width="1200" height="675">
-            <figcaption>STUDIO COCKPIT WITH 3D FINGER POSITIONING</figcaption>
+          <figure class="feature-image-frame feature-vector-frame notranslate" translate="no">
+            <div class="vector-curriculum-card">
+              <div class="curriculum-topline">
+                <span class="c-title">40-LEVEL SYSTEMATIC CURRICULUM</span>
+                <span class="c-badge">222 LESSONS · 713 DRILLS</span>
+              </div>
+              <div class="curriculum-stages-track">
+                <div class="stage-step is-complete">
+                  <div class="step-num">01</div>
+                  <div class="step-info">
+                    <div class="step-name">Home Row Anchors</div>
+                    <div class="step-keys">ថ (F) · ក (K) · ា (A) · ស (S) · ដ (D)</div>
+                  </div>
+                  <div class="step-tag">LEVELS 00–04</div>
+                </div>
+                <div class="stage-step is-complete">
+                  <div class="step-num">02</div>
+                  <div class="step-info">
+                    <div class="step-name">Top &amp; Bottom Reach</div>
+                    <div class="step-keys">ឆ ឹ េ រ ត យ ុ ិ ោ ផ · ច វ ប ន ម</div>
+                  </div>
+                  <div class="step-tag">LEVELS 05–15</div>
+                </div>
+                <div class="stage-step is-active">
+                  <div class="step-num">03</div>
+                  <div class="step-info">
+                    <div class="step-name">Coeng Subscripts &amp; Diacritics</div>
+                    <div class="step-keys">្ក ្ខ ្ច ្ញ ្រ ្ល · ់ ៉ ៍ ៏ ័ ៌</div>
+                  </div>
+                  <div class="step-tag live">LEVELS 16–25</div>
+                </div>
+                <div class="stage-step">
+                  <div class="step-num">04</div>
+                  <div class="step-info">
+                    <div class="step-name">Grandmaster Scribe Literature</div>
+                    <div class="step-keys">Angkor Inscriptions · Reamker · Smot</div>
+                  </div>
+                  <div class="step-tag">LEVELS 26–40</div>
+                </div>
+              </div>
+            </div>
+            <figcaption>100% EXHAUSTIVE ALPHABET COVERAGE ENGINE</figcaption>
           </figure>
         </article>
 
@@ -344,9 +655,52 @@
               </div>
             </div>
           </div>
-          <figure class="feature-image-frame">
-            <img src="../assets/pk-khmer-type-og-preview.png" alt="PK Khmer Type complete platform overview" loading="lazy" width="1200" height="630">
-            <figcaption>FULL ECOSYSTEM WITH DASHBOARD ANALYTICS</figcaption>
+          <figure class="feature-image-frame feature-vector-frame notranslate" translate="no">
+            <div class="vector-telemetry-card">
+              <div class="telemetry-topline">
+                <span class="t-title">ADAPTIVE RECOVERY &amp; MASTERY ENGINE</span>
+                <span class="t-badge">ZERO LATENCY LOGGING</span>
+              </div>
+              <div class="telemetry-dash-grid">
+                <div class="dash-panel panel-accuracy">
+                  <div class="panel-lbl">SYSTEM MASTERY</div>
+                  <div class="panel-val">99.8%</div>
+                  <div class="panel-bar"><div class="bar-fill" style="width: 99.8%"></div></div>
+                  <div class="panel-sub">Strict Zero-Error Protocol</div>
+                </div>
+                <div class="dash-panel panel-weakkey">
+                  <div class="panel-lbl">WEAK-KEY ADAPTIVE TARGET</div>
+                  <div class="panel-val gold">Key ឌ <span class="delta">+210ms</span></div>
+                  <div class="panel-sub">Remedial drills dynamically injected</div>
+                </div>
+                <div class="dash-panel panel-kinematics">
+                  <div class="panel-lbl">3D KINEMATIC FINGER TRACKER</div>
+                  <div class="finger-heat-row">
+                    <span class="fh-pip" title="Left Pinky: a">LP</span>
+                    <span class="fh-pip" title="Left Ring: s">LR</span>
+                    <span class="fh-pip" title="Left Middle: d">LM</span>
+                    <span class="fh-pip hot" title="Left Index: f (ថ)">LI</span>
+                    <span class="fh-pip" title="Thumb: Space">TH</span>
+                    <span class="fh-pip hot" title="Right Index: j (ញ)">RI</span>
+                    <span class="fh-pip hot" title="Right Middle: k (ក)">RM</span>
+                    <span class="fh-pip" title="Right Ring: l">RR</span>
+                    <span class="fh-pip" title="Right Pinky: ;">RP</span>
+                  </div>
+                  <div class="panel-sub">10-Finger Symmetrical Posture</div>
+                </div>
+                <div class="dash-panel panel-speed">
+                  <div class="panel-lbl">VELOCITY TRAJECTORY</div>
+                  <div class="sparkline-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 160 36" fill="none" class="sparkline-svg">
+                      <path d="M0 28 Q 20 26, 40 20 T 80 14 T 120 10 T 160 4" stroke="#ffcb47" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                      <circle cx="160" cy="4" r="3.5" fill="#ffcb47"/>
+                    </svg>
+                  </div>
+                  <div class="panel-sub">Progressive 58 → 84 WPM Growth</div>
+                </div>
+              </div>
+            </div>
+            <figcaption>ADAPTIVE INTELLIGENCE &amp; BIOMECHANICS HUD</figcaption>
           </figure>
         </article>
       </div>
