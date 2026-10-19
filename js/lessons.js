@@ -1844,9 +1844,6 @@ function renderLessonStrip(){
     topBar.innerHTML = `
       <span class="lsh-title">${pkIcon('book', 14)} <span class="i18n-t" data-en="LESSONS" data-km="មេរៀន">LESSONS</span></span>
       <div class="lsh-actions">
-        <button type="button" class="lsh-custom-btn" id="lshCustomLessonsBtn" title="${isKm ? 'មេរៀនផ្ទាល់ខ្លួន (បង្កើត និងហ្វឹកហាត់)' : 'Custom Lessons (Create & Practice)'}" aria-label="Custom Lessons">
-          ${pkIcon('edit', 12)} <span class="i18n-t" data-en="Custom" data-km="ផ្ទាល់ខ្លួន">Custom</span>
-        </button>
         <button type="button" class="lsh-adaptive-btn" id="lshAdaptiveBtn" title="Start Adaptive Practice" aria-label="Start Adaptive Practice">
           ${pkIcon('refresh', 12)} <span class="i18n-t" data-en="Adaptive" data-km="ការអនុវត្តបន្ស៊ាំ">Adaptive</span>
         </button>
@@ -1871,20 +1868,31 @@ function renderLessonStrip(){
     frag.appendChild(searchBar);
 
     const hubBannerWrap = document.createElement('div');
-    hubBannerWrap.className = 'lesson-strip-hub-banner-wrap';
+    hubBannerWrap.className = 'lesson-strip-banners-row';
     hubBannerWrap.innerHTML = `
       <button type="button" class="lsh-hub-banner" id="lshHubBanner" title="${isKm ? 'ស្វែងយល់បន្ថែមអំពី ២២២ មេរៀន និងតួអក្សរគ្រប់ទម្រង់' : 'Explore 222 Handcrafted Lessons & 100% Alphabet Coverage (Every Letter Included)'}">
         <div class="lsh-hb-left">
           <span class="lsh-hb-badge">
-            <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <span>222</span>
           </span>
           <div class="lsh-hb-text">
-            <span class="lsh-hb-title i18n-t" data-en="222 Lessons · All Letters" data-km="២២២ មេរៀន · គ្រប់តួអក្សរ">222 Lessons · All Letters</span>
-            <span class="lsh-hb-sub i18n-t" data-en="Every Letter Included · Learn More" data-km="រួមបញ្ចូលគ្រប់តួអក្សរ · ស្វែងយល់បន្ថែម">Every Letter Included · Learn More</span>
+            <span class="lsh-hb-title i18n-t" data-en="222 Lessons" data-km="២២២ មេរៀន">222 Lessons</span>
+            <span class="lsh-hb-sub i18n-t" data-en="All Letters" data-km="គ្រប់តួអក្សរ">All Letters</span>
           </div>
         </div>
-        <svg class="pk-icon lsh-hb-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button type="button" class="lsh-hub-banner custom" id="lshCustomBanner" title="${isKm ? 'មេរៀនផ្ទាល់ខ្លួន — បង្កើត និងហ្វឹកហាត់' : 'Custom Lessons — Craft & Practice Your Own Drills'}">
+        <div class="lsh-hb-left">
+          <span class="lsh-hb-badge custom-badge">
+            <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <span>NEW</span>
+          </span>
+          <div class="lsh-hb-text">
+            <span class="lsh-hb-title i18n-t" data-en="Custom" data-km="ផ្ទាល់ខ្លួន">Custom</span>
+            <span class="lsh-hb-sub i18n-t" data-en="Craft &amp; Train" data-km="បង្កើត &amp; ហាត់">Craft &amp; Train</span>
+          </div>
+        </div>
       </button>
     `;
     frag.appendChild(hubBannerWrap);
@@ -1913,23 +1921,6 @@ function renderLessonStrip(){
     const bodyEl = document.createElement('div');
     bodyEl.className = 'lesson-strip-body';
     bodyEl.id = 'lessonStripBody';
-    
-    const customCard = document.createElement('div');
-    customCard.className = 'custom-sidebar-card';
-    customCard.id = 'customSidebarCard';
-    customCard.innerHTML = `
-      <div class="csc-left">
-        <div class="csc-title">
-          ${pkIcon('edit', 13)}
-          <span class="i18n-t" data-en="Custom Lessons" data-km="មេរៀនផ្ទាល់ខ្លួន">Custom Lessons</span>
-        </div>
-        <div class="csc-sub" id="customSidebarSub">${isKm ? 'បង្កើត ឬហ្វឹកហាត់មេរៀនផ្ទាល់ខ្លួន' : 'Craft & practice your own drills'}</div>
-      </div>
-      <button type="button" class="csc-btn" id="customSidebarBtn">
-        <span class="i18n-t" data-en="Craft" data-km="បង្កើត">Craft</span>
-      </button>
-    `;
-    bodyEl.appendChild(customCard);
     bodyEl.appendChild(adaptiveCard);
 
     let lastLevel = null;
