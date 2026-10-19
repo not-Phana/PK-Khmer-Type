@@ -4092,10 +4092,13 @@
         </div>
         <h3 class="cl-empty-title i18n-t" data-en="Craft Your First Custom Lesson" data-km="បង្កើតមេរៀនផ្ទាល់ខ្លួនដំបូងរបស់អ្នក">Craft Your First Custom Lesson</h3>
         <p class="cl-empty-desc i18n-t" data-en="Create customized typing exercises with your own vocabulary, literature, or targeted characters for Khmer Standard, NiDA, and English keyboards." data-km="បង្កើតលំហាត់វាយអក្សរតាមតម្រូវការជាមួយនឹងពាក្យ អត្ថបទ ឬតួអក្សរដែលអ្នកចង់ហ្វឹកហាត់លើក្តារចុចខ្មែរស្តង់ដារ និដា និងអង់គ្លេស។">Create customized typing exercises with your own vocabulary, literature, or targeted characters for Khmer Standard, NiDA, and English keyboards.</p>
-        <button type="button" class="cl-primary-btn" id="clEmptyCreateBtn">
-          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          <span class="i18n-t" data-en="Create Lesson Now" data-km="បង្កើតមេរៀនឥឡូវនេះ">Create Lesson Now</span>
-        </button>
+        <div class="cl-empty-actions">
+          <button type="button" class="cl-primary-btn" id="clEmptyCreateBtn">
+            <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span class="i18n-t" data-en="Create Blank Lesson" data-km="បង្កើតមេរៀនទទេ">Create Blank Lesson</span>
+          </button>
+        </div>
+        <div class="cl-empty-starters-shelf" id="clEmptyStartersShelf"></div>
       </div>
 
       <div class="cl-lesson-list" id="clLessonList" hidden></div>
@@ -4164,7 +4167,15 @@
 
         <div class="cl-form-group full-width">
           <div class="cl-starter-bar-wrap">
-            <span class="cl-starter-label i18n-t" data-en="Quick Starter Templates (Click to add)" data-km="គំរូមេរៀនរហ័ស (ចុចដើម្បីបន្ថែម)">Quick Starter Templates (Click to add)</span>
+            <div class="cl-starter-bar-head">
+              <span class="cl-starter-label i18n-t" data-en="Quick Starter Templates (Click to load)" data-km="គំរូមេរៀនរហ័ស (ចុចដើម្បីផ្ទុក)">Quick Starter Templates (Click to load)</span>
+              <div class="cl-starter-cats" id="clStarterCatsBar" role="group" aria-label="Template Categories">
+                <button type="button" class="cl-starter-cat-btn active" data-cat="all"><span class="i18n-t" data-en="All" data-km="ទាំងអស់">All</span></button>
+                <button type="button" class="cl-starter-cat-btn" data-cat="khmer"><span class="i18n-t" data-en="Khmer" data-km="ខ្មែរ">Khmer</span></button>
+                <button type="button" class="cl-starter-cat-btn" data-cat="english"><span class="i18n-t" data-en="English" data-km="អង់គ្លេស">English</span></button>
+                <button type="button" class="cl-starter-cat-btn" data-cat="numbers"><span class="i18n-t" data-en="Numbers" data-km="លេខ &amp; សញ្ញា">Numbers</span></button>
+              </div>
+            </div>
             <div class="cl-starter-chips" id="clStarterChipsBar"></div>
           </div>
         </div>
@@ -4181,17 +4192,33 @@
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
                 <span>3×</span>
               </button>
+              <button type="button" class="cl-tool-btn" id="clToolRepeat5x" title="Repeat text 5 times">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                <span>5×</span>
+              </button>
               <button type="button" class="cl-tool-btn" id="clToolShuffle" title="Shuffle word order">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
                 <span class="i18n-t" data-en="Shuffle" data-km="ច្របល់">Shuffle</span>
               </button>
-              <button type="button" class="cl-tool-btn" id="clToolAddSpaces" title="Insert space between letters">
+              <button type="button" class="cl-tool-btn" id="clToolAddSpaces" title="Insert space between letters/units">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="12" x2="20" y2="12"/></svg>
                 <span class="i18n-t" data-en="Spaces" data-km="ដកឃ្លា">Spaces</span>
               </button>
               <button type="button" class="cl-tool-btn" id="clToolCleanSpaces" title="Clean multiple spaces">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
                 <span class="i18n-t" data-en="Clean" data-km="សម្អាត">Clean</span>
+              </button>
+              <button type="button" class="cl-tool-btn" id="clToolPasteClean" title="Clean &amp; format text (normalize linebreaks, tabs, spaces)">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                <span class="i18n-t" data-en="Paste &amp; Clean" data-km="សម្អាតអត្ថបទ">Paste &amp; Clean</span>
+              </button>
+              <button type="button" class="cl-tool-btn" id="clToolExtractKeys" title="Extract unique keys into a warm-up drill">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span class="i18n-t" data-en="Warmup Keys" data-km="អក្សរគោលដៅ">Warmup Keys</span>
+              </button>
+              <button type="button" class="cl-tool-btn danger" id="clToolClear" title="Clear text">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                <span class="i18n-t" data-en="Clear" data-km="លុប">Clear</span>
               </button>
             </div>
           </div>
@@ -4210,6 +4237,10 @@
     </div>
 
     <div class="cl-modal-foot">
+      <div class="cl-shortcut-hint" aria-hidden="true">
+        <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+        <span class="i18n-t" data-en="to Save &amp; Practice" data-km="ដើម្បីរក្សាទុក និងហាត់">to Save &amp; Practice</span>
+      </div>
       <button type="button" class="cl-sec-btn" id="clEditorCancelBtn">
         <span class="i18n-t" data-en="Cancel" data-km="បោះបង់">Cancel</span>
       </button>

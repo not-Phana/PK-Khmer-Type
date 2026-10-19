@@ -71,6 +71,17 @@
       descKm: 'ហ្វឹកហាត់ព្យញ្ជនៈគ្រឹះទាំង ៣៣ តួគ្រប់ជួរដៃ។'
     },
     {
+      id: 'km-home-row',
+      category: 'khmer',
+      titleEn: 'Khmer Home Row Drill',
+      titleKm: 'ជួរគ្រឹះដៃខ្មែរ (Home Row)',
+      difficulty: 'beginner',
+      targetLayout: 'standard',
+      content: 'ដ ថ ង ក ា ិ ី ើ ស ដថ ងក ាិ ីើ សដ',
+      descEn: 'Foundational anchors on the home row keys (ASDF JKL; reach).',
+      descKm: 'ហ្វឹកហាត់គ្រឹះម្រាមដៃលើជួរកណ្តាលក្ដារចុច។'
+    },
+    {
       id: 'km-subscripts-coeng',
       category: 'khmer',
       titleEn: 'Essential Subscripts (Coeng)',
@@ -93,6 +104,17 @@
       descKm: 'ពាក្យប្រើប្រាស់ញឹកញាប់ក្នុងជីវភាពរស់នៅប្រចាំថ្ងៃ។'
     },
     {
+      id: 'km-geography',
+      category: 'khmer',
+      titleEn: 'Cambodian Cities & Provinces',
+      titleKm: 'ខេត្តក្រុងនៃប្រទេសកម្ពុជា',
+      difficulty: 'intermediate',
+      targetLayout: 'standard',
+      content: 'ភ្នំពេញ សៀមរាប បាត់ដំបង កំពង់ចាម កំពត កែប ព្រះសីហនុ ពោធិ៍សាត់ កោះកុង ស្ទឹងត្រែង',
+      descEn: 'Major Cambodian cities and provincial capitals.',
+      descKm: 'ឈ្មោះរាជធានី និងខេត្តសំខាន់ៗនៃព្រះរាជាណាចក្រកម្ពុជា។'
+    },
+    {
       id: 'km-wisdom-quotes',
       category: 'khmer',
       titleEn: 'Khmer Proverbs & Wisdom',
@@ -102,6 +124,17 @@
       content: 'ចេះមកពីរៀន មានមកពីរក ទឹកថ្លាឈ្វេង ត្រីកំភ្លាញហែល ស្រឡាញ់ខ្លួនឱ្យស្គាល់ខ្មាស់ ស្រឡាញ់ចាស់ឱ្យស្គាល់គុណ',
       descEn: 'Philosophical sentences and poetic proverbs to build flow.',
       descKm: 'ឃ្លាសុភាសិតបុរាណដើម្បីបង្កើនល្បឿន និងភាពរលូន។'
+    },
+    {
+      id: 'en-home-row',
+      category: 'english',
+      titleEn: 'English Home Row Drill',
+      titleKm: 'ជួរគ្រឹះអង់គ្លេស (Home Row)',
+      difficulty: 'beginner',
+      targetLayout: 'english',
+      content: 'asdf jkl; asdf jkl; a s d f j k l ; fall glad flash salad ask',
+      descEn: 'Essential muscle memory foundation on standard home row keys.',
+      descKm: 'គ្រឹះសាច់ដុំដៃលើជួរគ្រឹះ ASDF JKL; សម្រាប់ភាសាអង់គ្លេស។'
     },
     {
       id: 'en-top-words',
@@ -529,6 +562,14 @@
 
       if(typeof startLesson === 'function'){
         startLesson(curriculumDef, true);
+        const isKm = document.documentElement.classList.contains('site-km-mode');
+        if(typeof showToast === 'function'){
+          showToast(
+            pkIcon('play', 16),
+            isKm ? 'បានផ្ទុកមេរៀន' : 'Lesson Loaded',
+            isKm ? `កំពុងហ្វឹកហាត់ "${lesson.title}"` : `Ready to practice "${lesson.title}"`
+          );
+        }
         return true;
       }
       return false;
@@ -572,6 +613,56 @@
         return text.replace(/\s+/g, ' ').trim();
       },
 
+      pasteAndClean: function(text){
+        if(!text) return '';
+        return text
+          .replace(/[\r\n\t]+/g, ' ')
+          .replace(/[\u200B\uFEFF]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+      },
+
+      extractUniqueUnits: function(text, layoutId = 'standard'){
+        if(!text) return '';
+        let units = [];
+        if(typeof window.splitIntoTypingUnits === 'function'){
+          units = window.splitIntoTypingUnits(text, layoutId);
+        } else {
+          units = Array.from(text);
+        }
+        const seen = new Set();
+        const unique = [];
+        units.forEach(u => {
+          const trimmed = u.trim();
+          if(trimmed && !seen.has(trimmed)){
+            seen.add(trimmed);
+            unique.push(trimmed);
+          }
+        });
+        return unique.join(' ');
+      },
+
+      detectLayout: function(text){
+        if(!text) return 'standard';
+        const hasKhmer = /[\u1780-\u17FF]/.test(text);
+        if(hasKhmer) return 'standard';
+        const hasLatin = /[a-zA-Z]/.test(text);
+        if(hasLatin) return 'english';
+        return 'any';
+      },
+
+      detectDifficulty: function(text, layoutId = 'standard'){
+        if(!text) return 'beginner';
+        const metrics = this.calcMetrics(text, layoutId);
+        if(/[\u17D2]/.test(text) || metrics.units > 120){
+          return 'advanced';
+        }
+        if(/[\u17A3-\u17B3]/.test(text) || metrics.units > 40){
+          return 'intermediate';
+        }
+        return 'beginner';
+      },
+
       calcMetrics: function(text, layoutId = 'standard'){
         if(!text) return { chars: 0, units: 0, words: 0, estSec: 0 };
         const rawChars = text.length;
@@ -597,6 +688,7 @@
        UI Management (Hub, Editor & Confirm Dialogs)
        ============================================================ */
     activeFilter: 'all',
+    activeTemplateCat: 'all',
     searchQuery: '',
     editingLessonId: null,
 
@@ -617,6 +709,57 @@
       } else {
         modal.hidden = true;
       }
+    },
+
+    renderEmptyStateStarters: function(){
+      const shelf = document.getElementById('clEmptyStartersShelf');
+      if(!shelf) return;
+
+      const isKm = document.documentElement.classList.contains('site-km-mode');
+      const featured = ['km-vowels-dep', 'km-consonants-all', 'km-subscripts-coeng', 'en-classic-pangram']
+        .map(id => STARTER_TEMPLATES.find(t => t.id === id))
+        .filter(Boolean);
+
+      shelf.innerHTML = featured.map(tpl => {
+        return `
+          <div class="cl-empty-starter-card" data-template-id="${escapeHtml(tpl.id)}">
+            <div class="cl-esc-head">
+              <h4 class="cl-esc-title">${escapeHtml(isKm ? tpl.titleKm : tpl.titleEn)}</h4>
+              <span class="cl-diff-badge ${escapeHtml(tpl.difficulty)}">${escapeHtml(tpl.difficulty)}</span>
+            </div>
+            <div class="cl-esc-preview"><code>${escapeHtml(tpl.content.slice(0, 42))}${tpl.content.length > 42 ? '…' : ''}</code></div>
+            <div class="cl-esc-actions">
+              <button type="button" class="cl-esc-btn primary" data-action="practice-template" title="Practice immediately">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                <span>${isKm ? 'ហាត់ភ្លាមៗ' : 'Practice'}</span>
+              </button>
+              <button type="button" class="cl-esc-btn secondary" data-action="customize-template" title="Customize in editor">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                <span>${isKm ? 'កែសម្រួល' : 'Customize'}</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    },
+
+    renderStarterChips: function(category = 'all'){
+      const host = document.getElementById('clStarterChipsBar');
+      if(!host) return;
+
+      const isKm = document.documentElement.classList.contains('site-km-mode');
+      const filtered = (category === 'all' || !category)
+        ? STARTER_TEMPLATES
+        : STARTER_TEMPLATES.filter(t => t.category === category);
+
+      host.innerHTML = filtered.map(tpl => {
+        return `
+          <button type="button" class="cl-starter-chip" data-template-id="${escapeHtml(tpl.id)}" title="${escapeHtml(isKm ? tpl.descKm : tpl.descEn)}">
+            <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span class="i18n-t" data-en="${escapeHtml(tpl.titleEn)}" data-km="${escapeHtml(tpl.titleKm)}">${escapeHtml(isKm ? tpl.titleKm : tpl.titleEn)}</span>
+          </button>
+        `;
+      }).join('');
     },
 
     renderHub: function(){
@@ -640,7 +783,10 @@
       if(all.length === 0){
         listEl.innerHTML = '';
         listEl.hidden = true;
-        if(emptyEl) emptyEl.hidden = false;
+        if(emptyEl){
+          emptyEl.hidden = false;
+          this.renderEmptyStateStarters();
+        }
         return;
       }
 
@@ -782,7 +928,7 @@
         title: '',
         description: '',
         difficulty: 'beginner',
-        targetLayout: 'standard',
+        targetLayout: (typeof currentLayoutId !== 'undefined' && currentLayoutId !== 'adaptive' ? currentLayoutId : 'standard'),
         content: ''
       };
 
@@ -803,6 +949,7 @@
       if(selectLayout) selectLayout.value = data.targetLayout;
       if(textContent) textContent.value = data.content;
 
+      this.renderStarterChips(this.activeTemplateCat || 'all');
       this.updateEditorTelemetry();
 
       modal.hidden = false;
@@ -932,21 +1079,14 @@
 
     /* Wire all event handlers on initialization */
     initUI: function(){
-      // Lesson Strip open button
-      const openBtn = document.getElementById('lshCustomLessonsBtn');
-      if(openBtn){
-        openBtn.addEventListener('click', () => {
+      // Delegated document-level entry-point handler (guarantees dynamic headers work)
+      document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('#lshCustomBanner, .lsh-hub-banner.custom, #lshCustomLessonsBtn, #topCustomLessonsBtn, #customSidebarCard, #customSidebarBtn, #gmCreateCustomBtn, [data-action="open-custom-hub"]');
+        if(trigger){
+          e.preventDefault();
           this.openHub();
-        });
-      }
-
-      // Top Command Bar open button
-      const topBtn = document.getElementById('topCustomLessonsBtn');
-      if(topBtn){
-        topBtn.addEventListener('click', () => {
-          this.openHub();
-        });
-      }
+        }
+      });
 
       // Hub Close button
       const hubCloseBtn = document.getElementById('clHubCloseBtn');
@@ -977,6 +1117,42 @@
       if(emptyCreateBtn){
         emptyCreateBtn.addEventListener('click', () => {
           this.openEditor(null);
+        });
+      }
+
+      // Empty State Starters Shelf delegation
+      const emptyShelf = document.getElementById('clEmptyStartersShelf');
+      if(emptyShelf){
+        emptyShelf.addEventListener('click', (e) => {
+          const btn = e.target.closest('button[data-action]');
+          if(!btn) return;
+          const card = btn.closest('.cl-empty-starter-card');
+          if(!card) return;
+          const tplId = card.getAttribute('data-template-id');
+          const tpl = STARTER_TEMPLATES.find(t => t.id === tplId);
+          if(!tpl) return;
+
+          const action = btn.getAttribute('data-action');
+          const isKm = document.documentElement.classList.contains('site-km-mode');
+          if(action === 'practice-template'){
+            const newLesson = this.create({
+              title: isKm ? tpl.titleKm : tpl.titleEn,
+              description: isKm ? tpl.descKm : tpl.descEn,
+              difficulty: tpl.difficulty,
+              targetLayout: tpl.targetLayout,
+              content: tpl.content
+            });
+            this.startPractice(newLesson.id);
+          } else if(action === 'customize-template'){
+            this.closeHub();
+            this.openEditor(null, {
+              title: isKm ? tpl.titleKm : tpl.titleEn,
+              description: isKm ? tpl.descKm : tpl.descEn,
+              difficulty: tpl.difficulty,
+              targetLayout: tpl.targetLayout,
+              content: tpl.content
+            });
+          }
         });
       }
 
@@ -1088,6 +1264,17 @@
         editorModal.addEventListener('click', (e) => {
           if(e.target === editorModal) this.closeEditor();
         });
+
+        // Keyboard Shortcuts in Editor: Ctrl+Enter (Save & Practice), Ctrl+S (Save)
+        editorModal.addEventListener('keydown', (e) => {
+          if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
+            e.preventDefault();
+            this.saveFromEditor(true);
+          } else if((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')){
+            e.preventDefault();
+            this.saveFromEditor(false);
+          }
+        });
       }
 
       // Editor Save button
@@ -1121,17 +1308,24 @@
         });
       }
 
-      // Crafting Starter Template Chips
+      // Starter Template Categories Bar
+      const catsHost = document.getElementById('clStarterCatsBar');
+      if(catsHost){
+        catsHost.addEventListener('click', (e) => {
+          const btn = e.target.closest('.cl-starter-cat-btn');
+          if(!btn) return;
+          const cat = btn.getAttribute('data-cat') || 'all';
+          catsHost.querySelectorAll('.cl-starter-cat-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          this.activeTemplateCat = cat;
+          this.renderStarterChips(cat);
+        });
+      }
+
+      // Crafting Starter Template Chips Host Event Delegation
       const templateHost = document.getElementById('clStarterChipsBar');
       if(templateHost){
-        templateHost.innerHTML = STARTER_TEMPLATES.map(tpl => {
-          return `
-            <button type="button" class="cl-starter-chip" data-template-id="${escapeHtml(tpl.id)}" title="${escapeHtml(tpl.descEn)}">
-              <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              <span class="i18n-t" data-en="${escapeHtml(tpl.titleEn)}" data-km="${escapeHtml(tpl.titleKm)}">${escapeHtml(tpl.titleEn)}</span>
-            </button>
-          `;
-        }).join('');
+        this.renderStarterChips('all');
 
         templateHost.addEventListener('click', (e) => {
           const chip = e.target.closest('.cl-starter-chip');
@@ -1143,8 +1337,7 @@
           const inputTitle = document.getElementById('clInputTitle');
           const inputDesc = document.getElementById('clInputDesc');
           const selectDiff = document.getElementById('clSelectDiff');
-          const selectLayout = document.getElementById('clSelectLayout');
-          const textContent = document.getElementById('clTextContent');
+          const contentArea = document.getElementById('clTextContent');
           const isKm = document.documentElement.classList.contains('site-km-mode');
 
           if(inputTitle && (!inputTitle.value || !inputTitle.value.trim())){
@@ -1156,11 +1349,11 @@
           if(selectDiff) selectDiff.value = tpl.difficulty;
           if(selectLayout) selectLayout.value = tpl.targetLayout;
 
-          if(textContent){
-            if(!textContent.value.trim()){
-              textContent.value = tpl.content;
+          if(contentArea){
+            if(!contentArea.value.trim()){
+              contentArea.value = tpl.content;
             } else {
-              textContent.value = (textContent.value.trim() + ' ' + tpl.content).trim();
+              contentArea.value = (contentArea.value.trim() + ' ' + tpl.content).trim();
             }
           }
 
@@ -1183,6 +1376,15 @@
         toolRepeat3x.addEventListener('click', () => {
           if(!textContent) return;
           textContent.value = this.tools.repeat(textContent.value, 3);
+          this.updateEditorTelemetry();
+        });
+      }
+
+      const toolRepeat5x = document.getElementById('clToolRepeat5x');
+      if(toolRepeat5x){
+        toolRepeat5x.addEventListener('click', () => {
+          if(!textContent) return;
+          textContent.value = this.tools.repeat(textContent.value, 5);
           this.updateEditorTelemetry();
         });
       }
@@ -1210,6 +1412,34 @@
         toolCleanSpaces.addEventListener('click', () => {
           if(!textContent) return;
           textContent.value = this.tools.cleanSpaces(textContent.value);
+          this.updateEditorTelemetry();
+        });
+      }
+
+      const toolPasteClean = document.getElementById('clToolPasteClean');
+      if(toolPasteClean){
+        toolPasteClean.addEventListener('click', () => {
+          if(!textContent) return;
+          textContent.value = this.tools.pasteAndClean(textContent.value);
+          this.updateEditorTelemetry();
+        });
+      }
+
+      const toolExtractKeys = document.getElementById('clToolExtractKeys');
+      if(toolExtractKeys){
+        toolExtractKeys.addEventListener('click', () => {
+          if(!textContent) return;
+          const currentLayout = selectLayout ? selectLayout.value : 'standard';
+          textContent.value = this.tools.extractUniqueUnits(textContent.value, currentLayout);
+          this.updateEditorTelemetry();
+        });
+      }
+
+      const toolClear = document.getElementById('clToolClear');
+      if(toolClear){
+        toolClear.addEventListener('click', () => {
+          if(!textContent) return;
+          textContent.value = '';
           this.updateEditorTelemetry();
         });
       }

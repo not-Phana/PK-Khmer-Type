@@ -2051,8 +2051,8 @@ lessonStrip.addEventListener('input', (e)=>{
 lessonStrip.addEventListener('click', (e)=>{
   e.stopPropagation();
 
-  // If clicked custom lessons button or custom sidebar card
-  const customBtn = e.target.closest('#lshCustomLessonsBtn, #customSidebarBtn, #customSidebarCard');
+  // If clicked custom lessons button, custom banner, or custom sidebar card
+  const customBtn = e.target.closest('#lshCustomBanner, .lsh-hub-banner.custom, #lshCustomLessonsBtn, #customSidebarBtn, #customSidebarCard');
   if(customBtn){
     if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.openHub === 'function'){
       PK_CUSTOM_LESSONS.openHub();

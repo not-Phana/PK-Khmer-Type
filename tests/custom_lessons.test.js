@@ -375,11 +375,64 @@ test('Custom Lessons: UI markup in index.html contains accessible buttons and di
   assert.ok(indexHtml.includes('id="gmCreateCustomBtn"'), 'gmCreateCustomBtn must exist in fanfare modal');
 });
 
+test('Custom Lessons: Extended crafting tools (pasteAndClean, extractUniqueUnits, detectLayout, detectDifficulty)', () => {
+  const env = createBrowserEnvironment();
+  const tools = env.window.PK_CUSTOM_LESSONS.tools;
+
+  // pasteAndClean
+  const dirtyKhmer = '  \t\r\nកម្ពុជា   \n\t  សួស្តី   \r\n  ';
+  assert.equal(tools.pasteAndClean(dirtyKhmer), 'កម្ពុជា សួស្តី');
+
+  const dirtyEnglish = '   hello \t\t world \n\n practice   ';
+  assert.equal(tools.pasteAndClean(dirtyEnglish), 'hello world practice');
+
+  // extractUniqueUnits
+  const repeatedSentence = 'កម្ពុជា សួស្តី កម្ពុជា អរគុណ';
+  const uniqueKeys = tools.extractUniqueUnits(repeatedSentence, 'standard');
+  assert.ok(uniqueKeys.includes('ក'));
+  assert.ok(uniqueKeys.includes('ស'));
+  assert.ok(uniqueKeys.includes('អ'));
+
+  // detectLayout
+  assert.equal(tools.detectLayout('កម្ពុជា'), 'standard');
+  assert.equal(tools.detectLayout('hello world'), 'english');
+  assert.equal(tools.detectLayout(''), 'standard');
+
+  // detectDifficulty
+  assert.equal(tools.detectDifficulty('ក ខ គ'), 'beginner');
+  assert.equal(tools.detectDifficulty('ក្ក ក្ខ ក្គ'), 'advanced'); // contains coeng
+});
+
+test('Custom Lessons: Starter Templates expanded library covers 12 rich drills across Khmer, English, Numbers', () => {
+  const env = createBrowserEnvironment();
+  const api = env.window.PK_CUSTOM_LESSONS;
+
+  assert.ok(api.templates.length >= 12, 'Must provide at least 12 rich starter templates');
+
+  const ids = api.templates.map(t => t.id);
+  assert.ok(ids.includes('km-home-row'));
+  assert.ok(ids.includes('km-geography'));
+  assert.ok(ids.includes('en-home-row'));
+  assert.ok(ids.includes('km-vowels-dep'));
+  assert.ok(ids.includes('km-consonants-all'));
+  assert.ok(ids.includes('km-subscripts-coeng'));
+  assert.ok(ids.includes('en-classic-pangram'));
+});
+
+test('Custom Lessons: Verification that banner click handlers match #lshCustomBanner and .lsh-hub-banner.custom in js/lessons.js', () => {
+  const lessonsJs = fs.readFileSync(path.join(rootDir, 'js/lessons.js'), 'utf8');
+
+  // Must match #lshCustomBanner and .lsh-hub-banner.custom
+  assert.ok(lessonsJs.includes('#lshCustomBanner'), 'lessons.js must wire #lshCustomBanner');
+  assert.ok(lessonsJs.includes('.lsh-hub-banner.custom'), 'lessons.js must wire .lsh-hub-banner.custom');
+});
+
 test('Custom Lessons: Strict Zero-Emoji compliance across all custom lesson files', () => {
   const emojiRegex = /[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}]/u;
   const filesToCheck = [
     'js/custom-lessons.js',
     'css/custom-lessons.css',
+    'js/lessons.js',
     'tests/custom_lessons.test.js'
   ];
 
