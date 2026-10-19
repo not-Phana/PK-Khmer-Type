@@ -1382,6 +1382,22 @@
     }
   }
 
+  let practiceStreak = 0;
+
+  function updatePracticeStreak(success) {
+    const streakEl = byId('practiceStreak');
+    const countEl = byId('streakCount');
+    if (success) {
+      practiceStreak += 1;
+    } else {
+      practiceStreak = 0;
+    }
+    if (countEl) countEl.textContent = practiceStreak;
+    if (streakEl) {
+      streakEl.classList.toggle('streak-hot', practiceStreak >= 3);
+    }
+  }
+
   function acceptCharacter(glyph) {
     if (!state.sequence || state.cursor >= state.sequence.length) return;
     state.attempts += 1;
@@ -1390,6 +1406,7 @@
     if (glyph === expected) {
       state.typed += glyph;
       state.cursor += 1;
+      updatePracticeStreak(true);
       if (state.cursor === state.sequence.length) {
         setMessage('Brilliant work. You completed this starter exercise.', 'success');
       } else {
@@ -1397,6 +1414,7 @@
       }
     } else {
       state.mistakes += 1;
+      updatePracticeStreak(false);
       setMessage(`Looking for ${expected} — follow the glowing key and 3D finger beacon.`, 'error');
     }
 
@@ -1429,6 +1447,7 @@
     state.mistakes = 0;
     state.typed = '';
     state.currentKeyId = null;
+    updatePracticeStreak(false);
 
     document.querySelectorAll('.practice-layout').forEach((button) => {
       const active = button.dataset.practiceLayout === name;
@@ -1815,13 +1834,352 @@
     });
   }
 
+  /* ============================================================
+     AMBIENT CYBER KHMER CONSTELLATIONS BACKGROUND CANVAS ENGINE
+     ============================================================ */
+  function initAmbientCanvas() {
+    const canvas = byId('ambientCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0, height = 0, dpr = 1;
+    let particles = [];
+    const mouse = { x: -9999, y: -9999, radius: 140 };
+
+    const KHMER_GLYPHS = ['ក', 'ខ', 'គ', 'ថ', 'ដ', 'ស', '្', 'ា', 'ិ', 'ោ', 'ែ', 'ៅ', 'ញ', 'ល', 'រ', 'ប'];
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function createParticles() {
+      particles = [];
+      const count = Math.min(Math.floor((width * height) / 28000), 45);
+
+      for (let i = 0; i < count; i++) {
+        const isGlyph = i % 3 === 0;
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          size: isGlyph ? 14 + Math.random() * 14 : 1.5 + Math.random() * 2.5,
+          alpha: 0.08 + Math.random() * 0.18,
+          baseAlpha: 0.08 + Math.random() * 0.18,
+          char: isGlyph ? KHMER_GLYPHS[Math.floor(Math.random() * KHMER_GLYPHS.length)] : null,
+          color: Math.random() > 0.5 ? 'rgba(93, 233, 213,' : 'rgba(255, 209, 102,',
+          phase: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+      createParticles();
+    });
+
+    window.addEventListener('pointermove', (ev) => {
+      mouse.x = ev.clientX;
+      mouse.y = ev.clientY;
+      document.documentElement.style.setProperty('--cursor-x', `${ev.clientX}px`);
+      document.documentElement.style.setProperty('--cursor-y', `${ev.clientY}px`);
+    });
+
+    window.addEventListener('pointerleave', () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    });
+
+    resize();
+    createParticles();
+
+    function render(time) {
+      if (document.hidden || state.motionOff) {
+        requestAnimationFrame(render);
+        return;
+      }
+
+      ctx.clearRect(0, 0, width, height);
+
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.phase += 0.015;
+
+        if (p.x < -40) p.x = width + 40;
+        if (p.x > width + 40) p.x = -40;
+        if (p.y < -40) p.y = height + 40;
+        if (p.y > height + 40) p.y = -40;
+
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < mouse.radius && dist > 0) {
+          const force = (1 - dist / mouse.radius) * 1.8;
+          p.x += (dx / dist) * force;
+          p.y += (dy / dist) * force;
+        }
+
+        const pulseAlpha = p.baseAlpha + Math.sin(p.phase) * 0.05;
+
+        if (p.char) {
+          ctx.save();
+          ctx.font = `600 ${p.size}px "Kantumruy Pro", "Noto Sans Khmer", sans-serif`;
+          ctx.fillStyle = `${p.color}${Math.max(0.04, pulseAlpha)})`;
+          ctx.fillText(p.char, p.x, p.y);
+          ctx.restore();
+        } else {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = `${p.color}${Math.max(0.06, pulseAlpha * 1.5)})`;
+          ctx.fill();
+        }
+      });
+
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  /* ============================================================
+     3D PERSPECTIVE TILT ON HERO VISUAL
+     ============================================================ */
+  function setupHeroVisualTilt() {
+    const heroVisual = document.querySelector('.hero-visual');
+    if (!heroVisual) return;
+
+    let targetRotX = 0, targetRotY = 0;
+    let currentRotX = 0, currentRotY = 0;
+    let isHovering = false;
+
+    heroVisual.addEventListener('pointermove', (ev) => {
+      if (state.motionOff) return;
+      const rect = heroVisual.getBoundingClientRect();
+      const x = ev.clientX - rect.left;
+      const y = ev.clientY - rect.top;
+      const normX = (x / rect.width) * 2 - 1;
+      const normY = (y / rect.height) * 2 - 1;
+
+      targetRotY = normX * 4.5;
+      targetRotX = -normY * 4.0;
+      isHovering = true;
+    });
+
+    heroVisual.addEventListener('pointerleave', () => {
+      targetRotX = 0;
+      targetRotY = 0;
+      isHovering = false;
+    });
+
+    function tiltTick() {
+      if (!state.motionOff) {
+        currentRotX += (targetRotX - currentRotX) * 0.12;
+        currentRotY += (targetRotY - currentRotY) * 0.12;
+        if (isHovering || Math.abs(currentRotX) > 0.05 || Math.abs(currentRotY) > 0.05) {
+          heroVisual.style.transform = `perspective(1200px) rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) translateZ(${isHovering ? '10px' : '0px'})`;
+        } else {
+          heroVisual.style.transform = '';
+        }
+      }
+      requestAnimationFrame(tiltTick);
+    }
+
+    tiltTick();
+  }
+
+  /* ============================================================
+     AUTONOMOUS HERO KEYBOARD AMBIENT TYPING DEMO
+     ============================================================ */
+  function setupHeroAmbientTyping() {
+    const heroKeyboard = byId('heroKeyboard');
+    const heroBoardWrap = byId('heroBoardWrap');
+    if (!heroKeyboard || !heroBoardWrap) return;
+
+    const DEMO_WORDS = [
+      'កម្ពុជា',
+      'សួស្តី',
+      'ថដសាញ',
+      'អក្សរខ្មែរ',
+      'ស្ទាត់ជំនាញ',
+    ];
+
+    let wordIdx = 0;
+    let charIdx = 0;
+    let isUserInteracting = false;
+    let idleTimer = null;
+    let typeInterval = null;
+
+    function resetIdleTimer() {
+      isUserInteracting = true;
+      if (idleTimer) clearTimeout(idleTimer);
+      if (typeInterval) {
+        clearInterval(typeInterval);
+        typeInterval = null;
+      }
+      idleTimer = setTimeout(() => {
+        isUserInteracting = false;
+        startAmbientTyping();
+      }, 3500);
+    }
+
+    heroBoardWrap.addEventListener('pointerenter', resetIdleTimer);
+    heroBoardWrap.addEventListener('pointerdown', resetIdleTimer);
+    heroBoardWrap.addEventListener('pointermove', resetIdleTimer);
+    document.addEventListener('keydown', resetIdleTimer);
+
+    function triggerDemoChar(char) {
+      if (isUserInteracting || document.hidden || state.motionOff) return;
+      if (heroCurrentLayout !== 'standard') return;
+
+      const standardLayout = LAYOUTS.standard;
+      const flat = allKeys('standard');
+      let targetKeyObj = null;
+      let targetLayer = 'base';
+
+      for (const lyr of ['base', 'shift']) {
+        const found = flat.find((k) => k.kind !== 'mod' && characterFor(k, lyr, standardLayout) === char);
+        if (found) {
+          targetKeyObj = found;
+          targetLayer = lyr;
+          break;
+        }
+      }
+
+      if (!targetKeyObj) targetKeyObj = flat.find((k) => k.id === 'f');
+      if (!targetKeyObj) return;
+
+      heroKeyboard.querySelectorAll('.key.is-target').forEach((el) => el.classList.remove('is-target'));
+      const keyEl = heroKeyboard.querySelector(`.key[data-key="${targetKeyObj.id}"]`);
+      if (keyEl) {
+        keyEl.classList.add('is-target', 'pressed');
+        burst(keyEl);
+        if (state.soundOn) playClick('down');
+
+        const heroInspectorGlyph = byId('heroInspectorGlyph');
+        const heroInspectorCode = byId('heroInspectorCode');
+        const heroInspectorName = byId('heroInspectorName');
+        const heroInspectorLayer = byId('heroInspectorLayer');
+        const heroInspectorShift = byId('heroInspectorShift');
+        const heroInspectorFinger = byId('heroInspectorFinger');
+
+        if (heroInspectorGlyph) heroInspectorGlyph.textContent = char;
+        if (heroInspectorCode) heroInspectorCode.textContent = `KEY ${targetKeyObj.id.toUpperCase()}`;
+        if (heroInspectorName) heroInspectorName.textContent = KHMER_NAMES[char] || `Character '${char}'`;
+        if (heroInspectorLayer) heroInspectorLayer.textContent = `STANDARD · ${targetLayer.toUpperCase()}`;
+        if (heroInspectorShift) heroInspectorShift.textContent = targetKeyObj.shift ? `Shift: ${targetKeyObj.shift}` : 'Direct Key';
+        const fid = KEY_FINGER[targetKeyObj.id];
+        if (heroInspectorFinger) heroInspectorFinger.textContent = FINGER_NAMES[fid] || 'Home Position';
+
+        setTimeout(() => {
+          keyEl.classList.remove('pressed');
+          if (state.soundOn) playClick('up');
+        }, 160);
+      }
+    }
+
+    function stepAmbient() {
+      if (isUserInteracting || document.hidden || state.motionOff) return;
+      const word = DEMO_WORDS[wordIdx];
+      if (charIdx < word.length) {
+        triggerDemoChar(word[charIdx]);
+        charIdx++;
+      } else {
+        charIdx = 0;
+        wordIdx = (wordIdx + 1) % DEMO_WORDS.length;
+        clearInterval(typeInterval);
+        typeInterval = null;
+        setTimeout(() => {
+          if (!isUserInteracting && !typeInterval) {
+            startAmbientTyping();
+          }
+        }, 1200);
+      }
+    }
+
+    function startAmbientTyping() {
+      if (typeInterval || isUserInteracting || state.motionOff) return;
+      typeInterval = setInterval(stepAmbient, 650);
+    }
+
+    idleTimer = setTimeout(startAmbientTyping, 2800);
+  }
+
+  /* ============================================================
+     LAYOUT CARDS INTERACTIVE HOVER WAVE
+     ============================================================ */
+  function setupLayoutCardsHoverWave() {
+    document.querySelectorAll('.layout-card').forEach((card) => {
+      card.addEventListener('pointerenter', () => {
+        if (state.motionOff) return;
+        const keys = card.querySelectorAll('.bp-key');
+        keys.forEach((k, idx) => {
+          k.style.animation = 'none';
+          void k.offsetHeight;
+          k.style.animation = `bp-key-wave 0.5s ease ${Math.min(idx * 0.015, 0.45)}s 1 forwards`;
+        });
+      });
+    });
+  }
+
+  /* ============================================================
+     NAVIGATION SCROLL SPY & GLASSMORPHIC HEADER
+     ============================================================ */
+  function setupScrollSpy() {
+    const header = document.querySelector('.site-header');
+    const sections = ['top', 'experience', 'keyboard-deck', 'learning', 'practice'];
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    function onScroll() {
+      const scrollY = window.scrollY;
+      if (header) {
+        header.classList.toggle('is-scrolled', scrollY > 20);
+      }
+
+      let currentSection = '';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop - 140;
+          const height = el.offsetHeight;
+          if (scrollY >= top && scrollY < top + height) {
+            currentSection = id;
+          }
+        }
+      }
+
+      navLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href === `#${currentSection}`) {
+          link.classList.add('is-active');
+        } else if (href && href.startsWith('#')) {
+          link.classList.remove('is-active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   function initialize() {
+    initAmbientCanvas();
     initHandsDOM();
     setupMotion();
     setupControls();
     attachKeyboardEvents();
     setupReveals();
     setupHeroStudioDeck();
+    setupHeroVisualTilt();
+    setupHeroAmbientTyping();
+    setupLayoutCardsHoverWave();
+    setupScrollSpy();
 
     renderPrompt();
     renderKeyboard();

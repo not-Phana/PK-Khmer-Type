@@ -18,12 +18,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="launch.css?v=65">
-  <link rel="stylesheet" href="launch-theme.css?v=65">
+  <link rel="stylesheet" href="launch.css?v=66">
+  <link rel="stylesheet" href="launch-theme.css?v=66">
   <title>PK Khmer Type — Learn to type, one key at a time</title>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
 
   <header class="site-header">
     <a class="brand" href="#top" aria-label="PK Khmer Type launch page home">
@@ -49,8 +50,15 @@
     <!-- Hero Section -->
     <section class="hero section-shell" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
+        <div class="hero-announcement-pill">
+          <span class="pill-radar-dot" aria-hidden="true"></span>
+          <span class="pill-title">PK KHMER TYPE 2.4</span>
+          <span class="pill-divider" aria-hidden="true">/</span>
+          <span class="pill-desc">NEXT-GEN MECHANICAL TYPING STUDIO</span>
+          <svg class="pill-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
         <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> A TYPING STUDIO FOR KHMER &amp; ENGLISH</p>
-        <h1 id="hero-title">Learn the layout.<br><span>Let your fingers</span><br>remember.</h1>
+        <h1 id="hero-title">Learn the layout.<br><span class="text-shimmer">Let your fingers</span><br>remember.</h1>
         <p class="hero-lede">A more thoughtful way to master Cambodian and English touch typing. Explore authentic mechanical layouts, follow progressive guided lessons, and develop muscle memory key by key.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="../index.html#lessonStrip">
@@ -95,6 +103,9 @@
                 <span class="chassis-slash">/</span>
                 <span class="chassis-layout-label" id="heroChassisLayoutLabel">STANDARD</span>
                 <span class="chassis-version-badge"><span class="chassis-ver-pulse" aria-hidden="true"></span> v2.4 Beta</span>
+                <span class="chassis-equalizer" aria-hidden="true" title="Acoustic Switch Feedback">
+                  <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
+                </span>
               </div>
               <div class="chassis-actions">
                 <a href="../dashboard.html" class="chassis-dash-btn" title="View Live Analytics &amp; Mastery Dashboard" aria-label="Open Mastery Dashboard">
@@ -362,6 +373,9 @@
             <span class="chassis-slash">/</span>
             <span class="chassis-layout-label" id="chassisLayoutLabel">STANDARD</span>
             <span class="chassis-version-badge"><span class="chassis-ver-pulse" aria-hidden="true"></span> v2.4 Beta</span>
+            <span class="chassis-equalizer" aria-hidden="true" title="Acoustic Switch Feedback">
+              <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
+            </span>
           </div>
           <div class="chassis-actions">
             <a href="../dashboard.html" class="chassis-dash-btn" title="View Live Analytics &amp; Mastery Dashboard" aria-label="Open Mastery Dashboard">
@@ -695,8 +709,18 @@
 
         <div class="practice-card reveal">
           <div class="practice-card-top">
-            <span>CURRICULUM STARTER EXERCISE</span>
-            <span id="practice-progress-label">0 / 10</span>
+            <div class="practice-card-title-group">
+              <span class="pct-dot" aria-hidden="true"></span>
+              <span>CURRICULUM STARTER EXERCISE</span>
+            </div>
+            <div class="practice-card-badges">
+              <div class="practice-streak-badge" id="practiceStreak" title="Consecutive Accurate Keystroke Streak">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span class="streak-val" id="streakCount">0</span>
+                <span class="streak-lbl">STREAK</span>
+              </div>
+              <span class="practice-progress-pill" id="practice-progress-label">0 / 10</span>
+            </div>
           </div>
           <p class="prompt-label">Type the characters shown</p>
           <div class="exercise-prompt" id="exercise-prompt" aria-label="Typing exercise prompt"></div>
@@ -827,6 +851,6 @@
 
   <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false" title="Turn nonessential animations off">Motion: on</button>
 
-  <script src="launch.js?v=65" defer></script>
+  <script src="launch.js?v=66" defer></script>
 </body>
 </html>
