@@ -892,3 +892,147 @@
   border-color: rgba(255, 209, 102, 0.35) !important;
   color: #ffd166 !important;
 }
+
+/* Sidebar Dual Banners Row */
+.lesson-strip-banners-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 6px 10px 8px;
+  flex: 0 0 auto;
+}
+
+.lesson-strip-banners-row .lsh-hub-banner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 6px 8px;
+  background: linear-gradient(135deg, rgba(20, 26, 44, 0.95) 0%, rgba(13, 18, 32, 0.98) 100%);
+  border: 1px solid rgba(255, 209, 102, 0.32);
+  border-radius: 9px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 209, 102, 0.12);
+  cursor: pointer;
+  color: var(--ink);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.lesson-strip-banners-row .lsh-hub-banner:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 209, 102, 0.65);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.45), 0 0 14px rgba(255, 209, 102, 0.22);
+  background: linear-gradient(135deg, rgba(28, 36, 60, 0.98) 0%, rgba(16, 22, 40, 1) 100%);
+}
+
+.lesson-strip-banners-row .lsh-hub-banner:active {
+  transform: translateY(0);
+}
+
+.lesson-strip-banners-row .lsh-hub-banner.custom {
+  background: linear-gradient(135deg, rgba(26, 22, 42, 0.95) 0%, rgba(16, 14, 28, 0.98) 100%);
+  border-color: rgba(255, 209, 102, 0.38);
+}
+
+.lesson-strip-banners-row .lsh-hub-banner.custom:hover {
+  background: linear-gradient(135deg, rgba(38, 30, 58, 0.98) 0%, rgba(22, 18, 38, 1) 100%);
+  border-color: #ffd166;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 209, 102, 0.28);
+}
+
+.lesson-strip-banners-row .lsh-hb-left {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  width: 100%;
+}
+
+.lesson-strip-banners-row .lsh-hb-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2.5px 5.5px;
+  border-radius: 5px;
+  background: rgba(255, 209, 102, 0.14);
+  border: 1px solid rgba(255, 209, 102, 0.38);
+  color: #ffd166;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(255, 209, 102, 0.18);
+}
+
+.lesson-strip-banners-row .lsh-hb-badge.custom-badge {
+  background: rgba(255, 209, 102, 0.18);
+  border-color: rgba(255, 209, 102, 0.48);
+  color: #ffd166;
+}
+
+.lesson-strip-banners-row .lsh-hb-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.lesson-strip-banners-row .lsh-hb-title {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 0.69rem;
+  font-weight: 700;
+  color: #ffd166;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.lesson-strip-banners-row .lsh-hb-sub {
+  font-size: 0.58rem;
+  color: var(--ink-dim, #94a3b8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+@media (max-width: 280px) {
+  .lesson-strip-banners-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Light Theme */
+html.theme-light .lesson-strip-banners-row .lsh-hub-banner {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+html.theme-light .lesson-strip-banners-row .lsh-hub-banner:hover {
+  background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+html.theme-light .lesson-strip-banners-row .lsh-hb-title {
+  color: #b45309 !important;
+}
+html.theme-light .lesson-strip-banners-row .lsh-hb-sub {
+  color: #64748b !important;
+}
+
+/* Sepia Theme */
+html.theme-sepia .lesson-strip-banners-row .lsh-hub-banner {
+  background: #f5ece0 !important;
+  border-color: #d8c8b0 !important;
+  color: #2c1b0c !important;
+}
+html.theme-sepia .lesson-strip-banners-row .lsh-hb-title {
+  color: #92400e !important;
+}
+html.theme-sepia .lesson-strip-banners-row .lsh-hb-sub {
+  color: #78716c !important;
+}

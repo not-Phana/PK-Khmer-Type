@@ -360,8 +360,9 @@ test('Custom Lessons: toCurriculumLesson produces valid definition compatible wi
 test('Custom Lessons: UI markup in index.html contains accessible buttons and dialogs', () => {
   const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
 
-  // Lesson Strip header button
-  assert.ok(indexHtml.includes('id="lshCustomLessonsBtn"'), 'lshCustomLessonsBtn must exist in index.html');
+  // Top action button and sidebar banner button
+  assert.ok(indexHtml.includes('id="topCustomLessonsBtn"'), 'topCustomLessonsBtn must exist in index.html');
+  assert.ok(indexHtml.includes('id="lshCustomBanner"'), 'lshCustomBanner must exist in index.html');
   assert.ok(indexHtml.includes('css/custom-lessons.css'), 'custom-lessons.css must be linked');
   assert.ok(indexHtml.includes('js/custom-lessons.js'), 'custom-lessons.js must be loaded');
 
