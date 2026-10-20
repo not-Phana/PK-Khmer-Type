@@ -102,4 +102,19 @@
       <image:caption>Discover Khmer Standard, Khmer NiDA, and English typing lessons in PK Khmer Type.</image:caption>
     </image:image>
   </url>
+  <!-- PK Khmer Type Welcome Portal & Interactive Showcase -->
+  <url>
+    <loc>https://not-phana.github.io/PK-Khmer-Type/welcome.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://not-phana.github.io/PK-Khmer-Type/welcome.html" />
+    <xhtml:link rel="alternate" hreflang="km" href="https://not-phana.github.io/PK-Khmer-Type/welcome.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://not-phana.github.io/PK-Khmer-Type/welcome.html" />
+    <image:image>
+      <image:loc>https://not-phana.github.io/PK-Khmer-Type/assets/pk-khmer-type-og-preview.png</image:loc>
+      <image:title>Welcome to PK Khmer Type — Cambodian Touch-Typing Studio</image:title>
+      <image:caption>Welcome to Cambodia&#39;s premier mechanical touch typing studio with 3D keycaps bench, bilingual guide, and procedural audio.</image:caption>
+    </image:image>
+  </url>
 </urlset>

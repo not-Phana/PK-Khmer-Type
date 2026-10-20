@@ -154,3 +154,20 @@ test('Welcome 1.7: Small 3D Celestial Starlight Pointer exclusively in welcome.h
   assert.ok(welcomeCss.includes('.hero-3d-stage'), 'css/welcome.css must style .hero-3d-stage');
   assert.ok(welcomeCss.includes('.hero-3d-canvas'), 'css/welcome.css must style .hero-3d-canvas');
 });
+
+
+test('Welcome 1.8: Deployment workflow (.github/workflows/deploy.yml) stages welcome.html and static assets', () => {
+  const workflowPath = path.join(rootDir, '.github', 'workflows', 'deploy.yml');
+  assert.ok(fs.existsSync(workflowPath), 'deploy.yml must exist');
+  const deployYaml = fs.readFileSync(workflowPath, 'utf8');
+
+  // Must stage welcome.html either explicitly or via *.html wildcard
+  const stagesWelcome = deployYaml.includes('welcome.html') || deployYaml.includes('*.html');
+  assert.ok(stagesWelcome, 'deploy.yml must stage welcome.html into _site directory');
+
+  // Must stage Documents directory containing three.min.js
+  assert.ok(deployYaml.includes('Documents'), 'deploy.yml must stage Documents directory for three.min.js');
+  // Must stage css and js directories
+  assert.ok(deployYaml.includes('css'), 'deploy.yml must stage css directory');
+  assert.ok(deployYaml.includes('js'), 'deploy.yml must stage js directory');
+});

@@ -33,7 +33,7 @@ jobs:
       - name: Validate JavaScript Syntax
         run: |
           echo "Checking JavaScript files for syntax errors..."
-          for file in js/*.js js/vendor/*.js launch/*.js scripts/generate_supabase_config.js scripts/validate_curriculum.js tests/cloud_sync.test.js; do
+          for file in js/*.js js/vendor/*.js launch/*.js scripts/*.js tests/*.js; do
             [ -f "$file" ] && node --check "$file"
           done
           echo "All core, vendor, config, test, and launch JS files passed syntax validation."
@@ -42,9 +42,9 @@ jobs:
         run: |
           node scripts/validate_curriculum.js
 
-      - name: Run Auth, RLS, Cloud Sync & File Sync Test Suite
+      - name: Run Complete Test Suite
         run: |
-          node --test tests/cloud_sync.test.js
+          npm test
 
   deploy:
     name: Deploy to GitHub Pages
@@ -75,10 +75,9 @@ jobs:
       - name: Build and stage static web assets
         run: |
           mkdir -p _site
-          # Copy core web application pages and SEO/AI visibility assets into staging directory
-          cp index.html dashboard.html manifest.json logo.svg robots.txt sitemap.xml llms.txt .nojekyll _site/
+          # Copy core web application pages, welcome portal, and SEO/AI visibility assets into staging directory
+          cp *.html manifest.json logo.svg robots.txt sitemap.xml llms.txt .nojekyll _site/
           [ -f BingSiteAuth.xml ] && cp BingSiteAuth.xml _site/
-          cp google*.html _site/ 2>/dev/null || true
           cp icon-*.png _site/
           cp -r css js data Documents docs assets launch _site/
 

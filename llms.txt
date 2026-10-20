@@ -52,3 +52,4 @@
 - [Khmer Standard Keyboard Layout Diagram](https://not-phana.github.io/PK-Khmer-Type/assets/pk-khmer-type-standard-khmer-keyboard-layout.png): Visual keymap with finger guide for Khmer Standard.
 - [Khmer NiDA Keyboard Layout Diagram](https://not-phana.github.io/PK-Khmer-Type/assets/pk-khmer-type-khmer-nida-keyboard-layout.png): Visual keymap with finger guide for Khmer NiDA.
 - [English QWERTY Keyboard Layout Diagram](https://not-phana.github.io/PK-Khmer-Type/assets/pk-khmer-type-english-qwerty-keyboard-layout.png): Visual keymap with finger guide for English US QWERTY.
+- [PK Khmer Type — Welcome Portal & Interactive Showcase](https://not-phana.github.io/PK-Khmer-Type/welcome.html): Welcome portal, 3D mechanical keycaps bench, bilingual guide, and procedural audio.
