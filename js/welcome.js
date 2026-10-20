@@ -9,46 +9,46 @@
      ============================================================ */
   const I18N = {
     en: {
-      brandTag: 'STUDIO // TYPING ACADEMY',
+      brandTag: 'TOUCH-TYPING FOR CAMBODIA',
       launchStudio: 'Enter Studio',
-      heroBadge: 'NEXT-GEN KHMER & ENGLISH TYPING STUDIO',
-      titleP1: 'Welcome to',
+      heroBadge: 'FREE TOUCH-TYPING TUTOR · KHMER & ENGLISH',
+      titleP1: 'Master Touch-Typing with',
       titleHighlight: 'PK Khmer Type',
       titleKm: 'សូមស្វាគមន៍មកកាន់ PK Khmer Type',
-      heroSubtitle: 'Step into Cambodia’s premier mechanical touch typing studio. Master Khmer Standard, Official NiDA Unicode, and English QWERTY with biomechanical hand guidance, 276 mastery lessons, and authentic switch acoustics.',
+      heroSubtitle: 'Learn to type Khmer fluently and accurately. Master Khmer Standard, Official NiDA Unicode, and English QWERTY with guided home-row lessons, tactile switch acoustics, and natural finger guides.',
       ctaPrimary: 'Start Learning Now',
       ctaGuide: 'Explore Keyboard Guide',
-      demoTitle: 'Live Mechanical Typing Theater',
-      demoSubtitle: 'Experience authentic tactile keypresses and responsive layout tracking.',
-      demoBadge: 'LIVE SIMULATION',
-      instructionText: 'Press any physical key on your keyboard to test the mechanical acoustics and switch travel:',
-      pillarTag: 'STUDIO ARCHITECTURE',
-      pillarHead: 'Crafted for Touch-Typing Mastery',
-      p1Title: '3 Authentic Layouts',
-      p1Desc: 'Master Khmer Standard, Official NiDA Unicode, and English (US) with full coverage of every letter, subscript Coeng ្, and diacritic.',
-      p2Title: 'Biomechanical Hand Guides',
-      p2Desc: 'Rest your fingers on home row tactile bumps (ថ/ញ & F/J) with real-time translucent hand guides showing exact finger ownership.',
-      p3Title: '276 Mastery Lessons & Crafting',
-      p3Desc: 'Structured curriculum across 40 levels from anchor keys to Grandmaster Vault, plus a personal Custom Lesson Crafting Studio.',
-      p4Title: 'Procedural Mechanical Acoustics',
-      p4Desc: 'Rich Topre and Cherry switch click feedback synthesized instantaneously in browser with zero audio asset lag.',
-      pathwaysTag: 'CHOOSE YOUR PATHWAY',
-      pathwaysHead: 'Begin Your Practice Today',
-      path1Title: 'Complete Beginner Track',
-      path1Desc: 'Start from Level 00 Anchor Keys and learn hand posture step-by-step.',
+      demoTitle: 'Interactive Keyboard & Sound Preview',
+      demoSubtitle: 'Press any key on your physical keyboard to hear authentic mechanical switch clicks.',
+      demoBadge: 'INTERACTIVE PREVIEW',
+      instructionText: 'Press any key on your keyboard to test mechanical acoustics and key travel:',
+      pillarTag: 'DESIGNED WITH CARE',
+      pillarHead: 'Why Typists Choose PK Khmer Type',
+      p1Title: '3 Complete Layouts',
+      p1Desc: 'Master Khmer Standard, Official NiDA Unicode, and English (US) with full coverage of consonants, vowels, subscript Coeng ្, and numbers.',
+      p2Title: 'Natural Finger Placement',
+      p2Desc: 'Rest your index fingers on tactile homing bumps (ថ/ញ & F/J) with real-time hand guides that show which finger to use for every letter.',
+      p3Title: '276 Guided Lessons',
+      p3Desc: 'From your first two anchor keys to full literature and custom lesson crafting. Practice at your own pace without pressure.',
+      p4Title: 'Tactile Mechanical Acoustics',
+      p4Desc: 'Hear satisfying click and thock acoustic feedback synthesized in your browser with zero audio lag.',
+      pathwaysTag: 'CHOOSE WHERE TO START',
+      pathwaysHead: 'Start Your Practice Session',
+      path1Title: 'Beginner Curriculum',
+      path1Desc: 'Start from Level 00 anchor keys and build finger muscle memory step by step.',
       path1Badge: 'Curriculum · Level 0',
-      path2Title: 'Free-Typing Manuscript',
-      path2Desc: 'Jump straight into an open typing canvas with live WPM and accuracy telemetry.',
+      path2Title: 'Free-Typing Mode',
+      path2Desc: 'Type freely with live speed (WPM) and accuracy tracking without time limits.',
       path2Badge: 'Free Typing Sandbox',
-      path3Title: 'Craft Custom Lesson',
-      path3Desc: 'Paste your own Cambodian text or poetry and create custom practice drills.',
+      path3Title: 'Custom Lesson Studio',
+      path3Desc: 'Paste your own articles, songs, or study notes to create customized drills.',
       path3Badge: 'Custom Lesson Creator',
-      path4Title: 'Interactive Anatomy Guide',
-      path4Desc: 'Explore keycap anatomy, mechanical switches, and layer modifier chords.',
-      path4Badge: 'Reference & Anatomy',
-      ctaBannerHead: 'Ready to elevate your typing speed?',
-      ctaBannerSub: 'Join thousands of students, scribes, and professionals typing Khmer with speed, precision, and confidence.',
-      footerCreator: 'Created with pride for Cambodia by Phanna Kurosaki.',
+      path4Title: 'Keyboard Guide & Keymaps',
+      path4Desc: 'Explore keycap diagrams, modifier combinations, and Khmer typing rules.',
+      path4Badge: 'Reference & Guide',
+      ctaBannerHead: 'Ready to type Khmer with confidence?',
+      ctaBannerSub: 'Join students, teachers, writers, and typists across Cambodia mastering touch typing every day.',
+      footerCreator: 'Designed and built with care for Cambodia by Phanna Kurosaki.',
       soundOn: 'Sound: On',
       soundOff: 'Sound: Muted',
       langBtn: 'ភាសាខ្មែរ',
@@ -61,31 +61,31 @@
       navDashboard: 'Dashboard'
     },
     km: {
-      brandTag: 'ស្ទូឌីយោ // សាលាហ្វឹកហាត់វាយអក្សរ',
+      brandTag: 'ហ្វឹកហាត់វាយអក្សរខ្មែរ',
       launchStudio: 'ចូលស្ទូឌីយោ',
-      heroBadge: 'ស្ទូឌីយោវាយអក្សរខ្មែរ និងអង់គ្លេសទំនើបបំផុត',
+      heroBadge: 'កម្មវិធីរៀនវាយអក្សរខ្មែរ និងអង់គ្លេសឥតគិតថ្លៃ',
       titleP1: 'សូមស្វាគមន៍មកកាន់',
       titleHighlight: 'PK Khmer Type',
       titleKm: 'បណ្តុះបណ្តាលការវាយអក្សរខ្មែរ និងអង់គ្លេស',
-      heroSubtitle: 'សូមស្វាគមន៍មកកាន់ស្ទូឌីយោវាយអក្សរក្តារចុចមេកានិចដំបូងគេបង្អស់នៅកម្ពុជា។ ហ្វឹកហាត់ក្តារចុចខ្មែរស្តង់ដារ និដា និងអង់គ្លេស ដោយមានការណែនាំម្រាមដៃ 3D មេរៀន ២៧៦ និងសំឡេងចុចក្តារចុចពិតប្រាកដ។',
+      heroSubtitle: 'រៀនវាយអក្សរខ្មែរឱ្យបានស្ទាត់ជំនាញ និងត្រឹមត្រូវ។ ហ្វឹកហាត់ប្លង់ខ្មែរស្តង់ដារ និដា និងអង់គ្លេស ជាមួយមេរៀនជាជំហានៗ សំឡេងគ្រាប់ចុចមេកានិច និងការណែនាំម្រាមដៃពិតប្រាកដ។',
       ctaPrimary: 'ចាប់ផ្តើមរៀនឥឡូវនេះ',
       ctaGuide: 'មើលសៀវភៅណែនាំក្តារចុច',
-      demoTitle: 'ការបង្ហាញការវាយអក្សរផ្ទាល់',
-      demoSubtitle: 'សាកល្បងចុចគ្រាប់ចុច និងមានអារម្មណ៍ពីចលនាក្តារចុចមេកានិចពិតៗ។',
-      demoBadge: 'ការបង្ហាញបន្តផ្ទាល់',
+      demoTitle: 'សាកល្បងចុចក្តារចុច និងស្តាប់សំឡេង',
+      demoSubtitle: 'ចុចគ្រាប់ចុចណាមួយលើក្តារចុចពិតរបស់អ្នក ដើម្បីស្តាប់សំឡេងកុងតាក់មេកានិចពិតៗ។',
+      demoBadge: 'សាកល្បងចុចផ្ទាល់',
       instructionText: 'សូមចុចគ្រាប់ចុចណាមួយនៅលើក្តារចុចពិតរបស់អ្នក ដើម្បីសាកល្បងសំឡេង និងចលនាគ្រាប់ចុច៖',
-      pillarTag: 'លក្ខណៈពិសេសកម្រិតខ្ពស់',
-      pillarHead: 'រចនាឡើងដើម្បីជំនាញវាយអក្សររហ័ស',
+      pillarTag: 'រៀបចំឡើងដោយយកចិត្តទុកដាក់',
+      pillarHead: 'លក្ខណៈពិសេសដែលជួយអ្នករៀនបានលឿន',
       p1Title: 'ប្លង់ក្តារចុចផ្លូវការ ៣',
       p1Desc: 'រៀនប្លង់ខ្មែរស្តង់ដារ ខ្មែរនិដា និងអង់គ្លេស ដោយរាប់បញ្ចូលគ្រប់តួអក្សរ ជើងអក្សរ ្ ស្រៈ និងវណ្ណយុត្តិទាំងអស់។',
-      p2Title: 'ចលនាដៃ និងម្រាមដៃ 3D',
+      p2Title: 'ការដាក់ម្រាមដៃបានត្រឹមត្រូវ',
       p2Desc: 'ដាក់ម្រាមដៃលើគ្រាប់ចុចជួរដើម (ថ/ញ និង F/J) ដោយមានរូបភាពដៃ 3D បង្ហាញម្រាមដៃត្រូវចុចច្បាស់លាស់។',
-      p3Title: '២៧៦ មេរៀន & បង្កើតមេរៀនផ្ទាល់ខ្លួន',
-      p3Desc: 'កម្មវិធីសិក្សា ៤០ កម្រិត ចាប់ពីកម្រិតដំបូងដល់កម្រិតកំពូល ព្រមទាំងមានប្រព័ន្ធបង្កើតមេរៀនផ្ទាល់ខ្លួនយ៉ាងងាយស្រួល។',
+      p3Title: '២៧៦ មេរៀនជាជំហានៗ',
+      p3Desc: 'កម្មវិធីសិក្សា ៤០ កម្រិត ចាប់ពីកម្រិតដំបូងដល់កម្រិតខ្ពស់ ព្រមទាំងមានប្រព័ន្ធបង្កើតមេរៀនផ្ទាល់ខ្លួនយ៉ាងងាយស្រួល។',
       p4Title: 'សំឡេងចុចមេកានិចពិតៗ',
       p4Desc: 'សំឡេងកុងតាក់មេកានិច Topre និង Cherry កម្រិតខ្ពស់ សំយោគភ្លាមៗដោយគ្មានការយឺតយ៉ាវ។',
-      pathwaysTag: 'ជ្រើសរើសផ្លូវចាប់ផ្តើមរបស់អ្នក',
-      pathwaysHead: 'ចាប់ផ្តើមការហ្វឹកហាត់ថ្ងៃនេះ',
+      pathwaysTag: 'ជ្រើសរើសចំណុចចាប់ផ្តើម',
+      pathwaysHead: 'ចាប់ផ្តើមការហ្វឹកហាត់របស់អ្នក',
       path1Title: 'វគ្គសិក្សាសម្រាប់អ្នកទើបចាប់ផ្តើម',
       path1Desc: 'ចាប់ផ្តើមពីកម្រិត ០០ គ្រាប់ចុចជួរដើម និងការដាក់ម្រាមដៃមួយជំហានម្តងៗ។',
       path1Badge: 'កម្មវិធីសិក្សា · កម្រិត ០',
@@ -100,7 +100,7 @@
       path4Badge: 'ឯកសារយោង & ណែនាំ',
       ctaBannerHead: 'តើអ្នកត្រៀមខ្លួនបង្កើនល្បឿនវាយអក្សរហើយឬនៅ?',
       ctaBannerSub: 'ចូលរួមជាមួយសិស្ស និស្សិត និងអ្នកជំនាញរាប់ពាន់នាក់ក្នុងការវាយអក្សរខ្មែរយ៉ាងរហ័ស ត្រឹមត្រូវ និងមានទំនុកចិត្ត។',
-      footerCreator: 'បង្កើតឡើងដោយមោទនភាពសម្រាប់កម្ពុជា ដោយ ផាន់ណា គូរ៉ូសាគី (Phanna Kurosaki)។',
+      footerCreator: 'រចនា និងបង្កើតឡើងដោយយកចិត្តទុកដាក់សម្រាប់កម្ពុជា ដោយ ផាន់ណា គូរ៉ូសាគី (Phanna Kurosaki)។',
       soundOn: 'សំឡេង៖ បើក',
       soundOff: 'សំឡេង៖ បិទ',
       langBtn: 'English',
@@ -113,7 +113,6 @@
       navDashboard: 'ផ្ទាំងព័ត៌មាន'
     }
   };
-
   let currentLang = 'en';
   try {
     const saved = localStorage.getItem('pk_welcome_lang') || localStorage.getItem('pk_lang');
@@ -547,15 +546,15 @@
     const canvas = document.getElementById('hero3DCanvas') || document.getElementById('celestialPointerCanvas');
     if(!canvas || typeof THREE === 'undefined') return;
 
-    let stageWidth = stage ? stage.clientWidth : 520;
-    let stageHeight = stage ? stage.clientHeight : 520;
-    if(stageWidth < 100) stageWidth = 520;
-    if(stageHeight < 100) stageHeight = 520;
+    let stageWidth = stage ? stage.clientWidth : 480;
+    let stageHeight = stage ? stage.clientHeight : 480;
+    if(stageWidth < 100) stageWidth = 480;
+    if(stageHeight < 100) stageHeight = 480;
 
     // Scene, Camera, Transparent High-Performance Renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, stageWidth / stageHeight, 0.1, 100);
-    camera.position.set(0, 0, 9.5);
+    camera.position.set(0, 0, 9.2);
 
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
@@ -567,91 +566,67 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setClearColor(0x000000, 0);
 
-    // Dynamic Celestial Lighting (Warm Stellar Key + Deep Cosmic Rim + Core Pulsar Point)
-    const ambientLight = new THREE.AmbientLight(0xfff8e7, 1.6);
+    // Warm, Natural Studio & Sunlight Lighting (Human Masterpiece Lighting)
+    const ambientLight = new THREE.AmbientLight(0xfffbeb, 1.4);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.8);
-    keyLight.position.set(4, 7, 7);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
+    keyLight.position.set(4, 6, 7);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0xffd166, 3.2);
-    rimLight.position.set(-6, -4, 4);
+    const warmFillLight = new THREE.DirectionalLight(0xfef3c7, 1.3);
+    warmFillLight.position.set(-5, -3, 3);
+    scene.add(warmFillLight);
+
+    const rimLight = new THREE.DirectionalLight(0xf59e0b, 1.6);
+    rimLight.position.set(0, -6, 4);
     scene.add(rimLight);
 
-    const cyanBackLight = new THREE.DirectionalLight(0x38bdf8, 1.8);
-    cyanBackLight.position.set(3, -5, -4);
-    scene.add(cyanBackLight);
-
-    const needleGlowLight = new THREE.PointLight(0xffd166, 3.8, 8);
+    const needleGlowLight = new THREE.PointLight(0xffd166, 2.2, 7);
     scene.add(needleGlowLight);
 
-    // Procedural High-Dynamic-Range 8-Point Diamond Starburst Nova Texture Generator (512x512)
-    function createStarlightTexture(colorHex, secondaryHex){
+    // Subtle, Elegant Horological Glint Texture
+    function createStarlightTexture(colorHex){
       const cv = document.createElement('canvas');
-      cv.width = 512;
-      cv.height = 512;
+      cv.width = 256;
+      cv.height = 256;
       const ctx = cv.getContext('2d');
-      const cx = 256, cy = 256;
+      const cx = 128, cy = 128;
 
-      // Radiant radial corona
-      const radGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 240);
+      // Warm radial aura
+      const radGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 110);
       radGrad.addColorStop(0, '#ffffff');
-      radGrad.addColorStop(0.08, colorHex);
-      radGrad.addColorStop(0.25, secondaryHex || 'rgba(255, 209, 102, 0.45)');
-      radGrad.addColorStop(0.55, 'rgba(255, 160, 32, 0.12)');
-      radGrad.addColorStop(0.85, 'rgba(120, 60, 255, 0.03)');
+      radGrad.addColorStop(0.15, colorHex);
+      radGrad.addColorStop(0.40, 'rgba(245, 158, 11, 0.25)');
       radGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = radGrad;
-      ctx.fillRect(0, 0, 512, 512);
+      ctx.fillRect(0, 0, 256, 256);
 
       ctx.save();
       ctx.translate(cx, cy);
 
-      // Primary Horizontal razor spike
-      const hGrad = ctx.createLinearGradient(-240, 0, 240, 0);
+      // Slender horizontal lens flare
+      const hGrad = ctx.createLinearGradient(-110, 0, 110, 0);
       hGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-      hGrad.addColorStop(0.46, 'rgba(255, 245, 200, 0.85)');
       hGrad.addColorStop(0.5, '#ffffff');
-      hGrad.addColorStop(0.54, 'rgba(255, 245, 200, 0.85)');
       hGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.fillStyle = hGrad;
       ctx.beginPath();
-      ctx.moveTo(-240, 0);
-      ctx.quadraticCurveTo(0, -9, 240, 0);
-      ctx.quadraticCurveTo(0, 9, -240, 0);
+      ctx.moveTo(-110, 0);
+      ctx.quadraticCurveTo(0, -4, 110, 0);
+      ctx.quadraticCurveTo(0, 4, -110, 0);
       ctx.fill();
 
-      // Primary Vertical razor spike
-      const vGrad = ctx.createLinearGradient(0, -240, 0, 240);
+      // Slender vertical lens flare
+      const vGrad = ctx.createLinearGradient(0, -110, 0, 110);
       vGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-      vGrad.addColorStop(0.46, 'rgba(255, 245, 200, 0.85)');
       vGrad.addColorStop(0.5, '#ffffff');
-      vGrad.addColorStop(0.54, 'rgba(255, 245, 200, 0.85)');
       vGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.fillStyle = vGrad;
       ctx.beginPath();
-      ctx.moveTo(0, -240);
-      ctx.quadraticCurveTo(-9, 0, 0, 240);
-      ctx.quadraticCurveTo(9, 0, 0, -240);
-      ctx.fill();
-
-      // Secondary 45-degree Diagonal diamond spikes
-      ctx.rotate(Math.PI / 4);
-      const dGrad = ctx.createLinearGradient(-130, 0, 130, 0);
-      dGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-      dGrad.addColorStop(0.5, '#ffffff');
-      dGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      ctx.fillStyle = dGrad;
-      ctx.beginPath();
-      ctx.moveTo(-130, 0);
-      ctx.quadraticCurveTo(0, -5, 130, 0);
-      ctx.quadraticCurveTo(0, 5, -130, 0);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(0, -130);
-      ctx.quadraticCurveTo(-5, 0, 0, 130);
-      ctx.quadraticCurveTo(5, 0, 0, -130);
+      ctx.moveTo(0, -110);
+      ctx.quadraticCurveTo(-4, 0, 0, 110);
+      ctx.quadraticCurveTo(4, 0, 0, -110);
       ctx.fill();
 
       ctx.restore();
@@ -661,311 +636,180 @@
       return tex;
     }
 
-    const starTexGold = createStarlightTexture('#ffd166', 'rgba(255, 209, 102, 0.50)');
-    const starTexCyan = createStarlightTexture('#38bdf8', 'rgba(103, 232, 249, 0.50)');
+    const starTexGold = createStarlightTexture('#fbbf24');
 
-    // Root 3D Needle Lance Assembly
+    // Root 3D Needle Lance Assembly (Artisan Horological Drafting Stylus)
     const needleAssembly = new THREE.Group();
     scene.add(needleAssembly);
 
-    // 1. Faceted Tapered Double-Diamond Needle Spine
+    // 1. Slender Precision Stylus Spine (Brushed Champagne Brass)
     const spineShape = new THREE.Shape();
-    spineShape.moveTo(0, 5.2);          // Summit razor tip
-    spineShape.lineTo(0.045, 3.4);      // Slender upper blade
-    spineShape.lineTo(0.09, 1.8);       // Upper rib
-    spineShape.lineTo(0.16, 0.45);      // Upper collar
-    spineShape.lineTo(0.22, 0.0);       // Center waist
-    spineShape.lineTo(0.16, -0.45);     // Lower collar
-    spineShape.lineTo(0.09, -1.8);      // Lower rib
-    spineShape.lineTo(0.045, -3.4);     // Slender lower blade
-    spineShape.lineTo(0, -5.0);         // Tail razor tip
+    spineShape.moveTo(0, 4.8);          // Precision stylus tip
+    spineShape.lineTo(0.04, 3.2);       // Slender upper stem
+    spineShape.lineTo(0.08, 1.6);       // Tapered collar
+    spineShape.lineTo(0.14, 0.4);       // Upper hub
+    spineShape.lineTo(0.18, 0.0);       // Center waist
+    spineShape.lineTo(0.14, -0.4);      // Lower hub
+    spineShape.lineTo(0.08, -1.6);      // Lower stem
+    spineShape.lineTo(0.04, -3.2);      // Slender lower stem
+    spineShape.lineTo(0, -4.6);         // Counter-weighted tail tip
     // Left symmetry
-    spineShape.lineTo(-0.045, -3.4);
-    spineShape.lineTo(-0.09, -1.8);
-    spineShape.lineTo(-0.16, -0.45);
-    spineShape.lineTo(-0.22, 0.0);
-    spineShape.lineTo(-0.16, 0.45);
-    spineShape.lineTo(-0.09, 1.8);
-    spineShape.lineTo(-0.045, 3.4);
+    spineShape.lineTo(-0.04, -3.2);
+    spineShape.lineTo(-0.08, -1.6);
+    spineShape.lineTo(-0.14, -0.4);
+    spineShape.lineTo(-0.18, 0.0);
+    spineShape.lineTo(-0.14, 0.4);
+    spineShape.lineTo(-0.08, 1.6);
+    spineShape.lineTo(-0.04, 3.2);
     spineShape.closePath();
 
     const spineGeo = new THREE.ExtrudeGeometry(spineShape, {
-      depth: 0.12,
-      bevelEnabled: true,
-      bevelSegments: 2,
-      bevelSize: 0.035,
-      bevelThickness: 0.035
-    });
-    spineGeo.center();
-
-    const spineMat = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      metalness: 0.95,
-      roughness: 0.08,
-      emissive: 0xd4a017,
-      emissiveIntensity: 0.55,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.03
-    });
-    const spineMesh = new THREE.Mesh(spineGeo, spineMat);
-    needleAssembly.add(spineMesh);
-
-    // Glowing Spine Razor Contour Edges
-    const spineEdges = new THREE.EdgesGeometry(spineGeo, 24);
-    const spineEdgeMat = new THREE.LineBasicMaterial({
-      color: 0xfff3a8,
-      linewidth: 2,
-      transparent: true,
-      opacity: 0.95,
-      blending: THREE.AdditiveBlending
-    });
-    const spineEdgeLine = new THREE.LineSegments(spineEdges, spineEdgeMat);
-    needleAssembly.add(spineEdgeLine);
-
-    // Glowing Central Laser Core Rod
-    const coreRodGeo = new THREE.CylinderGeometry(0.022, 0.022, 10.2, 8);
-    const coreRodMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const coreRodMesh = new THREE.Mesh(coreRodGeo, coreRodMat);
-    needleAssembly.add(coreRodMesh);
-
-    // 2. Multi-Tiered Seraph Wing Array (Obsidian Damascus Base + Crystalline Winglets)
-    const wingShape = new THREE.Shape();
-    wingShape.moveTo(0, 0.50);
-    wingShape.lineTo(0.40, 0.42);
-    wingShape.lineTo(0.95, 0.85); // Upper aggressive quill barb
-    wingShape.lineTo(1.15, 0.45);
-    wingShape.lineTo(1.85, 0.38); // Mid-wing stepped chevron
-    wingShape.lineTo(3.05, 0.0);  // Main horizontal razor wing tip
-    wingShape.lineTo(1.90, -0.25);
-    wingShape.lineTo(1.20, -0.32);
-    wingShape.lineTo(0.85, -0.65); // Lower swept-back stabilizer fin
-    wingShape.lineTo(0.40, -0.40);
-    wingShape.lineTo(0, -0.50);
-    // Left symmetry
-    wingShape.lineTo(-0.40, -0.40);
-    wingShape.lineTo(-0.85, -0.65);
-    wingShape.lineTo(-1.20, -0.32);
-    wingShape.lineTo(-1.90, -0.25);
-    wingShape.lineTo(-3.05, 0.0); // Left horizontal razor wing tip
-    wingShape.lineTo(-1.85, 0.38);
-    wingShape.lineTo(-1.15, 0.45);
-    wingShape.lineTo(-0.95, 0.85);
-    wingShape.lineTo(-0.40, 0.42);
-    wingShape.closePath();
-
-    const wingGeo = new THREE.ExtrudeGeometry(wingShape, {
       depth: 0.10,
       bevelEnabled: true,
       bevelSegments: 2,
       bevelSize: 0.03,
       bevelThickness: 0.03
     });
+    spineGeo.center();
+
+    // Brushed champagne satin brass material
+    const spineMat = new THREE.MeshPhysicalMaterial({
+      color: 0xfef3c7,
+      metalness: 0.88,
+      roughness: 0.22,
+      emissive: 0xb45309,
+      emissiveIntensity: 0.35,
+      clearcoat: 0.5,
+      clearcoatRoughness: 0.08
+    });
+    const spineMesh = new THREE.Mesh(spineGeo, spineMat);
+    needleAssembly.add(spineMesh);
+
+    // Fine Polished Chamfer Wireframe Line
+    const spineEdges = new THREE.EdgesGeometry(spineGeo, 24);
+    const spineEdgeMat = new THREE.LineBasicMaterial({
+      color: 0xffedd5,
+      linewidth: 1.5,
+      transparent: true,
+      opacity: 0.85
+    });
+    const spineEdgeLine = new THREE.LineSegments(spineEdges, spineEdgeMat);
+    needleAssembly.add(spineEdgeLine);
+
+    // 2. Sculpted Openwork Horological Wings (Inspired by Antique Astrolabe Indicators)
+    const wingShape = new THREE.Shape();
+    wingShape.moveTo(0, 0.45);
+    wingShape.bezierCurveTo(0.5, 0.40, 1.2, 0.60, 2.5, 0.0);   // Graceful outer sweep
+    wingShape.bezierCurveTo(1.4, -0.45, 0.6, -0.35, 0, -0.45); // Return sweep
+    // Left wing
+    wingShape.bezierCurveTo(-0.6, -0.35, -1.4, -0.45, -2.5, 0.0);
+    wingShape.bezierCurveTo(-1.2, 0.60, -0.5, 0.40, 0, 0.45);
+    wingShape.closePath();
+
+    // Openwork teardrop holes inside each wing
+    const rHole = new THREE.Path();
+    rHole.moveTo(0.5, 0.12);
+    rHole.bezierCurveTo(0.9, 0.22, 1.6, 0.10, 1.9, 0.0);
+    rHole.bezierCurveTo(1.5, -0.10, 0.9, -0.12, 0.5, -0.05);
+    rHole.closePath();
+    wingShape.holes.push(rHole);
+
+    const lHole = new THREE.Path();
+    lHole.moveTo(-0.5, 0.12);
+    lHole.bezierCurveTo(-0.9, 0.22, -1.6, 0.10, -1.9, 0.0);
+    lHole.bezierCurveTo(-1.5, -0.10, -0.9, -0.12, -0.5, -0.05);
+    lHole.closePath();
+    wingShape.holes.push(lHole);
+
+    const wingGeo = new THREE.ExtrudeGeometry(wingShape, {
+      depth: 0.08,
+      bevelEnabled: true,
+      bevelSegments: 2,
+      bevelSize: 0.025,
+      bevelThickness: 0.025
+    });
     wingGeo.center();
 
-    // Vibrant Cosmic Obsidian Damascus: deep metallic navy base with rich molten gold reflections
+    // Deep polished obsidian titanium with warm amber inner tone
     const wingMat = new THREE.MeshPhysicalMaterial({
-      color: 0x141b2d,
-      metalness: 0.95,
-      roughness: 0.12,
-      emissive: 0xc89618,
-      emissiveIntensity: 0.58,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.04
+      color: 0x1e293b,
+      metalness: 0.90,
+      roughness: 0.16,
+      emissive: 0x451a03,
+      emissiveIntensity: 0.25,
+      clearcoat: 0.8,
+      clearcoatRoughness: 0.05
     });
     const wingMesh = new THREE.Mesh(wingGeo, wingMat);
     needleAssembly.add(wingMesh);
 
-    // Glowing Golden Razor Wing Edges
+    // Warm Golden Bevel Contour
     const wingEdges = new THREE.EdgesGeometry(wingGeo, 20);
     const wingEdgeMat = new THREE.LineBasicMaterial({
-      color: 0xfff0a0,
-      linewidth: 2,
+      color: 0xf59e0b,
+      linewidth: 1.5,
       transparent: true,
-      opacity: 0.95,
-      blending: THREE.AdditiveBlending
+      opacity: 0.90
     });
     const wingEdgeLine = new THREE.LineSegments(wingEdges, wingEdgeMat);
     needleAssembly.add(wingEdgeLine);
 
-    // Floating Inner Crystalline Winglets (Seraph Astral Shards)
-    const crystalWingShape = new THREE.Shape();
-    crystalWingShape.moveTo(0.25, 0.30);
-    crystalWingShape.lineTo(0.70, 0.55);
-    crystalWingShape.lineTo(1.50, 0.22);
-    crystalWingShape.lineTo(0.70, -0.22);
-    crystalWingShape.lineTo(0.25, -0.15);
-    crystalWingShape.closePath();
-
-    const crystalWingGeo = new THREE.ExtrudeGeometry(crystalWingShape, {
-      depth: 0.04,
-      bevelEnabled: true,
-      bevelSegments: 1,
-      bevelSize: 0.02,
-      bevelThickness: 0.02
+    // 3. Central Horological Ruby Pivot Jewel in Polished Bezel Setting
+    // Bezel Setting (Gold Ring)
+    const bezelGeo = new THREE.CylinderGeometry(0.32, 0.32, 0.14, 32);
+    const bezelMat = new THREE.MeshPhysicalMaterial({
+      color: 0xfde68a,
+      metalness: 0.92,
+      roughness: 0.15,
+      clearcoat: 1.0
     });
-    crystalWingGeo.center();
+    const bezel = new THREE.Mesh(bezelGeo, bezelMat);
+    bezel.rotation.x = Math.PI / 2;
+    needleAssembly.add(bezel);
 
-    const crystalWingMat = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      metalness: 0.15,
-      roughness: 0.05,
-      transmission: 0.55,
-      emissive: 0xffe28a,
-      emissiveIntensity: 0.85,
-      transparent: true,
-      opacity: 0.88
+    // Cabochon Ruby Jewel Pivot
+    const rubyGeo = new THREE.SphereGeometry(0.22, 32, 16);
+    const rubyMat = new THREE.MeshPhysicalMaterial({
+      color: 0xdc2626,
+      emissive: 0x991b1b,
+      emissiveIntensity: 0.45,
+      roughness: 0.06,
+      metalness: 0.10,
+      transmission: 0.65,
+      clearcoat: 1.0
     });
+    const rubyJewel = new THREE.Mesh(rubyGeo, rubyMat);
+    rubyJewel.scale.set(1, 1, 0.45);
+    needleAssembly.add(rubyJewel);
 
-    const rCrystalWing = new THREE.Mesh(crystalWingGeo, crystalWingMat);
-    rCrystalWing.position.set(0.85, 0.12, 0.07);
-    needleAssembly.add(rCrystalWing);
-
-    const lCrystalWing = new THREE.Mesh(crystalWingGeo, crystalWingMat);
-    lCrystalWing.position.set(-0.85, 0.12, 0.07);
-    lCrystalWing.rotation.y = Math.PI;
-    needleAssembly.add(lCrystalWing);
-
-    // Inlaid Golden Chevron Constellation Runes on Wings
-    const rWingInlay = [
-      new THREE.Vector3(0.3, 0.22, 0.065),
-      new THREE.Vector3(0.85, 0.55, 0.065),
-      new THREE.Vector3(1.1, 0.30, 0.065),
-      new THREE.Vector3(1.8, 0.24, 0.065),
-      new THREE.Vector3(2.7, 0.0, 0.065),
-      new THREE.Vector3(1.7, -0.16, 0.065),
-      new THREE.Vector3(1.0, -0.20, 0.065),
-      new THREE.Vector3(0.65, -0.42, 0.065),
-      new THREE.Vector3(0.3, -0.22, 0.065)
-    ];
-    const lWingInlay = rWingInlay.map(p => new THREE.Vector3(-p.x, p.y, p.z));
-
-    const inlayMat = new THREE.LineBasicMaterial({
-      color: 0xfff6d0,
-      transparent: true,
-      opacity: 0.88,
-      blending: THREE.AdditiveBlending
+    // 4. Satin Brass Astrolabe Balance Ring with 4 Cardinal Markers
+    const astrolabeRingGeo = new THREE.TorusGeometry(0.78, 0.016, 16, 64);
+    const astrolabeRingMat = new THREE.MeshPhysicalMaterial({
+      color: 0xf59e0b,
+      metalness: 0.85,
+      roughness: 0.22,
+      clearcoat: 0.4
     });
-    const rWingLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(rWingInlay), inlayMat);
-    const lWingLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(lWingInlay), inlayMat);
-    needleAssembly.add(rWingLine);
-    needleAssembly.add(lWingLine);
+    const astrolabeRing = new THREE.Mesh(astrolabeRingGeo, astrolabeRingMat);
+    astrolabeRing.rotation.x = Math.PI / 4;
+    needleAssembly.add(astrolabeRing);
 
-    // Diamond Star Nodes on Wing Vertices (Wing Tips & Upper Barbs)
-    const wingGemGeo = new THREE.OctahedronGeometry(0.13, 0);
-    const wingGemMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const rTipGem = new THREE.Mesh(wingGemGeo, wingGemMat);
-    rTipGem.position.set(3.05, 0, 0.08);
-    const lTipGem = new THREE.Mesh(wingGemGeo, wingGemMat);
-    lTipGem.position.set(-3.05, 0, 0.08);
-    const rBarbGem = new THREE.Mesh(wingGemGeo, wingGemMat);
-    rBarbGem.position.set(0.95, 0.85, 0.08);
-    const lBarbGem = new THREE.Mesh(wingGemGeo, wingGemMat);
-    lBarbGem.position.set(-0.95, 0.85, 0.08);
-    needleAssembly.add(rTipGem);
-    needleAssembly.add(lTipGem);
-    needleAssembly.add(rBarbGem);
-    needleAssembly.add(lBarbGem);
-
-    // 3. Triple Concentric Counter-Rotating Celestial Astrolabe Gimbal Rings
-    // Ring 1: Outer Golden Armillary Ring with 4 Cardinal Diamond Studs
-    const ringGeo1 = new THREE.TorusGeometry(0.72, 0.018, 16, 64);
-    const ringMat1 = new THREE.MeshBasicMaterial({
-      color: 0xffd166,
-      transparent: true,
-      opacity: 0.90,
-      blending: THREE.AdditiveBlending
+    // 4 Cardinal Studs on Ring
+    const studGeo = new THREE.CylinderGeometry(0.04, 0.04, 0.08, 16);
+    const studMat = new THREE.MeshPhysicalMaterial({
+      color: 0xfef3c7,
+      metalness: 0.95,
+      roughness: 0.1
     });
-    const gimbalRing1 = new THREE.Mesh(ringGeo1, ringMat1);
-    gimbalRing1.rotation.x = Math.PI / 3;
-    needleAssembly.add(gimbalRing1);
-
-    // Cardinal Diamond Studs on Ring 1
-    const studGeo = new THREE.OctahedronGeometry(0.065, 0);
-    const studMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const studs = [];
     for(let i = 0; i < 4; i++){
       const angle = (i / 4) * Math.PI * 2;
       const stud = new THREE.Mesh(studGeo, studMat);
-      stud.position.set(Math.cos(angle) * 0.72, Math.sin(angle) * 0.72, 0);
-      gimbalRing1.add(stud);
-      studs.push(stud);
+      stud.position.set(Math.cos(angle) * 0.78, Math.sin(angle) * 0.78, 0);
+      stud.rotation.z = angle;
+      astrolabeRing.add(stud);
     }
 
-    // Ring 2: Middle Astral Cyan Plasma Ring
-    const ringGeo2 = new THREE.TorusGeometry(0.90, 0.015, 16, 64);
-    const ringMat2 = new THREE.MeshBasicMaterial({
-      color: 0x67e8f9,
-      transparent: true,
-      opacity: 0.80,
-      blending: THREE.AdditiveBlending
-    });
-    const gimbalRing2 = new THREE.Mesh(ringGeo2, ringMat2);
-    gimbalRing2.rotation.y = Math.PI / 4;
-    needleAssembly.add(gimbalRing2);
-
-    // Ring 3: Inner White High-Speed Resonator Ring
-    const ringGeo3 = new THREE.TorusGeometry(0.52, 0.013, 14, 48);
-    const ringMat3 = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      transparent: true,
-      opacity: 0.75,
-      blending: THREE.AdditiveBlending
-    });
-    const gimbalRing3 = new THREE.Mesh(ringGeo3, ringMat3);
-    gimbalRing3.rotation.x = -Math.PI / 5;
-    needleAssembly.add(gimbalRing3);
-
-    // Central Dual-Nested Octahedron Diamond Crystal Core
-    const innerDiamondGeo = new THREE.OctahedronGeometry(0.24, 0);
-    const innerDiamondMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const innerDiamond = new THREE.Mesh(innerDiamondGeo, innerDiamondMat);
-
-    const outerDiamondGeo = new THREE.OctahedronGeometry(0.36, 0);
-    const outerDiamondMat = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      emissive: 0xffd166,
-      emissiveIntensity: 0.9,
-      roughness: 0.04,
-      metalness: 0.95,
-      clearcoat: 1.0,
-      transparent: true,
-      opacity: 0.85
-    });
-    const outerDiamond = new THREE.Mesh(outerDiamondGeo, outerDiamondMat);
-    outerDiamond.add(innerDiamond);
-    needleAssembly.add(outerDiamond);
-
-    // 4. The 5 Pulsing Starlight Novas Along Axis
-    const starSprites = [];
-    const starGems = [];
-    const starYPositions = [2.7, 1.35, 0.0, -1.35, -2.7];
-    const starScales = [1.45, 1.75, 2.9, 1.75, 1.45];
-
-    starYPositions.forEach((yPos, idx) => {
-      const mat = new THREE.SpriteMaterial({
-        map: idx === 2 ? starTexGold : (idx % 2 === 0 ? starTexGold : starTexCyan),
-        color: 0xffffff,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-      });
-      const sprite = new THREE.Sprite(mat);
-      sprite.position.set(0, yPos, 0.1);
-      sprite.scale.set(starScales[idx], starScales[idx], 1);
-      needleAssembly.add(sprite);
-      starSprites.push({ sprite, baseScale: starScales[idx], phase: idx * 0.85 });
-
-      if (idx !== 2) {
-        const gemGeo = new THREE.OctahedronGeometry(0.13, 0);
-        const gemMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-        const gemMesh = new THREE.Mesh(gemGeo, gemMat);
-        gemMesh.position.set(0, yPos, 0.08);
-        needleAssembly.add(gemMesh);
-        starGems.push(gemMesh);
-      }
-    });
-
-    // Summit Razor Tip Beacon Flare (Direct Aiming Focus)
+    // 5. Stylus Tip Glint (Direct Aiming Focus)
     const tipFlareMat = new THREE.SpriteMaterial({
       map: starTexGold,
       color: 0xffffff,
@@ -974,11 +818,11 @@
       depthWrite: false
     });
     const tipFlare = new THREE.Sprite(tipFlareMat);
-    tipFlare.position.set(0, 5.15, 0.1);
-    tipFlare.scale.set(1.3, 1.3, 1);
+    tipFlare.position.set(0, 4.8, 0.1);
+    tipFlare.scale.set(1.1, 1.1, 1);
     needleAssembly.add(tipFlare);
 
-    // Tail Counterweight Star Flare
+    // Counter-weight Tail Glint
     const tailFlareMat = new THREE.SpriteMaterial({
       map: starTexGold,
       color: 0xffffff,
@@ -987,188 +831,39 @@
       depthWrite: false
     });
     const tailFlare = new THREE.Sprite(tailFlareMat);
-    tailFlare.position.set(0, -4.95, 0.1);
-    tailFlare.scale.set(1.0, 1.0, 1);
+    tailFlare.position.set(0, -4.6, 0.1);
+    tailFlare.scale.set(0.85, 0.85, 1);
     needleAssembly.add(tailFlare);
 
-    // 5. Orbiting Celestial Satellites (Starlight Motes)
-    const motes = [
-      { rx: 1.8, ry: 1.4, rz: 1.2, speed: 1.6, tilt: 0.6, angle: 0, color: 0xffd166 },
-      { rx: 2.3, ry: 1.7, rz: 1.5, speed: -1.3, tilt: -0.7, angle: Math.PI * 0.5, color: 0x38bdf8 },
-      { rx: 1.4, ry: 2.0, rz: 1.0, speed: 2.1, tilt: 1.3, angle: Math.PI, color: 0xffffff },
-      { rx: 2.8, ry: 1.2, rz: 1.4, speed: -1.8, tilt: 0.3, angle: Math.PI * 1.5, color: 0xffe28a }
-    ];
-    motes.forEach(m => {
-      const sMat = new THREE.SpriteMaterial({
-        map: m.color === 0x38bdf8 ? starTexCyan : starTexGold,
-        color: 0xffffff,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-      });
-      const sMesh = new THREE.Sprite(sMat);
-      sMesh.scale.set(0.45, 0.45, 1);
-      needleAssembly.add(sMesh);
-      m.sprite = sMesh;
-    });
-
-    // 6. Dual Dynamic Electrical Plasma Filaments
-    const numSpinePoints = 26;
-    const spineArcPositions = new Float32Array(numSpinePoints * 3);
-    const spineArcGeo = new THREE.BufferGeometry();
-    spineArcGeo.setAttribute('position', new THREE.BufferAttribute(spineArcPositions, 3));
-    const spineArcMat = new THREE.LineBasicMaterial({
-      color: 0xfff6d0,
-      transparent: true,
-      opacity: 0.90,
-      blending: THREE.AdditiveBlending
-    });
-    const spineArcLine = new THREE.Line(spineArcGeo, spineArcMat);
-    needleAssembly.add(spineArcLine);
-
-    const numWingPoints = 14;
-    const rWingArcGeo = new THREE.BufferGeometry();
-    rWingArcGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(numWingPoints * 3), 3));
-    const lWingArcGeo = new THREE.BufferGeometry();
-    lWingArcGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(numWingPoints * 3), 3));
-    const wingArcMat = new THREE.LineBasicMaterial({
-      color: 0x7dd3fc,
-      transparent: true,
-      opacity: 0.85,
-      blending: THREE.AdditiveBlending
-    });
-    const rWingArcLine = new THREE.Line(rWingArcGeo, wingArcMat);
-    const lWingArcLine = new THREE.Line(lWingArcGeo, wingArcMat);
-    needleAssembly.add(rWingArcLine);
-    needleAssembly.add(lWingArcLine);
-
-    function updateArcs(time){
-      // Spine Lightning Arc
-      const spineArr = spineArcGeo.attributes.position.array;
-      for(let i = 0; i < numSpinePoints; i++){
-        const t = i / (numSpinePoints - 1);
-        const y = (t * 9.8) - 4.9;
-        const jitterX = (Math.random() - 0.5) * 0.06;
-        const jitterZ = (Math.random() - 0.5) * 0.06;
-        spineArr[i * 3 + 0] = Math.sin(time * 14 + y * 5) * 0.06 + jitterX;
-        spineArr[i * 3 + 1] = y;
-        spineArr[i * 3 + 2] = Math.cos(time * 12 + y * 4) * 0.06 + 0.10 + jitterZ;
-      }
-      spineArcGeo.attributes.position.needsUpdate = true;
-
-      // Wing Sparks
-      const rWingArr = rWingArcGeo.attributes.position.array;
-      const lWingArr = lWingArcGeo.attributes.position.array;
-      for(let i = 0; i < numWingPoints; i++){
-        const t = i / (numWingPoints - 1);
-        const rx = t * 2.95;
-        const ry = Math.sin(t * Math.PI) * 0.26 + (Math.random() - 0.5) * 0.07;
-        rWingArr[i * 3 + 0] = rx;
-        rWingArr[i * 3 + 1] = ry;
-        rWingArr[i * 3 + 2] = 0.07;
-
-        lWingArr[i * 3 + 0] = -rx;
-        lWingArr[i * 3 + 1] = ry;
-        lWingArr[i * 3 + 2] = 0.07;
-      }
-      rWingArcGeo.attributes.position.needsUpdate = true;
-      lWingArcGeo.attributes.position.needsUpdate = true;
-    }
-
-    // 7. Ambient Floating Stardust Field
-    const dustCount = 42;
-    const dustPositions = new Float32Array(dustCount * 3);
-    const dustVelocities = [];
-    for(let i = 0; i < dustCount; i++){
-      dustPositions[i * 3 + 0] = (Math.random() - 0.5) * 4.6;
-      dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 9.8;
-      dustPositions[i * 3 + 2] = (Math.random() - 0.5) * 2.6;
-      dustVelocities.push({
-        vy: Math.random() * 0.022 + 0.009,
-        swayPhase: Math.random() * Math.PI * 2
-      });
-    }
-    const dustGeo = new THREE.BufferGeometry();
-    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
-    const dustMat = new THREE.PointsMaterial({
-      color: 0xffd166,
-      size: 0.10,
-      transparent: true,
-      opacity: 0.75,
-      blending: THREE.AdditiveBlending
-    });
-    const dustPoints = new THREE.Points(dustGeo, dustMat);
-    scene.add(dustPoints);
-
-    // Needle Scale: Majestic prominent sizing (~320px tall in open hero column)
-    const NEEDLE_SCALE = 0.56;
+    // Needle Scale: Majestic prominent sizing (~300px tall in open hero column)
+    const NEEDLE_SCALE = 0.55;
     needleAssembly.scale.set(NEEDLE_SCALE, NEEDLE_SCALE, NEEDLE_SCALE);
 
-    // 8. Supernova Click Bursts (Dual concentric rings + radiant high-speed spark embers)
-    const shockwaves = [];
-    const sparkParticles = [];
+    // 6. Tactile Click Wave (Gentle warm ripple, zero violent explosions)
+    const ripples = [];
 
     function triggerShockwave(){
       needleAssembly.updateMatrixWorld(true);
-      const tipWorldPos = needleAssembly.localToWorld(new THREE.Vector3(0, 5.15, 0));
-      const coreWorldPos = needleAssembly.localToWorld(new THREE.Vector3(0, 0, 0));
+      const tipWorldPos = needleAssembly.localToWorld(new THREE.Vector3(0, 4.8, 0));
 
-      // 1. Expanding Golden Wavefront Ring
-      const burstMat1 = new THREE.SpriteMaterial({
-        map: starTexGold,
-        color: 0xffffff,
+      const ringGeo = new THREE.RingGeometry(0.15, 0.25, 48);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: 0xf59e0b,
         transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
+        opacity: 0.85,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending
       });
-      const burstSprite1 = new THREE.Sprite(burstMat1);
-      burstSprite1.position.copy(tipWorldPos);
-      burstSprite1.scale.set(0.9, 0.9, 1);
-      scene.add(burstSprite1);
-      shockwaves.push({ sprite: burstSprite1, scale: 0.9, opacity: 1.0, speed: 7.0 });
+      const mesh = new THREE.Mesh(ringGeo, ringMat);
+      mesh.position.copy(tipWorldPos);
+      mesh.quaternion.copy(needleAssembly.quaternion);
+      scene.add(mesh);
 
-      // 2. Secondary Astral Cyan Refraction Ring from Core
-      const burstMat2 = new THREE.SpriteMaterial({
-        map: starTexCyan,
-        color: 0xffffff,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-      });
-      const burstSprite2 = new THREE.Sprite(burstMat2);
-      burstSprite2.position.copy(coreWorldPos);
-      burstSprite2.scale.set(0.6, 0.6, 1);
-      scene.add(burstSprite2);
-      shockwaves.push({ sprite: burstSprite2, scale: 0.6, opacity: 0.9, speed: 5.5 });
+      ripples.push({ mesh, scale: 1, opacity: 0.85 });
 
-      // 3. Radiating High-Speed Starlight Spark Embers
-      const numSparks = 20;
-      for(let i = 0; i < numSparks; i++){
-        const angle = (i / numSparks) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
-        const speed = Math.random() * 3.2 + 1.8;
-        const sparkMat = new THREE.SpriteMaterial({
-          map: Math.random() > 0.35 ? starTexGold : starTexCyan,
-          color: 0xffffff,
-          transparent: true,
-          blending: THREE.AdditiveBlending,
-          depthWrite: false
-        });
-        const sparkSprite = new THREE.Sprite(sparkMat);
-        sparkSprite.position.copy(tipWorldPos);
-        sparkSprite.scale.set(0.38, 0.38, 1);
-        scene.add(sparkSprite);
-        sparkParticles.push({
-          sprite: sparkSprite,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          vz: (Math.random() - 0.5) * 1.0,
-          opacity: 1.0
-        });
-      }
-
-      // Flash tip flare and core light
-      tipFlare.scale.set(2.8, 2.8, 1);
-      needleGlowLight.intensity = 7.0;
+      // Gentle tip glint pulse
+      tipFlare.scale.set(1.9, 1.9, 1);
+      needleGlowLight.intensity = 3.8;
 
       playCelestialChime();
     }
@@ -1177,7 +872,7 @@
       triggerShockwave();
     });
 
-    // Mouse Tracking across Window with Dynamic Velocity Banking
+    // Mouse Tracking across Window with Natural Mechanical Weight & Inertia
     const mouse = {
       clientX: window.innerWidth * 0.5,
       clientY: window.innerHeight * 0.35
@@ -1202,8 +897,8 @@
     function handleResize(){
       if(!stage) return;
       const rect = stage.getBoundingClientRect();
-      const w = rect.width || 520;
-      const h = rect.height || 520;
+      const w = rect.width || 480;
+      const h = rect.height || 480;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
@@ -1211,7 +906,7 @@
 
     window.addEventListener('resize', handleResize);
 
-    // Animation & Real-Time Aiming Loop
+    // Animation & Real-Time Aiming Loop (Fluid, Weighted Mechanical Precision)
     let clock = new THREE.Clock();
 
     function renderLoop(){
@@ -1220,8 +915,8 @@
       const delta = clock.getDelta();
       const time = clock.getElapsedTime();
 
-      // 1. Direct Aiming: The razor tip points directly at the mouse cursor
-      let dx = 0, dy = -150;
+      // 1. Direct Aiming: The stylus tip points smoothly toward the mouse cursor
+      let dx = 0, dy = -140;
       if(stage){
         const rect = stage.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -1230,112 +925,49 @@
         dy = mouse.clientY - centerY;
       }
 
-      mouseVelocityX *= 0.88;
+      mouseVelocityX *= 0.90;
 
       const dist = Math.hypot(dx, dy);
       if(dist > 8){
         const screenAngle = Math.atan2(-dy, dx);
         const zRot = screenAngle - Math.PI / 2;
-        const bankRoll = Math.max(-0.25, Math.min(0.25, -mouseVelocityX * 0.015));
-        const leanAmount = Math.min(0.26, 0.10 + (dist / (window.innerWidth || 1200)) * 0.18);
+        const bankRoll = Math.max(-0.20, Math.min(0.20, -mouseVelocityX * 0.012));
+        const leanAmount = Math.min(0.22, 0.08 + (dist / (window.innerWidth || 1200)) * 0.15);
         const targetEuler = new THREE.Euler(leanAmount, bankRoll, zRot, 'ZXY');
         needleState.targetQuat.setFromEuler(targetEuler);
       }
 
-      needleAssembly.quaternion.slerp(needleState.targetQuat, 0.11);
+      needleAssembly.quaternion.slerp(needleState.targetQuat, 0.08);
 
-      // Subtle levitation float
-      needleAssembly.position.y = Math.sin(time * 2.2) * 0.12;
+      // Gentle levitation breathing
+      needleAssembly.position.y = Math.sin(time * 1.6) * 0.08;
       needleGlowLight.position.copy(needleAssembly.position);
 
-      // 2. Pulse Novas with Harmonic Waves & Shimmer Rotation
-      starSprites.forEach(item => {
-        const p = 1.0 + Math.sin(time * 3.8 + item.phase) * 0.22;
-        item.sprite.scale.set(item.baseScale * p, item.baseScale * p, 1);
-        item.sprite.material.rotation = Math.sin(time * 0.7 + item.phase) * 0.18;
-      });
+      // Smooth slow rotation of the astrolabe brass ring
+      astrolabeRing.rotation.z += 0.008;
 
-      // 3. Rotate Triple Gimbal Rings & Core Diamond
-      gimbalRing1.rotation.z += 0.022;
-      gimbalRing1.rotation.x += 0.012;
-      gimbalRing2.rotation.z -= 0.018;
-      gimbalRing2.rotation.y += 0.015;
-      gimbalRing3.rotation.y += 0.035;
-      gimbalRing3.rotation.x += 0.024;
-
-      outerDiamond.rotation.y += 0.028;
-      outerDiamond.rotation.x += 0.014;
-      innerDiamond.rotation.z -= 0.040;
-
-      starGems.forEach(gem => {
-        gem.rotation.y += 0.032;
-      });
-      rTipGem.rotation.y += 0.03;
-      lTipGem.rotation.y -= 0.03;
-      rBarbGem.rotation.x += 0.03;
-      lBarbGem.rotation.x -= 0.03;
-
-      // 4. Update Orbiting Celestial Satellites (Starlight Motes)
-      motes.forEach(m => {
-        m.angle += m.speed * delta;
-        const mx = Math.cos(m.angle) * m.rx;
-        const my = Math.sin(m.angle) * Math.cos(m.tilt) * m.ry;
-        const mz = Math.sin(m.angle) * Math.sin(m.tilt) * m.rz + 0.10;
-        m.sprite.position.set(mx, my, mz);
-      });
-
-      // 5. Electrical Filaments
-      updateArcs(time);
-
-      // 6. Update Ambient Stardust
-      const dustArr = dustGeo.attributes.position.array;
-      for(let i = 0; i < dustCount; i++){
-        dustArr[i * 3 + 1] += dustVelocities[i].vy;
-        dustArr[i * 3 + 0] += Math.sin(time * 1.5 + dustVelocities[i].swayPhase) * 0.005;
-        if(dustArr[i * 3 + 1] > 4.9){
-          dustArr[i * 3 + 1] = -4.9;
-        }
-      }
-      dustGeo.attributes.position.needsUpdate = true;
-
-      // 7. Update Shockwave Bursts
-      for(let i = shockwaves.length - 1; i >= 0; i--){
-        const sw = shockwaves[i];
-        sw.scale += delta * (sw.speed || 6.5);
-        sw.opacity -= delta * 3.0;
-        sw.sprite.scale.set(sw.scale, sw.scale, 1);
-        sw.sprite.material.opacity = Math.max(0, sw.opacity);
-        if(sw.opacity <= 0){
-          scene.remove(sw.sprite);
-          sw.sprite.material.dispose();
-          shockwaves.splice(i, 1);
-        }
-      }
-
-      // 8. Update Spark Particles
-      for(let i = sparkParticles.length - 1; i >= 0; i--){
-        const sp = sparkParticles[i];
-        sp.sprite.position.x += sp.vx * delta;
-        sp.sprite.position.y += sp.vy * delta;
-        sp.sprite.position.z += sp.vz * delta;
-        sp.opacity -= delta * 2.5;
-        sp.sprite.material.opacity = Math.max(0, sp.opacity);
-        const s = Math.max(0.05, 0.38 * sp.opacity);
-        sp.sprite.scale.set(s, s, 1);
-        if(sp.opacity <= 0){
-          scene.remove(sp.sprite);
-          sp.sprite.material.dispose();
-          sparkParticles.splice(i, 1);
-        }
-      }
-
-      // Relax Tip Flare & PointLight Intensity
-      if(tipFlare.scale.x > 1.3){
-        const nextScale = Math.max(1.3, tipFlare.scale.x - delta * 3.8);
+      // Relax Tip Flare & Light Intensity smoothly
+      if(tipFlare.scale.x > 1.1){
+        const nextScale = Math.max(1.1, tipFlare.scale.x - delta * 2.8);
         tipFlare.scale.set(nextScale, nextScale, 1);
       }
-      if(needleGlowLight.intensity > 3.8){
-        needleGlowLight.intensity = Math.max(3.8, needleGlowLight.intensity - delta * 6.0);
+      if(needleGlowLight.intensity > 2.2){
+        needleGlowLight.intensity = Math.max(2.2, needleGlowLight.intensity - delta * 3.5);
+      }
+
+      // 2. Update Click Ripples
+      for(let i = ripples.length - 1; i >= 0; i--){
+        const r = ripples[i];
+        r.scale += delta * 4.2;
+        r.opacity -= delta * 1.8;
+        r.mesh.scale.set(r.scale, r.scale, r.scale);
+        r.mesh.material.opacity = Math.max(0, r.opacity);
+        if(r.opacity <= 0){
+          scene.remove(r.mesh);
+          r.mesh.geometry.dispose();
+          r.mesh.material.dispose();
+          ripples.splice(i, 1);
+        }
       }
 
       renderer.render(scene, camera);
