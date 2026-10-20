@@ -438,6 +438,18 @@ body {
   justify-content: center;
 }
 
+.hero-right-3d-wrapper::before {
+  content: "";
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 209, 102, 0.12) 0%, rgba(56, 189, 248, 0.06) 45%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .hero-3d-stage {
   position: relative;
   width: 100%;

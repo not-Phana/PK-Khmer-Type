@@ -239,29 +239,31 @@
       ensureAudio();
       if(!audioCtx) return;
       const t = audioCtx.currentTime;
-      const osc1 = audioCtx.createOscillator();
-      const osc2 = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
 
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(880, t);
-      osc1.frequency.exponentialRampToValueAtTime(1760, t + 0.25);
+      // Celestial Pentatonic Frequencies (A5, C#6, E6, G#6, A6)
+      const freqs = [880, 1108.73, 1318.51, 1661.22, 1760];
+      const masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0.18, t);
+      masterGain.gain.exponentialRampToValueAtTime(0.001, t + 0.65);
+      masterGain.connect(audioCtx.destination);
 
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(1320, t);
-      osc2.frequency.exponentialRampToValueAtTime(2640, t + 0.2);
+      freqs.forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        const voiceGain = audioCtx.createGain();
+        osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
+        osc.frequency.setValueAtTime(freq, t);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, t + 0.25);
 
-      gain.gain.setValueAtTime(0.12, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.45);
+        const vVol = 0.22 / (idx + 1);
+        voiceGain.gain.setValueAtTime(vVol, t);
+        voiceGain.gain.exponentialRampToValueAtTime(0.001, t + 0.55 + idx * 0.05);
 
-      osc1.connect(gain);
-      osc2.connect(gain);
-      gain.connect(audioCtx.destination);
+        osc.connect(voiceGain);
+        voiceGain.connect(masterGain);
 
-      osc1.start(t);
-      osc2.start(t);
-      osc1.stop(t + 0.45);
-      osc2.stop(t + 0.45);
+        osc.start(t + idx * 0.015);
+        osc.stop(t + 0.65);
+      });
     } catch(_e){}
   }
 
@@ -565,82 +567,91 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setClearColor(0x000000, 0);
 
-    // Dynamic Celestial Lighting
-    const ambientLight = new THREE.AmbientLight(0xfff6e0, 1.4);
+    // Dynamic Celestial Lighting (Warm Stellar Key + Deep Cosmic Rim + Core Pulsar Point)
+    const ambientLight = new THREE.AmbientLight(0xfff8e7, 1.6);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
-    keyLight.position.set(4, 6, 6);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.8);
+    keyLight.position.set(4, 7, 7);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0xffd166, 2.5);
-    rimLight.position.set(-5, -4, 3);
+    const rimLight = new THREE.DirectionalLight(0xffd166, 3.2);
+    rimLight.position.set(-6, -4, 4);
     scene.add(rimLight);
 
-    const needleGlowLight = new THREE.PointLight(0xffd166, 3.0, 7);
+    const cyanBackLight = new THREE.DirectionalLight(0x38bdf8, 1.8);
+    cyanBackLight.position.set(3, -5, -4);
+    scene.add(cyanBackLight);
+
+    const needleGlowLight = new THREE.PointLight(0xffd166, 3.8, 8);
     scene.add(needleGlowLight);
 
-    // Procedural High-Resolution Diamond Starburst Nova Texture Generator
-    function createStarlightTexture(colorHex){
+    // Procedural High-Dynamic-Range 8-Point Diamond Starburst Nova Texture Generator (512x512)
+    function createStarlightTexture(colorHex, secondaryHex){
       const cv = document.createElement('canvas');
-      cv.width = 256;
-      cv.height = 256;
+      cv.width = 512;
+      cv.height = 512;
       const ctx = cv.getContext('2d');
-      const cx = 128, cy = 128;
+      const cx = 256, cy = 256;
 
       // Radiant radial corona
-      const radGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 115);
+      const radGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 240);
       radGrad.addColorStop(0, '#ffffff');
-      radGrad.addColorStop(0.12, colorHex);
-      radGrad.addColorStop(0.35, 'rgba(255, 209, 102, 0.40)');
-      radGrad.addColorStop(0.68, 'rgba(255, 157, 46, 0.10)');
+      radGrad.addColorStop(0.08, colorHex);
+      radGrad.addColorStop(0.25, secondaryHex || 'rgba(255, 209, 102, 0.45)');
+      radGrad.addColorStop(0.55, 'rgba(255, 160, 32, 0.12)');
+      radGrad.addColorStop(0.85, 'rgba(120, 60, 255, 0.03)');
       radGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = radGrad;
-      ctx.fillRect(0, 0, 256, 256);
+      ctx.fillRect(0, 0, 512, 512);
 
       ctx.save();
       ctx.translate(cx, cy);
 
       // Primary Horizontal razor spike
-      const hGrad = ctx.createLinearGradient(-120, 0, 120, 0);
+      const hGrad = ctx.createLinearGradient(-240, 0, 240, 0);
       hGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+      hGrad.addColorStop(0.46, 'rgba(255, 245, 200, 0.85)');
       hGrad.addColorStop(0.5, '#ffffff');
+      hGrad.addColorStop(0.54, 'rgba(255, 245, 200, 0.85)');
       hGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.fillStyle = hGrad;
       ctx.beginPath();
-      ctx.moveTo(-120, 0);
-      ctx.quadraticCurveTo(0, -4.5, 120, 0);
-      ctx.quadraticCurveTo(0, 4.5, -120, 0);
+      ctx.moveTo(-240, 0);
+      ctx.quadraticCurveTo(0, -9, 240, 0);
+      ctx.quadraticCurveTo(0, 9, -240, 0);
       ctx.fill();
 
       // Primary Vertical razor spike
-      const vGrad = ctx.createLinearGradient(0, -120, 0, 120);
+      const vGrad = ctx.createLinearGradient(0, -240, 0, 240);
       vGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+      vGrad.addColorStop(0.46, 'rgba(255, 245, 200, 0.85)');
       vGrad.addColorStop(0.5, '#ffffff');
+      vGrad.addColorStop(0.54, 'rgba(255, 245, 200, 0.85)');
       vGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.fillStyle = vGrad;
       ctx.beginPath();
-      ctx.moveTo(0, -120);
-      ctx.quadraticCurveTo(-4.5, 0, 0, 120);
-      ctx.quadraticCurveTo(4.5, 0, 0, -120);
+      ctx.moveTo(0, -240);
+      ctx.quadraticCurveTo(-9, 0, 0, 240);
+      ctx.quadraticCurveTo(9, 0, 0, -240);
       ctx.fill();
 
-      // Secondary Diagonal diamond spikes
+      // Secondary 45-degree Diagonal diamond spikes
       ctx.rotate(Math.PI / 4);
-      const dGrad = ctx.createLinearGradient(-55, 0, 55, 0);
+      const dGrad = ctx.createLinearGradient(-130, 0, 130, 0);
       dGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-      dGrad.addColorStop(0.5, '#fff6d0');
+      dGrad.addColorStop(0.5, '#ffffff');
       dGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.fillStyle = dGrad;
       ctx.beginPath();
-      ctx.moveTo(-55, 0);
-      ctx.quadraticCurveTo(0, -3, 55, 0);
-      ctx.quadraticCurveTo(0, 3, -55, 0);
+      ctx.moveTo(-130, 0);
+      ctx.quadraticCurveTo(0, -5, 130, 0);
+      ctx.quadraticCurveTo(0, 5, -130, 0);
       ctx.fill();
       ctx.beginPath();
-      ctx.moveTo(0, -55);
-      ctx.quadraticCurveTo(-3, 0, 0, 55);
-      ctx.quadraticCurveTo(3, 0, 0, -55);
+      ctx.moveTo(0, -130);
+      ctx.quadraticCurveTo(-5, 0, 0, 130);
+      ctx.quadraticCurveTo(5, 0, 0, -130);
       ctx.fill();
 
       ctx.restore();
@@ -650,51 +661,51 @@
       return tex;
     }
 
-    const starTexGold = createStarlightTexture('#ffd166');
-    const starTexCyan = createStarlightTexture('#67e8f9');
+    const starTexGold = createStarlightTexture('#ffd166', 'rgba(255, 209, 102, 0.50)');
+    const starTexCyan = createStarlightTexture('#38bdf8', 'rgba(103, 232, 249, 0.50)');
 
     // Root 3D Needle Lance Assembly
     const needleAssembly = new THREE.Group();
     scene.add(needleAssembly);
 
-    // 1. Faceted Tapered Diamond Needle Spine
+    // 1. Faceted Tapered Double-Diamond Needle Spine
     const spineShape = new THREE.Shape();
-    spineShape.moveTo(0, 5.0);          // Summit razor tip
-    spineShape.lineTo(0.045, 3.2);      // Slender upper blade
-    spineShape.lineTo(0.08, 1.6);       // Upper rib
-    spineShape.lineTo(0.14, 0.4);       // Upper collar
-    spineShape.lineTo(0.20, 0.0);       // Center waist
-    spineShape.lineTo(0.14, -0.4);      // Lower collar
-    spineShape.lineTo(0.08, -1.6);      // Lower rib
-    spineShape.lineTo(0.045, -3.2);     // Slender lower blade
-    spineShape.lineTo(0, -4.8);         // Tail razor tip
+    spineShape.moveTo(0, 5.2);          // Summit razor tip
+    spineShape.lineTo(0.045, 3.4);      // Slender upper blade
+    spineShape.lineTo(0.09, 1.8);       // Upper rib
+    spineShape.lineTo(0.16, 0.45);      // Upper collar
+    spineShape.lineTo(0.22, 0.0);       // Center waist
+    spineShape.lineTo(0.16, -0.45);     // Lower collar
+    spineShape.lineTo(0.09, -1.8);      // Lower rib
+    spineShape.lineTo(0.045, -3.4);     // Slender lower blade
+    spineShape.lineTo(0, -5.0);         // Tail razor tip
     // Left symmetry
-    spineShape.lineTo(-0.045, -3.2);
-    spineShape.lineTo(-0.08, -1.6);
-    spineShape.lineTo(-0.14, -0.4);
-    spineShape.lineTo(-0.20, 0.0);
-    spineShape.lineTo(-0.14, 0.4);
-    spineShape.lineTo(-0.08, 1.6);
-    spineShape.lineTo(-0.045, 3.2);
+    spineShape.lineTo(-0.045, -3.4);
+    spineShape.lineTo(-0.09, -1.8);
+    spineShape.lineTo(-0.16, -0.45);
+    spineShape.lineTo(-0.22, 0.0);
+    spineShape.lineTo(-0.16, 0.45);
+    spineShape.lineTo(-0.09, 1.8);
+    spineShape.lineTo(-0.045, 3.4);
     spineShape.closePath();
 
     const spineGeo = new THREE.ExtrudeGeometry(spineShape, {
-      depth: 0.10,
+      depth: 0.12,
       bevelEnabled: true,
       bevelSegments: 2,
-      bevelSize: 0.03,
-      bevelThickness: 0.03
+      bevelSize: 0.035,
+      bevelThickness: 0.035
     });
     spineGeo.center();
 
     const spineMat = new THREE.MeshPhysicalMaterial({
       color: 0xffffff,
-      metalness: 0.96,
+      metalness: 0.95,
       roughness: 0.08,
       emissive: 0xd4a017,
-      emissiveIntensity: 0.45,
+      emissiveIntensity: 0.55,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.04
+      clearcoatRoughness: 0.03
     });
     const spineMesh = new THREE.Mesh(spineGeo, spineMat);
     needleAssembly.add(spineMesh);
@@ -705,60 +716,61 @@
       color: 0xfff3a8,
       linewidth: 2,
       transparent: true,
-      opacity: 0.92,
+      opacity: 0.95,
       blending: THREE.AdditiveBlending
     });
     const spineEdgeLine = new THREE.LineSegments(spineEdges, spineEdgeMat);
     needleAssembly.add(spineEdgeLine);
 
-    // Glowing Laser Core Rod
-    const coreRodGeo = new THREE.CylinderGeometry(0.02, 0.02, 9.8, 8);
+    // Glowing Central Laser Core Rod
+    const coreRodGeo = new THREE.CylinderGeometry(0.022, 0.022, 10.2, 8);
     const coreRodMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
     const coreRodMesh = new THREE.Mesh(coreRodGeo, coreRodMat);
     needleAssembly.add(coreRodMesh);
 
-    // 2. Prismatic Seraph Wing Blades (Replacing muddy brown plate)
+    // 2. Multi-Tiered Seraph Wing Array (Obsidian Damascus Base + Crystalline Winglets)
     const wingShape = new THREE.Shape();
-    wingShape.moveTo(0, 0.45);
-    wingShape.lineTo(0.4, 0.40);
-    wingShape.lineTo(0.9, 0.70); // Upper barb
-    wingShape.lineTo(1.1, 0.42);
-    wingShape.lineTo(1.8, 0.35);
-    wingShape.lineTo(2.8, 0.0);  // Main horizontal razor wing tip
-    wingShape.lineTo(1.8, -0.22);
-    wingShape.lineTo(1.1, -0.28);
-    wingShape.lineTo(0.8, -0.55); // Lower barb
-    wingShape.lineTo(0.4, -0.35);
-    wingShape.lineTo(0, -0.45);
+    wingShape.moveTo(0, 0.50);
+    wingShape.lineTo(0.40, 0.42);
+    wingShape.lineTo(0.95, 0.85); // Upper aggressive quill barb
+    wingShape.lineTo(1.15, 0.45);
+    wingShape.lineTo(1.85, 0.38); // Mid-wing stepped chevron
+    wingShape.lineTo(3.05, 0.0);  // Main horizontal razor wing tip
+    wingShape.lineTo(1.90, -0.25);
+    wingShape.lineTo(1.20, -0.32);
+    wingShape.lineTo(0.85, -0.65); // Lower swept-back stabilizer fin
+    wingShape.lineTo(0.40, -0.40);
+    wingShape.lineTo(0, -0.50);
     // Left symmetry
-    wingShape.lineTo(-0.4, -0.35);
-    wingShape.lineTo(-0.8, -0.55);
-    wingShape.lineTo(-1.1, -0.28);
-    wingShape.lineTo(-1.8, -0.22);
-    wingShape.lineTo(-2.8, 0.0); // Left horizontal razor wing tip
-    wingShape.lineTo(-1.8, 0.35);
-    wingShape.lineTo(-1.1, 0.42);
-    wingShape.lineTo(-0.9, 0.70);
-    wingShape.lineTo(-0.4, 0.40);
+    wingShape.lineTo(-0.40, -0.40);
+    wingShape.lineTo(-0.85, -0.65);
+    wingShape.lineTo(-1.20, -0.32);
+    wingShape.lineTo(-1.90, -0.25);
+    wingShape.lineTo(-3.05, 0.0); // Left horizontal razor wing tip
+    wingShape.lineTo(-1.85, 0.38);
+    wingShape.lineTo(-1.15, 0.45);
+    wingShape.lineTo(-0.95, 0.85);
+    wingShape.lineTo(-0.40, 0.42);
     wingShape.closePath();
 
     const wingGeo = new THREE.ExtrudeGeometry(wingShape, {
-      depth: 0.08,
+      depth: 0.10,
       bevelEnabled: true,
       bevelSegments: 2,
-      bevelSize: 0.025,
-      bevelThickness: 0.025
+      bevelSize: 0.03,
+      bevelThickness: 0.03
     });
     wingGeo.center();
 
+    // Vibrant Cosmic Obsidian Damascus: deep metallic navy base with rich molten gold reflections
     const wingMat = new THREE.MeshPhysicalMaterial({
-      color: 0x0a0f1d, // Deep cosmic midnight obsidian (no muddy brown)
-      metalness: 0.92,
+      color: 0x141b2d,
+      metalness: 0.95,
       roughness: 0.12,
-      emissive: 0x301e05, // Rich golden-bronze internal reflection
-      emissiveIntensity: 0.4,
+      emissive: 0xc89618,
+      emissiveIntensity: 0.58,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.05
+      clearcoatRoughness: 0.04
     });
     const wingMesh = new THREE.Mesh(wingGeo, wingMat);
     needleAssembly.add(wingMesh);
@@ -766,7 +778,7 @@
     // Glowing Golden Razor Wing Edges
     const wingEdges = new THREE.EdgesGeometry(wingGeo, 20);
     const wingEdgeMat = new THREE.LineBasicMaterial({
-      color: 0xffd166,
+      color: 0xfff0a0,
       linewidth: 2,
       transparent: true,
       opacity: 0.95,
@@ -775,24 +787,62 @@
     const wingEdgeLine = new THREE.LineSegments(wingEdges, wingEdgeMat);
     needleAssembly.add(wingEdgeLine);
 
-    // Inlaid Golden Chevron Energy Runes on Wings
+    // Floating Inner Crystalline Winglets (Seraph Astral Shards)
+    const crystalWingShape = new THREE.Shape();
+    crystalWingShape.moveTo(0.25, 0.30);
+    crystalWingShape.lineTo(0.70, 0.55);
+    crystalWingShape.lineTo(1.50, 0.22);
+    crystalWingShape.lineTo(0.70, -0.22);
+    crystalWingShape.lineTo(0.25, -0.15);
+    crystalWingShape.closePath();
+
+    const crystalWingGeo = new THREE.ExtrudeGeometry(crystalWingShape, {
+      depth: 0.04,
+      bevelEnabled: true,
+      bevelSegments: 1,
+      bevelSize: 0.02,
+      bevelThickness: 0.02
+    });
+    crystalWingGeo.center();
+
+    const crystalWingMat = new THREE.MeshPhysicalMaterial({
+      color: 0xffffff,
+      metalness: 0.15,
+      roughness: 0.05,
+      transmission: 0.55,
+      emissive: 0xffe28a,
+      emissiveIntensity: 0.85,
+      transparent: true,
+      opacity: 0.88
+    });
+
+    const rCrystalWing = new THREE.Mesh(crystalWingGeo, crystalWingMat);
+    rCrystalWing.position.set(0.85, 0.12, 0.07);
+    needleAssembly.add(rCrystalWing);
+
+    const lCrystalWing = new THREE.Mesh(crystalWingGeo, crystalWingMat);
+    lCrystalWing.position.set(-0.85, 0.12, 0.07);
+    lCrystalWing.rotation.y = Math.PI;
+    needleAssembly.add(lCrystalWing);
+
+    // Inlaid Golden Chevron Constellation Runes on Wings
     const rWingInlay = [
-      new THREE.Vector3(0.3, 0.2, 0.06),
-      new THREE.Vector3(0.8, 0.48, 0.06),
-      new THREE.Vector3(1.0, 0.26, 0.06),
-      new THREE.Vector3(1.7, 0.20, 0.06),
-      new THREE.Vector3(2.5, 0.0, 0.06),
-      new THREE.Vector3(1.6, -0.14, 0.06),
-      new THREE.Vector3(0.9, -0.18, 0.06),
-      new THREE.Vector3(0.6, -0.38, 0.06),
-      new THREE.Vector3(0.3, -0.20, 0.06)
+      new THREE.Vector3(0.3, 0.22, 0.065),
+      new THREE.Vector3(0.85, 0.55, 0.065),
+      new THREE.Vector3(1.1, 0.30, 0.065),
+      new THREE.Vector3(1.8, 0.24, 0.065),
+      new THREE.Vector3(2.7, 0.0, 0.065),
+      new THREE.Vector3(1.7, -0.16, 0.065),
+      new THREE.Vector3(1.0, -0.20, 0.065),
+      new THREE.Vector3(0.65, -0.42, 0.065),
+      new THREE.Vector3(0.3, -0.22, 0.065)
     ];
     const lWingInlay = rWingInlay.map(p => new THREE.Vector3(-p.x, p.y, p.z));
 
     const inlayMat = new THREE.LineBasicMaterial({
-      color: 0xffd166,
+      color: 0xfff6d0,
       transparent: true,
-      opacity: 0.82,
+      opacity: 0.88,
       blending: THREE.AdditiveBlending
     });
     const rWingLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(rWingInlay), inlayMat);
@@ -800,47 +850,96 @@
     needleAssembly.add(rWingLine);
     needleAssembly.add(lWingLine);
 
-    // 3. Dual Counter-Rotating Astral Gimbal Energy Rings
-    const ringGeo1 = new THREE.TorusGeometry(0.60, 0.016, 12, 48);
+    // Diamond Star Nodes on Wing Vertices (Wing Tips & Upper Barbs)
+    const wingGemGeo = new THREE.OctahedronGeometry(0.13, 0);
+    const wingGemMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const rTipGem = new THREE.Mesh(wingGemGeo, wingGemMat);
+    rTipGem.position.set(3.05, 0, 0.08);
+    const lTipGem = new THREE.Mesh(wingGemGeo, wingGemMat);
+    lTipGem.position.set(-3.05, 0, 0.08);
+    const rBarbGem = new THREE.Mesh(wingGemGeo, wingGemMat);
+    rBarbGem.position.set(0.95, 0.85, 0.08);
+    const lBarbGem = new THREE.Mesh(wingGemGeo, wingGemMat);
+    lBarbGem.position.set(-0.95, 0.85, 0.08);
+    needleAssembly.add(rTipGem);
+    needleAssembly.add(lTipGem);
+    needleAssembly.add(rBarbGem);
+    needleAssembly.add(lBarbGem);
+
+    // 3. Triple Concentric Counter-Rotating Celestial Astrolabe Gimbal Rings
+    // Ring 1: Outer Golden Armillary Ring with 4 Cardinal Diamond Studs
+    const ringGeo1 = new THREE.TorusGeometry(0.72, 0.018, 16, 64);
     const ringMat1 = new THREE.MeshBasicMaterial({
       color: 0xffd166,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.90,
       blending: THREE.AdditiveBlending
     });
     const gimbalRing1 = new THREE.Mesh(ringGeo1, ringMat1);
     gimbalRing1.rotation.x = Math.PI / 3;
     needleAssembly.add(gimbalRing1);
 
-    const ringGeo2 = new THREE.TorusGeometry(0.76, 0.014, 12, 48);
+    // Cardinal Diamond Studs on Ring 1
+    const studGeo = new THREE.OctahedronGeometry(0.065, 0);
+    const studMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const studs = [];
+    for(let i = 0; i < 4; i++){
+      const angle = (i / 4) * Math.PI * 2;
+      const stud = new THREE.Mesh(studGeo, studMat);
+      stud.position.set(Math.cos(angle) * 0.72, Math.sin(angle) * 0.72, 0);
+      gimbalRing1.add(stud);
+      studs.push(stud);
+    }
+
+    // Ring 2: Middle Astral Cyan Plasma Ring
+    const ringGeo2 = new THREE.TorusGeometry(0.90, 0.015, 16, 64);
     const ringMat2 = new THREE.MeshBasicMaterial({
       color: 0x67e8f9,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.80,
       blending: THREE.AdditiveBlending
     });
     const gimbalRing2 = new THREE.Mesh(ringGeo2, ringMat2);
     gimbalRing2.rotation.y = Math.PI / 4;
     needleAssembly.add(gimbalRing2);
 
-    // Central Diamond Crystal Core
-    const coreDiamondGeo = new THREE.OctahedronGeometry(0.24, 0);
-    const coreDiamondMat = new THREE.MeshPhysicalMaterial({
+    // Ring 3: Inner White High-Speed Resonator Ring
+    const ringGeo3 = new THREE.TorusGeometry(0.52, 0.013, 14, 48);
+    const ringMat3 = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: 0.75,
+      blending: THREE.AdditiveBlending
+    });
+    const gimbalRing3 = new THREE.Mesh(ringGeo3, ringMat3);
+    gimbalRing3.rotation.x = -Math.PI / 5;
+    needleAssembly.add(gimbalRing3);
+
+    // Central Dual-Nested Octahedron Diamond Crystal Core
+    const innerDiamondGeo = new THREE.OctahedronGeometry(0.24, 0);
+    const innerDiamondMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const innerDiamond = new THREE.Mesh(innerDiamondGeo, innerDiamondMat);
+
+    const outerDiamondGeo = new THREE.OctahedronGeometry(0.36, 0);
+    const outerDiamondMat = new THREE.MeshPhysicalMaterial({
       color: 0xffffff,
       emissive: 0xffd166,
-      emissiveIntensity: 0.8,
-      roughness: 0.05,
+      emissiveIntensity: 0.9,
+      roughness: 0.04,
       metalness: 0.95,
-      clearcoat: 1.0
+      clearcoat: 1.0,
+      transparent: true,
+      opacity: 0.85
     });
-    const coreDiamond = new THREE.Mesh(coreDiamondGeo, coreDiamondMat);
-    needleAssembly.add(coreDiamond);
+    const outerDiamond = new THREE.Mesh(outerDiamondGeo, outerDiamondMat);
+    outerDiamond.add(innerDiamond);
+    needleAssembly.add(outerDiamond);
 
-    // 4. The 5 Pulsing Starlight Novas Along Axis (From User Drawing)
+    // 4. The 5 Pulsing Starlight Novas Along Axis
     const starSprites = [];
     const starGems = [];
-    const starYPositions = [2.6, 1.3, 0.0, -1.3, -2.6];
-    const starScales = [1.35, 1.65, 2.6, 1.65, 1.35];
+    const starYPositions = [2.7, 1.35, 0.0, -1.35, -2.7];
+    const starScales = [1.45, 1.75, 2.9, 1.75, 1.45];
 
     starYPositions.forEach((yPos, idx) => {
       const mat = new THREE.SpriteMaterial({
@@ -857,7 +956,7 @@
       starSprites.push({ sprite, baseScale: starScales[idx], phase: idx * 0.85 });
 
       if (idx !== 2) {
-        const gemGeo = new THREE.OctahedronGeometry(0.12, 0);
+        const gemGeo = new THREE.OctahedronGeometry(0.13, 0);
         const gemMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
         const gemMesh = new THREE.Mesh(gemGeo, gemMat);
         gemMesh.position.set(0, yPos, 0.08);
@@ -866,108 +965,7 @@
       }
     });
 
-    // Tail Star Flare at bottom tip
-    const tailFlareMat = new THREE.SpriteMaterial({
-      map: starTexGold,
-      color: 0xffffff,
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    });
-    const tailFlare = new THREE.Sprite(tailFlareMat);
-    tailFlare.position.set(0, -4.75, 0.1);
-    tailFlare.scale.set(0.9, 0.9, 1);
-    needleAssembly.add(tailFlare);
-
-    // 5. Dual Dynamic Electrical Plasma Filaments
-    const numSpinePoints = 24;
-    const spineArcPositions = new Float32Array(numSpinePoints * 3);
-    const spineArcGeo = new THREE.BufferGeometry();
-    spineArcGeo.setAttribute('position', new THREE.BufferAttribute(spineArcPositions, 3));
-    const spineArcMat = new THREE.LineBasicMaterial({
-      color: 0xfff6d0,
-      transparent: true,
-      opacity: 0.85,
-      blending: THREE.AdditiveBlending
-    });
-    const spineArcLine = new THREE.Line(spineArcGeo, spineArcMat);
-    needleAssembly.add(spineArcLine);
-
-    const numWingPoints = 12;
-    const rWingArcGeo = new THREE.BufferGeometry();
-    rWingArcGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(numWingPoints * 3), 3));
-    const lWingArcGeo = new THREE.BufferGeometry();
-    lWingArcGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(numWingPoints * 3), 3));
-    const wingArcMat = new THREE.LineBasicMaterial({
-      color: 0x7dd3fc,
-      transparent: true,
-      opacity: 0.75,
-      blending: THREE.AdditiveBlending
-    });
-    const rWingArcLine = new THREE.Line(rWingArcGeo, wingArcMat);
-    const lWingArcLine = new THREE.Line(lWingArcGeo, wingArcMat);
-    needleAssembly.add(rWingArcLine);
-    needleAssembly.add(lWingArcLine);
-
-    function updateArcs(time){
-      // 1. Spine Lightning Arc
-      const spineArr = spineArcGeo.attributes.position.array;
-      for(let i = 0; i < numSpinePoints; i++){
-        const t = i / (numSpinePoints - 1);
-        const y = (t * 9.2) - 4.6;
-        const jitterX = (Math.random() - 0.5) * 0.05;
-        const jitterZ = (Math.random() - 0.5) * 0.05;
-        spineArr[i * 3 + 0] = Math.sin(time * 12 + y * 5) * 0.05 + jitterX;
-        spineArr[i * 3 + 1] = y;
-        spineArr[i * 3 + 2] = Math.cos(time * 10 + y * 4) * 0.05 + 0.09 + jitterZ;
-      }
-      spineArcGeo.attributes.position.needsUpdate = true;
-
-      // 2. Wing Sparks
-      const rWingArr = rWingArcGeo.attributes.position.array;
-      const lWingArr = lWingArcGeo.attributes.position.array;
-      for(let i = 0; i < numWingPoints; i++){
-        const t = i / (numWingPoints - 1);
-        const rx = t * 2.7;
-        const ry = Math.sin(t * Math.PI) * 0.22 + (Math.random() - 0.5) * 0.06;
-        rWingArr[i * 3 + 0] = rx;
-        rWingArr[i * 3 + 1] = ry;
-        rWingArr[i * 3 + 2] = 0.06;
-
-        lWingArr[i * 3 + 0] = -rx;
-        lWingArr[i * 3 + 1] = ry;
-        lWingArr[i * 3 + 2] = 0.06;
-      }
-      rWingArcGeo.attributes.position.needsUpdate = true;
-      lWingArcGeo.attributes.position.needsUpdate = true;
-    }
-
-    // 6. Ambient Floating Stardust Field
-    const dustCount = 36;
-    const dustPositions = new Float32Array(dustCount * 3);
-    const dustVelocities = [];
-    for(let i = 0; i < dustCount; i++){
-      dustPositions[i * 3 + 0] = (Math.random() - 0.5) * 4.2;
-      dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 9.2;
-      dustPositions[i * 3 + 2] = (Math.random() - 0.5) * 2.2;
-      dustVelocities.push({
-        vy: Math.random() * 0.02 + 0.008,
-        swayPhase: Math.random() * Math.PI * 2
-      });
-    }
-    const dustGeo = new THREE.BufferGeometry();
-    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
-    const dustMat = new THREE.PointsMaterial({
-      color: 0xffd166,
-      size: 0.09,
-      transparent: true,
-      opacity: 0.70,
-      blending: THREE.AdditiveBlending
-    });
-    const dustPoints = new THREE.Points(dustGeo, dustMat);
-    scene.add(dustPoints);
-
-    // Razor Tip Starlight Emitter (Direct Aiming Focus)
+    // Summit Razor Tip Beacon Flare (Direct Aiming Focus)
     const tipFlareMat = new THREE.SpriteMaterial({
       map: starTexGold,
       color: 0xffffff,
@@ -976,64 +974,201 @@
       depthWrite: false
     });
     const tipFlare = new THREE.Sprite(tipFlareMat);
-    tipFlare.position.set(0, 4.95, 0.1);
-    tipFlare.scale.set(1.2, 1.2, 1);
+    tipFlare.position.set(0, 5.15, 0.1);
+    tipFlare.scale.set(1.3, 1.3, 1);
     needleAssembly.add(tipFlare);
 
-    // Needle Scale: Majestic prominent sizing (~310px tall in open hero column)
-    const NEEDLE_SCALE = 0.55;
+    // Tail Counterweight Star Flare
+    const tailFlareMat = new THREE.SpriteMaterial({
+      map: starTexGold,
+      color: 0xffffff,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const tailFlare = new THREE.Sprite(tailFlareMat);
+    tailFlare.position.set(0, -4.95, 0.1);
+    tailFlare.scale.set(1.0, 1.0, 1);
+    needleAssembly.add(tailFlare);
+
+    // 5. Orbiting Celestial Satellites (Starlight Motes)
+    const motes = [
+      { rx: 1.8, ry: 1.4, rz: 1.2, speed: 1.6, tilt: 0.6, angle: 0, color: 0xffd166 },
+      { rx: 2.3, ry: 1.7, rz: 1.5, speed: -1.3, tilt: -0.7, angle: Math.PI * 0.5, color: 0x38bdf8 },
+      { rx: 1.4, ry: 2.0, rz: 1.0, speed: 2.1, tilt: 1.3, angle: Math.PI, color: 0xffffff },
+      { rx: 2.8, ry: 1.2, rz: 1.4, speed: -1.8, tilt: 0.3, angle: Math.PI * 1.5, color: 0xffe28a }
+    ];
+    motes.forEach(m => {
+      const sMat = new THREE.SpriteMaterial({
+        map: m.color === 0x38bdf8 ? starTexCyan : starTexGold,
+        color: 0xffffff,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      const sMesh = new THREE.Sprite(sMat);
+      sMesh.scale.set(0.45, 0.45, 1);
+      needleAssembly.add(sMesh);
+      m.sprite = sMesh;
+    });
+
+    // 6. Dual Dynamic Electrical Plasma Filaments
+    const numSpinePoints = 26;
+    const spineArcPositions = new Float32Array(numSpinePoints * 3);
+    const spineArcGeo = new THREE.BufferGeometry();
+    spineArcGeo.setAttribute('position', new THREE.BufferAttribute(spineArcPositions, 3));
+    const spineArcMat = new THREE.LineBasicMaterial({
+      color: 0xfff6d0,
+      transparent: true,
+      opacity: 0.90,
+      blending: THREE.AdditiveBlending
+    });
+    const spineArcLine = new THREE.Line(spineArcGeo, spineArcMat);
+    needleAssembly.add(spineArcLine);
+
+    const numWingPoints = 14;
+    const rWingArcGeo = new THREE.BufferGeometry();
+    rWingArcGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(numWingPoints * 3), 3));
+    const lWingArcGeo = new THREE.BufferGeometry();
+    lWingArcGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(numWingPoints * 3), 3));
+    const wingArcMat = new THREE.LineBasicMaterial({
+      color: 0x7dd3fc,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending
+    });
+    const rWingArcLine = new THREE.Line(rWingArcGeo, wingArcMat);
+    const lWingArcLine = new THREE.Line(lWingArcGeo, wingArcMat);
+    needleAssembly.add(rWingArcLine);
+    needleAssembly.add(lWingArcLine);
+
+    function updateArcs(time){
+      // Spine Lightning Arc
+      const spineArr = spineArcGeo.attributes.position.array;
+      for(let i = 0; i < numSpinePoints; i++){
+        const t = i / (numSpinePoints - 1);
+        const y = (t * 9.8) - 4.9;
+        const jitterX = (Math.random() - 0.5) * 0.06;
+        const jitterZ = (Math.random() - 0.5) * 0.06;
+        spineArr[i * 3 + 0] = Math.sin(time * 14 + y * 5) * 0.06 + jitterX;
+        spineArr[i * 3 + 1] = y;
+        spineArr[i * 3 + 2] = Math.cos(time * 12 + y * 4) * 0.06 + 0.10 + jitterZ;
+      }
+      spineArcGeo.attributes.position.needsUpdate = true;
+
+      // Wing Sparks
+      const rWingArr = rWingArcGeo.attributes.position.array;
+      const lWingArr = lWingArcGeo.attributes.position.array;
+      for(let i = 0; i < numWingPoints; i++){
+        const t = i / (numWingPoints - 1);
+        const rx = t * 2.95;
+        const ry = Math.sin(t * Math.PI) * 0.26 + (Math.random() - 0.5) * 0.07;
+        rWingArr[i * 3 + 0] = rx;
+        rWingArr[i * 3 + 1] = ry;
+        rWingArr[i * 3 + 2] = 0.07;
+
+        lWingArr[i * 3 + 0] = -rx;
+        lWingArr[i * 3 + 1] = ry;
+        lWingArr[i * 3 + 2] = 0.07;
+      }
+      rWingArcGeo.attributes.position.needsUpdate = true;
+      lWingArcGeo.attributes.position.needsUpdate = true;
+    }
+
+    // 7. Ambient Floating Stardust Field
+    const dustCount = 42;
+    const dustPositions = new Float32Array(dustCount * 3);
+    const dustVelocities = [];
+    for(let i = 0; i < dustCount; i++){
+      dustPositions[i * 3 + 0] = (Math.random() - 0.5) * 4.6;
+      dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 9.8;
+      dustPositions[i * 3 + 2] = (Math.random() - 0.5) * 2.6;
+      dustVelocities.push({
+        vy: Math.random() * 0.022 + 0.009,
+        swayPhase: Math.random() * Math.PI * 2
+      });
+    }
+    const dustGeo = new THREE.BufferGeometry();
+    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+    const dustMat = new THREE.PointsMaterial({
+      color: 0xffd166,
+      size: 0.10,
+      transparent: true,
+      opacity: 0.75,
+      blending: THREE.AdditiveBlending
+    });
+    const dustPoints = new THREE.Points(dustGeo, dustMat);
+    scene.add(dustPoints);
+
+    // Needle Scale: Majestic prominent sizing (~320px tall in open hero column)
+    const NEEDLE_SCALE = 0.56;
     needleAssembly.scale.set(NEEDLE_SCALE, NEEDLE_SCALE, NEEDLE_SCALE);
 
-    // 7. Astral Nova Click Bursts (Supernova pulse + sparks, zero lingering rings)
+    // 8. Supernova Click Bursts (Dual concentric rings + radiant high-speed spark embers)
     const shockwaves = [];
     const sparkParticles = [];
 
     function triggerShockwave(){
       needleAssembly.updateMatrixWorld(true);
-      // Summit razor tip world coordinates
-      const tipWorldPos = needleAssembly.localToWorld(new THREE.Vector3(0, 4.95, 0));
+      const tipWorldPos = needleAssembly.localToWorld(new THREE.Vector3(0, 5.15, 0));
+      const coreWorldPos = needleAssembly.localToWorld(new THREE.Vector3(0, 0, 0));
 
-      // Expanding Starlight Burst Flare
-      const burstMat = new THREE.SpriteMaterial({
+      // 1. Expanding Golden Wavefront Ring
+      const burstMat1 = new THREE.SpriteMaterial({
         map: starTexGold,
         color: 0xffffff,
         transparent: true,
         blending: THREE.AdditiveBlending,
         depthWrite: false
       });
-      const burstSprite = new THREE.Sprite(burstMat);
-      burstSprite.position.copy(tipWorldPos);
-      burstSprite.scale.set(0.8, 0.8, 1);
-      scene.add(burstSprite);
-      shockwaves.push({ sprite: burstSprite, scale: 0.8, opacity: 1.0 });
+      const burstSprite1 = new THREE.Sprite(burstMat1);
+      burstSprite1.position.copy(tipWorldPos);
+      burstSprite1.scale.set(0.9, 0.9, 1);
+      scene.add(burstSprite1);
+      shockwaves.push({ sprite: burstSprite1, scale: 0.9, opacity: 1.0, speed: 7.0 });
 
-      // Radiating Starlight Sparks
-      const numSparks = 12;
+      // 2. Secondary Astral Cyan Refraction Ring from Core
+      const burstMat2 = new THREE.SpriteMaterial({
+        map: starTexCyan,
+        color: 0xffffff,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      const burstSprite2 = new THREE.Sprite(burstMat2);
+      burstSprite2.position.copy(coreWorldPos);
+      burstSprite2.scale.set(0.6, 0.6, 1);
+      scene.add(burstSprite2);
+      shockwaves.push({ sprite: burstSprite2, scale: 0.6, opacity: 0.9, speed: 5.5 });
+
+      // 3. Radiating High-Speed Starlight Spark Embers
+      const numSparks = 20;
       for(let i = 0; i < numSparks; i++){
         const angle = (i / numSparks) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
-        const speed = Math.random() * 2.5 + 1.4;
+        const speed = Math.random() * 3.2 + 1.8;
         const sparkMat = new THREE.SpriteMaterial({
-          map: starTexGold,
-          color: Math.random() > 0.4 ? 0xffd166 : 0x7dd3fc,
+          map: Math.random() > 0.35 ? starTexGold : starTexCyan,
+          color: 0xffffff,
           transparent: true,
           blending: THREE.AdditiveBlending,
           depthWrite: false
         });
         const sparkSprite = new THREE.Sprite(sparkMat);
         sparkSprite.position.copy(tipWorldPos);
-        sparkSprite.scale.set(0.35, 0.35, 1);
+        sparkSprite.scale.set(0.38, 0.38, 1);
         scene.add(sparkSprite);
         sparkParticles.push({
           sprite: sparkSprite,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          vz: (Math.random() - 0.5) * 0.8,
+          vz: (Math.random() - 0.5) * 1.0,
           opacity: 1.0
         });
       }
 
-      // Flash tip flare
-      tipFlare.scale.set(2.4, 2.4, 1);
+      // Flash tip flare and core light
+      tipFlare.scale.set(2.8, 2.8, 1);
+      needleGlowLight.intensity = 7.0;
 
       playCelestialChime();
     }
@@ -1085,8 +1220,8 @@
       const delta = clock.getDelta();
       const time = clock.getElapsedTime();
 
-      // 1. Direct Aiming: The razor edge/tip points directly at the mouse cursor
-      let dx = 0, dy = -150; // default points slightly up
+      // 1. Direct Aiming: The razor tip points directly at the mouse cursor
+      let dx = 0, dy = -150;
       if(stage){
         const rect = stage.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -1095,22 +1230,14 @@
         dy = mouse.clientY - centerY;
       }
 
-      // Smooth decay of horizontal velocity
       mouseVelocityX *= 0.88;
 
       const dist = Math.hypot(dx, dy);
       if(dist > 8){
-        // Screen direction angle from needle center to cursor
-        // dx is right (+X), -dy is up (+Y in Three.js coordinates)
         const screenAngle = Math.atan2(-dy, dx);
-        // Razor edge/tip is modeled along +Y, so subtracting PI/2 aligns the sharp tip directly with the mouse vector
         const zRot = screenAngle - Math.PI / 2;
-
-        // Dynamic banking into sharp turns for agile flight response
         const bankRoll = Math.max(-0.25, Math.min(0.25, -mouseVelocityX * 0.015));
-
-        // Lean tip slightly towards camera (+Z) for authentic 3D lighting without flips across all 360 degrees
-        const leanAmount = Math.min(0.24, 0.10 + (dist / (window.innerWidth || 1200)) * 0.18);
+        const leanAmount = Math.min(0.26, 0.10 + (dist / (window.innerWidth || 1200)) * 0.18);
         const targetEuler = new THREE.Euler(leanAmount, bankRoll, zRot, 'ZXY');
         needleState.targetQuat.setFromEuler(targetEuler);
       }
@@ -1121,43 +1248,61 @@
       needleAssembly.position.y = Math.sin(time * 2.2) * 0.12;
       needleGlowLight.position.copy(needleAssembly.position);
 
-      // 2. Pulse Novas with Harmonic Waves
+      // 2. Pulse Novas with Harmonic Waves & Shimmer Rotation
       starSprites.forEach(item => {
         const p = 1.0 + Math.sin(time * 3.8 + item.phase) * 0.22;
         item.sprite.scale.set(item.baseScale * p, item.baseScale * p, 1);
+        item.sprite.material.rotation = Math.sin(time * 0.7 + item.phase) * 0.18;
       });
 
-      // Rotate gimbal rings & core gems
+      // 3. Rotate Triple Gimbal Rings & Core Diamond
       gimbalRing1.rotation.z += 0.022;
       gimbalRing1.rotation.x += 0.012;
       gimbalRing2.rotation.z -= 0.018;
       gimbalRing2.rotation.y += 0.015;
-      coreDiamond.rotation.y += 0.028;
-      coreDiamond.rotation.x += 0.014;
+      gimbalRing3.rotation.y += 0.035;
+      gimbalRing3.rotation.x += 0.024;
+
+      outerDiamond.rotation.y += 0.028;
+      outerDiamond.rotation.x += 0.014;
+      innerDiamond.rotation.z -= 0.040;
 
       starGems.forEach(gem => {
-        gem.rotation.y += 0.03;
+        gem.rotation.y += 0.032;
+      });
+      rTipGem.rotation.y += 0.03;
+      lTipGem.rotation.y -= 0.03;
+      rBarbGem.rotation.x += 0.03;
+      lBarbGem.rotation.x -= 0.03;
+
+      // 4. Update Orbiting Celestial Satellites (Starlight Motes)
+      motes.forEach(m => {
+        m.angle += m.speed * delta;
+        const mx = Math.cos(m.angle) * m.rx;
+        const my = Math.sin(m.angle) * Math.cos(m.tilt) * m.ry;
+        const mz = Math.sin(m.angle) * Math.sin(m.tilt) * m.rz + 0.10;
+        m.sprite.position.set(mx, my, mz);
       });
 
-      // 3. Electrical Filaments
+      // 5. Electrical Filaments
       updateArcs(time);
 
-      // 4. Update Ambient Stardust
+      // 6. Update Ambient Stardust
       const dustArr = dustGeo.attributes.position.array;
       for(let i = 0; i < dustCount; i++){
         dustArr[i * 3 + 1] += dustVelocities[i].vy;
         dustArr[i * 3 + 0] += Math.sin(time * 1.5 + dustVelocities[i].swayPhase) * 0.005;
-        if(dustArr[i * 3 + 1] > 4.6){
-          dustArr[i * 3 + 1] = -4.6;
+        if(dustArr[i * 3 + 1] > 4.9){
+          dustArr[i * 3 + 1] = -4.9;
         }
       }
       dustGeo.attributes.position.needsUpdate = true;
 
-      // 5. Update Shockwave Bursts
+      // 7. Update Shockwave Bursts
       for(let i = shockwaves.length - 1; i >= 0; i--){
         const sw = shockwaves[i];
-        sw.scale += delta * 6.5;
-        sw.opacity -= delta * 3.2;
+        sw.scale += delta * (sw.speed || 6.5);
+        sw.opacity -= delta * 3.0;
         sw.sprite.scale.set(sw.scale, sw.scale, 1);
         sw.sprite.material.opacity = Math.max(0, sw.opacity);
         if(sw.opacity <= 0){
@@ -1167,15 +1312,15 @@
         }
       }
 
-      // 6. Update Spark Particles
+      // 8. Update Spark Particles
       for(let i = sparkParticles.length - 1; i >= 0; i--){
         const sp = sparkParticles[i];
         sp.sprite.position.x += sp.vx * delta;
         sp.sprite.position.y += sp.vy * delta;
         sp.sprite.position.z += sp.vz * delta;
-        sp.opacity -= delta * 2.6;
+        sp.opacity -= delta * 2.5;
         sp.sprite.material.opacity = Math.max(0, sp.opacity);
-        const s = Math.max(0.05, 0.35 * sp.opacity);
+        const s = Math.max(0.05, 0.38 * sp.opacity);
         sp.sprite.scale.set(s, s, 1);
         if(sp.opacity <= 0){
           scene.remove(sp.sprite);
@@ -1184,10 +1329,13 @@
         }
       }
 
-      // Relax Tip Flare
-      if(tipFlare.scale.x > 1.2){
-        const nextScale = Math.max(1.2, tipFlare.scale.x - delta * 3.5);
+      // Relax Tip Flare & PointLight Intensity
+      if(tipFlare.scale.x > 1.3){
+        const nextScale = Math.max(1.3, tipFlare.scale.x - delta * 3.8);
         tipFlare.scale.set(nextScale, nextScale, 1);
+      }
+      if(needleGlowLight.intensity > 3.8){
+        needleGlowLight.intensity = Math.max(3.8, needleGlowLight.intensity - delta * 6.0);
       }
 
       renderer.render(scene, camera);
