@@ -167,6 +167,7 @@
     }
     .top-actions::-webkit-scrollbar{ display:none; }
     .top-actions button,
+    .top-actions a.top-action-btn,
     .top-actions .auth-account-chip{
       padding:0 8px;
       font-size:0.68rem;

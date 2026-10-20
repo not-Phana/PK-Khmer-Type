@@ -1486,7 +1486,9 @@ function buildCustomLessonDef(lesson, targetLayout){
 
 
 
-function saveActiveLessonSession(){
+let _activeLessonSaveTimer = null;
+
+function _doSaveActiveLessonSession(){
   if(typeof window !== 'undefined' && window.__isResettingProgress) {
     return;
   }
@@ -1539,7 +1541,44 @@ function saveActiveLessonSession(){
   } catch(e){}
 }
 
+function saveActiveLessonSession(immediate = false){
+  if(immediate){
+    if(_activeLessonSaveTimer){
+      clearTimeout(_activeLessonSaveTimer);
+      _activeLessonSaveTimer = null;
+    }
+    _doSaveActiveLessonSession();
+    return;
+  }
+  if(!_activeLessonSaveTimer){
+    _activeLessonSaveTimer = setTimeout(()=>{
+      _activeLessonSaveTimer = null;
+      _doSaveActiveLessonSession();
+    }, 400);
+  }
+}
+saveActiveLessonSession.flush = function(){
+  if(_activeLessonSaveTimer){
+    clearTimeout(_activeLessonSaveTimer);
+    _activeLessonSaveTimer = null;
+    _doSaveActiveLessonSession();
+  }
+};
+
+if(typeof window !== 'undefined'){
+  window.addEventListener('beforeunload', () => saveActiveLessonSession(true));
+  if(typeof document !== 'undefined'){
+    document.addEventListener('visibilitychange', () => {
+      if(document.hidden) saveActiveLessonSession(true);
+    });
+  }
+}
+
 function clearActiveLessonSession(){
+  if(_activeLessonSaveTimer){
+    clearTimeout(_activeLessonSaveTimer);
+    _activeLessonSaveTimer = null;
+  }
   try {
     if(typeof localStorage !== 'undefined'){
       localStorage.removeItem(ACTIVE_LESSON_KEY);
@@ -2763,7 +2802,7 @@ function startLesson(idOrDef, allowDirectPractice = false){
   if(audioBtn && mainSound){
     audioBtn.classList.toggle('active', mainSound.classList.contains('on'));
   }
-  saveActiveLessonSession();
+  saveActiveLessonSession(true);
   scrollToLessonStage();
 }
 

@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.supabase.co https://avatars.githubusercontent.com; connect-src 'self' https://*.supabase.co https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="theme-color" content="#070a12">
+  <meta name="description" content="Welcome to PK Khmer Type — Cambodia's premier mechanical touch-typing studio. Master Khmer Standard, NiDA Unicode, and English typing with 3D hand guides and tactile switch acoustics.">
+  <link rel="canonical" href="https://not-phana.github.io/PK-Khmer-Type/welcome.html">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/welcome.css">
+  <title>Welcome to PK Khmer Type — Cambodian Touch-Typing Studio</title>
+</head>
+<body>
+  <!-- Atmospheric Interactive Starlight Background -->
+  <canvas id="welcomeCanvas" class="welcome-canvas" aria-hidden="true"></canvas>
+
+  <div class="welcome-shell">
+    <!-- Topbar Navigation -->
+    <header class="welcome-nav">
+      <a href="index.html" class="welcome-brand" aria-label="PK Khmer Type Home">
+        <div class="welcome-logo-badge">
+          <img src="logo.svg" width="26" height="26" alt="PK Khmer Type Logo">
+        </div>
+        <div class="welcome-brand-text">
+          <span class="welcome-brand-name">PK <span>ខ្មែរ</span> Type</span>
+          <span class="welcome-brand-tag" data-i18n="brandTag">STUDIO // TYPING ACADEMY</span>
+        </div>
+      </a>
+
+      <!-- Center Nav Links -->
+      <nav class="welcome-center-links" aria-label="Quick links">
+        <a href="index.html#lessonStrip" class="welcome-nav-link" data-i18n="navLessons">Curriculum</a>
+        <a href="index.html?action=custom-lessons" class="welcome-nav-link" data-i18n="navCustom">Custom Studio</a>
+        <a href="Documents/index.html" class="welcome-nav-link" data-i18n="navGuide">Keyboard Guide</a>
+        <a href="dashboard.html" class="welcome-nav-link" data-i18n="navDashboard">Dashboard</a>
+      </nav>
+
+      <div class="welcome-nav-actions">
+        <!-- Audio Synthesizer Toggle -->
+        <button type="button" class="nav-pill-btn audio-toggle active" id="audioToggleBtn" aria-label="Toggle mechanical switch audio">
+          <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <span class="sound-bars" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+
+        <!-- Bilingual Switcher -->
+        <button type="button" class="nav-pill-btn" id="langToggleBtn" aria-label="Switch language">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span class="lang-btn-text">ភាសាខ្មែរ</span>
+        </button>
+
+        <!-- Enter Studio Link -->
+        <a href="index.html" class="nav-pill-btn primary-launch">
+          <span data-i18n="launchStudio">Enter Studio</span>
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Hero Welcome (Split 2-Column Showcase) -->
+    <main>
+      <section class="welcome-hero-split" aria-labelledby="welcomeTitle">
+        <!-- Left Column: Typography, Copy, CTAs -->
+        <div class="hero-left-content">
+          <div class="hero-pill-badge">
+            <span class="pulse-radar-dot" aria-hidden="true"></span>
+            <span data-i18n="heroBadge">NEXT-GEN KHMER &amp; ENGLISH TYPING STUDIO</span>
+          </div>
+
+          <h1 class="welcome-title" id="welcomeTitle">
+            <span data-i18n="titleP1">Master Touch-Typing with</span><br>
+            <span class="shimmer-text" data-i18n="titleHighlight">PK Khmer Type</span>
+          </h1>
+
+          <p class="welcome-title-km" data-i18n="titleKm">សូមស្វាគមន៍មកកាន់ PK Khmer Type</p>
+
+          <p class="welcome-subtitle" data-i18n="heroSubtitle">
+            Step into Cambodia’s premier mechanical touch typing studio. Master Khmer Standard, Official NiDA Unicode, and English QWERTY with biomechanical hand guidance, 276 mastery lessons, and authentic switch acoustics.
+          </p>
+
+          <div class="welcome-hero-ctas">
+            <a href="index.html#lessonStrip" class="hero-main-cta">
+              <span data-i18n="ctaPrimary">Start Learning Now</span>
+              <svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+
+            <a href="Documents/index.html" class="hero-secondary-cta">
+              <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span data-i18n="ctaGuide">Explore Keyboard Guide</span>
+            </a>
+          </div>
+
+          <!-- Quick Feature Trust Strip -->
+          <div class="hero-feature-pills">
+            <div class="hero-feat-chip">
+              <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>276 Lessons</span>
+            </div>
+            <div class="hero-feat-chip">
+              <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+              <span>3 Layouts</span>
+            </div>
+            <div class="hero-feat-chip">
+              <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              <span>Tactile Audio</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Pure 3D Celestial Starlight Lance (Zero Clutter) -->
+        <div class="hero-right-3d-wrapper">
+          <div class="hero-3d-stage" id="hero3dStage" aria-label="Interactive 3D Celestial Starlight Lance">
+            <canvas id="hero3DCanvas" class="hero-3d-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive 3D Mechanical Typing Theater -->
+      <section class="welcome-demo-section" aria-labelledby="demoTitle">
+        <div class="demo-header">
+          <div class="demo-title-group">
+            <h2 id="demoTitle">
+              <svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold-bright)"><rect x="2" y="4" width="20" height="16" rx="2.5"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+              <span data-i18n="demoTitle">Live Mechanical Typing Theater</span>
+            </h2>
+            <p data-i18n="demoSubtitle">Experience authentic tactile keypresses and responsive layout tracking.</p>
+          </div>
+          <span class="demo-live-badge">
+            <span class="pulse-radar-dot" style="width:6px;height:6px;" aria-hidden="true"></span>
+            <span data-i18n="demoBadge">LIVE SIMULATION</span>
+          </span>
+        </div>
+
+        <!-- Simulated Manuscript Screen -->
+        <div class="interactive-manuscript">
+          <div class="manuscript-top-meta">
+            <span>PK-TERMINAL // CHERRY ACOUSTICS</span>
+            <span>TACTILE TRAVEL: 4.0MM</span>
+          </div>
+          <div class="manuscript-live-text">
+            <span id="manuscriptLiveText">សូមស្វាគមន៍មកកាន់ PK Khmer Type</span>
+            <span class="typing-cursor" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <!-- Interactive 3D Keycap Test Bench -->
+        <div class="interactive-keycap-bench">
+          <p class="bench-instructions" data-i18n="instructionText">
+            Press any physical key on your keyboard to test the mechanical acoustics and switch travel:
+          </p>
+
+          <div class="keycaps-row" id="keycapsBenchRow">
+            <!-- Home Anchor Key F / ថ -->
+            <div class="mech-keycap bump" data-code="KeyF" data-key="f" data-name="F" data-glyph="ថ" data-finger="Left Index">
+              <span class="kc-subscript">F</span>
+              <span class="kc-glyph">ថ</span>
+              <span class="kc-finger">LI · ថ</span>
+            </div>
+
+            <!-- Home Anchor Key J / ញ -->
+            <div class="mech-keycap bump" data-code="KeyJ" data-key="j" data-name="J" data-glyph="ញ" data-finger="Right Index">
+              <span class="kc-subscript">J</span>
+              <span class="kc-glyph">ញ</span>
+              <span class="kc-finger">RI · ញ</span>
+            </div>
+
+            <!-- Consonant K / គ / ក -->
+            <div class="mech-keycap" data-code="KeyK" data-key="k" data-name="K" data-glyph="ក" data-finger="Right Middle">
+              <span class="kc-subscript">K</span>
+              <span class="kc-glyph">ក</span>
+              <span class="kc-finger">RM · ក</span>
+            </div>
+
+            <!-- Vowel A / ា -->
+            <div class="mech-keycap" data-code="KeyA" data-key="a" data-name="A" data-glyph="ា" data-finger="Left Pinky">
+              <span class="kc-subscript">A</span>
+              <span class="kc-glyph">ា</span>
+              <span class="kc-finger">LP · ា</span>
+            </div>
+
+            <!-- Spacebar -->
+            <div class="mech-keycap wide" data-code="Space" data-key=" " data-name="Space" data-glyph="␣" data-finger="Thumb">
+              <span class="kc-subscript">SPACE</span>
+              <span class="kc-glyph">␣</span>
+              <span class="kc-finger">Thumb · ្ / ␣</span>
+            </div>
+
+            <!-- Enter Key -->
+            <div class="mech-keycap" data-code="Enter" data-key="Enter" data-name="Enter" data-glyph="↵" data-finger="Right Pinky">
+              <span class="kc-subscript">ENTER</span>
+              <span class="kc-glyph">↵</span>
+              <span class="kc-finger">RP · ↵</span>
+            </div>
+          </div>
+
+          <div class="bench-feedback-chip" id="benchFeedbackChip">
+            <span>Ready · Press any physical key or click above</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 Pillars Section (3D Tilt Cards) -->
+      <section class="welcome-pillars-section" aria-labelledby="pillarsHead">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="pillarTag">STUDIO ARCHITECTURE</span>
+          <h2 class="section-title" id="pillarsHead" data-i18n="pillarHead">Crafted for Touch-Typing Mastery</h2>
+        </div>
+
+        <div class="pillars-grid">
+          <!-- Pillar 1: Layouts -->
+          <article class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg class="pk-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+            </div>
+            <h3 class="pillar-title" data-i18n="p1Title">3 Authentic Layouts</h3>
+            <p class="pillar-desc" data-i18n="p1Desc">Master Khmer Standard, Official NiDA Unicode, and English (US) with full coverage of every letter, subscript Coeng ្, and diacritic.</p>
+            <div class="pillar-badge-strip">
+              <span class="pillar-pill">Standard</span>
+              <span class="pillar-pill">NiDA Unicode</span>
+              <span class="pillar-pill">QWERTY</span>
+            </div>
+          </article>
+
+          <!-- Pillar 2: 3D Hands -->
+          <article class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg class="pk-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+            </div>
+            <h3 class="pillar-title" data-i18n="p2Title">Biomechanical Hand Guides</h3>
+            <p class="pillar-desc" data-i18n="p2Desc">Rest your fingers on home row tactile bumps (ថ/ញ &amp; F/J) with real-time translucent hand guides showing exact finger ownership.</p>
+            <div class="pillar-badge-strip">
+              <span class="pillar-pill">10-Finger Kinematics</span>
+              <span class="pillar-pill">Anchor Bumps</span>
+            </div>
+          </article>
+
+          <!-- Pillar 3: Curriculum & Crafting -->
+          <article class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg class="pk-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <h3 class="pillar-title" data-i18n="p3Title">276 Mastery Lessons &amp; Crafting</h3>
+            <p class="pillar-desc" data-i18n="p3Desc">Structured curriculum across 40 levels from anchor keys to Grandmaster Vault, plus a personal Custom Lesson Crafting Studio.</p>
+            <div class="pillar-badge-strip">
+              <span class="pillar-pill">276 Lessons</span>
+              <span class="pillar-pill">Custom Studio</span>
+            </div>
+          </article>
+
+          <!-- Pillar 4: Switch Acoustics -->
+          <article class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg class="pk-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </div>
+            <h3 class="pillar-title" data-i18n="p4Title">Procedural Mechanical Acoustics</h3>
+            <p class="pillar-desc" data-i18n="p4Desc">Rich Topre and Cherry switch click feedback synthesized instantaneously in browser with zero audio asset lag.</p>
+            <div class="pillar-badge-strip">
+              <span class="pillar-pill">Topre</span>
+              <span class="pillar-pill">Cherry Blue</span>
+              <span class="pillar-pill">Holy Panda</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Starting Pathways -->
+      <section class="welcome-pathways-section" aria-labelledby="pathwaysHead">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="pathwaysTag">CHOOSE YOUR PATHWAY</span>
+          <h2 class="section-title" id="pathwaysHead" data-i18n="pathwaysHead">Begin Your Practice Today</h2>
+        </div>
+
+        <div class="pathways-grid">
+          <!-- Pathway 1 -->
+          <a href="index.html#lessonStrip" class="pathway-card">
+            <div class="pathway-top">
+              <div class="pathway-icon">
+                <svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </div>
+              <svg class="pk-icon pathway-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+            <h3 class="pathway-title" data-i18n="path1Title">Complete Beginner Track</h3>
+            <p class="pathway-desc" data-i18n="path1Desc">Start from Level 00 Anchor Keys and learn hand posture step-by-step.</p>
+            <span class="pathway-badge" data-i18n="path1Badge">Curriculum · Level 0</span>
+          </a>
+
+          <!-- Pathway 2 -->
+          <a href="index.html" class="pathway-card">
+            <div class="pathway-top">
+              <div class="pathway-icon">
+                <svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              </div>
+              <svg class="pk-icon pathway-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+            <h3 class="pathway-title" data-i18n="path2Title">Free-Typing Manuscript</h3>
+            <p class="pathway-desc" data-i18n="path2Desc">Jump straight into an open typing canvas with live WPM and accuracy telemetry.</p>
+            <span class="pathway-badge" data-i18n="path2Badge">Free Typing Sandbox</span>
+          </a>
+
+          <!-- Pathway 3 -->
+          <a href="index.html?action=custom-lessons" class="pathway-card">
+            <div class="pathway-top">
+              <div class="pathway-icon">
+                <svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </div>
+              <svg class="pk-icon pathway-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+            <h3 class="pathway-title" data-i18n="path3Title">Craft Custom Lesson</h3>
+            <p class="pathway-desc" data-i18n="path3Desc">Paste your own Cambodian text or poetry and create custom practice drills.</p>
+            <span class="pathway-badge" data-i18n="path3Badge">Custom Lesson Creator</span>
+          </a>
+
+          <!-- Pathway 4 -->
+          <a href="Documents/index.html" class="pathway-card">
+            <div class="pathway-top">
+              <div class="pathway-icon">
+                <svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              </div>
+              <svg class="pk-icon pathway-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+            <h3 class="pathway-title" data-i18n="path4Title">Interactive Anatomy Guide</h3>
+            <p class="pathway-desc" data-i18n="path4Desc">Explore keycap anatomy, mechanical switches, and layer modifier chords.</p>
+            <span class="pathway-badge" data-i18n="path4Badge">Reference &amp; Anatomy</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Bottom Launch CTA Banner -->
+      <section class="welcome-cta-banner">
+        <h2 data-i18n="ctaBannerHead">Ready to elevate your typing speed?</h2>
+        <p data-i18n="ctaBannerSub">Join thousands of students, scribes, and professionals typing Khmer with speed, precision, and confidence.</p>
+        <a href="index.html#lessonStrip" class="hero-main-cta">
+          <span data-i18n="ctaPrimary">Start Learning Now</span>
+          <svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="welcome-footer">
+      <nav class="footer-nav-links" aria-label="Footer links">
+        <a href="index.html">Typing Studio</a>
+        <a href="Documents/index.html">Keyboard Guide</a>
+        <a href="dashboard.html">Mastery Dashboard</a>
+        <a href="launch/index.html">Launch Page</a>
+      </nav>
+      <p data-i18n="footerCreator">Created with pride for Cambodia by Phanna Kurosaki.</p>
+    </footer>
+  </div>
+
+  <script src="Documents/three.min.js"></script>
+  <script src="js/welcome.js"></script>
+</body>
+</html>
+

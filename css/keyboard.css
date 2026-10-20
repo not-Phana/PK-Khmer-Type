@@ -389,32 +389,6 @@
     filter:drop-shadow(0 0 2px var(--hand-r-stroke, rgba(244, 114, 182, 0.4)));
   }
 
-  /* Decorative clutter elements cleanly hidden to maintain natural hand realism */
-  .hands-overlay .finger-nail,
-  .hands-overlay .finger-shine,
-  .hands-overlay .finger-shine2,
-  .hands-overlay .finger-joint,
-  .hands-overlay .finger-energy,
-  .hands-overlay .impact-sparks{
-    display:none !important;
-    opacity:0 !important;
-    pointer-events:none !important;
-  }
-
-  /* Target reticle HUD brackets permanently removed per user preference */
-  .hands-overlay .target-reticle{
-    display:none !important;
-    opacity:0 !important;
-    visibility:hidden !important;
-    pointer-events:none !important;
-  }
-  .hands-overlay .finger.active .target-reticle{
-    display:none !important;
-    opacity:0 !important;
-    visibility:hidden !important;
-    animation:none !important;
-  }
-
   .hands-overlay .finger-tip{
     fill:var(--hand-l-tip-fill, rgba(56, 189, 248, 0.6));
     stroke:var(--hand-l-tip-stroke, rgba(224, 242, 254, 0.85));
@@ -556,7 +530,6 @@
     .hands-overlay *,
     .hands-overlay .finger-shape,
     .hands-overlay .finger-tip,
-    .hands-overlay .finger-nail,
     .hands-overlay .palm-shape,
     .hands-overlay .impact-ring{
       transition-duration: 0.05s !important;

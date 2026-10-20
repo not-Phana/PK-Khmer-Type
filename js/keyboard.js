@@ -311,6 +311,14 @@ let physicalLayer = null;
 let capsOn = false;
 let keyEls = {};
 let glyphData = {};
+let keyCoordCache = {};
+let cachedWrapRect = null;
+
+function invalidateKeyCoordCache(){
+  keyCoordCache = {};
+  cachedWrapRect = null;
+}
+if(typeof window !== 'undefined') window.invalidateKeyCoordCache = invalidateKeyCoordCache;
 
 const KEY_FINGER = {
   grave:'lp', k1:'lp', k2:'lr', k3:'lm', k4:'li', k5:'li',
@@ -664,6 +672,7 @@ function buildBoard(){
   board.innerHTML = '';
   keyEls = {};
   glyphData = {};
+  if(typeof invalidateKeyCoordCache === 'function') invalidateKeyCoordCache();
   if(typeof window !== 'undefined'){
     window.keyEls = keyEls;
     window.glyphData = glyphData;
@@ -992,6 +1001,7 @@ function switchLayout(id, force = false){
   if(id !== 'nida' && typeof hideNidaSwitchHud === 'function') hideNidaSwitchHud();
   currentLayoutId = id;
   window.currentLayoutId = currentLayoutId;
+  if(typeof invalidateKeyCoordCache === 'function') invalidateKeyCoordCache();
   if(id === 'english'){
     const warnEl = document.getElementById('capsLockWarningHud');
     const chassisWarnEl = document.getElementById('chassisCapsWarn');
@@ -1582,27 +1592,19 @@ function createFingerElement(f){
   g.dataset.canonicalFinger = f.canonicalId || toCanonicalFinger(f.id);
   const shape = document.createElementNS(SVGNS,'path'); shape.setAttribute('class','finger-shape');
   const crease1 = document.createElementNS(SVGNS,'path'); crease1.setAttribute('class','finger-crease');
-  const joint1 = document.createElementNS(SVGNS,'circle'); joint1.setAttribute('class','finger-joint');
   const crease2 = document.createElementNS(SVGNS,'path'); crease2.setAttribute('class','finger-crease');
-  const joint2 = document.createElementNS(SVGNS,'circle'); joint2.setAttribute('class','finger-joint');
-  const shine = document.createElementNS(SVGNS,'path'); shine.setAttribute('class','finger-shine');
-  const shine2 = document.createElementNS(SVGNS,'path'); shine2.setAttribute('class','finger-shine2');
-  const energy = document.createElementNS(SVGNS,'path'); energy.setAttribute('class','finger-energy');
-  const nail = document.createElementNS(SVGNS,'path'); nail.setAttribute('class','finger-nail');
   const impactRing = document.createElementNS(SVGNS,'circle'); impactRing.setAttribute('class','impact-ring'); impactRing.setAttribute('r','9');
   const impactRing2 = document.createElementNS(SVGNS,'circle'); impactRing2.setAttribute('class','impact-ring-2'); impactRing2.setAttribute('r','9');
-  const impactSparks = document.createElementNS(SVGNS,'path');
-  impactSparks.setAttribute('class','impact-sparks');
-  impactSparks.setAttribute('d','M0 -12 L0 -7 M10.4 -6 L6.1 -3.5 M10.4 6 L6.1 3.5 M0 12 L0 7 M-10.4 6 L-6.1 3.5 M-10.4 -6 L-6.1 -3.5');
-  const reticle = document.createElementNS(SVGNS,'path');
-  reticle.setAttribute('class','target-reticle');
-  reticle.setAttribute('d','');
-  reticle.style.display = 'none';
   const tip = document.createElementNS(SVGNS,'circle'); tip.setAttribute('class','finger-tip'); tip.setAttribute('r','5');
-  g.appendChild(shape); g.appendChild(crease1); g.appendChild(joint1); g.appendChild(crease2); g.appendChild(joint2);
-  g.appendChild(shine); g.appendChild(shine2); g.appendChild(energy); g.appendChild(nail); g.appendChild(impactRing); g.appendChild(impactRing2); g.appendChild(impactSparks); g.appendChild(tip);
+  g.appendChild(shape); g.appendChild(crease1); g.appendChild(crease2);
+  g.appendChild(impactRing); g.appendChild(impactRing2); g.appendChild(tip);
   (f.hand === 'L' ? handGroupL : handGroupR).appendChild(g);
-  fingerEls[f.id] = {g, shape, crease1, crease2, joint1, joint2, shine, shine2, energy, nail, tip, impactRing, impactRing2, impactSparks, reticle};
+  const stubEl = { setAttribute: () => {}, style: {} };
+  fingerEls[f.id] = {
+    g, shape, crease1, crease2, tip, impactRing, impactRing2,
+    joint1: stubEl, joint2: stubEl, shine: stubEl, shine2: stubEl,
+    energy: stubEl, nail: stubEl, impactSparks: stubEl, reticle: stubEl
+  };
   return fingerEls[f.id];
 }
 if(typeof window !== 'undefined') window.createFingerElement = createFingerElement;
@@ -1670,30 +1672,43 @@ if(typeof window !== 'undefined') window.modifierInfoFor = modifierInfoFor;
 function setKeyElements(els){
   if(!els) return;
   Object.assign(keyEls, els);
+  invalidateKeyCoordCache();
 }
 if(typeof window !== 'undefined') window.setKeyElements = setKeyElements;
 
 function keyCenter(id, wrapRect){
-  const el = keyEls[id] || (typeof window !== 'undefined' && window.keyEls && window.keyEls[id]) || (typeof global !== 'undefined' && global.keyEls && global.keyEls[id]);
-  if(!el) return null;
-  const r = el.getBoundingClientRect();
-  return { x: r.left + r.width/2 - wrapRect.left, y: r.top + r.height/2 - wrapRect.top };
+  if(keyCoordCache[id]){
+    return { x: keyCoordCache[id].cx, y: keyCoordCache[id].cy };
+  }
+  const bounds = keyBounds(id, wrapRect);
+  return bounds ? { x: bounds.cx, y: bounds.cy } : null;
 }
 
 function keyBounds(id, wrapRect){
+  if(keyCoordCache[id]){
+    return Object.assign({}, keyCoordCache[id]);
+  }
   const el = keyEls[id] || (typeof window !== 'undefined' && window.keyEls && window.keyEls[id]) || (typeof global !== 'undefined' && global.keyEls && global.keyEls[id]);
   if(!el) return null;
+  const wRect = wrapRect || cachedWrapRect || (boardWrap && typeof boardWrap.getBoundingClientRect === 'function' ? boardWrap.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 });
+  if(!cachedWrapRect && wRect.width > 0){
+    cachedWrapRect = wRect;
+  }
   const r = el.getBoundingClientRect();
-  return {
-    left: r.left - wrapRect.left,
-    right: r.right - wrapRect.left,
-    top: r.top - wrapRect.top,
-    bottom: r.bottom - wrapRect.top,
+  const bounds = {
+    left: r.left - wRect.left,
+    right: r.right - wRect.left,
+    top: r.top - wRect.top,
+    bottom: r.bottom - wRect.top,
     width: r.width,
     height: r.height,
-    cx: r.left + r.width/2 - wrapRect.left,
-    cy: r.top + r.height/2 - wrapRect.top
+    cx: r.left + r.width/2 - wRect.left,
+    cy: r.top + r.height/2 - wRect.top
   };
+  if(r.width > 0 || r.height > 0){
+    keyCoordCache[id] = bounds;
+  }
+  return bounds;
 }
 
 /* Kinematic Hand Builder:
@@ -1727,26 +1742,14 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
   const order = ['pinky','ring','middle','index'].map(k=>fingers.find(f=>f.kind===k));
   if(order.some(f=> !f || !homes[f.id])) return null;
 
-  // Dynamic Spacebar keycap geometry & bounds
-  const spaceElForHand = keyEls['space'] || (typeof window !== 'undefined' && window.keyEls && window.keyEls['space']) || (typeof global !== 'undefined' && global.keyEls && global.keyEls['space']);
-  let spaceBounds = null;
+  // Dynamic Spacebar keycap geometry & bounds (uses cached relative coordinates)
+  const spaceBounds = keyBounds('space', wrapRect);
   let spaceCenter = null;
-  if(spaceElForHand){
-    const sr = spaceElForHand.getBoundingClientRect();
-    if(sr.width > 0 && sr.height > 0){
-      spaceBounds = {
-        left: sr.left - wrapRect.left,
-        right: sr.right - wrapRect.left,
-        top: sr.top - wrapRect.top,
-        bottom: sr.bottom - wrapRect.top,
-        width: sr.width,
-        height: sr.height
-      };
-      spaceCenter = {
-        x: spaceBounds.left + spaceBounds.width * 0.5,
-        y: spaceBounds.top + spaceBounds.height * 0.5
-      };
-    }
+  if(spaceBounds && spaceBounds.width > 0 && spaceBounds.height > 0){
+    spaceCenter = {
+      x: spaceBounds.cx,
+      y: spaceBounds.cy
+    };
   }
 
   // Anatomical metacarpal knuckle arch at bottom row boundary for natural slender fingers
@@ -2015,9 +2018,11 @@ FINGERS.forEach(f => {
 });
 
 function recalibrateCoordinates(){
+  invalidateKeyCoordCache();
   if(!boardWrap || !handsOverlay) return;
   const wrapRect = boardWrap.getBoundingClientRect();
   if(!wrapRect.width || !wrapRect.height) return;
+  cachedWrapRect = wrapRect;
   handsOverlay.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
   handsOverlay.setAttribute('width', wrapRect.width);
   handsOverlay.setAttribute('height', wrapRect.height);
@@ -2034,11 +2039,14 @@ function updateHandsOverlay(){
   handsOverlay.style.display = '';
   handsOverlay.classList.toggle('mode-ghost', HAND_CONFIG.overlayMode === 'ghost');
 
-  const wrapRect = boardWrap.getBoundingClientRect();
+  const wrapRect = cachedWrapRect || (boardWrap && typeof boardWrap.getBoundingClientRect === 'function' ? boardWrap.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 });
   if(!wrapRect.width || !wrapRect.height) return;
-  handsOverlay.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
-  handsOverlay.setAttribute('width', wrapRect.width);
-  handsOverlay.setAttribute('height', wrapRect.height);
+  if(!cachedWrapRect){
+    cachedWrapRect = wrapRect;
+    handsOverlay.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
+    handsOverlay.setAttribute('width', wrapRect.width);
+    handsOverlay.setAttribute('height', wrapRect.height);
+  }
 
   // Safeguard: guarantee right pinky is always present in FINGERS and DOM
   if(!FINGERS.some(f => f.id === 'rp')){
@@ -2234,13 +2242,6 @@ function renderFrame(handL, handR, wrapRect){
       fe.crease1.setAttribute('d', creaseAt(frame, 0.49));
       fe.crease2.setAttribute('d', creaseAt(frame, 0.79));
     }
-    fe.joint1.setAttribute('r', '0');
-    fe.joint2.setAttribute('r', '0');
-
-    fe.shine.setAttribute('d', '');
-    fe.shine2.setAttribute('d', '');
-    fe.energy.setAttribute('d', '');
-    fe.nail.setAttribute('d', '');
 
     const padPt = cPoint(origin, p1, p2, tip, 0.94);
     fe.tip.setAttribute('cx', padPt.x.toFixed(1));
@@ -2249,8 +2250,6 @@ function renderFrame(handL, handR, wrapRect){
     fe.impactRing.setAttribute('cy', padPt.y.toFixed(1));
     fe.impactRing2.setAttribute('cx', padPt.x.toFixed(1));
     fe.impactRing2.setAttribute('cy', padPt.y.toFixed(1));
-    fe.impactSparks.setAttribute('transform', `translate(${padPt.x.toFixed(1)} ${padPt.y.toFixed(1)})`);
-    fe.reticle.setAttribute('transform', `translate(${padPt.x.toFixed(1)} ${padPt.y.toFixed(1)})`);
     fe.g.classList.toggle('active', isActive);
   });
 
@@ -2299,7 +2298,11 @@ function setActiveFinger(keyId, layer){
 function strikeFinger(fe){
   if(!fe || !handsOn) return;
   fe.g.classList.remove('struck');
-  void fe.g.getBoundingClientRect(); // restart animation
+  if(typeof fe.g.getAnimations === 'function'){
+    try {
+      fe.g.getAnimations({ subtree: true }).forEach(a => { a.currentTime = 0; a.play(); });
+    } catch(_e){}
+  }
   fe.g.classList.add('struck');
   fe.g.classList.add('pressed');
   clearTimeout(fe._strikeT1);
@@ -2492,6 +2495,7 @@ if(typeof module !== 'undefined' && module.exports){
     buildHand,
     keyCenter,
     keyBounds,
+    invalidateKeyCoordCache,
     updateHandsOverlay,
     setActiveFinger,
     triggerFingerPress,

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 180" width="860" height="180">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0d14" />
+      <stop offset="100%" stop-color="#0e131f" />
+    </linearGradient>
+    <linearGradient id="border" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(255, 209, 102, 0.4)" />
+      <stop offset="50%" stop-color="rgba(56, 189, 248, 0.4)" />
+      <stop offset="100%" stop-color="rgba(255, 209, 102, 0.2)" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    .name { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 24px; fill: #f8fafc; letter-spacing: -0.3px; }
+    .tag { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 600; font-size: 13px; fill: #ffd166; letter-spacing: 0.5px; }
+    .desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 400; font-size: 13px; fill: #94a3b8; }
+    .meta { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11px; fill: #64748b; }
+    .keycap-label { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 700; font-size: 14px; fill: #ffd166; }
+    .keycap-sub { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 600; font-size: 11px; fill: #38bdf8; }
+  </style>
+
+  <!-- Background card -->
+  <rect x="1" y="1" width="858" height="178" rx="12" fill="url(#bg)" stroke="url(#border)" stroke-width="1" />
+
+  <!-- Dual Keycap Motif -->
+  <g transform="translate(42, 45)">
+    <!-- Key 1: P -->
+    <rect x="0" y="0" width="42" height="42" rx="8" fill="#131926" stroke="#253046" stroke-width="1.2" />
+    <rect x="3" y="3" width="36" height="34" rx="5" fill="#171f30" />
+    <text x="21" y="24" text-anchor="middle" class="keycap-label">P</text>
+    <text x="21" y="33" text-anchor="middle" class="keycap-sub">ផ</text>
+
+    <!-- Key 2: K -->
+    <rect x="48" y="0" width="42" height="42" rx="8" fill="#131926" stroke="#253046" stroke-width="1.2" />
+    <rect x="51" y="3" width="36" height="34" rx="5" fill="#171f30" />
+    <text x="69" y="24" text-anchor="middle" class="keycap-label">K</text>
+    <text x="69" y="33" text-anchor="middle" class="keycap-sub">ក</text>
+
+    <!-- Subtle accent line under keys -->
+    <path d="M 4 52 L 86 52" stroke="rgba(255, 209, 102, 0.3)" stroke-width="1.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Main Info -->
+  <g transform="translate(160, 48)">
+    <text x="0" y="14" class="tag">CAMBODIA  ·  DEVELOPER</text>
+    <text x="0" y="42" class="name">Phana Phley (Kon)</text>
+    <text x="0" y="68" class="desc">Building PK Khmer Type, web audio experiments, and fast interfaces for the browser.</text>
+    <text x="0" y="92" class="meta">github.com/not-Phana  ·  phleyphana@gmail.com</text>
+  </g>
+</svg>

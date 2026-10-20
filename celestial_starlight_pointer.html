@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url=welcome.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Celestial Starlight Needle — 3D Interactive Cursor Pointer</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000000;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    #webglCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+      z-index: 1;
+    }
+
+    /* Ambient Starlight Vignette */
+    .space-vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background: radial-gradient(circle at 50% 50%, rgba(10, 14, 26, 0) 30%, rgba(0, 0, 0, 0.75) 85%, #000000 100%);
+    }
+
+    /* Subtle Celestial HUD */
+    .hud-header {
+      position: absolute;
+      top: 24px;
+      left: 28px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .hud-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hud-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 209, 102, 0.08);
+      border: 1px solid rgba(255, 209, 102, 0.35);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #ffd166;
+      text-transform: uppercase;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ffd166;
+      box-shadow: 0 0 8px #ffd166;
+      animation: pulseGlow 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .hud-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-top: 6px;
+      text-shadow: 0 0 20px rgba(255, 209, 102, 0.4);
+    }
+
+    .hud-desc {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+      max-width: 320px;
+      line-height: 1.4;
+    }
+
+    /* Floating Navigation Controls */
+    .hud-dock {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(12, 16, 28, 0.82);
+      border: 1px solid rgba(255, 209, 102, 0.25);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 16px rgba(255, 209, 102, 0.15);
+    }
+
+    .hud-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: #cbd5e1;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hud-btn:hover {
+      background: rgba(255, 209, 102, 0.12);
+      border-color: rgba(255, 209, 102, 0.35);
+      color: #ffd166;
+      transform: translateY(-1px);
+    }
+
+    .hud-btn.active {
+      background: linear-gradient(135deg, rgba(255, 209, 102, 0.25), rgba(245, 158, 11, 0.15));
+      border-color: #ffd166;
+      color: #ffd166;
+      box-shadow: 0 0 12px rgba(255, 209, 102, 0.3);
+    }
+
+    .hud-btn svg {
+      stroke: currentColor;
+    }
+
+    /* Top Right Exit / App Link */
+    .hud-top-right {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      z-index: 10;
+      display: flex;
+      gap: 10px;
+    }
+
+    .exit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #e2e8f0;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      backdrop-filter: blur(12px);
+      transition: all 0.2s ease;
+    }
+
+    .exit-btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38bdf8;
+      color: #38bdf8;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Telemetry Pill */
+    .hud-telemetry {
+      position: absolute;
+      bottom: 24px;
+      right: 28px;
+      z-index: 10;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      pointer-events: none;
+      text-align: right;
+    }
+
+    .hud-telemetry span {
+      color: #ffd166;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- WebGL Three.js Canvas -->
+  <canvas id="webglCanvas"></canvas>
+  <div class="space-vignette"></div>
+
+  <!-- Header Overlay -->
+  <div class="hud-header">
+    <div class="hud-title-row">
+      <div class="hud-badge">
+        <span class="pulse-dot"></span>
+        <span>PK CELESTIAL POINTER</span>
+      </div>
+    </div>
+    <h1 class="hud-title">Starlight Needle 3D</h1>
+    <p class="hud-desc">Move your mouse to aim the 3D celestial lance. Click anywhere to discharge radiant starlight shockwaves.</p>
+  </div>
+
+  <!-- Top Right Navigation -->
+  <div class="hud-top-right">
+    <a href="index.html" class="exit-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <span>Back to Studio</span>
+    </a>
+  </div>
+
+  <!-- Bottom Navigation Dock -->
+  <div class="hud-dock">
+    <button type="button" class="hud-btn active" id="modeAimBtn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line></svg>
+      <span>Aim At Cursor</span>
+    </button>
+    <button type="button" class="hud-btn" id="modeFollowBtn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 3 11 21 14 14 21 11 3 3"></polygon></svg>
+      <span>Follow Cursor</span>
+    </button>
+    <button type="button" class="hud-btn" id="themeGoldBtn">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      <span>Gold</span>
+    </button>
+    <button type="button" class="hud-btn" id="themeCyanBtn">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle></svg>
+      <span>Cyan</span>
+    </button>
+  </div>
+
+  <!-- Telemetry HUD -->
+  <div class="hud-telemetry">
+    AIM PITCH: <span id="telPitch">0.0°</span>  YAW: <span id="telYaw">0.0°</span><br>
+    COORDINATES: <span id="telCoords">0, 0</span>
+  </div>
+
+  <!-- Three.js (Local Offline Engine) -->
+  <script src="Documents/three.min.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      if (typeof THREE === 'undefined') {
+        console.error('Three.js could not be loaded.');
+        return;
+      }
+
+      const canvas = document.getElementById('webglCanvas');
+      const telPitch = document.getElementById('telPitch');
+      const telYaw = document.getElementById('telYaw');
+      const telCoords = document.getElementById('telCoords');
+
+      // Modes: 'aim' | 'follow'
+      let currentMode = 'aim';
+      let currentColorTheme = 'gold'; // 'gold' | 'cyan'
+
+      const COLOR_PALETTES = {
+        gold: {
+          needle: 0xfff4d0,
+          wings: 0x1a150b,
+          wingBevel: 0xffd166,
+          coreGlow: '#ffd166',
+          ambient: 0xffd166,
+          accentLight: 0xffe28a,
+          spark: 0xffe28a
+        },
+        cyan: {
+          needle: 0xe0f2fe,
+          wings: 0x081524,
+          wingBevel: 0x38bdf8,
+          coreGlow: '#38bdf8',
+          ambient: 0x38bdf8,
+          accentLight: 0x7dd3fc,
+          spark: 0x38bdf8
+        }
+      };
+
+      // Scene, Camera, Renderer
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x000000, 0.035);
+
+      const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.set(0, 0, 11);
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: false,
+        powerPreference: 'high-performance'
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.25;
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xfff6e0, 0.85);
+      scene.add(ambientLight);
+
+      const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
+      keyLight.position.set(5, 8, 8);
+      scene.add(keyLight);
+
+      const rimLight = new THREE.DirectionalLight(0xffd166, 2.8);
+      rimLight.position.set(-6, -4, 4);
+      scene.add(rimLight);
+
+      const needleGlowLight = new THREE.PointLight(0xffd166, 3.5, 9);
+      scene.add(needleGlowLight);
+
+      /* =========================================================================
+         Procedural High-Dynamic-Range Starlight Nova Texture Generator
+         ========================================================================= */
+      function createStarlightTexture(colorHex) {
+        const cv = document.createElement('canvas');
+        cv.width = 256;
+        cv.height = 256;
+        const ctx = cv.getContext('2d');
+        const cx = 128, cy = 128;
+
+        ctx.clearRect(0, 0, 256, 256);
+
+        // Radial diffuse halo
+        const radGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 120);
+        radGrad.addColorStop(0, '#ffffff');
+        radGrad.addColorStop(0.12, colorHex);
+        radGrad.addColorStop(0.35, 'rgba(255, 209, 102, 0.35)');
+        radGrad.addColorStop(0.7, 'rgba(255, 170, 0, 0.08)');
+        radGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = radGrad;
+        ctx.fillRect(0, 0, 256, 256);
+
+        // 4-Pointed Sharp Diamond Star Rays
+        ctx.save();
+        ctx.translate(cx, cy);
+
+        // Horizontal ray
+        const hGrad = ctx.createLinearGradient(-120, 0, 120, 0);
+        hGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+        hGrad.addColorStop(0.5, '#ffffff');
+        hGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = hGrad;
+        ctx.beginPath();
+        ctx.moveTo(-120, 0);
+        ctx.quadraticCurveTo(0, -6, 120, 0);
+        ctx.quadraticCurveTo(0, 6, -120, 0);
+        ctx.fill();
+
+        // Vertical ray
+        const vGrad = ctx.createLinearGradient(0, -120, 0, 120);
+        vGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+        vGrad.addColorStop(0.5, '#ffffff');
+        vGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = vGrad;
+        ctx.beginPath();
+        ctx.moveTo(0, -120);
+        ctx.quadraticCurveTo(-6, 0, 0, 120);
+        ctx.quadraticCurveTo(6, 0, 0, -120);
+        ctx.fill();
+
+        // Diagonal diamond core
+        ctx.rotate(Math.PI / 4);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.beginPath();
+        ctx.moveTo(-45, 0);
+        ctx.quadraticCurveTo(0, -3.5, 45, 0);
+        ctx.quadraticCurveTo(0, 3.5, -45, 0);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(0, -45);
+        ctx.quadraticCurveTo(-3.5, 0, 0, 45);
+        ctx.quadraticCurveTo(3.5, 0, 0, -45);
+        ctx.fill();
+
+        ctx.restore();
+
+        const tex = new THREE.CanvasTexture(cv);
+        tex.needsUpdate = true;
+        return tex;
+      }
+
+      let starTextureGold = createStarlightTexture('#ffd166');
+      let starTextureCyan = createStarlightTexture('#38bdf8');
+
+      /* =========================================================================
+         Constructing the 3D Celestial Starlight Lance (Root Assembly)
+         ========================================================================= */
+      const needleAssembly = new THREE.Group();
+      scene.add(needleAssembly);
+
+      // 1. Faceted Tapered Double-Diamond Needle Spine
+      // Reconstructed exactly from the reference image: a long sharp vertical needle blade
+      const spineShape = new THREE.Shape();
+      // Right half
+      spineShape.moveTo(0, 4.8);       // Top razor tip
+      spineShape.lineTo(0.045, 2.8);
+      spineShape.lineTo(0.09, 1.4);
+      spineShape.lineTo(0.18, 0.0);    // Center width
+      spineShape.lineTo(0.09, -1.4);
+      spineShape.lineTo(0.045, -2.8);
+      spineShape.lineTo(0, -4.4);      // Bottom razor tip
+      // Left half
+      spineShape.lineTo(-0.045, -2.8);
+      spineShape.lineTo(-0.09, -1.4);
+      spineShape.lineTo(-0.18, 0.0);
+      spineShape.lineTo(-0.09, 1.4);
+      spineShape.lineTo(-0.045, 2.8);
+      spineShape.closePath();
+
+      const spineGeo = new THREE.ExtrudeGeometry(spineShape, {
+        depth: 0.12,
+        bevelEnabled: true,
+        bevelSegments: 2,
+        bevelSize: 0.04,
+        bevelThickness: 0.04
+      });
+      spineGeo.center();
+
+      const spineMat = new THREE.MeshPhysicalMaterial({
+        color: 0xfffbeb,
+        metalness: 0.92,
+        roughness: 0.12,
+        emissive: 0xffd166,
+        emissiveIntensity: 0.35,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.05
+      });
+      const spineMesh = new THREE.Mesh(spineGeo, spineMat);
+      needleAssembly.add(spineMesh);
+
+      // Secondary Inner Laser Spine (Luminous high-emission central core rod)
+      const coreRodGeo = new THREE.CylinderGeometry(0.025, 0.025, 9.4, 8);
+      const coreRodMat = new THREE.MeshBasicMaterial({
+        color: 0xffffff
+      });
+      const coreRodMesh = new THREE.Mesh(coreRodGeo, coreRodMat);
+      needleAssembly.add(coreRodMesh);
+
+      // 2. Central Celestial Fractured Wings / Crossguard
+      // Reconstructed from the reference image: angular stepped celestial wings
+      const wingShape = new THREE.Shape();
+      wingShape.moveTo(0, 0.85);
+      wingShape.lineTo(0.35, 0.65);
+      wingShape.lineTo(0.65, 0.72);
+      wingShape.lineTo(1.1, 0.42);
+      wingShape.lineTo(1.6, 0.45);
+      wingShape.lineTo(2.55, 0.05);   // Far right outer tip
+      wingShape.lineTo(2.0, -0.15);
+      wingShape.lineTo(1.35, -0.28);
+      wingShape.lineTo(0.9, -0.58);
+      wingShape.lineTo(0.35, -0.45);
+      wingShape.lineTo(0, -0.78);
+      // Mirrored left wing
+      wingShape.lineTo(-0.35, -0.45);
+      wingShape.lineTo(-0.9, -0.58);
+      wingShape.lineTo(-1.35, -0.28);
+      wingShape.lineTo(-2.0, -0.15);
+      wingShape.lineTo(-2.55, 0.05);  // Far left outer tip
+      wingShape.lineTo(-1.6, 0.45);
+      wingShape.lineTo(-1.1, 0.42);
+      wingShape.lineTo(-0.65, 0.72);
+      wingShape.lineTo(-0.35, 0.65);
+      wingShape.closePath();
+
+      const wingGeo = new THREE.ExtrudeGeometry(wingShape, {
+        depth: 0.14,
+        bevelEnabled: true,
+        bevelSegments: 2,
+        bevelSize: 0.035,
+        bevelThickness: 0.035
+      });
+      wingGeo.center();
+
+      const wingMat = new THREE.MeshStandardMaterial({
+        color: 0x141009,
+        metalness: 0.88,
+        roughness: 0.22,
+        emissive: 0x422d08,
+        emissiveIntensity: 0.35
+      });
+      const wingMesh = new THREE.Mesh(wingGeo, wingMat);
+      needleAssembly.add(wingMesh);
+
+      // Glowing Wing Edges / Contour Wireframe
+      const wingEdges = new THREE.EdgesGeometry(wingGeo, 18);
+      const wingEdgeMat = new THREE.LineBasicMaterial({
+        color: 0xffd166,
+        linewidth: 2,
+        transparent: true,
+        opacity: 0.85
+      });
+      const wingEdgeLine = new THREE.LineSegments(wingEdges, wingEdgeMat);
+      needleAssembly.add(wingEdgeLine);
+
+      // 3. The 5 Pulsing Starlight Novas (Diamond Stars) Along the Axis
+      const starSprites = [];
+      const starYPositions = [2.4, 1.2, 0.0, -1.2, -2.4];
+      const starScales = [1.35, 1.55, 2.2, 1.55, 1.35];
+
+      starYPositions.forEach((yPos, idx) => {
+        const mat = new THREE.SpriteMaterial({
+          map: starTextureGold,
+          color: 0xffffff,
+          transparent: true,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false
+        });
+        const sprite = new THREE.Sprite(mat);
+        sprite.position.set(0, yPos, 0.1);
+        sprite.scale.set(starScales[idx], starScales[idx], 1);
+        needleAssembly.add(sprite);
+        starSprites.push({
+          sprite,
+          baseScale: starScales[idx],
+          phase: idx * 0.85
+        });
+
+        // 3D Diamond Star Octahedron Core at each star center
+        const octGeo = new THREE.OctahedronGeometry(idx === 2 ? 0.22 : 0.14);
+        const octMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const octMesh = new THREE.Mesh(octGeo, octMat);
+        octMesh.position.set(0, yPos, 0.08);
+        needleAssembly.add(octMesh);
+      });
+
+      // 4. Dynamic Live Starlight Energy Filaments (Lightning Arcs)
+      const numArcPoints = 22;
+      const arcPositions = new Float32Array(numArcPoints * 3);
+      const arcGeo = new THREE.BufferGeometry();
+      arcGeo.setAttribute('position', new THREE.BufferAttribute(arcPositions, 3));
+      const arcMat = new THREE.LineBasicMaterial({
+        color: 0xffeedd,
+        transparent: true,
+        opacity: 0.75,
+        blending: THREE.AdditiveBlending
+      });
+      const arcLine = new THREE.Line(arcGeo, arcMat);
+      needleAssembly.add(arcLine);
+
+      function updateEnergyArcs(time) {
+        const posAttr = arcGeo.attributes.position;
+        const arr = posAttr.array;
+        for (let i = 0; i < numArcPoints; i++) {
+          const t = i / (numArcPoints - 1);
+          const y = (t * 7.0) - 3.5;
+          const jitterX = Math.sin(time * 8 + y * 4) * 0.07 + (Math.random() - 0.5) * 0.05;
+          const jitterZ = Math.cos(time * 7 + y * 3) * 0.07 + (Math.random() - 0.5) * 0.05;
+          arr[i * 3 + 0] = jitterX;
+          arr[i * 3 + 1] = y;
+          arr[i * 3 + 2] = jitterZ + 0.12;
+        }
+        posAttr.needsUpdate = true;
+      }
+
+      // 5. Starlight Particle Field (Drifting Celestial Embers)
+      const particleCount = 180;
+      const partGeo = new THREE.BufferGeometry();
+      const partPositions = new Float32Array(particleCount * 3);
+      const partVelocities = [];
+
+      for (let i = 0; i < particleCount; i++) {
+        partPositions[i * 3 + 0] = (Math.random() - 0.5) * 16;
+        partPositions[i * 3 + 1] = (Math.random() - 0.5) * 14;
+        partPositions[i * 3 + 2] = (Math.random() - 0.5) * 8;
+
+        partVelocities.push({
+          x: (Math.random() - 0.5) * 0.008,
+          y: (Math.random() - 0.5) * 0.012,
+          z: (Math.random() - 0.5) * 0.008,
+          baseY: partPositions[i * 3 + 1]
+        });
+      }
+
+      partGeo.setAttribute('position', new THREE.BufferAttribute(partPositions, 3));
+      const partMat = new THREE.PointsMaterial({
+        color: 0xffd166,
+        size: 0.08,
+        transparent: true,
+        opacity: 0.65,
+        blending: THREE.AdditiveBlending
+      });
+      const particleSystem = new THREE.Points(partGeo, partMat);
+      scene.add(particleSystem);
+
+      // 6. Radiant Click Shockwaves Pool
+      const shockwaves = [];
+      function triggerShockwave(origin) {
+        const ringGeo = new THREE.RingGeometry(0.2, 0.32, 48);
+        const ringMat = new THREE.MeshBasicMaterial({
+          color: currentColorTheme === 'gold' ? 0xffd166 : 0x38bdf8,
+          transparent: true,
+          opacity: 1.0,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending
+        });
+        const mesh = new THREE.Mesh(ringGeo, ringMat);
+        mesh.position.copy(origin);
+        mesh.quaternion.copy(needleAssembly.quaternion);
+        scene.add(mesh);
+
+        shockwaves.push({
+          mesh,
+          scale: 1,
+          opacity: 1,
+          speed: 0.22
+        });
+
+        // Web Audio Procedural Chime Synthesizer
+        playCelestialChime();
+      }
+
+      /* =========================================================================
+         Web Audio Synthesizer (Procedural Celestial Chime)
+         ========================================================================= */
+      let audioCtx = null;
+      function playCelestialChime() {
+        try {
+          if (!audioCtx) {
+            const AudioClass = window.AudioContext || window.webkitAudioContext;
+            if (AudioClass) audioCtx = new AudioClass();
+          }
+          if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          if (!audioCtx) return;
+
+          const now = audioCtx.currentTime;
+          const osc1 = audioCtx.createOscillator();
+          const osc2 = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(880, now); // A5
+          osc1.frequency.exponentialRampToValueAtTime(1760, now + 0.3);
+
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(1320, now); // E6
+          osc2.frequency.exponentialRampToValueAtTime(2640, now + 0.25);
+
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+
+          osc1.connect(gain);
+          osc2.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc1.start(now);
+          osc2.start(now);
+          osc1.stop(now + 0.65);
+          osc2.stop(now + 0.65);
+        } catch (_e) {}
+      }
+
+      /* =========================================================================
+         Mouse Cursor Tracking & 3D Aiming Engine
+         ========================================================================= */
+      const mouse = {
+        screenX: window.innerWidth / 2,
+        screenY: window.innerHeight / 2,
+        ndcX: 0,
+        ndcY: 0,
+        worldX: 0,
+        worldY: 0,
+        isDown: false
+      };
+
+      const needleState = {
+        pos: new THREE.Vector3(0, 0, 0),
+        targetPos: new THREE.Vector3(0, 0, 0),
+        vel: new THREE.Vector3(0, 0, 0),
+        currentQuat: new THREE.Quaternion(),
+        targetQuat: new THREE.Quaternion()
+      };
+
+      function updateWorldMouseCoords(clientX, clientY) {
+        mouse.screenX = clientX;
+        mouse.screenY = clientY;
+        mouse.ndcX = (clientX / window.innerWidth) * 2 - 1;
+        mouse.ndcY = -(clientY / window.innerHeight) * 2 + 1;
+
+        // Unproject mouse coordinates to world plane at z = 0
+        const vec = new THREE.Vector3(mouse.ndcX, mouse.ndcY, 0.5);
+        vec.unproject(camera);
+        vec.sub(camera.position).normalize();
+        const distance = -camera.position.z / vec.z;
+        const worldPos = camera.position.clone().add(vec.multiplyScalar(distance));
+
+        mouse.worldX = worldPos.x;
+        mouse.worldY = worldPos.y;
+
+        if (telCoords) {
+          telCoords.textContent = `${Math.round(clientX)}, ${Math.round(clientY)}`;
+        }
+      }
+
+      window.addEventListener('pointermove', function (e) {
+        updateWorldMouseCoords(e.clientX, e.clientY);
+      }, { passive: true });
+
+      window.addEventListener('pointerdown', function (e) {
+        mouse.isDown = true;
+        updateWorldMouseCoords(e.clientX, e.clientY);
+        triggerShockwave(needleAssembly.position);
+      });
+
+      window.addEventListener('pointerup', function () {
+        mouse.isDown = false;
+      });
+
+      // Window Resize Handler
+      window.addEventListener('resize', function () {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      /* =========================================================================
+         Main Animation & Physics Loop (60-120fps)
+         ========================================================================= */
+      let clock = new THREE.Clock();
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        const delta = clock.getDelta();
+        const time = clock.getElapsedTime();
+
+        // 1. Aiming / Following Logic
+        if (currentMode === 'aim') {
+          // Centered lance aiming its tip (+Y axis) toward the mouse cursor
+          needleState.targetPos.set(0, 0, 0);
+
+          // Vector pointing from needle center to mouse in world space
+          const targetDir = new THREE.Vector3(mouse.worldX, mouse.worldY, 0).sub(needleAssembly.position);
+          targetDir.z = Math.min(2.5, Math.max(-2.5, targetDir.length() * 0.15)); // Add dynamic 3D depth tilt!
+          targetDir.normalize();
+
+          // Smooth orientation from default up vector (0, 1, 0) toward targetDir
+          const upVector = new THREE.Vector3(0, 1, 0);
+          needleState.targetQuat.setFromUnitVectors(upVector, targetDir);
+
+          // Subtle breathing / levitation
+          needleState.targetPos.y += Math.sin(time * 2.2) * 0.12;
+
+          // Slerp quaternion for butter-smooth 3D aim rotation
+          needleAssembly.quaternion.slerp(needleState.targetQuat, 0.085);
+          needleAssembly.position.lerp(needleState.targetPos, 0.08);
+
+          // Update telemetry HUD
+          const euler = new THREE.Euler().setFromQuaternion(needleAssembly.quaternion);
+          if (telPitch) telPitch.textContent = `${(euler.x * 57.2958).toFixed(1)}°`;
+          if (telYaw) telYaw.textContent = `${(euler.z * 57.2958).toFixed(1)}°`;
+
+        } else if (currentMode === 'follow') {
+          // Needle glides right next to the mouse cursor
+          const offset = new THREE.Vector3(mouse.worldX, mouse.worldY, 0.5);
+          needleState.targetPos.copy(offset);
+
+          const moveDir = needleState.targetPos.clone().sub(needleAssembly.position);
+          const speed = moveDir.length();
+          moveDir.normalize();
+
+          if (speed > 0.05) {
+            needleState.targetQuat.setFromUnitVectors(new THREE.Vector3(0, 1, 0), moveDir);
+            needleAssembly.quaternion.slerp(needleState.targetQuat, 0.1);
+          }
+
+          needleAssembly.position.lerp(needleState.targetPos, 0.12);
+        }
+
+        // 2. Pulse the 5 Starlight Novas
+        starSprites.forEach(item => {
+          const pulse = 1.0 + Math.sin(time * 4.5 + item.phase) * 0.22;
+          item.sprite.scale.set(item.baseScale * pulse, item.baseScale * pulse, 1);
+        });
+
+        // 3. Dynamic Starlight Electrical Tendril Arcs
+        updateEnergyArcs(time);
+
+        // 4. Update Background Floating Particles
+        const partPositions = particleSystem.geometry.attributes.position.array;
+        for (let i = 0; i < particleCount; i++) {
+          const vel = partVelocities[i];
+          partPositions[i * 3 + 1] += Math.sin(time + i) * 0.003;
+          partPositions[i * 3 + 0] += Math.cos(time * 0.8 + i) * 0.002;
+        }
+        particleSystem.geometry.attributes.position.needsUpdate = true;
+
+        // 5. Expand Shockwaves
+        for (let i = shockwaves.length - 1; i >= 0; i--) {
+          const sw = shockwaves[i];
+          sw.scale += sw.speed;
+          sw.opacity -= 0.035;
+          sw.mesh.scale.set(sw.scale, sw.scale, sw.scale);
+          sw.mesh.material.opacity = Math.max(0, sw.opacity);
+
+          if (sw.opacity <= 0) {
+            scene.remove(sw.mesh);
+            sw.mesh.geometry.dispose();
+            sw.mesh.material.dispose();
+            shockwaves.splice(i, 1);
+          }
+        }
+
+        // 6. Point Light follows the center star
+        needleGlowLight.position.copy(needleAssembly.position);
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      /* =========================================================================
+         HUD Controls Interaction
+         ========================================================================= */
+      const modeAimBtn = document.getElementById('modeAimBtn');
+      const modeFollowBtn = document.getElementById('modeFollowBtn');
+      const themeGoldBtn = document.getElementById('themeGoldBtn');
+      const themeCyanBtn = document.getElementById('themeCyanBtn');
+
+      function setMode(mode) {
+        currentMode = mode;
+        modeAimBtn.classList.toggle('active', mode === 'aim');
+        modeFollowBtn.classList.toggle('active', mode === 'follow');
+      }
+
+      function setTheme(theme) {
+        currentColorTheme = theme;
+        themeGoldBtn.classList.toggle('active', theme === 'gold');
+        themeCyanBtn.classList.toggle('active', theme === 'cyan');
+
+        const palette = COLOR_PALETTES[theme];
+        spineMat.color.setHex(palette.needle);
+        spineMat.emissive.setHex(palette.wingBevel);
+        wingMat.color.setHex(palette.wings);
+        wingMat.emissive.setHex(palette.wings);
+        wingEdgeMat.color.setHex(palette.wingBevel);
+        needleGlowLight.color.setHex(palette.wingBevel);
+        particleSystem.material.color.setHex(palette.spark);
+
+        const tex = theme === 'gold' ? starTextureGold : starTextureCyan;
+        starSprites.forEach(item => {
+          item.sprite.material.map = tex;
+          item.sprite.material.needsUpdate = true;
+        });
+      }
+
+      modeAimBtn.addEventListener('click', () => setMode('aim'));
+      modeFollowBtn.addEventListener('click', () => setMode('follow'));
+      themeGoldBtn.addEventListener('click', () => setTheme('gold'));
+      themeCyanBtn.addEventListener('click', () => setTheme('cyan'));
+
+    })();
+  </script>
+</body>
+</html>
+

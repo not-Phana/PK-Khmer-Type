@@ -1,163 +1,164 @@
-# PK Khmer Type — ក្តារចុចខ្មែរ PK
+<div align="center">
 
-<p align="center">
-  <img src="logo.svg" alt="PK Khmer Type Logo" width="76" height="76">
-</p>
+  <img src="logo.svg" alt="PK Khmer Type Crest" width="88" height="88" />
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Version-v2.4%20Beta-ffd166?style=for-the-badge" alt="Version 2.4 Beta">
-  <img src="https://img.shields.io/badge/Language-Khmer%20%7C%20English-ffd166?style=for-the-badge" alt="Bilingual Khmer & English">
-  <img src="https://img.shields.io/badge/Engine-Vanilla%20ES6%2B%20%7C%20CSS3-ff9d2e?style=for-the-badge" alt="Vanilla JS & CSS3">
-  <img src="https://img.shields.io/badge/Performance-Zero--Lag%20Mode-34d399?style=for-the-badge" alt="Zero-Lag Performance Mode">
-  <img src="https://img.shields.io/badge/Audio-Web%20Audio%20Synth-2dd4a7?style=for-the-badge" alt="Web Audio Synthesizer">
-  <img src="https://img.shields.io/badge/Themes-8%20Studio%20Themes%20%2B%20Glass-ec4899?style=for-the-badge" alt="8 Themes & Glass">
-  <img src="https://img.shields.io/badge/Curriculum-40%20Levels%20%7C%20222%20Lessons-38bdf8?style=for-the-badge" alt="222 Lessons">
-  <img src="https://img.shields.io/badge/Analytics-Live%20Mastery%20Dashboard-a78bfa?style=for-the-badge" alt="Live Mastery Dashboard">
-</p>
+  # PK Khmer Type
+  ### ក្តារចុចខ្មែរ PK — High-Performance Touch Typing Studio
 
-<p align="center">
-  <b>Master Khmer Standard, Khmer NiDA, and English QWERTY typing through structured progressive lessons, 3D kinematic hand guides (44% default opacity), real-time procedural audio synthesis, live mastery telemetry, adaptive drills, zero-lag performance mode, and theme-adaptive studio styling.</b><br>
-  រៀនវាយអក្សរខ្មែរ (Standard & NiDA) និងអង់គ្លេស តាមរយៈមេរៀនតាមលំដាប់លំដោយ មគ្គុទ្ទេសក៍ម្រាមដៃ 3D សំឡេងក្ដារចុចសំយោគ ផ្ទាំងវិភាគទិន្នន័យផ្ទាល់ មុខងារ Zero-Lag ល្បឿនលឿន និងការរចនាបែបទំនើប។
-</p>
+  <p>
+    <b>The definitive touch-typing tutor for Khmer Unicode (Standard &amp; NiDA) and English.</b><br />
+    Built with pure vanilla web standards, real-time 3D kinematic hands, procedural mechanical audio, and a zero forced-reflow typing engine.
+  </p>
 
-<p align="center">
-  <img src="assets/pk-khmer-type-khmer-typing-trainer.png" alt="PK Khmer Type Studio Interface with 3D Kinematic Hand Guides" width="920">
-</p>
+  <p>
+    <a href="https://not-phana.github.io/PK-Khmer-Type/">
+      <img src="https://img.shields.io/badge/Launch_Studio-Live_Web_App-ffd166?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Launch Studio" />
+    </a>
+    <a href="https://not-phana.github.io/PK-Khmer-Type/welcome.html">
+      <img src="https://img.shields.io/badge/Welcome_Page-Bilingual_Guide-38bdf8?style=for-the-badge&logo=safari&logoColor=black" alt="Welcome Page" />
+    </a>
+    <a href="https://not-phana.github.io/PK-Khmer-Type/dashboard.html">
+      <img src="https://img.shields.io/badge/Dashboard-Live_Telemetry-a78bfa?style=for-the-badge&logo=databricks&logoColor=white" alt="Live Telemetry Dashboard" />
+    </a>
+    <a href="https://not-phana.github.io/PK-Khmer-Type/Documents/">
+      <img src="https://img.shields.io/badge/Documentation-3D_Mechanical-34d399?style=for-the-badge&logo=bookstack&logoColor=white" alt="Documentation" />
+    </a>
+  </p>
 
----
+  <p>
+    <img src="https://img.shields.io/badge/Version-v2.4.0--Beta-0a0d14?style=flat-square&logo=git&logoColor=ffd166" alt="Version 2.4.0 Beta" />
+    <img src="https://img.shields.io/badge/Curriculum-276_Lessons_%2B_Custom_Hub-0a0d14?style=flat-square&logo=bookstack&logoColor=38bdf8" alt="276 Lessons" />
+    <img src="https://img.shields.io/badge/Architecture-Zero--Reflow_60%2F120FPS-0a0d14?style=flat-square&logo=speedtest&logoColor=34d399" alt="Zero-Reflow 60/120 FPS" />
+    <img src="https://img.shields.io/badge/Audio-Procedural_Web_Audio-0a0d14?style=flat-square&logo=w3c&logoColor=f43f5e" alt="Procedural Web Audio" />
+    <img src="https://img.shields.io/badge/Offline-100%25_file%3A%2F%2F%2F-0a0d14?style=flat-square&logo=pwa&logoColor=c084fc" alt="100% Offline" />
+    <img src="https://img.shields.io/badge/Design-Strict_Zero--Emoji-0a0d14?style=flat-square&logo=svg&logoColor=ffd166" alt="Strict Zero-Emoji" />
+  </p>
 
-## Official Live Links
+  <br />
 
-- **Launch PK Khmer Type (Main Typing Studio):** [https://not-phana.github.io/PK-Khmer-Type/](https://not-phana.github.io/PK-Khmer-Type/)
-- **Interactive Product Launch & Deck Showcase:** [https://not-phana.github.io/PK-Khmer-Type/launch/](https://not-phana.github.io/PK-Khmer-Type/launch/)
-- **Live Mastery & Telemetry Dashboard:** [https://not-phana.github.io/PK-Khmer-Type/dashboard.html](https://not-phana.github.io/PK-Khmer-Type/dashboard.html)
-- **Official Documentation & 3D Mechanical Studio:** [https://not-phana.github.io/PK-Khmer-Type/Documents/](https://not-phana.github.io/PK-Khmer-Type/Documents/)
-- **Author & Developer:** **Phanna Kurosaki** ([Facebook](https://web.facebook.com/Wphanakurasaki/))
+  <img src="assets/pk-canva-studio-home.png" alt="PK Khmer Type Studio Interface" width="960" />
 
----
-
-## Overview
-
-**PK Khmer Type (v2.4 Beta Studio Edition)** is a standalone, zero-dependency browser typing studio built specifically for mastering the Khmer abugida script (**Khmer Standard** and **Official Khmer NiDA**) alongside **English (US) QWERTY**.
-
-Designed to run effortlessly both **online via any static server** and **100% offline directly from the filesystem (`file:///`)**, it combines a 222-lesson progressive curriculum with a hardware-accurate mechanical keyboard simulator, dual-hand 3D kinematic finger guides, a dedicated live analytics dashboard (`dashboard.html`), an interactive launch showcase (`launch/index.html`), 8 bespoke color themes, frosted glassmorphism, instant Zero-Lag Performance mode, and cinematic Focus Mode.
-
-### Interactive Keyboard Layouts in PK Khmer Type
-
-| Khmer Standard Keyboard Layout (`ប្លង់ក្តារចុចខ្មែរស្តង់ដារ`) | Khmer NiDA Unicode Keyboard Layout (`ក្តារចុចខ្មែរ និដា`) | English (US) QWERTY Layout |
-| :---: | :---: | :---: |
-| ![PK Khmer Type Khmer Standard Keyboard Layout](assets/pk-khmer-type-standard-khmer-keyboard-layout.png) | ![PK Khmer Type Khmer NiDA Keyboard Layout](assets/pk-khmer-type-khmer-nida-keyboard-layout.png) | ![PK Khmer Type English QWERTY Keyboard Layout](assets/pk-khmer-type-english-qwerty-keyboard-layout.png) |
+</div>
 
 ---
 
-## Key Features
+## Why PK Khmer Type?
 
-| Feature | Description |
-| :--- | :--- |
-| **Live Mastery Dashboard (`dashboard.html`)** | Full-featured analytics center connected directly to real-time `localStorage` telemetry. Displays per-course KPIs, an interactive per-key keyboard accuracy/latency heatmap, a 40-level curriculum matrix, WPM/accuracy trend graphs, session history, and one-click JSON backup/restore. |
-| **Interactive Launch Showcase (`launch/index.html`)** | Dedicated product showcase featuring the full mechanical keyboard deck, 3D kinematic hand overlay, procedural Web Audio switch synthesizer, live key telemetry HUD, and an interactive starter curriculum drill — working 100% offline on `file:///`. |
-| **Dual-Hand 3D Kinematic Guide (44% Default Opacity)** | Translucent anatomical left and right hand overlays dynamically reach toward target keys and simultaneous modifier keys (`Shift`, `Ctrl`, `AltGr`). Tuned to **44% default opacity** for crystal-clear keycap visibility, with one-click Hand Theme color presets (*Cyber Cyan & Orchid, Amber & Emerald, Ruby & Sapphire, Sunset & Violet, Frost Silver*). |
-| **3 Complete Keyboard Layouts** | Instant switching between **Khmer Standard**, **Khmer NiDA**, and **English (US) QWERTY** (`Alt + 1/2/3`). |
-| **222-Lesson Progressive Curriculum** | **40 structured levels**, **222 lessons**, and **666+ exercises** built with strict progressive key unlocking (no unseen characters in early drills). |
-| **Zero-Lag Performance Mode** | Dedicated high-performance setting that turns off non-essential animations, transitions, glowing effects, and background particles for instant responsiveness and zero CPU/GPU overhead. Includes a 3-tier motion density control (*Full, Minimal, Off*). |
-| **Anchored Cursor Inspector (`Alt + M`)** | Hover over any keycap or Khmer glyph to inspect its Unicode codepoints, keystroke recipe, finger assignment, and phonetic details—statically anchored to keycaps for clean, jitter-free reading. |
-| **Cinematic Focus Mode (`Alt + F`)** | Smooth expansion that hides sidebars, headers, and UI distractions, scaling the manuscript and keyboard to center stage for pure immersion. |
-| **8 Studio Themes & Transparent Glass** | Choose from *Dark (Obsidian Navy), Temple (Torchlit Sandstone & Gold), Moonlight (Celestial Indigo), Jungle (Emerald Rainforest), Sunset (Dusk Plum & Coral), Sepia (Warm Parchment), Light (Slate White),* or the standalone **Transparent Glass** theme. |
-| **Custom Wallpapers & Frosted Glass** | Upload custom background wallpapers with interactive dimming controls and frosted glass styling (`backdrop-filter: blur(28px) saturate(200%)`). |
-| **Web Audio Switch Synthesizer** | Real-time procedural mechanical switch audio (*Topre Thock, Holy Panda Tactile, Cherry MX Blue, Silent Linear*) and Temple Ambience — zero external audio files required. |
-| **Adaptive Practice & Weak-Key Review** | Keybr-style mastery engine tracks per-key latency and mistake frequency to automatically generate personalized remedial drills and spaced repetition reviews. |
-| **Temple Trial & Typing Race** | Timed vocabulary survival drills and competitive typing races against adaptive bot pacers with local leaderboards. |
-| **Bilingual UI (`English` / `ភាសាខ្មែរ`)** | Toggle the entire interface, menus, tooltips, and quick guides between English and Khmer at any time (`Alt + L`). |
-| **PK Documents & 3D Mechanical Studio** | Built-in interactive Khmer script orthography guide, keycap architecture diagrams, and Three.js 3D mechanical switch studio (`Documents/index.html`). |
-| **100% Offline `file:///` & PWA Support** | Self-contained inline layout and curriculum bundles (`data/curriculum-data.js`) allow opening `index.html`, `dashboard.html`, and `launch/index.html` directly from your local filesystem without CORS errors or build steps. |
+Typing Khmer abugida script should feel just as fluid, fast, and satisfying as typing English. 
+
+Most typing trainers treat Khmer as an afterthought with clunky font rendering, inaccurate layout mapping, and slow browser performance. **PK Khmer Type** was engineered from scratch to fix this:
+
+- **100% Vanilla Web Technologies**: Zero runtime frameworks, zero bloated dependencies, and zero build steps.
+- **Hardware-Accurate Typing Physics**: Procedural switch audio and instant keystroke response with `< 0.05ms` input latency.
+- **Biomechanical Kinematics**: Translucent anatomical hands that physically guide your fingers to the correct keys and simultaneous modifiers in real time.
+- **Runs Everywhere**: Works online on GitHub Pages or 100% offline straight from your filesystem (`file:///`).
 
 ---
 
-## Live Mastery & Telemetry Dashboard (`dashboard.html`)
+## Visual Showcase
 
-Accessible directly from the keyboard chassis bar (**Dashboard `STATS`**), `dashboard.html` provides deep inspection into your typing progression:
-
-- **Real-Time Telemetry Sync**: Reads live progress, lesson records, per-key stroke statistics, and adaptive mastery directly from `localStorage`.
-- **Course Filtering**: Inspect aggregate performance across all layouts or filter specifically by **Khmer Standard**, **Khmer NiDA**, or **English (US)**.
-- **Interactive Per-Key Heatmap**: Visualizes accuracy rates, error hotspots, and keystroke volume across every key on the board.
-- **40-Level Curriculum Matrix**: Track star ratings (`0–3 stars`), best WPM, and completion percentages across all 222 lessons.
-- **Data Portability**: Export your complete profile to a timestamped `.json` backup file or restore from an existing backup at any time.
-
----
-
-## Zero-Lag Performance Mode
-
-PK Khmer Type prioritizes speed and responsiveness above all else:
-
-- **Instant State Changes**: Replaces multi-frame animated transitions with immediate DOM updates.
-- **Resource Conservation**: Disables looping particle canvas engines, ambient torches, neon glow halos, and blur backdrops.
-- **Fine-Grained Motion Control**:
-  - **Full**: Complete visual immersion, particle motes, scanlines, and spring modals.
-  - **Minimal**: Preserves basic UI feedback while removing heavy background filters.
-  - **Off (Zero Lag)**: Pure mechanical speed engineered for older laptops, low-power devices, and competitive high-WPM typing.
-- **Persistence**: Remembers your preference in `localStorage` across page reloads.
-
----
-
-## Studio Color Themes
-
-PK Khmer Type features 8 handcrafted themes that apply consistently across all components:
-
-1. **Jungle (ព្រៃព្រឹក្សា):** Deep moss and dark emerald gradients (`#15291c` / `#0c1710`) with glowing jade accents (`#8bf0b3`) and forest keycaps.
-2. **Temple (ប្រាសាទបុរាណ):** Warm torchlit ancient sandstone (`#2e2113` / `#1a120a`) with royal gold borders (`#ffd166`) and saffron amber keycaps.
-3. **Moonlight (ពន្លឺព្រះចន្ទ):** Nocturnal celestial indigo (`#1a2540` / `#0e1528`) with silver-blue highlights (`#bfe0ff`) and lunar violet glow.
-4. **Sunset (ថ្ងៃលិច):** Dusk twilight plum (`#301622` / `#1c0e14`) with burning ember orange borders (`#ff8a4c`) and coral rose subscript accents.
-5. **Transparent Glass (កញ្ចក់ថ្លា):** Frosted crystal aero glass with high-intensity backdrop blur (`28px`), crisp translucent borders, and light-refracting cards.
-6. **Dark / Obsidian (រាត្រី):** Cyber obsidian navy (`#141a2b` / `#0c101c`) with neon cyan (`#38bdf8`) and electric violet key indicators.
-7. **Light (ពន្លឺថ្ងៃ):** Crisp paper white and slate (`#ffffff` / `#f8fafc`) with clean mechanical double-shot keycaps.
-8. **Sepia (សៀវភៅចាស់):** Warm vintage parchment and library teakwood (`#faf5ec` / `#ede3cf`) with amber-brown typography.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3 align="center">Real-Time Biomechanical Hand Guides</h3>
+      <img src="assets/pk-canva-live-lesson.png" alt="Live Lesson Hand Biomechanics" width="100%" />
+      <p align="center">
+        <em>Anatomical hands dynamically track target keys and simultaneous modifiers (Shift, AltGr, Ctrl) with natural metacarpal arching and damped palm translation.</em>
+      </p>
+    </td>
+    <td width="50%" valign="top">
+      <h3 align="center">Custom Lessons Crafting Hub</h3>
+      <img src="assets/pk-canva-custom-lessons.png" alt="Custom Lessons Crafting Hub" width="100%" />
+      <p align="center">
+        <em>Paste, edit, shuffle, repeat, and clean custom drills. Fully preserves complex Khmer Unicode (vowels, Coeng ្, diacritics) across browser refreshes.</em>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3 align="center">Cinematic Focus Mode</h3>
+      <img src="assets/pk-canva-focus-mode.png" alt="Focus Mode" width="100%" />
+      <p align="center">
+        <em>Press <code>Alt + F</code> to hide all UI clutter, sidebars, and toolbars, centering the manuscript and keyboard for distraction-free typing.</em>
+      </p>
+    </td>
+    <td width="50%" valign="top">
+      <h3 align="center">Official Khmer NiDA &amp; Standard Layouts</h3>
+      <img src="assets/pk-khmer-type-khmer-nida-keyboard-layout.png" alt="Khmer NiDA Keyboard Layout" width="100%" />
+      <p align="center">
+        <em>Full dynamic support for Khmer Standard, Official NiDA, and English QWERTY with instant <code>Alt + 1/2/3</code> switching and layer indicators.</em>
+      </p>
+    </td>
+  </tr>
+</table>
 
 ---
 
-## How Khmer Typing Works
+## Under the Hood: Engineering Highlights
 
-Khmer is an **abugida** script where vowels and subscripts attach around a base consonant. Following these core principles makes typing natural:
+### 1. Zero Forced-Reflow Engine
+Keystroke handling runs in under **0.05 milliseconds**:
+- **Geometry Caching (`keyCoordCache`)**: Keyboard coordinates are cached in memory and invalidated only upon window resize (`ResizeObserver`).
+- **Non-Blocking Animations**: Key strikes trigger lightweight Web Animations API calls (`fe.g.getAnimations()`) instead of triggering layout thrashing via forced reflows.
+- **WeakMap Particle Coordinates**: Canvas particle bursts resolve keycap centers without triggering DOM layout calculations.
+- **Debounced Persistence**: Active lesson sessions serialize in background debounce timers (400ms) with synchronous flushes on page unload.
 
-### 1. Base Consonant First
-Always type the base consonant before its dependent vowel or diacritic — even if the vowel visually appears to the left, top, or bottom.
-> **Example:** `ក` (`K`) + `េ` (`E`) → **`កេ`**
+### 2. Procedural Web Audio Synthesizer
+Zero audio asset downloads. Pure Web Audio API oscillators and filtered noise buffers simulate tactile mechanical switch profiles in real time:
+- **Topre Thock**: Deep, rounded electro-capacitive thock.
+- **Holy Panda**: Crisp, tactile bump with acoustic body resonance.
+- **Cherry Blue**: Sharp, satisfying double-click snap.
+- **Silent Linear**: Muted, cushioned bottom-out for quiet environments.
+- **Temple Ambience**: Procedural white/pink noise synthesis evoking torchlit stone halls.
 
-### 2. Subscript Consonants (`ជើងអក្សរ` — Coeng `្`)
-To stack a subscript consonant beneath a base consonant, press the **Coeng key** first, followed by the second consonant:
-
-| Keyboard Layout | Coeng (`្`) Trigger | Example (`ក្ខ`) |
-| :--- | :--- | :--- |
-| **Khmer Standard** | `Space` | `ក` + `Space` + `ខ` = **`ក្ខ`** |
-| **Khmer NiDA** | `J` (`្`) | `ក` + `J` + `ខ` = **`ក្ខ`** |
-
-### 3. Visible Word Space (`Shift + Space`)
-> **Important:** In Khmer layouts, plain `Space` types the Coeng subscript marker (`្`) on Khmer Standard, while `J` types Coeng (`្`) on Khmer NiDA (`Shift + J` types `ញ`).  
-> Press **`Shift + Space`** to insert a visible space between clauses or sentences.
-
-### 4. Four Modifier Layers
-Each keyboard layout supports up to 4 live layers that can be previewed by hovering or holding modifier keys:
-
-| Layer | Activation | Typical Contents |
-| :--- | :--- | :--- |
-| **Base** | Normal typing | Primary consonants, common dependent vowels |
-| **Shift** | Hold `Shift` | Voiced consonants (`ឃោសៈ`), secondary vowels, diacritics |
-| **Ctrl** | Hold `Ctrl` | Currency symbols, punctuation, independent vowels |
-| **AltGr** | Hold `AltGr` (Right Alt) | Khmer numerals, lunar date symbols, specialized marks |
-
-*(Includes native Windows OS `AltGr` filtering so holding physical `AltGr` activates only the `AltGr` layer without ghost-triggering `Ctrl`.)*
+### 3. Strict Zero-Emoji Design Philosophy
+Every visual badge, keyboard indicator, tooltip, button, and status icon is rendered as a clean, accessible **inline SVG vector icon** (`24x24` grid, `2.2px` stroke, `currentColor` theme inheritance). No emojis, no unicode font discrepancies, and zero resolution loss on 4K/retina displays.
 
 ---
 
-## Curriculum Breakdown
+## Mastering Khmer Script in 60 Seconds
 
-Each layout maintains independent progress, star ratings, WPM records, and unlock states:
+Khmer is an **abugida** writing system where dependent vowels and subscripts attach around a base consonant:
 
-| Course Track | Levels | Lessons | Exercises | Focus Progression |
-| :--- | :---: | :---: | :---: | :--- |
-| **Khmer Standard** | 13 | 77 | 235+ | Home row anchors → Consonants → Dependent vowels → Coeng clusters → Shift layer → Numerals & prose |
-| **Khmer NiDA** | 13 | 77 | 235+ | Official NiDA home row → Vowel combinations → Subscript stacks → Independent vowels → Full literature |
-| **English (US)** | 14 | 64 | 194+ | Home row (`ASDF JKL;`) → Top & bottom reaches → Capitalization → Numbers & symbols → Speed paragraphs |
-| **Total** | **40** | **222** | **666+** | **Complete zero-to-fluent mastery across all three layouts** |
+### Rule 1: Always Type the Base Consonant First
+Type the base consonant first, even if its vowel visually displays on the left, top, or bottom:
+```
+  Base Consonant  +  Dependent Vowel  =  Rendered Syllable
+       ក (K)      +       េ (E)       =       កេ
+```
+
+### Rule 2: Typing Subscript Consonants (`ជើងអក្សរ` — Coeng `្`)
+To stack a consonant beneath another consonant, press the layout's **Coeng key** before the second consonant:
+
+| Keyboard Layout | Coeng Trigger Key | Keystroke Recipe | Result |
+| :--- | :---: | :--- | :---: |
+| **Khmer Standard** | `Space` | `ក` + `Space` + `ខ` | **ក្ខ** |
+| **Khmer NiDA** | `J` (`្`) | `ក` + `J` + `ខ` | **ក្ខ** |
+
+### Rule 3: Typing Visible Word Spaces
+Because plain `Space` triggers Coeng (`្`) on Khmer Standard, press **`Shift + Space`** to insert a visible space between phrases or sentences.
+
+### Rule 4: Dynamic Modifier Layers
+Hover or hold modifier keys to preview all 4 active layers:
+- **Base Layer**: Primary consonants and common dependent vowels.
+- **Shift Layer**: Voiced consonants (`ឃោសៈ`), upper diacritics, and secondary vowels.
+- **Ctrl Layer**: Currency symbols, Khmer independent vowels (`ស្រៈពេញតួ`), and punctuation.
+- **AltGr Layer (Right Alt)**: Khmer numerals (`០–៩`), lunar calendar symbols, and sacred marks.
+
+---
+
+## Complete Curriculum Structure
+
+PK Khmer Type features **276 total lessons** organized into progressive levels:
+
+| Curriculum Track | Levels | Base Lessons | Bonus Vault | Total | Focus Progression |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Khmer Standard** | 16 | 77 | 18 | **96** | Home row anchors -> Consonants -> Vowels -> Coeng stacks -> Classic literature |
+| **Khmer NiDA** | 16 | 77 | 18 | **96** | Official NiDA layout -> Vowel combinations -> Subscripts -> Scriptorium |
+| **English (US)** | 16 | 68 | 18 | **84** | Home row -> Alpha reaches -> Numbers -> Symbols -> Homeric &amp; Shakespearean prose |
+| **Total** | **48** | **222** | **54** | **276** | **Zero-to-fluent mastery across all three keyboard layouts** |
+
+*Completing all 222 base lessons unlocks the golden **Grandmaster Bonus Vault (Level 222+)**, featuring 54 advanced endurance sprints across classical Cambodian literature, Pali-Sanskrit compounds, and speed texts.*
 
 ---
 
@@ -165,42 +166,50 @@ Each layout maintains independent progress, star ratings, WPM records, and unloc
 
 | Shortcut | Action |
 | :--- | :--- |
-| `Shift` + `Space` | Insert visible space (Khmer Standard & NiDA) |
+| `Shift` + `Space` | Insert visible word/sentence space |
 | `Alt` + `1` | Switch to **Khmer Standard Layout** |
 | `Alt` + `2` | Switch to **Khmer NiDA Layout** |
 | `Alt` + `3` | Switch to **English (US) QWERTY Layout** |
-| `Alt` + `F` | Toggle **Focus Mode** (distraction-free layout) |
-| `Alt` + `L` | Toggle **Interface Language** (English ↔ Khmer) |
+| `Alt` + `F` | Toggle **Cinematic Focus Mode** |
+| `Alt` + `L` | Toggle **Language** (English &lt;--&gt; Khmer) |
 | `Alt` + `M` | Toggle **Smart Mouse Cursor Inspector** |
-| `Alt` + `S` | Open **Settings & Command Studio** |
-| `?` | Open **Keyboard Shortcuts** cheat sheet modal |
-| `Esc` | Close active modal / pause lesson / exit Focus Mode |
+| `Alt` + `S` | Open **Settings &amp; Theme Studio** |
+| `?` | Open **Shortcuts Cheat Sheet** |
+| `Esc` | Close active dialog / pause drill / exit Focus Mode |
 
 ---
 
-## Getting Started
+## Quick Start (10 Seconds)
 
-### Option 1: Open Directly (Offline / No Install)
-Simply double-click **`index.html`**, **`dashboard.html`**, or **`launch/index.html`** in any modern web browser (Edge, Chrome, Brave, Firefox, Safari). All 222 lessons, 3D kinematic hands, procedural audio synthesizers, and themes work out of the box via `file:///`.
+### Option A: Open Directly (Zero Installation)
+Simply double-click **`index.html`** or **`welcome.html`** in any web browser (Chrome, Edge, Firefox, Safari, Brave). All 276 lessons, audio synthesizers, 3D hand guides, and themes run out of the box via `file:///`.
 
-### Option 2: Run Local Development Server
-If you have **Node.js** installed, launch the included zero-cache static development server:
+### Option B: Local Development Server
 
-```sh
+```bash
+# Clone the repository
+git clone https://github.com/not-Phana/PK-Khmer-Type.git
+cd PK-Khmer-Type
+
+# Start the local development server
+npm run dev
+
+# Or launch the lightweight built-in node server
 node scripts/dev_server.js
 ```
+Then open `http://localhost:5174/` in your browser.
 
-Then open **`http://localhost:5174/`** in your browser.
+### Automated Testing &amp; Curriculum Verification
 
-### Curriculum Validation & Bundling
-When modifying curriculum JSON files inside `data/curriculum/`, run the audit and bundling scripts:
+```bash
+# Run the complete test suite (136 unit and integration tests)
+npm test
 
-```sh
-# Validate all curricula for schema integrity and letter progression rules
-node scripts/validate_curriculum.js
+# Run curriculum progression audit across all 276 lessons
+npm run validate
 
-# Re-bundle JSON files into data/curriculum-data.js for offline file:// support
-node scripts/bundle_curricula.js
+# Run the 64-check Round 2 audit verification suite
+node scripts/verify_audit_fixes.js
 ```
 
 ---
@@ -209,61 +218,51 @@ node scripts/bundle_curricula.js
 
 ```text
 .
-├── index.html                      # Main studio shell with PWA meta & asset links
-├── dashboard.html                  # Live Mastery & Telemetry Analytics Dashboard
-├── manifest.json                   # PWA web app manifest metadata
-├── sw.js                           # Offline Progressive Web App service worker
-├── logo.svg                        # PK Khmer Type vector crest logo
-├── launch/
-│   ├── index.html                  # Interactive Product Launch & Deck Showcase
-│   ├── launch.css                  # Responsive grid and showcase typography
-│   ├── launch-theme.css            # Obsidian Cyber-Temple theme & authentic keyboard CSS
-│   └── launch.js                   # Inline keyboard layouts, 3D hands, Web Audio synth, & drill
+├── index.html                      # Main typing studio shell
+├── welcome.html                    # Bilingual interactive welcome experience
+├── dashboard.html                  # Live mastery telemetry and per-key heatmap
+├── manifest.json                   # PWA manifest
+├── sw.js                           # Offline service worker
+├── logo.svg                        # Vector brand crest
+├── launch/                         # Product launch deck showcase
+├── Documents/                      # Khmer script orthography and 3D keycap studio
 ├── css/
-│   ├── base.css                    # Core layout, 8 color themes, version modal, frosted glass
-│   ├── keyboard.css                # Keycaps, 3D hand overlay (44% opacity), cursor inspector HUD
-│   ├── typing.css                  # Manuscript prompt, character tiles, and error shake
-│   ├── lessons.css                 # Lesson dock, Quick Guide theme rules, completion modals
-│   ├── settings.css                # Settings command center and category tabs
-│   └── responsive.css              # Tablet, laptop, and mobile responsive breakpoints
+│   ├── base.css                    # Design tokens, themes, frosted glass, typography
+│   ├── keyboard.css                # Keycaps, 3D hand overlays, and HUD styles
+│   ├── typing.css                  # Prompt manuscript, character highlights, error shake
+│   ├── lessons.css                 # Lesson docks, Grandmaster Vault, custom lesson UI
+│   ├── settings.css                # Settings modal and theme toggles
+│   ├── welcome.css                 # Welcome page animations and card layouts
+│   └── responsive.css              # Responsive layout breakpoints
 ├── js/
-│   ├── app.js                      # Application bootstrap, data loader, and layout manager
-│   ├── keyboard.js                 # Keyboard rendering, layer switching, 3D hand kinematics
-│   ├── typing.js                   # Input engine, Windows AltGr filter, Web Audio switch synth
-│   ├── lessons.js                  # Curriculum runner, exercise scoring, mistake review
-│   ├── adaptive.js                 # Adaptive practice generator and 100% mastery engine
-│   ├── review.js                   # Spaced repetition & weak-key detector
-│   ├── race.js                     # Temple Trial & Typing Race mode with bot pacers
-│   ├── cursor-inspector.js         # Anchored Mouse Cursor Inspector & phonetic HUD tooltip
-│   ├── settings.js                 # Studio controls, theme switcher, and wallpaper manager
-│   ├── statistics.js               # WPM, accuracy, streak, and level progress analytics
-│   ├── shortcuts.js                # Global keyboard shortcuts & modal navigation
-│   ├── quick_guide.js              # Quick Guide dock, live telemetry, shortcut cheats
-│   ├── progress.js                 # Lesson unlock state and star rating logic
-│   ├── tracker.js                  # Per-key stroke telemetry
-│   ├── storage.js                  # LocalStorage persistence, JSON export/import backup
-│   ├── feedback.js                 # Toast notifications and particle effects
-│   └── icons.js                    # Inline SVG icon registry
-├── Documents/
-│   ├── index.html                  # PK Documents & 3D Mechanical Keycap Studio
-│   ├── docs.css / docs.js          # Interactive Khmer orthography and specification guides
-│   └── keycap3d.js / three.min.js  # Three.js interactive 3D mechanical switch viewer
+│   ├── app.js                      # Application initialization and mode router
+│   ├── keyboard.js                 # Layout rendering, zero-reflow keyCoordCache, hand kinematics
+│   ├── typing.js                   # Keystroke engine, WeakMap FX caching, Web Audio synth
+│   ├── lessons.js                  # 276-lesson curriculum runner, debounced active session save
+│   ├── custom-lessons.js           # Custom lesson crafting, storage, and validation engine
+│   ├── adaptive.js                 # Dynamic adaptive practice engine
+│   ├── review.js                   # Spaced repetition and weak-key detector
+│   ├── race.js                     # Typing race mode with bot pacers
+│   ├── cursor-inspector.js         # Anchored cursor HUD and phonetic tooltip
+│   ├── settings.js                 # Theme switcher and user preference manager
+│   ├── statistics.js               # Lifetime analytics and WPM calculations
+│   ├── smooth-cursor.js            # Smooth trailing cursor badge with idle sleep
+│   ├── shortcuts.js                # Global keyboard shortcut registry
+│   └── supabase-config.js          # Cloud backup and authentication client
 ├── data/
-│   ├── keyboard.json               # Full keycap mappings for Standard, NiDA, and English
-│   ├── curriculum-data.js          # Pre-bundled curriculum for offline file:// execution
-│   ├── adaptive-vocab.js           # Vocabulary bank for adaptive drills
-│   └── curriculum/
-│       ├── standard/               # levels.json, lessons.json, exercises.json
-│       ├── nida/                   # levels.json, lessons.json, exercises.json
-│       └── english/                # levels.json, lessons.json, exercises.json
+│   ├── keyboard.json               # Layout character maps for Standard, NiDA, English
+│   ├── curriculum-data.js          # Pre-bundled 276-lesson curriculum
+│   └── curriculum/                 # Raw JSON level and exercise definitions
 └── scripts/
-    ├── dev_server.js               # Zero-cache local HTTP development server (port 5174)
-    ├── validate_curriculum.js      # Automated curriculum audit & validation suite
-    └── bundle_curricula.js         # Bundles JSON curricula into data/curriculum-data.js
+    ├── dev_server.js               # Local static HTTP dev server
+    ├── validate_curriculum.js      # Curriculum integrity validator
+    └── verify_audit_fixes.js       # 64-check audit verification suite
 ```
 
 ---
 
-## Credits & Author
+## Author &amp; License
 
-Founded, designed, and built by **Phanna Kurosaki** to make Khmer and English typing education accessible, modern, elegant, and enjoyable for everyone.
+Designed and built by **Phana Phley (Kon)** in Cambodia to make Khmer and English typing education modern, accessible, and fast for everyone.
+
+Distributed under the **MIT License**. Contributions and feedback are warmly welcome.

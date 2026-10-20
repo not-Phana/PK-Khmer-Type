@@ -367,6 +367,26 @@
       badgeEl.style.transform = `translate3d(${badgeX.toFixed(2)}px, ${badgeY.toFixed(2)}px, 0) rotate(${tilt.toFixed(2)}deg) scale(${stretch.toFixed(3)}, ${(2 - stretch).toFixed(3)})`;
     }
 
+    // Idle sleep: if cursor and trailing badge have settled, stop RAF loop to eliminate CPU/GPU overhead
+    const arrowDist = Math.hypot(targetX - arrowX, targetY - arrowY);
+    const badgeDist = Math.hypot(badgeTargetX - badgeX, badgeTargetY - badgeY);
+    if (arrowDist < 0.1 && badgeDist < 0.1 && speed < 0.05) {
+      arrowX = targetX;
+      arrowY = targetY;
+      badgeX = badgeTargetX;
+      badgeY = badgeTargetY;
+      badgeVx = 0;
+      badgeVy = 0;
+      if (arrowEl) {
+        arrowEl.style.transform = `translate3d(${arrowX.toFixed(2)}px, ${arrowY.toFixed(2)}px, 0)`;
+      }
+      if (badgeEl) {
+        badgeEl.style.transform = `translate3d(${badgeX.toFixed(2)}px, ${badgeY.toFixed(2)}px, 0) rotate(0deg) scale(1, 1)`;
+      }
+      rafId = null;
+      return;
+    }
+
     rafId = requestAnimationFrame(physicsStep);
   }
 
@@ -429,12 +449,14 @@
     if (e.button === 0) {
       isPressed = true;
       updateActiveClasses();
+      startPhysicsLoop();
     }
   }
 
   function handlePointerUp() {
     isPressed = false;
     updateActiveClasses();
+    startPhysicsLoop();
   }
 
   function handlePointerLeave() {

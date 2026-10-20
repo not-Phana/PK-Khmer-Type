@@ -583,13 +583,26 @@ function fxRenderLoop() {
   }
 }
 
+let fxCoordCache = new WeakMap();
+if (typeof window !== 'undefined') {
+  window.addEventListener('resize', () => { fxCoordCache = new WeakMap(); });
+  window.addEventListener('scroll', () => { fxCoordCache = new WeakMap(); }, { passive: true });
+}
+
 function getFxCoord(el, ev) {
   if (ev && typeof ev.clientX === 'number') {
     return { x: ev.clientX, y: ev.clientY };
   }
   if (el && typeof el.getBoundingClientRect === 'function') {
-    const r = el.getBoundingClientRect();
-    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    let cached = fxCoordCache.get(el);
+    if (!cached) {
+      const r = el.getBoundingClientRect();
+      cached = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+      if (r.width > 0 || r.height > 0) {
+        fxCoordCache.set(el, cached);
+      }
+    }
+    return cached;
   }
   return { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 }
