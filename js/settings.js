@@ -120,9 +120,9 @@ function ensureUpgradedSettingsModalDOM() {
           </div>
           <h2 id="settingsModalTitle"><span class="i18n-t" data-en="Settings &amp; Studio" data-km="ការកំណត់ និងស្ទូឌីយោ">Settings &amp; Studio</span> <span class="km-sub">ការកំណត់</span></h2>
           <span class="settings-count-pill" id="settingsActiveCatCount">32 Controls</span>
-          <button type="button" class="settings-version-pill" id="settingsVersionPill" title="PK Khmer Type v2.4 Pro Studio · Click to view Release Info" aria-label="Version 2.4 Release Info">
+          <button type="button" class="settings-version-pill" id="settingsVersionPill" title="PK Khmer Type v2.4 Beta Studio · Click to view Release Info" aria-label="Version 2.4 Beta Release Info">
             <span class="ver-live-dot" aria-hidden="true"></span>
-            <span>v2.4 Pro Studio</span>
+            <span>v2.4 Beta Studio</span>
           </button>
         </div>
         <button class="modal-close" id="settingsCloseBtn" aria-label="Close settings">${typeof pkIcon === 'function' ? pkIcon('close', 16) : '<svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'}</button>

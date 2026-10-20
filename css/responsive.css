@@ -138,9 +138,12 @@
       right:auto !important;
       left:auto !important;
       justify-content:center;
-      margin:0 auto 24px !important;
+      margin:0 auto 20px !important;
       max-width:96vw;
+      overflow-x:auto;
+      scrollbar-width:none;
     }
+    html:not(.focus-mode) .top-actions::-webkit-scrollbar{ display:none; }
   }
 
   @media (max-width:640px){
@@ -152,22 +155,23 @@
       top:10px !important;
       left:8px !important;
       right:8px !important;
-      justify-content:center;
-      gap:6px;
+      justify-content:flex-start;
+      gap:5px;
       z-index: 40 !important;
       margin-bottom:0 !important;
       overflow-x:auto;
       scrollbar-width:none;
       -webkit-overflow-scrolling:touch;
-      padding:2px 4px 6px;
+      padding:4px 6px;
       transform:none !important;
     }
     .top-actions::-webkit-scrollbar{ display:none; }
     .top-actions button,
     .top-actions .auth-account-chip{
-      padding:6px 12px;
+      padding:0 8px;
       font-size:0.68rem;
-      min-height:34px;
+      min-height:30px;
+      height:30px;
       flex-shrink:0;
       transform:none !important;
     }

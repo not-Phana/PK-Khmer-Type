@@ -2124,7 +2124,7 @@
 
       var snapshot = {
         app: "PK Khmer Type",
-        version: "2.4.0",
+        version: "2.4.0-beta",
         createdAt: new Date().toISOString(),
         userId: user.id,
         settings: collectLocalSettingsSnapshot(),

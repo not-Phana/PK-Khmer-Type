@@ -133,7 +133,7 @@
       ],
       "operatingSystem": "All (Web Browser, Windows, macOS, Linux, ChromeOS, iOS, Android)",
       "browserRequirements": "Requires JavaScript and a modern HTML5 browser.",
-      "softwareVersion": "2.4.0",
+      "softwareVersion": "2.4.0-beta",
       "inLanguage": ["en", "km"],
       "isAccessibleForFree": true,
       "author": { "@id": "https://not-phana.github.io/PK-Khmer-Type/#founder" },
@@ -463,33 +463,48 @@
 </section>
 
 <div class="top-actions" role="toolbar" aria-label="Studio Command Bar">
-  <button id="focusModeBtn" class="focus-mode-btn" aria-label="Toggle Focus Mode" title="Focus Mode (Hide distractions, Alt+F)"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg> <span class="focus-btn-text i18n-t" data-en="Focus" data-km="ផ្ដោត">Focus</span> <kbd class="focus-kbd-badge">Alt+F</kbd></button>
-  <button id="guideToggleBtn" class="top-action-btn guide-toggle-btn active" aria-label="Toggle Quick Guide" title="Toggle Quick Guide" aria-pressed="true"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> <span class="i18n-t" data-en="Guide" data-km="ណែនាំ">Guide</span></button>
-  <button id="shortcutsOpenBtn" aria-haspopup="dialog" aria-label="Open keyboard shortcuts" title="Keyboard Shortcuts (?)"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="6" y1="12" x2="6.01" y2="12"/><line x1="18" y1="12" x2="18.01" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/><line x1="10" y1="12" x2="14" y2="12"/></svg> <span class="i18n-t" data-en="Shortcuts" data-km="ផ្លូវកាត់">Shortcuts</span></button>
-  <button id="topLearnMoreBtn" class="top-action-btn learn-more-nav-btn" aria-haspopup="dialog" aria-label="Explore 222 Lessons &amp; Alphabet Coverage" title="222 Lessons &amp; Alphabet Coverage Hub — Every Letter Included"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> <span class="i18n-t" data-en="222 Lessons" data-km="២២២ មេរៀន">222 Lessons</span></button>
-  <button id="topCustomLessonsBtn" class="top-action-btn custom-lessons-nav-btn" aria-haspopup="dialog" aria-label="Open Custom Lessons Hub" title="Custom Lessons (Create, Organize &amp; Practice)"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span class="i18n-t" data-en="Custom Lessons" data-km="មេរៀនផ្ទាល់ខ្លួន">Custom Lessons</span></button>
-  <button id="topLangToggleBtn" class="top-action-btn lang-toggle-btn" aria-label="Translate English to Khmer" title="Translate English ⇄ Khmer (Alt+L)">
-    <span class="lang-switch-capsule" aria-hidden="true">
-      <span class="lang-capsule-tag en active" id="topLangBadgeEn">EN</span>
-      <span class="lang-capsule-arrow">
-        <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+  <!-- Group 1: Workspace Tools -->
+  <div class="top-actions-group" role="group" aria-label="Workspace Tools">
+    <button id="focusModeBtn" class="focus-mode-btn" aria-label="Toggle Focus Mode" title="Focus Mode (Hide distractions, Alt+F)"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg> <span class="focus-btn-text i18n-t" data-en="Focus" data-km="ផ្ដោត">Focus</span> <kbd class="focus-kbd-badge">Alt+F</kbd></button>
+    <button id="guideToggleBtn" class="top-action-btn guide-toggle-btn active" aria-label="Toggle Quick Guide" title="Toggle Quick Guide" aria-pressed="true"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> <span class="i18n-t" data-en="Guide" data-km="ណែនាំ">Guide</span></button>
+    <button id="shortcutsOpenBtn" aria-haspopup="dialog" aria-label="Open keyboard shortcuts" title="Keyboard Shortcuts (?)"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="6" y1="12" x2="6.01" y2="12"/><line x1="18" y1="12" x2="18.01" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/><line x1="10" y1="12" x2="14" y2="12"/></svg> <span class="i18n-t" data-en="Shortcuts" data-km="ផ្លូវកាត់">Shortcuts</span></button>
+  </div>
+
+  <div class="top-actions-divider" aria-hidden="true"></div>
+
+  <!-- Group 2: Curricula & Custom Lessons -->
+  <div class="top-actions-group" role="group" aria-label="Curriculum Hubs">
+    <button id="topLearnMoreBtn" class="top-action-btn learn-more-nav-btn" aria-haspopup="dialog" aria-label="Explore 222 Lessons &amp; Alphabet Coverage" title="222 Lessons &amp; Alphabet Coverage Hub — Every Letter Included"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> <span class="i18n-t" data-en="222 Lessons" data-km="២២២ មេរៀន">222 Lessons</span></button>
+    <button id="topCustomLessonsBtn" class="top-action-btn custom-lessons-nav-btn" aria-haspopup="dialog" aria-label="Open Custom Lessons Hub" title="Custom Lessons (Create, Organize &amp; Practice)"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span class="i18n-t" data-en="Custom Lessons" data-km="មេរៀនផ្ទាល់ខ្លួន">Custom Lessons</span></button>
+  </div>
+
+  <div class="top-actions-divider" aria-hidden="true"></div>
+
+  <!-- Group 3: Utility & Account -->
+  <div class="top-actions-group" role="group" aria-label="Preferences and Account">
+    <button id="topLangToggleBtn" class="top-action-btn lang-toggle-btn" aria-label="Translate English to Khmer" title="Translate English ⇄ Khmer (Alt+L)">
+      <span class="lang-switch-capsule" aria-hidden="true">
+        <span class="lang-capsule-tag en active" id="topLangBadgeEn">EN</span>
+        <span class="lang-capsule-arrow">
+          <svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+        </span>
+        <span class="lang-capsule-tag km" id="topLangBadgeKm">ខ្មែរ</span>
       </span>
-      <span class="lang-capsule-tag km" id="topLangBadgeKm">ខ្មែរ</span>
-    </span>
-    <span id="topLangToggleLabel">Translate to Khmer</span>
-    <kbd class="top-lang-kbd" aria-hidden="true">Alt+L</kbd>
-  </button>
-  <button id="statsOpenBtn" aria-haspopup="dialog" aria-label="Open statistics dashboard"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> <span class="i18n-t" data-en="Statistics" data-km="ស្ថិតិ">Statistics</span></button>
-  <button id="settingsOpenBtn" aria-haspopup="dialog" aria-label="Open settings"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1.51-1V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> <span class="i18n-t" data-en="Settings" data-km="ការកំណត់">Settings</span></button>
-  <button id="authOpenBtn" class="auth-nav-btn" aria-haspopup="dialog" aria-label="Sign in or create an account" hidden><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span class="i18n-t" data-en="Sign In" data-km="ចូល">Sign In</span></button>
-  <button id="authAccountChip" class="auth-account-chip" aria-haspopup="dialog" aria-label="Your account" hidden>
-    <span class="auth-chip-avatar" id="authChipAvatar">?</span>
-    <span id="authChipName">—</span>
-    <span class="cloud-sync-chip-badge status-synced" id="cloudSyncStatusBadge" title="Cloud Sync Status">
-      <span class="cloud-sync-chip-dot" aria-hidden="true"></span>
-      <span class="cloud-sync-chip-text" id="cloudSyncStatusText">Synced</span>
-    </span>
-  </button>
+      <span id="topLangToggleLabel" class="top-lang-text-accessible">Translate to Khmer</span>
+      <kbd class="top-lang-kbd" aria-hidden="true">Alt+L</kbd>
+    </button>
+    <button id="statsOpenBtn" aria-haspopup="dialog" aria-label="Open statistics dashboard"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> <span class="i18n-t" data-en="Statistics" data-km="ស្ថិតិ">Statistics</span></button>
+    <button id="settingsOpenBtn" aria-haspopup="dialog" aria-label="Open settings"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1.51-1V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> <span class="i18n-t" data-en="Settings" data-km="ការកំណត់">Settings</span></button>
+    <button id="authOpenBtn" class="auth-nav-btn" aria-haspopup="dialog" aria-label="Sign in or create an account" hidden><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span class="i18n-t" data-en="Sign In" data-km="ចូល">Sign In</span></button>
+    <button id="authAccountChip" class="auth-account-chip" aria-haspopup="dialog" aria-label="Your account" hidden>
+      <span class="auth-chip-avatar" id="authChipAvatar">?</span>
+      <span id="authChipName">—</span>
+      <span class="cloud-sync-chip-badge status-synced" id="cloudSyncStatusBadge" title="Cloud Sync Status">
+        <span class="cloud-sync-chip-dot" aria-hidden="true"></span>
+        <span class="cloud-sync-chip-text" id="cloudSyncStatusText">Synced</span>
+      </span>
+    </button>
+  </div>
 </div>
 
 <div class="profile-sidebar profile-card expanded tier-5" id="profileSidebar" aria-label="Your profile" role="button" tabindex="0" aria-expanded="true">
@@ -2226,7 +2241,7 @@
   <img src="logo.svg" alt="PK Khmer Type Official Crest Logo" width="52" height="52">
 </div>
 
-<h1><span class="km">ក ខ គ</span>PK Khmer Type <button type="button" class="hero-version-tag" id="heroVersionTag" title="View PK Khmer Type Release Showcase" aria-label="Version 2.4 Showcase">v2.4</button></h1>
+<h1><span class="km">ក ខ គ</span>PK Khmer Type <button type="button" class="hero-version-tag" id="heroVersionTag" title="View PK Khmer Type v2.4 Beta Release Showcase" aria-label="Version 2.4 Beta Showcase"><span class="hero-ver-num">v2.4</span> <span class="hero-ver-beta">Beta</span></button></h1>
 <p class="subtitle i18n-t" id="mainSubtitle" data-en="Rest your pointer on &lt;kbd&gt;Shift&lt;/kbd&gt;, &lt;kbd&gt;Ctrl&lt;/kbd&gt;, or &lt;kbd&gt;AltGr&lt;/kbd&gt; to preview a layer — click to pin it, click keys to type, or just use your real keyboard." data-km="ដាក់ព្រួញកណ្ដុរលើ &lt;kbd&gt;Shift&lt;/kbd&gt;, &lt;kbd&gt;Ctrl&lt;/kbd&gt; ឬ &lt;kbd&gt;AltGr&lt;/kbd&gt; ដើម្បីមើលស្រទាប់ជាមុន — ចុចដើម្បីភ្ជាប់វា ចុចគ្រាប់ចុចដើម្បីវាយ ឬគ្រាន់តែប្រើក្តារចុចពិតរបស់អ្នក។">Rest your pointer on <kbd>Shift</kbd>, <kbd>Ctrl</kbd>, or <kbd>AltGr</kbd> to preview a layer — click to pin it, click keys to type, or just use your real keyboard.</p>
 <div class="founder-byline">
   <span class="founder-byline-mark" aria-hidden="true">&bull;</span>
@@ -2773,7 +2788,7 @@
       <span class="chassis-name">PK-KHMER</span>
       <span class="chassis-slash">/</span>
       <span class="chassis-layout-label" id="chassisLayoutLabel">STANDARD</span>
-      <button type="button" class="chassis-version-badge" id="chassisVersionBadge" title="PK Khmer Type Studio v2.4 Release Showcase" aria-label="Version 2.4 Showcase"><span class="chassis-ver-pulse" aria-hidden="true"></span><span>v2.4</span></button>
+      <button type="button" class="chassis-version-badge" id="chassisVersionBadge" title="PK Khmer Type Studio v2.4 Beta Release Showcase" aria-label="Version 2.4 Beta Showcase"><span class="chassis-ver-pulse" aria-hidden="true"></span><span>v2.4 Beta</span></button>
       <span class="chassis-caps-warn" id="chassisCapsWarn" hidden title="Caps Lock is ON">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
         <span>CAPS ON</span>
@@ -2842,9 +2857,9 @@
         </div>
       </div>
       <div class="site-footer-top-controls">
-        <button type="button" class="site-footer-live-pill site-footer-version-tag" id="footerVersionTag" title="View PK Khmer Type Release Showcase">
+        <button type="button" class="site-footer-live-pill site-footer-version-tag" id="footerVersionTag" title="View PK Khmer Type v2.4 Beta Release Showcase">
           <span class="site-footer-live-dot" aria-hidden="true"></span>
-          <span class="site-footer-live-text">STUDIO v2.4</span>
+          <span class="site-footer-live-text">STUDIO v2.4 Beta</span>
         </button>
         <button type="button" class="site-lang-toggle" id="siteLangToggle" aria-pressed="false">
           <span class="site-lang-toggle-icon" aria-hidden="true">ភ</span>
@@ -2968,7 +2983,7 @@
   </div>
 </div>
 
-<!-- ================= Version 2.4 Release Showcase Modal ================= -->
+<!-- ================= Version 2.4 Beta Release Showcase Modal ================= -->
 <div class="modal-backdrop" id="versionModal" hidden role="dialog" aria-modal="true" aria-labelledby="versionModalTitle">
   <div class="modal-card version-modal-card">
     <button type="button" class="modal-close" id="versionModalCloseBtn" aria-label="Close release showcase">
@@ -2980,7 +2995,7 @@
       </div>
       <h2 id="versionModalTitle" class="version-modal-title">
         <span>PK Khmer Type</span>
-        <span class="version-modal-tag">v2.4</span>
+        <span class="version-modal-tag">v2.4 Beta</span>
       </h2>
       <p class="version-modal-sub i18n-t" data-en="Angkorian Precision Edition &bull; High-Performance Khmer &amp; English Typing Tutor" data-km="ការបោះពុម្ពជាក់លាក់បែបអង្គរ &bull; កម្មវិធីហ្វឹកហាត់វាយអក្សរខ្មែរ និងអង់គ្លេសល្បឿនលឿន">Angkorian Precision Edition &bull; High-Performance Khmer &amp; English Typing Tutor</p>
     </div>
@@ -4092,10 +4107,13 @@
         </div>
         <h3 class="cl-empty-title i18n-t" data-en="Craft Your First Custom Lesson" data-km="បង្កើតមេរៀនផ្ទាល់ខ្លួនដំបូងរបស់អ្នក">Craft Your First Custom Lesson</h3>
         <p class="cl-empty-desc i18n-t" data-en="Create customized typing exercises with your own vocabulary, literature, or targeted characters for Khmer Standard, NiDA, and English keyboards." data-km="បង្កើតលំហាត់វាយអក្សរតាមតម្រូវការជាមួយនឹងពាក្យ អត្ថបទ ឬតួអក្សរដែលអ្នកចង់ហ្វឹកហាត់លើក្តារចុចខ្មែរស្តង់ដារ និដា និងអង់គ្លេស។">Create customized typing exercises with your own vocabulary, literature, or targeted characters for Khmer Standard, NiDA, and English keyboards.</p>
-        <button type="button" class="cl-primary-btn" id="clEmptyCreateBtn">
-          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          <span class="i18n-t" data-en="Create Lesson Now" data-km="បង្កើតមេរៀនឥឡូវនេះ">Create Lesson Now</span>
-        </button>
+        <div class="cl-empty-actions">
+          <button type="button" class="cl-primary-btn" id="clEmptyCreateBtn">
+            <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span class="i18n-t" data-en="Create Blank Lesson" data-km="បង្កើតមេរៀនទទេ">Create Blank Lesson</span>
+          </button>
+        </div>
+        <div class="cl-empty-starters-shelf" id="clEmptyStartersShelf"></div>
       </div>
 
       <div class="cl-lesson-list" id="clLessonList" hidden></div>
@@ -4164,7 +4182,15 @@
 
         <div class="cl-form-group full-width">
           <div class="cl-starter-bar-wrap">
-            <span class="cl-starter-label i18n-t" data-en="Quick Starter Templates (Click to add)" data-km="គំរូមេរៀនរហ័ស (ចុចដើម្បីបន្ថែម)">Quick Starter Templates (Click to add)</span>
+            <div class="cl-starter-bar-head">
+              <span class="cl-starter-label i18n-t" data-en="Quick Starter Templates (Click to load)" data-km="គំរូមេរៀនរហ័ស (ចុចដើម្បីផ្ទុក)">Quick Starter Templates (Click to load)</span>
+              <div class="cl-starter-cats" id="clStarterCatsBar" role="group" aria-label="Template Categories">
+                <button type="button" class="cl-starter-cat-btn active" data-cat="all"><span class="i18n-t" data-en="All" data-km="ទាំងអស់">All</span></button>
+                <button type="button" class="cl-starter-cat-btn" data-cat="khmer"><span class="i18n-t" data-en="Khmer" data-km="ខ្មែរ">Khmer</span></button>
+                <button type="button" class="cl-starter-cat-btn" data-cat="english"><span class="i18n-t" data-en="English" data-km="អង់គ្លេស">English</span></button>
+                <button type="button" class="cl-starter-cat-btn" data-cat="numbers"><span class="i18n-t" data-en="Numbers" data-km="លេខ &amp; សញ្ញា">Numbers</span></button>
+              </div>
+            </div>
             <div class="cl-starter-chips" id="clStarterChipsBar"></div>
           </div>
         </div>
@@ -4181,17 +4207,33 @@
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
                 <span>3×</span>
               </button>
+              <button type="button" class="cl-tool-btn" id="clToolRepeat5x" title="Repeat text 5 times">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                <span>5×</span>
+              </button>
               <button type="button" class="cl-tool-btn" id="clToolShuffle" title="Shuffle word order">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
                 <span class="i18n-t" data-en="Shuffle" data-km="ច្របល់">Shuffle</span>
               </button>
-              <button type="button" class="cl-tool-btn" id="clToolAddSpaces" title="Insert space between letters">
+              <button type="button" class="cl-tool-btn" id="clToolAddSpaces" title="Insert space between letters/units">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="12" x2="20" y2="12"/></svg>
                 <span class="i18n-t" data-en="Spaces" data-km="ដកឃ្លា">Spaces</span>
               </button>
               <button type="button" class="cl-tool-btn" id="clToolCleanSpaces" title="Clean multiple spaces">
                 <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
                 <span class="i18n-t" data-en="Clean" data-km="សម្អាត">Clean</span>
+              </button>
+              <button type="button" class="cl-tool-btn" id="clToolPasteClean" title="Clean &amp; format text (normalize linebreaks, tabs, spaces)">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                <span class="i18n-t" data-en="Paste &amp; Clean" data-km="សម្អាតអត្ថបទ">Paste &amp; Clean</span>
+              </button>
+              <button type="button" class="cl-tool-btn" id="clToolExtractKeys" title="Extract unique keys into a warm-up drill">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span class="i18n-t" data-en="Warmup Keys" data-km="អក្សរគោលដៅ">Warmup Keys</span>
+              </button>
+              <button type="button" class="cl-tool-btn danger" id="clToolClear" title="Clear text">
+                <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                <span class="i18n-t" data-en="Clear" data-km="លុប">Clear</span>
               </button>
             </div>
           </div>
@@ -4210,6 +4252,10 @@
     </div>
 
     <div class="cl-modal-foot">
+      <div class="cl-shortcut-hint" aria-hidden="true">
+        <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+        <span class="i18n-t" data-en="to Save &amp; Practice" data-km="ដើម្បីរក្សាទុក និងហាត់">to Save &amp; Practice</span>
+      </div>
       <button type="button" class="cl-sec-btn" id="clEditorCancelBtn">
         <span class="i18n-t" data-en="Cancel" data-km="បោះបង់">Cancel</span>
       </button>

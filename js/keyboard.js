@@ -1596,10 +1596,11 @@ function createFingerElement(f){
   impactSparks.setAttribute('d','M0 -12 L0 -7 M10.4 -6 L6.1 -3.5 M10.4 6 L6.1 3.5 M0 12 L0 7 M-10.4 6 L-6.1 3.5 M-10.4 -6 L-6.1 -3.5');
   const reticle = document.createElementNS(SVGNS,'path');
   reticle.setAttribute('class','target-reticle');
-  reticle.setAttribute('d','M -11 -5 L -11 -11 L -5 -11 M 5 -11 L 11 -11 L 11 -5 M 11 5 L 11 11 L 5 11 M -5 11 L -11 11 L -11 5');
+  reticle.setAttribute('d','');
+  reticle.style.display = 'none';
   const tip = document.createElementNS(SVGNS,'circle'); tip.setAttribute('class','finger-tip'); tip.setAttribute('r','5');
   g.appendChild(shape); g.appendChild(crease1); g.appendChild(joint1); g.appendChild(crease2); g.appendChild(joint2);
-  g.appendChild(shine); g.appendChild(shine2); g.appendChild(energy); g.appendChild(nail); g.appendChild(impactRing); g.appendChild(impactRing2); g.appendChild(impactSparks); g.appendChild(reticle); g.appendChild(tip);
+  g.appendChild(shine); g.appendChild(shine2); g.appendChild(energy); g.appendChild(nail); g.appendChild(impactRing); g.appendChild(impactRing2); g.appendChild(impactSparks); g.appendChild(tip);
   (f.hand === 'L' ? handGroupL : handGroupR).appendChild(g);
   fingerEls[f.id] = {g, shape, crease1, crease2, joint1, joint2, shine, shine2, energy, nail, tip, impactRing, impactRing2, impactSparks, reticle};
   return fingerEls[f.id];

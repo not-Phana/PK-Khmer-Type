@@ -38,16 +38,46 @@
     }
   ],
   "LEVELS_NIDA": [
-    { "id": 1, "title": "Level 1 · Keyboard Foundations" },
-    { "id": 2, "title": "Level 2 · First Khmer Characters" },
-    { "id": 3, "title": "Level 3 · More Consonants" },
-    { "id": 4, "title": "Level 4 · Vowels" },
-    { "id": 5, "title": "Level 5 · Subscripts" },
-    { "id": 6, "title": "Level 6 · Diacritics & Signs" },
-    { "id": 7, "title": "Level 7 · Khmer Words" },
-    { "id": 8, "title": "Level 8 · Sentences & Spacing" },
-    { "id": 9, "title": "Level 9 · Speed & Accuracy" },
-    { "id": 10, "title": "Level 10 · Advanced Typing & Independent Vowels" }
+    {
+      "id": 1,
+      "title": "Level 1 · Keyboard Foundations"
+    },
+    {
+      "id": 2,
+      "title": "Level 2 · First Khmer Characters"
+    },
+    {
+      "id": 3,
+      "title": "Level 3 · More Consonants"
+    },
+    {
+      "id": 4,
+      "title": "Level 4 · Vowels"
+    },
+    {
+      "id": 5,
+      "title": "Level 5 · Subscripts"
+    },
+    {
+      "id": 6,
+      "title": "Level 6 · Diacritics & Signs"
+    },
+    {
+      "id": 7,
+      "title": "Level 7 · Khmer Words"
+    },
+    {
+      "id": 8,
+      "title": "Level 8 · Sentences & Spacing"
+    },
+    {
+      "id": 9,
+      "title": "Level 9 · Speed & Accuracy"
+    },
+    {
+      "id": 10,
+      "title": "Level 10 · Advanced Typing & Independent Vowels"
+    }
   ],
   "LESSONS_STANDARD": [
     {
@@ -518,8 +548,8 @@
       ],
       "newLayer": "base",
       "examples": [
-        "ឈ",
-        "ទ",
+        "ឆ",
+        "ត",
         "យ",
         "យាយ"
       ]
@@ -535,8 +565,8 @@
       "newIds": [],
       "newLayer": "base",
       "examples": [
-        "ឈ",
-        "ទ",
+        "ឆ",
+        "ត",
         "យ",
         "យាយ"
       ]
@@ -545,7 +575,7 @@
       "id": 25,
       "level": 4,
       "type": "intro",
-      "title": "Consonants: Top Right (P, R, Z)",
+      "title": "Consonants: P, R, Z (ផ, រ, ឋ)",
       "subtitle": "No modifier · P R Z",
       "layer": "base",
       "threshold": 85,
@@ -559,7 +589,7 @@
         "ផ",
         "រ",
         "ឋ",
-        "រាជា"
+        "តារា"
       ]
     },
     {
@@ -576,7 +606,7 @@
         "ផ",
         "រ",
         "ឋ",
-        "រាជា"
+        "តារា"
       ]
     },
     {
@@ -1150,7 +1180,66 @@
       "level": 8,
       "type": "test",
       "title": "Khmer Character Test",
-      "subtitle": "Final test — all consonants & v  "LESSONS_NIDA": [
+      "subtitle": "Final test — all consonants & vowels",
+      "layer": "base",
+      "threshold": 90,
+      "newIds": [],
+      "newLayer": "base",
+      "examples": [
+        "រៀន",
+        "ទឹក",
+        "សាលា"
+      ]
+    },
+    {
+      "id": 58,
+      "level": 8,
+      "type": "test",
+      "title": "Khmer Numeral Test",
+      "subtitle": "Final test — all numerals",
+      "layer": "base",
+      "threshold": 92,
+      "newIds": [],
+      "newLayer": "base",
+      "examples": [
+        "១២៣",
+        "២០២៦"
+      ]
+    },
+    {
+      "id": 59,
+      "level": 8,
+      "type": "test",
+      "title": "Full Keyboard Test",
+      "subtitle": "Final test — every layer combined",
+      "layer": "base",
+      "threshold": 90,
+      "newIds": [],
+      "newLayer": "base",
+      "examples": [
+        "សាលា",
+        "១២៣",
+        "៛"
+      ]
+    },
+    {
+      "id": 60,
+      "level": 8,
+      "type": "test",
+      "title": "Final Khmer Typing Test",
+      "subtitle": "The ultimate test — words, then the full keyboard",
+      "layer": "base",
+      "threshold": 90,
+      "newIds": [],
+      "newLayer": "base",
+      "examples": [
+        "សាលា",
+        "ទឹក",
+        "រៀន"
+      ]
+    }
+  ],
+  "LESSONS_NIDA": [
     {
       "id": 10001,
       "level": 1,
@@ -1161,9 +1250,26 @@
       "instructions": "Place Left Pinky on A, Left Ring on S, Left Middle on D, and Left Index on F.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["f", "d", "s", "a"],
+      "newIds": [
+        "f",
+        "d",
+        "s",
+        "a"
+      ],
       "newLayer": "base",
-      "examples": ["ថថ", "ដដ", "សស", "ាា", "ថដ", "សា", "ដថ", "ាស", "ថាស", "ដាស", "សដថ"]
+      "examples": [
+        "ថថ",
+        "ដដ",
+        "សស",
+        "ាា",
+        "ថដ",
+        "សា",
+        "ដថ",
+        "ាស",
+        "ថាស",
+        "ដាស",
+        "សដថ"
+      ]
     },
     {
       "id": 10002,
@@ -1175,9 +1281,24 @@
       "instructions": "Place Right Index on J, Right Middle on K, Right Ring on L, and Right Pinky on Semicolon.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["j", "k", "l", "semicolon"],
+      "newIds": [
+        "j",
+        "k",
+        "l",
+        "semicolon"
+      ],
       "newLayer": "base",
-      "examples": ["កក", "លល", "ើើ", "កល", "លក", "កើ", "លើយ", "កើ", "លកើ"]
+      "examples": [
+        "កក",
+        "លល",
+        "ើើ",
+        "កល",
+        "លក",
+        "កើ",
+        "លើយ",
+        "កើ",
+        "លកើ"
+      ]
     },
     {
       "id": 10003,
@@ -1189,9 +1310,24 @@
       "instructions": "Reach Left Index from F to G for ង. Reach Right Index from J to H for ហ. Always return to home.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["g", "h"],
+      "newIds": [
+        "g",
+        "h"
+      ],
       "newLayer": "base",
-      "examples": ["ងង", "ហហ", "ងហ", "ហង", "ថង", "ហក", "សង", "ហា", "ដង", "ហាល", "លង"]
+      "examples": [
+        "ងង",
+        "ហហ",
+        "ងហ",
+        "ហង",
+        "ថង",
+        "ហក",
+        "សង",
+        "ហា",
+        "ដង",
+        "ហាល",
+        "លង"
+      ]
     },
     {
       "id": 10004,
@@ -1203,9 +1339,34 @@
       "instructions": "Keep wrists relaxed and fingers curved. Use thumbs for spacebar.",
       "layer": "base",
       "threshold": 88,
-      "newIds": ["a", "s", "d", "f", "g", "h", "j", "k", "l", "semicolon"],
+      "newIds": [
+        "a",
+        "s",
+        "d",
+        "f",
+        "g",
+        "h",
+        "j",
+        "k",
+        "l",
+        "semicolon"
+      ],
       "newLayer": "base",
-      "examples": ["កា", "ដា", "ថា", "សា", "លា", "ងា", "ហាល", "កាល", "ដាល", "សាល", "កង", "សង", "លង"]
+      "examples": [
+        "កា",
+        "ដា",
+        "ថា",
+        "សា",
+        "លា",
+        "ងា",
+        "ហាល",
+        "កាល",
+        "ដាល",
+        "សាល",
+        "កង",
+        "សង",
+        "លង"
+      ]
     },
     {
       "id": 10005,
@@ -1217,9 +1378,24 @@
       "instructions": "Type the consonant key first, then press A with left pinky to attach vowel ា.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["a"],
+      "newIds": [
+        "a"
+      ],
       "newLayer": "base",
-      "examples": ["កា", "គា", "ដា", "ថា", "សា", "ហា", "លា", "ងា", "កាល", "ដាល", "សាល", "ហាល"]
+      "examples": [
+        "កា",
+        "គា",
+        "ដា",
+        "ថា",
+        "សា",
+        "ហា",
+        "លា",
+        "ងា",
+        "កាល",
+        "ដាល",
+        "សាល",
+        "ហាល"
+      ]
     },
     {
       "id": 10006,
@@ -1231,9 +1407,26 @@
       "instructions": "Press Semicolon for ើ. Hold Shift and press H for sign ះ.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["semicolon", "h"],
+      "newIds": [
+        "semicolon",
+        "h"
+      ],
       "newLayer": "shift",
-      "examples": ["ដើ", "គើ", "កើ", "លើ", "កះ", "ដះ", "ថះ", "សះ", "ហះ", "លះ", "គោះ", "សោះ", "ដោះ"]
+      "examples": [
+        "ដើ",
+        "គើ",
+        "កើ",
+        "លើ",
+        "កះ",
+        "ដះ",
+        "ថះ",
+        "សះ",
+        "ហះ",
+        "លះ",
+        "គោះ",
+        "សោះ",
+        "ដោះ"
+      ]
     },
     {
       "id": 10007,
@@ -1245,9 +1438,22 @@
       "instructions": "Reach Right Pinky to the quote key (') to place Bantoc ់ over the final consonant.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["quote"],
+      "newIds": [
+        "quote"
+      ],
       "newLayer": "base",
-      "examples": ["កាក់", "ដាក់", "ថាក់", "សាក់", "លាក់", "ហាក់", "កាត់", "ដាត់", "សាត់", "លាត់"]
+      "examples": [
+        "កាក់",
+        "ដាក់",
+        "ថាក់",
+        "សាក់",
+        "លាក់",
+        "ហាក់",
+        "កាត់",
+        "ដាត់",
+        "សាត់",
+        "លាត់"
+      ]
     },
     {
       "id": 10008,
@@ -1261,7 +1467,16 @@
       "threshold": 88,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["កាលណា", "សាលា", "ដាក់ចុះ", "ថ្នាក់", "កាក់", "លាក់ទុក", "ដើរទៅ", "សះជា"]
+      "examples": [
+        "កាលណា",
+        "សាលា",
+        "ដាក់ចុះ",
+        "ថ្នាក់",
+        "កាក់",
+        "លាក់ទុក",
+        "ដើរទៅ",
+        "សះជា"
+      ]
     },
     {
       "id": 10009,
@@ -1273,9 +1488,27 @@
       "instructions": "T = Left Index, R = Left Index, Y = Right Index, Q = Left Pinky, P = Right Pinky.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["t", "r", "y", "q", "p"],
+      "newIds": [
+        "t",
+        "r",
+        "y",
+        "q",
+        "p"
+      ],
       "newLayer": "base",
-      "examples": ["តត", "ររ", "យយ", "ឆឆ", "ផផ", "តារា", "រត់", "យូរ", "ឆាប់", "ផុស", "រាយ"]
+      "examples": [
+        "តត",
+        "ររ",
+        "យយ",
+        "ឆឆ",
+        "ផផ",
+        "តារា",
+        "រត់",
+        "យូរ",
+        "ឆាប់",
+        "ផុស",
+        "រាយ"
+      ]
     },
     {
       "id": 10010,
@@ -1287,9 +1520,31 @@
       "instructions": "B = Left Index, C = Left Middle, X = Left Ring, V = Left Index, N = Right Index, M = Right Index, Z = Left Pinky.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["b", "c", "x", "v", "n", "m", "z"],
+      "newIds": [
+        "b",
+        "c",
+        "x",
+        "v",
+        "n",
+        "m",
+        "z"
+      ],
       "newLayer": "base",
-      "examples": ["បប", "ចច", "ខខ", "វវ", "នន", "មម", "ឋឋ", "បង", "ចៅ", "ខាន", "វាល", "នាម", "មាត់"]
+      "examples": [
+        "បប",
+        "ចច",
+        "ខខ",
+        "វវ",
+        "នន",
+        "មម",
+        "ឋឋ",
+        "បង",
+        "ចៅ",
+        "ខាន",
+        "វាល",
+        "នាម",
+        "មាត់"
+      ]
     },
     {
       "id": 10011,
@@ -1301,9 +1556,26 @@
       "instructions": "Hold Shift with opposite hand: Shift+K = គ, Shift+D = ឌ, Shift+F = ធ, Shift+G = អ, Shift+L = ឡ.",
       "layer": "shift",
       "threshold": 85,
-      "newIds": ["k", "d", "f", "g", "l"],
+      "newIds": [
+        "k",
+        "d",
+        "f",
+        "g",
+        "l"
+      ],
       "newLayer": "shift",
-      "examples": ["គក", "ឌដ", "ធថ", "អង", "ឡល", "គា", "ធារា", "អង្ករ", "ឡាន", "ឌីណា"]
+      "examples": [
+        "គក",
+        "ឌដ",
+        "ធថ",
+        "អង",
+        "ឡល",
+        "គា",
+        "ធារា",
+        "អង្ករ",
+        "ឡាន",
+        "ឌីណា"
+      ]
     },
     {
       "id": 10012,
@@ -1315,9 +1587,31 @@
       "instructions": "Use opposite pinky for Shift while pressing the targeted upper/lower key.",
       "layer": "shift",
       "threshold": 85,
-      "newIds": ["q", "t", "p", "x", "c", "b", "n", "z"],
+      "newIds": [
+        "q",
+        "t",
+        "p",
+        "x",
+        "c",
+        "b",
+        "n",
+        "z"
+      ],
       "newLayer": "shift",
-      "examples": ["ឈឆ", "ទត", "ភផ", "ឃខ", "ជច", "ពប", "ណន", "ឍឋ", "ទារក", "ភាសា", "ជោគ", "ពិភព"]
+      "examples": [
+        "ឈឆ",
+        "ទត",
+        "ភផ",
+        "ឃខ",
+        "ជច",
+        "ពប",
+        "ណន",
+        "ឍឋ",
+        "ទារក",
+        "ភាសា",
+        "ជោគ",
+        "ពិភព"
+      ]
     },
     {
       "id": 10013,
@@ -1331,7 +1625,14 @@
       "threshold": 88,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["កខគឃង", "ចឆជឈញ", "ដឋឌឍណ", "តថទធន", "បផពភម", "យរលវសហឡអ"]
+      "examples": [
+        "កខគឃង",
+        "ចឆជឈញ",
+        "ដឋឌឍណ",
+        "តថទធន",
+        "បផពភម",
+        "យរលវសហឡអ"
+      ]
     },
     {
       "id": 10014,
@@ -1343,9 +1644,23 @@
       "instructions": "I = ិ, Shift+I = ី, W = ឹ, Shift+W = ឺ. Type consonant first, then vowel.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["i", "w"],
+      "newIds": [
+        "i",
+        "w"
+      ],
       "newLayer": "base",
-      "examples": ["ទិញ", "ពីរ", "ទឹក", "យឺត", "ជិត", "មីង", "ដឹង", "គឺ", "ពិត", "ជីក"]
+      "examples": [
+        "ទិញ",
+        "ពីរ",
+        "ទឹក",
+        "យឺត",
+        "ជិត",
+        "មីង",
+        "ដឹង",
+        "គឺ",
+        "ពិត",
+        "ជីក"
+      ]
     },
     {
       "id": 10015,
@@ -1357,9 +1672,23 @@
       "instructions": "U = ុ, Shift+U = ូ, Shift+Y = ួ. Always type after base consonant.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["u", "y"],
+      "newIds": [
+        "u",
+        "y"
+      ],
       "newLayer": "shift",
-      "examples": ["កូន", "ពូ", "ចុង", "គួរ", "ជួប", "រូប", "ទូក", "មុន", "ស្រុក", "មួម៉ៅ"]
+      "examples": [
+        "កូន",
+        "ពូ",
+        "ចុង",
+        "គួរ",
+        "ជួប",
+        "រូប",
+        "ទូក",
+        "មុន",
+        "ស្រុក",
+        "មួម៉ៅ"
+      ]
     },
     {
       "id": 10016,
@@ -1371,9 +1700,24 @@
       "instructions": "Always type Consonant first, then Vowel, even if the vowel renders to the left.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["e", "s", "o"],
+      "newIds": [
+        "e",
+        "s",
+        "o"
+      ],
       "newLayer": "shift",
-      "examples": ["ដេក", "ដែក", "ដៃ", "កៅ", "កោ", "ចៅ", "ថែ", "ទៅ", "ពេល", "សែសិប"]
+      "examples": [
+        "ដេក",
+        "ដែក",
+        "ដៃ",
+        "កៅ",
+        "កោ",
+        "ចៅ",
+        "ថែ",
+        "ទៅ",
+        "ពេល",
+        "សែសិប"
+      ]
     },
     {
       "id": 10017,
@@ -1385,9 +1729,26 @@
       "instructions": "[ = ៀ, Shift+[ = ឿ, Shift+V = េះ, Shift+; = ោះ, Shift+A = ាំ, Comma = ុំ, Shift+Comma = ុះ.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["bracketL", "v", "semicolon", "a", "comma"],
+      "newIds": [
+        "bracketL",
+        "v",
+        "semicolon",
+        "a",
+        "comma"
+      ],
       "newLayer": "shift",
-      "examples": ["រៀន", "គ្រឿង", "ចេះ", "នោះ", "ចាំ", "កុំ", "ចុះ", "ភ្លាម", "ឈ្លោះ", "ធំ"]
+      "examples": [
+        "រៀន",
+        "គ្រឿង",
+        "ចេះ",
+        "នោះ",
+        "ចាំ",
+        "កុំ",
+        "ចុះ",
+        "ភ្លាម",
+        "ឈ្លោះ",
+        "ធំ"
+      ]
     },
     {
       "id": 10018,
@@ -1401,7 +1762,15 @@
       "threshold": 88,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["សាលារៀន", "កូនសិស្ស", "ទិញម្ហូប", "ដេកលក់", "ទៅលេង", "ចេះដឹង", "ទឹកដោះគោ"]
+      "examples": [
+        "សាលារៀន",
+        "កូនសិស្ស",
+        "ទិញម្ហូប",
+        "ដេកលក់",
+        "ទៅលេង",
+        "ចេះដឹង",
+        "ទឹកដោះគោ"
+      ]
     },
     {
       "id": 10019,
@@ -1413,9 +1782,22 @@
       "instructions": "Press Base Consonant, press J (Right Index), then press Subscript Consonant.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["j"],
+      "newIds": [
+        "j"
+      ],
       "newLayer": "base",
-      "examples": ["ក្ក", "ខ្ន", "ច្ន", "ត្រ", "ផ្ល", "ស្ម", "ម្ហ", "ង្ក", "ក្ត", "ផ្ក"]
+      "examples": [
+        "ក្ក",
+        "ខ្ន",
+        "ច្ន",
+        "ត្រ",
+        "ផ្ល",
+        "ស្ម",
+        "ម្ហ",
+        "ង្ក",
+        "ក្ត",
+        "ផ្ក"
+      ]
     },
     {
       "id": 10020,
@@ -1429,7 +1811,16 @@
       "threshold": 85,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["ត្រី", "ក្រៅ", "ខ្លា", "ឆ្កែ", "ផ្លូវ", "ម្ហូប", "ស្ងួត", "ក្បាល"]
+      "examples": [
+        "ត្រី",
+        "ក្រៅ",
+        "ខ្លា",
+        "ឆ្កែ",
+        "ផ្លូវ",
+        "ម្ហូប",
+        "ស្ងួត",
+        "ក្បាល"
+      ]
     },
     {
       "id": 10021,
@@ -1441,9 +1832,25 @@
       "instructions": "Type Consonant, press J, then hold Shift and press the subscript consonant.",
       "layer": "shift",
       "threshold": 85,
-      "newIds": ["k", "x", "c", "t", "f", "p", "g"],
+      "newIds": [
+        "k",
+        "x",
+        "c",
+        "t",
+        "f",
+        "p",
+        "g"
+      ],
       "newLayer": "shift",
-      "examples": ["ស្គាល់", "ស្អាត", "កម្ពុជា", "បញ្ជី", "សង្ឃ", "សម្បត្តិ", "បន្ទប់"]
+      "examples": [
+        "ស្គាល់",
+        "ស្អាត",
+        "កម្ពុជា",
+        "បញ្ជី",
+        "សង្ឃ",
+        "សម្បត្តិ",
+        "បន្ទប់"
+      ]
     },
     {
       "id": 10022,
@@ -1455,9 +1862,25 @@
       "instructions": "Strict Khmer order: Consonant -> J -> Subscript -> Vowel.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["bracketL", "y", "v", "o"],
+      "newIds": [
+        "bracketL",
+        "y",
+        "v",
+        "o"
+      ],
       "newLayer": "base",
-      "examples": ["ត្រៀម", "ខ្មៅ", "ឆ្លើយ", "ភ្លើង", "ជ្រៅ", "ក្មេង", "ស្លៀក", "ព្រៃ", "ជ្រឿន", "ព្រួយ"]
+      "examples": [
+        "ត្រៀម",
+        "ខ្មៅ",
+        "ឆ្លើយ",
+        "ភ្លើង",
+        "ជ្រៅ",
+        "ក្មេង",
+        "ស្លៀក",
+        "ព្រៃ",
+        "ជ្រឿន",
+        "ព្រួយ"
+      ]
     },
     {
       "id": 10023,
@@ -1471,7 +1894,16 @@
       "threshold": 90,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["សង្គ្រាម", "កន្ត្រៃ", "អន្តរជាតិ", "មន្ត្រី", "សាស្ត្រា", "កណ្តុរ", "សម្ព័ន្ធ", "បណ្តាញ"]
+      "examples": [
+        "សង្គ្រាម",
+        "កន្ត្រៃ",
+        "អន្តរជាតិ",
+        "មន្ត្រី",
+        "សាស្ត្រា",
+        "កណ្តុរ",
+        "សម្ព័ន្ធ",
+        "បណ្តាញ"
+      ]
     },
     {
       "id": 10024,
@@ -1483,9 +1915,23 @@
       "instructions": "Shift+' produces ៉ (Muusikatoan). Key / produces ៊ (Triisap). Type after the consonant.",
       "layer": "shift",
       "threshold": 85,
-      "newIds": ["quote", "slash"],
+      "newIds": [
+        "quote",
+        "slash"
+      ],
       "newLayer": "shift",
-      "examples": ["ប៉ា", "ម៉ាក់", "ស៊ុប", "ហ៊ាន", "ប៉ះ", "ម៉ោង", "ស៊ី", "ហ៊ីង", "ម៉ូតូ", "ប៉ោង"]
+      "examples": [
+        "ប៉ា",
+        "ម៉ាក់",
+        "ស៊ុប",
+        "ហ៊ាន",
+        "ប៉ះ",
+        "ម៉ោង",
+        "ស៊ី",
+        "ហ៊ីង",
+        "ម៉ូតូ",
+        "ប៉ោង"
+      ]
     },
     {
       "id": 10025,
@@ -1497,9 +1943,23 @@
       "instructions": "Shift+6 = ៍, Shift+7 = ័, Shift+8 = ៏, Shift+- = ៌.",
       "layer": "shift",
       "threshold": 85,
-      "newIds": ["k6", "k7", "k8", "minus"],
+      "newIds": [
+        "k6",
+        "k7",
+        "k8",
+        "minus"
+      ],
       "newLayer": "shift",
-      "examples": ["ទូរស័ព្ទ", "អាទិត្យ", "ដ៏ល្អ", "ព័ត៌មាន", "សព្វថ្ងៃ", "ប្រយ័ត្ន", "ធម៌", "បរិបូរណ៍"]
+      "examples": [
+        "ទូរស័ព្ទ",
+        "អាទិត្យ",
+        "ដ៏ល្អ",
+        "ព័ត៌មាន",
+        "សព្វថ្ងៃ",
+        "ប្រយ័ត្ន",
+        "ធម៌",
+        "បរិបូរណ៍"
+      ]
     },
     {
       "id": 10026,
@@ -1511,9 +1971,22 @@
       "instructions": "Shift+2 = ៗ, Shift+M = ំ, Shift+4 = ៛.",
       "layer": "shift",
       "threshold": 85,
-      "newIds": ["k2", "m", "k4"],
+      "newIds": [
+        "k2",
+        "m",
+        "k4"
+      ],
       "newLayer": "shift",
-      "examples": ["ផ្សេងៗ", "ញឹកៗ", "តិចៗ", "រឿយៗ", "៥០០០៛", "១០០០០៛", "២៥០០០៛", "កំដៅ"]
+      "examples": [
+        "ផ្សេងៗ",
+        "ញឹកៗ",
+        "តិចៗ",
+        "រឿយៗ",
+        "៥០០០៛",
+        "១០០០០៛",
+        "២៥០០០៛",
+        "កំដៅ"
+      ]
     },
     {
       "id": 10027,
@@ -1527,7 +2000,14 @@
       "threshold": 88,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["ថ្ងៃអាទិត្យ", "ព័ត៌មានវិទ្យា", "ស៊ុបមាន់", "ប្រយ័ត្នប្រយែង", "ទិញម្ហូប៥០០០៛", "ដើរលេងញឹកៗ"]
+      "examples": [
+        "ថ្ងៃអាទិត្យ",
+        "ព័ត៌មានវិទ្យា",
+        "ស៊ុបមាន់",
+        "ប្រយ័ត្នប្រយែង",
+        "ទិញម្ហូប៥០០០៛",
+        "ដើរលេងញឹកៗ"
+      ]
     },
     {
       "id": 10028,
@@ -1541,7 +2021,17 @@
       "threshold": 85,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["ឪពុក", "ម្តាយ", "បងប្អូន", "កូនប្រុស", "កូនស្រី", "លោកយាយ", "លោកតា", "មិត្តភក្តិ", "គ្រួសារ"]
+      "examples": [
+        "ឪពុក",
+        "ម្តាយ",
+        "បងប្អូន",
+        "កូនប្រុស",
+        "កូនស្រី",
+        "លោកយាយ",
+        "លោកតា",
+        "មិត្តភក្តិ",
+        "គ្រួសារ"
+      ]
     },
     {
       "id": 10029,
@@ -1555,7 +2045,17 @@
       "threshold": 85,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["ទឹកដី", "ព្រៃឈើ", "ភ្នំខ្ពស់", "សមុទ្រ", "ទន្លេមេគង្គ", "វាលស្រែ", "ផ្កាឈូក", "ដើមត្នោត", "ផ្ទះសម្បែង"]
+      "examples": [
+        "ទឹកដី",
+        "ព្រៃឈើ",
+        "ភ្នំខ្ពស់",
+        "សមុទ្រ",
+        "ទន្លេមេគង្គ",
+        "វាលស្រែ",
+        "ផ្កាឈូក",
+        "ដើមត្នោត",
+        "ផ្ទះសម្បែង"
+      ]
     },
     {
       "id": 10030,
@@ -1569,7 +2069,16 @@
       "threshold": 85,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["បាយព្រឹក", "ម្ហូបឆ្ងាញ់", "ត្រីអាំង", "សម្លកកូរ", "ផ្លែឈើ", "ទឹកស្អាត", "សុខភាពល្អ", "ដំណេក"]
+      "examples": [
+        "បាយព្រឹក",
+        "ម្ហូបឆ្ងាញ់",
+        "ត្រីអាំង",
+        "សម្លកកូរ",
+        "ផ្លែឈើ",
+        "ទឹកស្អាត",
+        "សុខភាពល្អ",
+        "ដំណេក"
+      ]
     },
     {
       "id": 10031,
@@ -1583,7 +2092,16 @@
       "threshold": 88,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["កុំព្យូទ័រ", "ទូរស័ព្ទដៃ", "អ៊ីនធឺណិត", "សាលារៀន", "មន្ទីរពេទ្យ", "ចំណេះដឹង", "ការងារ", "ប្រទេសជាតិ"]
+      "examples": [
+        "កុំព្យូទ័រ",
+        "ទូរស័ព្ទដៃ",
+        "អ៊ីនធឺណិត",
+        "សាលារៀន",
+        "មន្ទីរពេទ្យ",
+        "ចំណេះដឹង",
+        "ការងារ",
+        "ប្រទេសជាតិ"
+      ]
     },
     {
       "id": 10032,
@@ -1595,9 +2113,18 @@
       "instructions": "Period = ។, Shift+Period = ៕, Grave = «, Shift+Grave = », AltGr+; = ៖.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["period", "grave", "semicolon"],
+      "newIds": [
+        "period",
+        "grave",
+        "semicolon"
+      ],
       "newLayer": "base",
-      "examples": ["«ចំណេះវិជ្ជា»។", "ភ្នំពេញ៖ រាជធានីនៃកម្ពុជា។", "សួស្តី! តើសុខសប្បាយទេ?", "ចប់បរិបូណ៌៕"]
+      "examples": [
+        "«ចំណេះវិជ្ជា»។",
+        "ភ្នំពេញ៖ រាជធានីនៃកម្ពុជា។",
+        "សួស្តី! តើសុខសប្បាយទេ?",
+        "ចប់បរិបូណ៌៕"
+      ]
     },
     {
       "id": 10033,
@@ -1665,7 +2192,18 @@
       "threshold": 95,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["កាកា", "ដាដា", "ថាថា", "សាសា", "លាលា", "ហាហា", "កាលណា", "សាលា", "ដាលី", "ថាសកាក់"]
+      "examples": [
+        "កាកា",
+        "ដាដា",
+        "ថាថា",
+        "សាសា",
+        "លាលា",
+        "ហាហា",
+        "កាលណា",
+        "សាលា",
+        "ដាលី",
+        "ថាសកាក់"
+      ]
     },
     {
       "id": 10037,
@@ -1679,7 +2217,16 @@
       "threshold": 92,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["ត្រីក្រៅ", "ខ្លាឆ្កែ", "ផ្លូវស្ងួត", "ម្ហូបឆ្ងាញ់", "ក្មេងស្អាត", "ស្លៀកពាក់", "ភ្លើងឆេះ", "ជ្រៅជ្រះ"]
+      "examples": [
+        "ត្រីក្រៅ",
+        "ខ្លាឆ្កែ",
+        "ផ្លូវស្ងួត",
+        "ម្ហូបឆ្ងាញ់",
+        "ក្មេងស្អាត",
+        "ស្លៀកពាក់",
+        "ភ្លើងឆេះ",
+        "ជ្រៅជ្រះ"
+      ]
     },
     {
       "id": 10038,
@@ -1693,7 +2240,17 @@
       "threshold": 92,
       "newIds": [],
       "newLayer": "base",
-      "examples": ["គកឃខ", "ជចឈឆ", "ទតធថ", "ពបភផ", "ណនឡល", "អងញម", "កម្ពុជា", "ភាសាខ្មែរ", "ព័ត៌មាន"]
+      "examples": [
+        "គកឃខ",
+        "ជចឈឆ",
+        "ទតធថ",
+        "ពបភផ",
+        "ណនឡល",
+        "អងញម",
+        "កម្ពុជា",
+        "ភាសាខ្មែរ",
+        "ព័ត៌មាន"
+      ]
     },
     {
       "id": 10039,
@@ -1721,9 +2278,27 @@
       "instructions": "Minus = ឥ, Equal = ឲ, BracketR = ឪ, Shift+BracketR = ឧ, Backslash = ឮ, Shift+Backslash = ឭ, Shift+R = ឬ, AltGr+R = ឫ, AltGr+E = ឯ, AltGr+O = ឱ.",
       "layer": "base",
       "threshold": 85,
-      "newIds": ["minus", "equal", "bracketR", "backslash", "r", "e", "o"],
+      "newIds": [
+        "minus",
+        "equal",
+        "bracketR",
+        "backslash",
+        "r",
+        "e",
+        "o"
+      ],
       "newLayer": "base",
-      "examples": ["ឥឡូវនេះ", "ឪពុកម្តាយ", "ឲ្យដឹង", "ឧត្តមគតិ", "ឱកាសល្អ", "ឯកសារ", "ឫស្សី", "ឬស្សីព្រៃ", "ឮសូរ"]
+      "examples": [
+        "ឥឡូវនេះ",
+        "ឪពុកម្តាយ",
+        "ឲ្យដឹង",
+        "ឧត្តមគតិ",
+        "ឱកាសល្អ",
+        "ឯកសារ",
+        "ឫស្សី",
+        "ឬស្សីព្រៃ",
+        "ឮសូរ"
+      ]
     },
     {
       "id": 10041,
@@ -1735,7 +2310,18 @@
       "instructions": "Reach upward from home row fingers to the corresponding number keys.",
       "layer": "base",
       "threshold": 88,
-      "newIds": ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9", "k0"],
+      "newIds": [
+        "k1",
+        "k2",
+        "k3",
+        "k4",
+        "k5",
+        "k6",
+        "k7",
+        "k8",
+        "k9",
+        "k0"
+      ],
       "newLayer": "base",
       "examples": [
         "ថ្ងៃទី១៥ ខែមេសា ឆ្នាំ២០២៦",
@@ -1777,99 +2363,6 @@
       "newLayer": "base",
       "examples": [
         "ព្រះរាជាណាចក្រកម្ពុជា ជាប្រទេសមួយដែលមានប្រវត្តិសាស្ត្រយូរអង្វែង និងមានសម្បត្តិវប្បធម៌ដ៏រុងរឿង។ ប្រាសាទអង្គរវត្តជាបេតិកភណ្ឌពិភពលោក និងជាមោទនភាពជាតិខ្មែរគ្រប់ជំនាន់។ យុវជនជំនាន់ក្រោយត្រូវខិតខំក្រេបជញ្ជក់ចំណេះវិជ្ជា និងបច្ចេកវិទ្យាដើម្បីអភិវឌ្ឍមាតុភូមិ។"
-      ]
-    }
-  ]�ា",
-        "ទូរស័ព្ទដៃ",
-        "ថ្ងៃអាទិត្យ",
-        "ស៊ុបមាន់",
-        "ប៉ះពាល់",
-        "ប្រយ័ត្នប្រយែង"
-      ]
-    },
-    {
-      "id": 10013,
-      "level": 4,
-      "type": "intro",
-      "title": "Khmer Numerals & Symbols",
-      "subtitle": "១ ២ ៣ ៤ ៥ ៦ ៧ ៨ ៩ ០ & ៛, ៗ",
-      "layer": "base",
-      "threshold": 85,
-      "newIds": [
-        "k1",
-        "k2",
-        "k3",
-        "k4",
-        "k5",
-        "k6",
-        "k7",
-        "k8",
-        "k9",
-        "k0"
-      ],
-      "newLayer": "base",
-      "examples": [
-        "១២៣៤៥",
-        "៦៧៨៩០",
-        "៥០០០៛",
-        "២៥០០០៛",
-        "ផ្សេងៗ",
-        "ញឹកៗ",
-        "តិចៗ",
-        "២០២៦"
-      ]
-    },
-    {
-      "id": 10014,
-      "level": 4,
-      "type": "combo",
-      "title": "Khmer Punctuation & Quotations",
-      "subtitle": "Khan (.), Bariyoosan (Shift+.), Quotes (« »), Colon (៖)",
-      "layer": "base",
-      "threshold": 85,
-      "newIds": [
-        "period",
-        "grave",
-        "semicolon"
-      ],
-      "newLayer": "base",
-      "examples": [
-        "«ចំណេះវិជ្ជាជាទ្រព្យ»។",
-        "សួស្តី! តើសុខសប្បាយទេ?",
-        "ភ្នំពេញ៖ រាជធានីនៃកម្ពុជា។"
-      ]
-    },
-    {
-      "id": 10015,
-      "level": 4,
-      "type": "words",
-      "title": "Fluent Practical Sentences",
-      "subtitle": "Everyday Khmer Prose & Proper Spacing",
-      "layer": "base",
-      "threshold": 85,
-      "newIds": [],
-      "newLayer": "base",
-      "examples": [
-        "ខ្ញុំរៀនវាយអក្សរខ្មែរលើកុំព្យូទ័រ។",
-        "ភាសាខ្មែរមានអក្សរស្រស់ស្អាតណាស់។",
-        "សាលារៀននៅជិតផ្ទះរបស់ខ្ញុំ។",
-        "យើងទាំងអស់គ្នាស្រឡាញ់ប្រទេសកម្ពុជា។"
-      ]
-    },
-    {
-      "id": 10016,
-      "level": 4,
-      "type": "test",
-      "title": "Comprehensive Khmer NiDA Mastery Test",
-      "subtitle": "Full Keyboard Navigation, Accuracy & Speed",
-      "layer": "base",
-      "threshold": 92,
-      "newIds": [],
-      "newLayer": "base",
-      "examples": [
-        "ភាសាខ្មែរជាភាសាផ្លូវការនៃព្រះរាជាណាចក្រកម្ពុជា។",
-        "ការហ្វឹកហាត់វាយអក្សរលើក្តារចុចនីដាជួយឱ្យយើងវាយបានរហ័សនិងត្រឹមត្រូវ។",
-        "ចូរអង្គុយឱ្យត្រង់ខ្លួន ហើយដាក់ម្រាមដៃលើជួរដេកដើមជានិច្ច។"
       ]
     }
   ],
@@ -2083,24 +2576,6 @@
         "sun",
         "run"
       ]
-    }
-  ],
-  "LEVELS_NIDA": [
-    {
-      "id": 1,
-      "title": "Level 1 · Beginner: Consonants & Core Vowels"
-    },
-    {
-      "id": 2,
-      "title": "Level 2 · Intermediate: Subscripts (Coeng J)"
-    },
-    {
-      "id": 3,
-      "title": "Level 3 · Advanced: Independent Vowels & Signs"
-    },
-    {
-      "id": 4,
-      "title": "Level 4 · Master: Numerals & Fluid Prose"
     }
   ]
 }

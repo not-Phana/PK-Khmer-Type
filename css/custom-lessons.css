@@ -273,6 +273,107 @@
   line-height: 1.5;
 }
 
+.cl-empty-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.cl-empty-starters-shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+  text-align: left;
+  margin-top: 14px;
+}
+
+.cl-empty-starter-card {
+  background: rgba(13, 17, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.18s ease;
+}
+
+.cl-empty-starter-card:hover {
+  border-color: rgba(255, 209, 102, 0.35);
+  background: rgba(18, 24, 42, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.cl-esc-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cl-esc-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.cl-esc-preview {
+  font-family: 'Kantumruy Pro', 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #ffd166;
+  background: #090c15;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 6px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cl-esc-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.cl-esc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.cl-esc-btn.primary {
+  background: rgba(255, 209, 102, 0.15);
+  border-color: rgba(255, 209, 102, 0.35);
+  color: #ffd166;
+}
+
+.cl-esc-btn.primary:hover {
+  background: #ffd166;
+  color: #0b0f19;
+}
+
+.cl-esc-btn.secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+.cl-esc-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
 /* Lesson Cards List */
 .cl-lesson-list {
   display: flex;
@@ -566,11 +667,19 @@
 .cl-starter-bar-wrap {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   background: rgba(17, 22, 38, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 10px;
   padding: 10px 12px;
+}
+
+.cl-starter-bar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .cl-starter-label {
@@ -579,6 +688,35 @@
   color: #ffd166;
   letter-spacing: 0.3px;
   text-transform: uppercase;
+}
+
+.cl-starter-cats {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cl-starter-cat-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cl-starter-cat-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+}
+
+.cl-starter-cat-btn.active {
+  background: rgba(255, 209, 102, 0.15);
+  border-color: rgba(255, 209, 102, 0.4);
+  color: #ffd166;
 }
 
 .cl-starter-chips {
@@ -638,6 +776,12 @@
   border-color: rgba(255, 255, 255, 0.16);
 }
 
+.cl-tool-btn.danger:hover {
+  background: rgba(239, 71, 111, 0.18);
+  border-color: rgba(239, 71, 111, 0.4);
+  color: #ef476f;
+}
+
 /* Live Telemetry Footer */
 .cl-telemetry-bar {
   display: flex;
@@ -676,6 +820,26 @@
   padding: 16px 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   background: rgba(17, 22, 38, 0.95);
+}
+
+.cl-shortcut-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #64748b;
+  margin-right: auto;
+}
+
+.cl-shortcut-hint kbd {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  color: #cbd5e1;
 }
 
 .cl-sec-btn {

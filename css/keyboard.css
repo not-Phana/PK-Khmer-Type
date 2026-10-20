@@ -401,33 +401,18 @@
     pointer-events:none !important;
   }
 
-  /* Target reticle HUD brackets on reaching fingertip */
+  /* Target reticle HUD brackets permanently removed per user preference */
   .hands-overlay .target-reticle{
-    fill:none;
-    stroke:#ffd166;
-    stroke-width:1.2;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-    opacity:0;
-    pointer-events:none;
-    transform-origin:0 0;
-    transition:opacity .2s ease;
+    display:none !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
   }
   .hands-overlay .finger.active .target-reticle{
-    opacity:0.85;
-    animation:reticle-hud-pulse 1.8s ease-in-out infinite;
-  }
-  @keyframes reticle-hud-pulse{
-    0%, 100%{
-      stroke:#ffd166;
-      filter:drop-shadow(0 0 4px #ffd166);
-      transform:scale(1);
-    }
-    50%{
-      stroke:#ffffff;
-      filter:drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 14px rgba(255, 209, 102, 0.8));
-      transform:scale(1.12);
-    }
+    display:none !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    animation:none !important;
   }
 
   .hands-overlay .finger-tip{

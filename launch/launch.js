@@ -373,7 +373,7 @@
     sunset: { name: 'Sunset & Violet', l: '#fb923c', r: '#a78bfa' },
     ghost: { name: 'Frost Silver', l: '#94a3b8', r: '#e2e8f0' },
   };
-  let currentHandPresetIdx = 0;
+  let currentHandPresetIdx = 1;
   const HAND_PRESET_KEYS = Object.keys(HAND_COLOR_PRESETS);
 
   const fingerEls = {};
@@ -651,7 +651,7 @@
       fingerEls[f.id] = { g, shape, crease1, crease2, joint1, joint2, shine, nail, tip };
     });
 
-    const preset = HAND_COLOR_PRESETS.cyber;
+    const preset = HAND_COLOR_PRESETS.emerald;
     updateHandsGradients(preset.l, preset.r);
   }
 
@@ -1012,6 +1012,8 @@
       palmHiR.setAttribute('cx', svgR.highlight.cx); palmHiR.setAttribute('cy', svgR.highlight.cy);
       palmHiR.setAttribute('rx', svgR.highlight.rx); palmHiR.setAttribute('ry', svgR.highlight.ry);
     }
+
+    syncHeroHands();
   }
 
   function setActiveFinger(keyId, layer) {
@@ -1380,6 +1382,22 @@
     }
   }
 
+  let practiceStreak = 0;
+
+  function updatePracticeStreak(success) {
+    const streakEl = byId('practiceStreak');
+    const countEl = byId('streakCount');
+    if (success) {
+      practiceStreak += 1;
+    } else {
+      practiceStreak = 0;
+    }
+    if (countEl) countEl.textContent = practiceStreak;
+    if (streakEl) {
+      streakEl.classList.toggle('streak-hot', practiceStreak >= 3);
+    }
+  }
+
   function acceptCharacter(glyph) {
     if (!state.sequence || state.cursor >= state.sequence.length) return;
     state.attempts += 1;
@@ -1388,6 +1406,7 @@
     if (glyph === expected) {
       state.typed += glyph;
       state.cursor += 1;
+      updatePracticeStreak(true);
       if (state.cursor === state.sequence.length) {
         setMessage('Brilliant work. You completed this starter exercise.', 'success');
       } else {
@@ -1395,6 +1414,7 @@
       }
     } else {
       state.mistakes += 1;
+      updatePracticeStreak(false);
       setMessage(`Looking for ${expected} — follow the glowing key and 3D finger beacon.`, 'error');
     }
 
@@ -1427,6 +1447,7 @@
     state.mistakes = 0;
     state.typed = '';
     state.currentKeyId = null;
+    updatePracticeStreak(false);
 
     document.querySelectorAll('.practice-layout').forEach((button) => {
       const active = button.dataset.practiceLayout === name;
@@ -1643,12 +1664,522 @@
     items.forEach((el) => observer.observe(el));
   }
 
+  /* ============================================================
+     HERO STUDIO APPARATUS DECK (AUTHENTIC APP KEYBOARD SHOWCASE)
+     ============================================================ */
+  let heroCurrentLayout = 'standard';
+
+  function syncHeroHands() {
+    const heroHands = byId('heroHandsOverlay');
+    const mainHands = byId('handsOverlay');
+    if (!heroHands || !mainHands) return;
+
+    const vb = mainHands.getAttribute('viewBox');
+    if (vb) {
+      heroHands.setAttribute('viewBox', vb);
+      heroHands.setAttribute('preserveAspectRatio', 'none');
+    }
+    heroHands.innerHTML = mainHands.innerHTML;
+  }
+
+  function setupHeroStudioDeck() {
+    const heroKeyboard = byId('heroKeyboard');
+    if (!heroKeyboard) return;
+
+    const heroInspectorGlyph = byId('heroInspectorGlyph');
+    const heroInspectorCode = byId('heroInspectorCode');
+    const heroInspectorName = byId('heroInspectorName');
+    const heroInspectorLayer = byId('heroInspectorLayer');
+    const heroInspectorShift = byId('heroInspectorShift');
+    const heroInspectorFinger = byId('heroInspectorFinger');
+    const heroChassisLayoutLabel = byId('heroChassisLayoutLabel');
+
+    function updateHeroInspector(glyph, keyObj, keyId) {
+      if (heroInspectorGlyph) heroInspectorGlyph.textContent = glyph || (keyObj?.label || '·');
+      if (heroInspectorCode) heroInspectorCode.textContent = keyId ? `KEY ${keyId.toUpperCase()}` : 'KEY READY';
+
+      const char = glyph || '';
+      let nameText = 'Standard Key';
+      let uniCode = '—';
+
+      if (char) {
+        const cp = char.codePointAt(0);
+        uniCode = `U+${cp.toString(16).toUpperCase().padStart(4, '0')}`;
+        nameText = KHMER_NAMES[char] || `Character '${char}'`;
+      } else if (keyObj?.kind === 'mod') {
+        nameText = `${keyObj.label || keyId.toUpperCase()} Modifier`;
+      }
+
+      if (heroInspectorName) heroInspectorName.textContent = nameText;
+      if (heroInspectorLayer) heroInspectorLayer.textContent = `${heroCurrentLayout.toUpperCase()} · BASE`;
+      if (heroInspectorShift) heroInspectorShift.textContent = keyObj?.shift ? `Shift: ${keyObj.shift}` : (uniCode !== '—' ? uniCode : 'Modifier');
+      const fid = KEY_FINGER[keyId];
+      if (heroInspectorFinger) heroInspectorFinger.textContent = FINGER_NAMES[fid] || 'Touch Position';
+    }
+
+    function buildHeroAppDeck(layoutId) {
+      heroCurrentLayout = layoutId || 'standard';
+      const layout = LAYOUTS[heroCurrentLayout] || LAYOUTS.standard;
+      if (heroChassisLayoutLabel) {
+        heroChassisLayoutLabel.textContent = layout.deckId || heroCurrentLayout.toUpperCase();
+      }
+
+      heroKeyboard.replaceChildren();
+
+      layout.rows.forEach((row, rowIndex) => {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'row';
+        rowEl.setAttribute('role', 'group');
+        rowEl.setAttribute('aria-label', `Row ${rowIndex + 1}`);
+
+        row.forEach((k) => {
+          const glyph = characterFor(k, 'base', layout);
+          const btn = document.createElement('div');
+          const isModifier = k.kind === 'mod';
+          const isSpace = k.id === 'space';
+          const isBlank = !isModifier && !glyph;
+
+          btn.className = 'key notranslate';
+          btn.setAttribute('translate', 'no');
+          btn.dataset.key = k.id;
+          if (k.wide) btn.style.flexGrow = k.wide;
+          if (k.cls) btn.classList.add(k.cls);
+          if (isModifier) btn.classList.add('is-modifier');
+          if (isBlank) btn.classList.add('empty');
+
+          // Homing keys
+          if (heroCurrentLayout === 'english') {
+            if (k.id === 'f' || k.id === 'j') btn.classList.add('homing');
+          } else {
+            if (k.id === 'f' || k.id === 'k') btn.classList.add('homing');
+          }
+
+          // Active target highlight matching the authentic app screenshot (d = ដ in standard/nida, f in english)
+          if ((heroCurrentLayout !== 'english' && k.id === 'd') || (heroCurrentLayout === 'english' && k.id === 'f')) {
+            btn.classList.add('is-target');
+          }
+
+          if (isModifier) {
+            if (isSpace) {
+              btn.classList.add('space');
+              if (heroCurrentLayout === 'standard') {
+                btn.innerHTML = '<span class="space-glyph">្</span><span class="space-label">ជើង (Coeng)</span><span class="shift-badge">Space</span>';
+              } else if (heroCurrentLayout === 'nida') {
+                btn.innerHTML = '<span class="space-glyph">␣</span><span class="space-label">ដកឃ្លា · Spacebar</span>';
+              } else {
+                btn.innerHTML = '<span class="space-label">Space</span>';
+              }
+            } else if (k.id === 'win') {
+              btn.classList.add('key-win');
+              btn.innerHTML = '<svg class="win-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg><span>Win</span>';
+            } else {
+              btn.textContent = k.label || k.id;
+            }
+          } else {
+            const g = document.createElement('span');
+            g.className = 'glyph notranslate';
+            g.setAttribute('translate', 'no');
+            g.textContent = glyph || k.base || '';
+            btn.appendChild(g);
+
+            if (k.shift) {
+              const hint = document.createElement('span');
+              hint.className = 'shift-badge notranslate';
+              hint.setAttribute('translate', 'no');
+              hint.textContent = k.shift;
+              btn.appendChild(hint);
+            }
+          }
+
+          // Interactive feedback
+          btn.addEventListener('mouseenter', () => {
+            updateHeroInspector(glyph || (isSpace ? ' ' : ''), k, k.id);
+          });
+
+          btn.addEventListener('pointerdown', (ev) => {
+            burst(btn, ev);
+            playClick('down');
+            btn.classList.add('pressed');
+            updateHeroInspector(glyph || (isSpace ? ' ' : ''), k, k.id);
+          });
+
+          btn.addEventListener('pointerup', () => {
+            playClick('up');
+            btn.classList.remove('pressed');
+          });
+
+          btn.addEventListener('pointercancel', () => {
+            btn.classList.remove('pressed');
+          });
+
+          rowEl.appendChild(btn);
+        });
+
+        heroKeyboard.appendChild(rowEl);
+      });
+    }
+
+    // Build standard layout initial deck
+    buildHeroAppDeck('standard');
+
+    // Caption layout switcher tabs
+    const captionTabs = document.querySelectorAll('.hero-caption-tab');
+    captionTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const layoutId = tab.dataset.heroLayout;
+        captionTabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+        buildHeroAppDeck(layoutId);
+        syncHeroHands();
+      });
+    });
+  }
+
+  /* ============================================================
+     AMBIENT CYBER KHMER CONSTELLATIONS BACKGROUND CANVAS ENGINE
+     ============================================================ */
+  function initAmbientCanvas() {
+    const canvas = byId('ambientCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0, height = 0, dpr = 1;
+    let particles = [];
+    const mouse = { x: -9999, y: -9999, radius: 140 };
+
+    const KHMER_GLYPHS = ['ក', 'ខ', 'គ', 'ថ', 'ដ', 'ស', '្', 'ា', 'ិ', 'ោ', 'ែ', 'ៅ', 'ញ', 'ល', 'រ', 'ប'];
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function createParticles() {
+      particles = [];
+      const count = Math.min(Math.floor((width * height) / 28000), 45);
+
+      for (let i = 0; i < count; i++) {
+        const isGlyph = i % 3 === 0;
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          size: isGlyph ? 14 + Math.random() * 14 : 1.5 + Math.random() * 2.5,
+          alpha: 0.08 + Math.random() * 0.18,
+          baseAlpha: 0.08 + Math.random() * 0.18,
+          char: isGlyph ? KHMER_GLYPHS[Math.floor(Math.random() * KHMER_GLYPHS.length)] : null,
+          color: Math.random() > 0.5 ? 'rgba(93, 233, 213,' : 'rgba(255, 209, 102,',
+          phase: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+      createParticles();
+    });
+
+    window.addEventListener('pointermove', (ev) => {
+      mouse.x = ev.clientX;
+      mouse.y = ev.clientY;
+      document.documentElement.style.setProperty('--cursor-x', `${ev.clientX}px`);
+      document.documentElement.style.setProperty('--cursor-y', `${ev.clientY}px`);
+    });
+
+    window.addEventListener('pointerleave', () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    });
+
+    resize();
+    createParticles();
+
+    function render(time) {
+      if (document.hidden || state.motionOff) {
+        requestAnimationFrame(render);
+        return;
+      }
+
+      ctx.clearRect(0, 0, width, height);
+
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.phase += 0.015;
+
+        if (p.x < -40) p.x = width + 40;
+        if (p.x > width + 40) p.x = -40;
+        if (p.y < -40) p.y = height + 40;
+        if (p.y > height + 40) p.y = -40;
+
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < mouse.radius && dist > 0) {
+          const force = (1 - dist / mouse.radius) * 1.8;
+          p.x += (dx / dist) * force;
+          p.y += (dy / dist) * force;
+        }
+
+        const pulseAlpha = p.baseAlpha + Math.sin(p.phase) * 0.05;
+
+        if (p.char) {
+          ctx.save();
+          ctx.font = `600 ${p.size}px "Kantumruy Pro", "Noto Sans Khmer", sans-serif`;
+          ctx.fillStyle = `${p.color}${Math.max(0.04, pulseAlpha)})`;
+          ctx.fillText(p.char, p.x, p.y);
+          ctx.restore();
+        } else {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = `${p.color}${Math.max(0.06, pulseAlpha * 1.5)})`;
+          ctx.fill();
+        }
+      });
+
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  /* ============================================================
+     3D PERSPECTIVE TILT ON HERO VISUAL
+     ============================================================ */
+  function setupHeroVisualTilt() {
+    const heroVisual = document.querySelector('.hero-visual');
+    if (!heroVisual) return;
+
+    let targetRotX = 0, targetRotY = 0;
+    let currentRotX = 0, currentRotY = 0;
+    let isHovering = false;
+
+    heroVisual.addEventListener('pointermove', (ev) => {
+      if (state.motionOff) return;
+      const rect = heroVisual.getBoundingClientRect();
+      const x = ev.clientX - rect.left;
+      const y = ev.clientY - rect.top;
+      const normX = (x / rect.width) * 2 - 1;
+      const normY = (y / rect.height) * 2 - 1;
+
+      targetRotY = normX * 4.5;
+      targetRotX = -normY * 4.0;
+      isHovering = true;
+    });
+
+    heroVisual.addEventListener('pointerleave', () => {
+      targetRotX = 0;
+      targetRotY = 0;
+      isHovering = false;
+    });
+
+    function tiltTick() {
+      if (!state.motionOff) {
+        currentRotX += (targetRotX - currentRotX) * 0.12;
+        currentRotY += (targetRotY - currentRotY) * 0.12;
+        if (isHovering || Math.abs(currentRotX) > 0.05 || Math.abs(currentRotY) > 0.05) {
+          heroVisual.style.transform = `perspective(1200px) rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) translateZ(${isHovering ? '10px' : '0px'})`;
+        } else {
+          heroVisual.style.transform = '';
+        }
+      }
+      requestAnimationFrame(tiltTick);
+    }
+
+    tiltTick();
+  }
+
+  /* ============================================================
+     AUTONOMOUS HERO KEYBOARD AMBIENT TYPING DEMO
+     ============================================================ */
+  function setupHeroAmbientTyping() {
+    const heroKeyboard = byId('heroKeyboard');
+    const heroBoardWrap = byId('heroBoardWrap');
+    if (!heroKeyboard || !heroBoardWrap) return;
+
+    const DEMO_WORDS = [
+      'កម្ពុជា',
+      'សួស្តី',
+      'ថដសាញ',
+      'អក្សរខ្មែរ',
+      'ស្ទាត់ជំនាញ',
+    ];
+
+    let wordIdx = 0;
+    let charIdx = 0;
+    let isUserInteracting = false;
+    let idleTimer = null;
+    let typeInterval = null;
+
+    function resetIdleTimer() {
+      isUserInteracting = true;
+      if (idleTimer) clearTimeout(idleTimer);
+      if (typeInterval) {
+        clearInterval(typeInterval);
+        typeInterval = null;
+      }
+      idleTimer = setTimeout(() => {
+        isUserInteracting = false;
+        startAmbientTyping();
+      }, 3500);
+    }
+
+    heroBoardWrap.addEventListener('pointerenter', resetIdleTimer);
+    heroBoardWrap.addEventListener('pointerdown', resetIdleTimer);
+    heroBoardWrap.addEventListener('pointermove', resetIdleTimer);
+    document.addEventListener('keydown', resetIdleTimer);
+
+    function triggerDemoChar(char) {
+      if (isUserInteracting || document.hidden || state.motionOff) return;
+      if (heroCurrentLayout !== 'standard') return;
+
+      const standardLayout = LAYOUTS.standard;
+      const flat = allKeys('standard');
+      let targetKeyObj = null;
+      let targetLayer = 'base';
+
+      for (const lyr of ['base', 'shift']) {
+        const found = flat.find((k) => k.kind !== 'mod' && characterFor(k, lyr, standardLayout) === char);
+        if (found) {
+          targetKeyObj = found;
+          targetLayer = lyr;
+          break;
+        }
+      }
+
+      if (!targetKeyObj) targetKeyObj = flat.find((k) => k.id === 'f');
+      if (!targetKeyObj) return;
+
+      heroKeyboard.querySelectorAll('.key.is-target').forEach((el) => el.classList.remove('is-target'));
+      const keyEl = heroKeyboard.querySelector(`.key[data-key="${targetKeyObj.id}"]`);
+      if (keyEl) {
+        keyEl.classList.add('is-target', 'pressed');
+        burst(keyEl);
+        if (state.soundOn) playClick('down');
+
+        const heroInspectorGlyph = byId('heroInspectorGlyph');
+        const heroInspectorCode = byId('heroInspectorCode');
+        const heroInspectorName = byId('heroInspectorName');
+        const heroInspectorLayer = byId('heroInspectorLayer');
+        const heroInspectorShift = byId('heroInspectorShift');
+        const heroInspectorFinger = byId('heroInspectorFinger');
+
+        if (heroInspectorGlyph) heroInspectorGlyph.textContent = char;
+        if (heroInspectorCode) heroInspectorCode.textContent = `KEY ${targetKeyObj.id.toUpperCase()}`;
+        if (heroInspectorName) heroInspectorName.textContent = KHMER_NAMES[char] || `Character '${char}'`;
+        if (heroInspectorLayer) heroInspectorLayer.textContent = `STANDARD · ${targetLayer.toUpperCase()}`;
+        if (heroInspectorShift) heroInspectorShift.textContent = targetKeyObj.shift ? `Shift: ${targetKeyObj.shift}` : 'Direct Key';
+        const fid = KEY_FINGER[targetKeyObj.id];
+        if (heroInspectorFinger) heroInspectorFinger.textContent = FINGER_NAMES[fid] || 'Home Position';
+
+        setTimeout(() => {
+          keyEl.classList.remove('pressed');
+          if (state.soundOn) playClick('up');
+        }, 160);
+      }
+    }
+
+    function stepAmbient() {
+      if (isUserInteracting || document.hidden || state.motionOff) return;
+      const word = DEMO_WORDS[wordIdx];
+      if (charIdx < word.length) {
+        triggerDemoChar(word[charIdx]);
+        charIdx++;
+      } else {
+        charIdx = 0;
+        wordIdx = (wordIdx + 1) % DEMO_WORDS.length;
+        clearInterval(typeInterval);
+        typeInterval = null;
+        setTimeout(() => {
+          if (!isUserInteracting && !typeInterval) {
+            startAmbientTyping();
+          }
+        }, 1200);
+      }
+    }
+
+    function startAmbientTyping() {
+      if (typeInterval || isUserInteracting || state.motionOff) return;
+      typeInterval = setInterval(stepAmbient, 650);
+    }
+
+    idleTimer = setTimeout(startAmbientTyping, 2800);
+  }
+
+  /* ============================================================
+     LAYOUT CARDS INTERACTIVE HOVER WAVE
+     ============================================================ */
+  function setupLayoutCardsHoverWave() {
+    document.querySelectorAll('.layout-card').forEach((card) => {
+      card.addEventListener('pointerenter', () => {
+        if (state.motionOff) return;
+        const keys = card.querySelectorAll('.bp-key');
+        keys.forEach((k, idx) => {
+          k.style.animation = 'none';
+          void k.offsetHeight;
+          k.style.animation = `bp-key-wave 0.5s ease ${Math.min(idx * 0.015, 0.45)}s 1 forwards`;
+        });
+      });
+    });
+  }
+
+  /* ============================================================
+     NAVIGATION SCROLL SPY & GLASSMORPHIC HEADER
+     ============================================================ */
+  function setupScrollSpy() {
+    const header = document.querySelector('.site-header');
+    const sections = ['top', 'experience', 'keyboard-deck', 'learning', 'practice'];
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    function onScroll() {
+      const scrollY = window.scrollY;
+      if (header) {
+        header.classList.toggle('is-scrolled', scrollY > 20);
+      }
+
+      let currentSection = '';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop - 140;
+          const height = el.offsetHeight;
+          if (scrollY >= top && scrollY < top + height) {
+            currentSection = id;
+          }
+        }
+      }
+
+      navLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href === `#${currentSection}`) {
+          link.classList.add('is-active');
+        } else if (href && href.startsWith('#')) {
+          link.classList.remove('is-active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   function initialize() {
+    initAmbientCanvas();
     initHandsDOM();
     setupMotion();
     setupControls();
     attachKeyboardEvents();
     setupReveals();
+    setupHeroStudioDeck();
+    setupHeroVisualTilt();
+    setupHeroAmbientTyping();
+    setupLayoutCardsHoverWave();
+    setupScrollSpy();
 
     renderPrompt();
     renderKeyboard();
@@ -1658,6 +2189,7 @@
     window.requestAnimationFrame(() => {
       updateHandsOverlay();
       window.setTimeout(updateHandsOverlay, 120);
+      window.setTimeout(updateHandsOverlay, 350);
     });
   }
 

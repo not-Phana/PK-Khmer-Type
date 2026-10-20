@@ -617,8 +617,8 @@ function buildCourse(){
 
   /* ===== LEVEL 4 — Remaining Consonants ===== */
   const remConsonantGroups = [
-    {label:'Top Left (Q, T, Y)', ids:['q','t','y'], ex:['ឈ', 'ទ', 'យ', 'យាយ']},
-    {label:'Top Right (P, R, Z)', ids:['p','r','z'], ex:['ផ', 'រ', 'ឋ', 'រាជា']},
+    {label:'Top Left (Q, T, Y)', ids:['q','t','y'], ex:['ឆ', 'ត', 'យ', 'យាយ']},
+    {label:'P, R, Z (ផ, រ, ឋ)', ids:['p','r','z'], ex:['ផ', 'រ', 'ឋ', 'តារា']},
     {label:'Bottom Left (X, C, V)', ids:['x','c','v'], ex:['ខ', 'ច', 'វ', 'ខាន', 'ចាន']},
     {label:'Bottom Right (B, N, M, ,)', ids:['b','n','m','comma'], ex:['ប', 'ន', 'ម', 'អ', 'មាន', 'បាន']},
   ];
@@ -2051,8 +2051,8 @@ lessonStrip.addEventListener('input', (e)=>{
 lessonStrip.addEventListener('click', (e)=>{
   e.stopPropagation();
 
-  // If clicked custom lessons button or custom sidebar card
-  const customBtn = e.target.closest('#lshCustomLessonsBtn, #customSidebarBtn, #customSidebarCard');
+  // If clicked custom lessons button, custom banner, or custom sidebar card
+  const customBtn = e.target.closest('#lshCustomBanner, .lsh-hub-banner.custom, #lshCustomLessonsBtn, #customSidebarBtn, #customSidebarCard');
   if(customBtn){
     if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.openHub === 'function'){
       PK_CUSTOM_LESSONS.openHub();
