@@ -33,8 +33,8 @@ function normalizeInput(text){
 }
 
 function isSpaceEquivalent(a, b){
-  const isA = (a === ' ' || a === '\u200B' || a === '\u00A0');
-  const isB = (b === ' ' || b === '\u200B' || b === '\u00A0');
+  const isA = (a === ' ' || a === '\u200B' || a === '\u00A0' || a === '\n' || a === '\r');
+  const isB = (b === ' ' || b === '\u200B' || b === '\u00A0' || b === '\n' || b === '\r');
   return isA && isB;
 }
 
@@ -956,6 +956,19 @@ function typeKey(id, ev){
   playClick('down');
 
   if(stroke.id === 'enter' || stroke.id === 'tab'){
+    if(typeof lessonActive !== 'undefined' && lessonActive){
+      if(typeof lessonChars !== 'undefined' && typeof lessonIndex !== 'undefined'){
+        if(lessonIndex >= lessonChars.length){
+          if(typeof lessonHandleChar === 'function') lessonHandleChar('\n', el, stroke);
+          return;
+        }
+        const expected = lessonChars[lessonIndex];
+        if(expected === '\n' || expected === '\r' || isSpaceEquivalent(stroke.charProduced, expected)){
+          if(typeof lessonHandleChar === 'function') lessonHandleChar('\n', el, stroke);
+          return;
+        }
+      }
+    }
     if(!trialActive && !lessonActive && !raceActive && (typeof adaptiveActive === 'undefined' || !adaptiveActive)){
       insertText(stroke.charProduced);
     }

@@ -1444,7 +1444,8 @@ function buildCustomLessonDef(lesson, targetLayout){
     threshold: 80,
     customLesson: lesson,
     generate: function(){
-      const content = lesson.content || '';
+      const rawContent = (lesson.content || '').trim();
+      const content = rawContent.replace(/[\r\n\t]+/g, ' ').replace(/\s+/g, ' ').trim();
       let units = [];
       if(typeof window !== 'undefined' && typeof window.splitIntoTypingUnits === 'function'){
         units = window.splitIntoTypingUnits(content, activeLayout);
@@ -2953,7 +2954,10 @@ function lessonHandleChar(val, el, stroke){
     executeLessonExit();
     return;
   }
-  if(lessonIndex >= lessonChars.length) return;
+  if(lessonIndex >= lessonChars.length){
+    completeLesson();
+    return;
+  }
   const expected = lessonChars[lessonIndex];
   if(!expected) return;
 
@@ -3155,17 +3159,33 @@ function completeLesson(){
   const id = def.id;
   const mistakeChars = Object.keys(lessonMistakeChars);
 
+  // Compute lessonWpm early so all downstream consumers (custom & curriculum) have access to it
+  const rawWpm = (elapsed > 0 && Number.isFinite(elapsed)) ? (lessonChars.length / 5) / (elapsed / 60) : 0;
+  const lessonWpm = (Number.isFinite(rawWpm) && rawWpm >= 0) ? Math.min(180, Math.max(0, Math.round(rawWpm))) : 0;
+  if(lessonWpm > 0 && typeof savedLessonStats !== 'undefined'){
+    savedLessonStats.wpm = lessonWpm;
+    if(lessonWpm > (savedLessonStats.bestWpm || 0)){
+      savedLessonStats.bestWpm = lessonWpm;
+    }
+    if(typeof saveLessonStats === 'function') saveLessonStats();
+    if(typeof updateLessonStatsUI === 'function') updateLessonStatsUI();
+  }
+
   let isNewBest = false;
   let bestRecord = null;
   if(def.isCustom && typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.recordAttempt === 'function'){
-    const custProg = PK_CUSTOM_LESSONS.recordAttempt(def.id, {
-      accuracy: accuracy,
-      wpm: lessonWpm,
-      timeSec: elapsed,
-      mistakes: lessonMistakes
-    });
-    if(custProg){
-      isNewBest = custProg.bestAccuracy === accuracy || custProg.bestWpm === lessonWpm;
+    try {
+      const custProg = PK_CUSTOM_LESSONS.recordAttempt(def.id, {
+        accuracy: accuracy,
+        wpm: lessonWpm,
+        timeSec: elapsed,
+        mistakes: lessonMistakes
+      });
+      if(custProg){
+        isNewBest = custProg.bestAccuracy === accuracy || custProg.bestWpm === lessonWpm;
+      }
+    } catch(err){
+      console.warn('Failed to record custom lesson attempt:', err);
     }
   } else if(!remedialActive && !def.isCustom){
     const prevBest = getLessonBest(id);
@@ -3178,18 +3198,6 @@ function completeLesson(){
     };
     isNewBest = !prevBest || accuracy > prevBest.accuracy || (accuracy === prevBest.accuracy && elapsed < prevBest.time);
     try{ localStorage.setItem(lessonBestKey(id), JSON.stringify(bestRecord)); }catch(e){}
-  }
-
-  // Update persistent lesson WPM upon completion
-  const rawWpm = (elapsed > 0 && Number.isFinite(elapsed)) ? (lessonChars.length / 5) / (elapsed / 60) : 0;
-  const lessonWpm = (Number.isFinite(rawWpm) && rawWpm >= 0) ? Math.min(180, Math.max(0, Math.round(rawWpm))) : 0;
-  if(lessonWpm > 0 && typeof savedLessonStats !== 'undefined'){
-    savedLessonStats.wpm = lessonWpm;
-    if(lessonWpm > (savedLessonStats.bestWpm || 0)){
-      savedLessonStats.bestWpm = lessonWpm;
-    }
-    if(typeof saveLessonStats === 'function') saveLessonStats();
-    if(typeof updateLessonStatsUI === 'function') updateLessonStatsUI();
   }
 
   if(typeof PK_TRACKER !== 'undefined' && typeof PK_TRACKER.recordLessonComplete === 'function'){
@@ -3259,7 +3267,7 @@ function completeLesson(){
   if(!remedialActive){
     autoAdvanceLevelAccordion(def);
     renderLessonStrip();
-    if(accuracy === 100) achievementOnce('perfect-'+id, pkIcon('diamond', 20), 'Flawless!', def.title + ' with 100% accuracy');
+    if(accuracy === 100 && typeof achievementOnce === 'function') achievementOnce('perfect-'+id, (typeof pkIcon === 'function' ? pkIcon('diamond', 20) : ''), 'Flawless!', def.title + ' with 100% accuracy');
   } else {
     renderLessonStrip();
   }
@@ -3392,7 +3400,7 @@ function showLessonComplete(def, accuracy, elapsed, isNewBest, mistakeChars){
   if(ringEl){
     const ringValEl = ringEl.querySelector('b');
     const timeEl = overlay.querySelector('.lc-time');
-    const countStart = performance.now();
+    const countStart = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
     const countDuration = 900;
     function stepCount(now){
       const t = Math.min(1, (now - countStart) / countDuration);

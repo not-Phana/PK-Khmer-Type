@@ -519,6 +519,50 @@ test('Custom Lessons: Drawer Crafted Lessons section and footer hub button wirin
   assert.ok(customCss.includes('#footerCustomLessonsBtn'), 'custom-lessons.css must style #footerCustomLessonsBtn');
 });
 
+test('Custom Lessons: Trailing whitespace and newline sanitization prevents un-typeable last units', () => {
+  const env = createBrowserEnvironment();
+  const api = env.window.PK_CUSTOM_LESSONS;
+
+  const lesson = api.create({
+    title: 'Trailing Whitespace Test',
+    content: 'ក ខ គ \n\r\n   ',
+    targetLayout: 'standard'
+  });
+
+  const curDef = api.toCurriculumLesson(lesson, 'standard');
+  const gen = curDef.generate();
+  // The last character in generated units must NOT be a newline or trailing space
+  const lastChar = gen.chars[gen.chars.length - 1];
+  assert.notEqual(lastChar, '\n', 'Last unit must not be newline');
+  assert.notEqual(lastChar, '\r', 'Last unit must not be carriage return');
+  assert.notEqual(lastChar, ' ', 'Last unit must not be trailing space');
+  assert.equal(lastChar, 'គ', 'Last unit must be the actual content glyph');
+});
+
+test('Custom Lessons: completeLesson records attempt and calculates lessonWpm without TDZ error', () => {
+  const env = createBrowserEnvironment();
+  const api = env.window.PK_CUSTOM_LESSONS;
+
+  const lesson = api.create({
+    title: 'Completion WPM Test',
+    content: 'a b c',
+    targetLayout: 'english'
+  });
+
+  const curDef = api.toCurriculumLesson(lesson, 'english');
+  const prog = api.recordAttempt(curDef.id, {
+    accuracy: 95,
+    wpm: 45,
+    timeSec: 3.2,
+    mistakes: 1
+  });
+
+  assert.ok(prog, 'Progress record must be returned');
+  assert.equal(prog.bestAccuracy, 95);
+  assert.equal(prog.bestWpm, 45);
+  assert.equal(prog.attempts, 1);
+});
+
 test('Custom Lessons: Strict Zero-Emoji compliance across all custom lesson files', () => {
   const emojiRegex = /[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}]/u;
   const filesToCheck = [

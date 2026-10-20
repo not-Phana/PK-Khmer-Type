@@ -257,7 +257,8 @@
     validate: function(data){
       const errors = [];
       const title = (data && typeof data.title === 'string') ? data.title.trim() : '';
-      const content = (data && typeof data.content === 'string') ? data.content : '';
+      const rawContent = (data && typeof data.content === 'string') ? data.content.trim() : '';
+      const content = rawContent.replace(/[\r\n\t]+/g, ' ').replace(/\s+/g, ' ').trim();
 
       if(!title){
         errors.push('Lesson title cannot be empty.');
@@ -265,7 +266,7 @@
         errors.push('Lesson title cannot exceed 80 characters.');
       }
 
-      if(!content || !content.trim()){
+      if(!content){
         errors.push('Practice content cannot be empty.');
       } else {
         const layout = data.targetLayout || 'standard';
@@ -504,7 +505,8 @@
         threshold: 80,
         customLesson: lesson,
         generate: function(){
-          const content = lesson.content || '';
+          const rawContent = (lesson.content || '').trim();
+          const content = rawContent.replace(/[\r\n\t]+/g, ' ').replace(/\s+/g, ' ').trim();
           let units = [];
           if(typeof window.splitIntoTypingUnits === 'function'){
             units = window.splitIntoTypingUnits(content, targetLayout);
