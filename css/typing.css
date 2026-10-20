@@ -89,6 +89,8 @@
 
   .board-wrap{
     position:relative;
+    width:min(92vw, 860px);
+    box-sizing:border-box;
     padding:22px;
     border-radius:22px;
     background:linear-gradient(180deg, #141830, #0c0e1c);

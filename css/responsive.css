@@ -104,7 +104,8 @@
   }
 
   @media (max-width: 640px){
-    .keyboard{ width:94vw; gap:5px;}
+    .board-wrap{ width:96vw; padding:12px 8px; }
+    .keyboard{ width:100%; max-width:100%; gap:5px;}
     .manuscript{ width:94vw;}
     .row{ --key-gap:5px; gap:5px;}
     .key{ height:40px; font-size:0.85rem; border-radius:7px;}

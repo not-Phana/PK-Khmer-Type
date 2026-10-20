@@ -580,7 +580,8 @@
     display:flex;
     flex-direction:column;
     gap:7px;
-    width:min(86vw, 780px);
+    width:100%;
+    max-width:100%;
     position:relative;
     padding-bottom:14px;
   }
@@ -2892,7 +2893,8 @@
     padding: 22px !important;
   }
   html.focus-mode .keyboard{
-    width: min(86vw, 780px) !important;
+    width: 100% !important;
+    max-width: 100% !important;
     gap: 7px !important;
   }
   html.focus-mode .row{
