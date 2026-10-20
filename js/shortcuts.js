@@ -472,7 +472,7 @@
     const btn = e.target.closest('.toolbar button, .top-actions button, .guide-dock button, .guide-dock .gas-btn:not(.gas-info-row), .layout-pill, .layout-strip button, #profileSidebar');
     if(btn && typeof btn.blur === 'function'){
       // Never blur buttons that open modal dialogs to preserve accessibility and modal focus trapping
-      if(btn.id === 'statsBtn' || btn.id === 'settingsBtn' || btn.id === 'authChip' || btn.id === 'shortcutsBtn' || btn.id === 'topLearnMoreBtn' || btn.id === 'topCustomLessonsBtn' || btn.closest('.modal-backdrop')) return;
+      if(btn.id === 'statsBtn' || btn.id === 'settingsBtn' || btn.id === 'authChip' || btn.id === 'shortcutsBtn' || btn.id === 'topLearnMoreBtn' || btn.id === 'topCustomLessonsBtn' || btn.id === 'footerCustomLessonsBtn' || btn.closest('.modal-backdrop')) return;
       setTimeout(() => {
         if(!document.querySelector('.modal-backdrop:not([hidden])')){
           btn.blur();

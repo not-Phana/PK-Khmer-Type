@@ -729,6 +729,7 @@ function isProgressKey(key) {
   if (key === 'khmerTrackingData_v1') return true;
   if (key === 'khmerReviewData_v1') return true;
   if (key === 'khmerProgress_v2' || key === 'khmerProgress_v1') return true;
+  if (key === 'khmerCustomLessons_v1' || key === 'khmerCustomProgress_v1') return true;
   if (key.indexOf('khmerLessonBest_') === 0) return true;
   if (/^khmerRaceBest[A-Z]/.test(key)) return true;
   if (key === 'pk_adaptive_state_v1' || key.startsWith('pk_adaptive_')) return true;

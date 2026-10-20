@@ -1200,3 +1200,173 @@ html.theme-sepia .lesson-strip-banners-row .lsh-hb-title {
 html.theme-sepia .lesson-strip-banners-row .lsh-hb-sub {
   color: #78716c !important;
 }
+
+
+/* ============================================================
+   Crafted Lessons Accordion in Sidebar Drawer (Bottom of Strip)
+   ============================================================ */
+.lesson-level-header.craft-level-header {
+  border-top: 1px solid rgba(255, 209, 102, 0.24);
+  background: linear-gradient(90deg, rgba(255, 209, 102, 0.08) 0%, rgba(13, 17, 30, 0.6) 100%);
+  margin-top: 10px;
+}
+
+.lesson-level-header.craft-level-header:hover {
+  background: linear-gradient(90deg, rgba(255, 209, 102, 0.14) 0%, rgba(20, 26, 44, 0.8) 100%);
+}
+
+.cl-header-title-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: #ffd166;
+}
+
+.cl-header-icon {
+  color: #ffd166;
+  flex-shrink: 0;
+}
+
+.cl-drawer-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: rgba(255, 209, 102, 0.18);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  color: #ffd166;
+  font-size: 10px;
+  font-weight: 800;
+  margin-left: auto;
+}
+
+.craft-level-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.craft-level-list.collapsed {
+  display: none !important;
+}
+
+/* Empty State Chip in Drawer */
+.craft-drawer-empty {
+  padding: 12px;
+  margin: 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 209, 102, 0.28);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.craft-empty-msg {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.craft-empty-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 209, 102, 0.15);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  color: #ffd166;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.craft-empty-btn:hover {
+  background: #ffd166;
+  color: #0b0f19;
+  border-color: #ffd166;
+  transform: translateY(-1px);
+}
+
+/* Action row at bottom of custom list */
+.craft-drawer-action-row {
+  display: flex;
+  gap: 6px;
+  padding: 6px 4px 2px;
+}
+
+.craft-drawer-add-btn,
+.craft-drawer-manage-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.craft-drawer-add-btn {
+  background: rgba(255, 209, 102, 0.12);
+  border: 1px solid rgba(255, 209, 102, 0.32);
+  color: #ffd166;
+}
+
+.craft-drawer-add-btn:hover {
+  background: rgba(255, 209, 102, 0.24);
+  border-color: #ffd166;
+  color: #fff;
+}
+
+.craft-drawer-manage-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+.craft-drawer-manage-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #f1f5f9;
+}
+
+/* Custom Card & Badge Styling */
+.lesson-card.craft-card {
+  border-left: 2px solid rgba(255, 209, 102, 0.5) !important;
+}
+
+.lesson-card.craft-card.active {
+  border-left-color: #ffd166 !important;
+  background: rgba(255, 209, 102, 0.1) !important;
+}
+
+.lesson-card-type.type-custom {
+  background: rgba(255, 209, 102, 0.14);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  color: #ffd166;
+}
+
+.lesson-meta-badge.badge-custom {
+  background: rgba(255, 209, 102, 0.16);
+  border-color: rgba(255, 209, 102, 0.4);
+  color: #ffd166;
+}
+
+/* Footer Button Highlight */
+#footerCustomLessonsBtn:hover {
+  color: #ffd166;
+}
+#footerCustomLessonsBtn:hover .site-footer-link-icon {
+  stroke: #ffd166;
+}

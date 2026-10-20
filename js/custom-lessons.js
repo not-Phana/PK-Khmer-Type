@@ -10,6 +10,7 @@
 
   const STORAGE_KEY_LESSONS = 'khmerCustomLessons_v1';
   const STORAGE_KEY_PROGRESS = 'khmerCustomProgress_v1';
+  const DRAFT_KEY = 'khmerCustomLessonDraft_v1';
 
   /* Safe HTML escaping */
   function escapeHtml(str){
@@ -384,6 +385,10 @@
         saveProgressRaw(prog);
       }
 
+      if(typeof renderLessonStrip === 'function'){
+        renderLessonStrip();
+      }
+
       return true;
     },
 
@@ -413,6 +418,9 @@
       // Ensure normalized sequential orders
       list.forEach((l, i) => { l.order = i + 1; });
       saveLessonsRaw(list);
+      if(typeof renderLessonStrip === 'function'){
+        renderLessonStrip();
+      }
       return true;
     },
 
@@ -494,6 +502,7 @@
         difficulty: lesson.difficulty || 'beginner',
         targetLayout: targetLayout,
         threshold: 80,
+        customLesson: lesson,
         generate: function(){
           const content = lesson.content || '';
           let units = [];
@@ -941,6 +950,15 @@
         if(titleHeader) titleHeader.textContent = isKm ? 'បង្កើតមេរៀនថ្មី' : 'Create Custom Lesson';
       } else {
         if(titleHeader) titleHeader.textContent = isKm ? 'បង្កើតមេរៀនថ្មី' : 'Create Custom Lesson';
+        try {
+          const rawDraft = localStorage.getItem(DRAFT_KEY);
+          if(rawDraft){
+            const draft = JSON.parse(rawDraft);
+            if(draft && (draft.title || draft.content)){
+              data = { ...data, ...draft };
+            }
+          }
+        } catch(_e){}
       }
 
       if(inputTitle) inputTitle.value = data.title;
@@ -1081,12 +1099,20 @@
     initUI: function(){
       // Delegated document-level entry-point handler (guarantees dynamic headers work)
       document.addEventListener('click', (e) => {
-        const trigger = e.target.closest('#lshCustomBanner, .lsh-hub-banner.custom, #lshCustomLessonsBtn, #topCustomLessonsBtn, #customSidebarCard, #customSidebarBtn, #gmCreateCustomBtn, [data-action="open-custom-hub"]');
+        const trigger = e.target.closest('#lshCustomBanner, .lsh-hub-banner.custom, #lshCustomLessonsBtn, #topCustomLessonsBtn, #footerCustomLessonsBtn, #customSidebarCard, #customSidebarBtn, #gmCreateCustomBtn, [data-action="open-custom-hub"]');
         if(trigger){
           e.preventDefault();
           this.openHub();
         }
       });
+
+      const footerCustomBtn = document.getElementById('footerCustomLessonsBtn');
+      if(footerCustomBtn){
+        footerCustomBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.openHub();
+        });
+      }
 
       // Hub Close button
       const hubCloseBtn = document.getElementById('clHubCloseBtn');
@@ -1293,19 +1319,53 @@
         });
       }
 
-      // Editor Content input telemetry listener
+      // Editor Inputs live telemetry updates & draft auto-saving
+      const inputTitle = document.getElementById('clInputTitle');
+      const inputDesc = document.getElementById('clInputDesc');
+      const selectDiff = document.getElementById('clSelectDiff');
       const textContent = document.getElementById('clTextContent');
+      const selectLayout = document.getElementById('clSelectLayout');
+
+      const saveDraft = () => {
+        if(this.editingLessonId) return;
+        try {
+          const draft = {
+            title: inputTitle ? inputTitle.value : '',
+            description: inputDesc ? inputDesc.value : '',
+            difficulty: selectDiff ? selectDiff.value : 'beginner',
+            targetLayout: selectLayout ? selectLayout.value : 'standard',
+            content: textContent ? textContent.value : ''
+          };
+          if(draft.title || draft.content || draft.description){
+            localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+          } else {
+            localStorage.removeItem(DRAFT_KEY);
+          }
+        } catch(_e){}
+      };
+
       if(textContent){
         textContent.addEventListener('input', () => {
           this.updateEditorTelemetry();
+          saveDraft();
         });
       }
 
-      const selectLayout = document.getElementById('clSelectLayout');
       if(selectLayout){
         selectLayout.addEventListener('change', () => {
           this.updateEditorTelemetry();
+          saveDraft();
         });
+      }
+
+      if(inputTitle){
+        inputTitle.addEventListener('input', saveDraft);
+      }
+      if(inputDesc){
+        inputDesc.addEventListener('input', saveDraft);
+      }
+      if(selectDiff){
+        selectDiff.addEventListener('change', saveDraft);
       }
 
       // Starter Template Categories Bar
@@ -1456,6 +1516,19 @@
         confirmCancelBtn.addEventListener('click', () => {
           this.closeConfirmModal();
         });
+      }
+
+      // Check if a saved active custom lesson needs restoration
+      if(typeof restoreSavedLessonSession === 'function' && typeof window !== 'undefined' && !window.lessonActive){
+        try {
+          const activeRaw = localStorage.getItem('pk_active_lesson_session');
+          if(activeRaw){
+            const parsed = JSON.parse(activeRaw);
+            if(parsed && (parsed.isCustom || String(parsed.lessonId).startsWith('cust_'))){
+              restoreSavedLessonSession();
+            }
+          }
+        } catch(_e){}
       }
 
       // Global Escape key support for custom modals

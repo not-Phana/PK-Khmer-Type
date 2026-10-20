@@ -3,6 +3,16 @@ var WORD_BANK_EN = window.WORD_BANK_EN || ['cat','dog','sun','run','desk','lamp'
 window.WORD_BANK = WORD_BANK;
 window.WORD_BANK_EN = WORD_BANK_EN;
 var collapsedLevels = null;
+
+function escapeHtml(str){
+  if(str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 /* ============================================================
    PK Khmer Type — Structured Lessons, Levels & Remedial Drills
    ============================================================ */
@@ -1413,6 +1423,68 @@ function resetAllCourseLessonStates(){
    ============================================================ */
 const ACTIVE_LESSON_KEY = 'pk_active_lesson_session';
 
+function buildCustomLessonDef(lesson, targetLayout){
+  if(!lesson) return null;
+  const isKm = (typeof document !== 'undefined' && document.documentElement && document.documentElement.classList.contains('site-km-mode'));
+  const activeLayout = (lesson.targetLayout && lesson.targetLayout !== 'any')
+    ? lesson.targetLayout
+    : (targetLayout || (typeof currentLayoutId !== 'undefined' ? currentLayoutId : 'standard'));
+
+  return {
+    id: lesson.id,
+    level: 'custom',
+    title: lesson.title,
+    titleKm: lesson.title,
+    subtitle: lesson.description || (isKm ? 'មេរៀនផ្ទាល់ខ្លួនរបស់អ្នក' : 'Your Custom Practice Lesson'),
+    subtitleKm: lesson.description || 'មេរៀនផ្ទាល់ខ្លួនរបស់អ្នក',
+    type: 'custom',
+    isCustom: true,
+    difficulty: lesson.difficulty || 'beginner',
+    targetLayout: activeLayout,
+    threshold: 80,
+    customLesson: lesson,
+    generate: function(){
+      const content = lesson.content || '';
+      let units = [];
+      if(typeof window !== 'undefined' && typeof window.splitIntoTypingUnits === 'function'){
+        units = window.splitIntoTypingUnits(content, activeLayout);
+      } else {
+        units = Array.from(content);
+      }
+      const table = (activeLayout === 'nida' && typeof KEY_BY_ID_NIDA !== 'undefined') ? KEY_BY_ID_NIDA
+        : (activeLayout === 'english' && typeof KEY_BY_ID_EN !== 'undefined') ? KEY_BY_ID_EN
+        : (typeof KEY_BY_ID !== 'undefined' ? KEY_BY_ID : null);
+
+      const entries = units.map(unit => {
+        let loc = null;
+        if(typeof window !== 'undefined' && typeof window.resolveCharLocation === 'function'){
+          loc = window.resolveCharLocation(unit, table);
+        }
+        if(loc) return loc;
+        return { id: 'space', layer: 'base', ch: unit };
+      });
+
+      return {
+        chars: entries.map(e => e.ch),
+        layers: entries.map(e => e.layer),
+        keyIds: entries.map(e => e.id),
+        sections: [
+          {
+            id: 'sec_custom_' + lesson.id,
+            type: 'custom-drill',
+            title: lesson.title,
+            startIndex: 0,
+            endIndex: Math.max(0, entries.length - 1),
+            totalUnits: entries.length
+          }
+        ]
+      };
+    }
+  };
+}
+
+
+
 function saveActiveLessonSession(){
   if(typeof window !== 'undefined' && window.__isResettingProgress) {
     return;
@@ -1420,15 +1492,35 @@ function saveActiveLessonSession(){
   if(!lessonActive || !currentLesson || currentLesson.id === -1) {
     return;
   }
-  if(!remedialActive && typeof isLessonLocked === 'function' && isLessonLocked(currentLesson.id)) {
+  if(!remedialActive && !currentLesson.isCustom && typeof isLessonLocked === 'function' && isLessonLocked(currentLesson.id)) {
     clearActiveLessonSession();
     return;
   }
   try {
     if(typeof localStorage === 'undefined') return;
+    let customObj = null;
+    if(currentLesson.isCustom){
+      customObj = currentLesson.customLesson || null;
+      if(!customObj && typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.get === 'function'){
+        customObj = PK_CUSTOM_LESSONS.get(currentLesson.id);
+      }
+      if(!customObj){
+        try {
+          const rawCL = localStorage.getItem('khmerCustomLessons_v1');
+          if(rawCL){
+            const parsedCL = JSON.parse(rawCL);
+            if(Array.isArray(parsedCL)){
+              customObj = parsedCL.find(c => String(c.id) === String(currentLesson.id)) || null;
+            }
+          }
+        } catch(_e){}
+      }
+    }
     const session = {
       layoutId: currentLayoutId,
       lessonId: currentLesson.id,
+      isCustom: !!currentLesson.isCustom,
+      customLesson: customObj,
       index: lessonIndex,
       mistakes: lessonMistakes,
       mistakeChars: lessonMistakeChars ? Object.assign({}, lessonMistakeChars) : {},
@@ -1474,12 +1566,42 @@ function restoreSavedLessonSession(){
   const list = (typeof LESSON_SETS !== 'undefined' && LESSON_SETS[targetLayout])
     ? LESSON_SETS[targetLayout]
     : LESSONS;
-  if(!list || !list.length) return false;
 
-  const def = list.find(l => String(l.id) === String(session.lessonId));
+  let def = (list && list.length) ? list.find(l => String(l.id) === String(session.lessonId)) : null;
+
+  // Restore custom / crafted lesson if not found in built-in curriculum
+  if(!def && (session.isCustom || String(session.lessonId).startsWith('cust_') || session.customLesson)){
+    let customItem = null;
+    if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.get === 'function'){
+      customItem = PK_CUSTOM_LESSONS.get(session.lessonId);
+    }
+    if(!customItem && session.customLesson){
+      customItem = session.customLesson;
+    }
+    if(!customItem){
+      try {
+        const rawCL = localStorage.getItem('khmerCustomLessons_v1');
+        if(rawCL){
+          const parsedCL = JSON.parse(rawCL);
+          if(Array.isArray(parsedCL)){
+            customItem = parsedCL.find(c => String(c.id) === String(session.lessonId)) || null;
+          }
+        }
+      } catch(_e){}
+    }
+    if(customItem){
+      if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.toCurriculumLesson === 'function'){
+        def = PK_CUSTOM_LESSONS.toCurriculumLesson(customItem, targetLayout);
+      } else {
+        def = buildCustomLessonDef(customItem, targetLayout);
+      }
+      if(def) def.customLesson = customItem;
+    }
+  }
+
   if(!def) return false;
 
-  if(!session.remedialActive && typeof isLessonLocked === 'function' && isLessonLocked(def.id)){
+  if(!session.remedialActive && !def.isCustom && typeof isLessonLocked === 'function' && isLessonLocked(def.id)){
     clearActiveLessonSession();
     return false;
   }
@@ -1539,11 +1661,15 @@ function restoreSavedLessonSession(){
   const mElSaved = document.getElementById('manuscript'); if(mElSaved) mElSaved.hidden = true;
   if(lessonStrip){
     lessonStrip.hidden = false;
-    if(collapsedLevels && def.level){
-      LEVELS.forEach(l => {
-        if(String(l.id) !== String(def.level)) collapsedLevels.add(String(l.id));
-        else collapsedLevels.delete(String(l.id));
-      });
+    if(collapsedLevels){
+      if(def.isCustom){
+        collapsedLevels.delete('crafted');
+      } else if(def.level){
+        LEVELS.forEach(l => {
+          if(String(l.id) !== String(def.level)) collapsedLevels.add(String(l.id));
+          else collapsedLevels.delete(String(l.id));
+        });
+      }
     }
     renderLessonStrip();
     setTimeout(()=>{
@@ -1617,6 +1743,17 @@ let lessonSections = [];
 function lessonBestKey(id){ return 'khmerLessonBest_' + id; }
 
 function getLessonBest(id){
+  if(String(id).startsWith('cust_') && typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.getProgress === 'function'){
+    const cProg = PK_CUSTOM_LESSONS.getProgress(id);
+    if(cProg && cProg.attempts > 0){
+      return {
+        accuracy: Math.round(cProg.bestAccuracy || 0),
+        time: cProg.bestTime || 0,
+        attempts: cProg.attempts || 1,
+        mastered: !!cProg.completed
+      };
+    }
+  }
   const progressApi = (typeof window !== 'undefined' && window.PK_PROGRESS) || (typeof global !== 'undefined' && global.PK_PROGRESS);
   if(progressApi && typeof progressApi.getLessonProgress === 'function'){
     const cLayout = (typeof currentLayoutId !== 'undefined') ? currentLayoutId : 'nida';
@@ -1669,6 +1806,9 @@ function areAll222LessonsUnlocked(){
 window.areAll222LessonsUnlocked = areAll222LessonsUnlocked;
 
 function isLessonLocked(id){
+  if(String(id).startsWith('cust_') || (currentLesson && currentLesson.id === id && currentLesson.isCustom)){
+    return false;
+  }
   let list = LESSONS;
   let idx = (list && list.length) ? list.findIndex(l => String(l.id) === String(id)) : -1;
   if(idx < 0 && typeof LESSON_SETS !== 'undefined' && LESSON_SETS){
@@ -1780,6 +1920,9 @@ function defaultCollapsedLevels(){
   const s = new Set(LEVELS.map(l => String(l.id)));
   if(currentLesson && currentLesson.level){
     s.delete(String(currentLesson.level));
+    if(currentLesson.isCustom){
+      s.delete('crafted');
+    }
   } else if(LEVELS.length > 0){
     s.delete(String(LEVELS[0].id)); // Level 1 open by default for immediate beginner access
   }
@@ -1787,7 +1930,7 @@ function defaultCollapsedLevels(){
 }
 
 function autoAdvanceLevelAccordion(completedDef){
-  if(!completedDef) return;
+  if(!completedDef || completedDef.isCustom) return;
   if(!collapsedLevels) collapsedLevels = defaultCollapsedLevels();
   const currentLv = String(completedDef.level);
   const levelLessons = LESSONS.filter(l => String(l.level) === currentLv);
@@ -1992,6 +2135,100 @@ function renderLessonStrip(){
       listEl.appendChild(card);
     });
 
+    // Render Crafted Lessons Section at the bottom of the drawer
+    let customLessons = [];
+    if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.getAll === 'function'){
+      customLessons = PK_CUSTOM_LESSONS.getAll();
+    } else {
+      try {
+        const rawCL = localStorage.getItem('khmerCustomLessons_v1');
+        if(rawCL) customLessons = JSON.parse(rawCL) || [];
+      } catch(_e){}
+    }
+
+    const customCollapsed = collapsedLevels.has('crafted');
+    const craftHeader = document.createElement('div');
+    craftHeader.className = 'lesson-level-header craft-level-header' + (customCollapsed ? ' collapsed' : '');
+    craftHeader.dataset.level = 'crafted';
+    craftHeader.innerHTML = `
+      <div class="llh-left">
+        <span class="llh-chevron">${pkIcon(customCollapsed ? 'arrow-right' : 'arrow-down', 11)}</span>
+        <span class="cl-header-title-wrap">
+          <svg class="pk-icon cl-header-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <span class="i18n-t" data-en="Crafted Lessons" data-km="មេរៀនបានបង្កើត">Crafted Lessons</span>
+        </span>
+      </div>
+      <span class="cl-drawer-count-badge">${customLessons.length}</span>
+    `;
+    bodyEl.appendChild(craftHeader);
+
+    const craftList = document.createElement('div');
+    craftList.className = 'lesson-level-list craft-level-list' + (customCollapsed ? ' collapsed' : '');
+    craftList.dataset.levelList = 'crafted';
+
+    if(customLessons.length === 0){
+      const emptyPrompt = document.createElement('div');
+      emptyPrompt.className = 'craft-drawer-empty';
+      emptyPrompt.innerHTML = `
+        <div class="craft-empty-msg i18n-t" data-en="No crafted lessons yet" data-km="មិនទាន់មានមេរៀនបង្កើតនៅឡើយទេ">No crafted lessons yet</div>
+        <button type="button" class="craft-empty-btn" id="craftDrawerNewBtn" aria-label="Craft New Lesson">
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span class="i18n-t" data-en="+ Craft New Lesson" data-km="+ បង្កើតមេរៀនថ្មី">+ Craft New Lesson</span>
+        </button>
+      `;
+      craftList.appendChild(emptyPrompt);
+    } else {
+      customLessons.forEach((cl, cIdx) => {
+        const card = document.createElement('div');
+        const isCurrent = currentLesson && String(currentLesson.id) === String(cl.id);
+        card.className = 'lesson-card craft-card' + (isCurrent ? ' active' : '');
+        card.dataset.lesson = cl.id;
+        card.dataset.isCustom = 'true';
+
+        let best = null;
+        if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.getProgress === 'function'){
+          const cProg = PK_CUSTOM_LESSONS.getProgress(cl.id);
+          if(cProg && cProg.attempts > 0){
+            best = { accuracy: Math.round(cProg.bestAccuracy || 0), mastered: !!cProg.completed };
+          }
+        }
+        const statusHtml = best
+          ? `<span class="lesson-card-best ${best.mastered ? 'mastered' : ''}">${best.mastered ? pkIcon('star', 12) + ' ' : ''}${best.accuracy}%</span>`
+          : '';
+
+        const layoutTag = cl.targetLayout ? cl.targetLayout.toUpperCase() : 'STANDARD';
+        const previewText = cl.content ? cl.content.slice(0, 32) + (cl.content.length > 32 ? '…' : '') : '';
+
+        card.innerHTML = `
+          <div class="lesson-card-num">C${String(cIdx + 1).padStart(2, '0')}</div>
+          <div class="lesson-card-info">
+            <div class="lesson-card-head">
+              <span class="lesson-card-title">${escapeHtml(cl.title || 'Untitled Lesson')}</span>
+              <span class="lesson-card-type type-custom">${escapeHtml(layoutTag)}</span>
+              ${statusHtml}
+            </div>
+            <div class="lesson-card-sub">${escapeHtml(cl.description || previewText)}</div>
+            ${previewText ? `<div class="lesson-card-examples"><span class="lce-lbl">${isKm ? 'អត្ថបទ៖' : 'Text:'}</span> <span class="lce-chip">${escapeHtml(previewText)}</span></div>` : ''}
+          </div>
+        `;
+        craftList.appendChild(card);
+      });
+
+      const actionRow = document.createElement('div');
+      actionRow.className = 'craft-drawer-action-row';
+      actionRow.innerHTML = `
+        <button type="button" class="craft-drawer-add-btn" id="craftDrawerNewBtn">
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span class="i18n-t" data-en="Craft Another Lesson" data-km="បង្កើតមេរៀនមួយទៀត">Craft Another Lesson</span>
+        </button>
+        <button type="button" class="craft-drawer-manage-btn" id="craftDrawerManageBtn">
+          <span class="i18n-t" data-en="Manage All" data-km="គ្រប់គ្រងទាំងអស់">Manage All</span>
+        </button>
+      `;
+      craftList.appendChild(actionRow);
+    }
+    bodyEl.appendChild(craftList);
+
     frag.appendChild(bodyEl);
     lessonStrip.replaceChildren(frag);
     lessonStrip.removeAttribute('hidden');
@@ -2052,10 +2289,19 @@ lessonStrip.addEventListener('click', (e)=>{
   e.stopPropagation();
 
   // If clicked custom lessons button, custom banner, or custom sidebar card
-  const customBtn = e.target.closest('#lshCustomBanner, .lsh-hub-banner.custom, #lshCustomLessonsBtn, #customSidebarBtn, #customSidebarCard');
+  const customBtn = e.target.closest('#lshCustomBanner, .lsh-hub-banner.custom, #lshCustomLessonsBtn, #customSidebarBtn, #customSidebarCard, #craftDrawerManageBtn');
   if(customBtn){
     if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.openHub === 'function'){
       PK_CUSTOM_LESSONS.openHub();
+    }
+    return;
+  }
+
+  // If clicked craft new lesson button inside drawer
+  const craftNewBtn = e.target.closest('#craftDrawerNewBtn');
+  if(craftNewBtn){
+    if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.openEditor === 'function'){
+      PK_CUSTOM_LESSONS.openEditor(null);
     }
     return;
   }
@@ -2123,6 +2369,29 @@ lessonStrip.addEventListener('click', (e)=>{
   const card = e.target.closest('.lesson-card');
   if(!card) return;
   const id = card.dataset.lesson;
+
+  // If clicked custom crafted lesson card
+  if(card.dataset.isCustom === 'true' || String(id).startsWith('cust_')){
+    isStripExpanded = false;
+    if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.startPractice === 'function'){
+      PK_CUSTOM_LESSONS.startPractice(id);
+    } else {
+      let customItem = null;
+      try {
+        const rawCL = localStorage.getItem('khmerCustomLessons_v1');
+        if(rawCL){
+          const parsed = JSON.parse(rawCL);
+          if(Array.isArray(parsed)) customItem = parsed.find(c => String(c.id) === String(id));
+        }
+      } catch(_e){}
+      if(customItem){
+        const def = buildCustomLessonDef(customItem);
+        if(def) startLesson(def, true);
+      }
+    }
+    return;
+  }
+
   if(isLessonLocked(id)){
     const def = LESSONS.find(l => String(l.id) === String(id));
     if(def && def.isBonus){
@@ -2173,10 +2442,12 @@ document.addEventListener('click', (e)=>{
 
 function renderLessonMeta(def){
   const isKm = document.documentElement.classList.contains('site-km-mode');
-  const levelObj = LEVELS.find(l => l.id === def.level);
-  const levelTitle = levelObj ? (isKm && levelObj.titleKm ? levelObj.titleKm : levelObj.title) : (isKm ? `កម្រិត ${def.level}` : `Level ${def.level}`);
-  lessonMetaBadgeEl.textContent = `${levelTitle} · ${(def.type || 'drill').toUpperCase()}`;
-  lessonMetaBadgeEl.className = 'lesson-meta-badge' + (def.type==='review' || def.type==='test' || def.type==='words' ? ' badge-'+def.type : '');
+  const levelObj = def.isCustom ? null : LEVELS.find(l => l.id === def.level);
+  const levelTitle = def.isCustom
+    ? (isKm ? 'មេរៀនផ្ទាល់ខ្លួន' : 'Crafted Lesson')
+    : (levelObj ? (isKm && levelObj.titleKm ? levelObj.titleKm : levelObj.title) : (isKm ? `កម្រិត ${def.level}` : `Level ${def.level}`));
+  lessonMetaBadgeEl.textContent = `${levelTitle} · ${(def.type || (def.isCustom ? 'custom' : 'drill')).toUpperCase()}`;
+  lessonMetaBadgeEl.className = 'lesson-meta-badge' + (def.isCustom ? ' badge-custom' : '') + (def.type==='review' || def.type==='test' || def.type==='words' ? ' badge-'+def.type : '');
   const best = getLessonBest(def.id);
   lessonMetaBestEl.textContent = best
     ? (isKm ? `ល្អបំផុត ${best.accuracy}% ក្នុង ${best.time.toFixed(1)}វ · ការសាកល្បង ${best.attempts||1}` : `Best ${best.accuracy}% in ${best.time.toFixed(1)}s · Attempts ${best.attempts||1}`)
@@ -2431,6 +2702,9 @@ function startLesson(idOrDef, allowDirectPractice = false){
       if(String(l.id) !== String(def.level)) collapsedLevels.add(String(l.id));
       else collapsedLevels.delete(String(l.id));
     });
+    if(def.isCustom){
+      collapsedLevels.delete('crafted');
+    }
   }
   const gen = def.generate();
   lessonChars = gen.chars;

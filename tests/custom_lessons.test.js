@@ -427,6 +427,98 @@ test('Custom Lessons: Verification that banner click handlers match #lshCustomBa
   assert.ok(lessonsJs.includes('.lsh-hub-banner.custom'), 'lessons.js must wire .lsh-hub-banner.custom');
 });
 
+test('Custom Lessons: Storage integration marks custom lessons and progress keys for per-account isolation', () => {
+  const storageJs = fs.readFileSync(path.join(rootDir, 'js/storage.js'), 'utf8');
+  assert.ok(storageJs.includes('khmerCustomLessons_v1'), 'js/storage.js must include khmerCustomLessons_v1');
+  assert.ok(storageJs.includes('khmerCustomProgress_v1'), 'js/storage.js must include khmerCustomProgress_v1');
+
+  const env = createBrowserEnvironment();
+  const storageCode = fs.readFileSync(path.join(rootDir, 'js/storage.js'), 'utf8');
+  vm.runInContext(storageCode, env);
+
+  assert.equal(typeof env.window.isProgressKey, 'function', 'isProgressKey must be exported');
+  assert.equal(env.window.isProgressKey('khmerCustomLessons_v1'), true, 'khmerCustomLessons_v1 must be recognized as progress key');
+  assert.equal(env.window.isProgressKey('khmerCustomProgress_v1'), true, 'khmerCustomProgress_v1 must be recognized as progress key');
+});
+
+test('Custom Lessons: Editor draft auto-save and restore across page reload', () => {
+  const env = createBrowserEnvironment();
+  const DRAFT_KEY = 'khmerCustomLessonDraft_v1';
+
+  // Simulate saving a draft
+  const draftData = {
+    title: 'My Draft Khmer Drill',
+    description: 'A draft for practice',
+    difficulty: 'intermediate',
+    targetLayout: 'standard',
+    content: 'កម្ពុជា សួស្តី'
+  };
+  env.window.localStorage.setItem(DRAFT_KEY, JSON.stringify(draftData));
+
+  // Verify draft exists in localStorage
+  const saved = JSON.parse(env.window.localStorage.getItem(DRAFT_KEY));
+  assert.equal(saved.title, draftData.title);
+  assert.equal(saved.content, draftData.content);
+
+  // When opening editor with null, draft is read and prefilled
+  const mockTitleEl = { value: '', focus: () => {} };
+  const mockContentEl = { value: '' };
+  env.window.document.getElementById = (id) => {
+    if (id === 'clInputTitle') return mockTitleEl;
+    if (id === 'clTextContent') return mockContentEl;
+    if (id === 'customLessonEditorModal') return { hidden: true };
+    return null;
+  };
+
+  env.window.PK_CUSTOM_LESSONS.openEditor(null);
+  assert.equal(mockTitleEl.value, draftData.title, 'Draft title must be restored');
+  assert.equal(mockContentEl.value, draftData.content, 'Draft content must be restored');
+});
+
+test('Custom Lessons: Active lesson session persistence across page reload restores custom definition', () => {
+  const lessonsJs = fs.readFileSync(path.join(rootDir, 'js/lessons.js'), 'utf8');
+
+  // Verify lessons.js includes custom lesson session restoration logic
+  assert.ok(lessonsJs.includes('session.isCustom'), 'lessons.js must handle session.isCustom');
+  assert.ok(lessonsJs.includes('buildCustomLessonDef'), 'lessons.js must provide buildCustomLessonDef');
+  assert.ok(lessonsJs.includes('craft-level-header'), 'lessons.js must render craft-level-header');
+  assert.ok(lessonsJs.includes('craftDrawerNewBtn'), 'lessons.js must wire craftDrawerNewBtn');
+  assert.ok(lessonsJs.includes('craftDrawerManageBtn'), 'lessons.js must wire craftDrawerManageBtn');
+
+  const env = createBrowserEnvironment();
+  const lesson = env.window.PK_CUSTOM_LESSONS.create({
+    title: 'Refresh Test Lesson',
+    content: 'ក ខ គ ឃ ង',
+    targetLayout: 'standard'
+  });
+
+  assert.ok(lesson && lesson.id, 'Lesson must be created');
+
+  // Verify toCurriculumLesson returns isCustom: true and customLesson reference
+  const curDef = env.window.PK_CUSTOM_LESSONS.toCurriculumLesson(lesson);
+  assert.equal(curDef.isCustom, true, 'Curriculum lesson must have isCustom: true');
+  assert.ok(curDef.customLesson, 'Curriculum lesson must retain customLesson reference');
+  assert.equal(curDef.customLesson.id, lesson.id);
+});
+
+test('Custom Lessons: Drawer Crafted Lessons section and footer hub button wiring in HTML and lessons.js', () => {
+  const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+  assert.ok(indexHtml.includes('id="footerCustomLessonsBtn"'), 'index.html must include #footerCustomLessonsBtn');
+  assert.ok(indexHtml.includes('Crafted Lessons'), 'index.html must have Crafted Lessons label in footer');
+
+  const shortcutsJs = fs.readFileSync(path.join(rootDir, 'js/shortcuts.js'), 'utf8');
+  assert.ok(shortcutsJs.includes('footerCustomLessonsBtn'), 'shortcuts.js must preserve focus for footerCustomLessonsBtn');
+
+  const customLessonsJs = fs.readFileSync(path.join(rootDir, 'js/custom-lessons.js'), 'utf8');
+  assert.ok(customLessonsJs.includes('#footerCustomLessonsBtn'), 'custom-lessons.js must wire #footerCustomLessonsBtn');
+
+  const customCss = fs.readFileSync(path.join(rootDir, 'css/custom-lessons.css'), 'utf8');
+  assert.ok(customCss.includes('.craft-level-header'), 'custom-lessons.css must style .craft-level-header');
+  assert.ok(customCss.includes('.craft-drawer-empty'), 'custom-lessons.css must style .craft-drawer-empty');
+  assert.ok(customCss.includes('.craft-card'), 'custom-lessons.css must style .craft-card');
+  assert.ok(customCss.includes('#footerCustomLessonsBtn'), 'custom-lessons.css must style #footerCustomLessonsBtn');
+});
+
 test('Custom Lessons: Strict Zero-Emoji compliance across all custom lesson files', () => {
   const emojiRegex = /[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}]/u;
   const filesToCheck = [
