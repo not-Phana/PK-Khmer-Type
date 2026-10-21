@@ -933,6 +933,53 @@
     animation-iteration-count: 1 !important;
   }
 
+  /* ================= Modern Web Performance: Layout Containment & Deferral ================= */
+  .lesson-card,
+  .race-lb-row,
+  .stat-tile,
+  .acc-cloud-file-card,
+  .settings-row,
+  .dev-note-card,
+  .guide-accordion-item {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 64px;
+  }
+
+  .lesson-level-list {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 240px;
+  }
+
+  .lesson-strip-body {
+    contain: content;
+    will-change: scroll-position;
+  }
+
+  /* Explicit performance overrides for heavy backdrop filters */
+  html.anim-mode-minimal .modal-backdrop,
+  html.anim-mode-minimal .modal-card,
+  html.anim-mode-minimal .settings-modal,
+  html.anim-mode-minimal .lesson-strip,
+  html.anim-mode-minimal .lesson-card,
+  html.anim-mode-minimal .guide-dock,
+  html.anim-mode-minimal .top-actions,
+  html.anim-mode-minimal .board-wrap,
+  html.anim-mode-minimal .key,
+  html.anim-mode-minimal .manuscript-wrap,
+  html.performance-mode .modal-backdrop,
+  html.performance-mode .modal-card,
+  html.performance-mode .settings-modal,
+  html.performance-mode .lesson-strip,
+  html.performance-mode .lesson-card,
+  html.performance-mode .guide-dock,
+  html.performance-mode .top-actions,
+  html.performance-mode .board-wrap,
+  html.performance-mode .key,
+  html.performance-mode .manuscript-wrap {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
   /* Stop all endless background looping keyframes */
   html.anim-mode-minimal .crest,
   html.anim-mode-minimal .site-crest-icon,

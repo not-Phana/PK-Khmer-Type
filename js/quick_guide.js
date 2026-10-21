@@ -324,15 +324,22 @@
         };
       }
 
-      // Listen to keystroke events on window to update streak and telemetry
+      // Listen to keystroke events on window with performance debouncing
+      let keyTelemetryTimer = null;
       window.addEventListener('keydown', (e) => {
         if(e.isComposing) return;
-        setTimeout(() => {
-          try {
-            self.updateTelemetry();
-            if(e.key) self.highlightHomeRowKey(e.key.toLowerCase());
-          } catch(_e){}
-        }, 30);
+        if(self.dock && !self.dock.hidden && e.key) {
+          self.highlightHomeRowKey(e.key.toLowerCase());
+        }
+        if(self.dock && self.dock.hidden) return;
+        if(!keyTelemetryTimer){
+          keyTelemetryTimer = setTimeout(() => {
+            keyTelemetryTimer = null;
+            try {
+              self.updateTelemetry();
+            } catch(_e){}
+          }, 120);
+        }
       });
     }
 
@@ -487,16 +494,15 @@
       }
       const triggerBump = (el, text) => {
         if(!el || text === null || text === undefined) return;
-        const old = el.textContent.trim();
         const next = String(text).trim();
-        if(old !== next && old !== '' && old !== '-'){
+        if(el.textContent.trim() !== next){
           el.textContent = next;
+          // Avoid synchronous layout reflow (void el.offsetWidth) on keystrokes
           el.classList.remove('telemetry-bump');
-          void el.offsetWidth;
-          el.classList.add('telemetry-bump');
+          requestAnimationFrame(() => {
+            if(el) el.classList.add('telemetry-bump');
+          });
           setTimeout(() => el && el.classList.remove('telemetry-bump'), 260);
-        } else {
-          el.textContent = next;
         }
       };
 
@@ -585,7 +591,7 @@
     }
 
     highlightHomeRowKey(keyChar){
-      if(!keyChar || !this.dock) return;
+      if(!keyChar || !this.dock || this.dock.hidden) return;
       this.dock.querySelectorAll('.guide-mini-key').forEach(el => {
         const km = el.querySelector('.km-ch')?.textContent.trim();
         const en = el.querySelector('.en-ch')?.textContent.trim().toLowerCase();

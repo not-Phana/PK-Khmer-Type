@@ -69,7 +69,7 @@
     if (!hasFinePointer) return false;
 
     const rootCls = document.documentElement.classList;
-    if (rootCls.contains('anim-mode-off') || rootCls.contains('performance-mode') || rootCls.contains('reduce-motion')) {
+    if (rootCls.contains('anim-mode-off') || rootCls.contains('performance-mode') || rootCls.contains('reduce-motion') || rootCls.contains('anim-mode-minimal')) {
       return false;
     }
     return isEnabled;
@@ -396,7 +396,12 @@
     }
   }
 
+  let lastHoverTarget = null;
+  let lastDetectedLabel = null;
+  let lastIsInput = false;
+
   function handlePointerMove(e) {
+    if (!canRunCustomCursor()) return;
     targetX = e.clientX;
     targetY = e.clientY;
 
@@ -412,11 +417,18 @@
 
     const t = e.target;
     if (t) {
-      const isInput = Boolean(t.closest('input:not([type="button"]):not([type="submit"]):not([type="range"]), textarea, [contenteditable="true"]'));
+      let isInput = lastIsInput;
+      let detectedLabel = lastDetectedLabel;
+      if (t !== lastHoverTarget) {
+        lastHoverTarget = t;
+        isInput = Boolean(t.closest('input:not([type="button"]):not([type="submit"]):not([type="range"]), textarea, [contenteditable="true"]'));
+        lastIsInput = isInput;
+        detectedLabel = isInput ? null : resolveHoverLabel(t);
+        lastDetectedLabel = detectedLabel;
+      }
       isOverInput = isInput;
 
       if (!isInput) {
-        const detectedLabel = resolveHoverLabel(t);
         if (detectedLabel) {
           isInteractive = true;
           isBadgeVisible = true;
@@ -446,6 +458,7 @@
   }
 
   function handlePointerDown(e) {
+    if (!canRunCustomCursor()) return;
     if (e.button === 0) {
       isPressed = true;
       updateActiveClasses();

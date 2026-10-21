@@ -112,6 +112,12 @@
   .key.pressed::before{
     animation:key-strike-shockwave .36s cubic-bezier(.1,.9,.2,1) forwards;
   }
+  html.anim-mode-minimal .key.pressed::before,
+  html.anim-mode-off .key.pressed::before,
+  html.performance-mode .key.pressed::before {
+    display: none !important;
+    animation: none !important;
+  }
   @keyframes key-strike-shockwave{
     0%{ opacity:0.95; transform:scale(0.85); filter:brightness(1.6); }
     100%{ opacity:0; transform:scale(1.45); filter:brightness(1); }

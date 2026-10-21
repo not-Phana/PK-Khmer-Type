@@ -591,20 +591,20 @@ if (typeof window !== 'undefined') {
 
 function getFxCoord(el, ev) {
   if (ev && typeof ev.clientX === 'number') {
-    return { x: ev.clientX, y: ev.clientY };
+    return { x: ev.clientX, y: ev.clientY, height: 46 };
   }
   if (el && typeof el.getBoundingClientRect === 'function') {
     let cached = fxCoordCache.get(el);
     if (!cached) {
       const r = el.getBoundingClientRect();
-      cached = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+      cached = { x: r.left + r.width / 2, y: r.top + r.height / 2, height: r.height || 46 };
       if (r.width > 0 || r.height > 0) {
         fxCoordCache.set(el, cached);
       }
     }
     return cached;
   }
-  return { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  return { x: window.innerWidth / 2, y: window.innerHeight / 2, height: 46 };
 }
 
 function heatColor(streakVal) {
@@ -693,7 +693,7 @@ function runeRing(el, color) {
   p.x = coord.x;
   p.y = coord.y;
   p.radius = 8;
-  p.maxRadius = el ? Math.min(Math.max(el.offsetHeight || 44, 44) * 0.92, 52) : 52;
+  p.maxRadius = el ? Math.min(Math.max(coord.height || 44, 44) * 0.92, 52) : 52;
   p.rotation = Math.random() * Math.PI;
   p.vRot = (Math.random() > 0.5 ? 1 : -1) * (0.025 + Math.random() * 0.02);
   p.lineWidth = 2.4;
@@ -720,7 +720,7 @@ function burst(el, ev) {
   p.x = coord.x;
   p.y = coord.y;
   p.radius = 4;
-  p.maxRadius = el ? Math.min(Math.max(el.offsetHeight || 48, 48) * 1.15, 58) : 55;
+  p.maxRadius = el ? Math.min(Math.max(coord.height || 48, 48) * 1.15, 58) : 55;
   p.color = col;
   p.alpha = 0.65;
   p.life = 0;

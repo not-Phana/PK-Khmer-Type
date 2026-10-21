@@ -2186,6 +2186,13 @@ function renderFrame(handL, handR, wrapRect){
   let needsAnim = false;
 
   const prefersReducedMotion = HAND_CONFIG.reducedMotion ||
+    Boolean(typeof window !== 'undefined' && window.__PERFORMANCE_MODE) ||
+    Boolean(typeof document !== 'undefined' && document.documentElement && (
+      document.documentElement.classList.contains('anim-mode-minimal') ||
+      document.documentElement.classList.contains('performance-mode') ||
+      document.documentElement.classList.contains('anim-mode-off') ||
+      document.documentElement.classList.contains('reduce-motion')
+    )) ||
     (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   FINGERS.forEach(f=>{
