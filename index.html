@@ -2022,14 +2022,24 @@
             </div>
 
             <div class="acc-sync-badge-col">
-              <div class="acc-session-pill" id="accSessionPill">
+              <div class="acc-session-pill" id="accSessionPill" title="Local storage active. Use Export &amp; Import to sync between devices.">
                 <span class="acc-session-dot" id="accSessionDot" aria-hidden="true"></span>
-                <span id="accSessionStatusText" class="i18n-t" data-en="Cloud Synced" data-km="បានធ្វើសមកាលកម្មលើពពក">Cloud Synced</span>
+                <span id="accSessionStatusText" class="i18n-t" data-en="Local Sync Active" data-km="ការសមកាលកម្មក្នុងម៉ាស៊ីន">Local Sync Active</span>
               </div>
-              <button type="button" class="acc-sync-now-btn" id="accSyncNowBtn" title="Synchronize progress &amp; settings now">
-                <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
-                <span id="accSyncNowBtnLabel" class="i18n-t" data-en="Sync Now" data-km="ធ្វើសមកាលកម្មឥឡូវ">Sync Now</span>
-              </button>
+              <div class="acc-sync-btns-row">
+                <button type="button" class="acc-sync-now-btn" id="accSyncNowBtn" title="Synchronize progress &amp; settings now">
+                  <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+                  <span id="accSyncNowBtnLabel" class="i18n-t" data-en="Sync Now" data-km="ធ្វើសមកាលកម្មឥឡូវ">Sync Now</span>
+                </button>
+                <button type="button" class="acc-sync-file-btn" id="accExportSyncBtn" title="Export progress &amp; settings backup (.json)">
+                  <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span class="i18n-t" data-en="Export" data-km="នាំចេញ">Export</span>
+                </button>
+                <button type="button" class="acc-sync-file-btn" id="accImportSyncBtn" title="Import progress &amp; settings backup (.json)">
+                  <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span class="i18n-t" data-en="Import" data-km="នាំចូល">Import</span>
+                </button>
+              </div>
             </div>
           </div>
 

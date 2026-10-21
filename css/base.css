@@ -4152,6 +4152,44 @@
     cursor: wait;
     transform: none;
   }
+  .acc-sync-btns-row{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .acc-sync-file-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-dim, #d9c6a3);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all .18s ease;
+  }
+  .acc-sync-file-btn:hover{
+    background: rgba(255, 209, 102, 0.15);
+    border-color: rgba(255, 209, 102, 0.45);
+    color: var(--gold-bright, #ffd166);
+    box-shadow: 0 0 10px rgba(255, 209, 102, 0.22);
+    transform: translateY(-1px);
+  }
+  .acc-sync-file-btn:active{
+    transform: translateY(0);
+  }
+  .acc-sync-file-btn:disabled{
+    opacity: 0.55;
+    cursor: wait;
+    transform: none;
+  }
 
   /* XP Mastery Liquid Bar */
   .acc-xp-container{

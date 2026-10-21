@@ -802,7 +802,21 @@ const AccountProgress = (function () {
     saveStore(store);
   }
 
-  return { snapshotAndClear, restore, clearAccountSnapshot, clearLiveProgressKeys };
+  function updateAccountSnapshot(accountIdOrEmail) {
+    if (!accountIdOrEmail) return;
+    const key = String(accountIdOrEmail).trim().toLowerCase();
+    const snapshot = {};
+    try {
+      Object.keys(localStorage).forEach((k) => {
+        if (isProgressKey(k)) snapshot[k] = localStorage.getItem(k);
+      });
+    } catch (e) {}
+    const store = loadStore();
+    store[key] = snapshot;
+    saveStore(store);
+  }
+
+  return { snapshotAndClear, restore, clearAccountSnapshot, clearLiveProgressKeys, updateAccountSnapshot };
 })();
 window.AccountProgress = AccountProgress;
 
@@ -815,7 +829,7 @@ window.AccountProgress = AccountProgress;
   const authChipAvatar = document.getElementById('authChipAvatar');
   const authChipName = document.getElementById('authChipName');
   const cloudSyncStatusBadge = document.getElementById('cloudSyncStatusBadge');
-  const cloudSyncStatusLabel = document.getElementById('cloudSyncStatusLabel');
+  const cloudSyncStatusLabel = document.getElementById('cloudSyncStatusLabel') || document.getElementById('cloudSyncStatusText');
 
   const authModal = document.getElementById('authModal');
   const authCard = document.getElementById('authCard');
@@ -1079,12 +1093,22 @@ window.AccountProgress = AccountProgress;
     }
 
     if (accSessionStatusText) {
+      const isRemoteClient = Boolean(
+        window.PKSupabaseConfig &&
+        typeof window.PKSupabaseConfig.getSupabaseClient === 'function' &&
+        window.PKSupabaseConfig.getSupabaseClient()
+      );
       if (state.status === 'offline') {
         accSessionStatusText.textContent = 'Offline — Progress saved on this device';
+        accSessionStatusText.title = 'Offline mode. Progress is preserved in local storage.';
       } else if (state.status === 'syncing') {
         accSessionStatusText.textContent = 'Saving your progress...';
+      } else if (!isRemoteClient) {
+        accSessionStatusText.textContent = 'Local Sync — Saved on this device';
+        accSessionStatusText.title = 'Local-first storage. Use Export & Import to transfer progress between devices.';
       } else {
-        accSessionStatusText.textContent = 'Account Active & Synced';
+        accSessionStatusText.textContent = 'Account Active & Cloud Synced';
+        accSessionStatusText.title = 'Remote cloud sync is connected.';
       }
     }
 
@@ -1665,10 +1689,45 @@ window.AccountProgress = AccountProgress;
     accSyncNowBtn.addEventListener('click', async () => {
       if (!window.PKCloudSync) return;
       accSyncNowBtn.disabled = true;
-      await window.PKCloudSync.syncAllNow();
+      const syncResult = await window.PKCloudSync.syncAllNow();
       accSyncNowBtn.disabled = false;
       const user = await AuthProvider.getCurrentUser();
       if (user) populateAccountPanel(user);
+
+      if (syncResult && syncResult.localMode) {
+        if (typeof showToast === 'function') {
+          showToast(
+            pkIcon('check', 18),
+            'Local Storage Saved',
+            'Progress is saved on this device. Use Export & Import to transfer across devices.'
+          );
+        }
+      } else if (syncResult && syncResult.ok) {
+        if (typeof showToast === 'function') {
+          showToast(pkIcon('check', 18), 'Cloud Synced', 'All progress and settings are up to date in the cloud.');
+        }
+      }
+    });
+  }
+
+  const accExportSyncBtn = document.getElementById('accExportSyncBtn');
+  if (accExportSyncBtn) {
+    accExportSyncBtn.addEventListener('click', () => {
+      if (typeof window.PKExportBackup === 'function') {
+        window.PKExportBackup();
+      }
+    });
+  }
+
+  const accImportSyncBtn = document.getElementById('accImportSyncBtn');
+  if (accImportSyncBtn) {
+    accImportSyncBtn.addEventListener('click', () => {
+      if (typeof window.PKImportBackup === 'function') {
+        window.PKImportBackup();
+      } else {
+        const input = document.getElementById('importProgressInput');
+        if (input) input.click();
+      }
     });
   }
 
@@ -2348,27 +2407,193 @@ window.AccountProgress = AccountProgress;
    Settings Modal — Local Export / Import / Reset Progress Actions
    ============================================================ */
 function initStorageActions() {
+  function exportUnifiedBackup() {
+    try {
+      const data = {};
+      Object.keys(localStorage).forEach((k) => {
+        if (k.startsWith('khmer') || k.startsWith('pk_') || k.startsWith('kk_')) {
+          data[k] = localStorage.getItem(k);
+        }
+      });
+
+      const settingsSnapshot =
+        window.PKCloudSync && typeof window.PKCloudSync.collectLocalSettingsSnapshot === 'function'
+          ? window.PKCloudSync.collectLocalSettingsSnapshot()
+          : null;
+
+      const lessonProgressSnapshot =
+        window.PKCloudSync && typeof window.PKCloudSync.collectLocalLessonProgressMap === 'function'
+          ? window.PKCloudSync.collectLocalLessonProgressMap()
+          : null;
+
+      let customLessons = null;
+      try {
+        const rawCustom = localStorage.getItem('khmerCustomLessons_v1');
+        if (rawCustom) customLessons = JSON.parse(rawCustom);
+      } catch (e) {}
+
+      const backup = {
+        app: 'PK Khmer Type',
+        version: '2.4.0-beta',
+        exportedAt: new Date().toISOString(),
+        format: 'pk-unified-backup',
+        settings: settingsSnapshot,
+        lessonProgress: lessonProgressSnapshot,
+        customLessons: customLessons,
+        storage: data,
+        ...data
+      };
+
+      const dateTag = new Date().toISOString().slice(0, 10);
+      const fileName = `pk-khmer-backup-${dateTag}.json`;
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      if (typeof showToast === 'function') {
+        showToast(pkIcon('check', 18), 'Backup Exported', `Saved all progress and settings to "${fileName}".`);
+      }
+    } catch (e) {
+      if (typeof showToast === 'function') {
+        showToast(pkIcon('zap', 18), 'Export Failed', 'Could not export backup file.');
+      }
+    }
+  }
+
   const exportBtn = document.getElementById('exportProgressBtn');
   if (exportBtn) {
-    exportBtn.addEventListener('click', () => {
+    exportBtn.addEventListener('click', exportUnifiedBackup);
+  }
+
+  async function handleImportFile(file) {
+    if (!file) return;
+    // DoS guard: reject files exceeding 10MB limit
+    if (file.size > 10 * 1024 * 1024) {
+      if (typeof showToast === 'function') {
+        showToast(pkIcon('zap', 18), 'File Too Large', 'File exceeds the 10MB limit.');
+      } else {
+        alert('File exceeds the 10MB limit.');
+      }
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async () => {
       try {
-        const data = {};
-        Object.keys(localStorage).forEach((k) => {
-          if (k.startsWith('khmer') || k.startsWith('pk_') || k.startsWith('kk_')) {
-            data[k] = localStorage.getItem(k);
+        const rawText = reader.result;
+        const data = JSON.parse(rawText);
+        if (!data || typeof data !== 'object' || Array.isArray(data)) {
+          throw new Error('Invalid backup format');
+        }
+
+        const ok = typeof templeConfirm === 'function'
+          ? await templeConfirm(
+              'This will update your current progress and settings from the backup file.',
+              { title: 'Restore backup?', confirmLabel: 'Restore', icon: pkIcon('scroll', 24) }
+            )
+          : confirm('Restore backup? This will update your current progress and settings.');
+        if (!ok) return;
+
+        const FORBIDDEN_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
+        const SAFE_PREFIXES = ['khmer', 'pk_', 'kk_'];
+        let totalBytesImported = 0;
+        const MAX_TOTAL_BYTES = 10 * 1024 * 1024; // 10MB max quota
+
+        function safeSetStorage(k, val) {
+          if (FORBIDDEN_KEYS.has(k) || typeof k !== 'string' || k.length > 128) return;
+          const matchesPrefix = SAFE_PREFIXES.some((pfx) => k.startsWith(pfx));
+          if (!matchesPrefix) return;
+          if (typeof val === 'function' || typeof val === 'symbol') return;
+          const serialized = typeof val === 'string' ? val : JSON.stringify(val);
+          if (typeof serialized === 'string' && serialized.length <= 1024 * 1024) {
+            if (totalBytesImported + serialized.length <= MAX_TOTAL_BYTES) {
+              totalBytesImported += serialized.length;
+              localStorage.setItem(k, serialized);
+            }
           }
+        }
+
+        // 1. If structured storage dictionary exists:
+        if (data.storage && typeof data.storage === 'object' && !Array.isArray(data.storage)) {
+          Object.keys(data.storage).forEach((k) => {
+            safeSetStorage(k, data.storage[k]);
+          });
+        }
+
+        // 2. Also check top-level keys for flat backups
+        Object.keys(data).forEach((k) => {
+          if (k === 'storage' || k === 'settings' || k === 'lessonProgress' || k === 'customLessons') return;
+          safeSetStorage(k, data[k]);
         });
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'khmer-keyboard-progress.json';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      } catch (e) {}
-    });
+
+        // 3. If structured settings exist, apply via CloudSync helper
+        if (data.settings && typeof data.settings === 'object' && !Array.isArray(data.settings)) {
+          if (window.PKCloudSync && typeof window.PKCloudSync.applySettingsSnapshotToLocal === 'function') {
+            window.PKCloudSync.applySettingsSnapshotToLocal(data.settings);
+          } else {
+            Object.keys(data.settings).forEach((sk) => {
+              if (sk !== '__proto__' && sk !== 'constructor' && sk !== 'prototype') {
+                safeSetStorage(sk, data.settings[sk]);
+              }
+            });
+          }
+        }
+
+        // 4. If structured lessonProgress exists, apply via CloudSync helper
+        if (data.lessonProgress && typeof data.lessonProgress === 'object' && !Array.isArray(data.lessonProgress)) {
+          if (window.PKCloudSync && typeof window.PKCloudSync.applyMergedLessonProgressToLocal === 'function') {
+            window.PKCloudSync.applyMergedLessonProgressToLocal(data.lessonProgress);
+          }
+        }
+
+        // 5. If direct course curriculum progress exists (courses map or schemaVersion)
+        if (data.courses && typeof data.courses === 'object') {
+          safeSetStorage('khmerProgress_v2', data);
+          if (window.PK_PROGRESS && typeof window.PK_PROGRESS.importData === 'function') {
+            window.PK_PROGRESS.importData(data, { replace: true });
+          }
+        }
+
+        // 6. If custom lessons list exists
+        if (Array.isArray(data.customLessons)) {
+          safeSetStorage('khmerCustomLessons_v1', data.customLessons);
+        }
+
+        // 7. Re-sync live progress into the active user's AccountProgress store
+        try {
+          if (window.AuthProvider && typeof window.AuthProvider.getCurrentUser === 'function') {
+            const user = await window.AuthProvider.getCurrentUser();
+            if (user && AccountProgress) {
+              if (user.id) AccountProgress.updateAccountSnapshot(user.id);
+              if (user.email) AccountProgress.updateAccountSnapshot(user.email);
+            }
+          }
+        } catch (e) {}
+
+        // 8. Trigger syncAllNow if available
+        if (window.PKCloudSync && typeof window.PKCloudSync.syncAllNow === 'function') {
+          await window.PKCloudSync.syncAllNow();
+        }
+
+        if (typeof showToast === 'function') {
+          showToast(pkIcon('check', 18), 'Backup Restored', 'Progress restored successfully! Reloading...');
+        }
+        setTimeout(() => location.reload(), 600);
+      } catch (e) {
+        if (typeof showToast === 'function') {
+          showToast(pkIcon('zap', 18), 'Import Failed', 'That file could not be read as a valid backup.');
+        } else {
+          alert('That file could not be read as a valid backup.');
+        }
+      }
+    };
+    reader.readAsText(file);
   }
 
   const importProgressInput = document.getElementById('importProgressInput');
@@ -2377,60 +2602,15 @@ function initStorageActions() {
     importProgressBtn.addEventListener('click', () => importProgressInput.click());
     importProgressInput.addEventListener('change', () => {
       const file = importProgressInput.files && importProgressInput.files[0];
-      if (!file) return;
-      // DoS guard: reject files exceeding 10MB
-      if (file.size > 10 * 1024 * 1024) {
-        alert('File exceeds the 10MB limit.');
-        importProgressInput.value = '';
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = async () => {
-        try {
-          const rawText = reader.result;
-          const data = JSON.parse(rawText);
-          if (!data || typeof data !== 'object' || Array.isArray(data)) {
-            throw new Error('Invalid backup format');
-          }
-          const ok = await templeConfirm(
-            'This will overwrite your current progress and settings with the imported backup.',
-            { title: 'Restore backup?', confirmLabel: 'Restore', icon: pkIcon('scroll', 24) }
-          );
-          if (!ok) return;
-
-          const FORBIDDEN_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
-          const SAFE_PREFIXES = ['khmer', 'pk_', 'kk_'];
-          let totalBytesImported = 0;
-          const MAX_TOTAL_BYTES = 5 * 1024 * 1024; // 5MB max quota
-
-          Object.keys(data).forEach((k) => {
-            if (FORBIDDEN_KEYS.has(k) || typeof k !== 'string' || k.length > 128) return;
-            const matchesPrefix = SAFE_PREFIXES.some((pfx) => k.startsWith(pfx));
-            if (!matchesPrefix) return;
-
-            const val = data[k];
-            if (typeof val === 'function' || typeof val === 'symbol') return;
-            const serialized = typeof val === 'string' ? val : JSON.stringify(val);
-            if (typeof serialized === 'string' && serialized.length <= 1024 * 1024) {
-              if (totalBytesImported + serialized.length <= MAX_TOTAL_BYTES) {
-                totalBytesImported += serialized.length;
-                localStorage.setItem(k, serialized);
-              }
-            }
-          });
-
-          if (window.PKCloudSync && typeof window.PKCloudSync.syncAllNow === 'function') {
-            await window.PKCloudSync.syncAllNow();
-          }
-          location.reload();
-        } catch (e) {
-          alert('That file could not be read as a valid backup.');
-        }
-      };
-      reader.readAsText(file);
       importProgressInput.value = '';
+      if (file) handleImportFile(file);
     });
   }
+
+  window.PKExportBackup = exportUnifiedBackup;
+  window.PKImportBackup = () => {
+    if (importProgressInput) importProgressInput.click();
+  };
 
   /* ---------- Reset Progress ---------- */
   const resetProgressBtn = document.getElementById('resetProgressBtn');
