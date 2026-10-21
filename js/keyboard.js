@@ -801,6 +801,12 @@ ALL_ROWS.forEach(rowDef=>{
   });
   board.appendChild(rowEl);
 });
+  if(typeof window !== 'undefined'){
+    requestAnimationFrame(()=>{
+      recalibrateCoordinates();
+      updateHandsOverlay();
+    });
+  }
 }
 
 function syncLayoutUI(id){
@@ -1690,7 +1696,15 @@ function keyBounds(id, wrapRect){
   }
   const el = keyEls[id] || (typeof window !== 'undefined' && window.keyEls && window.keyEls[id]) || (typeof global !== 'undefined' && global.keyEls && global.keyEls[id]);
   if(!el) return null;
-  const wRect = wrapRect || cachedWrapRect || (boardWrap && typeof boardWrap.getBoundingClientRect === 'function' ? boardWrap.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 });
+  let wRect;
+  if(wrapRect && typeof wrapRect.left === 'number'){
+    wRect = wrapRect;
+  } else if(boardWrap && typeof boardWrap.getBoundingClientRect === 'function'){
+    wRect = boardWrap.getBoundingClientRect();
+    if(wRect.width > 0 && wRect.height > 0) cachedWrapRect = wRect;
+  } else {
+    wRect = cachedWrapRect || { left: 0, top: 0, width: 0, height: 0 };
+  }
   if(!cachedWrapRect && wRect.width > 0){
     cachedWrapRect = wRect;
   }
@@ -2017,6 +2031,18 @@ FINGERS.forEach(f => {
   fingerBiomechanicalStates[f.id] = HAND_STATES.HOME_REST;
 });
 
+function isReducedMotionOrMinimal(){
+  return Boolean(HAND_CONFIG.reducedMotion ||
+    (typeof window !== 'undefined' && window.__PERFORMANCE_MODE) ||
+    (typeof document !== 'undefined' && document.documentElement && (
+      document.documentElement.classList.contains('anim-mode-minimal') ||
+      document.documentElement.classList.contains('performance-mode') ||
+      document.documentElement.classList.contains('anim-mode-off') ||
+      document.documentElement.classList.contains('reduce-motion')
+    )) ||
+    (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches));
+}
+
 function recalibrateCoordinates(){
   invalidateKeyCoordCache();
   if(!boardWrap || !handsOverlay) return;
@@ -2026,6 +2052,25 @@ function recalibrateCoordinates(){
   handsOverlay.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
   handsOverlay.setAttribute('width', wrapRect.width);
   handsOverlay.setAttribute('height', wrapRect.height);
+  if(typeof keyEls === 'object' && keyEls){
+    Object.keys(keyEls).forEach(id => {
+      const el = keyEls[id];
+      if(!el || typeof el.getBoundingClientRect !== 'function') return;
+      const r = el.getBoundingClientRect();
+      if(r.width > 0 || r.height > 0){
+        keyCoordCache[id] = {
+          left: r.left - wrapRect.left,
+          right: r.right - wrapRect.left,
+          top: r.top - wrapRect.top,
+          bottom: r.bottom - wrapRect.top,
+          width: r.width,
+          height: r.height,
+          cx: r.left + r.width/2 - wrapRect.left,
+          cy: r.top + r.height/2 - wrapRect.top
+        };
+      }
+    });
+  }
 }
 
 function updateHandsOverlay(){
@@ -2039,14 +2084,18 @@ function updateHandsOverlay(){
   handsOverlay.style.display = '';
   handsOverlay.classList.toggle('mode-ghost', HAND_CONFIG.overlayMode === 'ghost');
 
-  const wrapRect = cachedWrapRect || (boardWrap && typeof boardWrap.getBoundingClientRect === 'function' ? boardWrap.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 });
-  if(!wrapRect.width || !wrapRect.height) return;
-  if(!cachedWrapRect){
+  let wrapRect = (boardWrap && typeof boardWrap.getBoundingClientRect === 'function') ? boardWrap.getBoundingClientRect() : null;
+  if(!wrapRect || !wrapRect.width || !wrapRect.height){
+    wrapRect = cachedWrapRect || { left: 0, top: 0, width: 0, height: 0 };
+  } else {
     cachedWrapRect = wrapRect;
-    handsOverlay.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
-    handsOverlay.setAttribute('width', wrapRect.width);
-    handsOverlay.setAttribute('height', wrapRect.height);
+    if(handsOverlay.getAttribute('width') !== String(wrapRect.width)){
+      handsOverlay.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
+      handsOverlay.setAttribute('width', wrapRect.width);
+      handsOverlay.setAttribute('height', wrapRect.height);
+    }
   }
+  if(!wrapRect.width || !wrapRect.height) return;
 
   // Safeguard: guarantee right pinky is always present in FINGERS and DOM
   if(!FINGERS.some(f => f.id === 'rp')){
@@ -2158,8 +2207,7 @@ function updateHandsOverlay(){
     targetFingerPositions[f.id] = targetPt;
 
     // Check reduced motion
-    const prefersReducedMotion = HAND_CONFIG.reducedMotion ||
-      (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const prefersReducedMotion = isReducedMotionOrMinimal();
 
     if(prefersReducedMotion || !currentFingerPositions[f.id]){
       currentFingerPositions[f.id] = { x: targetPt.x, y: targetPt.y };
@@ -2185,15 +2233,7 @@ function renderFrame(handL, handR, wrapRect){
   const framesR = {};
   let needsAnim = false;
 
-  const prefersReducedMotion = HAND_CONFIG.reducedMotion ||
-    Boolean(typeof window !== 'undefined' && window.__PERFORMANCE_MODE) ||
-    Boolean(typeof document !== 'undefined' && document.documentElement && (
-      document.documentElement.classList.contains('anim-mode-minimal') ||
-      document.documentElement.classList.contains('performance-mode') ||
-      document.documentElement.classList.contains('anim-mode-off') ||
-      document.documentElement.classList.contains('reduce-motion')
-    )) ||
-    (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const prefersReducedMotion = isReducedMotionOrMinimal();
 
   FINGERS.forEach(f=>{
     const fe = fingerEls[f.id];
@@ -2411,7 +2451,10 @@ if(handsToggle){
 }
 
 if(typeof window !== 'undefined'){
-  window.addEventListener('resize', updateHandsOverlay);
+  window.addEventListener('resize', ()=>{
+    recalibrateCoordinates();
+    updateHandsOverlay();
+  });
 }
 
 
