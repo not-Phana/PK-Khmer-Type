@@ -2896,7 +2896,6 @@
   html.focus-mode #guideDock,
   html.focus-mode .guide-dock,
   html.focus-mode #profileSidebar,
-  html.focus-mode #profileCredit,
   html.focus-mode #sessionBar,
   html.focus-mode .session-bar,
   html.focus-mode .layer-strip,
@@ -6122,7 +6121,7 @@
   }
 
   /* ===== PERFORMANCE & CLEAN LOOK OVERRIDES (ZERO LAG) ===== */
-  .motes, .torch, .scanline-overlay, .dev-note-scanline, .rune-ring, .ember, .ripple,
+  .motes, .torch, .scanline-overlay, .dev-note-scanline, .ember, .ripple,
   .profile-sidebar, .horizon, .fx-laser, .banner-sheen, .profile-fx-particles {
     display: none !important;
     animation: none !important;

@@ -1506,13 +1506,7 @@
         });
       }
 
-      // Confirm Modal Close & Cancel
-      const confirmCloseBtn = document.getElementById('clConfirmCloseBtn');
-      if(confirmCloseBtn){
-        confirmCloseBtn.addEventListener('click', () => {
-          this.closeConfirmModal();
-        });
-      }
+      // Confirm Modal Cancel
       const confirmCancelBtn = document.getElementById('clConfirmCancelBtn');
       if(confirmCancelBtn){
         confirmCancelBtn.addEventListener('click', () => {

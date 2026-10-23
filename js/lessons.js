@@ -1323,7 +1323,6 @@ let lessonTimerStarted = false;
 let lessonTimerInterval = null;
 let lessonTimeLeft = 0;
 let lessonHasTimer = false;
-let lessonExtendedOnce = false; // adaptive: only auto-extend a lesson once per attempt
 let remedialActive = false;    // true while running an ad-hoc "Review Mistakes" drill
 
 const COURSE_LESSON_STATES = {
@@ -2756,7 +2755,6 @@ function startLesson(idOrDef, allowDirectPractice = false){
   lessonMistakeChars = {};
   lessonAcceptedUnits = [];
   lessonPartialStroke = null;
-  lessonExtendedOnce = false;
   lessonStartTime = 0;
   lessonTimerStarted = false;
   if (lessonTimerInterval) {
@@ -2973,18 +2971,10 @@ if(lessonAudioQuickBtn){
   });
 }
 
-/* Adaptive difficulty: mistake tracking without jarring mid-lesson duplicate spam.
+/* Adaptive difficulty & mistake tracking:
    Mistakes are tracked in lessonMistakeChars and fed directly into the dedicated,
-   context-aware "Review Mistakes" drill upon lesson completion. */
-function adaptiveReinforce(ch){
-  // Deliberately no mid-stream duplicate injections to prevent repetitive letter stutter.
-}
-/* Lesson length is governed by the structured 5-stage curriculum progression
-   (short -> a little longer -> longer -> kinda long -> very long) rather than
-   appending random characters mid-attempt. */
-function adaptiveExtend(){
-  // Deliberately no mid-stream random character injection.
-}
+   context-aware "Review Mistakes" drill upon lesson completion.
+   Lesson length is governed by the structured 5-stage curriculum progression. */
 
 function lessonHandleChar(val, el, stroke){
   if(!lessonActive || !val) return;
@@ -3118,7 +3108,6 @@ function lessonHandleChar(val, el, stroke){
     if(el){ el.classList.add('correct'); setTimeout(()=> el.classList.remove('correct'), 260); }
     emberBurst(el, null, 5, null);
     runeRing(el);
-    adaptiveExtend();
     if(lessonIndex >= lessonChars.length){
       completeLesson();
     } else {
@@ -3130,7 +3119,6 @@ function lessonHandleChar(val, el, stroke){
     lessonMistakes++;
     lessonMistakeChars[expected] = (lessonMistakeChars[expected]||0) + 1;
     recordKeystroke(false);
-    adaptiveReinforce(expected);
     updateLessonProgress();
     saveActiveLessonSession();
     if(el){ el.classList.add('wrong'); setTimeout(()=> el.classList.remove('wrong'), 300); }
@@ -3713,6 +3701,7 @@ if(document.readyState !== 'loading'){
 
 function applyLessonsData(data){
   if(!data) return;
+  if(typeof LESSON_SETS !== 'undefined' && LESSON_SETS.standard && LESSON_SETS.standard.length >= 96) return;
   if(data.LEVELS && Array.isArray(data.LEVELS)) LEVELS.length = 0, LEVELS.push(...data.LEVELS);
   if(data.LESSONS_STANDARD) LESSONS_STANDARD.length = 0, LESSONS_STANDARD.push(...data.LESSONS_STANDARD);
   if(data.LESSONS_NIDA) LESSONS_NIDA.length = 0, LESSONS_NIDA.push(...data.LESSONS_NIDA);

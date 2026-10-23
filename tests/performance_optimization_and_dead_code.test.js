@@ -133,6 +133,44 @@ test('Dead Code Elimination: Dead finger SVG nodes and per-frame mutations are r
   assert.doesNotMatch(keyboardCss, /\.hands-overlay \.finger-nail,/);
 });
 
+test('Dead Code Elimination: Unused math, obsolete finger stubs, dead DOM handlers, and phantom SW registration are eliminated', () => {
+  const keyboardCode = fs.readFileSync(path.resolve('js/keyboard.js'), 'utf8');
+  const lessonsCode = fs.readFileSync(path.resolve('js/lessons.js'), 'utf8');
+  const statisticsCode = fs.readFileSync(path.resolve('js/statistics.js'), 'utf8');
+  const customLessonsCode = fs.readFileSync(path.resolve('js/custom-lessons.js'), 'utf8');
+  const appCode = fs.readFileSync(path.resolve('js/app.js'), 'utf8');
+  const typingCss = fs.readFileSync(path.resolve('css/typing.css'), 'utf8');
+  const keyboardCss = fs.readFileSync(path.resolve('css/keyboard.css'), 'utf8');
+
+  // js/keyboard.js: obsolete vector math and nail/frame stubs
+  assert.doesNotMatch(keyboardCode, /function sub\(/);
+  assert.doesNotMatch(keyboardCode, /function add\(/);
+  assert.doesNotMatch(keyboardCode, /function scalePt\(/);
+  assert.doesNotMatch(keyboardCode, /function norm\(/);
+  assert.doesNotMatch(keyboardCode, /function qPoint\(/);
+  assert.doesNotMatch(keyboardCode, /function qTangent\(/);
+  assert.doesNotMatch(keyboardCode, /function buildNailPath\(/);
+  assert.doesNotMatch(keyboardCode, /function pointAtFrame\(/);
+
+  // js/lessons.js: write-only state & no-op stubs
+  assert.doesNotMatch(lessonsCode, /lessonExtendedOnce/);
+  assert.doesNotMatch(lessonsCode, /function adaptiveReinforce\(/);
+  assert.doesNotMatch(lessonsCode, /function adaptiveExtend\(/);
+  assert.doesNotMatch(lessonsCode, /adaptiveExtend\(\)/);
+  assert.doesNotMatch(lessonsCode, /adaptiveReinforce\(/);
+
+  // js/statistics.js & js/custom-lessons.js: dead DOM element listeners
+  assert.doesNotMatch(statisticsCode, /profileCredit/);
+  assert.doesNotMatch(customLessonsCode, /clConfirmCloseBtn/);
+
+  // js/app.js: dead non-existent service worker registration
+  assert.doesNotMatch(appCode, /navigator\.serviceWorker\.register/);
+
+  // css/typing.css & css/keyboard.css: dead CSS animation and override rules
+  assert.doesNotMatch(typingCss, /\.rune-ring/);
+  assert.doesNotMatch(keyboardCss, /\.pk-cursor-reticle/);
+});
+
 test('Performance Optimization: typing FX coordinate caching avoids layout recalculation', () => {
   const typingCode = fs.readFileSync(path.resolve('js/typing.js'), 'utf8');
 
@@ -167,7 +205,13 @@ test('Strict Zero-Emoji Policy: Verified across all modified files', () => {
     'js/lessons.js',
     'js/typing.js',
     'js/smooth-cursor.js',
+    'js/statistics.js',
+    'js/custom-lessons.js',
+    'js/app.js',
+    'js/vendor/supabase.js',
     'css/keyboard.css',
+    'css/typing.css',
+    'css/base.css',
     'tests/performance_optimization_and_dead_code.test.js'
   ];
 

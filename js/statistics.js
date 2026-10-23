@@ -685,7 +685,7 @@ function initStatisticsDashboard(){
     profileSidebar.setAttribute('aria-expanded', String(on));
   }
   profileSidebar.addEventListener('click', (e)=>{
-    if(e.target.closest('button, input, #profileCredit')) return;
+    if(e.target.closest('button, input')) return;
     setProfileExpanded(profileSidebar.classList.contains('collapsed'));
   });
   profileSidebar.addEventListener('keydown', (e)=>{
@@ -737,36 +737,6 @@ function initStatisticsDashboard(){
     };
     reader.readAsDataURL(file);
   });
-
-  /* -- translate founder credit to Khmer -- */
-  const profileCredit = document.getElementById('profileCredit');
-  if(profileCredit){
-    const enText = profileCredit.getAttribute('data-en');
-    const kmText = profileCredit.getAttribute('data-km');
-    const toggleEl = document.createElement('span');
-    toggleEl.className = 'profile-credit-toggle';
-    toggleEl.setAttribute('aria-hidden', 'true');
-    function renderCredit(){
-      const isKm = profileCredit.classList.contains('is-km');
-      if(profileCredit.firstChild) profileCredit.firstChild.textContent = isKm ? kmText : enText;
-      toggleEl.textContent = isKm ? 'English' : 'ភាសាខ្មែរ';
-    }
-    profileCredit.textContent = enText;
-    profileCredit.appendChild(toggleEl);
-    profileCredit.setAttribute('lang', 'en');
-    function toggleCreditLang(){
-      profileCredit.classList.toggle('is-km');
-      const isKm = profileCredit.classList.contains('is-km');
-      profileCredit.setAttribute('lang', isKm ? 'km' : 'en');
-      profileCredit.setAttribute('aria-label', isKm ? 'Click to switch back to English' : 'Click to translate to Khmer');
-      renderCredit();
-    }
-    profileCredit.addEventListener('click', (e)=>{ e.stopPropagation(); toggleCreditLang(); });
-    profileCredit.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleCreditLang(); }
-    });
-    renderCredit();
-  }
 
   refreshProfileUI();
 }

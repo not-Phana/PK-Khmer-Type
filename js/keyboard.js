@@ -1104,15 +1104,7 @@ if(typeof window !== 'undefined') window.fingerEls = fingerEls;
 
 /* ---- svg geometry helpers ---- */
 const SVGNS = 'http://www.w3.org/2000/svg';
-function sub(a,b){ return {x:a.x-b.x, y:a.y-b.y}; }
-function add(a,b){ return {x:a.x+b.x, y:a.y+b.y}; }
-function scalePt(a,s){ return {x:a.x*s, y:a.y*s}; }
 function dist(a,b){ return Math.hypot(a.x-b.x, a.y-b.y); }
-function norm(v){ const l = Math.hypot(v.x,v.y) || 1; return {x:v.x/l, y:v.y/l}; }
-
-/* quadratic bezier point + tangent (backward compatibility fallback) */
-function qPoint(o,c,t,s){ const m=1-s; return { x:m*m*o.x+2*m*s*c.x+s*s*t.x, y:m*m*o.y+2*m*s*c.y+s*s*t.y }; }
-function qTangent(o,c,t,s){ const m=1-s; return { x:2*m*(c.x-o.x)+2*s*(t.x-c.x), y:2*m*(c.y-o.y)+2*s*(t.y-c.y) }; }
 
 /* cubic bezier point + tangent for natural 3-phalanx human finger curve */
 function cPoint(p0, p1, p2, p3, s){
@@ -1279,11 +1271,6 @@ function frameToPath(frame, baseW, tipW){
   return d;
 }
 
-/* Fingernail plate path — disabled to eliminate boxy fingernail artifacts and keep natural smooth fingertips */
-function buildNailPath(frame){
-  return '';
-}
-
 function creaseAt(frame, s){
   const { p0, p1, p2, p3, baseW, tipW } = frame;
   const pt = cPoint(p0, p1, p2, p3, s);
@@ -1296,12 +1283,6 @@ function creaseAt(frame, s){
   const pB = { x: pt.x + nx * w, y: pt.y + ny * w };
   const cp = { x: pt.x - tan.x * 1.4, y: pt.y - tan.y * 1.4 };
   return `M ${pA.x.toFixed(1)} ${pA.y.toFixed(1)} Q ${cp.x.toFixed(1)} ${cp.y.toFixed(1)} ${pB.x.toFixed(1)} ${pB.y.toFixed(1)}`;
-}
-
-function pointAtFrame(frame, s){
-  const i = Math.round(s * (frame.left.length - 1));
-  const l = frame.left[i], r = frame.right[i];
-  return { x: (l.x + r.x) * 0.5, y: (l.y + r.y) * 0.5 };
 }
 
 /* ---- Dynamic Hand Color Gradients Engine ---- */

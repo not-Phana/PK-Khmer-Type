@@ -166,22 +166,6 @@
   }
 
 
-  /* ---------- rune ring (trial correct keystroke) ---------- */
-  .rune-ring{
-    position:absolute; left:50%; top:50%;
-    width:10px; height:10px;
-    transform:translate(-50%,-50%);
-    border:2px solid var(--gold-bright);
-    clip-path:polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-    opacity:0.95;
-    pointer-events:none;
-    z-index:5;
-    animation:rune-expand .55s ease-out forwards;
-  }
-  @keyframes rune-expand{
-    to{ width:76px; height:76px; opacity:0; transform:translate(-50%,-50%) rotate(55deg); }
-  }
-
   /* ---------- new-record celebration ---------- */
   .record-flash{
     position:fixed; inset:0; pointer-events:none; z-index:60;

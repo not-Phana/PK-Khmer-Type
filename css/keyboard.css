@@ -1994,16 +1994,6 @@
     color: #4a3421 !important;
   }
 
-  /* Cursor Reticle disabled per user preference */
-  .pk-cursor-reticle,
-  .pk-cursor-reticle-dot,
-  #pkCursorReticle {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-
   /* Click shockwave ripple */
   .pk-cursor-shockwave {
     position: fixed;
