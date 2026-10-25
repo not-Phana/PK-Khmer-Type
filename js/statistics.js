@@ -503,8 +503,9 @@ function initStatisticsDashboard(){
     let layoutCompletedLessons = lessonsMastered;
     let layoutTotalLessons = LESSONS.length;
 
-    if(global.PK_PROGRESS && typeof global.PK_PROGRESS.getLearnerSummary === 'function'){
-      layoutSummary = global.PK_PROGRESS.getLearnerSummary(curL);
+    const progressApi = (typeof window !== 'undefined' && window.PK_PROGRESS) || (typeof global !== 'undefined' && global.PK_PROGRESS);
+    if(progressApi && typeof progressApi.getLearnerSummary === 'function'){
+      layoutSummary = progressApi.getLearnerSummary(curL);
       if(layoutSummary){
         layoutKeys = layoutSummary.totalTypingUnits || t.keys;
         layoutAcc = layoutSummary.overallAccuracy || acc;
@@ -611,10 +612,11 @@ function initStatisticsDashboard(){
 
     // Render Achievements Showcase
     const achievementsContainer = document.getElementById('statsAchievementsGrid');
-    if(achievementsContainer && global.PK_ACHIEVEMENTS && typeof global.PK_ACHIEVEMENTS.getAll === 'function'){
-      const allAch = global.PK_ACHIEVEMENTS.getAll();
+    const achievementsApi = (typeof window !== 'undefined' && window.PK_ACHIEVEMENTS) || (typeof global !== 'undefined' && global.PK_ACHIEVEMENTS);
+    if(achievementsContainer && achievementsApi && typeof achievementsApi.getAll === 'function'){
+      const allAch = achievementsApi.getAll();
       const countEl = document.getElementById('statsAchievementsCount');
-      const unlockedCount = global.PK_ACHIEVEMENTS.getUnlockedCount();
+      const unlockedCount = typeof achievementsApi.getUnlockedCount === 'function' ? achievementsApi.getUnlockedCount() : 0;
       if(countEl) countEl.textContent = `${unlockedCount} / ${allAch.length} ${isKm ? 'បានដោះសោ' : 'Unlocked'}`;
 
       achievementsContainer.innerHTML = allAch.map((a, i) => `

@@ -2819,8 +2819,9 @@ function getLearningOverview(layoutId){
   }
 
   let strugglingKeys = [];
-  if(typeof global.PK_ADAPTIVE !== 'undefined' && typeof global.PK_ADAPTIVE.evaluateWeaknesses === 'function'){
-    const w = global.PK_ADAPTIVE.evaluateWeaknesses(l);
+  const adaptiveApi = (typeof window !== 'undefined' && window.PK_ADAPTIVE) || (typeof global !== 'undefined' && global.PK_ADAPTIVE);
+  if(adaptiveApi && typeof adaptiveApi.evaluateWeaknesses === 'function'){
+    const w = adaptiveApi.evaluateWeaknesses(l);
     if(w && w.needsPractice){
       strugglingKeys = w.needsPractice.map(x => ({
         unit: x.unit,
@@ -3505,14 +3506,15 @@ function completeLesson(){
   }
 
   // Check and award personal milestones via PK_ACHIEVEMENTS
-  if(typeof global.PK_ACHIEVEMENTS !== 'undefined' && typeof global.PK_ACHIEVEMENTS.check === 'function'){
+  const achApi = (typeof window !== 'undefined' && window.PK_ACHIEVEMENTS) || (typeof global !== 'undefined' && global.PK_ACHIEVEMENTS);
+  if(achApi && typeof achApi.check === 'function'){
     const stg = getStageForLevel(def.level, currentLayoutId);
     let stageComp = false;
     if(stg){
       const sp = getStageProgress(stg.id, currentLayoutId);
       stageComp = sp && sp.isComplete;
     }
-    global.PK_ACHIEVEMENTS.check({
+    achApi.check({
       type: def.isCustom ? 'custom_lesson_practiced' : 'lesson_completed',
       lessonId: id,
       accuracy: accuracy,

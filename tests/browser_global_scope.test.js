@@ -268,3 +268,145 @@ test('Shared Browser Global Scope: Multi-script sequential execution without col
   const setupError = sandbox.PKSupabaseConfig.getSupabaseSetupError();
   assert.match(setupError, /operating in offline\/local storage mode/, 'Supabase setup error must clearly inform user of offline mode');
 });
+
+test('Browser Global Isolation: completeLesson and getLearningOverview succeed when global is undefined', () => {
+  const rootDir = path.resolve(__dirname, '..');
+  const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+  const scriptRegex = /<script\b[^>]*src=["']([^"']+)["'][^>]*>/gi;
+  const scriptFiles = [];
+  let match;
+  while ((match = scriptRegex.exec(indexHtml)) !== null) {
+    scriptFiles.push(match[1].split('?')[0]);
+  }
+
+  function createMockElement(tag = 'div') {
+    return {
+      tagName: tag.toUpperCase(),
+      style: { setProperty() {}, removeProperty() {}, display: '' },
+      classList: {
+        _set: new Set(),
+        add(c) { this._set.add(c); },
+        remove(c) { this._set.delete(c); },
+        contains(c) { return this._set.has(c); },
+        toggle(c) { if (this._set.has(c)) this._set.delete(c); else this._set.add(c); }
+      },
+      setAttribute() {},
+      getAttribute() { return null; },
+      hasAttribute() { return false; },
+      removeAttribute() {},
+      addEventListener() {},
+      removeEventListener() {},
+      appendChild(c) { return c; },
+      insertBefore(c) { return c; },
+      removeChild(c) { return c; },
+      remove() {},
+      querySelectorAll() { return []; },
+      querySelector() { return null; },
+      childNodes: [],
+      children: [],
+      dataset: {},
+      hidden: false,
+      textContent: '',
+      innerHTML: '',
+      focus() {},
+      blur() {},
+      closest() { return null; },
+      matches() { return false; },
+      getBoundingClientRect() { return { top: 0, left: 0, width: 100, height: 40 }; },
+      getContext() {
+        return new Proxy({}, {
+          get() {
+            return () => {};
+          }
+        });
+      }
+    };
+  }
+
+  const elementsMap = new Map();
+  function getElem(id) {
+    if (!elementsMap.has(id)) {
+      const el = createMockElement('div');
+      el.id = id;
+      elementsMap.set(id, el);
+    }
+    return elementsMap.get(id);
+  }
+
+  const sandbox = {
+    console: { log() {}, info() {}, warn() {}, error() {}, debug() {} },
+    setTimeout: () => 1,
+    clearTimeout: () => {},
+    setInterval: () => 1,
+    clearInterval: () => {},
+    requestAnimationFrame: () => 1,
+    cancelAnimationFrame: () => {},
+    getComputedStyle: () => ({ getPropertyValue: () => '' }),
+    btoa: (str) => Buffer.from(str, 'binary').toString('base64'),
+    atob: (b64) => Buffer.from(b64, 'base64').toString('binary'),
+    matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
+    navigator: { userAgent: 'BrowserSim/1.0', language: 'en-US' },
+    location: { href: 'http://localhost/index.html', pathname: '/index.html' },
+    localStorage: { _d: {}, getItem(k) { return this._d[k] || null; }, setItem(k, v) { this._d[k] = String(v); }, removeItem(k) { delete this._d[k]; }, clear() { this._d = {}; } },
+    sessionStorage: { _d: {}, getItem(k) { return this._d[k] || null; }, setItem(k, v) { this._d[k] = String(v); } },
+    AudioContext: class {
+      createBuffer() { return { getChannelData: () => new Float32Array(10) }; }
+      createBufferSource() { return { buffer: null, connect() {}, start() {}, stop() {}, disconnect() {} }; }
+      createGain() { return { gain: { setValueAtTime() {}, exponentialRampToValueAtTime() {}, linearRampToValueAtTime() {} }, connect() {}, disconnect() {} }; }
+      createBiquadFilter() { return { frequency: { setValueAtTime() {} }, connect() {}, disconnect() {} }; }
+      createOscillator() { return { type: 'sine', frequency: { setValueAtTime() {} }, connect() {}, start() {}, stop() {}, disconnect() {} }; }
+      get currentTime() { return 0; }
+    },
+    Event: class { constructor(t) { this.type = t; } },
+    CustomEvent: class { constructor(t, i) { this.type = t; this.detail = i && i.detail; } },
+    MutationObserver: class { observe() {} disconnect() {} takeRecords() { return []; } },
+    ResizeObserver: class { observe() {} disconnect() {} },
+    addEventListener() {},
+    removeEventListener() {},
+    dispatchEvent() {},
+    document: {
+      documentElement: createMockElement('html'),
+      body: createMockElement('body'),
+      head: createMockElement('head'),
+      createElement: (t) => createMockElement(t),
+      createElementNS: (ns, t) => createMockElement(t),
+      createDocumentFragment: () => createMockElement('fragment'),
+      getElementById: (id) => getElem(id),
+      querySelector: (s) => (s && s.startsWith('#') ? getElem(s.slice(1)) : createMockElement('div')),
+      querySelectorAll: () => [],
+      addEventListener() {},
+      removeEventListener() {},
+      dispatchEvent() {}
+    }
+  };
+
+  sandbox.window = sandbox;
+  // NOTE: In browser, window.global is undefined and global identifier is not declared!
+  // Do NOT assign sandbox.global!
+
+  const context = vm.createContext(sandbox);
+
+  for (const relPath of scriptFiles) {
+    const fullPath = path.join(rootDir, relPath);
+    if (!fs.existsSync(fullPath)) continue;
+    const srcCode = fs.readFileSync(fullPath, 'utf8');
+    vm.runInContext(srcCode, context, { filename: relPath });
+  }
+
+  // 1. Verify getLearningOverview does not crash when global is undeclared
+  assert.doesNotThrow(() => {
+    const overview = sandbox.getLearningOverview('standard');
+    assert.ok(overview, 'getLearningOverview must return an overview object');
+  }, 'getLearningOverview must execute cleanly when global is undeclared in browser');
+
+  // 2. Start a lesson, advance to the final keystroke, and complete it
+  assert.doesNotThrow(() => {
+    const firstLesson = (sandbox.LESSONS && sandbox.LESSONS[0]) || 'nida_1';
+    sandbox.startLesson(firstLesson, true);
+    assert.equal(sandbox.lessonActive, true, 'Lesson must be active after startLesson');
+    // Simulate typing the final character
+    sandbox.lessonIndex = sandbox.lessonChars.length;
+    sandbox.completeLesson();
+    assert.equal(sandbox.lessonActive, false, 'Lesson must be inactive after completeLesson');
+  }, 'completeLesson must complete cleanly on the final keystroke without ReferenceError: global is not defined');
+});
