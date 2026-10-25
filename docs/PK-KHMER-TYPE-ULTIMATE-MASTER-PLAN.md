@@ -1,7 +1,7 @@
 # PK Khmer Type — Ultimate Master Plan
 ## Definitive Architectural Map, Local-First Engine Contracts, Air-Gapped Classroom Model, and Sovereign Evolution Roadmap
 
-**Document Version:** 4.0.0-SOVEREIGN-DEEP-SPEC  
+**Document Version:** 4.1.0-STRATEGIC-DECISION-MATRIX  
 **Target Codebase:** PK Khmer Type (`idk`)  
 **Mission Classification:** Pure Local-First Architecture, Zero-Cloud Strategy & Long-Term Master Plan  
 **Core Enforcement Protocols:** Strict Zero-Emoji Policy (100% Text / Vector SVG Icons), Zero Cloud Dependency (100% Offline & Air-Gapped), Zero Required Operating Cost ($0 Recurring Budget), Sovereign Client-Side Data Ownership.
