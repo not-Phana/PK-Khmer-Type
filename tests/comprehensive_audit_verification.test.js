@@ -15,7 +15,10 @@ test('BUG-V01: Canonical GitHub namespace is updated to not-Phana across reposit
   const indexHtml = fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
   const launchHtml = fs.readFileSync(path.join(projectRoot, 'launch/index.html'), 'utf8');
   const llmsTxt = fs.readFileSync(path.join(projectRoot, 'llms.txt'), 'utf8');
-  const cursorHtml = fs.readFileSync(path.join(projectRoot, 'pk-cursor-system.html'), 'utf8');
+  const cursorHtmlPath = fs.existsSync(path.join(projectRoot, 'concepts', 'pk-cursor-system.html'))
+    ? path.join(projectRoot, 'concepts', 'pk-cursor-system.html')
+    : path.join(projectRoot, 'pk-cursor-system.html');
+  const cursorHtml = fs.readFileSync(cursorHtmlPath, 'utf8');
 
   // Verify no stale repository URL references
   assert.ok(!indexHtml.includes('https://github.com/phanaach4889/PK-Khmer-Type'));

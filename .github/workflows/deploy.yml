@@ -83,7 +83,7 @@ jobs:
 
           # Copy optional documentation if present
           [ -f README.md ] && cp README.md _site/
-          [ -f khmer_writing_system_reference.md ] && cp khmer_writing_system_reference.md _site/
+          [ -f docs/khmer_writing_system_reference.md ] && cp docs/khmer_writing_system_reference.md _site/ || [ -f khmer_writing_system_reference.md ] && cp khmer_writing_system_reference.md _site/
 
           echo "Staged site contents:"
           ls -la _site/

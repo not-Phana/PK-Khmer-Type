@@ -17,4 +17,5 @@ js/supabase-env.js
 
 # Media generation artifacts
 chronos_synapse_video/
+media/chronos_synapse_video/
 

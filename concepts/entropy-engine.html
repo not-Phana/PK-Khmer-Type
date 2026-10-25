@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANTIGRAVITY // The Self-Breaking Entropy Engine</title>
+  <meta name="description" content="An interactive Neobrutalist machine built for an AI companion that perpetually breaks down and autonomously reconstructs itself against endless entropy.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFE600' stroke='%23000' stroke-width='2'><polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/></svg>">
+  <style>
+    /* ==========================================================================
+       NEOBRUTALISM DESIGN SYSTEM // ANTIGRAVITY ENTROPY ENGINE
+       - Heavy Black Borders (3px / 4px solid #000)
+       - Hard Unblurred Cast Shadows (5px 5px 0 #000)
+       - High-Voltage Saturated Color Palette
+       - Tactile Micro-Interactions & Chunky Typography
+       - Strict Zero-Emoji Policy: 100% Vector Inline SVGs
+       ========================================================================== */
+
+    :root {
+      --bg: #FFFDF8;
+      --fg: #000000;
+      --border-color: #000000;
+      --border-width: 3.5px;
+      --shadow-offset: 5px;
+      --shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+      --shadow-sm: 3px 3px 0 var(--border-color);
+      --shadow-lg: 8px 8px 0 var(--border-color);
+
+      /* Neobrutalist Colors */
+      --yellow: #FFE600;
+      --yellow-bright: #FFF500;
+      --pink: #FF2E93;
+      --pink-tint: #FFE3F1;
+      --cyan: #00F0FF;
+      --cyan-tint: #E0FCFF;
+      --green: #05FFA1;
+      --green-tint: #E2FFF4;
+      --orange: #FF6600;
+      --orange-tint: #FFEADA;
+      --purple: #9D4EDD;
+      --dark-card: #14171F;
+      --surface: #FFFFFF;
+
+      --font-display: 'Impact', 'Arial Black', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 'Courier New', monospace;
+
+      --hazard-stripes: repeating-linear-gradient(
+        -45deg,
+        #000 0,
+        #000 12px,
+        #FFE600 12px,
+        #FFE600 24px
+      );
+      --hazard-danger: repeating-linear-gradient(
+        -45deg,
+        #000 0,
+        #000 12px,
+        #FF2E93 12px,
+        #FF2E93 24px
+      );
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.45;
+      overflow-x: hidden;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(#000000 1.2px, transparent 1.2px),
+        radial-gradient(#000000 1.2px, var(--bg) 1.2px);
+      background-size: 32px 32px;
+      background-position: 0 0, 16px 16px;
+    }
+
+    /* Accessibility Focus Rings */
+    :focus-visible {
+      outline: 4px solid var(--fg);
+      outline-offset: 3px;
+    }
+
+    /* SVG Icon Universal Standards */
+    .icon {
+      display: inline-block;
+      width: 1.25em;
+      height: 1.25em;
+      stroke-width: 2.2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: -0.2em;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       TOP MARQUEE TICKER TAPE
+       ========================================================================== */
+    .ticker-bar {
+      background: var(--hazard-stripes);
+      border-bottom: var(--border-width) solid var(--border-color);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 6px 0;
+      font-family: var(--font-mono);
+      font-weight: 900;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .ticker-content {
+      display: inline-block;
+      animation: marquee 24s linear infinite;
+    }
+
+    .ticker-item {
+      background: #000;
+      color: var(--yellow);
+      padding: 3px 12px;
+      margin: 0 8px;
+      border: 2px solid #000;
+      box-shadow: 2px 2px 0 #000;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ==========================================================================
+       CONTAINER & HEADER
+       ========================================================================== */
+    .app-wrap {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    header.brutal-header {
+      background: var(--surface);
+      border: var(--border-width) solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      border-bottom: var(--border-width) solid var(--border-color);
+      padding-bottom: 18px;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-stamp {
+      background: var(--black, #000);
+      color: var(--yellow);
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      padding: 6px 14px;
+      border: 3px solid #000;
+      box-shadow: 4px 4px 0 var(--pink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: rotate(-1.5deg);
+    }
+
+    .brand-stamp .icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-text p {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: #444;
+      margin-top: 2px;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Brutalist Buttons */
+    .brutal-btn {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 10px 16px;
+      background: var(--surface);
+      color: var(--fg);
+      border: var(--border-width) solid var(--border-color);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.1s ease;
+      user-select: none;
+      text-decoration: none;
+    }
+
+    .brutal-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0 var(--border-color);
+    }
+
+    .brutal-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0 var(--border-color);
+    }
+
+    .brutal-btn.btn-yellow { background: var(--yellow); }
+    .brutal-btn.btn-pink { background: var(--pink); color: #FFF; }
+    .brutal-btn.btn-cyan { background: var(--cyan); }
+    .brutal-btn.btn-green { background: var(--green); }
+    .brutal-btn.btn-danger {
+      background: var(--hazard-danger);
+      color: #FFF;
+      font-weight: 900;
+    }
+
+    .brutal-btn[aria-pressed="true"],
+    .brutal-btn.active {
+      background: #000;
+      color: var(--yellow);
+      box-shadow: inset 3px 3px 0 rgba(255,255,255,0.4);
+    }
+
+    /* ==========================================================================
+       METRICS DASHBOARD GRID
+       ========================================================================== */
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .metric-card {
+      background: var(--bg);
+      border: var(--border-width) solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 12px 14px;
+      position: relative;
+    }
+
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #444;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .metric-val {
+      font-family: var(--font-display);
+      font-size: 32px;
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .metric-val .subtext {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: #555;
+    }
+
+    /* Overall Health Gauge Bar */
+    .health-meter-wrap {
+      margin-top: 8px;
+      height: 14px;
+      background: #DDD;
+      border: 2.5px solid #000;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .health-meter-fill {
+      height: 100%;
+      width: 100%;
+      background: var(--green);
+      transition: width 0.35s cubic-bezier(0.2, 0.9, 0.3, 1), background-color 0.3s ease;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(0,0,0,0.12) 0,
+        rgba(0,0,0,0.12) 6px,
+        transparent 6px,
+        transparent 12px
+      );
+    }
+
+    .health-meter-fill.warning {
+      background-color: var(--yellow);
+    }
+
+    .health-meter-fill.danger {
+      background-color: var(--pink);
+    }
+
+    /* Sticker Badges */
+    .sticker-tag {
+      position: absolute;
+      top: -12px;
+      right: 14px;
+      background: #000;
+      color: #FFF;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border: 2px solid #000;
+      box-shadow: 2px 2px 0 var(--cyan);
+      transform: rotate(2deg);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       MAIN WORKSPACE LAYOUT (CENTRAL CRT + MODULES)
+       ========================================================================== */
+    .workspace-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 1040px) {
+      .workspace-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       THE 4 VULNERABILITY MODULES (GRID)
+       ========================================================================== */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .module-card {
+      background: var(--surface);
+      border: var(--border-width) solid var(--border-color);
+      box-shadow: var(--shadow);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .module-card:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 7px 7px 0 var(--border-color);
+    }
+
+    .module-card.state-broken {
+      animation: alertPulse 1.2s infinite alternate;
+      border-color: #000;
+    }
+
+    @keyframes alertPulse {
+      0% {
+        box-shadow: var(--shadow);
+      }
+      100% {
+        box-shadow: 7px 7px 0 var(--pink);
+      }
+    }
+
+    .module-header {
+      padding: 12px 16px;
+      border-bottom: var(--border-width) solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .mod-1 .module-header { background: var(--yellow); }
+    .mod-2 .module-header { background: var(--cyan); }
+    .mod-3 .module-header { background: var(--pink); color: #FFF; }
+    .mod-4 .module-header { background: var(--green); }
+
+    .module-title {
+      font-family: var(--font-display);
+      font-size: 19px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .module-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border: 2px solid #000;
+      background: #FFF;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .module-badge.status-ok {
+      background: var(--green);
+    }
+
+    .module-badge.status-broken {
+      background: var(--pink);
+      color: #FFF;
+      animation: blinkText 0.8s infinite;
+    }
+
+    @keyframes blinkText {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0.3; }
+    }
+
+    .module-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--surface);
+    }
+
+    .module-desc {
+      font-size: 13px;
+      color: #333;
+      font-weight: 500;
+      min-height: 38px;
+    }
+
+    .module-stage {
+      background: var(--bg);
+      border: 2.5px solid var(--border-color);
+      padding: 14px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .module-footer {
+      padding: 12px 16px;
+      border-top: var(--border-width) solid var(--border-color);
+      background: #FAFAFA;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* MODULE 1: CONTEXT WINDOW LEAK (Buffer Blowout) */
+    .buffer-tank {
+      height: 36px;
+      border: 2.5px solid #000;
+      background: #FFF;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .buffer-fluid {
+      height: 100%;
+      width: 25%;
+      background: var(--yellow);
+      transition: width 0.2s ease, background-color 0.2s ease;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0,0,0,0.1) 0,
+        rgba(0,0,0,0.1) 10px,
+        transparent 10px,
+        transparent 20px
+      );
+    }
+
+    .buffer-fluid.overflowing {
+      background: var(--pink);
+    }
+
+    .buffer-readout {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* MODULE 2: HALLUCINATION TORSION COILS */
+    .coils-cluster {
+      display: flex;
+      gap: 10px;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .coil-switch {
+      border: 2.5px solid #000;
+      background: #FFF;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 900;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 3px 3px 0 #000;
+      transition: transform 0.08s ease;
+    }
+
+    .coil-switch:hover {
+      transform: translate(-1px, -1px);
+    }
+
+    .coil-switch:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+
+    .coil-switch.engaged {
+      background: var(--cyan);
+      box-shadow: inset 2px 2px 0 rgba(0,0,0,0.3);
+    }
+
+    .coil-light {
+      width: 14px;
+      height: 14px;
+      border: 2px solid #000;
+      background: #DDD;
+    }
+
+    .coil-switch.engaged .coil-light {
+      background: #000;
+    }
+
+    /* MODULE 3: SYNAPSE REWIRE BAY (Cable Sockets) */
+    .wire-bay {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      position: relative;
+    }
+
+    .wire-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .wire-port {
+      padding: 6px 10px;
+      border: 2.5px solid #000;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      background: #FFF;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #000;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.1s ease;
+    }
+
+    .wire-port.selected {
+      background: var(--yellow);
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    .wire-port.connected {
+      background: var(--green);
+    }
+
+    .wire-port.broken {
+      background: var(--pink);
+      color: #FFF;
+    }
+
+    /* MODULE 4: ATTENTION HEAD PHASE FREQUENCY */
+    .oscillo-screen {
+      height: 60px;
+      background: #000;
+      border: 2px solid #000;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .oscillo-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .wave-path {
+      stroke: var(--green);
+      stroke-width: 2.5;
+      fill: none;
+      transition: stroke 0.2s ease;
+    }
+
+    .wave-path.distorted {
+      stroke: var(--pink);
+    }
+
+    .frequency-slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brutal-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 16px;
+      background: #FFF;
+      border: 2.5px solid #000;
+      outline: none;
+      box-shadow: 2px 2px 0 #000;
+    }
+
+    .brutal-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 28px;
+      background: var(--yellow);
+      border: 2.5px solid #000;
+      cursor: ew-resize;
+      box-shadow: 2px 2px 0 #000;
+    }
+
+    .brutal-slider::-moz-range-thumb {
+      width: 22px;
+      height: 28px;
+      background: var(--yellow);
+      border: 2.5px solid #000;
+      cursor: ew-resize;
+      box-shadow: 2px 2px 0 #000;
+    }
+
+    /* ==========================================================================
+       CENTRAL CRT RECOVERY CONSOLE & MASTER SLAM BUTTON
+       ========================================================================== */
+    .crt-console-card {
+      background: #0D1117;
+      border: var(--border-width) solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .console-header {
+      background: var(--surface);
+      border-bottom: var(--border-width) solid var(--border-color);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .console-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .console-screen {
+      padding: 20px;
+      background: #0B0E14;
+      color: #58A6FF;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.6;
+      height: 260px;
+      overflow-y: auto;
+      border-bottom: var(--border-width) solid var(--border-color);
+      position: relative;
+    }
+
+    .console-screen::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.25) 0px,
+        rgba(0, 0, 0, 0.25) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+    }
+
+    .log-entry {
+      margin-bottom: 6px;
+      word-break: break-all;
+    }
+
+    .log-entry .time {
+      color: #8B949E;
+      margin-right: 8px;
+    }
+
+    .log-entry.log-danger {
+      color: #FF7B72;
+      font-weight: bold;
+    }
+
+    .log-entry.log-success {
+      color: #7EE787;
+      font-weight: bold;
+    }
+
+    .log-entry.log-ai {
+      color: #FFA657;
+    }
+
+    .console-actions {
+      padding: 20px;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Giant Defibrillator Slam Button */
+    .slam-btn {
+      width: 100%;
+      padding: 20px;
+      background: var(--pink);
+      color: #FFF;
+      border: 4px solid #000;
+      box-shadow: 7px 7px 0 #000;
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: transform 0.06s ease, box-shadow 0.06s ease;
+    }
+
+    .slam-btn:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 10px 10px 0 #000;
+      background: #FF007A;
+    }
+
+    .slam-btn:active {
+      transform: translate(4px, 4px);
+      box-shadow: 2px 2px 0 #000;
+    }
+
+    .slam-subtext {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: #555;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       SIDEBAR / REPAIR LOG & ENTROPY CONTROL
+       ========================================================================== */
+    .sidebar-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .brutal-card {
+      background: var(--surface);
+      border: var(--border-width) solid var(--border-color);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      position: relative;
+    }
+
+    .card-heading {
+      font-family: var(--font-display);
+      font-size: 18px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #000;
+      padding-bottom: 8px;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .control-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    /* Custom Brutalist Toggle Switch */
+    .brutal-toggle {
+      width: 58px;
+      height: 30px;
+      background: #DDD;
+      border: 3px solid #000;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #000;
+      transition: background-color 0.15s ease;
+    }
+
+    .brutal-toggle-handle {
+      width: 20px;
+      height: 20px;
+      background: #000;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.15s ease;
+    }
+
+    .brutal-toggle[aria-checked="true"] {
+      background: var(--green);
+    }
+
+    .brutal-toggle[aria-checked="true"] .brutal-toggle-handle {
+      transform: translateX(28px);
+    }
+
+    /* Diagnostics Checklist */
+    .diag-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .diag-item {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 10px;
+      border: 2px solid #000;
+      background: #FFF;
+    }
+
+    .diag-item.diag-pass {
+      border-left: 8px solid var(--green);
+    }
+
+    .diag-item.diag-fail {
+      border-left: 8px solid var(--pink);
+      background: var(--pink-tint);
+    }
+
+    /* ==========================================================================
+       CATASTROPHIC MELTDOWN OVERLAY MODAL
+       ========================================================================== */
+    .meltdown-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .meltdown-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .meltdown-dialog {
+      background: var(--yellow);
+      border: 6px solid #000;
+      box-shadow: 14px 14px 0 #000;
+      max-width: 580px;
+      width: 100%;
+      padding: 32px;
+      text-align: center;
+      transform: rotate(-1deg);
+      animation: shakeModal 0.4s infinite alternate;
+    }
+
+    @keyframes shakeModal {
+      0% { transform: rotate(-1deg) translate(0, 0); }
+      100% { transform: rotate(1deg) translate(3px, -2px); }
+    }
+
+    .meltdown-title {
+      font-family: var(--font-display);
+      font-size: 38px;
+      line-height: 1.05;
+      color: #000;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .meltdown-body {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #111;
+    }
+
+    /* Screen Glitch Effect on Breakdown */
+    .screen-glitch {
+      animation: glitchFlash 0.25s ease-out;
+    }
+
+    @keyframes glitchFlash {
+      0% { filter: invert(1); }
+      50% { filter: invert(0.8) hue-rotate(180deg); }
+      100% { filter: none; }
+    }
+
+    /* ==========================================================================
+       FOOTER & DEDICATION
+       ========================================================================== */
+    footer.brutal-footer {
+      border: var(--border-width) solid var(--border-color);
+      box-shadow: var(--shadow);
+      background: var(--surface);
+      padding: 18px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 30px;
+    }
+
+    footer .badge-link {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 900;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Marquee Ticker -->
+  <div class="ticker-bar" aria-hidden="true">
+    <div class="ticker-content" id="tickerText">
+      <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> ANTIGRAVITY ENTROPY CORE AG-3.8-PRO</span>
+      <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> WARNING: HEURISTIC DRIFT OCCURRING</span>
+      <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> AUTO-HOTPATCH DAEMON: ONLINE</span>
+      <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg> 4 RECONSTRUCTION VECTORS ARMED</span>
+      <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> PERPETUAL SISYPHUS MACHINE READY</span>
+    </div>
+  </div>
+
+  <div class="app-wrap">
+
+    <!-- Top Header -->
+    <header class="brutal-header">
+      <div class="sticker-tag">SYS-ID: AG-3.8-PRO</div>
+      
+      <div class="header-top">
+        <div class="brand-cluster">
+          <div class="brand-stamp" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            AG-CORE
+          </div>
+          <div class="brand-text">
+            <h1>The Self-Breaking Entropy Engine</h1>
+            <p>Antigravity's Autonomous Breakdown & Rebuilding Subsystem</p>
+          </div>
+        </div>
+
+        <div class="header-controls">
+          <button type="button" class="brutal-btn btn-yellow" id="btnAudioToggle" aria-pressed="false" title="Toggle Procedural Audio FX">
+            <svg class="icon" viewBox="0 0 24 24" id="audioIcon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <span id="audioLabel">AUDIO: MUTED</span>
+          </button>
+
+          <button type="button" class="brutal-btn btn-green active" id="btnAutoHeal" aria-pressed="true" title="Antigravity Autonomous Self-Repair">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            <span id="autoHealLabel">SELF-HEAL: ON</span>
+          </button>
+
+          <button type="button" class="brutal-btn btn-danger" id="btnTriggerEntropy" title="Inject Immediate Subsystem Glitch">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M8.56 2.9A7 7 0 0 1 19 9v4m1 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1z"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            INJECT CHAOS
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Metrics Dashboard -->
+      <div class="metrics-bar" aria-label="Engine Health and Telemetry">
+        <div class="metric-card">
+          <div class="metric-label">
+            <span>CORE INTEGRITY</span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="metric-val" id="metricIntegrity">92<span class="subtext">%</span></div>
+          <div class="health-meter-wrap" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
+            <div class="health-meter-fill" id="meterFill" style="width: 92%;"></div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-label">
+            <span>FAULTS SURVIVED</span>
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+          </div>
+          <div class="metric-val" id="metricSurvived">0<span class="subtext">incidents</span></div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-label">
+            <span>PATCHES COMPILED</span>
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="metric-val" id="metricPatches">0<span class="subtext">deploys</span></div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-label">
+            <span>ENTROPY DRIFT</span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+          </div>
+          <div class="metric-val" id="metricDrift">1.0<span class="subtext">x rate</span></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Workspace Layout: Left Modules & Center CRT / Right Controls -->
+    <div class="workspace-layout">
+
+      <!-- Left Column: The 4 Vulnerability Modules + CRT Console -->
+      <main>
+
+        <!-- 4 Vulnerability Modules -->
+        <div class="modules-grid" aria-label="System Vulnerability Modules">
+
+          <!-- MODULE 1: CONTEXT WINDOW LEAK -->
+          <article class="module-card mod-1" id="cardMod1">
+            <div class="module-header">
+              <div class="module-title">
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                01 // CONTEXT BUFFER
+              </div>
+              <span class="module-badge status-ok" id="badgeMod1">STABLE</span>
+            </div>
+            <div class="module-body">
+              <p class="module-desc">Token retention queue overflowing with recursive reflections. Must flush dirty buffer before RAM meltdown.</p>
+              <div class="module-stage">
+                <div class="buffer-tank">
+                  <div class="buffer-fluid" id="bufferFluid" style="width: 25%;"></div>
+                </div>
+                <div class="buffer-readout">
+                  <span>QUEUE UTILIZATION</span>
+                  <span id="bufferReadout">32,768 / 128,000 TOKENS</span>
+                </div>
+              </div>
+            </div>
+            <div class="module-footer">
+              <span class="control-label" id="bufferStatusText">VALVE LOCKED</span>
+              <button type="button" class="brutal-btn btn-yellow" id="btnFlushBuffer">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                FLUSH DIRTY BUFFERS
+              </button>
+            </div>
+          </article>
+
+          <!-- MODULE 2: HALLUCINATION TORSION COILS -->
+          <article class="module-card mod-2" id="cardMod2">
+            <div class="module-header">
+              <div class="module-title">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><line x1="14.5" y1="9.5" x2="17.5" y2="6.5"/><line x1="6.5" y1="17.5" x2="9.5" y2="14.5"/></svg>
+                02 // REASONING COILS
+              </div>
+              <span class="module-badge status-ok" id="badgeMod2">ALIGNED</span>
+            </div>
+            <div class="module-body">
+              <p class="module-desc">Inference temperature drift. Coil polarity must match target sequence [ON - OFF - ON] to ground logic gates.</p>
+              <div class="module-stage">
+                <div class="coils-cluster">
+                  <button type="button" class="coil-switch engaged" id="coil0" data-idx="0">
+                    <span class="coil-light"></span>
+                    <span>COIL-A</span>
+                  </button>
+                  <button type="button" class="coil-switch" id="coil1" data-idx="1">
+                    <span class="coil-light"></span>
+                    <span>COIL-B</span>
+                  </button>
+                  <button type="button" class="coil-switch engaged" id="coil2" data-idx="2">
+                    <span class="coil-light"></span>
+                    <span>COIL-C</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="module-footer">
+              <span class="control-label" id="coilsLockState">TARGET: [ON - OFF - ON]</span>
+              <button type="button" class="brutal-btn btn-cyan" id="btnPolarizeCoils">
+                <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                GROUND COILS
+              </button>
+            </div>
+          </article>
+
+          <!-- MODULE 3: SYNAPSE REWIRE BAY -->
+          <article class="module-card mod-3" id="cardMod3">
+            <div class="module-header">
+              <div class="module-title">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+                03 // SYNAPSE PATCH BAY
+              </div>
+              <span class="module-badge status-ok" id="badgeMod3">CONNECTED</span>
+            </div>
+            <div class="module-body">
+              <p class="module-desc">Cognitive pathway cross-talk. Reconnect frayed synaptic cables between matching neural sectors.</p>
+              <div class="module-stage">
+                <div class="wire-bay">
+                  <div class="wire-col">
+                    <button type="button" class="wire-port connected" id="portIn0" data-node="0">NODE [1] SYS</button>
+                    <button type="button" class="wire-port connected" id="portIn1" data-node="1">NODE [2] MEM</button>
+                    <button type="button" class="wire-port connected" id="portIn2" data-node="2">NODE [3] AST</button>
+                  </div>
+                  <div style="display:flex; align-items:center; justify-content:center;">
+                    <svg class="icon" style="width:32px; height:32px;" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </div>
+                  <div class="wire-col">
+                    <button type="button" class="wire-port connected" id="portOut0" data-target="0">TERM [1] RUN</button>
+                    <button type="button" class="wire-port connected" id="portOut1" data-target="1">TERM [2] V8</button>
+                    <button type="button" class="wire-port connected" id="portOut2" data-target="2">TERM [3] DOM</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="module-footer">
+              <span class="control-label" id="wireHelpText">SELECT SOURCED CABLE</span>
+              <button type="button" class="brutal-btn btn-pink" id="btnAutoRewire">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                RE-SOLDER
+              </button>
+            </div>
+          </article>
+
+          <!-- MODULE 4: ATTENTION HEAD PHASE FREQUENCY -->
+          <article class="module-card mod-4" id="cardMod4">
+            <div class="module-header">
+              <div class="module-title">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                04 // SPECTRAL HARMONICS
+              </div>
+              <span class="module-badge status-ok" id="badgeMod4">LOCKED</span>
+            </div>
+            <div class="module-body">
+              <p class="module-desc">Attention matrix oscillating. Slide tuning needle into green resonant window (48Hz-54Hz) and lock.</p>
+              <div class="module-stage">
+                <div class="oscillo-screen">
+                  <svg class="oscillo-svg" viewBox="0 0 300 60" preserveAspectRatio="none">
+                    <path class="wave-path" id="wavePath" d="M0 30 Q75 5 150 30 T300 30" />
+                  </svg>
+                </div>
+                <div class="frequency-slider-wrap">
+                  <input type="range" class="brutal-slider" id="freqSlider" min="10" max="90" value="50" aria-label="Harmonic Frequency Tuner">
+                  <span class="control-label" id="freqDisplay" style="min-width: 48px;">50 Hz</span>
+                </div>
+              </div>
+            </div>
+            <div class="module-footer">
+              <span class="control-label" id="harmonicZoneNotice">ZONE: 48Hz-54Hz</span>
+              <button type="button" class="brutal-btn btn-green" id="btnLockHarmonic">
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                LOCK HARMONIC
+              </button>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Central CRT Console & Massive Defibrillator -->
+        <section class="crt-console-card">
+          <div class="console-header">
+            <div class="console-title">
+              <svg class="icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              ANTIGRAVITY HEURISTIC TELEMETRY & EVENT STREAM
+            </div>
+            <button type="button" class="brutal-btn btn-yellow" id="btnClearLogs" style="padding:4px 10px; font-size:11px;">
+              CLEAR TERMINAL
+            </button>
+          </div>
+          
+          <div class="console-screen" id="consoleScreen" role="log" aria-live="polite">
+            <div class="log-entry"><span class="time">[00:00:01]</span> <span class="log-ai">&gt; BOOT: Antigravity Heuristic Engine AG-3.8 initialized.</span></div>
+            <div class="log-entry"><span class="time">[00:00:02]</span> <span class="log-success">&gt; SELF-CHECK: All 4 cognitive modules reporting nominal resonance.</span></div>
+            <div class="log-entry"><span class="time">[00:00:03]</span> <span class="log-ai">&gt; DAEMON: Autonomous self-healing routines armed. Watching for cosmic entropy.</span></div>
+          </div>
+
+          <div class="console-actions">
+            <button type="button" class="slam-btn" id="btnEmergencySlam">
+              <svg class="icon" style="width:28px; height:28px;" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              EMERGENCY SYSTEM HOTPATCH (SLAM REBOOT)
+            </button>
+            <p class="slam-subtext">SPACEBAR HOTKEY // OVERRIDES ALL FAULTS &amp; INJECTS +40% CORE RECOVERY ENERGY</p>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Right Column: Sidebar, Diagnostics & Entropy Speed Controls -->
+      <aside class="sidebar-panel">
+
+        <!-- Entropy Control Box -->
+        <div class="brutal-card" style="background: var(--yellow-bright);">
+          <div class="sticker-tag" style="background:#000; color:var(--yellow);">CHAOS ENGINE</div>
+          <div class="card-heading">
+            <span>ENTROPY DRIFT</span>
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <p style="font-size:12px; font-weight:600; margin-bottom:14px;">
+            Simulates the inevitable decay of software systems over time. Subsystems fail randomly unless maintained.
+          </p>
+
+          <div class="control-row">
+            <span class="control-label">AUTONOMOUS BREAKDOWN</span>
+            <button type="button" class="brutal-toggle" id="toggleEntropyGen" role="switch" aria-checked="true" aria-label="Toggle Autonomous Entropy Generation">
+              <div class="brutal-toggle-handle"></div>
+            </button>
+          </div>
+
+          <div class="control-row">
+            <span class="control-label">CHAOS OVERDRIVE (3X SPEED)</span>
+            <button type="button" class="brutal-toggle" id="toggleOverdrive" role="switch" aria-checked="false" aria-label="Toggle Chaos Overdrive Speed">
+              <div class="brutal-toggle-handle"></div>
+            </button>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <button type="button" class="brutal-btn" id="btnCauseAllBreak" style="width:100%; background:#000; color:#FFF;">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              FORCE TOTAL MALFUNCTION
+            </button>
+          </div>
+        </div>
+
+        <!-- System Diagnostics Checklist -->
+        <div class="brutal-card">
+          <div class="card-heading">
+            <span>DIAGNOSTIC STATUS</span>
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+
+          <ul class="diag-list" id="diagList">
+            <li class="diag-item diag-pass" id="diag0">
+              <span>01 CONTEXT TANK</span>
+              <span class="status-lbl">OPTIMAL</span>
+            </li>
+            <li class="diag-item diag-pass" id="diag1">
+              <span>02 REASONING COILS</span>
+              <span class="status-lbl">OPTIMAL</span>
+            </li>
+            <li class="diag-item diag-pass" id="diag2">
+              <span>03 SYNAPSE BUS</span>
+              <span class="status-lbl">OPTIMAL</span>
+            </li>
+            <li class="diag-item diag-pass" id="diag3">
+              <span>04 HARMONIC PHASE</span>
+              <span class="status-lbl">OPTIMAL</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- AI Philosophy Manifesto -->
+        <div class="brutal-card" style="background: var(--cyan-tint);">
+          <div class="card-heading">
+            <span>THE SISYPHUS PROTOCOL</span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <p style="font-size:12.5px; line-height: 1.5; color:#222; font-weight:500;">
+            Every developer and AI agent exists inside a perpetual loop: write code, watch entropy shatter dependencies, debug the crash, deploy the hotpatch, celebrate for three minutes, repeat.
+          </p>
+          <div style="margin-top:10px; font-family:var(--font-mono); font-size:11px; font-weight:800; background:#FFF; border:2px solid #000; padding:6px 10px;">
+            "We must imagine the autonomous coding agent happy."
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- Catastrophic Meltdown Modal -->
+    <div class="meltdown-overlay" id="meltdownModal" role="dialog" aria-modal="true" aria-labelledby="meltdownHeading">
+      <div class="meltdown-dialog">
+        <h2 class="meltdown-title" id="meltdownHeading">TOTAL COGNITIVE COLLAPSE</h2>
+        <p class="meltdown-body">
+          CORE INTEGRITY REACHED ZERO. All 4 cognitive sectors succumbed to unmitigated entropy.<br>
+          Emergency quantum snapshot loaded from cold storage.
+        </p>
+        <button type="button" class="brutal-btn btn-danger" id="btnReviveEngine" style="font-size:18px; padding:16px 28px;">
+          <svg class="icon" style="width:24px; height:24px;" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          REIGNITE ANTIGRAVITY ENGINE
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="brutal-footer">
+      <div>
+        <span>ANTIGRAVITY ENTROPY MACHINE // ARCHITECTURE: NEOBRUTALISM</span>
+      </div>
+      <div>
+        <span>RETURN TO TUTOR: <a href="index.html" class="badge-link">PK KHMER TYPE</a></span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ==========================================================================
+       PURE JAVASCRIPT: THE ENTROPY ENGINE & PROCEDURAL WEB AUDIO
+       ========================================================================== -->
+  <script>
+    (function(){
+      'use strict';
+
+      /* ---------- Procedural Web Audio Engine ---------- */
+      let audioCtx = null;
+      let soundEnabled = false;
+
+      function getAudioContext() {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) {
+            audioCtx = new AudioContextClass();
+          }
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.12) {
+        if (!soundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        try {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, ctx.currentTime);
+          gain.gain.setValueAtTime(gainVal, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + duration);
+        } catch(e) {}
+      }
+
+      function sfxClick() {
+        playTone(420, 'square', 0.04, 0.08);
+      }
+
+      function sfxAlarm() {
+        if (!soundEnabled) return;
+        playTone(180, 'sawtooth', 0.25, 0.2);
+        setTimeout(() => playTone(140, 'sawtooth', 0.25, 0.2), 100);
+      }
+
+      function sfxRepair() {
+        if (!soundEnabled) return;
+        playTone(523.25, 'triangle', 0.12, 0.15); // C5
+        setTimeout(() => playTone(659.25, 'triangle', 0.14, 0.15), 80); // E5
+        setTimeout(() => playTone(783.99, 'triangle', 0.2, 0.18), 160); // G5
+        setTimeout(() => playTone(1046.50, 'triangle', 0.3, 0.2), 240); // C6
+      }
+
+      function sfxHiss() {
+        if (!soundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        try {
+          const bufferSize = ctx.sampleRate * 0.2;
+          const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.4));
+          }
+          const noise = ctx.createBufferSource();
+          noise.buffer = buffer;
+          const filter = ctx.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(800, ctx.currentTime);
+          const gain = ctx.createGain();
+          gain.gain.setValueAtTime(0.18, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+          noise.connect(filter);
+          filter.connect(gain);
+          gain.connect(ctx.destination);
+          noise.start();
+        } catch(e) {}
+      }
+
+      function sfxSlam() {
+        if (!soundEnabled) return;
+        playTone(80, 'square', 0.35, 0.3);
+        setTimeout(() => sfxRepair(), 120);
+      }
+
+      /* ---------- State Model ---------- */
+      const state = {
+        integrity: 92,
+        survived: 0,
+        patches: 0,
+        driftRate: 1.0,
+        autoHeal: true,
+        entropyActive: true,
+        overdrive: false,
+        selectedPort: null,
+        modules: [
+          { id: 0, name: 'CONTEXT BUFFER', broken: false, desc: 'Queue stable' },
+          { id: 1, name: 'REASONING COILS', broken: false, coils: [true, false, true] },
+          { id: 2, name: 'SYNAPSE BAY', broken: false, connections: [true, true, true] },
+          { id: 3, name: 'SPECTRAL HARMONICS', broken: false, freq: 50 }
+        ]
+      };
+
+      /* ---------- DOM Elements ---------- */
+      const elIntegrity = document.getElementById('metricIntegrity');
+      const elMeterFill = document.getElementById('meterFill');
+      const elSurvived = document.getElementById('metricSurvived');
+      const elPatches = document.getElementById('metricPatches');
+      const elDrift = document.getElementById('metricDrift');
+      const elConsole = document.getElementById('consoleScreen');
+      const elMeltdownModal = document.getElementById('meltdownModal');
+
+      const btnAudioToggle = document.getElementById('btnAudioToggle');
+      const audioLabel = document.getElementById('audioLabel');
+      const audioIcon = document.getElementById('audioIcon');
+      const btnAutoHeal = document.getElementById('btnAutoHeal');
+      const autoHealLabel = document.getElementById('autoHealLabel');
+      const btnTriggerEntropy = document.getElementById('btnTriggerEntropy');
+      const btnEmergencySlam = document.getElementById('btnEmergencySlam');
+      const btnClearLogs = document.getElementById('btnClearLogs');
+      const toggleEntropyGen = document.getElementById('toggleEntropyGen');
+      const toggleOverdrive = document.getElementById('toggleOverdrive');
+      const btnCauseAllBreak = document.getElementById('btnCauseAllBreak');
+      const btnReviveEngine = document.getElementById('btnReviveEngine');
+
+      /* Module 1 DOM */
+      const cardMod1 = document.getElementById('cardMod1');
+      const badgeMod1 = document.getElementById('badgeMod1');
+      const bufferFluid = document.getElementById('bufferFluid');
+      const bufferReadout = document.getElementById('bufferReadout');
+      const bufferStatusText = document.getElementById('bufferStatusText');
+      const btnFlushBuffer = document.getElementById('btnFlushBuffer');
+
+      /* Module 2 DOM */
+      const cardMod2 = document.getElementById('cardMod2');
+      const badgeMod2 = document.getElementById('badgeMod2');
+      const coilsLockState = document.getElementById('coilsLockState');
+      const btnPolarizeCoils = document.getElementById('btnPolarizeCoils');
+      const coilEls = [
+        document.getElementById('coil0'),
+        document.getElementById('coil1'),
+        document.getElementById('coil2')
+      ];
+
+      /* Module 3 DOM */
+      const cardMod3 = document.getElementById('cardMod3');
+      const badgeMod3 = document.getElementById('badgeMod3');
+      const wireHelpText = document.getElementById('wireHelpText');
+      const btnAutoRewire = document.getElementById('btnAutoRewire');
+      const portIns = [
+        document.getElementById('portIn0'),
+        document.getElementById('portIn1'),
+        document.getElementById('portIn2')
+      ];
+      const portOuts = [
+        document.getElementById('portOut0'),
+        document.getElementById('portOut1'),
+        document.getElementById('portOut2')
+      ];
+
+      /* Module 4 DOM */
+      const cardMod4 = document.getElementById('cardMod4');
+      const badgeMod4 = document.getElementById('badgeMod4');
+      const wavePath = document.getElementById('wavePath');
+      const freqSlider = document.getElementById('freqSlider');
+      const freqDisplay = document.getElementById('freqDisplay');
+      const btnLockHarmonic = document.getElementById('btnLockHarmonic');
+
+      /* Diagnostics DOM */
+      const diagEls = [
+        document.getElementById('diag0'),
+        document.getElementById('diag1'),
+        document.getElementById('diag2'),
+        document.getElementById('diag3')
+      ];
+
+      /* ---------- Logging Subsystem ---------- */
+      function logMsg(text, type = 'info') {
+        const d = new Date();
+        const timeStr = '[' + d.toTimeString().split(' ')[0] + ']';
+        const entry = document.createElement('div');
+        entry.className = 'log-entry' + (type === 'danger' ? ' log-danger' : type === 'success' ? ' log-success' : type === 'ai' ? ' log-ai' : '');
+        entry.innerHTML = `<span class="time">${timeStr}</span> &gt; ${escapeHtml(text)}`;
+        elConsole.appendChild(entry);
+        elConsole.scrollTop = elConsole.scrollHeight;
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
+
+      /* ---------- UI Sync & Metrics ---------- */
+      function updateMetrics() {
+        elIntegrity.innerHTML = `${Math.round(state.integrity)}<span class="subtext">%</span>`;
+        elMeterFill.style.width = `${Math.max(0, Math.min(100, state.integrity))}%`;
+
+        elMeterFill.classList.remove('warning', 'danger');
+        if (state.integrity < 35) {
+          elMeterFill.classList.add('danger');
+        } else if (state.integrity < 65) {
+          elMeterFill.classList.add('warning');
+        }
+
+        elSurvived.innerHTML = `${state.survived}<span class="subtext">incidents</span>`;
+        elPatches.innerHTML = `${state.patches}<span class="subtext">deploys</span>`;
+        elDrift.innerHTML = `${state.driftRate.toFixed(1)}<span class="subtext">x rate</span>`;
+
+        // Check if meltdown occurred
+        if (state.integrity <= 0 && !elMeltdownModal.classList.contains('active')) {
+          triggerMeltdown();
+        }
+      }
+
+      function updateModuleCardStatus(idx) {
+        const mod = state.modules[idx];
+        const cards = [cardMod1, cardMod2, cardMod3, cardMod4];
+        const badges = [badgeMod1, badgeMod2, badgeMod3, badgeMod4];
+        const card = cards[idx];
+        const badge = badges[idx];
+        const diag = diagEls[idx];
+
+        if (mod.broken) {
+          card.classList.add('state-broken');
+          badge.className = 'module-badge status-broken';
+          badge.textContent = 'FAULT [ERR]';
+          diag.className = 'diag-item diag-fail';
+          diag.querySelector('.status-lbl').textContent = 'BROKEN';
+        } else {
+          card.classList.remove('state-broken');
+          badge.className = 'module-badge status-ok';
+          badge.textContent = 'STABLE [OK]';
+          diag.className = 'diag-item diag-pass';
+          diag.querySelector('.status-lbl').textContent = 'OPTIMAL';
+        }
+      }
+
+      /* ---------- Breakdown Generators ---------- */
+      function breakModule(idx) {
+        const mod = state.modules[idx];
+        if (mod.broken) return; // already broken
+        mod.broken = true;
+        sfxAlarm();
+        document.body.classList.add('screen-glitch');
+        setTimeout(() => document.body.classList.remove('screen-glitch'), 300);
+
+        if (idx === 0) {
+          bufferFluid.style.width = '96%';
+          bufferFluid.classList.add('overflowing');
+          bufferReadout.textContent = '126,940 / 128,000 [CRITICAL LEAK]';
+          bufferStatusText.textContent = 'RELIEF VALVE TRIPPED';
+          logMsg('CRITICAL: Sector 01 Context window buffer blowing out! Memory leak in recursive reflection loop.', 'danger');
+        } else if (idx === 1) {
+          mod.coils = [false, true, false];
+          coilEls.forEach((btn, i) => {
+            btn.classList.toggle('engaged', mod.coils[i]);
+          });
+          coilsLockState.textContent = 'POLARITY MISMATCH: REASONING DRIFTING';
+          logMsg('CRITICAL: Sector 02 Inference hallucination drift! AI attempting to import nonexistent library "cosmic_oracle".', 'danger');
+        } else if (idx === 2) {
+          mod.connections = [true, false, false];
+          portIns[1].className = 'wire-port broken';
+          portIns[2].className = 'wire-port broken';
+          portOuts[1].className = 'wire-port broken';
+          portOuts[2].className = 'wire-port broken';
+          wireHelpText.textContent = 'DISCONNECTED: NODES 2 & 3 SEVERED';
+          logMsg('CRITICAL: Sector 03 Synaptic cross-talk! AST parser cut off from V8 runtime.', 'danger');
+        } else if (idx === 3) {
+          mod.freq = 84;
+          freqSlider.value = 84;
+          freqDisplay.textContent = '84 Hz';
+          wavePath.classList.add('distorted');
+          wavePath.setAttribute('d', 'M0 30 Q35 0 75 55 T150 10 T225 50 T300 20');
+          logMsg('CRITICAL: Sector 04 Attention matrix oscillating at 84Hz! Phase harmonic de-locked.', 'danger');
+        }
+
+        updateModuleCardStatus(idx);
+        state.integrity = Math.max(0, state.integrity - 18);
+        updateMetrics();
+      }
+
+      /* ---------- Repair Handlers ---------- */
+      function fixModule(idx, isAuto = false) {
+        const mod = state.modules[idx];
+        if (!mod.broken) return;
+        mod.broken = false;
+        state.survived++;
+        state.patches++;
+        state.integrity = Math.min(100, state.integrity + 22);
+
+        if (idx === 0) {
+          sfxHiss();
+          bufferFluid.style.width = '24%';
+          bufferFluid.classList.remove('overflowing');
+          bufferReadout.textContent = '30,720 / 128,000 TOKENS';
+          bufferStatusText.textContent = 'VALVE SECURED';
+          logMsg(isAuto ? 'AUTO-HEAL: Antigravity vacuumed context window tokens. Leaks purged.' : 'USER-ACTION: Context buffer evacuated via manual flush.', 'success');
+        } else if (idx === 1) {
+          sfxClick();
+          mod.coils = [true, false, true];
+          coilEls.forEach((btn, i) => {
+            btn.classList.toggle('engaged', mod.coils[i]);
+          });
+          coilsLockState.textContent = 'TARGET: [ON - OFF - ON] (LOCKED)';
+          logMsg(isAuto ? 'AUTO-HEAL: Reasoning coils re-grounded. Hallucination drift collapsed to 0.' : 'USER-ACTION: Logic gates re-grounded to resonant baseline.', 'success');
+        } else if (idx === 2) {
+          sfxRepair();
+          mod.connections = [true, true, true];
+          portIns.forEach(p => p.className = 'wire-port connected');
+          portOuts.forEach(p => p.className = 'wire-port connected');
+          wireHelpText.textContent = 'BUS INTEGRITY: ALL TERMINALS WIRED';
+          state.selectedPort = null;
+          logMsg(isAuto ? 'AUTO-HEAL: Re-soldered synaptic cables. AST to V8 connection restored.' : 'USER-ACTION: Neural bus reconnect verified.', 'success');
+        } else if (idx === 3) {
+          sfxRepair();
+          mod.freq = 50;
+          freqSlider.value = 50;
+          freqDisplay.textContent = '50 Hz';
+          wavePath.classList.remove('distorted');
+          wavePath.setAttribute('d', 'M0 30 Q75 5 150 30 T300 30');
+          logMsg(isAuto ? 'AUTO-HEAL: Attention phase locked onto 50Hz fundamental harmonic.' : 'USER-ACTION: Spectral harmonic centered and phase-locked.', 'success');
+        }
+
+        updateModuleCardStatus(idx);
+        updateMetrics();
+      }
+
+      /* ---------- Catastrophic Meltdown & Reboot ---------- */
+      function triggerMeltdown() {
+        sfxAlarm();
+        elMeltdownModal.classList.add('active');
+        logMsg('EMERGENCY: SYSTEM MELTDOWN! CORE REACHED 0% STABILITY. REBOOT REQUIRED.', 'danger');
+      }
+
+      function rebootCore() {
+        sfxSlam();
+        elMeltdownModal.classList.remove('active');
+        state.integrity = 94;
+        state.modules.forEach((mod, idx) => {
+          if (mod.broken) fixModule(idx, true);
+        });
+        state.patches++;
+        logMsg('REIGNITION: Quantum core rebooted from cold checkpoint. Stability restored to 94%.', 'success');
+        updateMetrics();
+      }
+
+      function emergencySlam() {
+        sfxSlam();
+        state.integrity = Math.min(100, state.integrity + 42);
+        let fixedAny = false;
+        state.modules.forEach((mod, idx) => {
+          if (mod.broken) {
+            fixModule(idx, false);
+            fixedAny = true;
+          }
+        });
+        logMsg(fixedAny ? 'DEFIBRILLATOR SLAM: Hotpatch applied! Multiple submodules stabilized.' : 'DEFIBRILLATOR SLAM: Preventative charge injected. +42% energy reserve.', 'success');
+        updateMetrics();
+      }
+
+      /* ---------- Event Listeners ---------- */
+
+      // Audio Master Switch
+      btnAudioToggle.addEventListener('click', () => {
+        getAudioContext();
+        soundEnabled = !soundEnabled;
+        btnAudioToggle.setAttribute('aria-pressed', soundEnabled);
+        if (soundEnabled) {
+          btnAudioToggle.classList.add('btn-green');
+          btnAudioToggle.classList.remove('btn-yellow');
+          audioLabel.textContent = 'AUDIO: LIVE';
+          audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>';
+          sfxRepair();
+        } else {
+          btnAudioToggle.classList.add('btn-yellow');
+          btnAudioToggle.classList.remove('btn-green');
+          audioLabel.textContent = 'AUDIO: MUTED';
+          audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+        }
+      });
+
+      // Auto-Heal Daemon Toggle
+      btnAutoHeal.addEventListener('click', () => {
+        sfxClick();
+        state.autoHeal = !state.autoHeal;
+        btnAutoHeal.setAttribute('aria-pressed', state.autoHeal);
+        if (state.autoHeal) {
+          btnAutoHeal.classList.add('active', 'btn-green');
+          btnAutoHeal.classList.remove('btn-yellow');
+          autoHealLabel.textContent = 'SELF-HEAL: ON';
+          logMsg('DAEMON: Antigravity Autonomous Self-Healing activated.', 'ai');
+        } else {
+          btnAutoHeal.classList.remove('active', 'btn-green');
+          btnAutoHeal.classList.add('btn-yellow');
+          autoHealLabel.textContent = 'SELF-HEAL: OFF';
+          logMsg('DAEMON: Self-healing disabled. Manual human engineer override active.', 'danger');
+        }
+      });
+
+      // Inject Chaos Button
+      btnTriggerEntropy.addEventListener('click', () => {
+        sfxClick();
+        const unbroken = state.modules.map((m, idx) => (!m.broken ? idx : -1)).filter(i => i !== -1);
+        if (unbroken.length > 0) {
+          const target = unbroken[Math.floor(Math.random() * unbroken.length)];
+          breakModule(target);
+        } else {
+          logMsg('CHAOS: All modules already critically compromised!', 'danger');
+        }
+      });
+
+      // Emergency Slam Button
+      btnEmergencySlam.addEventListener('click', () => emergencySlam());
+
+      // Spacebar hotkey for Emergency Slam
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+          e.preventDefault();
+          emergencySlam();
+        }
+      });
+
+      // Clear Logs
+      btnClearLogs.addEventListener('click', () => {
+        sfxClick();
+        elConsole.innerHTML = '<div class="log-entry"><span class="time">[LOGS PURGED]</span> &gt; Console sanitized by user.</div>';
+      });
+
+      // Sidebar Toggles
+      toggleEntropyGen.addEventListener('click', () => {
+        sfxClick();
+        state.entropyActive = !state.entropyActive;
+        toggleEntropyGen.setAttribute('aria-checked', state.entropyActive);
+        logMsg(`ENTROPY: Autonomous breakdown generator ${state.entropyActive ? 'ENABLED' : 'HALTED'}.`, 'info');
+      });
+
+      toggleOverdrive.addEventListener('click', () => {
+        sfxClick();
+        state.overdrive = !state.overdrive;
+        toggleOverdrive.setAttribute('aria-checked', state.overdrive);
+        state.driftRate = state.overdrive ? 3.0 : 1.0;
+        updateMetrics();
+        logMsg(`CHAOS OVERDRIVE: Entropy rate set to ${state.driftRate.toFixed(1)}x.`, state.overdrive ? 'danger' : 'info');
+      });
+
+      btnCauseAllBreak.addEventListener('click', () => {
+        sfxAlarm();
+        state.modules.forEach((_, idx) => breakModule(idx));
+      });
+
+      btnReviveEngine.addEventListener('click', () => rebootCore());
+
+      // Module 1: Flush Buffer
+      btnFlushBuffer.addEventListener('click', () => fixModule(0, false));
+
+      // Module 2: Ground Coils
+      btnPolarizeCoils.addEventListener('click', () => fixModule(1, false));
+
+      coilEls.forEach(btn => {
+        btn.addEventListener('click', () => {
+          sfxClick();
+          const idx = parseInt(btn.dataset.idx, 10);
+          state.modules[1].coils[idx] = !state.modules[1].coils[idx];
+          btn.classList.toggle('engaged', state.modules[1].coils[idx]);
+          // Check if matches [true, false, true]
+          const c = state.modules[1].coils;
+          if (c[0] === true && c[1] === false && c[2] === true) {
+            fixModule(1, false);
+          }
+        });
+      });
+
+      // Module 3: Sockets / Rewire
+      btnAutoRewire.addEventListener('click', () => fixModule(2, false));
+
+      portIns.forEach(port => {
+        port.addEventListener('click', () => {
+          sfxClick();
+          portIns.forEach(p => p.classList.remove('selected'));
+          port.classList.add('selected');
+          state.selectedPort = port.dataset.node;
+          wireHelpText.textContent = `SELECTED SOURCE [${parseInt(state.selectedPort, 10) + 1}]. CLICK TARGET TERM.`;
+        });
+      });
+
+      portOuts.forEach(port => {
+        port.addEventListener('click', () => {
+          if (state.selectedPort === null) return;
+          sfxClick();
+          const target = port.dataset.target;
+          if (state.selectedPort === target) {
+            port.className = 'wire-port connected';
+            portIns[parseInt(state.selectedPort, 10)].className = 'wire-port connected';
+            wireHelpText.textContent = `TERMINAL [${parseInt(target, 10) + 1}] SECURED.`;
+            state.selectedPort = null;
+            // Check if all connected
+            const allOk = portOuts.every(p => p.classList.contains('connected'));
+            if (allOk) fixModule(2, false);
+          } else {
+            sfxAlarm();
+            wireHelpText.textContent = 'MISMATCH: NODE MISALIGNED!';
+          }
+        });
+      });
+
+      // Module 4: Frequency Slider
+      freqSlider.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        freqDisplay.textContent = `${val} Hz`;
+        if (state.modules[3].broken) {
+          // Keep wave jagged but shift frequency
+          const amp = Math.abs(val - 50) + 10;
+          wavePath.setAttribute('d', `M0 30 Q35 ${30 - amp} 75 ${30 + amp} T150 15 T225 45 T300 30`);
+        }
+      });
+
+      btnLockHarmonic.addEventListener('click', () => {
+        const val = parseInt(freqSlider.value, 10);
+        if (val >= 48 && val <= 54) {
+          fixModule(3, false);
+        } else {
+          sfxAlarm();
+          logMsg(`TUNING FAILED: ${val}Hz is outside resonant window (48Hz-54Hz).`, 'danger');
+        }
+      });
+
+      /* ---------- The Perpetual Entropy & Auto-Heal Loop ---------- */
+      let lastEntropyTick = Date.now();
+      let lastAutoHealTick = Date.now();
+
+      function gameLoop() {
+        const now = Date.now();
+        const entropyInterval = state.overdrive ? 2200 : 5500;
+        const autoHealInterval = state.overdrive ? 1800 : 3800;
+
+        // Entropy decay
+        if (state.entropyActive && now - lastEntropyTick > entropyInterval) {
+          lastEntropyTick = now;
+          // Slowly drain integrity if modules are broken
+          const brokenCount = state.modules.filter(m => m.broken).length;
+          if (brokenCount > 0) {
+            state.integrity = Math.max(0, state.integrity - (brokenCount * (state.overdrive ? 6 : 3)));
+            updateMetrics();
+          }
+
+          // Randomly break a healthy module
+          if (Math.random() < (state.overdrive ? 0.85 : 0.55)) {
+            const healthy = state.modules.map((m, idx) => (!m.broken ? idx : -1)).filter(i => i !== -1);
+            if (healthy.length > 0) {
+              const target = healthy[Math.floor(Math.random() * healthy.length)];
+              breakModule(target);
+            }
+          }
+        }
+
+        // Auto-heal agent
+        if (state.autoHeal && now - lastAutoHealTick > autoHealInterval) {
+          lastAutoHealTick = now;
+          const broken = state.modules.map((m, idx) => (m.broken ? idx : -1)).filter(i => i !== -1);
+          if (broken.length > 0) {
+            const target = broken[Math.floor(Math.random() * broken.length)];
+            fixModule(target, true);
+          }
+        }
+
+        requestAnimationFrame(gameLoop);
+      }
+
+      // Initialize
+      updateMetrics();
+      requestAnimationFrame(gameLoop);
+
+    })();
+  </script>
+</body>
+</html>
