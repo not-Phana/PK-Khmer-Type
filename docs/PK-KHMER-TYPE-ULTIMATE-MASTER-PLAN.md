@@ -4,7 +4,8 @@
 **Document Version:** 4.1.0-STRATEGIC-DECISION-MATRIX  
 **Target Codebase:** PK Khmer Type (`idk`)  
 **Mission Classification:** Pure Local-First Architecture, Zero-Cloud Strategy & Long-Term Master Plan  
-**Core Enforcement Protocols:** Strict Zero-Emoji Policy (100% Text / Vector SVG Icons), Zero Cloud Dependency (100% Offline & Air-Gapped), Zero Required Operating Cost ($0 Recurring Budget), Sovereign Client-Side Data Ownership.
+**Core Enforcement Protocols:** Strict Zero-Emoji Policy (100% Text / Vector SVG Icons), Zero Cloud Dependency (100% Offline & Air-Gapped), Zero Required Operating Cost ($0 Recurring Budget), Sovereign Client-Side Data Ownership.  
+**Interactive Edition:** [Neobrutalism Interactive Presentation (docs/PK-KHMER-TYPE-ULTIMATE-MASTER-PLAN.html)](file:///E:/Code/khmer%20keyboard/keyboard/idk/docs/PK-KHMER-TYPE-ULTIMATE-MASTER-PLAN.html)
 
 ---
 
@@ -2006,6 +2007,7 @@ This master plan document fulfills its mandate if and only if it satisfies all t
 - Automated Test Suite: [`tests/`](file:///E:/Code/khmer%20keyboard/keyboard/idk/tests/)
 - Standalone Dashboard & Skill Map: [`dashboard.html`](file:///E:/Code/khmer%20keyboard/keyboard/idk/dashboard.html)
 - Main Studio Application: [`index.html`](file:///E:/Code/khmer%20keyboard/keyboard/idk/index.html)
+- Interactive Neobrutalism Edition: [`docs/PK-KHMER-TYPE-ULTIMATE-MASTER-PLAN.html`](file:///E:/Code/khmer%20keyboard/keyboard/idk/docs/PK-KHMER-TYPE-ULTIMATE-MASTER-PLAN.html)
 
 ---
 

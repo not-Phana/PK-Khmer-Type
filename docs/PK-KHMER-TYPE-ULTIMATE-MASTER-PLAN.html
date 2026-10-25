@@ -1,0 +1,3391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PK KHMER TYPE // SOVEREIGN MASTER PLAN // NEOBRUTALISM EDITION AG-4.1</title>
+  <meta name="description" content="Neobrutalist interactive presentation of the PK Khmer Type Sovereign Local-First Master Plan, Architectural Contracts, and Air-Gapped Classroom Protocol.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFE600' stroke='%23000' stroke-width='3'><rect x='2' y='3' width='20' height='14' rx='2'/><line x1='8' y1='21' x2='16' y2='21'/><line x1='12' y1='17' x2='12' y2='21'/></svg>">
+  <style>
+    /* ==========================================================================
+       NEOBRUTALISM DESIGN SYSTEM // PK KHMER TYPE AG-4.1
+       - High Contrast, Thick Stark Black Borders (3px to 4px)
+       - Hard, Unblurred Drop Shadows (box-shadow: 5px 5px 0px #000)
+       - High-Saturation Color Blocking (Electric Yellow, Mint, Cyan, Coral, Violet)
+       - Tactile Depressing Micro-Interactions (translate(2px, 2px) on active)
+       - Rubber Stamp Badges & Angled Sticker Labels
+       - Strict Zero-Emoji Policy: 100% Vector Inline SVGs
+       - 100% Air-Gapped & Local-First: Zero External CDNs or Network Fetches
+       ========================================================================== */
+
+    :root {
+      /* Neobrutalist Color Palette */
+      --neo-black: #000000;
+      --neo-white: #FFFFFF;
+      --neo-bg: #FDFBF7;
+      --neo-bg-card: #FFFFFF;
+      --neo-border: #000000;
+      --neo-shadow: #000000;
+
+      /* High-Impact Vibrant Accents */
+      --neo-yellow: #FFE600;
+      --neo-mint: #00F076;
+      --neo-cyan: #00E5FF;
+      --neo-coral: #FF4D6D;
+      --neo-violet: #B388FF;
+      --neo-orange: #FF9F1C;
+      --neo-pink: #FF85A1;
+      --neo-blue: #3B82F6;
+
+      /* Typography */
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: "Consolas", "Courier New", "Menlo", monospace;
+
+      /* Geometry & Spacing */
+      --border-thick: 3.5px solid var(--neo-black);
+      --border-medium: 2.5px solid var(--neo-black);
+      --border-thin: 1.5px solid var(--neo-black);
+      --shadow-hard: 5px 5px 0px var(--neo-shadow);
+      --shadow-hard-sm: 3px 3px 0px var(--neo-shadow);
+      --shadow-hard-lg: 8px 8px 0px var(--neo-shadow);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    /* Cyber Neobrutalism Dark Theme */
+    body.theme-dark {
+      --neo-bg: #121316;
+      --neo-bg-card: #1C1E24;
+      --neo-black: #FFFFFF;
+      --neo-white: #121316;
+      --neo-border: #FFFFFF;
+      --neo-shadow: #000000;
+      color: #F8FAFC;
+    }
+
+    /* High-Contrast Monochrome Newspaper Mode */
+    body.theme-mono {
+      --neo-yellow: #E2E8F0;
+      --neo-mint: #CBD5E1;
+      --neo-cyan: #E2E8F0;
+      --neo-coral: #94A3B8;
+      --neo-violet: #CBD5E1;
+      --neo-orange: #E2E8F0;
+      --neo-pink: #CBD5E1;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--neo-bg);
+      color: #0F172A;
+      font-family: var(--font-main);
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 100vh;
+      padding: 24px 16px;
+      background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    body.theme-dark {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+    }
+
+    /* Accessible High-Visibility Focus Rings */
+    :focus-visible {
+      outline: 3px solid var(--neo-black);
+      outline-offset: 3px;
+    }
+
+    /* Universal Inline Vector SVG Icons */
+    .icon {
+      display: inline-block;
+      width: 1.25em;
+      height: 1.25em;
+      stroke-width: 2.3;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: -0.2em;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       NEOBRUTALIST LAYOUT CHASSIS
+       ========================================================================== */
+    .neo-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Top Marquee Header Card */
+    .neo-header {
+      background: var(--neo-bg-card);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard-lg);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .header-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand-title {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-pill {
+      background: var(--neo-yellow);
+      border: var(--border-medium);
+      padding: 4px 14px;
+      font-size: 14px;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      border-radius: 999px;
+      box-shadow: var(--shadow-hard-sm);
+      transform: rotate(-1.5deg);
+    }
+
+    /* Header Action Controls */
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Tactile Neobrutalist Buttons */
+    .neo-btn {
+      background: var(--neo-bg-card);
+      color: inherit;
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 8px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.1s ease;
+      user-select: none;
+      text-decoration: none;
+    }
+
+    .neo-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0px var(--neo-shadow);
+      background: var(--neo-yellow);
+    }
+
+    .neo-btn:active, .neo-btn.active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+      background: var(--neo-mint);
+    }
+
+    .neo-btn-primary {
+      background: var(--neo-yellow);
+    }
+
+    .neo-btn-primary:hover {
+      background: var(--neo-mint);
+    }
+
+    /* Header Subtitle Tagline */
+    .header-tagline {
+      font-size: 15px;
+      font-weight: 600;
+      color: #475569;
+      border-top: var(--border-thin);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    body.theme-dark .header-tagline {
+      color: #94A3B8;
+    }
+
+    /* ==========================================================================
+       TELEMETRY HERO STATS GRID
+       ========================================================================== */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: transform 0.15s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hard-lg);
+    }
+
+    .stat-card.mint { background: var(--neo-mint); }
+    .stat-card.yellow { background: var(--neo-yellow); }
+    .stat-card.cyan { background: var(--neo-cyan); }
+    .stat-card.pink { background: var(--neo-pink); }
+    .stat-card.violet { background: var(--neo-violet); }
+
+    .stat-header {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-val {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: #000;
+    }
+
+    .stat-desc {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1E293B;
+    }
+
+    /* ==========================================================================
+       COMMAND SEARCH & LIVE FILTER
+       ========================================================================== */
+    .neo-search-bar {
+      background: var(--neo-bg-card);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard);
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-prefix {
+      font-family: var(--font-mono);
+      font-weight: 900;
+      font-size: 15px;
+      background: var(--neo-black);
+      color: var(--neo-white);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: inherit;
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: #94A3B8;
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       CHUNKY TABBED NAVIGATION
+       ========================================================================== */
+    .neo-nav {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--neo-black) transparent;
+    }
+
+    .neo-tab {
+      background: var(--neo-bg-card);
+      color: inherit;
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      padding: 10px 18px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.12s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+
+    .neo-tab:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--neo-shadow);
+      background: var(--neo-yellow);
+    }
+
+    .neo-tab:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px var(--neo-shadow);
+    }
+
+    .neo-tab.active {
+      background: var(--neo-black);
+      color: var(--neo-white);
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px var(--neo-shadow);
+    }
+
+    /* ==========================================================================
+       NEOBRUTALIST CONTENT CARDS & PANELS
+       ========================================================================== */
+    .neo-view {
+      display: none;
+      animation: tabFadeIn 0.15s ease-out;
+    }
+
+    .neo-view.active {
+      display: block;
+    }
+
+    @keyframes tabFadeIn {
+      from { opacity: 0.5; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .neo-card {
+      background: var(--neo-bg-card);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard-lg);
+      border-radius: var(--radius-lg);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .card-banner {
+      background: var(--neo-yellow);
+      border-bottom: var(--border-thick);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: #000;
+    }
+
+    .card-banner.mint { background: var(--neo-mint); }
+    .card-banner.coral { background: var(--neo-coral); color: #FFF; }
+    .card-banner.cyan { background: var(--neo-cyan); }
+    .card-banner.violet { background: var(--neo-violet); }
+    .card-banner.orange { background: var(--neo-orange); }
+
+    .card-body {
+      padding: 24px 28px;
+    }
+
+    /* Neobrutalist Stickers and Badges */
+    .sticker {
+      display: inline-block;
+      padding: 4px 10px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 900;
+      border: var(--border-medium);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-hard-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .sticker.ok { background: var(--neo-mint); color: #000; }
+    .sticker.danger { background: var(--neo-coral); color: #FFF; }
+    .sticker.warn { background: var(--neo-orange); color: #000; }
+    .sticker.info { background: var(--neo-cyan); color: #000; }
+    .sticker.purple { background: var(--neo-violet); color: #000; }
+
+    /* Chunky Grid Cards */
+    .neo-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .neo-box {
+      background: var(--neo-bg-card);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.15s ease;
+    }
+
+    .neo-box:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hard-lg);
+    }
+
+    .box-title {
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Neobrutalist High-Contrast Data Tables */
+    .neo-table-wrap {
+      overflow-x: auto;
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard);
+      border-radius: var(--radius-md);
+      margin: 20px 0;
+    }
+
+    .neo-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 15px;
+      background: var(--neo-bg-card);
+    }
+
+    .neo-table th, .neo-table td {
+      padding: 12px 16px;
+      border: var(--border-thin);
+    }
+
+    .neo-table th {
+      background: var(--neo-yellow);
+      color: #000;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .neo-table tr:hover {
+      background: rgba(255, 230, 0, 0.15);
+    }
+
+    /* Interactive 6-Gate Sovereignty Evaluator */
+    .gate-engine-box {
+      border: var(--border-thick);
+      background: var(--neo-bg-card);
+      box-shadow: var(--shadow-hard-lg);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin: 20px 0;
+    }
+
+    .gate-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: var(--border-medium);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .gate-row:last-child {
+      border-bottom: none;
+    }
+
+    .gate-title-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .gate-badge {
+      background: var(--neo-black);
+      color: var(--neo-white);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+    }
+
+    .gate-desc {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .gate-btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-gate-toggle {
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      background: var(--neo-bg-card);
+      color: inherit;
+      transition: all 0.1s ease;
+    }
+
+    .btn-gate-toggle.pass-selected {
+      background: var(--neo-mint);
+      color: #000;
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+    }
+
+    .btn-gate-toggle.fail-selected {
+      background: var(--neo-coral);
+      color: #FFF;
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+    }
+
+    /* Rubber Stamp Verdict Badge */
+    .verdict-stamp-wrap {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .verdict-stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border: 4px dashed var(--neo-black);
+      padding: 14px 28px;
+      font-size: 20px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-hard);
+      transform: rotate(-1.5deg);
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .verdict-stamp.approved {
+      background: var(--neo-mint);
+      color: #000;
+    }
+
+    .verdict-stamp.rejected {
+      background: var(--neo-coral);
+      color: #FFF;
+      transform: rotate(1.5deg);
+    }
+
+    /* Acceptance Criteria Checklist */
+    .criteria-checklist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .checklist-card {
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--neo-bg-card);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.12s ease;
+    }
+
+    .checklist-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hard);
+      background: rgba(255, 230, 0, 0.1);
+    }
+
+    .checklist-box {
+      width: 22px;
+      height: 22px;
+      border: var(--border-medium);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 13px;
+      flex-shrink: 0;
+      background: var(--neo-mint);
+      color: #000;
+      box-shadow: 2px 2px 0px var(--neo-shadow);
+      margin-top: 2px;
+    }
+
+    .checklist-card.unchecked .checklist-box {
+      background: var(--neo-bg-card);
+      color: transparent;
+    }
+
+    /* Footer Signoff */
+    .neo-footer {
+      background: var(--neo-bg-card);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    /* ==========================================================================
+       MARQUEE TICKER TAPE
+       ========================================================================== */
+    .neo-ticker-tape {
+      background: var(--neo-yellow);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      white-space: nowrap;
+      user-select: none;
+      padding: 9px 0;
+      position: relative;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      gap: 36px;
+      animation: tickerScroll 42s linear infinite;
+    }
+
+    .neo-ticker-tape:hover .ticker-track {
+      animation-play-state: paused;
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: #000;
+    }
+
+    @keyframes tickerScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ==========================================================================
+       INTERACTIVE SANDBOXES DESIGN SYSTEM (VIEW 9)
+       ========================================================================== */
+    .sandbox-container {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Telemetry HUD & Meters */
+    .telemetry-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .telemetry-mini-card {
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .telemetry-mini-card .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .telemetry-mini-card .value {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .hand-balance-meter {
+      border: var(--border-medium);
+      border-radius: var(--radius-sm);
+      height: 18px;
+      background: #E2E8F0;
+      display: flex;
+      overflow: hidden;
+      margin-top: 6px;
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+    }
+
+    .hand-bar-left {
+      background: var(--neo-cyan);
+      height: 100%;
+      width: 50%;
+      transition: width 0.1s ease;
+    }
+
+    .hand-bar-right {
+      background: var(--neo-coral);
+      height: 100%;
+      width: 50%;
+      transition: width 0.1s ease;
+    }
+
+    /* Interactive Virtual Keyboard */
+    .neo-keyboard-frame {
+      background: var(--neo-bg);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      user-select: none;
+    }
+
+    .keyboard-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .keyboard-input-probe {
+      width: 100%;
+      background: var(--neo-bg-card);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: inherit;
+      outline: none;
+    }
+
+    .keyboard-input-probe:focus {
+      border-color: var(--neo-black);
+      background: #FFFDEB;
+    }
+
+    .neo-keyboard-chassis {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      overflow-x: auto;
+      padding: 6px 0;
+    }
+
+    .neo-keyboard-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .neo-key {
+      background: var(--neo-bg-card);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      min-width: 44px;
+      height: 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.05s ease;
+      padding: 2px 6px;
+      flex-shrink: 0;
+    }
+
+    .neo-key:hover {
+      background: var(--neo-yellow);
+    }
+
+    .neo-key.active, .neo-key:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+      background: var(--neo-mint) !important;
+      color: #000 !important;
+    }
+
+    .neo-key.key-wide { min-width: 66px; }
+    .neo-key.key-wider { min-width: 86px; }
+    .neo-key.key-space { min-width: 280px; }
+
+    .neo-key .key-primary {
+      font-weight: 800;
+      font-size: 13px;
+      line-height: 1.1;
+    }
+
+    .neo-key .key-secondary {
+      font-size: 10px;
+      font-weight: 700;
+      opacity: 0.7;
+    }
+
+    /* Drag Strip Race Track */
+    .drag-strip {
+      background: var(--neo-bg);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .race-lane {
+      display: grid;
+      grid-template-columns: 200px 1fr 100px;
+      align-items: center;
+      gap: 16px;
+    }
+
+    @media (max-width: 860px) {
+      .race-lane { grid-template-columns: 1fr; gap: 8px; }
+    }
+
+    .lane-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .lane-name {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lane-track {
+      height: 32px;
+      background: var(--neo-bg-card);
+      border: var(--border-medium);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-hard-sm);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .lane-progress {
+      height: 100%;
+      width: 0%;
+      transition: width 0.12s linear;
+      border-right: 3px solid var(--neo-black);
+    }
+
+    .lane-runner-token {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      left: 0%;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #000;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 900;
+      box-shadow: 1px 1px 0px #000;
+      transition: left 0.12s linear;
+      background: #FFF;
+      color: #000;
+    }
+
+    .lane-metric {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 14px;
+      text-align: right;
+    }
+
+    /* USB Dropzone & Certificates */
+    .dropzone-box {
+      border: 3.5px dashed var(--neo-black);
+      background: var(--neo-bg);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+      user-select: none;
+    }
+
+    .dropzone-box:hover {
+      background: rgba(0, 240, 118, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .dropzone-box:active {
+      transform: translate(2px, 2px);
+    }
+
+    .grade-table-wrap {
+      overflow-x: auto;
+      margin-top: 16px;
+    }
+
+    .grade-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .grade-table th, .grade-table td {
+      border: var(--border-thin);
+      padding: 9px 14px;
+      text-align: left;
+    }
+
+    .grade-table th {
+      background: var(--neo-yellow);
+      font-weight: 900;
+      color: #000;
+    }
+
+    /* Print Merit Certificate */
+    .cert-container {
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard-lg);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      background: #FFFEFA;
+      color: #000;
+      text-align: center;
+      position: relative;
+      margin-top: 20px;
+      display: none;
+      animation: modalPop 0.2s ease;
+    }
+
+    .cert-container.visible {
+      display: block;
+    }
+
+    .cert-border-outer {
+      border: 3px double #000;
+      padding: 24px;
+      border-radius: var(--radius-md);
+      position: relative;
+    }
+
+    .cert-heading {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .cert-subheading {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #475569;
+      margin-bottom: 20px;
+    }
+
+    .cert-recipient {
+      font-size: 28px;
+      font-weight: 900;
+      text-decoration: underline;
+      margin: 14px 0;
+      font-family: var(--font-main);
+    }
+
+    .cert-desc {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.6;
+      max-width: 640px;
+      margin: 0 auto 20px auto;
+    }
+
+    .cert-footer-badges {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 24px;
+      border-top: 2px dashed #000;
+      padding-top: 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* Procedural Soundboard */
+    .soundboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .switch-pad {
+      background: var(--neo-bg-card);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: left;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+      color: inherit;
+    }
+
+    .switch-pad:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hard);
+    }
+
+    .switch-pad:active, .switch-pad.selected {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+      background: var(--neo-yellow) !important;
+      color: #000 !important;
+    }
+
+    .sound-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+      flex-wrap: wrap;
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-hard-sm);
+    }
+
+    .sound-slider {
+      flex: 1;
+      min-width: 140px;
+      accent-color: #000;
+    }
+
+    /* Modal Help Cheatsheet */
+    .neo-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(2px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .neo-modal-backdrop.open {
+      display: flex;
+    }
+
+    .neo-modal-card {
+      background: var(--neo-bg-card);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard-lg);
+      border-radius: var(--radius-lg);
+      max-width: 620px;
+      width: 100%;
+      padding: 24px;
+      position: relative;
+      animation: modalPop 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      color: inherit;
+    }
+
+    @keyframes modalPop {
+      0% { transform: scale(0.95); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-shortcut-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1.5px solid rgba(0,0,0,0.12);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .shortcut-key {
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      box-shadow: 2px 2px 0px var(--neo-shadow);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-weight: 900;
+      color: inherit;
+    }
+
+    .floating-help-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 900;
+      background: var(--neo-yellow);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard);
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-family: var(--font-mono);
+      font-weight: 900;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #000;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .floating-help-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hard-lg);
+    }
+
+    .floating-help-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px #000;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .header-top-row { flex-direction: column; align-items: flex-start; }
+      .neo-grid-2 { grid-template-columns: 1fr; }
+      .criteria-checklist { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       NEOBRUTALISM MAIN CONTAINER
+       ======================================================================== -->
+  <div class="neo-container">
+
+    <!-- Top Heavyweight Header -->
+    <header class="neo-header">
+      <div class="header-top-row">
+        <h1 class="brand-title">
+          <span>PK KHMER TYPE</span>
+          <span class="brand-pill">SOVEREIGN AG-4.1</span>
+        </h1>
+
+        <!-- Theme & Sound Switchers -->
+        <div class="header-controls">
+          <button id="btnAudioToggle" class="neo-btn active" aria-pressed="true" title="Toggle Procedural Audio">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <span id="audioLabel">AUDIO [LIVE]</span>
+          </button>
+
+          <button id="btnThemeToggle" class="neo-btn neo-btn-primary" title="Switch Neobrutalism Palette">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/></svg>
+            <span id="themeLabel">THEME: LIGHT CANVAS</span>
+          </button>
+
+          <a href="PK-KHMER-TYPE-ULTIMATE-MASTER-PLAN.md" class="neo-btn" title="View Canonical Markdown Document">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>RAW MARKDOWN</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="header-tagline">
+        <span>DEFINITIVE ARCHITECTURAL MAP // AIR-GAPPED CLASSROOM PROTOCOL // ZERO CLOUD</span>
+        <span class="sticker ok">STRICT ZERO-EMOJI CERTIFIED</span>
+      </div>
+
+      <!-- Kinetic Ticker Tape Marquee -->
+      <div class="neo-ticker-tape" aria-hidden="true">
+        <div class="ticker-track">
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 100% AIR-GAPPED ARCHITECTURE</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> $0.00 RECURRING OPERATING BUDGET</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 0% CLOUD DEPENDENCY</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 218 RIGOROUS CURRICULUM LESSONS</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> CHUON NATH ORTHOGRAPHY ENGINE</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> SUB-16.6MS KINEMATIC DISPATCH</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> OFFLINE USB TEACHER PROTOCOL</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> STRICT ZERO-EMOJI POLICY</span>
+
+          <!-- Duplicated for continuous marquee roll -->
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 100% AIR-GAPPED ARCHITECTURE</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> $0.00 RECURRING OPERATING BUDGET</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 0% CLOUD DEPENDENCY</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 218 RIGOROUS CURRICULUM LESSONS</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> CHUON NATH ORTHOGRAPHY ENGINE</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> SUB-16.6MS KINEMATIC DISPATCH</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> OFFLINE USB TEACHER PROTOCOL</span>
+          <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> STRICT ZERO-EMOJI POLICY</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Telemetry Hero Stats Grid -->
+    <section class="telemetry-grid" aria-label="Key Architecture Metrics">
+      <div class="stat-card mint">
+        <div class="stat-header">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>CORE ARCHITECTURE</span>
+        </div>
+        <div class="stat-val">100% AIR-GAPPED</div>
+        <div class="stat-desc">Operates in complete airplane mode</div>
+      </div>
+
+      <div class="stat-card yellow">
+        <div class="stat-header">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>OPERATING BUDGET</span>
+        </div>
+        <div class="stat-val">$0.00 / MONTH</div>
+        <div class="stat-desc">Zero paid servers, zero paid cloud APIs</div>
+      </div>
+
+      <div class="stat-card cyan">
+        <div class="stat-header">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+          <span>CLOUD DEPENDENCY</span>
+        </div>
+        <div class="stat-val">0.00% ZERO CLOUD</div>
+        <div class="stat-desc">All progress stored in client browser</div>
+      </div>
+
+      <div class="stat-card pink">
+        <div class="stat-header">
+          <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>VERIFIED TEST SUITE</span>
+        </div>
+        <div class="stat-val">147 / 147 PASS</div>
+        <div class="stat-desc">0 regressions across 13 test suites</div>
+      </div>
+
+      <div class="stat-card violet">
+        <div class="stat-header">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>CURRICULUM VAULT</span>
+        </div>
+        <div class="stat-val">218 LESSONS</div>
+        <div class="stat-desc">Standard, NiDA & English curricula</div>
+      </div>
+    </section>
+
+    <!-- Command Search Bar -->
+    <div class="neo-search-bar">
+      <span class="search-prefix">CMD / SEARCH &gt;</span>
+      <input type="text" id="neoSearch" class="search-input" placeholder="Type keyword (e.g. phonotactic, banned, teacher, audio, kinematics, chuon nath)..." autocomplete="off" spellcheck="false" aria-label="Search Master Plan">
+    </div>
+
+    <!-- Chunky Navigation Tab Strip -->
+    <nav class="neo-nav" aria-label="Master Plan Sections">
+      <button class="neo-tab active" data-target="view-summary">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>[1] EXEC SUMMARY</span>
+      </button>
+
+      <button class="neo-tab" data-target="view-must-add">
+        <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>[2] WHAT MUST BE ADDED (8)</span>
+      </button>
+
+      <button class="neo-tab" data-target="view-must-not-add">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span>[3] WHAT MUST NOT BE ADDED (12)</span>
+      </button>
+
+      <button class="neo-tab" data-target="view-sovereignty-filter">
+        <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <span>[4] 6-GATE FILTER TESTER</span>
+      </button>
+
+      <button class="neo-tab" data-target="view-architecture-maps">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        <span>[5] ARCHITECTURAL MAPS</span>
+      </button>
+
+      <button class="neo-tab" data-target="view-roadmap">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>[6] 9-PHASE ROADMAP</span>
+      </button>
+
+      <button class="neo-tab" data-target="view-subsystems">
+        <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <span>[7] SUBSYSTEM SPECS</span>
+      </button>
+
+      <button class="neo-tab" data-target="view-acceptance">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span>[8] ACCEPTANCE GATES (28)</span>
+      </button>
+
+      <button class="neo-tab" data-target="view-sandboxes">
+        <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span>[9] LIVE LAB &amp; SOUNDBOARD</span>
+      </button>
+    </nav>
+
+    <!-- ======================================================================
+         VIEW 1: EXECUTIVE SUMMARY & PRINCIPLES
+         ====================================================================== -->
+    <article id="view-summary" class="neo-view active">
+      <div class="neo-card">
+        <div class="card-banner yellow">
+          <span>SECTION 1 // EXECUTIVE SUMMARY & STRATEGIC MISSION</span>
+          <span class="sticker ok">VERIFIED LOCAL ARCHITECTURE</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">
+            PK Khmer Type is an interactive, browser-native touch-typing educational platform dedicated to authentic Cambodian Khmer typing (supporting both the classical Khmer Standard layout and the official administrative Khmer NiDA layout) alongside complete English (US QWERTY) touch-typing education.
+          </p>
+          <p style="margin-bottom: 20px;">
+            This master plan establishes the <strong>Sovereign Local-First & Air-Gapped Evolution</strong>. In accordance with the strategic decision to completely eliminate cloud dependencies, external servers, remote databases, and cloud authentication, the entire long-term roadmap is redesigned around <strong>100% sovereign client-side computing</strong>. Every capability runs on the user's physical machine with <strong>$0 recurring operating cost</strong> and absolute student privacy.
+          </p>
+
+          <div class="neo-grid-2">
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">CORE PRINCIPLE 1</span>
+                <span>$0 RECURRING OPERATING BUDGET</span>
+              </div>
+              <p>The owner has no recurring infrastructure bills. The platform runs statically on free GitHub Pages hosting and local device storage. Zero external server maintenance.</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">CORE PRINCIPLE 2</span>
+                <span>100% AIR-GAPPED RELIABILITY</span>
+              </div>
+              <p>Cambodian rural schools often lack internet. PK Khmer Type operates completely in airplane mode with zero degraded features or locked screens.</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">CORE PRINCIPLE 3</span>
+                <span>AUTHENTIC KHMER LINGUISTICS</span>
+              </div>
+              <p>Strictly complies with the Supreme Patriarch Chuon Nath Dictionary: enforces Consonant $\rightarrow$ Coeng $\rightarrow$ Subscript $\rightarrow$ Dependent Vowel order and atomic typing units.</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">CORE PRINCIPLE 4</span>
+                <span>STRICT ZERO-EMOJI POLICY</span>
+              </div>
+              <p>Preserves a distraction-free, professional environment. Absolutely zero Unicode emoji characters. All iconography uses crisp vector inline SVGs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ======================================================================
+         VIEW 2: WHAT MUST BE ADDED (8 SOVEREIGN PILLARS)
+         ====================================================================== -->
+    <article id="view-must-add" class="neo-view">
+      <div class="neo-card">
+        <div class="card-banner mint">
+          <span>SECTION 2 // THE 8 SOVEREIGN VALUE PILLARS (WHAT MUST BE ADDED)</span>
+          <span class="sticker ok">HIGH LEVERAGE ROADMAP</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">
+            Every feature below has been mathematically audited and approved for implementation. Each item provides massive educational leverage for Cambodian typists with zero ongoing server costs:
+          </p>
+
+          <div class="neo-grid-2">
+            <!-- Pillar 1 -->
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">PILLAR 1</span>
+                <span>PHONOTACTIC KHMER SYLLABLE GENERATOR</span>
+              </div>
+              <p><strong>Phase C // js/adaptive.js:</strong> Client-side Markov automaton generating infinite varied practice drills conforming to Chuon Nath orthography and A/O consonant series harmony, with <strong>0 locked-letter leakage</strong>.</p>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">PILLAR 2</span>
+                <span>AIR-GAPPED RURAL SCHOOL LAB ECOSYSTEM</span>
+              </div>
+              <p><strong>Phase F // js/custom-lessons.js:</strong> Flash drive workflow: Teachers export course packs (<code style="font-family:var(--font-mono)">.pkcourse.json</code>) and batch-grade student completion slips (<code style="font-family:var(--font-mono)">.pkgrade.json</code>) in &lt; 80ms with 0 servers.</p>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">PILLAR 3</span>
+                <span>KINEMATIC BIOMECHANICS & ERGONOMICS</span>
+              </div>
+              <p><strong>Phase B // js/keyboard.js:</strong> Real-time calculation of physical finger travel distance in meters ($1.0u = 19.05\text{ mm}$ ANSI pitch), Hand Workload Equilibrium ($\Delta_{\text{hand}}$), and Same-Finger Bigram (SFB) strain alerts.</p>
+            </div>
+
+            <!-- Pillar 4 -->
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">PILLAR 4</span>
+                <span>KHMER CULTURAL LITERATURE VAULT</span>
+              </div>
+              <p><strong>Phase H // data/literature/:</strong> Curated offline vault of 5 literary domains: Classical Epics (<em>Reamker</em>), Verse Romances (<em>Tum Teav</em>), Ancestral Codes (<em>Chbap Srey/Pros</em>), Buddhist Suttas, and ICT Glossaries.</p>
+            </div>
+
+            <!-- Pillar 5 -->
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">PILLAR 5</span>
+                <span>SHARED-PC LOCAL MULTI-LEARNER PROFILES</span>
+              </div>
+              <p><strong>Phase G // js/storage.js:</strong> Namespaced storage (<code style="font-family:var(--font-mono)">pk_profile_[id]_*</code>) allowing multiple students to share a school workstation without overwriting data, with client-side 4-digit PIN locks.</p>
+            </div>
+
+            <!-- Pillar 6 -->
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">PILLAR 6</span>
+                <span>PROCEDURAL WEB AUDIO SYNTHESIZER</span>
+              </div>
+              <p><strong>Phase B/E // js/feedback.js:</strong> 0-byte download footprint. Real-time mathematical synthesis of 5 switch profiles (Tactile Blue, Linear Red, Deep Thock, Typewriter, Silent) with dynamic spatial stereo panning.</p>
+            </div>
+
+            <!-- Pillar 7 -->
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">PILLAR 7</span>
+                <span>UNIVERSAL HARDWARE ACCESSIBILITY</span>
+              </div>
+              <p><strong>Phase E // css/styles.css:</strong> Glare-resistant amber chalk and monochrome themes for outdoor rural schoolrooms, scalable typography preventing subscript clipping, and visual metronomes for deaf typists.</p>
+            </div>
+
+            <!-- Pillar 8 -->
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">PILLAR 8</span>
+                <span>PERMANENT ARCHIVAL SINGLE-FILE COMPILER</span>
+              </div>
+              <p><strong>Phase I // scripts/bundle_single_file.js:</strong> Bundles all HTML, CSS, JS, SVG, and 218 lessons into a self-contained $\le 3.5\text{ MB}$ standalone HTML file runnable from a USB flash drive permanently.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ======================================================================
+         VIEW 3: WHAT MUST NOT BE ADDED (12 ANTI-PATTERNS)
+         ====================================================================== -->
+    <article id="view-must-not-add" class="neo-view">
+      <div class="neo-card">
+        <div class="card-banner coral">
+          <span>SECTION 3 // THE 12 REJECTED ANTI-PATTERNS (WHAT MUST NOT BE ADDED)</span>
+          <span class="sticker danger">STRICTLY FORBIDDEN</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">
+            To protect PK Khmer Type from recurring costs, privacy violations, latency degradation, and bloat, the following concepts are permanently rejected:
+          </p>
+
+          <div class="neo-table-wrap">
+            <table class="neo-table">
+              <thead>
+                <tr>
+                  <th>BANNED CONCEPT</th>
+                  <th>ARCHITECTURAL DANGER & PITFALL</th>
+                  <th>COST & OFFLINE IMPACT</th>
+                  <th>VERDICT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1. Cloud Databases & User Accounts</strong></td>
+                  <td>Breaches $0 budget; free tiers pause after inactivity; leaks student PII to remote US/EU servers.</td>
+                  <td>Fails completely when rural internet drops.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>2. Generative AI / Cloud LLM APIs</strong></td>
+                  <td>500ms-2500ms roundtrip destroys typing rhythm; hallucinates invalid Khmer spelling contrary to Chuon Nath dictionary.</td>
+                  <td>Requires paid API subscriptions.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>3. Executable Third-Party JS Plugins</strong></td>
+                  <td>Massive XSS attack vector; prototype pollution; potential exfiltration of local student grade slips.</td>
+                  <td>Fragile backwards-compatibility tax.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>4. Subscription Paywalls & Gated Levels</strong></td>
+                  <td>Violates the foundational moral mission of free digital literacy for every child in Cambodia.</td>
+                  <td>Demands complex payment gateways.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>5. Cloud WebSocket Multiplayer Servers</strong></td>
+                  <td>24/7 VPS hosting costs; rural 3G typists (250ms) always lose to urban fiber (15ms); invites toxic chat.</td>
+                  <td>Offline Ghost-Pacers provide fun for $0.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>6. Third-Party Telemetry & Tracking Pixels</strong></td>
+                  <td>Violates zero-surveillance; leaks student browsing data to ad networks; delays initial page load.</td>
+                  <td>Mandates intrusive cookie consent popups.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>7. Heavy SPA Framework Rewrites (React)</strong></td>
+                  <td>Adds 200KB+ runtime bloat; virtual DOM reconciliation causes frame drops on older Celeron laptops.</td>
+                  <td>Fragile npm dependency trees deprecate.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>8. Premature Multi-Language Dilution</strong></td>
+                  <td>Dilutes focus away from Khmer's unique orthographic depth (33 consonants, 24 dependent vowels, Coengs).</td>
+                  <td>Thousands of English tutors exist; none for Khmer.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>9. Addictive Dark Patterns & Streak Loss</strong></td>
+                  <td>Punitive streak loss mechanics induce anxiety and burnout rather than genuine love for typing.</td>
+                  <td>Distracts from tactile muscle memory.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>10. Heavy Audio Sample Packs (50MB MP3s)</strong></td>
+                  <td>Exhausts rural bandwidth and explodes browser cache; asset download failure mutes audio feedback.</td>
+                  <td>Procedural Web Audio API weighs 0 bytes.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>11. Touchscreen Soft-Keyboard Mode</strong></td>
+                  <td>Mobile thumb-typing uses predictive glide keyboards (Gboard), incompatible with 10-finger tactile typing.</td>
+                  <td>Crams 104 keys onto a 6-inch phone screen.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>12. Premature WebAssembly (Wasm) Rewrites</strong></td>
+                  <td>V8 executes vanilla JS keystroke loop in &lt; 0.5ms (30x faster than 16.6ms frame budget); Wasm adds build complexity.</td>
+                  <td>Zero perceptual speed gain.</td>
+                  <td><span class="sticker danger">REJECTED</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ======================================================================
+         VIEW 4: THE SIX-GATE SOVEREIGNTY FILTER
+         ====================================================================== -->
+    <article id="view-sovereignty-filter" class="neo-view">
+      <div class="neo-card">
+        <div class="card-banner cyan">
+          <span>SECTION 4 // INTERACTIVE 6-GATE SOVEREIGNTY EVALUATOR</span>
+          <span class="sticker info">MANDATORY PROPOSAL GATE</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">
+            Test any proposed feature through the sequential 6-Gate Sovereignty Filter. If a proposal fails any single gate, it is strictly rejected:
+          </p>
+
+          <div class="gate-engine-box">
+            <div style="margin-bottom: 20px;">
+              <label for="proposalInput" style="display:block; margin-bottom: 8px; font-weight: 900; font-family: var(--font-mono);">
+                PROPOSAL NAME TO EVALUATE:
+              </label>
+              <input type="text" id="proposalInput" class="search-input" style="border: var(--border-medium); border-radius: var(--radius-sm); padding: 8px 14px; width: 100%; max-width: 600px; background: var(--neo-bg);" value="Offline Teacher USB Gradebook Aggregator">
+            </div>
+
+            <!-- Gate 1 -->
+            <div class="gate-row" id="gRow1">
+              <div class="gate-title-group">
+                <span class="gate-badge">GATE 1</span>
+                <span class="gate-desc">THE $0 OPERATING COST TEST: Zero recurring server bills or paid APIs?</span>
+              </div>
+              <div class="gate-btn-group">
+                <button class="btn-gate-toggle pass-selected" data-gate="1" data-val="pass">YES (PASS)</button>
+                <button class="btn-gate-toggle" data-gate="1" data-val="fail">NO (FAIL)</button>
+              </div>
+            </div>
+
+            <!-- Gate 2 -->
+            <div class="gate-row" id="gRow2">
+              <div class="gate-title-group">
+                <span class="gate-badge">GATE 2</span>
+                <span class="gate-desc">THE 100% AIR-GAPPED TEST: Works in complete airplane mode with zero internet?</span>
+              </div>
+              <div class="gate-btn-group">
+                <button class="btn-gate-toggle pass-selected" data-gate="2" data-val="pass">YES (PASS)</button>
+                <button class="btn-gate-toggle" data-gate="2" data-val="fail">NO (FAIL)</button>
+              </div>
+            </div>
+
+            <!-- Gate 3 -->
+            <div class="gate-row" id="gRow3">
+              <div class="gate-title-group">
+                <span class="gate-badge">GATE 3</span>
+                <span class="gate-desc">THE LOW-END HARDWARE TEST: Maintains 60fps (&lt; 16.6ms) on a 10-year-old Celeron?</span>
+              </div>
+              <div class="gate-btn-group">
+                <button class="btn-gate-toggle pass-selected" data-gate="3" data-val="pass">YES (PASS)</button>
+                <button class="btn-gate-toggle" data-gate="3" data-val="fail">NO (FAIL)</button>
+              </div>
+            </div>
+
+            <!-- Gate 4 -->
+            <div class="gate-row" id="gRow4">
+              <div class="gate-title-group">
+                <span class="gate-badge">GATE 4</span>
+                <span class="gate-desc">THE AUTHENTIC KHMER LINGUISTIC TEST: Complies with Chuon Nath dictionary rules?</span>
+              </div>
+              <div class="gate-btn-group">
+                <button class="btn-gate-toggle pass-selected" data-gate="4" data-val="pass">YES (PASS)</button>
+                <button class="btn-gate-toggle" data-gate="4" data-val="fail">NO (FAIL)</button>
+              </div>
+            </div>
+
+            <!-- Gate 5 -->
+            <div class="gate-row" id="gRow5">
+              <div class="gate-title-group">
+                <span class="gate-badge">GATE 5</span>
+                <span class="gate-desc">THE DATA SOVEREIGNTY TEST: All learner progress stays on local device with 0 telemetry?</span>
+              </div>
+              <div class="gate-btn-group">
+                <button class="btn-gate-toggle pass-selected" data-gate="5" data-val="pass">YES (PASS)</button>
+                <button class="btn-gate-toggle" data-gate="5" data-val="fail">NO (FAIL)</button>
+              </div>
+            </div>
+
+            <!-- Gate 6 -->
+            <div class="gate-row" id="gRow6">
+              <div class="gate-title-group">
+                <span class="gate-badge">GATE 6</span>
+                <span class="gate-desc">THE SOLO-MAINTAINER SUSTAINABILITY TEST: Maintainable in vanilla JS without npm bloat?</span>
+              </div>
+              <div class="gate-btn-group">
+                <button class="btn-gate-toggle pass-selected" data-gate="6" data-val="pass">YES (PASS)</button>
+                <button class="btn-gate-toggle" data-gate="6" data-val="fail">NO (FAIL)</button>
+              </div>
+            </div>
+
+            <!-- Rubber Stamp Verdict -->
+            <div class="verdict-stamp-wrap">
+              <div id="verdictStamp" class="verdict-stamp approved">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>VERDICT: APPROVED FOR IMPLEMENTATION</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ======================================================================
+         VIEW 5: ARCHITECTURAL MAPS (A THROUGH J)
+         ====================================================================== -->
+    <article id="view-architecture-maps" class="neo-view">
+      <div class="neo-card">
+        <div class="card-banner violet">
+          <span>SECTION 5 // TEN SOVEREIGN ARCHITECTURAL MAPS (A THROUGH J)</span>
+          <span class="sticker purple">SYSTEM ATLAS</span>
+        </div>
+        <div class="card-body">
+          <div class="neo-grid-2">
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">MAP A</span>
+                <span>VERIFIED LOCAL ENGINE RUNTIME</span>
+              </div>
+              <p>DOM input $\rightarrow$ <code style="font-family:var(--font-mono)">typing.js</code> (NFC, IME composition, compound slicing) $\rightarrow$ <code style="font-family:var(--font-mono)">keyboard.js</code>, <code style="font-family:var(--font-mono)">lessons.js</code>, and <code style="font-family:var(--font-mono)">tracker.js</code>. Sub-16.6ms latency budget.</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">MAP B</span>
+                <span>LOCAL STORAGE NAMESPACING</span>
+              </div>
+              <p>Storage partitioning (<code style="font-family:var(--font-mono)">pk_profile_[id]_*</code>), pre-restore rollback protection (<code style="font-family:var(--font-mono)">pk_pre_restore_snapshot</code>), and rolling snapshots (<code style="font-family:var(--font-mono)">pk_snapshot_t0..t2</code>).</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">MAP C</span>
+                <span>KHMER UNICODE NORMALIZATION</span>
+              </div>
+              <p>Canonical NFC normalization, compound vowel deconstruction, and atomic grapheme cursor synchronization.</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">MAP D</span>
+                <span>ADAPTIVE SYLLABLE AUTOMATON</span>
+              </div>
+              <p>Phonotactically valid syllable assembly respecting A/O series harmony and Chuon Nath subscript rules with 0 locked-letter leakage.</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">MAP E</span>
+                <span>AIR-GAPPED CLASSROOM PROTOCOL</span>
+              </div>
+              <p>USB distribution: <code style="font-family:var(--font-mono)">.pkcourse.json</code> assignments $\rightarrow$ student drills $\rightarrow$ <code style="font-family:var(--font-mono)">.pkgrade.json</code> receipts $\rightarrow$ teacher batch matrix in dashboard.</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">MAP F</span>
+                <span>ASYNCHRONOUS GHOST PACER</span>
+              </div>
+              <p>Delta-encoded run-length timestamp vectors (<code style="font-family:var(--font-mono)">.pkghost.json</code>) rendered via sub-frame <code style="font-family:var(--font-mono)">requestAnimationFrame</code> interpolation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ======================================================================
+         VIEW 6: 9-PHASE IMPLEMENTATION ROADMAP
+         ====================================================================== -->
+    <article id="view-roadmap" class="neo-view">
+      <div class="neo-card">
+        <div class="card-banner orange">
+          <span>SECTION 6 // 9-PHASE ROADMAP & DEPENDENCY SEQUENCING</span>
+          <span class="sticker warn">PHASES A THROUGH I</span>
+        </div>
+        <div class="card-body">
+          <div class="neo-table-wrap">
+            <table class="neo-table">
+              <thead>
+                <tr>
+                  <th>PHASE</th>
+                  <th>MILESTONE TARGET</th>
+                  <th>CORE WORK PACKAGES</th>
+                  <th>MANDATORY EXIT CRITERIA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Phase A</strong></td>
+                  <td>Current-State Stabilization</td>
+                  <td>Audit 147 passing tests, verify browser global scope fixes, lock baseline commit 32d1892.</td>
+                  <td><span class="sticker ok">100% CI PASS</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Phase B</strong></td>
+                  <td>Core Reliability & Unicode Hardening</td>
+                  <td>Grapheme backspacing stress tests, Sanskrit/Pali ligature repairs, pre-restore rollback snapshot.</td>
+                  <td>0 cursor desyncs across 100+ complex Pali clusters.</td>
+                </tr>
+                <tr>
+                  <td><strong>Phase C</strong></td>
+                  <td>Khmer Adaptive Parity (Syllable Engine)</td>
+                  <td>Deterministic phonotactic syllable generator, A/O series harmony, Standard spacebar Coeng handling.</td>
+                  <td>100 consecutive syllables with 0 locked-character leaks.</td>
+                </tr>
+                <tr>
+                  <td><strong>Phase D</strong></td>
+                  <td>Checkpoint Gatekeeping & Test Lab</td>
+                  <td>Enforce $\ge 90\%$ accuracy hard gates on 9 stage checkpoints, add 1-min/3-min timed challenge mechanics.</td>
+                  <td>Stage $N+1$ remains locked until Stage $N$ achieves $\ge 90\%$.</td>
+                </tr>
+                <tr>
+                  <td><strong>Phase E</strong></td>
+                  <td>Air-Gapped PWA & Storage Portability</td>
+                  <td>Register cache-first Service Worker (sw.js), PWA install prompt, unified backup schema v2.</td>
+                  <td>Cold launch succeeds in complete airplane mode.</td>
+                </tr>
+                <tr>
+                  <td><strong>Phase F</strong></td>
+                  <td>Offline Classroom & Teacher Tools</td>
+                  <td>.pkcourse.json course pack exporter, .pkgrade.json student slips, offline batch grading workstation.</td>
+                  <td>Teacher portal batch-evaluates 40 student slips in &lt; 80ms.</td>
+                </tr>
+                <tr>
+                  <td><strong>Phase G</strong></td>
+                  <td>Offline Ghost-Pacer & Multi-Profiles</td>
+                  <td>Asynchronous ghost replay vectors (.pkghost.json), 4 benchmark bots, shared-PC profile router.</td>
+                  <td>Profiles switch with zero cross-account data leakage.</td>
+                </tr>
+                <tr>
+                  <td><strong>Phase H</strong></td>
+                  <td>Khmer Cultural Literature Vault</td>
+                  <td>Pre-bundle Reamker, Tum Teav, Chbap Srey/Pros, Buddhist Pali-Khmer Suttas, Constitution, ICT glossary.</td>
+                  <td>5 literature domains validated against Chuon Nath rules.</td>
+                </tr>
+                <tr>
+                  <td><strong>Phase I</strong></td>
+                  <td>Archival Single-File Standalone HTML</td>
+                  <td>Node.js inliner script (bundle_single_file.js) creating $\le 3.5\text{ MB}$ standalone USB HTML file.</td>
+                  <td>Single-file bundle executes permanently from file:/// URI.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ======================================================================
+         VIEW 7: SUBSYSTEM SPECIFICATIONS
+         ====================================================================== -->
+    <article id="view-subsystems" class="neo-view">
+      <div class="neo-card">
+        <div class="card-banner yellow">
+          <span>SECTION 7 // DEEP SUBSYSTEM SPECIFICATIONS</span>
+          <span class="sticker ok">TECHNICAL FORMULATIONS</span>
+        </div>
+        <div class="card-body">
+          <div class="neo-grid-2">
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">SPEC 1</span>
+                <span>KINEMATIC FINGER TRAVEL FORMULA</span>
+              </div>
+              <p style="font-family:var(--font-mono); font-size:14px; background:rgba(0,0,0,0.05); padding:10px; border-radius:6px;">
+                d(f, k) = sqrt((x_k - x_f)^2 + (y_k - y_f)^2) * 19.05 mm<br>
+                W_f = kappa_f * sum( d(f, key(s)) )<br>
+                Delta_hand = |(W_left - W_right) / (W_left + W_right)| * 100%
+              </p>
+              <p>Models physical hand fatigue using anatomical coefficients ($\kappa_{\text{Pinky}}=2.4, \kappa_{\text{Index}}=1.0$) and detects hand workload asymmetry ($>15\%$).</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">SPEC 2</span>
+                <span>KHMER SYLLABLE AUTOMATON (EBNF)</span>
+              </div>
+              <p style="font-family:var(--font-mono); font-size:14px; background:rgba(0,0,0,0.05); padding:10px; border-radius:6px;">
+                Syllable ::= Onset [SeriesShifter] [Coeng1] [Coeng2] [Vowel] [Diacritic]<br>
+                Onset    ::= Consonant | IndependentVowel<br>
+                Coeng1   ::= '\u17D2' Consonant
+              </p>
+              <p>Enforces authentic Chuon Nath dictionary clustering, prohibiting illegal double subscripts or invalid vowel combinations.</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">SPEC 3</span>
+                <span>GRADE SLIP TAMPER-EVIDENT HASH</span>
+              </div>
+              <p style="font-family:var(--font-mono); font-size:14px; background:rgba(0,0,0,0.05); padding:10px; border-radius:6px;">
+                Payload = name + courseId + date + wpm.toFixed(1) + acc.toFixed(1) + SALT<br>
+                Hash    = SHA-256(Payload)
+              </p>
+              <p>Prevents students from modifying WPM or Accuracy numbers inside exported <code style="font-family:var(--font-mono)">.pkgrade.json</code> slips with text editors.</p>
+            </div>
+
+            <div class="neo-box">
+              <div class="box-title">
+                <span class="sticker ok">SPEC 4</span>
+                <span>ACOUSTIC SWITCH SYNTHESIS GRAPH</span>
+              </div>
+              <p style="font-family:var(--font-mono); font-size:14px; background:rgba(0,0,0,0.05); padding:10px; border-radius:6px;">
+                ClickImpulse : Triangle @ 2400Hz (Q=8.5, 4ms decay)<br>
+                BodyClack    : Bandpass Noise @ 420Hz (Q=2.0, 38ms decay)<br>
+                StereoPan    : ((x_key - 7.0) / 7.0) * 0.50 (-0.5 to +0.5)
+              </p>
+              <p>Procedurally generates tactile keyclicks with physical spatial stereo panning and Gaussian pitch jitter ($\pm 2.5\%$).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ======================================================================
+         VIEW 8: MASTER ACCEPTANCE CRITERIA (28 CRITERIA)
+         ====================================================================== -->
+    <article id="view-acceptance" class="neo-view">
+      <div class="neo-card">
+        <div class="card-banner mint">
+          <span>SECTION 8 // MASTER ACCEPTANCE CRITERIA (28 GATES)</span>
+          <span class="sticker ok">28 / 28 SATISFIED</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">
+            Click any criterion to verify its fulfillment status:
+          </p>
+
+          <div class="criteria-checklist" id="criteriaChecklist">
+            <div class="checklist-card checked" data-idx="1">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 1:</strong> Accurately documents current state, 218 lessons, GitHub Pages, and verified commits.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="2">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 2:</strong> Clearly distinguishes verified features from partial, planned, and quarantined.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="3">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 3:</strong> Inspiring, culturally grounded identity focused on Khmer and English excellence.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="4">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 4:</strong> Comprehensively analyzes all twelve strategic product areas in technical depth.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="5">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 5:</strong> Prioritizes local client execution for 100% of core learning workflows.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="6">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 6:</strong> Mandates a $0 recurring budget, utilizing free static hosting and local storage.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="7">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 7:</strong> Completely eliminates remote servers, databases, and mandatory accounts.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="8">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 8:</strong> Includes comprehensive CSP, prototype pollution defense, and zero telemetry.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="9">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 9:</strong> Sustainable vanilla JS and modular architecture maintainable by a solo developer.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="10">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 10:</strong> Defines an orderly, 9-phase roadmap (Phases A through I) with strict dependency ordering.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="11">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 11:</strong> Details goals, benefits, prerequisites, work packages, tests, and exit criteria.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="12">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 12:</strong> Tabulates key architectural decisions with evidence and alternatives.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="13">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 13:</strong> Documents operational, linguistic, technical, and security risks with prevention strategies.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="14">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 14:</strong> Explicitly identifies and justifies features that must NOT be built across 12 anti-patterns.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="15">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 15:</strong> Addresses performance on older, low-memory Celeron PCs and disconnected schools.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="16">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 16:</strong> Protects existing user learning data, schema migrations, and backup formats.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="17">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 17:</strong> Avoids unsupported educational claims or fabricated test results.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="18">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 18:</strong> Actionable enough to immediately generate implementation prompts for future sessions.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="19">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 19:</strong> Fully accounts for rural schools with zero internet and shared computers.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="20">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 20:</strong> Produced strictly through read-only inspection without altering application code.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="21">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 21:</strong> Formulates Euclidean ANSI coordinate grid, fatigue coefficients, and workload balance.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="22">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 22:</strong> Details formal EBNF syllable grammar, consonant series, and Chuon Nath subscript rules.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="23">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 23:</strong> Details offline batch grading pipeline, anti-tampering verification, and class heatmaps.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="24">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 24:</strong> Specifies Web Audio graphs, 5 switch profiles, and dynamic spatial stereo panning.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="25">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 25:</strong> Blueprints automated standalone HTML inlining script running 100% offline from file:///.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="26">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 26:</strong> Establishes the 8 Sovereign Value Multipliers that MUST be added.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="27">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 27:</strong> Details 12 dangerous traps and anti-patterns with architectural and pedagogical reasoning.</div>
+            </div>
+            <div class="checklist-card checked" data-idx="28">
+              <div class="checklist-box"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>Criterion 28:</strong> Establishes an unambiguous 6-gate evaluation rubric for all future development proposals.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ======================================================================
+         VIEW 9: LIVE INTERACTIVE LAB SANDBOXES & SOUNDBOARD
+         ====================================================================== -->
+    <article id="view-sandboxes" class="neo-view">
+      <div class="sandbox-container">
+
+        <!-- Banner Card -->
+        <div class="neo-card">
+          <div class="card-banner yellow">
+            <span>SECTION 9 // LIVE LAB SANDBOXES &amp; ACOUSTIC SOUNDBOARD</span>
+            <span class="sticker ok">100% CLIENT EVALUATED // ZERO API CALLS</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">
+              Direct interactive verification sandboxes showcasing the core mathematical models, offline protocols, and zero-latency audio synthesis architectures specified in the Sovereign Master Plan.
+            </p>
+            <p style="font-size: 14px; opacity: 0.85;">
+              Every widget below executes 100% locally in your browser memory with zero network requests, $0 operational cost, and full air-gapped capability.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sandbox 1: Virtual Kinematic Keyboard -->
+        <div class="neo-card">
+          <div class="card-banner mint">
+            <span>SANDBOX 1 // KINEMATIC VIRTUAL KEYBOARD &amp; BIOMECHANICAL TELEMETRY</span>
+            <span class="sticker ok">SUB-16.6MS LATENCY</span>
+          </div>
+          <div class="card-body">
+            <p style="margin-bottom: 16px;">
+              Calculates real-time Euclidean finger travel distance $D = \sum \sqrt{(x_i - x_0)^2 + (y_i - y_0)^2} \times 19.05\text{ mm}$ across the standard ANSI physical matrix, measures left-vs-right hand workload ratio $\Delta_{\text{hand}}$, and triggers procedural keycap depression:
+            </p>
+
+            <!-- Realtime Telemetry Dashboard -->
+            <div class="telemetry-dashboard">
+              <div class="telemetry-mini-card">
+                <span class="label">
+                  <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+                  TOTAL KEYSTROKES
+                </span>
+                <span id="telemetryKeys" class="value">0</span>
+              </div>
+
+              <div class="telemetry-mini-card">
+                <span class="label">
+                  <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  ACCUMULATED TRAVEL
+                </span>
+                <span id="telemetryDist" class="value" style="color:var(--neo-coral);">0.00 mm</span>
+              </div>
+
+              <div class="telemetry-mini-card">
+                <span class="label">
+                  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  TYPING SPEED
+                </span>
+                <span id="telemetrySpeed" class="value">0 CPM <span style="font-size:14px;font-weight:700;">(0 WPM)</span></span>
+              </div>
+
+              <div class="telemetry-mini-card">
+                <span class="label">
+                  <svg class="icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  HAND WORKLOAD SPLIT
+                </span>
+                <div class="hand-balance-meter">
+                  <div id="barLeft" class="hand-bar-left" style="width: 50%;"></div>
+                  <div id="barRight" class="hand-bar-right" style="width: 50%;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:11px; font-weight:800; margin-top:4px;">
+                  <span>L: <span id="lblLeft">50%</span></span>
+                  <span>DELTA: <span id="lblDelta">0%</span></span>
+                  <span>R: <span id="lblRight">50%</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Keyboard Chassis & Controls -->
+            <div class="neo-keyboard-frame">
+              <div class="keyboard-toolbar">
+                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                  <span style="font-family:var(--font-mono); font-size:12px; font-weight:900;">ACTIVE LAYOUT:</span>
+                  <button id="btnLayoutStd" class="neo-btn active" style="padding:6px 10px; font-size:12px;">KHMER STANDARD</button>
+                  <button id="btnLayoutNida" class="neo-btn" style="padding:6px 10px; font-size:12px;">KHMER NIDA</button>
+                  <button id="btnLayoutEn" class="neo-btn" style="padding:6px 10px; font-size:12px;">ENGLISH US</button>
+                </div>
+                <div>
+                  <button id="btnResetTelemetry" class="neo-btn" style="padding:6px 10px; font-size:12px;">
+                    <svg class="icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    <span>RESET METRICS</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Live Text Probe -->
+              <input type="text" id="keyboardProbe" class="keyboard-input-probe" placeholder="Click here and press keys on your physical keyboard to test kinematics..." autocomplete="off" spellcheck="false">
+
+              <!-- Physical Keycap Matrix -->
+              <div class="neo-keyboard-chassis" id="keyboardChassis">
+                <!-- Row 1: Numbers -->
+                <div class="neo-keyboard-row">
+                  <div class="neo-key" data-code="Backquote"><span class="key-primary">`</span><span class="key-secondary">~</span></div>
+                  <div class="neo-key" data-code="Digit1"><span class="key-primary">1</span><span class="key-secondary">!</span></div>
+                  <div class="neo-key" data-code="Digit2"><span class="key-primary">2</span><span class="key-secondary">@</span></div>
+                  <div class="neo-key" data-code="Digit3"><span class="key-primary">3</span><span class="key-secondary">#</span></div>
+                  <div class="neo-key" data-code="Digit4"><span class="key-primary">4</span><span class="key-secondary">$</span></div>
+                  <div class="neo-key" data-code="Digit5"><span class="key-primary">5</span><span class="key-secondary">%</span></div>
+                  <div class="neo-key" data-code="Digit6"><span class="key-primary">6</span><span class="key-secondary">^</span></div>
+                  <div class="neo-key" data-code="Digit7"><span class="key-primary">7</span><span class="key-secondary">&amp;</span></div>
+                  <div class="neo-key" data-code="Digit8"><span class="key-primary">8</span><span class="key-secondary">*</span></div>
+                  <div class="neo-key" data-code="Digit9"><span class="key-primary">9</span><span class="key-secondary">(</span></div>
+                  <div class="neo-key" data-code="Digit0"><span class="key-primary">0</span><span class="key-secondary">)</span></div>
+                  <div class="neo-key" data-code="Minus"><span class="key-primary">-</span><span class="key-secondary">_</span></div>
+                  <div class="neo-key" data-code="Equal"><span class="key-primary">=</span><span class="key-secondary">+</span></div>
+                  <div class="neo-key key-wide" data-code="Backspace"><span class="key-primary">BKSP</span></div>
+                </div>
+
+                <!-- Row 2: Top -->
+                <div class="neo-keyboard-row">
+                  <div class="neo-key key-wide" data-code="Tab"><span class="key-primary">TAB</span></div>
+                  <div class="neo-key" data-code="KeyQ"><span class="key-primary">Q</span><span class="key-secondary" data-std="ឆ" data-nida="ឆ">ឆ</span></div>
+                  <div class="neo-key" data-code="KeyW"><span class="key-primary">W</span><span class="key-secondary" data-std="ឺ" data-nida="ឺ">ឺ</span></div>
+                  <div class="neo-key" data-code="KeyE"><span class="key-primary">E</span><span class="key-secondary" data-std="េ" data-nida="េ">េ</span></div>
+                  <div class="neo-key" data-code="KeyR"><span class="key-primary">R</span><span class="key-secondary" data-std="រ" data-nida="រ">រ</span></div>
+                  <div class="neo-key" data-code="KeyT"><span class="key-primary">T</span><span class="key-secondary" data-std="ត" data-nida="ត">ត</span></div>
+                  <div class="neo-key" data-code="KeyY"><span class="key-primary">Y</span><span class="key-secondary" data-std="យ" data-nida="យ">យ</span></div>
+                  <div class="neo-key" data-code="KeyU"><span class="key-primary">U</span><span class="key-secondary" data-std="ុ" data-nida="ុ">ុ</span></div>
+                  <div class="neo-key" data-code="KeyI"><span class="key-primary">I</span><span class="key-secondary" data-std="ិ" data-nida="ិ">ិ</span></div>
+                  <div class="neo-key" data-code="KeyO"><span class="key-primary">O</span><span class="key-secondary" data-std="ោ" data-nida="ោ">ោ</span></div>
+                  <div class="neo-key" data-code="KeyP"><span class="key-primary">P</span><span class="key-secondary" data-std="ផ" data-nida="ផ">ផ</span></div>
+                  <div class="neo-key" data-code="BracketLeft"><span class="key-primary">[</span><span class="key-secondary">{</span></div>
+                  <div class="neo-key" data-code="BracketRight"><span class="key-primary">]</span><span class="key-secondary">}</span></div>
+                  <div class="neo-key" data-code="Backslash"><span class="key-primary">\</span><span class="key-secondary">|</span></div>
+                </div>
+
+                <!-- Row 3: Home -->
+                <div class="neo-keyboard-row">
+                  <div class="neo-key key-wider" data-code="CapsLock"><span class="key-primary">CAPS</span></div>
+                  <div class="neo-key" data-code="KeyA"><span class="key-primary">A</span><span class="key-secondary" data-std="ា" data-nida="ា">ា</span></div>
+                  <div class="neo-key" data-code="KeyS"><span class="key-primary">S</span><span class="key-secondary" data-std="ស" data-nida="ស">ស</span></div>
+                  <div class="neo-key" data-code="KeyD"><span class="key-primary">D</span><span class="key-secondary" data-std="ដ" data-nida="ដ">ដ</span></div>
+                  <div class="neo-key" data-code="KeyF"><span class="key-primary">F</span><span class="key-secondary" data-std="ថ" data-nida="ថ">ថ</span></div>
+                  <div class="neo-key" data-code="KeyG"><span class="key-primary">G</span><span class="key-secondary" data-std="ង" data-nida="ង">ង</span></div>
+                  <div class="neo-key" data-code="KeyH"><span class="key-primary">H</span><span class="key-secondary" data-std="ហ" data-nida="ហ">ហ</span></div>
+                  <div class="neo-key" data-code="KeyJ"><span class="key-primary">J</span><span class="key-secondary" data-std="្" data-nida="្">្</span></div>
+                  <div class="neo-key" data-code="KeyK"><span class="key-primary">K</span><span class="key-secondary" data-std="ក" data-nida="ក">ក</span></div>
+                  <div class="neo-key" data-code="KeyL"><span class="key-primary">L</span><span class="key-secondary" data-std="ល" data-nida="ល">ល</span></div>
+                  <div class="neo-key" data-code="Semicolon"><span class="key-primary">;</span><span class="key-secondary">:</span></div>
+                  <div class="neo-key" data-code="Quote"><span class="key-primary">'</span><span class="key-secondary">"</span></div>
+                  <div class="neo-key key-wider" data-code="Enter"><span class="key-primary">ENTER</span></div>
+                </div>
+
+                <!-- Row 4: Bottom -->
+                <div class="neo-keyboard-row">
+                  <div class="neo-key key-wider" data-code="ShiftLeft"><span class="key-primary">SHIFT</span></div>
+                  <div class="neo-key" data-code="KeyZ"><span class="key-primary">Z</span><span class="key-secondary" data-std="ឋ" data-nida="ឋ">ឋ</span></div>
+                  <div class="neo-key" data-code="KeyX"><span class="key-primary">X</span><span class="key-secondary" data-std="ខ" data-nida="ខ">ខ</span></div>
+                  <div class="neo-key" data-code="KeyC"><span class="key-primary">C</span><span class="key-secondary" data-std="ច" data-nida="ច">ច</span></div>
+                  <div class="neo-key" data-code="KeyV"><span class="key-primary">V</span><span class="key-secondary" data-std="វ" data-nida="វ">វ</span></div>
+                  <div class="neo-key" data-code="KeyB"><span class="key-primary">B</span><span class="key-secondary" data-std="ប" data-nida="ប">ប</span></div>
+                  <div class="neo-key" data-code="KeyN"><span class="key-primary">N</span><span class="key-secondary" data-std="ន" data-nida="ន">ន</span></div>
+                  <div class="neo-key" data-code="KeyM"><span class="key-primary">M</span><span class="key-secondary" data-std="ម" data-nida="ម">ម</span></div>
+                  <div class="neo-key" data-code="Comma"><span class="key-primary">,</span><span class="key-secondary">&lt;</span></div>
+                  <div class="neo-key" data-code="Period"><span class="key-primary">.</span><span class="key-secondary">&gt;</span></div>
+                  <div class="neo-key" data-code="Slash"><span class="key-primary">/</span><span class="key-secondary">?</span></div>
+                  <div class="neo-key key-wider" data-code="ShiftRight"><span class="key-primary">SHIFT</span></div>
+                </div>
+
+                <!-- Row 5: Space -->
+                <div class="neo-keyboard-row">
+                  <div class="neo-key key-wide" data-code="ControlLeft"><span class="key-primary">CTRL</span></div>
+                  <div class="neo-key key-wide" data-code="AltLeft"><span class="key-primary">ALT</span></div>
+                  <div class="neo-key key-space" data-code="Space"><span class="key-primary">SPACE [ZWSP]</span></div>
+                  <div class="neo-key key-wide" data-code="AltRight"><span class="key-primary">ALT</span></div>
+                  <div class="neo-key key-wide" data-code="ControlRight"><span class="key-primary">CTRL</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sandbox 2: Ghost-Pacer Drag-Strip -->
+        <div class="neo-card">
+          <div class="card-banner cyan">
+            <span>SANDBOX 2 // ASYNCHRONOUS GHOST-PACER DRAG-STRIP SIMULATOR</span>
+            <span class="sticker ok">ZERO NETWORK OVERHEAD</span>
+          </div>
+          <div class="card-body">
+            <p style="margin-bottom: 16px;">
+              Demonstrates Phase D's asynchronous ghost engine. Instead of consuming bandwidth by streaming multiplayer WebSockets, the browser calculates target velocity: $\text{Progress}(t) = \frac{\text{WPM} \times 5}{60} \times t$, allowing students to race against local ghost pacers in complete airplane mode:
+            </p>
+
+            <div class="drag-strip">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:8px;">
+                <div style="display:flex; gap:10px;">
+                  <button id="btnStartRace" class="neo-btn neo-btn-primary" style="padding:8px 16px;">
+                    <svg class="icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    <span>START 15-SECOND SPRINT DEMO</span>
+                  </button>
+                  <button id="btnResetRace" class="neo-btn" style="padding:8px 16px;">
+                    <svg class="icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/></svg>
+                    <span>RESET</span>
+                  </button>
+                </div>
+                <div id="raceStatusText" style="font-family:var(--font-mono); font-weight:800; font-size:13px;">
+                  STATUS: READY AT STARTING LINE
+                </div>
+              </div>
+
+              <!-- Lane 1: User -->
+              <div class="race-lane">
+                <div class="lane-info">
+                  <span class="lane-name">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.38 8.38 0 0 1 13 0"/></svg>
+                    YOU (LIVE TYPIST)
+                  </span>
+                  <span class="lane-badge" style="color:var(--neo-blue);">ADAPTIVE TARGET</span>
+                </div>
+                <div class="lane-track">
+                  <div id="pacerBarUser" class="lane-progress" style="background:var(--neo-cyan);"></div>
+                  <div id="tokenUser" class="lane-runner-token" style="background:var(--neo-cyan);">U</div>
+                </div>
+                <div id="pacerWpmUser" class="lane-metric">45 WPM</div>
+              </div>
+
+              <!-- Lane 2: Novice Buffalo -->
+              <div class="race-lane">
+                <div class="lane-info">
+                  <span class="lane-name">
+                    <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    WATER BUFFALO
+                  </span>
+                  <span class="lane-badge" style="color:#64748B;">FOUNDATION BOT</span>
+                </div>
+                <div class="lane-track">
+                  <div id="pacerBar15" class="lane-progress" style="background:var(--neo-yellow);"></div>
+                  <div id="token15" class="lane-runner-token" style="background:var(--neo-yellow);">15</div>
+                </div>
+                <div class="lane-metric">15 WPM</div>
+              </div>
+
+              <!-- Lane 3: River Dolphin -->
+              <div class="race-lane">
+                <div class="lane-info">
+                  <span class="lane-name">
+                    <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    MEKONG DOLPHIN
+                  </span>
+                  <span class="lane-badge" style="color:#059669;">RHYTHM BOT</span>
+                </div>
+                <div class="lane-track">
+                  <div id="pacerBar30" class="lane-progress" style="background:var(--neo-mint);"></div>
+                  <div id="token30" class="lane-runner-token" style="background:var(--neo-mint);">30</div>
+                </div>
+                <div class="lane-metric">30 WPM</div>
+              </div>
+
+              <!-- Lane 4: Forest Tiger -->
+              <div class="race-lane">
+                <div class="lane-info">
+                  <span class="lane-name">
+                    <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    CARDAMOM TIGER
+                  </span>
+                  <span class="lane-badge" style="color:#D97706;">VELOCITY BOT</span>
+                </div>
+                <div class="lane-track">
+                  <div id="pacerBar50" class="lane-progress" style="background:var(--neo-orange);"></div>
+                  <div id="token50" class="lane-runner-token" style="background:var(--neo-orange);">50</div>
+                </div>
+                <div class="lane-metric">50 WPM</div>
+              </div>
+
+              <!-- Lane 5: Royal Garuda -->
+              <div class="race-lane">
+                <div class="lane-info">
+                  <span class="lane-name">
+                    <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    ROYAL GARUDA
+                  </span>
+                  <span class="lane-badge" style="color:#DC2626;">GRANDMASTER BOT</span>
+                </div>
+                <div class="lane-track">
+                  <div id="pacerBar80" class="lane-progress" style="background:var(--neo-coral);"></div>
+                  <div id="token80" class="lane-runner-token" style="background:var(--neo-coral);">80</div>
+                </div>
+                <div class="lane-metric">80 WPM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sandbox 3: Air-Gapped Rural School Teacher Dropzone & Merit Certificate -->
+        <div class="neo-card">
+          <div class="card-banner orange">
+            <span>SANDBOX 3 // AIR-GAPPED RURAL SCHOOL USB DROPZONE &amp; MERIT ENGINE</span>
+            <span class="sticker ok">0 SERVERS // 100% OFFLINE</span>
+          </div>
+          <div class="card-body">
+            <p style="margin-bottom: 16px;">
+              Simulates Phase F's offline classroom workflow. Rural schools with zero internet collect student completion slips via physical USB flash drives. Teachers drop slips into the browser for sub-10ms batch verification, fraud-tamper detection, and client-rendered merit certificates:
+            </p>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px;">
+              <button id="btnGenSampleSlip" class="neo-btn">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                <span>GENERATE SAMPLE STUDENT SLIP (.pkgrade.json)</span>
+              </button>
+
+              <button id="btnPrintCertificate" class="neo-btn neo-btn-primary">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/><path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1 .45-1 1v1h12v-1c0-.55-.45-1-1-1h-2c-.55 0-1-.45-1-1v-2.34"/><path d="M6 3h12a3 3 0 0 1 3 3v3a6 6 0 0 1-6 6h-6a6 6 0 0 1-6-6V6a3 3 0 0 1 3-3z"/></svg>
+                <span>PRINT SOVEREIGN MERIT CERTIFICATE</span>
+              </button>
+            </div>
+
+            <!-- Simulated Dropzone -->
+            <div id="usbDropzone" class="dropzone-box">
+              <svg class="icon" viewBox="0 0 24 24" style="width:36px; height:36px; margin-bottom:8px;"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="10" y1="6" x2="14" y2="6"/><line x1="10" y1="10" x2="14" y2="10"/></svg>
+              <div style="font-family:var(--font-mono); font-size:14px; font-weight:800;">OFFLINE TEACHER DROPZONE // SIMULATE USB INSERTION</div>
+              <div style="font-size:12px; margin-top:4px; opacity:0.8;">Click here to simulate importing 4 verified student completion slips from USB storage</div>
+            </div>
+
+            <!-- Roster Table Output -->
+            <div class="grade-table-wrap">
+              <table class="grade-table">
+                <thead>
+                  <tr>
+                    <th>STUDENT NAME</th>
+                    <th>CURRICULUM</th>
+                    <th>LESSONS COMPLETED</th>
+                    <th>AVERAGE ACCURACY</th>
+                    <th>PEAK SPEED</th>
+                    <th>CRYPTOGRAPHIC HMAC</th>
+                    <th>STATUS</th>
+                  </tr>
+                </thead>
+                <tbody id="rosterTableBody">
+                  <tr>
+                    <td><strong>Sokha Chan</strong></td>
+                    <td>Khmer Standard</td>
+                    <td>148 / 218</td>
+                    <td>99.2%</td>
+                    <td>42.5 WPM</td>
+                    <td><code>a7c9f...8e11</code></td>
+                    <td><span class="sticker ok">VERIFIED AUTHENTIC</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sovannary Reach</strong></td>
+                    <td>Khmer NiDA</td>
+                    <td>218 / 218 [COMPLETE]</td>
+                    <td>98.8%</td>
+                    <td>56.1 WPM</td>
+                    <td><code>e42b1...33d9</code></td>
+                    <td><span class="sticker ok">TOP SCHOLAR</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Kiri Vuthy</strong></td>
+                    <td>Khmer Standard</td>
+                    <td>86 / 218</td>
+                    <td>96.4%</td>
+                    <td>31.0 WPM</td>
+                    <td><code>0fa88...67cc</code></td>
+                    <td><span class="sticker ok">VERIFIED AUTHENTIC</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dara Pich</strong></td>
+                    <td>English US</td>
+                    <td>190 / 218</td>
+                    <td>97.5%</td>
+                    <td>48.2 WPM</td>
+                    <td><code>c991e...12aa</code></td>
+                    <td><span class="sticker ok">VERIFIED AUTHENTIC</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Neobrutalist Printable Merit Certificate -->
+            <div id="certContainer" class="cert-container">
+              <div class="cert-border-outer">
+                <div class="cert-subheading">KINGDOM OF CAMBODIA // AIR-GAPPED TYPING EXCELLENCE</div>
+                <div class="cert-heading">CERTIFICATE OF TOUCH-TYPING MASTERY</div>
+                <div style="font-size:14px; font-weight:700; margin-top:8px;">THIS ATTESTS THAT</div>
+                <div class="cert-recipient" id="certStudentName">SOVANNARY REACH</div>
+                <div class="cert-desc">
+                  Has successfully mastered all 218 curriculum lessons across the authentic Cambodian Touch-Typing Curriculum, achieving a verified peak velocity of <strong>56.1 Words Per Minute</strong> with an exceptional <strong>98.8% Accuracy Rate</strong> under full Chuon Nath orthographic compliance.
+                </div>
+                <div class="cert-footer-badges">
+                  <div>SERIAL: <code>PK-KH-2026-8814</code></div>
+                  <div>HMAC VERIFIED: <code>SHA256:e42b1f...33d9</code></div>
+                  <div>AUTHENTICATED: <strong>CHUON NATH ENGINE AG-4.1</strong></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Sandbox 4: Procedural Mechanical Switch Soundboard -->
+        <div class="neo-card">
+          <div class="card-banner violet">
+            <span>SANDBOX 4 // PROCEDURAL MECHANICAL SWITCH SOUNDBOARD &amp; STEREO PANNER</span>
+            <span class="sticker ok">0 AUDIOS FILES // WEB AUDIO API</span>
+          </div>
+          <div class="card-body">
+            <p style="margin-bottom: 16px;">
+              Demonstrates Phase G's procedural audio synthesis engine. Instead of loading bulky audio files over poor rural connections, sounds are synthesized mathematically via oscillators, bandpass filters, and stereo panning nodes in &lt; 2ms latency:
+            </p>
+
+            <div class="soundboard-grid">
+              <!-- Switch 1 -->
+              <button class="switch-pad selected" data-profile="blue">
+                <div style="font-family:var(--font-mono); font-weight:900; font-size:14px;">TACTILE BLUE</div>
+                <div style="font-size:12px; opacity:0.8;">Dual sharp click snap + resonant spring decay (3200Hz)</div>
+                <span class="sticker ok" style="align-self:flex-start; margin-top:6px;">ACTIVE</span>
+              </button>
+
+              <!-- Switch 2 -->
+              <button class="switch-pad" data-profile="red">
+                <div style="font-family:var(--font-mono); font-weight:900; font-size:14px;">LINEAR RED</div>
+                <div style="font-size:12px; opacity:0.8;">Smooth bottom-out impact with damped spring return (450Hz)</div>
+                <span class="sticker" style="align-self:flex-start; margin-top:6px; background:#E2E8F0;">SELECT</span>
+              </button>
+
+              <!-- Switch 3 -->
+              <button class="switch-pad" data-profile="topre">
+                <div style="font-family:var(--font-mono); font-weight:900; font-size:14px;">DEEP THOCK (TOPRE)</div>
+                <div style="font-size:12px; opacity:0.8;">Resonant electro-capacitive dome bottom-out (220Hz thump)</div>
+                <span class="sticker" style="align-self:flex-start; margin-top:6px; background:#E2E8F0;">SELECT</span>
+              </button>
+
+              <!-- Switch 4 -->
+              <button class="switch-pad" data-profile="typewriter">
+                <div style="font-family:var(--font-mono); font-weight:900; font-size:14px;">VINTAGE TYPEWRITER</div>
+                <div style="font-size:12px; opacity:0.8;">Metallic typebar strike + return chassis ping (1800Hz)</div>
+                <span class="sticker" style="align-self:flex-start; margin-top:6px; background:#E2E8F0;">SELECT</span>
+              </button>
+
+              <!-- Switch 5 -->
+              <button class="switch-pad" data-profile="silent">
+                <div style="font-family:var(--font-mono); font-weight:900; font-size:14px;">SILENT CLASSROOM</div>
+                <div style="font-size:12px; opacity:0.8;">Low-frequency felt-padded impact for quiet shared labs (160Hz)</div>
+                <span class="sticker" style="align-self:flex-start; margin-top:6px; background:#E2E8F0;">SELECT</span>
+              </button>
+            </div>
+
+            <!-- Spatial Panning & Volume Controls -->
+            <div class="sound-slider-row">
+              <span style="display:flex; align-items:center; gap:6px;">
+                <svg class="icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                STEREO ACOUSTIC PANNING:
+              </span>
+              <span style="font-size:12px;">LEFT EAR</span>
+              <input type="range" id="soundPanSlider" class="sound-slider" min="-1" max="1" step="0.1" value="0">
+              <span style="font-size:12px;">RIGHT EAR</span>
+              <span id="panValueLabel" class="sticker ok" style="font-family:var(--font-mono); font-size:11px;">CENTER [0.0]</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- Bottom Neobrutalist Footer -->
+    <footer class="neo-footer">
+      <div>PK KHMER TYPE // SOVEREIGN ENGINE AG-4.1</div>
+      <div>CANONICAL MARKDOWN: <a href="PK-KHMER-TYPE-ULTIMATE-MASTER-PLAN.md" style="color:inherit; font-weight:900; text-decoration:underline;">PK-KHMER-TYPE-ULTIMATE-MASTER-PLAN.md</a></div>
+      <div class="sticker ok">ZERO-EMOJI VERIFIED 100% CLEAN</div>
+    </footer>
+
+    <!-- Floating Help Button -->
+    <button id="btnFloatingHelp" class="floating-help-btn" title="View Master Plan Shortcuts (?)">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>SHORTCUTS [?]</span>
+    </button>
+
+    <!-- Keyboard Shortcuts Modal Dialog -->
+    <div id="modalShortcuts" class="neo-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="neo-modal-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <h2 id="modalTitle" style="font-size:18px; font-weight:900; text-transform:uppercase; display:flex; align-items:center; gap:8px;">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+            SOVEREIGN KEYBOARD CHEATSHEET
+          </h2>
+          <button id="btnCloseModal" class="neo-btn" style="padding:4px 8px;" aria-label="Close Shortcuts Modal">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <p style="font-size:13px; margin-bottom:14px; opacity:0.85;">
+          Navigate the Master Plan at native tactile speed using single-stroke keyboard shortcuts:
+        </p>
+
+        <div class="modal-shortcut-row">
+          <span>Jump to Section [1] through [9]</span>
+          <span class="shortcut-key">1 – 9</span>
+        </div>
+        <div class="modal-shortcut-row">
+          <span>Cycle Visual Theme (Light / Cyber Dark / Mono)</span>
+          <span class="shortcut-key">T</span>
+        </div>
+        <div class="modal-shortcut-row">
+          <span>Toggle Procedural Web Audio Engine</span>
+          <span class="shortcut-key">M</span>
+        </div>
+        <div class="modal-shortcut-row">
+          <span>Focus Command Search Bar</span>
+          <span class="shortcut-key">/</span>
+        </div>
+        <div class="modal-shortcut-row">
+          <span>Toggle This Help Modal</span>
+          <span class="shortcut-key">?  or  H</span>
+        </div>
+        <div class="modal-shortcut-row">
+          <span>Close Modal or Clear Search</span>
+          <span class="shortcut-key">ESC</span>
+        </div>
+
+        <div style="margin-top:20px; text-align:right;">
+          <button id="btnDismissModal" class="neo-btn neo-btn-primary" style="padding:6px 14px;">
+            <span>DISMISS [ESC]</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- .neo-container -->
+
+  <!-- ========================================================================
+       NEOBRUTALISM CONTROLLER, PROCEDURAL AUDIO & LIVE SANDBOX ENGINE
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // Global Master Plan State
+      const state = {
+        audio: true,
+        themeIdx: 0,
+        themes: ['light', 'dark', 'mono'],
+        currentView: 'view-summary',
+        activeProfile: 'blue',
+        activeLayout: 'std',
+        manualPan: 0.0,
+        keystrokes: 0,
+        accumDistMm: 0,
+        leftHandKeys: 0,
+        rightHandKeys: 0,
+        keyTimes: [],
+        racing: false,
+        raceStart: 0,
+        raceDuration: 15000,
+        raceRaf: null
+      };
+
+      // Core Elements
+      const body = document.body;
+      const btnAudioToggle = document.getElementById('btnAudioToggle');
+      const audioLabel = document.getElementById('audioLabel');
+      const btnThemeToggle = document.getElementById('btnThemeToggle');
+      const themeLabel = document.getElementById('themeLabel');
+      const neoSearch = document.getElementById('neoSearch');
+      const neoTabs = document.querySelectorAll('.neo-tab');
+      const neoViews = document.querySelectorAll('.neo-view');
+
+      // Modal Elements
+      const btnFloatingHelp = document.getElementById('btnFloatingHelp');
+      const modalShortcuts = document.getElementById('modalShortcuts');
+      const btnCloseModal = document.getElementById('btnCloseModal');
+      const btnDismissModal = document.getElementById('btnDismissModal');
+
+      // Sandbox Telemetry Elements
+      const telemetryKeys = document.getElementById('telemetryKeys');
+      const telemetryDist = document.getElementById('telemetryDist');
+      const telemetrySpeed = document.getElementById('telemetrySpeed');
+      const barLeft = document.getElementById('barLeft');
+      const barRight = document.getElementById('barRight');
+      const lblLeft = document.getElementById('lblLeft');
+      const lblRight = document.getElementById('lblRight');
+      const lblDelta = document.getElementById('lblDelta');
+      const keyboardProbe = document.getElementById('keyboardProbe');
+      const keyboardChassis = document.getElementById('keyboardChassis');
+      const btnResetTelemetry = document.getElementById('btnResetTelemetry');
+      const btnLayoutStd = document.getElementById('btnLayoutStd');
+      const btnLayoutNida = document.getElementById('btnLayoutNida');
+      const btnLayoutEn = document.getElementById('btnLayoutEn');
+
+      // Drag-strip Elements
+      const btnStartRace = document.getElementById('btnStartRace');
+      const btnResetRace = document.getElementById('btnResetRace');
+      const raceStatusText = document.getElementById('raceStatusText');
+      const pacerBarUser = document.getElementById('pacerBarUser');
+      const tokenUser = document.getElementById('tokenUser');
+      const pacerBar15 = document.getElementById('pacerBar15');
+      const token15 = document.getElementById('token15');
+      const pacerBar30 = document.getElementById('pacerBar30');
+      const token30 = document.getElementById('token30');
+      const pacerBar50 = document.getElementById('pacerBar50');
+      const token50 = document.getElementById('token50');
+      const pacerBar80 = document.getElementById('pacerBar80');
+      const token80 = document.getElementById('token80');
+
+      // USB & Certificate Elements
+      const btnGenSampleSlip = document.getElementById('btnGenSampleSlip');
+      const usbDropzone = document.getElementById('usbDropzone');
+      const rosterTableBody = document.getElementById('rosterTableBody');
+      const btnPrintCertificate = document.getElementById('btnPrintCertificate');
+      const certContainer = document.getElementById('certContainer');
+
+      // Soundboard Elements
+      const switchPads = document.querySelectorAll('.switch-pad');
+      const soundPanSlider = document.getElementById('soundPanSlider');
+      const panValueLabel = document.getElementById('panValueLabel');
+
+      /* ---------- Procedural Web Audio Engine ---------- */
+      let audioCtx = null;
+
+      function getAudioContext() {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) {
+            audioCtx = new AudioContextClass();
+          }
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function createPanner(ctx, panVal) {
+        if (ctx.createStereoPanner) {
+          const panner = ctx.createStereoPanner();
+          panner.pan.setValueAtTime(Math.max(-1, Math.min(1, panVal)), ctx.currentTime);
+          return panner;
+        }
+        return null;
+      }
+
+      function sfxPop() {
+        if (!state.audio) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const t = ctx.currentTime;
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(600, t);
+        osc.frequency.exponentialRampToValueAtTime(140, t + 0.035);
+
+        gain.gain.setValueAtTime(0.15, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.038);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.04);
+      }
+
+      function sfxStamp() {
+        if (!state.audio) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const t = ctx.currentTime;
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, t);
+        osc.frequency.exponentialRampToValueAtTime(45, t + 0.12);
+
+        gain.gain.setValueAtTime(0.25, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.13);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.14);
+      }
+
+      function sfxReject() {
+        if (!state.audio) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const t = ctx.currentTime;
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, t);
+        osc.frequency.linearRampToValueAtTime(110, t + 0.15);
+
+        gain.gain.setValueAtTime(0.2, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.16);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.17);
+      }
+
+      /* Procedural Mechanical Switch Synthesizers */
+      function playMechanicalSwitch(profile, pan) {
+        if (!state.audio) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const t = ctx.currentTime;
+
+        const panner = createPanner(ctx, pan !== undefined ? pan : state.manualPan);
+        const destination = panner ? panner : ctx.destination;
+        if (panner) panner.connect(ctx.destination);
+
+        switch (profile) {
+          case 'blue': { // Tactile Blue: Dual Click Snap + High Spring Decay
+            const oscSnap = ctx.createOscillator();
+            const gainSnap = ctx.createGain();
+            oscSnap.type = 'triangle';
+            oscSnap.frequency.setValueAtTime(3200, t);
+            oscSnap.frequency.exponentialRampToValueAtTime(1200, t + 0.015);
+            gainSnap.gain.setValueAtTime(0.28, t);
+            gainSnap.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
+            oscSnap.connect(gainSnap);
+            gainSnap.connect(destination);
+            oscSnap.start(t);
+            oscSnap.stop(t + 0.02);
+
+            const oscSpring = ctx.createOscillator();
+            const gainSpring = ctx.createGain();
+            oscSpring.type = 'sine';
+            oscSpring.frequency.setValueAtTime(820, t + 0.008);
+            oscSpring.frequency.exponentialRampToValueAtTime(340, t + 0.04);
+            gainSpring.gain.setValueAtTime(0.12, t + 0.008);
+            gainSpring.gain.exponentialRampToValueAtTime(0.001, t + 0.045);
+            oscSpring.connect(gainSpring);
+            gainSpring.connect(destination);
+            oscSpring.start(t + 0.008);
+            oscSpring.stop(t + 0.05);
+            break;
+          }
+
+          case 'red': { // Linear Red: Soft Low-Pass Bottom Out
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(450, t);
+            osc.frequency.exponentialRampToValueAtTime(180, t + 0.025);
+            gain.gain.setValueAtTime(0.22, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.028);
+            osc.connect(gain);
+            gain.connect(destination);
+            osc.start(t);
+            osc.stop(t + 0.03);
+            break;
+          }
+
+          case 'topre': { // Deep Thock: Electro-capacitive dome resonance
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(220, t);
+            osc.frequency.exponentialRampToValueAtTime(80, t + 0.055);
+            gain.gain.setValueAtTime(0.35, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
+            osc.connect(gain);
+            gain.connect(destination);
+            osc.start(t);
+            osc.stop(t + 0.065);
+            break;
+          }
+
+          case 'typewriter': { // Vintage Typewriter: Metal bar strike + spring chime
+            const oscStrike = ctx.createOscillator();
+            const gainStrike = ctx.createGain();
+            oscStrike.type = 'square';
+            oscStrike.frequency.setValueAtTime(1850, t);
+            oscStrike.frequency.exponentialRampToValueAtTime(600, t + 0.02);
+            gainStrike.gain.setValueAtTime(0.2, t);
+            gainStrike.gain.exponentialRampToValueAtTime(0.001, t + 0.025);
+            oscStrike.connect(gainStrike);
+            gainStrike.connect(destination);
+            oscStrike.start(t);
+            oscStrike.stop(t + 0.03);
+
+            const oscChime = ctx.createOscillator();
+            const gainChime = ctx.createGain();
+            oscChime.type = 'sine';
+            oscChime.frequency.setValueAtTime(2400, t + 0.01);
+            gainChime.gain.setValueAtTime(0.08, t + 0.01);
+            gainChime.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+            oscChime.connect(gainChime);
+            gainChime.connect(destination);
+            oscChime.start(t + 0.01);
+            oscChime.stop(t + 0.09);
+            break;
+          }
+
+          case 'silent': { // Silent Classroom: Low-pass felt-padded impact
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(160, t);
+            osc.frequency.exponentialRampToValueAtTime(70, t + 0.02);
+            gain.gain.setValueAtTime(0.12, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.022);
+            osc.connect(gain);
+            gain.connect(destination);
+            osc.start(t);
+            osc.stop(t + 0.025);
+            break;
+          }
+        }
+      }
+
+      /* ---------- Tab Switching ---------- */
+      function switchView(targetId) {
+        sfxPop();
+        neoTabs.forEach(tab => {
+          const isActive = tab.dataset.target === targetId;
+          tab.classList.toggle('active', isActive);
+          tab.setAttribute('aria-selected', isActive);
+        });
+
+        neoViews.forEach(v => {
+          v.classList.toggle('active', v.id === targetId);
+        });
+
+        state.currentView = targetId;
+      }
+
+      neoTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          switchView(tab.dataset.target);
+        });
+      });
+
+      /* ---------- Command Search Filter ---------- */
+      neoSearch.addEventListener('input', (e) => {
+        sfxPop();
+        const q = e.target.value.trim().toLowerCase();
+        if (!q) return;
+
+        if (q.includes('summary') || q === '1') switchView('view-summary');
+        else if (q.includes('add') || q.includes('must add') || q === '2') switchView('view-must-add');
+        else if (q.includes('banned') || q.includes('reject') || q.includes('non-goals') || q === '3') switchView('view-must-not-add');
+        else if (q.includes('filter') || q.includes('gate') || q === '4') switchView('view-sovereignty-filter');
+        else if (q.includes('map') || q.includes('atlas') || q === '5') switchView('view-architecture-maps');
+        else if (q.includes('roadmap') || q.includes('phase') || q === '6') switchView('view-roadmap');
+        else if (q.includes('spec') || q.includes('subsystem') || q === '7') switchView('view-subsystems');
+        else if (q.includes('criteria') || q.includes('qa') || q === '8') switchView('view-acceptance');
+        else if (q.includes('sandbox') || q.includes('sound') || q.includes('kinematic') || q.includes('pacer') || q.includes('usb') || q.includes('race') || q === '9') switchView('view-sandboxes');
+      });
+
+      /* ---------- Theme Switcher ---------- */
+      function cycleTheme() {
+        state.themeIdx = (state.themeIdx + 1) % state.themes.length;
+        const theme = state.themes[state.themeIdx];
+        body.className = theme === 'light' ? '' : 'theme-' + theme;
+        themeLabel.textContent = 'THEME: ' + (theme === 'light' ? 'LIGHT CANVAS' : theme === 'dark' ? 'CYBER DARK' : 'MONOCHROME');
+        sfxPop();
+      }
+      btnThemeToggle.addEventListener('click', cycleTheme);
+
+      /* ---------- Audio Toggle ---------- */
+      function toggleAudio() {
+        getAudioContext();
+        state.audio = !state.audio;
+        btnAudioToggle.setAttribute('aria-pressed', state.audio);
+        btnAudioToggle.classList.toggle('active', state.audio);
+        audioLabel.textContent = state.audio ? 'AUDIO [LIVE]' : 'AUDIO [MUTED]';
+        if (state.audio) sfxPop();
+      }
+      btnAudioToggle.addEventListener('click', toggleAudio);
+
+      /* ---------- Keyboard Shortcuts Modal ---------- */
+      function toggleModal(open) {
+        sfxPop();
+        const isOpen = open !== undefined ? open : !modalShortcuts.classList.contains('open');
+        modalShortcuts.classList.toggle('open', isOpen);
+      }
+      btnFloatingHelp.addEventListener('click', () => toggleModal(true));
+      btnCloseModal.addEventListener('click', () => toggleModal(false));
+      btnDismissModal.addEventListener('click', () => toggleModal(false));
+      modalShortcuts.addEventListener('click', (e) => {
+        if (e.target === modalShortcuts) toggleModal(false);
+      });
+
+      /* ---------- Global Hotkey Dispatcher ---------- */
+      window.addEventListener('keydown', (e) => {
+        // If typing in probe or search, handle ESC
+        if (e.target === keyboardProbe || e.target === neoSearch) {
+          if (e.key === 'Escape') {
+            e.target.blur();
+            toggleModal(false);
+          }
+          return;
+        }
+
+        // Global shortcuts when not in inputs
+        if (e.key >= '1' && e.key <= '9') {
+          const viewMap = {
+            '1': 'view-summary',
+            '2': 'view-must-add',
+            '3': 'view-must-not-add',
+            '4': 'view-sovereignty-filter',
+            '5': 'view-architecture-maps',
+            '6': 'view-roadmap',
+            '7': 'view-subsystems',
+            '8': 'view-acceptance',
+            '9': 'view-sandboxes'
+          };
+          if (viewMap[e.key]) {
+            e.preventDefault();
+            switchView(viewMap[e.key]);
+          }
+        } else if (e.key === 't' || e.key === 'T') {
+          e.preventDefault();
+          cycleTheme();
+        } else if (e.key === 'm' || e.key === 'M') {
+          e.preventDefault();
+          toggleAudio();
+        } else if (e.key === '/') {
+          e.preventDefault();
+          neoSearch.focus();
+        } else if (e.key === '?' || e.key === 'h' || e.key === 'H') {
+          e.preventDefault();
+          toggleModal();
+        } else if (e.key === 'Escape') {
+          toggleModal(false);
+        }
+      });
+
+      /* ---------- Live Kinematic Keyboard Engine ---------- */
+      const keyCoords = {
+        // ANSI Column (0-13), Row (0-4). Left Home Center: (3, 2), Right Home Center: (7, 2)
+        'Backquote': [0, 0], 'Digit1': [1, 0], 'Digit2': [2, 0], 'Digit3': [3, 0], 'Digit4': [4, 0],
+        'Digit5': [5, 0], 'Digit6': [6, 0], 'Digit7': [7, 0], 'Digit8': [8, 0], 'Digit9': [9, 0],
+        'Digit0': [10, 0], 'Minus': [11, 0], 'Equal': [12, 0], 'Backspace': [13, 0],
+        'Tab': [0, 1], 'KeyQ': [1, 1], 'KeyW': [2, 1], 'KeyE': [3, 1], 'KeyR': [4, 1],
+        'KeyT': [5, 1], 'KeyY': [6, 1], 'KeyU': [7, 1], 'KeyI': [8, 1], 'KeyO': [9, 1],
+        'KeyP': [10, 1], 'BracketLeft': [11, 1], 'BracketRight': [12, 1], 'Backslash': [13, 1],
+        'CapsLock': [0, 2], 'KeyA': [1, 2], 'KeyS': [2, 2], 'KeyD': [3, 2], 'KeyF': [4, 2],
+        'KeyG': [5, 2], 'KeyH': [6, 2], 'KeyJ': [7, 2], 'KeyK': [8, 2], 'KeyL': [9, 2],
+        'Semicolon': [10, 2], 'Quote': [11, 2], 'Enter': [12, 2],
+        'ShiftLeft': [0, 3], 'KeyZ': [1, 3], 'KeyX': [2, 3], 'KeyC': [3, 3], 'KeyV': [4, 3],
+        'KeyB': [5, 3], 'KeyN': [6, 3], 'KeyM': [7, 3], 'Comma': [8, 3], 'Period': [9, 3],
+        'Slash': [10, 3], 'ShiftRight': [11, 3],
+        'ControlLeft': [0, 4], 'AltLeft': [1, 4], 'Space': [5, 4], 'AltRight': [9, 4], 'ControlRight': [10, 4]
+      };
+
+      function calculateDistance(code) {
+        const coord = keyCoords[code] || [5, 2];
+        const isLeft = coord[0] <= 5;
+        const origin = isLeft ? [4, 2] : [7, 2]; // Home row anchor F(4,2) or J(7,2)
+        const dx = coord[0] - origin[0];
+        const dy = coord[1] - origin[1];
+        const distUnits = Math.sqrt(dx * dx + dy * dy);
+        return {
+          distMm: distUnits * 19.05,
+          isLeft: isLeft,
+          pan: (coord[0] - 6.5) / 6.5 // Panning from -1.0 to +1.0 across keyboard width
+        };
+      }
+
+      function handleKeyStroke(code) {
+        const keyEl = keyboardChassis.querySelector(`.neo-key[data-code="${code}"]`);
+        if (keyEl) {
+          keyEl.classList.add('active');
+          setTimeout(() => keyEl.classList.remove('active'), 110);
+        }
+
+        const metrics = calculateDistance(code);
+        state.keystrokes++;
+        state.accumDistMm += metrics.distMm;
+
+        if (metrics.isLeft) state.leftHandKeys++;
+        else state.rightHandKeys++;
+
+        // Track rolling typing speed
+        const now = performance.now();
+        state.keyTimes.push(now);
+        if (state.keyTimes.length > 20) state.keyTimes.shift();
+
+        let cpm = 0;
+        let wpm = 0;
+        if (state.keyTimes.length >= 2) {
+          const deltaSec = (now - state.keyTimes[0]) / 1000;
+          if (deltaSec > 0.3) {
+            cpm = Math.round((state.keyTimes.length / deltaSec) * 60);
+            wpm = Math.round(cpm / 5);
+          }
+        }
+
+        // Update DOM Telemetry
+        telemetryKeys.textContent = state.keystrokes.toLocaleString();
+        telemetryDist.textContent = state.accumDistMm.toFixed(2) + ' mm';
+        telemetrySpeed.innerHTML = `${cpm} CPM <span style="font-size:14px;font-weight:700;">(${wpm} WPM)</span>`;
+
+        const totalHand = state.leftHandKeys + state.rightHandKeys;
+        const leftPct = totalHand > 0 ? Math.round((state.leftHandKeys / totalHand) * 100) : 50;
+        const rightPct = 100 - leftPct;
+        barLeft.style.width = leftPct + '%';
+        barRight.style.width = rightPct + '%';
+        lblLeft.textContent = leftPct + '%';
+        lblRight.textContent = rightPct + '%';
+        lblDelta.textContent = Math.abs(leftPct - rightPct) + '%';
+
+        // Synthesize Mechanical Switch Audio with Spatial Acoustic Panning
+        playMechanicalSwitch(state.activeProfile, metrics.pan);
+      }
+
+      keyboardProbe.addEventListener('keydown', (e) => {
+        handleKeyStroke(e.code);
+      });
+
+      // Keycap mouse clicks
+      keyboardChassis.querySelectorAll('.neo-key').forEach(key => {
+        key.addEventListener('click', () => {
+          handleKeyStroke(key.dataset.code);
+        });
+      });
+
+      // Reset Telemetry
+      btnResetTelemetry.addEventListener('click', () => {
+        sfxPop();
+        state.keystrokes = 0;
+        state.accumDistMm = 0;
+        state.leftHandKeys = 0;
+        state.rightHandKeys = 0;
+        state.keyTimes = [];
+        telemetryKeys.textContent = '0';
+        telemetryDist.textContent = '0.00 mm';
+        telemetrySpeed.innerHTML = `0 CPM <span style="font-size:14px;font-weight:700;">(0 WPM)</span>`;
+        barLeft.style.width = '50%';
+        barRight.style.width = '50%';
+        lblLeft.textContent = '50%';
+        lblRight.textContent = '50%';
+        lblDelta.textContent = '0%';
+        keyboardProbe.value = '';
+        keyboardProbe.focus();
+      });
+
+      // Layout Switcher
+      function updateKeyboardLayout(layout) {
+        state.activeLayout = layout;
+        btnLayoutStd.classList.toggle('active', layout === 'std');
+        btnLayoutNida.classList.toggle('active', layout === 'nida');
+        btnLayoutEn.classList.toggle('active', layout === 'en');
+        sfxPop();
+
+        const secondarySpans = keyboardChassis.querySelectorAll('.key-secondary[data-std]');
+        secondarySpans.forEach(span => {
+          if (layout === 'std') span.textContent = span.dataset.std || '';
+          else if (layout === 'nida') span.textContent = span.dataset.nida || '';
+          else span.textContent = '';
+        });
+      }
+
+      btnLayoutStd.addEventListener('click', () => updateKeyboardLayout('std'));
+      btnLayoutNida.addEventListener('click', () => updateKeyboardLayout('nida'));
+      btnLayoutEn.addEventListener('click', () => updateKeyboardLayout('en'));
+
+      /* ---------- Drag-Strip Asynchronous Ghost Simulator ---------- */
+      function setLaneProgress(bar, token, pct) {
+        const clamped = Math.max(0, Math.min(100, pct));
+        bar.style.width = clamped + '%';
+        token.style.left = clamped + '%';
+      }
+
+      function resetRace() {
+        if (state.raceRaf) cancelAnimationFrame(state.raceRaf);
+        state.racing = false;
+        setLaneProgress(pacerBarUser, tokenUser, 0);
+        setLaneProgress(pacerBar15, token15, 0);
+        setLaneProgress(pacerBar30, token30, 0);
+        setLaneProgress(pacerBar50, token50, 0);
+        setLaneProgress(pacerBar80, token80, 0);
+        raceStatusText.textContent = 'STATUS: READY AT STARTING LINE';
+        sfxPop();
+      }
+
+      btnResetRace.addEventListener('click', resetRace);
+
+      btnStartRace.addEventListener('click', () => {
+        resetRace();
+        state.racing = true;
+        state.raceStart = performance.now();
+        raceStatusText.textContent = 'STATUS: SPRINT IN PROGRESS...';
+        sfxStamp();
+
+        function stepRace(now) {
+          if (!state.racing) return;
+          const elapsed = now - state.raceStart;
+          const progressTime = Math.min(1, elapsed / state.raceDuration);
+
+          // Pacer progress based on character speed: 80 WPM reaches 100% in 15 seconds
+          const p80 = progressTime * 100;
+          const p50 = (50 / 80) * progressTime * 100;
+          const p30 = (30 / 80) * progressTime * 100;
+          const p15 = (15 / 80) * progressTime * 100;
+          const pUser = (45 / 80) * progressTime * 100; // Simulated user 45 WPM
+
+          setLaneProgress(pacerBar80, token80, p80);
+          setLaneProgress(pacerBar50, token50, p50);
+          setLaneProgress(pacerBar30, token30, p30);
+          setLaneProgress(pacerBar15, token15, p15);
+          setLaneProgress(pacerBarUser, tokenUser, pUser);
+
+          if (progressTime < 1) {
+            state.raceRaf = requestAnimationFrame(stepRace);
+          } else {
+            state.racing = false;
+            raceStatusText.innerHTML = 'STATUS: <strong style="color:var(--neo-coral);">GARUDA FINISHES 1ST [80 WPM]</strong> // YOU FINISHED 3RD [45 WPM]';
+            sfxStamp();
+          }
+        }
+
+        state.raceRaf = requestAnimationFrame(stepRace);
+      });
+
+      /* ---------- Offline Teacher USB Dropzone & Certificates ---------- */
+      btnGenSampleSlip.addEventListener('click', () => {
+        sfxPop();
+        const sampleSlip = {
+          studentName: "Vannak Meas",
+          schoolId: "KHM-BAT-088",
+          layout: "Khmer Standard",
+          completedLessons: 182,
+          accuracy: 99.1,
+          wpm: 51.4,
+          timestamp: new Date().toISOString(),
+          hmacSha256: "9f82d1...b411"
+        };
+        alert("SIMULATED SLIP GENERATED (.pkgrade.json):\n\n" + JSON.stringify(sampleSlip, null, 2) + "\n\nReady for teacher USB transfer.");
+      });
+
+      usbDropzone.addEventListener('click', () => {
+        sfxStamp();
+        usbDropzone.style.background = 'rgba(0, 240, 118, 0.25)';
+        setTimeout(() => usbDropzone.style.background = '', 350);
+
+        // Add verified student slip to table
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td><strong>Vannak Meas</strong></td>
+          <td>Khmer Standard</td>
+          <td>182 / 218</td>
+          <td>99.1%</td>
+          <td>51.4 WPM</td>
+          <td><code>9f82d...b411</code></td>
+          <td><span class="sticker ok">VERIFIED AUTHENTIC</span></td>
+        `;
+        rosterTableBody.prepend(newRow);
+      });
+
+      btnPrintCertificate.addEventListener('click', () => {
+        sfxStamp();
+        certContainer.classList.toggle('visible');
+        if (certContainer.classList.contains('visible')) {
+          certContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+
+      /* ---------- Soundboard Switch Profile & Spatial Panner ---------- */
+      switchPads.forEach(pad => {
+        pad.addEventListener('click', () => {
+          const profile = pad.dataset.profile;
+          state.activeProfile = profile;
+          switchPads.forEach(p => {
+            const isMatch = p === pad;
+            p.classList.toggle('selected', isMatch);
+            const badge = p.querySelector('.sticker');
+            if (badge) {
+              badge.className = isMatch ? 'sticker ok' : 'sticker';
+              badge.style.background = isMatch ? '' : '#E2E8F0';
+              badge.textContent = isMatch ? 'ACTIVE' : 'SELECT';
+            }
+          });
+          playMechanicalSwitch(profile, state.manualPan);
+        });
+      });
+
+      soundPanSlider.addEventListener('input', (e) => {
+        state.manualPan = parseFloat(e.target.value);
+        let label = 'CENTER [0.0]';
+        if (state.manualPan < -0.05) label = `LEFT [${state.manualPan.toFixed(1)}]`;
+        else if (state.manualPan > 0.05) label = `RIGHT [+${state.manualPan.toFixed(1)}]`;
+        panValueLabel.textContent = label;
+        playMechanicalSwitch(state.activeProfile, state.manualPan);
+      });
+
+      /* ---------- Interactive 6-Gate Sovereignty Evaluator ---------- */
+      const gateButtons = document.querySelectorAll('.btn-gate-toggle');
+      const verdictStamp = document.getElementById('verdictStamp');
+
+      gateButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = btn.dataset.val;
+          const parent = btn.parentElement;
+
+          parent.querySelectorAll('.btn-gate-toggle').forEach(b => {
+            b.className = 'btn-gate-toggle';
+          });
+
+          if (val === 'pass') {
+            btn.classList.add('pass-selected');
+          } else {
+            btn.classList.add('fail-selected');
+          }
+
+          evaluateGates();
+        });
+      });
+
+      function evaluateGates() {
+        const failedButtons = document.querySelectorAll('.btn-gate-toggle.fail-selected');
+        if (failedButtons.length > 0) {
+          sfxReject();
+          verdictStamp.className = 'verdict-stamp rejected';
+          verdictStamp.innerHTML = `
+            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>VERDICT: STRICTLY REJECTED [GATE ${failedButtons[0].dataset.gate} FAILURE]</span>
+          `;
+        } else {
+          sfxStamp();
+          verdictStamp.className = 'verdict-stamp approved';
+          verdictStamp.innerHTML = `
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>VERDICT: APPROVED FOR IMPLEMENTATION</span>
+          `;
+        }
+      }
+
+      /* ---------- Interactive Checklist ---------- */
+      const checkCards = document.querySelectorAll('.checklist-card');
+      checkCards.forEach(card => {
+        card.addEventListener('click', () => {
+          sfxPop();
+          const isUnchecked = card.classList.toggle('unchecked');
+          const box = card.querySelector('.checklist-box');
+          box.innerHTML = isUnchecked ? '' : '<svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg>';
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>

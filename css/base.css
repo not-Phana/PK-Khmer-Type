@@ -24,6 +24,26 @@
 
   *{box-sizing:border-box;}
 
+  /* Universal button reset — blocks all unstyled OS default browser buttons */
+  button {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  button:focus-visible {
+    outline: 2px solid var(--gold-bright, #ffd166);
+    outline-offset: 2px;
+  }
+
   html{ background:#05060d; scroll-behavior:smooth; }
 
   /* Modern discreet scrollbar without obtrusive glowing thumbs or arrows */
@@ -9552,26 +9572,43 @@ a.pk-cc-handle:hover {
   margin-bottom: 12px;
 }
 .tl-pill {
-  padding: 7px 14px;
-  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 16px;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--ink-dim, #cbd5e1);
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.16s ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  white-space: nowrap;
+}
+.tl-pill .pk-icon {
+  flex-shrink: 0;
+  stroke-width: 2.2;
 }
 .tl-pill:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
-  border-color: rgba(255, 209, 102, 0.3);
+  border-color: rgba(255, 209, 102, 0.4);
+  transform: translateY(-1px);
 }
 .tl-pill.active {
-  background: #ffd166;
+  background: linear-gradient(135deg, #ffd166 0%, #ff9d2e 100%);
   color: #12151f;
   border-color: #ffd166;
-  box-shadow: 0 2px 10px rgba(255, 209, 102, 0.35);
+  box-shadow: 0 3px 14px rgba(255, 209, 102, 0.45);
+  font-weight: 800;
+}
+.tl-pill.active .pk-icon {
+  stroke: #12151f;
+  color: #12151f;
 }
 .tl-custom-textarea {
   width: 100%;
@@ -9859,4 +9896,237 @@ a.pk-cc-handle:hover {
   color: #cbd5e1;
   min-width: 32px;
   text-align: right;
+}
+
+
+/* ==========================================================================
+   Universal Button Design System (Zero-Ugly-UI Guarantee)
+   ========================================================================== */
+.primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 11px 22px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 209, 102, 0.55);
+  background: linear-gradient(135deg, #ffd166 0%, #ff9d2e 100%);
+  color: #111420;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(255, 157, 46, 0.35), 0 0 14px rgba(255, 209, 102, 0.2);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.primary-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #ffe08a 0%, #ffa940 100%);
+  border-color: #ffd166;
+  box-shadow: 0 8px 24px rgba(255, 157, 46, 0.5), 0 0 20px rgba(255, 209, 102, 0.45);
+  color: #080a10;
+}
+.primary-btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(255, 157, 46, 0.3);
+}
+.primary-btn:focus-visible {
+  outline: 2px solid #ffd166;
+  outline-offset: 3px;
+}
+.primary-btn .pk-icon {
+  stroke-width: 2.4;
+  color: #111420;
+  stroke: #111420;
+  flex-shrink: 0;
+}
+
+.secondary-btn,
+.modal-secondary-btn,
+.temple-confirm-cancel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink-dim, #cbd5e1);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.secondary-btn:hover,
+.modal-secondary-btn:hover,
+.temple-confirm-cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 209, 102, 0.4);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), 0 0 12px rgba(255, 209, 102, 0.15);
+}
+.secondary-btn:active,
+.modal-secondary-btn:active,
+.temple-confirm-cancel:active {
+  transform: translateY(0) scale(0.98);
+}
+.secondary-btn:focus-visible,
+.modal-secondary-btn:focus-visible,
+.temple-confirm-cancel:focus-visible {
+  outline: 2px solid #ffd166;
+  outline-offset: 3px;
+}
+.secondary-btn .pk-icon,
+.modal-secondary-btn .pk-icon,
+.temple-confirm-cancel .pk-icon {
+  stroke-width: 2.2;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+/* Light Theme Overrides */
+html.theme-light .primary-btn {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+  border-color: #0f172a;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+}
+html.theme-light .primary-btn:hover {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.35);
+}
+html.theme-light .primary-btn .pk-icon {
+  color: #ffffff;
+  stroke: #ffffff;
+}
+html.theme-light .secondary-btn,
+html.theme-light .modal-secondary-btn,
+html.theme-light .temple-confirm-cancel {
+  background: rgba(15, 23, 42, 0.05);
+  border-color: rgba(15, 23, 42, 0.15);
+  color: #334155;
+}
+html.theme-light .secondary-btn:hover,
+html.theme-light .modal-secondary-btn:hover,
+html.theme-light .temple-confirm-cancel:hover {
+  background: rgba(15, 23, 42, 0.08);
+  border-color: #0f172a;
+  color: #0f172a;
+}
+
+/* Sepia Theme Overrides */
+html.theme-sepia .primary-btn {
+  background: linear-gradient(135deg, #362414 0%, #52371f 100%);
+  color: #faf4e8;
+  border-color: #362414;
+  box-shadow: 0 4px 14px rgba(54, 36, 20, 0.25);
+}
+html.theme-sepia .primary-btn:hover {
+  background: linear-gradient(135deg, #52371f 0%, #6d4a2a 100%);
+  color: #faf4e8;
+  box-shadow: 0 6px 18px rgba(54, 36, 20, 0.35);
+}
+html.theme-sepia .primary-btn .pk-icon {
+  color: #faf4e8;
+  stroke: #faf4e8;
+}
+html.theme-sepia .secondary-btn,
+html.theme-sepia .modal-secondary-btn,
+html.theme-sepia .temple-confirm-cancel {
+  background: rgba(54, 36, 20, 0.06);
+  border-color: rgba(54, 36, 20, 0.2);
+  color: #52371f;
+}
+html.theme-sepia .secondary-btn:hover,
+html.theme-sepia .modal-secondary-btn:hover,
+html.theme-sepia .temple-confirm-cancel:hover {
+  background: rgba(54, 36, 20, 0.12);
+  border-color: #362414;
+  color: #241408;
+}
+
+/* Glass Theme Overrides */
+html.theme-glass .primary-btn {
+  background: rgba(255, 209, 102, 0.25) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 209, 102, 0.5) !important;
+  color: #ffd166 !important;
+  box-shadow: 0 0 16px rgba(255, 209, 102, 0.3) !important;
+}
+html.theme-glass .primary-btn:hover {
+  background: rgba(255, 209, 102, 0.4) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 24px rgba(255, 209, 102, 0.55) !important;
+}
+html.theme-glass .primary-btn .pk-icon {
+  color: inherit !important;
+  stroke: currentColor !important;
+}
+html.theme-glass .secondary-btn,
+html.theme-glass .modal-secondary-btn,
+html.theme-glass .temple-confirm-cancel {
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #ffffff !important;
+}
+html.theme-glass .secondary-btn:hover,
+html.theme-glass .modal-secondary-btn:hover,
+html.theme-glass .temple-confirm-cancel:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 209, 102, 0.5) !important;
+}
+
+/* Top Actions Specialized Badges */
+.top-actions .test-lab-nav-btn .pk-icon {
+  color: #a78bfa;
+  filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.4));
+}
+.top-actions .test-lab-nav-btn:hover {
+  border-color: rgba(167, 139, 250, 0.5);
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.15), rgba(255, 255, 255, 0.05));
+}
+.top-actions .overview-nav-btn .pk-icon {
+  color: #38bdf8;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));
+}
+.top-actions .overview-nav-btn:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.15), rgba(255, 255, 255, 0.05));
+}
+
+.lesson-quick-btn.lesson-restart-btn:hover {
+  border-color: var(--gold, #ff9d2e);
+  color: #ffffff;
+}
+.lesson-quick-btn.lesson-restart-btn:hover svg {
+  transform: rotate(-45deg);
+  transition: transform 0.25s ease;
+}
+
+.modal-secondary-btn.gm-custom-btn {
+  border-color: rgba(255, 209, 102, 0.35);
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.06);
+}
+.modal-secondary-btn.gm-custom-btn:hover {
+  border-color: #ffd166;
+  background: rgba(255, 209, 102, 0.14);
+  box-shadow: 0 0 16px rgba(255, 209, 102, 0.25);
 }
