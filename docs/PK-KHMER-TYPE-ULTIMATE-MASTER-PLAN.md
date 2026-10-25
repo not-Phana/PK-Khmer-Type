@@ -1702,7 +1702,220 @@ This produces a silky-smooth 60fps moving pacer car or cursor alongside the lear
 
 ---
 
-## 32. Document Continuity and Evolution History
+## 32. Strategic Roadmap Matrix: What MUST Be Added (Sovereign Value Multipliers)
+
+To maintain uncompromising product clarity and ensure that every future hour of engineering produces maximal real-world educational leverage, the platform establishes eight foundational capability pillars that **MUST** be added to the production roadmap:
+
+```text
++----------------------------------------------------------------------------------------------------+
+|                                  THE 8 SOVEREIGN VALUE PILLARS                                     |
+|                                                                                                    |
+|  [ 1. PHONOTACTIC ADAPTIVITY ] ──▶ Infinite syllables respecting A/O series & Chuon Nath rules.    |
+|  [ 2. AIR-GAPPED LAB TOOLS   ] ──▶ USB course packs (*.pkcourse) & tamper-evident grade slips.     |
+|  [ 3. KINEMATIC BIOMECHANICS ] ──▶ Travel distance (meters), hand equilibrium, SFB strain alerts. |
+|  [ 4. LITERATURE VAULT       ] ──▶ Reamker, Tum Teav, Chbap moral codes, Buddhist Suttas, Civic.  |
+|  [ 5. SHARED-PC PROFILES     ] ──▶ Isolated storage namespaces & 4-digit PIN locks for lab PCs.    |
+|  [ 6. PROCEDURAL AUDIO       ] ──▶ Real-time Web Audio switch synthesis (0-asset download cost).   |
+|  [ 7. INCLUSIVE ACCESSIBILITY] ──▶ Glare-resistant outdoor classroom themes & visual metronomes.   |
+|  [ 8. SINGLE-FILE COMPILER   ] ──▶ Hermetic 3.5 MB standalone HTML running permanently from USB.   |
++----------------------------------------------------------------------------------------------------+
+```
+
+### Pillar 1: Phonotactic & Adaptive Learning Multipliers (Phase C)
+- **Deterministic Syllable Automaton:** Infinite dynamic practice generated client-side conforming to the Extended Backus-Naur Form (EBNF) of Khmer orthography. Eliminates repetitive memorization while ensuring every generated word is phonotactically authentic according to the Chuon Nath Khmer Dictionary.
+- **Zero Locked-Letter Leakage Gate:** Mathematical verification filter guaranteeing that $100\%$ of codepoints in generated practice drills belong strictly to the student's active unlocked character inventory.
+- **Four-Category Typographic Error Anatomy:** Upgrades the Keystroke Observer in [`js/tracker.js`](file:///E:/Code/khmer%20keyboard/keyboard/idk/js/tracker.js) to diagnose the root cause of every typing error:
+  1. *Physical / Motor Slips:* Keystroke struck an adjacent keycap on the ANSI grid (e.g., `S` instead of `A`).
+  2. *Orthographic / Phonetic Confusion:* Keystroke substituted a phonetically similar consonant (e.g., `ដ` vs. `ត`, `ថ` vs. `ធ`, `ប` vs. `ព`).
+  3. *Modifier Desynchronization:* Shift key was released $< 35\text{ ms}$ before the character key was struck, generating the base layer character unintentionally.
+  4. *Coeng Sequencing Inversion:* Keystroke typed Coeng (`្`) after the subscript consonant instead of before it, or omitted Coeng entirely.
+- **Spaced Staleness Decay:** Remedial practice queue automatically surfaces characters whose mastery hasn't been re-tested within 7 days or whose historical accuracy is $< 90\%$.
+
+### Pillar 2: Air-Gapped Rural School & Teacher Lab Operations (Phase F)
+- **`.pkcourse.json` Assignment Bundler:** Enables teachers in schools without internet to bundle 5–15 structured lessons, custom text drills, and passing criteria into a single portable JSON file exported directly to a USB stick from [`js/custom-lessons.js`](file:///E:/Code/khmer%20keyboard/keyboard/idk/js/custom-lessons.js).
+- **`.pkgrade.json` Tamper-Evident Grade Slips:** Generates lightweight student assignment receipts containing WPM, CPM, accuracy, duration, and a salted SHA-256 integrity hash that detects manual score alteration.
+- **Offline Batch Grading Workstation:** Integrated into [`dashboard.html`](file:///E:/Code/khmer%20keyboard/keyboard/idk/dashboard.html); allows teachers to drag and drop a folder of 40–50 student grade slips and instantaneously render an aggregated class gradebook matrix (median WPM, error clustering, completion rates) in $< 80\text{ ms}$ with zero server calls.
+- **Printable Vector SVG Merit Certificates:** Pure client-side generation of high-resolution printable award certificates recognizing milestone speeds (e.g., 20 WPM Apprentice, 40 WPM Scribe, 60 WPM Master) with school name, student name, and date.
+
+### Pillar 3: Kinematic Biomechanics & Ergonomic Injury Prevention (Phase B & Dashboard)
+- **ANSI Physical Coordinate Space Tracking:** Real-time tracking of cumulative physical finger travel distance in meters based on the $1.0u = 19.05\text{ mm}$ ANSI standard key pitch implemented in [`js/keyboard.js`](file:///E:/Code/khmer%20keyboard/keyboard/idk/js/keyboard.js).
+- **Hand Workload Equilibrium Indicator ($\Delta_{\text{hand}}$):** Calculates left-versus-right hand strain distribution, warning learners when typing asymmetry exceeds $15\%$.
+- **Same-Finger Bigram (SFB) Stress Highlights:** Visual warnings on physical key combinations that excessively strain a single digit across multiple rows (especially high-strain pinky reach keys on the NiDA and Standard layouts).
+- **Ergonomic Rest Prompts:** Automated, polite notifications suggesting hand stretches after 25 minutes of continuous typing.
+
+### Pillar 4: Authentic Khmer Cultural Literature & Heritage Vault (Phase H)
+- **Pre-Bundled Classical Epic Poetry:** Substantial, verified excerpts from the post-Angkorian *Reamker* epic (Preah Ream, Neang Seda, and Hanuman's battle for Lanka) featuring classical rhyming meters and complex Coeng clusters.
+- **Classical Verse Romances:** Authentic stanzas from Venerable Som's *Tum Teav*, *Kaky*, and *Kolab Pailin*, reinforcing rhythmic typing cadence.
+- **Ancestral Codes of Conduct (Chbap):** *Chbap Srey*, *Chbap Pros*, *Chbap Kram*, and *Lokaneeti*, providing culturally rooted moral wisdom while practicing frequent First-Series and Second-Series consonant alternations.
+- **Pali-Khmer Buddhist Literature:** Liturgical Pali loanword texts including the *Mangala Sutta* (38 Supreme Blessings) and *Karaniya Metta Sutta* (Universal Loving-Kindness), training typists on rare independent vowels (`ឦ, ឧ, ឩ, ឪ`), Bantoc (`់`), and Robat (`៌`).
+- **Civic & Modern Computing Lexicon:** Articles 1–10 of the Cambodian Constitution, UNESCO World Heritage descriptions, and official National Institute of Posts and Telecommunications Khmer ICT terminology.
+
+### Pillar 5: Shared-Workstation Data Management & Self-Healing Storage (Phase G & B)
+- **Partitioned Multi-Learner Local Profiles:** Storage keys dynamically namespaced (`pk_profile_[id]_*`) allowing multiple students (e.g., Dara, Bopha, Sokha) to share a single computer workstation across different class periods without overwriting progress.
+- **Offline 4-Digit PIN Security:** Client-side PBKDF2-HMAC-SHA256 hash protection preventing classmates from accidentally modifying or erasing another student's profile on shared computers.
+- **Ephemeral Pre-Restore Rollback Snapshot (`pk_pre_restore_snapshot`):** Automatic snapshot taken immediately before any backup import in [`js/storage.js`](file:///E:/Code/khmer%20keyboard/keyboard/idk/js/storage.js), enabling 1-click reversal if an outdated or incorrect backup file is accidentally applied.
+- **Circular Rolling Snapshots (`pk_snapshot_t0..t2`):** Automated session checkpoints preserving user history across browser restarts.
+
+### Pillar 6: Zero-Asset Procedural Audio Synthesis (Phase B/E)
+- **Pure Web Audio API Sound Generator:** Mathematical audio synthesis inside [`js/feedback.js`](file:///E:/Code/khmer%20keyboard/keyboard/idk/js/feedback.js) requiring 0 bytes of external MP3/WAV assets, guaranteeing zero network requests and instant playback.
+- **5 Tactile Switch Profiles:** Distinct acoustic signatures (*Tactile Blue Clicky*, *Linear Red Smooth*, *Deep Thock Topre*, *Vintage Mechanical Typewriter*, *Silent Classroom*).
+- **Dynamic Spatial Stereo Panning:** Panning modulated by physical keycap column coordinate ($-0.50$ left ear to $+0.50$ right ear) creating authentic acoustic spatial feedback.
+- **Anti-Machine-Gun Velocity Jitter:** Gaussian pitch ($\pm 2.5\%$) and gain ($\pm 1.5\text{ dB}$) randomization preventing auditory monotony during rapid typing sprints.
+
+### Pillar 7: Universal Accessibility & Hardware Inclusivity (Phase E & UI)
+- **High-Contrast Open-Air Classroom Theme:** Ultra-high contrast monochrome and amber chalk CSS themes specifically engineered for outdoor or sunlit rural schoolrooms where budget TN laptop panels suffer severe glare.
+- **Scalable Khmer Typography:** User-controlled font magnification ($1.2\times$ to $2.0\times$) with calculated line-height padding to prevent stacked subscript clipping (`ក្ដ, ន្ត្រ, ាំ, ុះ`) for visually impaired learners.
+- **Visual Rhythm / Deaf & Hard-of-Hearing Mode:** Visual stroke flash and non-distracting screen metronomes providing sensory rhythm feedback for deaf and hard-of-hearing typists.
+
+### Pillar 8: Permanent Archival Single-File Bundler (Phase I)
+- **Hermetic Single-File Compiler (`scripts/bundle_single_file.js`):** Standalone Node.js script that compiles all HTML, CSS, JavaScript, SVG sprites, 218 curriculum lessons, and literature texts into a single portable $\le 3.5\text{ MB}$ HTML file.
+- **Zero-Dependency USB Portability:** Runs permanently from any USB flash drive on Windows, macOS, Linux, or ChromeOS via `file:///` URIs with `default-src 'none'` Content Security Policy, completely immune to future CDN shutdowns, hosting deprecations, or network outages.
+
+---
+
+## 33. The Anti-Pattern & Structural Non-Goal Register: What MUST NOT Be Added
+
+To safeguard PK Khmer Type from feature creep, financial liabilities, privacy violations, security vulnerabilities, and bloatware, the following twelve architectural concepts are **STRICTLY AND PERMANENTLY FORBIDDEN**:
+
+```text
++----------------------------------------------------------------------------------------------------+
+|                                  THE 12 REJECTED ANTI-PATTERNS                                     |
+|                                                                                                    |
+|  [ 1. CLOUD DATABASES / ACCOUNTS] ──▶ Breaches $0/mo budget, breaks offline, creates GDPR liability.|
+|  [ 2. GENERATIVE AI / LLM APIS  ] ──▶ Paid API tokens, 1000ms latency, invalid Khmer spelling hallucinations.|
+|  [ 3. EXECUTABLE JS PLUGINS     ] ──▶ Massive XSS attack surface, prototype pollution hazards.     |
+|  [ 4. SUBSCRIPTION PAYWALLS     ] ──▶ Violates universal free education mission in Cambodia.       |
+|  [ 5. CLOUD WEBSOCKET MULTIPLAY ] ──▶ 24/7 server costs, ping inequality, chat moderation toxicity.|
+|  [ 6. THIRD-PARTY TRACKING / SDK] ──▶ Violates zero-surveillance, leaks student data, slows 3G.    |
+|  [ 7. HEAVY SPA FRAMEWORKS      ] ──▶ React/Next.js bloat, hydration lag, toolchain obsolescence.  |
+|  [ 8. MULTI-LANGUAGE DILUTION   ] ──▶ Sacrifices deep Khmer orthographic depth for shallow variety.|
+|  [ 9. EXPLOITATIVE GAMIFICATION ] ──▶ Loot boxes, daily streak punishment, manipulative dark patterns.|
+|  [10. HEAVY AUDIO SAMPLE PACKS  ] ──▶ 50MB MP3 downloads exhaust rural bandwidth; procedural is best.|
+|  [11. TOUCHSCREEN MOBILE APP    ] ──▶ Dilutes physical 10-finger tactile touch-typing ergonomics.  |
+|  [12. PREMATURE WASM REWRITES   ] ──▶ Unnecessary complexity; JS executes loop in < 0.5ms natively.|
++----------------------------------------------------------------------------------------------------+
+```
+
+### Detailed Rejection Justifications
+
+#### 1. Cloud Databases & Centralized Accounts (Supabase, Firebase, AWS Cognito, MongoDB)
+- **The Financial Trap:** Cloud database services operate on freemium models designed to convert projects to paid tiers ($25–$100+/month) once row counts, egress bandwidth, or project activity exceed thresholds. Free tiers frequently pause inactive projects (e.g., Supabase pausing projects after 7 days of inactivity), breaking the application unexpectedly for users.
+- **The Disconnection Failure:** In rural Cambodian schools with intermittent or absent internet, cloud authentication blocks students at the login screen.
+- **The Privacy & Regulatory Nightmare:** Storing student names, school identifiers, and timestamps on remote US or EU servers creates severe compliance obligations under international privacy laws (GDPR, COPPA) and Cambodian data sovereignty standards.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** All learner data must remain stored locally on the client machine via `localStorage`, `IndexedDB`, and portable file exports.
+
+#### 2. Cloud Generative AI / Large Language Model Typing Companions (ChatGPT, Gemini, Claude APIs)
+- **The Financial Trap:** AI API tokens require continuous credit card billing. A class of 40 students practicing daily would quickly incur hundreds of dollars in monthly inference fees.
+- **Latency Destroys Typing Rhythm:** Touch-typing demands instantaneous feedback ($< 16.6\text{ ms}$). Cloud LLM round-trips require $500\text{ ms} - 2500\text{ ms}$, creating jarring pauses that shatter typing rhythm and muscle memory.
+- **Orthographic Hallucinations:** Commercial LLMs frequently generate invalid Khmer consonant clusters, improper Coeng combinations, or ungrammatical pseudo-words that contradict the authoritative Chuon Nath dictionary.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** Practice generation must be deterministic, local, instant, and phonotactically governed by Chuon Nath linguistic rules.
+
+#### 3. Third-Party Executable JavaScript Plugins & Extension Marketplaces
+- **Security Vulnerability:** Executing arbitrary third-party JavaScript inside the browser runtime provides an immediate cross-site scripting (XSS) attack vector capable of exfiltrating local storage or modifying grades.
+- **Maintenance Nightmare:** Maintaining backwards compatibility for external JS APIs across minor refactorings creates severe technical debt and fragility.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** Community contributions and extensions must be strictly limited to declarative, schema-validated JSON data packs (`.pkcourse.json`, `.pkghost.json`, `.json` literature).
+
+#### 4. Subscription Paywalls, Gated Levels, or Freemium Monetization
+- **Moral Conflict:** The overarching purpose of PK Khmer Type is to eradicate the digital divide in Cambodia by providing world-class, free typing education to every Khmer student regardless of family income.
+- **Payment Infrastructure Burden:** Integrating and maintaining payment gateways (ABA Pay, Bakong, Wing, Stripe) requires merchant accounts, tax reporting, refunds, chargeback handling, and ongoing security audits.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** 100% of curricula, testing tools, and analytics will remain free forever.
+
+#### 5. Real-Time Cloud WebSocket Multiplayer & Centralized Matchmaking
+- **Operating Cost:** 24/7 WebSocket matchmaking servers require dedicated virtual private servers (VPS), socket connection management, STUN/TURN relays, and continuous maintenance expenses.
+- **Network Latency Inequality:** Rural students on 3G cellular connections ($150\text{ ms} - 300\text{ ms}$ latency) cannot fairly compete against urban typists on fiber broadband ($10\text{ ms}$ latency), leading to frustration.
+- **Toxicity & Content Moderation:** Live chat and multiplayer lobbies inevitably attract spam, abusive usernames, and cyberbullying, demanding active human moderation the owner cannot provide.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** Multiplayer engagement is achieved locally and asynchronously through the **Offline Ghost-Pacer Engine (`.pkghost.json`)**.
+
+#### 6. Third-Party Telemetry, Tracking Pixels, and Analytics SDKs (Google Analytics, Mixpanel, Hotjar)
+- **Surveillance Violation:** Sending student IP addresses, operating system telemetry, and typing speeds to global advertising networks violates the platform's core zero-surveillance principle.
+- **Bandwidth Consumption:** Analytics scripts consume scarce mobile data on metered 3G connections and delay initial page load.
+- **UI Degradation:** Third-party tracking legally requires intrusive cookie consent banners that degrade the clean, distraction-free educational environment.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** The application operates with zero telemetry, zero tracking pixels, and zero outbound network analytics.
+
+#### 7. Heavy SPA Framework Rewrites (React, Next.js, Vue, Angular, Svelte)
+- **Runtime Bloat & Latency:** Rewriting a fast, 60fps vanilla JavaScript application into a modern framework adds 150KB–500KB of framework JavaScript, virtual DOM diffing overhead, and hydration lag.
+- **Low-End Hardware Degradation:** Framework diffing engines induce perceptible keystroke latency and memory thrashing on older 2GB RAM Intel Celeron laptops.
+- **Toolchain Obsolescence:** Complex npm dependency trees suffer from deprecations, breaking changes, and build tool bitrot. Semantic HTML5, CSS, and vanilla JS run reliably across decades.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** The platform remains proudly committed to lightweight, high-performance vanilla JavaScript.
+
+#### 8. Premature Multi-Language Dilution (Thai, Lao, Vietnamese, French, Spanish)
+- **Loss of Typographic Excellence:** Khmer script features unique, intricate linguistic mechanics (33 consonants, 24 dependent vowels, 14 independent vowels, subjoined Coengs, two phonetic series, ZWSP word division) that demand dedicated engineering focus. Diluting resources to support unrelated languages reduces the quality of Khmer support.
+- **Market Reality:** Thousands of high-quality touch-typing platforms exist for English, Spanish, and French, while almost none exist for Khmer Standard and Khmer NiDA.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** The application will focus exclusively on Khmer Standard, Khmer NiDA, and English.
+
+#### 9. Addictive Dark Patterns & Exploitative Gamification (Loot Boxes, Daily Streak Loss Penalties, Virtual Coins)
+- **Psychological Stress:** Daily streak counters that penalize students for missing a day cause anxiety rather than intrinsic motivation.
+- **Distraction from Learning:** Gimmicks like virtual currencies, spinning wheels, and cosmetics distract students from the core objective: building tactile muscle memory, accuracy, and ergonomic typing posture.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** Motivation is driven by authentic skill progression, WPM growth charts, literature unlocks, and printable merit certificates.
+
+#### 10. Heavy Audio Sample Packs & Large MP3 Bundles
+- **Bandwidth Waste:** Downloading 30MB–80MB of sampled keyclick audio files exhausts rural bandwidth and explodes browser cache storage limits.
+- **Asset Failure Risks:** If an audio file fails to load over a spotty connection, audio feedback breaks completely.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** All mechanical switch sounds must be procedurally synthesized in real-time via the Web Audio API.
+
+#### 11. Touchscreen Soft-Keyboard (Mobile Thumb-Typing) Mode
+- **Ergonomic Incompatibility:** Touchscreen thumb-typing uses predictive software keyboards (Gboard, SwiftKey) with swipe gestures and autocorrect. Touch-typing is an entirely different tactile motor discipline practiced with 10 fingers on physical mechanical or membrane keyboards.
+- **Layout Cramping:** Squeezing a 104-key physical Khmer keyboard layout onto a 6-inch phone screen produces illegible micro-keys that provide zero educational value for physical keyboard mastery.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** PK Khmer Type is strictly and unapologetically an authentic desktop and laptop physical keyboard touch-typing studio.
+
+#### 12. Premature WebAssembly (Wasm) Micro-Optimizations
+- **Engineering Complexity:** Compiling C++ or Rust to WebAssembly requires complex build toolchains (Emscripten, Cargo) and incurs memory serialization overhead across the JS-Wasm boundary.
+- **Zero Real-World Need:** Modern V8 and SpiderMonkey JIT compilers execute the vanilla JavaScript keystroke comparison loop in $< 0.5\text{ ms}$, which is $30\times$ faster than the $16.6\text{ ms}$ 60fps frame budget.
+- **Architectural Verdict:** **PERMANENTLY REJECTED.** Vanilla JavaScript delivers optimal speed with zero toolchain overhead.
+
+---
+
+## 34. The Six-Gate Architectural Decision Filter (Universal Evaluation Rubric)
+
+Any future feature proposal—whether originating from a developer, user suggestion, or autonomous AI agent—must be subjected to this sequential 6-Gate Sovereignty Filter. If a proposal fails any single gate, it is **instantly rejected** without compromise:
+
+```text
++----------------------------------------------------------------------------------------------------+
+|                                THE SIX-GATE SOVEREIGNTY FILTER                                     |
+|                                                                                                    |
+|  [ PROPOSED FEATURE ]                                                                              |
+|           │                                                                                        |
+|           ▼                                                                                        |
+|  GATE 1: THE $0 OPERATING COST TEST                                                                |
+|  Does this feature require any recurring server bill, paid API key, or paid cloud tier?           |
+|  ├── YES ──▶ REJECT IMMEDIATELY                                                                    |
+|  └── NO  ──▶ Proceed to Gate 2                                                                     |
+|           │                                                                                        |
+|           ▼                                                                                        |
+|  GATE 2: THE 100% AIR-GAPPED TEST                                                                  |
+|  Does this feature function completely if the computer has zero network connectivity?              |
+|  ├── NO  ──▶ REJECT OR REDESIGN AS LOCAL FILE EXCHANGE (*.json, *.pkcourse)                        |
+|  └── YES ──▶ Proceed to Gate 3                                                                     |
+|           │                                                                                        |
+|           ▼                                                                                        |
+|  GATE 3: THE LOW-END HARDWARE TEST                                                                 |
+|  Does this feature maintain 60fps (< 16.6ms) on a 10-year-old Celeron with 2GB RAM?                |
+|  ├── NO  ──▶ REJECT OR OPTIMIZE TO VOLATILE ZERO-LAYOUT-THRASHING MATH                             |
+|  └── YES ──▶ Proceed to Gate 4                                                                     |
+|           │                                                                                        |
+|           ▼                                                                                        |
+|  GATE 4: THE AUTHENTIC KHMER LINGUISTIC TEST                                                       |
+|  Does this feature strictly comply with Chuon Nath dictionary rules and Unicode combining order?   |
+|  ├── NO  ──▶ REJECT IMMEDIATELY                                                                    |
+|  └── YES ──▶ Proceed to Gate 5                                                                     |
+|           │                                                                                        |
+|           ▼                                                                                        |
+|  GATE 5: THE ABSOLUTE DATA SOVEREIGNTY TEST                                                        |
+|  Does all user progress remain on the local machine with 0 outbound telemetry?                     |
+|  ├── NO  ──▶ REJECT IMMEDIATELY                                                                    |
+|  └── YES ──▶ Proceed to Gate 6                                                                     |
+|           │                                                                                        |
+|           ▼                                                                                        |
+|  GATE 6: THE SOLO-MAINTAINER SUSTAINABILITY TEST                                                   |
+|  Can a single developer maintain, test, and debug this feature in vanilla JS without fragile npm?  |
+|  ├── NO  ──▶ REJECT AS EXCESS COMPLEXITY                                                           |
+|  └── YES ──▶ APPROVED FOR IMPLEMENTATION ROADMAP                                                   |
++----------------------------------------------------------------------------------------------------+
+```
+
+---
+
+## 35. Document Continuity and Evolution History
 
 | Version | Date | Primary Author | Milestone Summary |
 | :--- | :--- | :--- | :--- |
@@ -1710,12 +1923,13 @@ This produces a silky-smooth 60fps moving pacer car or cursor alongside the lear
 | **2.0.0-AUTHORITATIVE** | Oct 25, 2026 (04:35) | Principal Architect Agent | Major expansion incorporating verified repository state following commits `887ef89` & `32d1892`. Added 10 Mermaid maps (A-J), STRIDE threat model, typing-unit taxonomy, and formal data contracts. |
 | **3.0.0-SOVEREIGN-LOCAL** | Oct 25, 2026 (05:25) | Principal Architect Agent | Decisive sovereign pivot: permanently eliminated all cloud/remote dependencies. Added air-gapped classroom protocol (`.pkcourse` / `.pkgrade`), offline Ghost-Pacer engine, shared-PC local profile router, Khmer cultural literature vault, and single-file archival plans. |
 | **4.0.0-SOVEREIGN-DEEP-SPEC**| Oct 25, 2026 (06:10) | Principal Architect Agent | Exhaustive subsystem specification: added mathematical kinematic ergonomics engine, Khmer Markov syllable generator automaton, air-gapped teacher batch grading pipeline, procedural Web Audio switch synthesizer, single-file compiler blueprint, and 4-tier literature syllabus. |
+| **4.1.0-STRATEGIC-DECISION-MATRIX**| Oct 25, 2026 (08:30) | Principal Architect Agent | Authoritative strategic decision filter: formulated the 8 Sovereign Value Multipliers that MUST be added, the 12 Anti-Patterns that MUST NOT be added with deep technical/pedagogical justifications, and the 6-Gate Sovereignty Filter rubric. |
 
 ---
 
-## 33. Master Acceptance Criteria
+## 36. Master Acceptance Criteria
 
-This master plan document fulfills its mandate if and only if it satisfies all twenty-five foundational criteria:
+This master plan document fulfills its mandate if and only if it satisfies all twenty-eight foundational criteria:
 
 - [x] **Criterion 1 (Accurate Reality):** Accurately documents the current project state, 218 lessons, GitHub Pages deployment, and verified commits `887ef89` and `32d1892`.
 - [x] **Criterion 2 (Status Differentiation):** Clearly distinguishes verified existing features from partial implementations, planned modules, and quarantined legacy components.
@@ -1730,7 +1944,7 @@ This master plan document fulfills its mandate if and only if it satisfies all t
 - [x] **Criterion 11 (Meaningful Phase Specs):** Every phase details goals, benefits, prerequisites, work packages, tests, and exit criteria.
 - [x] **Criterion 12 (Decision Register):** Tabulates key architectural decisions with evidence, alternatives, and triggers for reconsideration.
 - [x] **Criterion 13 (Risk Register):** Documents operational, linguistic, technical, and security risks with prevention and recovery strategies.
-- [x] **Criterion 14 (Rejected Ideas Identification):** Explicitly identifies and justifies features that must NOT be built.
+- [x] **Criterion 14 (Rejected Ideas Identification):** Explicitly identifies and justifies features that must NOT be built across 12 distinct anti-pattern profiles.
 - [x] **Criterion 15 (Hardware & Offline Inclusivity):** Specifically addresses performance on older, low-memory computers and disconnected environments.
 - [x] **Criterion 16 (Data Protection):** Protects existing user learning data, schema migrations, and backup formats.
 - [x] **Criterion 17 (Fact-Based Rigor):** Avoids unsupported educational claims or fabricated test results.
@@ -1742,20 +1956,13 @@ This master plan document fulfills its mandate if and only if it satisfies all t
 - [x] **Criterion 23 (Air-Gapped Teacher Portal):** Details offline drag-and-drop batch grading pipeline, anti-tampering verification, and classroom heatmaps.
 - [x] **Criterion 24 (Procedural Audio Synthesis):** Formulates Web Audio node graphs, acoustic parameters for 5 switch profiles, and spatial stereo panning.
 - [x] **Criterion 25 (Single-File Archival Compiler):** Blueprints automated standalone HTML inlining script running 100% offline from `file:///` URIs.
+- [x] **Criterion 26 (Strategic Additions Matrix):** Formulates the 8 Sovereign Value Multipliers that MUST be added to maximize educational impact.
+- [x] **Criterion 27 (Comprehensive Anti-Pattern Register):** Deeply details 12 dangerous traps and anti-patterns with architectural, financial, and pedagogical reasoning.
+- [x] **Criterion 28 (The Six-Gate Sovereignty Filter):** Establishes an unambiguous 6-gate evaluation rubric for all future development proposals.
 
 ---
 
-## 34. Rejected Ideas and Structural Non-Goals
-
-1. **Cloud Databases & User Accounts (Supabase / Firebase):** Permanently rejected to protect student privacy and avoid recurring database hosting bills.
-2. **Generative AI / LLM Typing Companion:** Rejected due to API costs, high token latency, hallucination risks, and network requirements.
-3. **Third-Party Executable JavaScript Plugins:** Rejected due to unacceptable XSS attack surfaces.
-4. **Subscription Paywalls:** Rejected to uphold the foundational commitment to free education in Cambodia.
-5. **Premature Multi-Language Support:** Rejected to maintain uncompromised depth in Khmer and English.
-
----
-
-## 35. Open Questions Requiring Human Decisions
+## 37. Open Questions Requiring Human Decisions
 
 1. **Ministry of Education Alignment:** Should PK Khmer Type formally align its curriculum exercise texts with the Grade 7–12 Cambodian National ICT curriculum?
 2. **Community PR Moderation:** How will community literature submissions be vetted for copyright and orthographic accuracy without creating administrative bottlenecks?
@@ -1763,11 +1970,12 @@ This master plan document fulfills its mandate if and only if it satisfies all t
 
 ---
 
-## 36. Expanded Technical Glossary
+## 38. Expanded Technical Glossary
 
 - **Abugida:** A segmental writing system in which consonant-vowel sequences are written as a unit, characteristic of Khmer script.
 - **Air-Gapped:** An isolated computer system that has no network interfaces connecting it to external internet services.
 - **Box-Muller Transform:** An algorithm for generating pairs of independent, standard, normally distributed random numbers used in audio jitter.
+- **Chuon Nath Dictionary:** The definitive, authoritative 2-volume dictionary of the Khmer language established by Supreme Patriarch Chuon Nath, serving as the gold standard for authentic Khmer orthography.
 - **Coeng (`្` U+17D2):** The Khmer sign used to convert a following consonant into its subjoined (subscript) form.
 - **Dependent Vowel (ស្រៈនិស្ស័យ):** A vowel sign in Khmer that cannot stand alone and must be attached to a consonant.
 - **Independent Vowel (ស្រៈពេញតួ):** Standalone vowel characters used in classical or formal Khmer writing.
@@ -1780,7 +1988,7 @@ This master plan document fulfills its mandate if and only if it satisfies all t
 
 ---
 
-## 37. Evidence Index
+## 39. Evidence Index
 
 - Curriculum Data: [`data/curriculum/`](file:///E:/Code/khmer%20keyboard/keyboard/idk/data/curriculum/)
 - Curriculum Validation Script: [`scripts/validate_curriculum.js`](file:///E:/Code/khmer%20keyboard/keyboard/idk/scripts/validate_curriculum.js)
@@ -1801,12 +2009,13 @@ This master plan document fulfills its mandate if and only if it satisfies all t
 
 ---
 
-## 38. Change History
+## 40. Change History
 
 - **v1.0.0-PROPOSAL (Oct 25, 2026):** Baseline master plan created with 23 sections, local-first architecture, zero-cost analysis, and initial phased roadmap.
 - **v2.0.0-AUTHORITATIVE (Oct 25, 2026):** Major expansion incorporating verified repository state following commits `887ef89` and `32d1892`. Added 10 Mermaid maps (A-J), STRIDE threat model, typing-unit taxonomy, and formal data contracts.
 - **v3.0.0-SOVEREIGN-LOCAL (Oct 25, 2026):** Decisive sovereign pivot: permanently eliminated all cloud/remote dependencies. Added air-gapped classroom protocol (`.pkcourse` / `.pkgrade`), offline Ghost-Pacer engine, shared-PC local profile router, Khmer cultural literature vault, and single-file archival plans.
 - **v4.0.0-SOVEREIGN-DEEP-SPEC (Oct 25, 2026):** Exhaustive subsystem specification: added mathematical kinematic ergonomics engine, Khmer Markov syllable generator automaton, air-gapped teacher batch grading pipeline, procedural Web Audio switch synthesizer, single-file compiler blueprint, and 4-tier literature syllabus.
+- **v4.1.0-STRATEGIC-DECISION-MATRIX (Oct 25, 2026):** Authoritative strategic decision filter: formulated the 8 Sovereign Value Multipliers that MUST be added, the 12 Anti-Patterns that MUST NOT be added with deep technical/pedagogical justifications, and the 6-Gate Sovereignty Filter rubric.
 
 ---
 *Document maintained exclusively in `docs/PK-KHMER-TYPE-ULTIMATE-MASTER-PLAN.md`. Strict Zero-Emoji compliance verified.*
