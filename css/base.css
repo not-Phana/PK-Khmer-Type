@@ -9362,3 +9362,501 @@ a.pk-cc-handle:hover {
     padding: 6px 2px;
   }
 }
+
+
+/* ============================================================
+   PK Khmer Type — Major Evolution: Test Lab, Achievements, Stages
+   ============================================================ */
+
+/* 1. Statistics Layout Switcher & Metric Explainer */
+.stats-layout-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.stats-layout-pill {
+  flex: 1;
+  padding: 6px 12px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ink-dim, #94a3b8);
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+.stats-layout-pill:hover {
+  color: var(--ink, #f8fafc);
+  background: rgba(255, 255, 255, 0.06);
+}
+.stats-layout-pill.active {
+  color: #12151f;
+  background: #ffd166;
+  box-shadow: 0 2px 8px rgba(255, 209, 102, 0.35);
+}
+.stats-metric-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 209, 102, 0.08);
+  border: 1px solid rgba(255, 209, 102, 0.25);
+  border-radius: 8px;
+  padding: 7px 12px;
+  margin-bottom: 16px;
+}
+.smn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.smn-desc {
+  font-size: 0.72rem;
+  color: var(--ink-dim, #cbd5e1);
+  line-height: 1.35;
+}
+
+/* 2. Achievements Showcase Grid in Statistics */
+.stats-achievements-count {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.12);
+  border: 1px solid rgba(255, 209, 102, 0.25);
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: auto;
+}
+.stats-achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.ach-badge-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(22, 28, 45, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 10px 12px;
+  transition: all 0.2s ease;
+}
+.ach-badge-card.unlocked {
+  background: rgba(255, 209, 102, 0.06);
+  border-color: rgba(255, 209, 102, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+.ach-badge-card.unlocked.tier-gold {
+  border-color: #ffd166;
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.15) 0%, rgba(255, 157, 46, 0.05) 100%);
+}
+.ach-badge-card.locked {
+  opacity: 0.55;
+  filter: grayscale(0.8);
+}
+.ach-badge-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink-dim, #94a3b8);
+  flex-shrink: 0;
+}
+.ach-badge-card.unlocked .ach-badge-icon {
+  background: rgba(255, 209, 102, 0.15);
+  color: #ffd166;
+}
+.ach-badge-card.unlocked.tier-gold .ach-badge-icon {
+  background: rgba(255, 209, 102, 0.25);
+  color: #fff2c4;
+  box-shadow: 0 0 12px rgba(255, 209, 102, 0.4);
+}
+.ach-badge-info {
+  flex: 1;
+  min-width: 0;
+}
+.ach-badge-title {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--ink, #f8fafc);
+  margin-bottom: 2px;
+}
+.ach-badge-desc {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+.ach-badge-status {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+.ach-badge-card.unlocked .ach-badge-status {
+  color: #5fd694;
+}
+
+/* 3. Adaptive Focus HUD Explanation */
+.afh-explanation {
+  display: block;
+  width: 100%;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.08);
+  border: 1px solid rgba(255, 209, 102, 0.2);
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-top: 8px;
+}
+
+/* 4. Typing Test Lab Modal */
+.test-lab-modal-card {
+  max-width: 720px;
+  width: 94vw;
+}
+.tl-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-dim, #94a3b8);
+  margin: 14px 0 8px;
+}
+.tl-pill-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.tl-pill {
+  padding: 7px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-dim, #cbd5e1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+.tl-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 209, 102, 0.3);
+}
+.tl-pill.active {
+  background: #ffd166;
+  color: #12151f;
+  border-color: #ffd166;
+  box-shadow: 0 2px 10px rgba(255, 209, 102, 0.35);
+}
+.tl-custom-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(13, 17, 29, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--ink, #f8fafc);
+  font-family: 'JetBrains Mono', 'Khmer OS Siemreap', monospace;
+  font-size: 0.82rem;
+  resize: vertical;
+  min-height: 80px;
+}
+.tl-custom-textarea:focus {
+  outline: none;
+  border-color: #ffd166;
+  box-shadow: 0 0 12px rgba(255, 209, 102, 0.3);
+}
+.tl-live-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(22, 28, 45, 0.8);
+  border: 1px solid rgba(255, 209, 102, 0.25);
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+}
+.tl-live-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tl-live-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+.tl-live-val {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffd166;
+}
+.tl-char-arena {
+  background: rgba(13, 17, 29, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 24px 20px;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.tl-char-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  font-family: 'Space Grotesk', 'Khmer OS Siemreap', monospace;
+  font-size: 1.35rem;
+  line-height: 1.6;
+  user-select: none;
+}
+.tl-char {
+  padding: 1px 2px;
+  border-radius: 3px;
+  transition: all 0.1s ease;
+}
+.tl-char.done {
+  color: #5fd694;
+  opacity: 0.65;
+}
+.tl-char.current {
+  color: #12151f;
+  background: #ffd166;
+  font-weight: 800;
+  box-shadow: 0 0 10px #ffd166;
+}
+.tl-char.pending {
+  color: #cbd5e1;
+}
+.tl-char.space {
+  min-width: 8px;
+}
+.tl-results-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.tl-res-tile {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 10px;
+  text-align: center;
+}
+.tl-res-val {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffd166;
+}
+.tl-res-lbl {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+.tl-goal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.tl-goal-badge.passed {
+  background: rgba(95, 214, 148, 0.15);
+  border: 1px solid #5fd694;
+  color: #5fd694;
+}
+.tl-goal-badge.failed {
+  background: rgba(248, 113, 113, 0.15);
+  border: 1px solid #f87171;
+  color: #f87171;
+}
+.tl-res-advice {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+  background: rgba(22, 28, 45, 0.6);
+  border-left: 3px solid #ffd166;
+  padding: 10px 14px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 18px;
+}
+
+/* 5. Learning Overview Modal (9 Stages & 5 Questions) */
+.learning-overview-modal-card {
+  max-width: 820px;
+  width: 95vw;
+}
+.lo-questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.lo-question-card {
+  background: rgba(22, 28, 45, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.lo-question-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ffd166, transparent);
+}
+.lo-question-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ffd166;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.lo-question-answer {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--ink, #f8fafc);
+  font-weight: 500;
+}
+.lo-stages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.lo-stage-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 12px 14px;
+  gap: 8px;
+  transition: all 0.18s ease;
+}
+.lo-stage-card:hover {
+  border-color: rgba(255, 209, 102, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+.lo-stage-card.completed {
+  border-color: rgba(95, 214, 148, 0.35);
+  background: rgba(95, 214, 148, 0.04);
+}
+.lo-stage-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.lo-stage-num {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.12);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.lo-stage-title {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink, #f8fafc);
+  flex: 1;
+}
+.lo-stage-status {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.lo-stage-status.mastered {
+  color: #5fd694;
+  background: rgba(95, 214, 148, 0.15);
+}
+.lo-stage-status.in-progress {
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.15);
+}
+.lo-stage-status.locked {
+  color: #64748b;
+  background: rgba(255, 255, 255, 0.06);
+}
+.lo-stage-desc {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+.lo-stage-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lo-stage-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.lo-stage-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd166, #ff9d2e);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+.lo-stage-card.completed .lo-stage-fill {
+  background: #5fd694;
+}
+.lo-stage-pct {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  min-width: 32px;
+  text-align: right;
+}

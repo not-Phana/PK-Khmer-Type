@@ -477,6 +477,8 @@
     <a href="welcome.html" id="topWelcomeBtn" class="top-action-btn welcome-nav-btn" aria-label="Welcome and Showcase" title="Welcome Page &amp; Interactive Showcase"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> <span class="i18n-t" data-en="Welcome" data-km="ស្វាគមន៍">Welcome</span></a>
     <button id="topLearnMoreBtn" class="top-action-btn learn-more-nav-btn" aria-haspopup="dialog" aria-label="Explore 222 Lessons &amp; Alphabet Coverage" title="222 Lessons &amp; Alphabet Coverage Hub — Every Letter Included"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> <span class="i18n-t" data-en="222 Lessons" data-km="២២២ មេរៀន">222 Lessons</span></button>
     <button id="topCustomLessonsBtn" class="top-action-btn custom-lessons-nav-btn" aria-haspopup="dialog" aria-label="Open Custom Lessons Hub" title="Custom Lessons (Create, Organize &amp; Practice)"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span class="i18n-t" data-en="Custom Lessons" data-km="មេរៀនផ្ទាល់ខ្លួន">Custom Lessons</span></button>
+    <button id="topOverviewBtn" class="top-action-btn overview-nav-btn" aria-haspopup="dialog" aria-label="Open 9-Stage Learning Path" title="Structured 9-Stage Learning Path &amp; Progress Roadmap"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> <span class="i18n-t" data-en="Learning Path" data-km="ផែនទីការសិក្សា">Learning Path</span></button>
+    <button id="topTestLabBtn" class="top-action-btn test-lab-nav-btn" aria-haspopup="dialog" aria-label="Open Typing Test Lab" title="Typing Test Lab — Speed &amp; Accuracy Diagnostics"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span class="i18n-t" data-en="Test Lab" data-km="មន្ទីរពិសោធន៍តេស្ត">Test Lab</span></button>
   </div>
 
   <div class="top-actions-divider" aria-hidden="true"></div>
@@ -786,6 +788,13 @@
     </div>
     <div id="statsLessonBars"></div>
     <div class="stats-levels-head">
+      <h3 class="i18n-t" data-en="Milestones &amp; Achievements" data-km="សមិទ្ធផល &amp; ចំណុចសំខាន់ៗ"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px;"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>Milestones &amp; Achievements</h3>
+      <span class="stats-levels-head-line"></span>
+      <span class="stats-achievements-count" id="statsAchievementsCount">0 / 12 Unlocked</span>
+    </div>
+    <div class="stats-achievements-grid" id="statsAchievementsGrid"></div>
+
+    <div class="stats-levels-head">
       <h3 class="i18n-t" data-en="Typing Race Records" data-km="កំណត់ត្រាការប្រណាំងវាយអក្សរ"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>Typing Race Records</h3>
       <span class="stats-levels-head-line"></span>
     </div>
@@ -800,6 +809,152 @@
       <button type="button" class="secondary-btn i18n-t" id="lessonsLbSaveBtn" data-en="Save my score" data-km="រក្សាទុកពិន្ទុរបស់ខ្ញុំ">Save my score</button>
     </div>
     <ol class="race-lb-list" id="lessonsLbList"></ol>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="testLabModal" hidden role="dialog" aria-modal="true" aria-labelledby="testLabModalTitle">
+  <div class="modal-card test-lab-modal-card">
+    <div class="modal-top">
+      <h2 id="testLabModalTitle"><span class="stats-title-glyph"><svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span class="i18n-t" data-en="Typing Test Lab" data-km="មន្ទីរពិសោធន៍តេស្តវាយអក្សរ">Typing Test Lab</span></h2>
+      <button class="modal-close" id="testLabCloseBtn" aria-label="Close test lab"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <p class="stats-subtitle i18n-t" data-en="Calibrated speed and accuracy diagnostics across Khmer and English standards." data-km="ការធ្វើតេស្តវាស់ល្បឿន និងភាពសុក្រឹតតាមស្តង់ដារក្តារចុចខ្មែរ និងអង់គ្លេស។">Calibrated speed and accuracy diagnostics across Khmer and English standards.</p>
+
+    <!-- Setup Section -->
+    <div id="testLabSetupSection">
+      <div class="tl-section-title i18n-t" data-en="1. Choose Test Type" data-km="១. ជ្រើសរើសប្រភេទតេស្ត">1. Choose Test Type</div>
+      <div class="tl-pill-bar" id="tlPresetBar">
+        <button type="button" class="tl-pill active" data-preset="quick"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> <span class="i18n-t" data-en="Quick Test" data-km="តេស្តរហ័ស">Quick Test</span></button>
+        <button type="button" class="tl-pill" data-preset="accuracy"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> <span class="i18n-t" data-en="Accuracy Focus" data-km="ផ្តោតភាពសុក្រឹត">Accuracy Focus</span></button>
+        <button type="button" class="tl-pill" data-preset="speed"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> <span class="i18n-t" data-en="Speed Sprint" data-km="ប្រណាំងល្បឿន">Speed Sprint</span></button>
+        <button type="button" class="tl-pill" data-preset="weak"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span class="i18n-t" data-en="Weak Keys" data-km="គ្រាប់ចុចខ្សោយ">Weak Keys</span></button>
+        <button type="button" class="tl-pill" data-preset="review"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> <span class="i18n-t" data-en="Lesson Review" data-km="រំលឹកមេរៀន">Lesson Review</span></button>
+        <button type="button" class="tl-pill" data-preset="custom"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span class="i18n-t" data-en="Custom Text" data-km="អត្ថបទផ្ទាល់ខ្លួន">Custom Text</span></button>
+      </div>
+
+      <div id="tlCustomWrap" hidden style="margin-bottom:14px;">
+        <div class="tl-section-title i18n-t" data-en="Enter Custom Text (Min 10 characters)" data-km="បញ្ចូលអត្ថបទផ្ទាល់ខ្លួន (យ៉ាងតិច ១០ តួ)">Enter Custom Text (Min 10 characters)</div>
+        <textarea id="tlCustomTextInput" class="tl-custom-textarea" placeholder="Paste or type practice text here..."></textarea>
+      </div>
+
+      <div class="tl-section-title i18n-t" data-en="2. Duration" data-km="២. រយៈពេល">2. Duration</div>
+      <div class="tl-pill-bar" id="tlDurationBar">
+        <button type="button" class="tl-pill" data-duration="15">15s</button>
+        <button type="button" class="tl-pill active" data-duration="30">30s</button>
+        <button type="button" class="tl-pill" data-duration="60">60s</button>
+        <button type="button" class="tl-pill" data-duration="120">120s</button>
+        <button type="button" class="tl-pill" data-duration="0"><span class="i18n-t" data-en="Full Text" data-km="អត្ថបទពេញ">Full Text</span></button>
+      </div>
+
+      <div class="tl-section-title i18n-t" data-en="3. Target Accuracy Goal" data-km="៣. គោលដៅភាពសុក្រឹត">3. Target Accuracy Goal</div>
+      <div class="tl-pill-bar" id="tlAccBar">
+        <button type="button" class="tl-pill active" data-acc="95">95%</button>
+        <button type="button" class="tl-pill" data-acc="98">98%</button>
+        <button type="button" class="tl-pill" data-acc="99">99%</button>
+      </div>
+
+      <div style="margin-top:20px;display:flex;justify-content:flex-end;gap:10px;">
+        <button type="button" class="primary-btn" id="tlStartBtn"><svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> <span class="i18n-t" data-en="Start Assessment" data-km="ចាប់ផ្តើមតេស្ត">Start Assessment</span></button>
+      </div>
+    </div>
+
+    <!-- Live Active Test Section -->
+    <div id="testLabLiveSection" hidden>
+      <div class="tl-live-hud">
+        <div class="tl-live-item">
+          <span class="tl-live-label i18n-t" data-en="Time Left" data-km="ពេលនៅសល់">Time Left</span>
+          <span class="tl-live-val" id="testLabTimerVal">0:30</span>
+        </div>
+        <div class="tl-live-item">
+          <span class="tl-live-label i18n-t" data-en="Speed" data-km="ល្បឿន">Speed</span>
+          <span class="tl-live-val" id="testLabWpmVal">0</span>
+        </div>
+        <div class="tl-live-item">
+          <span class="tl-live-label i18n-t" data-en="Accuracy" data-km="ភាពសុក្រឹត">Accuracy</span>
+          <span class="tl-live-val" id="testLabAccVal">100%</span>
+        </div>
+      </div>
+      <div class="lesson-progress-bar" style="margin-bottom:14px;"><div class="lesson-progress-fill" id="testLabProgFill"></div></div>
+      <div class="tl-char-arena">
+        <div class="tl-char-row" id="testLabCharRow"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:0.75rem;color:#94a3b8;"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> <span class="i18n-t" data-en="Type the highlighted character. Backspace can correct errors." data-km="វាយតួអក្សរដែលបានបន្លិច។ Backspace អាចកែកំហុសបាន។">Type the highlighted character. Backspace can correct errors.</span></span>
+        <button type="button" class="secondary-btn" id="tlCancelBtn"><span class="i18n-t" data-en="Cancel Test" data-km="បោះបង់ការតេស្ត">Cancel Test</span></button>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="testLabResultsSection" hidden>
+      <div style="text-align:center;margin-bottom:14px;">
+        <div id="tlResGoalBadge" class="tl-goal-badge passed">Goal Met (95%+)</div>
+      </div>
+      <div class="tl-results-grid">
+        <div class="tl-res-tile">
+          <div class="tl-res-val" id="tlResWpm">0</div>
+          <div class="tl-res-lbl">WPM</div>
+        </div>
+        <div class="tl-res-tile">
+          <div class="tl-res-val" id="tlResCpm">0</div>
+          <div class="tl-res-lbl">CPM</div>
+        </div>
+        <div class="tl-res-tile">
+          <div class="tl-res-val" id="tlResAcc">100%</div>
+          <div class="tl-res-lbl i18n-t" data-en="Accuracy" data-km="ភាពសុក្រឹត">Accuracy</div>
+        </div>
+        <div class="tl-res-tile">
+          <div class="tl-res-val" id="tlResTime">30s</div>
+          <div class="tl-res-lbl i18n-t" data-en="Time" data-km="រយៈពេល">Time</div>
+        </div>
+      </div>
+      <div class="tl-res-advice" id="tlResAdvice"></div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;">
+        <button type="button" class="secondary-btn" id="tlCloseResultsBtn"><span class="i18n-t" data-en="Back to Setup" data-km="ត្រឡប់ទៅការកំណត់">Back to Setup</span></button>
+        <button type="button" class="primary-btn" id="tlRetestBtn"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg> <span class="i18n-t" data-en="Test Again" data-km="ធ្វើតេស្តម្តងទៀត">Test Again</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="learningOverviewModal" hidden role="dialog" aria-modal="true" aria-labelledby="learningOverviewModalTitle">
+  <div class="modal-card learning-overview-modal-card">
+    <div class="modal-top">
+      <h2 id="learningOverviewModalTitle"><span class="stats-title-glyph"><svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span><span class="i18n-t" data-en="9-Stage Learning Path &amp; Roadmap" data-km="ផែនទីសិក្សា ៩ ដំណាក់កាល">9-Stage Learning Path &amp; Roadmap</span></h2>
+      <button class="modal-close" id="learningOverviewCloseBtn" aria-label="Close learning path"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <p class="stats-subtitle i18n-t" data-en="A clear pedagogical roadmap answering what you know, what is next, and how to reach complete mastery." data-km="ផែនទីបង្ហាញផ្លូវគរុកោសល្យច្បាស់លាស់ដែលឆ្លើយតបនូវអ្វីដែលអ្នកបានចេះ អ្វីដែលត្រូវរៀនបន្ត និងរបៀបឈានទៅដល់ភាពស្ទាត់ជំនាញ។">A clear pedagogical roadmap answering what you know, what is next, and how to reach complete mastery.</p>
+
+    <!-- The 5 Core Pedagogical Questions -->
+    <div class="lo-questions-grid">
+      <div class="lo-question-card">
+        <div class="lo-question-title"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg> <span class="i18n-t" data-en="Where am I right now?" data-km="តើខ្ញុំនៅត្រង់ណា?">Where am I right now?</span></div>
+        <div class="lo-question-answer" id="loAnsWhereAmI">—</div>
+      </div>
+      <div class="lo-question-card">
+        <div class="lo-question-title"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span class="i18n-t" data-en="What have I mastered?" data-km="តើខ្ញុំបានស្ទាត់អ្វីខ្លះ?">What have I mastered?</span></div>
+        <div class="lo-question-answer" id="loAnsMastered">—</div>
+      </div>
+      <div class="lo-question-card">
+        <div class="lo-question-title"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg> <span class="i18n-t" data-en="What should I practice next?" data-km="តើខ្ញុំគួរហាត់អ្វីបន្ទាប់?">What should I practice next?</span></div>
+        <div class="lo-question-answer" id="loAnsNext">—</div>
+      </div>
+      <div class="lo-question-card">
+        <div class="lo-question-title"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> <span class="i18n-t" data-en="Why this lesson?" data-km="ហេតុអ្វីមេរៀននេះ?">Why this lesson?</span></div>
+        <div class="lo-question-answer" id="loAnsWhy">—</div>
+      </div>
+      <div class="lo-question-card">
+        <div class="lo-question-title"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg> <span class="i18n-t" data-en="Keyboard Autonomy" data-km="ស្វ័យភាពក្តារចុច">Keyboard Autonomy</span></div>
+        <div class="lo-question-answer" id="loAnsAutonomy">—</div>
+      </div>
+    </div>
+
+    <!-- 9 Stages List -->
+    <div class="tl-section-title i18n-t" data-en="Curriculum Stages (1 to 9)" data-km="ដំណាក់កាលកម្មវិធីសិក្សា (១ ដល់ ៩)">Curriculum Stages (1 to 9)</div>
+    <div class="lo-stages-list" id="loStagesList"></div>
+
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:14px;">
+      <button type="button" class="primary-btn" id="loStartRecommendedBtn"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> <span class="i18n-t" data-en="Jump to Next Lesson" data-km="ទៅកាន់មេរៀនបន្ទាប់">Jump to Next Lesson</span></button>
+    </div>
   </div>
 </div>
 
@@ -2622,6 +2777,7 @@
       <span class="afh-label i18n-t" data-en="Pattern" data-km="លំនាំម្រាមដៃ">Pattern</span>
       <span class="afh-finger-note" id="afhFingerNote"></span>
     </div>
+    <div class="afh-explanation" id="afhExplanation" hidden></div>
   </div>
 
   <!-- Progress Bar -->
@@ -2846,6 +3002,7 @@
   <button id="ambienceToggle" aria-pressed="false"><svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V8h3V5h2v3h4V5h2v3h3v12M5 20h14M8 11v2m8-2v2"/><path d="M11 20v-5h2v5M5 8h14"/></svg> <span class="i18n-t" data-en="Temple ambience" data-km="បរិយាកាសប្រាសាទ">Temple ambience</span></button>
   <button id="trialToggle" aria-pressed="false"><svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5 17.5 3 6 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/></svg> <span class="i18n-t" data-en="Temple Trial" data-km="ការសាកល្បងប្រាសាទ">Temple Trial</span></button>
   <button id="raceToggle" class="race-toggle-btn" aria-pressed="false"><svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> <span class="i18n-t" data-en="Typing Race" data-km="ការប្រណាំងវាយអក្សរ">Typing Race</span></button>
+  <button id="testLabToggle" class="test-lab-toggle-btn" aria-pressed="false" aria-haspopup="dialog"><svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span class="i18n-t" data-en="Test Lab" data-km="មន្ទីរពិសោធន៍តេស្ត">Test Lab</span></button>
 </div>
 
 <p class="hint i18n-t" data-en="Pick a layout above: the &lt;b&gt;Khmer Keyboard Layout&lt;/b&gt;, the official &lt;b&gt;Khmer NiDA Keyboard&lt;/b&gt;, or plain &lt;b&gt;English (US)&lt;/b&gt;. Blank keys carry no mapping on that layer — just like the real thing. Pick a &lt;b&gt;Lesson&lt;/b&gt; above to drill one layer at a time, or try &lt;b&gt;Temple Trial&lt;/b&gt; to type real Khmer words from memory." data-km="ជ្រើសរើសប្លង់ខាងលើ៖ &lt;b&gt;ប្លង់ក្តារចុចខ្មែរ&lt;/b&gt; ជាផ្លូវការ &lt;b&gt;ក្តារចុចខ្មែរ និដា&lt;/b&gt; ឬ &lt;b&gt;English (US)&lt;/b&gt; សុទ្ធ។ គ្រាប់ចុចទទេគ្មានតម្លៃលើស្រទាប់នោះទេ — ដូចក្តារចុចពិតដែរ។ ជ្រើសរើស &lt;b&gt;មេរៀន&lt;/b&gt; ខាងលើ ដើម្បីហ្វឹកហាត់ស្រទាប់មួយក្នុងមួយពេល ឬសាកល្បង &lt;b&gt;ការសាកល្បងប្រាសាទ&lt;/b&gt; ដើម្បីវាយពាក្យខ្មែរពិតៗពីការចងចាំ។">Pick a layout above: the <b>Khmer Keyboard Layout</b>, the official <b>Khmer NiDA Keyboard</b>, or plain <b>English (US)</b>. Blank keys carry no mapping on that layer — just like the real thing. Pick a <b>Lesson</b> above to drill one layer at a time, or try <b>Temple Trial</b> to type real Khmer words from memory.</p>
@@ -4363,9 +4520,11 @@
   <script defer src="js/cursor-inspector.js?v=86"></script>
   <script defer src="js/smooth-cursor.js?v=86"></script>
   <script defer src="js/feedback.js?v=86"></script>
+  <script defer src="js/achievements.js?v=87"></script>
   <script defer src="js/adaptive.js?v=86"></script>
   <script defer src="js/lessons.js?v=86"></script>
   <script defer src="js/custom-lessons.js?v=86"></script>
+  <script defer src="js/test-lab.js?v=87"></script>
   <script defer src="js/race.js?v=86"></script>
   <script defer src="js/statistics.js?v=86"></script>
   <script defer src="js/settings.js?v=86"></script>

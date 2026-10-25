@@ -2440,6 +2440,8 @@ function initStorageActions() {
         settings: settingsSnapshot,
         lessonProgress: lessonProgressSnapshot,
         customLessons: customLessons,
+        achievements: (function(){ try { return JSON.parse(localStorage.getItem('pk_achievements_v1')); } catch(e){ return null; } })(),
+        testResults: (function(){ try { return JSON.parse(localStorage.getItem('pk_test_results_v2')); } catch(e){ return null; } })(),
         storage: data,
         ...data
       };
@@ -2563,6 +2565,14 @@ function initStorageActions() {
         // 6. If custom lessons list exists
         if (Array.isArray(data.customLessons)) {
           safeSetStorage('khmerCustomLessons_v1', data.customLessons);
+        }
+
+        // 6b. If achievements or testResults exist in structured backup
+        if (data.achievements) {
+          safeSetStorage('pk_achievements_v1', data.achievements);
+        }
+        if (data.testResults) {
+          safeSetStorage('pk_test_results_v2', data.testResults);
         }
 
         // 7. Re-sync live progress into the active user's AccountProgress store

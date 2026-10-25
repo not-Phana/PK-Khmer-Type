@@ -14,3 +14,7 @@ temp_user_data/
 .env.*.local
 js/supabase-env.js
 !.env.example
+
+# Media generation artifacts
+chronos_synapse_video/
+

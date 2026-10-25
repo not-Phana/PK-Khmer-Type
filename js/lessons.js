@@ -2625,6 +2625,252 @@ function updateLessonKeyHighlight(){
 window.updateLessonKeyHighlight = updateLessonKeyHighlight;
 window.highlightLessonTarget = updateLessonKeyHighlight;
 
+
+/* ============================================================
+   Structured 9-Stage Curriculum Progression Framework
+   Maps all 16 Standard, 16 NiDA, and 17 English levels into
+   pedagogical learning stages without altering lesson contents.
+   ============================================================ */
+const LEARNING_STAGES = [
+  {
+    id: 1,
+    titleEn: 'Keyboard Familiarity & Home Row Anchors',
+    titleKm: 'ការស្គាល់ក្តារចុច និងគ្រឹះជួរកណ្តាល',
+    levelIds: {
+      standard: ['standard-L00', 'standard-L01'],
+      nida: ['nida-L00', 'nida-L01'],
+      english: ['en-L00', 'en-L01']
+    },
+    descriptionEn: 'Establish tactile anchor habits on F and J, finger reaches, and foundational home row keystrokes.',
+    descriptionKm: 'ពង្រឹងទម្លាប់ដាក់ម្រាមដៃលើ F និង J និងគ្រាប់ចុចជួរកណ្តាល។'
+  },
+  {
+    id: 2,
+    titleEn: 'Basic Characters & Reach Coordination',
+    titleKm: 'តួអក្សរគ្រឹះ និងចលនាឈានដៃ',
+    levelIds: {
+      standard: ['standard-L02', 'standard-L03', 'standard-L04'],
+      nida: ['nida-L02', 'nida-L03', 'nida-L04'],
+      english: ['en-L02', 'en-L03', 'en-L04']
+    },
+    descriptionEn: 'Expand to top-row and bottom-row vowel signs, core consonants, and vertical reach navigation.',
+    descriptionKm: 'ពង្រីកទៅកាន់ស្រៈ ព្យញ្ជនៈសំខាន់ៗ និងជួរលើ-ក្រោម។'
+  },
+  {
+    id: 3,
+    titleEn: 'Finger & Key Coordination',
+    titleKm: 'ការសម្របសម្រួលម្រាមដៃ និងគ្រាប់ចុច',
+    levelIds: {
+      standard: ['standard-L05'],
+      nida: ['nida-L05'],
+      english: ['en-L05']
+    },
+    descriptionEn: 'Subscript trigger foundation, index finger crosses, and balance across both hands.',
+    descriptionKm: 'ការចុចសញ្ញាជើង គ្រាប់ចុចឆ្លងកាត់ និងតុល្យភាពដៃទាំងសងខាង។'
+  },
+  {
+    id: 4,
+    titleEn: 'Character Combinations & Shift Layers',
+    titleKm: 'ការផ្សំតួអក្សរ និងស្រទាប់ Shift',
+    levelIds: {
+      standard: ['standard-L06', 'standard-L07'],
+      nida: ['nida-L06', 'nida-L07'],
+      english: ['en-L06', 'en-L07', 'en-L08']
+    },
+    descriptionEn: 'Master shifted vowels, high-frequency consonants, capitals, and dual-hand shift timing.',
+    descriptionKm: 'ស្ទាត់ជំនាញស្រៈ និងព្យញ្ជនៈ Shift ព្រមទាំងការប្រើប្រាស់ដៃទាំងពីរ។'
+  },
+  {
+    id: 5,
+    titleEn: 'Words & Short Sequences',
+    titleKm: 'ពាក្យ និងឃ្លាខ្លីៗ',
+    levelIds: {
+      standard: ['standard-L08', 'standard-L09', 'standard-L10'],
+      nida: ['nida-L08', 'nida-L09', 'nida-L10'],
+      english: ['en-L09', 'en-L10']
+    },
+    descriptionEn: 'Coeng cluster stacking, diacritics, vocabulary flow, numbers, and symbols.',
+    descriptionKm: 'ការតម្រៀបជើងព្យញ្ជនៈ វណ្ណយុត្តិ ពាក្យទូទៅ លេខ និងនិមិត្តសញ្ញា។'
+  },
+  {
+    id: 6,
+    titleEn: 'Sentences & Punctuation Flow',
+    titleKm: 'ល្បះ និងចង្វាក់វណ្ណយុត្តិ',
+    levelIds: {
+      standard: ['standard-L11'],
+      nida: ['nida-L11'],
+      english: ['en-L11']
+    },
+    descriptionEn: 'Continuous typing of meaningful sentences with natural rhythm and zero-width spaces.',
+    descriptionKm: 'ការវាយល្បះពេញលេញប្រកបដោយចង្វាក់ធម្មជាតិ និងសញ្ញាដកឃ្លា។'
+  },
+  {
+    id: 7,
+    titleEn: 'Longer Passages & Literature',
+    titleKm: 'កថាខណ្ឌ និងអក្សរសិល្ប៍',
+    levelIds: {
+      standard: ['standard-L12', 'standard-L13'],
+      nida: ['nida-L12', 'nida-L13'],
+      english: ['en-L12', 'en-L13', 'en-L14']
+    },
+    descriptionEn: 'Complex cultural prose, epic poetry, classical romance, and full paragraph endurance.',
+    descriptionKm: 'អត្ថបទវប្បធម៌ កំណាព្យបុរាណ រឿងទុំទាវ និងកថាខណ្ឌវែងៗ។'
+  },
+  {
+    id: 8,
+    titleEn: 'Speed & Accuracy Refinement',
+    titleKm: 'ការពង្រឹងល្បឿន និងភាពសុក្រឹត',
+    levelIds: {
+      standard: ['standard-L14'],
+      nida: ['nida-L14'],
+      english: ['en-L15']
+    },
+    descriptionEn: 'Timed precision sprints, Pali-Sanskrit roots, and high-cadence rhythm calibration.',
+    descriptionKm: 'ការហ្វឹកហាត់ល្បឿនកំណត់ពេល ពាក្យបាលី-សំស្ក្រឹត និងចង្វាក់រហ័ស។'
+  },
+  {
+    id: 9,
+    titleEn: 'Final Proficiency Assessment',
+    titleKm: 'ការវាយតម្លៃសមត្ថភាពចុងក្រោយ',
+    levelIds: {
+      standard: ['standard-L15'],
+      nida: ['nida-L15'],
+      english: ['en-L16']
+    },
+    descriptionEn: 'Grandmaster scribe marathon: Constitutional prose, heritage texts, and final certification.',
+    descriptionKm: 'ការប្រឡងបញ្ចប់សមត្ថភាព៖ មាត្រារដ្ឋធម្មនុញ្ញ និងអត្ថបទកម្រិតខ្ពស់។'
+  }
+];
+
+function getCurriculumStages(layoutId){
+  const l = (layoutId || currentLayoutId || 'standard').toLowerCase();
+  return LEARNING_STAGES.filter(stg => Boolean(stg.levelIds[l]));
+}
+
+function getStageForLevel(levelId, layoutId){
+  const l = (layoutId || currentLayoutId || 'standard').toLowerCase();
+  const stages = getCurriculumStages(l);
+  return stages.find(stg => (stg.levelIds[l] || []).includes(levelId)) || null;
+}
+
+function getStageProgress(stageId, layoutId){
+  const l = (layoutId || currentLayoutId || 'standard').toLowerCase();
+  const stg = LEARNING_STAGES.find(s => s.id === stageId);
+  if(!stg) return { stageId, completed: 0, mastered: 0, total: 0, isComplete: false, percent: 0 };
+
+  const levelIds = stg.levelIds[l] || [];
+  const lessonsList = (typeof LESSON_SETS !== 'undefined' && LESSON_SETS[l]) ||
+                      (l === 'nida' ? LESSONS_NIDA : (l === 'english' ? LESSONS_ENGLISH : LESSONS_STANDARD)) || [];
+
+  const stageLessons = lessonsList.filter(les => levelIds.includes(les.level));
+  const total = stageLessons.length;
+  let completed = 0;
+  let mastered = 0;
+
+  stageLessons.forEach(les => {
+    const b = getLessonBest(les.id);
+    if(b){
+      completed++;
+      if(b.mastered) mastered++;
+    }
+  });
+
+  const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+  const isComplete = total > 0 && completed === total;
+
+  return { stageId, completed, mastered, total, isComplete, percent };
+}
+
+function getLearningOverview(layoutId){
+  const l = (layoutId || currentLayoutId || 'standard').toLowerCase();
+  const stages = getCurriculumStages(l);
+  const lessonsList = (typeof LESSON_SETS !== 'undefined' && LESSON_SETS[l]) ||
+                      (l === 'nida' ? LESSONS_NIDA : (l === 'english' ? LESSONS_ENGLISH : LESSONS_STANDARD)) || [];
+
+  let totalCompleted = 0;
+  let totalMastered = 0;
+  let currentStage = stages[0];
+  let activeLevel = null;
+  let recommendedLesson = null;
+
+  for(const stg of stages){
+    const sp = getStageProgress(stg.id, l);
+    totalCompleted += sp.completed;
+    totalMastered += sp.mastered;
+    if(!sp.isComplete && !recommendedLesson){
+      currentStage = stg;
+      for(const lvlId of (stg.levelIds[l] || [])){
+        const lvlLessons = lessonsList.filter(les => les.level === lvlId);
+        for(const les of lvlLessons){
+          const b = getLessonBest(les.id);
+          if(!b || !b.mastered){
+            recommendedLesson = les;
+            activeLevel = lvlId;
+            break;
+          }
+        }
+        if(recommendedLesson) break;
+      }
+    }
+  }
+
+  if(!recommendedLesson && lessonsList.length > 0){
+    recommendedLesson = lessonsList[0];
+  }
+
+  let strugglingKeys = [];
+  if(typeof global.PK_ADAPTIVE !== 'undefined' && typeof global.PK_ADAPTIVE.evaluateWeaknesses === 'function'){
+    const w = global.PK_ADAPTIVE.evaluateWeaknesses(l);
+    if(w && w.needsPractice){
+      strugglingKeys = w.needsPractice.map(x => ({
+        unit: x.unit,
+        accuracy: x.accuracy,
+        attempts: x.attempts
+      }));
+    }
+  }
+
+  const completedPct = lessonsList.length > 0 ? Math.round((totalCompleted / lessonsList.length) * 100) : 0;
+  const masteredPct = lessonsList.length > 0 ? Math.round((totalMastered / lessonsList.length) * 100) : 0;
+
+  return {
+    layoutId: l,
+    completed: {
+      count: totalCompleted,
+      masteredCount: totalMastered,
+      total: lessonsList.length,
+      percent: completedPct,
+      masteredPercent: masteredPct
+    },
+    learningNow: {
+      stageId: currentStage ? currentStage.id : 1,
+      stageTitleEn: currentStage ? currentStage.titleEn : '',
+      stageTitleKm: currentStage ? currentStage.titleKm : '',
+      lesson: recommendedLesson,
+      levelId: activeLevel || (recommendedLesson ? recommendedLesson.level : '')
+    },
+    nextRecommended: {
+      type: strugglingKeys.length >= 2 ? 'adaptive_review' : 'lesson',
+      lessonId: recommendedLesson ? recommendedLesson.id : null,
+      lessonTitle: recommendedLesson ? recommendedLesson.title : '',
+      reasonEn: strugglingKeys.length >= 2
+        ? `Review recommended: ${strugglingKeys.length} characters need accuracy reinforcement in Adaptive Drills.`
+        : (recommendedLesson ? `Next lesson in progression: ${recommendedLesson.title}.` : 'Curriculum completed! Try Typing Test Lab.'),
+      reasonKm: strugglingKeys.length >= 2
+        ? `ការណែនាំ៖ មានតួអក្សរ ${strugglingKeys.length} ដែលត្រូវពង្រឹងសុក្រឹតភាពក្នុងការអនុវត្តបន្ស៊ាំ។`
+        : (recommendedLesson ? `មេរៀនបន្ទាប់តាមលំដាប់៖ ${recommendedLesson.title}។` : 'បានបញ្ចប់កម្មវិធីសិក្សា! សាកល្បងបន្ទប់ពិសោធន៍តេស្ត។')
+    },
+    masteredSkills: {
+      count: totalMastered,
+      total: lessonsList.length
+    },
+    struggling: {
+      hasStruggles: strugglingKeys.length > 0,
+      keys: strugglingKeys
+    }
+  };
+}
+
 function updateLessonProgress(){
   const tw = document.getElementById('lessonTimerWrap');
   const tv = document.getElementById('lessonTimerVal');
@@ -3256,6 +3502,25 @@ function completeLesson(){
     if(attemptRes && attemptRes.isNewBestAccuracy){
       isNewBest = true;
     }
+  }
+
+  // Check and award personal milestones via PK_ACHIEVEMENTS
+  if(typeof global.PK_ACHIEVEMENTS !== 'undefined' && typeof global.PK_ACHIEVEMENTS.check === 'function'){
+    const stg = getStageForLevel(def.level, currentLayoutId);
+    let stageComp = false;
+    if(stg){
+      const sp = getStageProgress(stg.id, currentLayoutId);
+      stageComp = sp && sp.isComplete;
+    }
+    global.PK_ACHIEVEMENTS.check({
+      type: def.isCustom ? 'custom_lesson_practiced' : 'lesson_completed',
+      lessonId: id,
+      accuracy: accuracy,
+      wpm: lessonWpm,
+      stageCompleted: stageComp,
+      stageId: stg ? stg.id : null,
+      layoutId: currentLayoutId
+    });
   }
 
   // Phase 8 Adaptive Review Session Completion
@@ -4379,3 +4644,142 @@ function applyLessonsData(data){
     document.addEventListener('DOMContentLoaded', setupHubEvents);
   }
 })();
+
+
+function initLearningOverviewUI(){
+  if(typeof document === 'undefined') return;
+
+  const modal = document.getElementById('learningOverviewModal');
+  const openBtn = document.getElementById('topOverviewBtn');
+  const closeBtn = document.getElementById('learningOverviewCloseBtn');
+  const startRecBtn = document.getElementById('loStartRecommendedBtn');
+
+  function openOverviewModal(){
+    if(!modal) return;
+    const l = (typeof currentLayoutId !== 'undefined' ? currentLayoutId : 'standard');
+    const overview = getLearningOverview(l);
+    const stages = getCurriculumStages(l);
+    const isKm = document.documentElement && document.documentElement.classList.contains('site-km-mode');
+
+    const whereEl = document.getElementById('loAnsWhereAmI');
+    const masteredEl = document.getElementById('loAnsMastered');
+    const nextEl = document.getElementById('loAnsNext');
+    const whyEl = document.getElementById('loAnsWhy');
+    const autonomyEl = document.getElementById('loAnsAutonomy');
+
+    if(whereEl){
+      whereEl.textContent = isKm
+        ? `${overview.learningNow.stageTitleKm} (ដំណាក់កាល ${overview.learningNow.stageId})`
+        : `${overview.learningNow.stageTitleEn} (Stage ${overview.learningNow.stageId})`;
+    }
+    if(masteredEl){
+      masteredEl.textContent = isKm
+        ? `${overview.masteredSkills.count} នៃ ${overview.masteredSkills.total} មេរៀន (${overview.completed.masteredPercent}% ស្ទាត់)`
+        : `${overview.masteredSkills.count} of ${overview.masteredSkills.total} lessons (${overview.completed.masteredPercent}% mastered)`;
+    }
+    if(nextEl){
+      nextEl.textContent = overview.nextRecommended.lessonTitle || (isKm ? 'បញ្ចប់កម្មវិធីសិក្សា' : 'Curriculum Complete');
+    }
+    if(whyEl){
+      whyEl.textContent = isKm ? overview.nextRecommended.reasonKm : overview.nextRecommended.reasonEn;
+    }
+    if(autonomyEl){
+      autonomyEl.textContent = isKm
+        ? `សម្រេចបាន ${overview.completed.masteredPercent}% លើដំណើរឆ្ពោះទៅកាន់ការវាយដោយមិនបាច់មើលក្តារចុច។`
+        : `Achieved ${overview.completed.masteredPercent}% along the path to complete touch typing fluency.`;
+    }
+
+    const stagesListEl = document.getElementById('loStagesList');
+    if(stagesListEl){
+      stagesListEl.innerHTML = stages.map(stg => {
+        const sp = getStageProgress(stg.id, l);
+        const statusClass = sp.isComplete ? 'mastered' : (sp.completed > 0 ? 'in-progress' : 'locked');
+        const statusLabel = sp.isComplete
+          ? (isKm ? 'បានស្ទាត់' : 'Mastered')
+          : (sp.completed > 0 ? (isKm ? 'កំពុងរៀន' : 'In Progress') : (isKm ? 'ជាប់សោ' : 'Locked'));
+
+        return `
+          <div class="lo-stage-card ${sp.isComplete ? 'completed' : ''}">
+            <div class="lo-stage-top">
+              <span class="lo-stage-num">0${stg.id}</span>
+              <span class="lo-stage-title">${isKm ? stg.titleKm : stg.titleEn}</span>
+              <span class="lo-stage-status ${statusClass}">${statusLabel}</span>
+            </div>
+            <div class="lo-stage-desc">${isKm ? (stg.descriptionKm || stg.descKm) : (stg.descriptionEn || stg.descEn)}</div>
+            <div class="lo-stage-bar-wrap">
+              <div class="lo-stage-track"><div class="lo-stage-fill" style="width:${sp.percent}%"></div></div>
+              <span class="lo-stage-pct">${sp.mastered}/${sp.total}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    modal.hidden = false;
+    if(closeBtn) closeBtn.focus();
+  }
+
+  function closeOverviewModal(){
+    if(typeof window !== 'undefined' && typeof window.closeModalAnimated === 'function' && modal){
+      window.closeModalAnimated(modal);
+    } else if(modal){
+      modal.hidden = true;
+    }
+  }
+
+  if(openBtn) openBtn.addEventListener('click', openOverviewModal);
+  if(closeBtn) closeBtn.addEventListener('click', closeOverviewModal);
+  if(modal) modal.addEventListener('click', e => { if(e.target === modal) closeOverviewModal(); });
+
+  if(startRecBtn){
+    startRecBtn.addEventListener('click', () => {
+      const l = (typeof currentLayoutId !== 'undefined' ? currentLayoutId : 'standard');
+      const overview = getLearningOverview(l);
+      closeOverviewModal();
+
+      if(overview.nextRecommended.type === 'adaptive_review'){
+        if(typeof PK_ADAPTIVE !== 'undefined' && typeof PK_ADAPTIVE.startSession === 'function'){
+          PK_ADAPTIVE.startSession(l);
+        }
+      } else if(overview.learningNow.lesson){
+        startLesson(overview.learningNow.lesson, true);
+        const player = document.getElementById('lessonPlayer') || document.getElementById('practiceArea');
+        if(player && typeof player.scrollIntoView === 'function'){
+          player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    });
+  }
+}
+
+if(typeof document !== 'undefined'){
+  if(document.readyState !== 'loading'){
+    initLearningOverviewUI();
+  } else {
+    document.addEventListener('DOMContentLoaded', initLearningOverviewUI);
+  }
+}
+
+
+if(typeof window !== 'undefined'){
+  window.PK_LESSONS = {
+    LEARNING_STAGES,
+    getCurriculumStages,
+    getStageForLevel,
+    getStageProgress,
+    getLearningOverview,
+    initLearningOverviewUI
+  };
+}
+if(typeof global !== 'undefined'){
+  global.PK_LESSONS = {
+    LEARNING_STAGES,
+    getCurriculumStages,
+    getStageForLevel,
+    getStageProgress,
+    getLearningOverview
+  };
+}
+if(typeof module !== 'undefined' && module.exports){
+  module.exports = global.PK_LESSONS;
+}

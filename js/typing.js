@@ -952,6 +952,10 @@ function typeKey(id, ev){
 
   if(stroke.id === 'backspace'){
     playClick('up');
+    if(typeof window !== 'undefined' && window.PK_TEST_LAB && window.PK_TEST_LAB.isActive()){
+      window.PK_TEST_LAB.handleBackspace();
+      return;
+    }
     if(typeof adaptiveActive !== 'undefined' && adaptiveActive){
       if(typeof adaptiveHandleBackspace === 'function') adaptiveHandleBackspace();
     } else if(typeof lessonActive !== 'undefined' && lessonActive){
@@ -969,6 +973,10 @@ function typeKey(id, ev){
   playClick('down');
 
   if(stroke.id === 'enter' || stroke.id === 'tab'){
+    if(typeof window !== 'undefined' && window.PK_TEST_LAB && window.PK_TEST_LAB.isActive()){
+      window.PK_TEST_LAB.handleChar(' ');
+      return;
+    }
     if(typeof lessonActive !== 'undefined' && lessonActive){
       if(typeof lessonChars !== 'undefined' && typeof lessonIndex !== 'undefined'){
         if(lessonIndex >= lessonChars.length){
@@ -992,7 +1000,9 @@ function typeKey(id, ev){
   if(!val) return;
 
   // Active consumer routing
-  if(typeof adaptiveActive !== 'undefined' && adaptiveActive){
+  if(typeof window !== 'undefined' && window.PK_TEST_LAB && window.PK_TEST_LAB.isActive()){
+    window.PK_TEST_LAB.handleChar(val);
+  } else if(typeof adaptiveActive !== 'undefined' && adaptiveActive){
     if(typeof adaptiveHandleChar === 'function') adaptiveHandleChar(val, el, stroke);
   } else if(typeof lessonActive !== 'undefined' && lessonActive){
     lessonHandleChar(val, el, stroke);
@@ -1038,7 +1048,9 @@ function typeDirectChar(ch, keyIdHint, ev){
   };
 
   // Active consumer routing
-  if(typeof adaptiveActive !== 'undefined' && adaptiveActive){
+  if(typeof window !== 'undefined' && window.PK_TEST_LAB && window.PK_TEST_LAB.isActive()){
+    window.PK_TEST_LAB.handleChar(val);
+  } else if(typeof adaptiveActive !== 'undefined' && adaptiveActive){
     if(typeof adaptiveHandleChar === 'function') adaptiveHandleChar(val, el, stroke);
   } else if(typeof lessonActive !== 'undefined' && lessonActive){
     lessonHandleChar(val, el, stroke);

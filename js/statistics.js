@@ -442,7 +442,11 @@ function initStatisticsDashboard(){
     ).join('');
   }
 
-  function renderStats(){
+  let currentStatsLayout = 'standard';
+
+  function renderStats(targetLayout){
+    if(targetLayout) currentStatsLayout = targetLayout;
+    else if(typeof currentLayoutId !== 'undefined') currentStatsLayout = currentLayoutId;
     const t = loadTotals();
     const acc = t.keys > 0 ? Math.round((t.correct / t.keys) * 100) : 100;
     const mins = Math.round(t.seconds / 60);
@@ -489,24 +493,75 @@ function initStatisticsDashboard(){
     });
 
 
+    // Fetch layout-isolated metrics if PK_PROGRESS is available
+    const curL = (currentStatsLayout || 'standard').toLowerCase();
+    const isEnglishLayout = curL === 'english';
+    let layoutSummary = null;
+    let layoutKeys = t.keys;
+    let layoutAcc = acc;
+    let layoutBestWpm = t.bestWpm;
+    let layoutCompletedLessons = lessonsMastered;
+    let layoutTotalLessons = LESSONS.length;
+
+    if(global.PK_PROGRESS && typeof global.PK_PROGRESS.getLearnerSummary === 'function'){
+      layoutSummary = global.PK_PROGRESS.getLearnerSummary(curL);
+      if(layoutSummary){
+        layoutKeys = layoutSummary.totalTypingUnits || t.keys;
+        layoutAcc = layoutSummary.overallAccuracy || acc;
+        if(layoutSummary.lessons){
+          layoutCompletedLessons = layoutSummary.lessons.mastered || 0;
+          layoutTotalLessons = layoutSummary.lessons.total || LESSONS.length;
+        }
+      }
+    }
+
+    // Top Navigation Tabs inside Statistics Modal
+    const layoutTabsHtml = `
+      <div class="stats-layout-bar" role="tablist" aria-label="Statistics Layout Filter">
+        <button type="button" class="stats-layout-pill ${curL === 'standard' ? 'active' : ''}" data-stats-layout="standard">Khmer Standard</button>
+        <button type="button" class="stats-layout-pill ${curL === 'nida' ? 'active' : ''}" data-stats-layout="nida">Khmer NiDA</button>
+        <button type="button" class="stats-layout-pill ${curL === 'english' ? 'active' : ''}" data-stats-layout="english">English (US)</button>
+      </div>
+    `;
+
+    // Metric Explainer Banner
+    const metricExplainerHtml = `
+      <div class="stats-metric-note">
+        <span class="smn-badge">${pkIcon('info', 12)} ${isEnglishLayout ? 'WPM FORMULA' : 'KHMER SPEED FORMULA'}</span>
+        <span class="smn-desc">${isEnglishLayout
+          ? 'Calculated with the international typing standard: 5 characters = 1 word (WPM).'
+          : 'Measured in Characters Per Minute (CPM) and Standardized WPM (5 Khmer typing units = 1 word).'}</span>
+      </div>
+    `;
+
     const tiles = [
-      [pkIcon('edit', 22), t.keys, 'Total Characters', 'តួអក្សរសរុប'],
-      [pkIcon('target', 22), acc + '%', 'Avg Accuracy', 'ភាពសុក្រឹតមធ្យម'],
-      [pkIcon('zap', 22), t.bestWpm, 'Best WPM', 'ល្បឿន WPM ល្អបំផុត'],
+      [pkIcon('edit', 22), layoutKeys, isEnglishLayout ? 'Total Keystrokes' : 'Typing Units (CPM/WPM)', isEnglishLayout ? 'គ្រាប់ចុចសរុប' : 'តួអក្សរវាយសរុប'],
+      [pkIcon('target', 22), layoutAcc + '%', 'Avg Accuracy', 'ភាពសុក្រឹតមធ្យម'],
+      [pkIcon('zap', 22), layoutBestWpm + ' WPM', 'Best Speed', 'ល្បឿនល្អបំផុត'],
       [pkIcon('timer', 22), mins + 'm', 'Practice Time', 'រយៈពេលហាត់'],
-      [pkIcon('scroll', 22), lessonsMastered + '/' + LESSONS.length, 'Lessons Mastered', 'មេរៀនដែលស្ទាត់'],
+      [pkIcon('scroll', 22), layoutCompletedLessons + '/' + layoutTotalLessons, 'Lessons Mastered', 'មេរៀនដែលស្ទាត់'],
       [pkIcon('flame', 22), streak, 'Day Streak', 'បន្តបន្ទាប់ (ថ្ងៃ)'],
       [pkIcon('castle', 22), trialBest, 'Temple Trial Best', 'ពិន្ទុសាកល្បងល្អបំផុត'],
       [pkIcon('flag', 22), raceBestWpmOverall, 'Race Best WPM', 'ប្រណាំង WPM ល្អបំផុត'],
       [pkIcon('calendar', 22), t.days.length, 'Days Practiced', 'ថ្ងៃដែលបានហាត់'],
     ];
-    statsGrid.innerHTML = tiles.map(([icon,val,en,km],i)=>
+
+    statsGrid.innerHTML = layoutTabsHtml + metricExplainerHtml + `<div class="stats-tiles-wrap">` + tiles.map(([icon,val,en,km],i)=>
       `<div class="stat-tile" style="animation-delay:${i*45}ms">
         <div class="stat-tile-icon">${icon}</div>
         <div class="stat-tile-val">${val}</div>
         <div class="stat-tile-label i18n-t" data-en="${en}" data-km="${km}">${isKm ? km : en}</div>
       </div>`
-    ).join('');
+    ).join('') + `</div>`;
+
+    // Bind layout pill click handlers
+    const pillEls = statsGrid.querySelectorAll('.stats-layout-pill');
+    pillEls.forEach(p => {
+      p.addEventListener('click', () => {
+        const target = p.getAttribute('data-stats-layout');
+        if(target) renderStats(target);
+      });
+    });
 
     const byLevel = {};
     LESSONS.forEach(l=>{ (byLevel[l.level] = byLevel[l.level]||[]).push(l); });
@@ -552,6 +607,26 @@ function initStatisticsDashboard(){
           <div class="race-record-lengths">${rows}</div>
         </div>`;
       }).join('');
+    }
+
+    // Render Achievements Showcase
+    const achievementsContainer = document.getElementById('statsAchievementsGrid');
+    if(achievementsContainer && global.PK_ACHIEVEMENTS && typeof global.PK_ACHIEVEMENTS.getAll === 'function'){
+      const allAch = global.PK_ACHIEVEMENTS.getAll();
+      const countEl = document.getElementById('statsAchievementsCount');
+      const unlockedCount = global.PK_ACHIEVEMENTS.getUnlockedCount();
+      if(countEl) countEl.textContent = `${unlockedCount} / ${allAch.length} ${isKm ? 'បានដោះសោ' : 'Unlocked'}`;
+
+      achievementsContainer.innerHTML = allAch.map((a, i) => `
+        <div class="ach-badge-card ${a.isUnlocked ? 'unlocked tier-' + a.tier : 'locked'}" style="animation-delay:${i*35}ms">
+          <div class="ach-badge-icon">${pkIcon(a.icon || 'award', 18)}</div>
+          <div class="ach-badge-info">
+            <div class="ach-badge-title">${isKm ? a.titleKm : a.titleEn}</div>
+            <div class="ach-badge-desc">${isKm ? a.descKm : a.descEn}</div>
+            <div class="ach-badge-status">${a.isUnlocked ? (isKm ? 'បានសម្រេច' : 'Unlocked') : (isKm ? 'ជាប់សោ' : 'Locked')}</div>
+          </div>
+        </div>
+      `).join('');
     }
 
     renderLessonsLeaderboard();

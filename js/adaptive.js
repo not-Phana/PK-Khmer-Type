@@ -403,7 +403,7 @@
       };
     }
 
-    const st = s.unitStats[uLower] || {
+    const st = (s && s.unitStats && s.unitStats[uLower]) || {
       attempts: 0,
       mistakes: 0,
       correct: 0,
@@ -683,6 +683,78 @@
 
   function getWeakKeyFocus(layoutId) {
     return evaluateWeaknesses(layoutId);
+  }
+
+  /* Explainable Recommendations Engine */
+  function getRecommendationExplanation(layoutId, explicitState) {
+    const l = normalizeLayout(layoutId);
+    const w = evaluateWeaknesses(l, explicitState);
+    const s = explicitState || loadAdaptiveState(l);
+
+    if (s.newlyUnlockedUnit) {
+      const u = (w.allUnits || []).find(x => x.unit.toLowerCase() === s.newlyUnlockedUnit.toLowerCase());
+      if (u && u.completion < 100) {
+        return {
+          code: 'new_letter',
+          reasonEn: `Targeting newly introduced character "${u.unit}" (${u.completedUnits}/${u.targetUnits} required for mastery).`,
+          reasonKm: `កំពុងហ្វឹកហាត់តួអក្សរដែលទើបតែដោះសោថ្មី "${u.unit}" (${u.completedUnits}/${u.targetUnits} ដើម្បីស្ទាត់ជំនាញ)។`,
+          targetUnit: u.unit,
+          confidence: 'high'
+        };
+      }
+    }
+
+    if (w.focus && !w.focus.insufficientEvidence && (w.focus.state === 'weak' || w.focus.priorityScore >= 35)) {
+      const acc = Math.round(w.focus.accuracy || 0);
+      const attempts = w.focus.attempts || 0;
+      return {
+        code: 'weak_key',
+        reasonEn: `Practice recommended: "${w.focus.unit}" showed lower accuracy (${acc}% over ${attempts} attempts).`,
+        reasonKm: `ការណែនាំ៖ "${w.focus.unit}" មានកម្រិតសុក្រឹតភាពទាប (${acc}% ក្នុងចំណោមការវាយ ${attempts} ដង)។`,
+        targetUnit: w.focus.unit,
+        confidence: attempts >= 8 ? 'high' : 'moderate'
+      };
+    }
+
+    if (w.fingerPattern) {
+      return {
+        code: 'finger_coordination',
+        reasonEn: `Finger coordination: ${w.fingerPattern.fingerName} has multiple struggling keys (${w.fingerPattern.keys.join(', ')}).`,
+        reasonKm: `ការសម្របសម្រួលម្រាមដៃ៖ ${w.fingerPattern.fingerName} មានគ្រាប់ចុចជាច្រើនដែលត្រូវហ្វឹកហាត់ (${w.fingerPattern.keys.join(', ')})។`,
+        targetUnit: w.fingerPattern.keys[0],
+        confidence: 'high'
+      };
+    }
+
+    const lowDataUnits = (w.allUnits || []).filter(u => u.isUnlocked && u.attempts < (CONFIG.minEvidenceAttempts || 4));
+    if (lowDataUnits.length > 0) {
+      const u = lowDataUnits[0];
+      return {
+        code: 'insufficient_data',
+        reasonEn: `Need more practice: Complete at least ${CONFIG.minEvidenceAttempts || 4} attempts on "${u.unit}" before evaluating weakness.`,
+        reasonKm: `ត្រូវការហ្វឹកហាត់បន្ថែម៖ វាយយ៉ាងតិច ${CONFIG.minEvidenceAttempts || 4} ដងលើ "${u.unit}" មុនពេលវាយតម្លៃ។`,
+        targetUnit: u.unit,
+        confidence: 'insufficient'
+      };
+    }
+
+    if (w.strong && w.strong.length > 0 && (!w.needsPractice || w.needsPractice.length === 0)) {
+      return {
+        code: 'mastery_advancement',
+        reasonEn: `Accuracy is high (over ${CONFIG.strongAccuracyThreshold}%). Advancing drill length and speed rhythm.`,
+        reasonKm: `ភាពសុក្រឹតខ្ពស់ (លើសពី ${CONFIG.strongAccuracyThreshold}%)។ បន្តទៅកាន់ល្បឿន និងចង្វាក់ថ្មី។`,
+        targetUnit: null,
+        confidence: 'high'
+      };
+    }
+
+    return {
+      code: 'general_flow',
+      reasonEn: 'Consolidating home row flow and muscle memory across current active keys.',
+      reasonKm: 'ពង្រឹងចង្វាក់ម្រាមដៃ និងការចងចាំសាច់ដុំលើគ្រាប់ចុចសកម្មទាំងអស់។',
+      targetUnit: null,
+      confidence: 'moderate'
+    };
   }
 
   /* ---------- Controlled Letter Unlocking Logic ---------- */
@@ -1465,6 +1537,12 @@
         fingerNote.textContent = '';
       }
     }
+
+    const expEl = document.getElementById('afhExplanation');
+    if (expEl) {
+      const exp = getRecommendationExplanation(l);
+      expEl.textContent = isKm ? exp.reasonKm : exp.reasonEn;
+    }
   }
 
   let roundToastTimer = null;
@@ -2090,6 +2168,7 @@
     showAdaptiveSummaryModal,
     evaluateWeaknesses,
     getWeakKeyFocus,
+    getRecommendationExplanation,
     resolveKeyAndFinger,
     getActiveSession: () => activeSession,
     getStreak: () => activeSession ? (activeSession.streak || 0) : 0,
