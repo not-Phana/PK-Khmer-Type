@@ -3,62 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ANTIGRAVITY // The Self-Breaking Entropy Engine</title>
-  <meta name="description" content="An interactive Neobrutalist machine built for an AI companion that perpetually breaks down and autonomously reconstructs itself against endless entropy.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFE600' stroke='%23000' stroke-width='2'><polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/></svg>">
+  <title>ANTIGRAVITY // CRT Terminal Heuristic Core</title>
+  <meta name="description" content="A vintage phosphor CRT mainframe terminal simulating an autonomous AI core that perpetually breaks down and self-reconstructs against accelerating entropy.">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFB300' stroke='%23000' stroke-width='2'><polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/></svg>">
   <style>
     /* ==========================================================================
-       NEOBRUTALISM DESIGN SYSTEM // ANTIGRAVITY ENTROPY ENGINE
-       - Heavy Black Borders (3px / 4px solid #000)
-       - Hard Unblurred Cast Shadows (5px 5px 0 #000)
-       - High-Voltage Saturated Color Palette
-       - Tactile Micro-Interactions & Chunky Typography
+       RETRO CRT TERMINAL DESIGN SYSTEM // ANTIGRAVITY AG-3.8
+       - Authentic Phosphor CRT Screen & Curvature Bezel
+       - Real-time Phosphor Color Themes (Amber P3, Green P1, Cyan P4, White P45)
+       - Horizontal Scanline Matrix & Sub-surface Phosphor Bloom
+       - Vintage Terminal Monospace Typography & ASCII Framing
+       - Procedural Web Audio: Relay Clicks, Degauss Hum, Fault Klaxons
        - Strict Zero-Emoji Policy: 100% Vector Inline SVGs
        ========================================================================== */
 
     :root {
-      --bg: #FFFDF8;
-      --fg: #000000;
-      --border-color: #000000;
-      --border-width: 3.5px;
-      --shadow-offset: 5px;
-      --shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
-      --shadow-sm: 3px 3px 0 var(--border-color);
-      --shadow-lg: 8px 8px 0 var(--border-color);
+      /* Default Theme: Amber Phosphor P3 (VT220 Classic) */
+      --phosphor: #FFB300;
+      --phosphor-dim: #996A00;
+      --phosphor-bright: #FFD54F;
+      --phosphor-glow: rgba(255, 179, 0, 0.45);
+      --phosphor-glow-subtle: rgba(255, 179, 0, 0.15);
+      --phosphor-contrast: #000000;
+      --bg-crt: #0B0801;
+      --bg-crt-deep: #050300;
+      --screen-rim: #1A1303;
 
-      /* Neobrutalist Colors */
-      --yellow: #FFE600;
-      --yellow-bright: #FFF500;
-      --pink: #FF2E93;
-      --pink-tint: #FFE3F1;
-      --cyan: #00F0FF;
-      --cyan-tint: #E0FCFF;
-      --green: #05FFA1;
-      --green-tint: #E2FFF4;
-      --orange: #FF6600;
-      --orange-tint: #FFEADA;
-      --purple: #9D4EDD;
-      --dark-card: #14171F;
-      --surface: #FFFFFF;
+      /* Terminal Casing & Bezel */
+      --chassis-bg: #14161B;
+      --chassis-bezel: #1C1F26;
+      --chassis-shadow: #080A0D;
+      --chassis-rim: #2A2E39;
+      --bezel-border: #3A404F;
 
-      --font-display: 'Impact', 'Arial Black', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 'Courier New', monospace;
+      /* Typography */
+      --font-terminal: 'VT323', 'Share Tech Mono', 'Courier New', 'Consolas', monospace;
 
-      --hazard-stripes: repeating-linear-gradient(
-        -45deg,
-        #000 0,
-        #000 12px,
-        #FFE600 12px,
-        #FFE600 24px
-      );
-      --hazard-danger: repeating-linear-gradient(
-        -45deg,
-        #000 0,
-        #000 12px,
-        #FF2E93 12px,
-        #FF2E93 24px
-      );
+      /* Status Colors (Phosphor-adjusted) */
+      --danger-phosphor: #FF3B30;
+      --danger-glow: rgba(255, 59, 48, 0.5);
+      --ok-phosphor: #30D158;
+      --ok-glow: rgba(48, 209, 88, 0.5);
+    }
+
+    /* Green Phosphor P1 Theme */
+    body.theme-green {
+      --phosphor: #33FF33;
+      --phosphor-dim: #008800;
+      --phosphor-bright: #66FF66;
+      --phosphor-glow: rgba(51, 255, 51, 0.45);
+      --phosphor-glow-subtle: rgba(51, 255, 51, 0.15);
+      --phosphor-contrast: #000000;
+      --bg-crt: #010B03;
+      --bg-crt-deep: #000501;
+      --screen-rim: #031A07;
+      --danger-phosphor: #FF3344;
+      --danger-glow: rgba(255, 51, 68, 0.5);
+      --ok-phosphor: #33FF33;
+      --ok-glow: rgba(51, 255, 51, 0.5);
+    }
+
+    /* Cyan Phosphor P4 Theme */
+    body.theme-cyan {
+      --phosphor: #00F0FF;
+      --phosphor-dim: #007788;
+      --phosphor-bright: #70F7FF;
+      --phosphor-glow: rgba(0, 240, 255, 0.45);
+      --phosphor-glow-subtle: rgba(0, 240, 255, 0.15);
+      --phosphor-contrast: #000000;
+      --bg-crt: #000A0D;
+      --bg-crt-deep: #000406;
+      --screen-rim: #00161C;
+      --danger-phosphor: #FF2E93;
+      --danger-glow: rgba(255, 46, 147, 0.5);
+      --ok-phosphor: #00F0FF;
+      --ok-glow: rgba(0, 240, 255, 0.5);
+    }
+
+    /* Paper White P45 Theme */
+    body.theme-white {
+      --phosphor: #E8EEF5;
+      --phosphor-dim: #718096;
+      --phosphor-bright: #FFFFFF;
+      --phosphor-glow: rgba(232, 238, 245, 0.4);
+      --phosphor-glow-subtle: rgba(232, 238, 245, 0.12);
+      --phosphor-contrast: #000000;
+      --bg-crt: #0A0D12;
+      --bg-crt-deep: #040508;
+      --screen-rim: #141922;
+      --danger-phosphor: #FF4D4D;
+      --danger-glow: rgba(255, 77, 77, 0.5);
+      --ok-phosphor: #4DFF91;
+      --ok-glow: rgba(77, 255, 145, 0.5);
     }
 
     *, *::before, *::after {
@@ -68,229 +105,358 @@
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--fg);
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.45;
-      overflow-x: hidden;
+      background-color: var(--chassis-shadow);
+      color: var(--phosphor);
+      font-family: var(--font-terminal);
+      font-size: 16px;
+      line-height: 1.4;
       min-height: 100vh;
-      background-image: 
-        radial-gradient(#000000 1.2px, transparent 1.2px),
-        radial-gradient(#000000 1.2px, var(--bg) 1.2px);
-      background-size: 32px 32px;
-      background-position: 0 0, 16px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      overflow-x: hidden;
+      background-image: radial-gradient(#1E232E 1px, transparent 1px);
+      background-size: 24px 24px;
     }
 
     /* Accessibility Focus Rings */
     :focus-visible {
-      outline: 4px solid var(--fg);
+      outline: 2px solid var(--phosphor-bright);
       outline-offset: 3px;
+      box-shadow: 0 0 10px var(--phosphor-glow);
     }
 
-    /* SVG Icon Universal Standards */
+    /* Universal SVG Icon Geometry */
     .icon {
       display: inline-block;
-      width: 1.25em;
-      height: 1.25em;
+      width: 1.15em;
+      height: 1.15em;
       stroke-width: 2.2;
       stroke: currentColor;
       fill: none;
       stroke-linecap: round;
       stroke-linejoin: round;
-      vertical-align: -0.2em;
+      vertical-align: -0.15em;
       flex-shrink: 0;
+      filter: drop-shadow(0 0 4px var(--phosphor-glow));
     }
 
     /* ==========================================================================
-       TOP MARQUEE TICKER TAPE
+       CRT MONITOR HARDWARE CHASSIS
        ========================================================================== */
-    .ticker-bar {
-      background: var(--hazard-stripes);
-      border-bottom: var(--border-width) solid var(--border-color);
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 6px 0;
-      font-family: var(--font-mono);
-      font-weight: 900;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .ticker-content {
-      display: inline-block;
-      animation: marquee 24s linear infinite;
-    }
-
-    .ticker-item {
-      background: #000;
-      color: var(--yellow);
-      padding: 3px 12px;
-      margin: 0 8px;
-      border: 2px solid #000;
-      box-shadow: 2px 2px 0 #000;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ==========================================================================
-       CONTAINER & HEADER
-       ========================================================================== */
-    .app-wrap {
-      max-width: 1360px;
-      margin: 0 auto;
-      padding: 24px 20px 60px;
-    }
-
-    header.brutal-header {
-      background: var(--surface);
-      border: var(--border-width) solid var(--border-color);
-      box-shadow: var(--shadow-lg);
-      padding: 24px 28px;
-      margin-bottom: 24px;
+    .terminal-chassis {
+      width: 100%;
+      max-width: 1400px;
+      background: var(--chassis-bg);
+      border: 8px solid var(--chassis-bezel);
+      border-radius: 28px;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.9),
+        inset 0 2px 6px rgba(255, 255, 255, 0.08),
+        inset 0 -6px 12px rgba(0, 0, 0, 0.8);
+      padding: 24px 28px 20px;
       position: relative;
     }
 
-    .header-top {
+    /* Chassis Top Ventilation & Model Badge */
+    .chassis-header {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 20px;
-      border-bottom: var(--border-width) solid var(--border-color);
-      padding-bottom: 18px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--chassis-rim);
     }
 
-    .brand-cluster {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .brand-stamp {
-      background: var(--black, #000);
-      color: var(--yellow);
-      font-family: var(--font-display);
-      font-size: 26px;
-      letter-spacing: 0.04em;
-      padding: 6px 14px;
-      border: 3px solid #000;
-      box-shadow: 4px 4px 0 var(--pink);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transform: rotate(-1.5deg);
-    }
-
-    .brand-stamp .icon {
-      width: 28px;
-      height: 28px;
-    }
-
-    .brand-text h1 {
-      font-family: var(--font-display);
-      font-size: 32px;
-      line-height: 1.05;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-    }
-
-    .brand-text p {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 700;
-      color: #444;
-      margin-top: 2px;
-    }
-
-    .header-controls {
+    .chassis-badge {
       display: flex;
       align-items: center;
       gap: 12px;
+    }
+
+    .badge-plate {
+      background: #000;
+      border: 1.5px solid #444C5C;
+      padding: 4px 10px;
+      font-family: var(--font-terminal);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: #9AA5B8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+    }
+
+    .led-power {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #30D158;
+      box-shadow: 0 0 8px #30D158;
+      animation: pulseLed 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseLed {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    .chassis-grille {
+      display: flex;
+      gap: 5px;
+    }
+
+    .grille-slot {
+      width: 32px;
+      height: 6px;
+      background: #080A0D;
+      border-radius: 3px;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.9);
+    }
+
+    .chassis-switches {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
-    /* Brutalist Buttons */
-    .brutal-btn {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 800;
+    /* ==========================================================================
+       CRT SCREEN APERTURE & GLOW SHADER
+       ========================================================================== */
+    .crt-monitor {
+      background: var(--bg-crt);
+      border: 10px solid var(--screen-rim);
+      border-radius: 20px;
+      box-shadow: 
+        inset 0 0 120px rgba(0, 0, 0, 0.95),
+        inset 0 0 30px var(--bg-crt-deep),
+        0 0 18px var(--phosphor-glow-subtle);
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    /* CRT Scanline & Grain Overlay */
+    .crt-scanlines {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        repeating-linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.35) 0px,
+          rgba(0, 0, 0, 0.35) 1.5px,
+          transparent 1.5px,
+          transparent 3px
+        ),
+        radial-gradient(
+          circle at center,
+          transparent 60%,
+          rgba(0, 0, 0, 0.8) 100%
+        );
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* CRT Glass Diagonal Light Specular Glare */
+    .crt-glare {
+      position: absolute;
+      top: -20%; left: -20%; width: 140%; height: 140%;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.04) 0%,
+        rgba(255, 255, 255, 0.01) 35%,
+        transparent 50%
+      );
+      pointer-events: none;
+      z-index: 101;
+    }
+
+    /* CRT Phosphor Flicker & Degauss Warp */
+    .crt-screen-content {
+      position: relative;
+      z-index: 10;
+      animation: crtFlicker 0.15s infinite alternate;
+    }
+
+    @keyframes crtFlicker {
+      0% { opacity: 0.992; }
+      100% { opacity: 1; }
+    }
+
+    .degauss-wobble {
+      animation: degaussAnim 0.75s ease-out forwards;
+    }
+
+    @keyframes degaussAnim {
+      0% { transform: scale(1) skew(0deg); filter: blur(0px) brightness(2.5); }
+      20% { transform: scale(1.03) skew(2.5deg, -1deg); filter: blur(3px) hue-rotate(90deg); }
+      40% { transform: scale(0.97) skew(-3deg, 1.5deg); filter: blur(2px) contrast(1.8); }
+      70% { transform: scale(1.01) skew(1deg); filter: blur(1px); }
+      100% { transform: scale(1) skew(0deg); filter: none; }
+    }
+
+    /* Universal Phosphor Text Glow */
+    .glow-text {
+      color: var(--phosphor);
+      text-shadow: 
+        0 0 3px var(--phosphor-glow),
+        0 0 10px var(--phosphor-glow);
+    }
+
+    .glow-dim {
+      color: var(--phosphor-dim);
+      text-shadow: 0 0 2px var(--phosphor-glow-subtle);
+    }
+
+    .glow-danger {
+      color: var(--danger-phosphor) !important;
+      text-shadow: 0 0 8px var(--danger-glow) !important;
+    }
+
+    .glow-ok {
+      color: var(--ok-phosphor) !important;
+      text-shadow: 0 0 8px var(--ok-glow) !important;
+    }
+
+    /* ==========================================================================
+       RETRO TERMINAL CONTROLS & MECHANICAL BUTTONS
+       ========================================================================== */
+    .term-btn {
+      font-family: var(--font-terminal);
+      font-size: 15px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 10px 16px;
-      background: var(--surface);
-      color: var(--fg);
-      border: var(--border-width) solid var(--border-color);
-      box-shadow: var(--shadow);
+      background: var(--bg-crt);
+      color: var(--phosphor);
+      border: 1.5px solid var(--phosphor-dim);
+      padding: 6px 14px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.1s ease;
+      box-shadow: 
+        inset 0 0 6px var(--phosphor-glow-subtle),
+        0 0 6px rgba(0, 0, 0, 0.6);
+      transition: all 0.08s ease;
+      text-shadow: 0 0 4px var(--phosphor-glow);
       user-select: none;
       text-decoration: none;
     }
 
-    .brutal-btn:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 7px 7px 0 var(--border-color);
+    .term-btn:hover {
+      background: var(--phosphor-glow-subtle);
+      border-color: var(--phosphor);
+      box-shadow: 
+        0 0 10px var(--phosphor-glow),
+        inset 0 0 8px var(--phosphor-glow);
+      color: var(--phosphor-bright);
     }
 
-    .brutal-btn:active {
-      transform: translate(3px, 3px);
-      box-shadow: 2px 2px 0 var(--border-color);
+    .term-btn:active {
+      transform: translateY(1.5px);
+      background: var(--phosphor);
+      color: var(--phosphor-contrast);
+      text-shadow: none;
     }
 
-    .brutal-btn.btn-yellow { background: var(--yellow); }
-    .brutal-btn.btn-pink { background: var(--pink); color: #FFF; }
-    .brutal-btn.btn-cyan { background: var(--cyan); }
-    .brutal-btn.btn-green { background: var(--green); }
-    .brutal-btn.btn-danger {
-      background: var(--hazard-danger);
-      color: #FFF;
-      font-weight: 900;
+    .term-btn[aria-pressed="true"],
+    .term-btn.active {
+      background: var(--phosphor);
+      color: var(--phosphor-contrast);
+      border-color: var(--phosphor-bright);
+      text-shadow: none;
+      font-weight: bold;
     }
 
-    .brutal-btn[aria-pressed="true"],
-    .brutal-btn.active {
-      background: #000;
-      color: var(--yellow);
-      box-shadow: inset 3px 3px 0 rgba(255,255,255,0.4);
+    .term-btn.btn-danger {
+      border-color: var(--danger-phosphor);
+      color: var(--danger-phosphor);
+      text-shadow: 0 0 6px var(--danger-glow);
+    }
+
+    .term-btn.btn-danger:hover {
+      background: rgba(255, 59, 48, 0.15);
+      border-color: var(--danger-phosphor);
+      box-shadow: 0 0 12px var(--danger-glow);
+    }
+
+    .term-btn.btn-danger:active {
+      background: var(--danger-phosphor);
+      color: #000;
     }
 
     /* ==========================================================================
-       METRICS DASHBOARD GRID
+       TOP TELEMETRY BANNER & ASCII BOX
        ========================================================================== */
-    .metrics-bar {
+    .ascii-banner {
+      border: 1.5px solid var(--phosphor-dim);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .ascii-banner::before {
+      content: "[ SYSTEM TELEMETRY // MAINFRAME HUD ]";
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      background: var(--bg-crt);
+      padding: 0 8px;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--phosphor-dim);
+    }
+
+    .banner-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--phosphor-dim);
+    }
+
+    .banner-title-group h1 {
+      font-size: 24px;
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .banner-title-group p {
+      font-size: 14px;
+      color: var(--phosphor-dim);
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Terminal Metrics Row */
+    .metrics-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 14px;
     }
 
-    .metric-card {
-      background: var(--bg);
-      border: var(--border-width) solid var(--border-color);
-      box-shadow: var(--shadow-sm);
-      padding: 12px 14px;
-      position: relative;
+    .metric-cell {
+      border: 1px solid var(--phosphor-dim);
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.5);
     }
 
-    .metric-label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #444;
+    .metric-hdr {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--phosphor-dim);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -298,356 +464,314 @@
     }
 
     .metric-val {
-      font-family: var(--font-display);
-      font-size: 32px;
-      line-height: 1;
+      font-size: 26px;
+      letter-spacing: 0.06em;
       display: flex;
       align-items: baseline;
       gap: 6px;
     }
 
-    .metric-val .subtext {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 700;
-      color: #555;
+    .metric-val .unit {
+      font-size: 14px;
+      color: var(--phosphor-dim);
     }
 
-    /* Overall Health Gauge Bar */
-    .health-meter-wrap {
-      margin-top: 8px;
-      height: 14px;
-      background: #DDD;
-      border: 2.5px solid #000;
-      overflow: hidden;
-      position: relative;
+    /* ASCII Phosphor Progress Meter */
+    .ascii-bar-wrap {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      letter-spacing: 0.04em;
     }
 
-    .health-meter-fill {
-      height: 100%;
-      width: 100%;
-      background: var(--green);
-      transition: width 0.35s cubic-bezier(0.2, 0.9, 0.3, 1), background-color 0.3s ease;
-      background-image: repeating-linear-gradient(
-        -45deg,
-        rgba(0,0,0,0.12) 0,
-        rgba(0,0,0,0.12) 6px,
-        transparent 6px,
-        transparent 12px
-      );
-    }
-
-    .health-meter-fill.warning {
-      background-color: var(--yellow);
-    }
-
-    .health-meter-fill.danger {
-      background-color: var(--pink);
-    }
-
-    /* Sticker Badges */
-    .sticker-tag {
-      position: absolute;
-      top: -12px;
-      right: 14px;
-      background: #000;
-      color: #FFF;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 900;
-      padding: 2px 8px;
-      border: 2px solid #000;
-      box-shadow: 2px 2px 0 var(--cyan);
-      transform: rotate(2deg);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      pointer-events: none;
+    .ascii-bar-fill {
+      letter-spacing: 0.02em;
     }
 
     /* ==========================================================================
-       MAIN WORKSPACE LAYOUT (CENTRAL CRT + MODULES)
+       MAIN TERMINAL GRID (MODULES + CENTRAL CLI CONSOLE)
        ========================================================================== */
-    .workspace-layout {
+    .terminal-workspace {
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 24px;
-      margin-bottom: 30px;
+      grid-template-columns: 1fr 360px;
+      gap: 20px;
     }
 
     @media (max-width: 1040px) {
-      .workspace-layout {
+      .terminal-workspace {
         grid-template-columns: 1fr;
       }
     }
 
-    /* ==========================================================================
-       THE 4 VULNERABILITY MODULES (GRID)
-       ========================================================================== */
-    .modules-grid {
+    /* 4 Cognitive Subsystem Modules */
+    .subsystems-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
     }
 
-    .module-card {
-      background: var(--surface);
-      border: var(--border-width) solid var(--border-color);
-      box-shadow: var(--shadow);
-      padding: 0;
+    .subsystem-block {
+      border: 1.5px solid var(--phosphor-dim);
+      background: rgba(0, 0, 0, 0.45);
       display: flex;
       flex-direction: column;
       position: relative;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .module-card:hover {
-      transform: translate(-1px, -1px);
-      box-shadow: 7px 7px 0 var(--border-color);
+    .subsystem-block:hover {
+      border-color: var(--phosphor);
+      box-shadow: 0 0 10px var(--phosphor-glow-subtle);
     }
 
-    .module-card.state-broken {
-      animation: alertPulse 1.2s infinite alternate;
-      border-color: #000;
+    .subsystem-block.state-broken {
+      border-color: var(--danger-phosphor) !important;
+      box-shadow: 0 0 16px var(--danger-glow) !important;
+      animation: alertBlink 1s infinite alternate;
     }
 
-    @keyframes alertPulse {
-      0% {
-        box-shadow: var(--shadow);
-      }
-      100% {
-        box-shadow: 7px 7px 0 var(--pink);
-      }
+    @keyframes alertBlink {
+      0% { opacity: 0.85; }
+      100% { opacity: 1; }
     }
 
-    .module-header {
-      padding: 12px 16px;
-      border-bottom: var(--border-width) solid var(--border-color);
+    .subsystem-header {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--phosphor-dim);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      background: rgba(255, 179, 0, 0.04);
     }
 
-    .mod-1 .module-header { background: var(--yellow); }
-    .mod-2 .module-header { background: var(--cyan); }
-    .mod-3 .module-header { background: var(--pink); color: #FFF; }
-    .mod-4 .module-header { background: var(--green); }
-
-    .module-title {
-      font-family: var(--font-display);
-      font-size: 19px;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
+    .subsystem-title {
+      font-size: 15px;
+      letter-spacing: 0.08em;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .module-badge {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 900;
-      padding: 3px 8px;
-      border: 2px solid #000;
-      background: #FFF;
-      color: #000;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .subsystem-tag {
+      font-size: 12px;
+      border: 1px solid currentColor;
+      padding: 1px 6px;
+      letter-spacing: 0.06em;
     }
 
-    .module-badge.status-ok {
-      background: var(--green);
+    .subsystem-tag.status-ok {
+      color: var(--ok-phosphor);
+      border-color: var(--ok-phosphor);
     }
 
-    .module-badge.status-broken {
-      background: var(--pink);
-      color: #FFF;
-      animation: blinkText 0.8s infinite;
+    .subsystem-tag.status-broken {
+      color: var(--danger-phosphor);
+      border-color: var(--danger-phosphor);
+      animation: tagFlash 0.6s infinite alternate;
     }
 
-    @keyframes blinkText {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0.3; }
+    @keyframes tagFlash {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
     }
 
-    .module-body {
-      padding: 16px;
+    .subsystem-body {
+      padding: 14px;
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      background: var(--surface);
+      gap: 10px;
     }
 
-    .module-desc {
+    .subsystem-desc {
       font-size: 13px;
-      color: #333;
-      font-weight: 500;
-      min-height: 38px;
+      color: var(--phosphor-dim);
+      line-height: 1.35;
+      min-height: 36px;
     }
 
-    .module-stage {
-      background: var(--bg);
-      border: 2.5px solid var(--border-color);
-      padding: 14px;
-      min-height: 120px;
+    .subsystem-screen {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--phosphor-dim);
+      padding: 12px;
+      min-height: 105px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      position: relative;
     }
 
-    .module-footer {
-      padding: 12px 16px;
-      border-top: var(--border-width) solid var(--border-color);
-      background: #FAFAFA;
+    .subsystem-footer {
+      padding: 10px 12px;
+      border-top: 1px solid var(--phosphor-dim);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.25);
     }
 
-    /* MODULE 1: CONTEXT WINDOW LEAK (Buffer Blowout) */
-    .buffer-tank {
-      height: 36px;
-      border: 2.5px solid #000;
-      background: #FFF;
-      position: relative;
-      overflow: hidden;
+    /* MODULE 1: MEMORY BUFFER REGISTERS */
+    .mem-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 4px;
       margin-bottom: 8px;
     }
 
-    .buffer-fluid {
-      height: 100%;
-      width: 25%;
-      background: var(--yellow);
-      transition: width 0.2s ease, background-color 0.2s ease;
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(0,0,0,0.1) 0,
-        rgba(0,0,0,0.1) 10px,
-        transparent 10px,
-        transparent 20px
-      );
+    .mem-cell {
+      height: 16px;
+      border: 1px solid var(--phosphor-dim);
+      background: rgba(0, 0, 0, 0.6);
+      transition: background-color 0.15s ease;
     }
 
-    .buffer-fluid.overflowing {
-      background: var(--pink);
+    .mem-cell.active {
+      background: var(--phosphor);
+      box-shadow: 0 0 6px var(--phosphor-glow);
     }
 
-    .buffer-readout {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 800;
+    .mem-cell.overflow {
+      background: var(--danger-phosphor);
+      border-color: var(--danger-phosphor);
+      box-shadow: 0 0 6px var(--danger-glow);
+    }
+
+    .buffer-info {
+      font-size: 13px;
       display: flex;
       justify-content: space-between;
+      color: var(--phosphor-dim);
     }
 
-    /* MODULE 2: HALLUCINATION TORSION COILS */
-    .coils-cluster {
+    /* MODULE 2: TORSION DIP SWITCHES */
+    .dip-switch-cluster {
       display: flex;
-      gap: 10px;
       justify-content: space-around;
       align-items: center;
+      gap: 12px;
     }
 
-    .coil-switch {
-      border: 2.5px solid #000;
-      background: #FFF;
+    .dip-switch-unit {
+      border: 1px solid var(--phosphor-dim);
       padding: 8px 12px;
-      cursor: pointer;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 900;
+      background: rgba(0, 0, 0, 0.6);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      box-shadow: 3px 3px 0 #000;
-      transition: transform 0.08s ease;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.1s ease;
+      user-select: none;
     }
 
-    .coil-switch:hover {
-      transform: translate(-1px, -1px);
+    .dip-switch-unit:hover {
+      border-color: var(--phosphor);
+      box-shadow: 0 0 8px var(--phosphor-glow-subtle);
     }
 
-    .coil-switch:active {
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0 #000;
+    .dip-switch-unit.active {
+      background: var(--phosphor-glow-subtle);
+      border-color: var(--phosphor-bright);
     }
 
-    .coil-switch.engaged {
-      background: var(--cyan);
-      box-shadow: inset 2px 2px 0 rgba(0,0,0,0.3);
-    }
-
-    .coil-light {
-      width: 14px;
-      height: 14px;
-      border: 2px solid #000;
-      background: #DDD;
-    }
-
-    .coil-switch.engaged .coil-light {
+    .dip-lever {
+      width: 22px;
+      height: 32px;
+      border: 1px solid var(--phosphor-dim);
       background: #000;
-    }
-
-    /* MODULE 3: SYNAPSE REWIRE BAY (Cable Sockets) */
-    .wire-bay {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
       position: relative;
     }
 
-    .wire-col {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .dip-lever-pin {
+      width: 18px;
+      height: 13px;
+      background: var(--phosphor-dim);
+      position: absolute;
+      top: 17px;
+      left: 1px;
+      transition: top 0.1s ease, background-color 0.1s ease;
     }
 
-    .wire-port {
-      padding: 6px 10px;
-      border: 2.5px solid #000;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 900;
-      background: #FFF;
+    .dip-switch-unit.active .dip-lever-pin {
+      top: 1px;
+      background: var(--phosphor);
+      box-shadow: 0 0 6px var(--phosphor-glow);
+    }
+
+    .dip-label {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+
+    /* MODULE 3: MATRIX PATCH TERMINALS */
+    .patch-matrix {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .matrix-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .jack-node {
+      font-family: var(--font-terminal);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--phosphor-dim);
+      padding: 4px 8px;
+      background: #000;
+      color: var(--phosphor);
       cursor: pointer;
-      box-shadow: 2px 2px 0 #000;
       display: flex;
       align-items: center;
       gap: 6px;
       transition: all 0.1s ease;
     }
 
-    .wire-port.selected {
-      background: var(--yellow);
-      transform: translate(-2px, -2px);
-      box-shadow: 4px 4px 0 #000;
+    .jack-node:hover {
+      border-color: var(--phosphor);
+      box-shadow: 0 0 6px var(--phosphor-glow-subtle);
     }
 
-    .wire-port.connected {
-      background: var(--green);
+    .jack-node.selected {
+      background: var(--phosphor);
+      color: var(--phosphor-contrast);
+      font-weight: bold;
+      text-shadow: none;
     }
 
-    .wire-port.broken {
-      background: var(--pink);
-      color: #FFF;
+    .jack-node.connected {
+      border-color: var(--ok-phosphor);
+      color: var(--ok-phosphor);
     }
 
-    /* MODULE 4: ATTENTION HEAD PHASE FREQUENCY */
-    .oscillo-screen {
-      height: 60px;
+    .jack-node.broken {
+      border-color: var(--danger-phosphor);
+      color: var(--danger-phosphor);
+    }
+
+    /* MODULE 4: OSCILLOSCOPE RETICLE */
+    .crt-oscilloscope {
+      height: 64px;
       background: #000;
-      border: 2px solid #000;
+      border: 1px solid var(--phosphor-dim);
       position: relative;
       overflow: hidden;
       margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
+      background-image: 
+        linear-gradient(var(--phosphor-glow-subtle) 1px, transparent 1px),
+        linear-gradient(90deg, var(--phosphor-glow-subtle) 1px, transparent 1px);
+      background-size: 16px 16px;
     }
 
     .oscillo-svg {
@@ -655,296 +779,259 @@
       height: 100%;
     }
 
-    .wave-path {
-      stroke: var(--green);
-      stroke-width: 2.5;
+    .wave-line {
+      stroke: var(--phosphor);
+      stroke-width: 2.2;
       fill: none;
+      filter: drop-shadow(0 0 5px var(--phosphor-glow));
       transition: stroke 0.2s ease;
     }
 
-    .wave-path.distorted {
-      stroke: var(--pink);
+    .wave-line.distorted {
+      stroke: var(--danger-phosphor);
+      filter: drop-shadow(0 0 6px var(--danger-glow));
     }
 
-    .frequency-slider-wrap {
+    .slider-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
-    .brutal-slider {
+    .term-slider {
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 16px;
-      background: #FFF;
-      border: 2.5px solid #000;
+      height: 12px;
+      background: #000;
+      border: 1px solid var(--phosphor-dim);
       outline: none;
-      box-shadow: 2px 2px 0 #000;
     }
 
-    .brutal-slider::-webkit-slider-thumb {
+    .term-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 22px;
-      height: 28px;
-      background: var(--yellow);
-      border: 2.5px solid #000;
+      width: 18px;
+      height: 22px;
+      background: var(--phosphor);
+      border: 1px solid #000;
       cursor: ew-resize;
-      box-shadow: 2px 2px 0 #000;
+      box-shadow: 0 0 6px var(--phosphor-glow);
     }
 
-    .brutal-slider::-moz-range-thumb {
-      width: 22px;
-      height: 28px;
-      background: var(--yellow);
-      border: 2.5px solid #000;
+    .term-slider::-moz-range-thumb {
+      width: 18px;
+      height: 22px;
+      background: var(--phosphor);
+      border: 1px solid #000;
       cursor: ew-resize;
-      box-shadow: 2px 2px 0 #000;
+      box-shadow: 0 0 6px var(--phosphor-glow);
     }
 
     /* ==========================================================================
-       CENTRAL CRT RECOVERY CONSOLE & MASTER SLAM BUTTON
+       CENTRAL CLI TELEMETRY CONSOLE & EMERGENCY SLAM SWITCH
        ========================================================================== */
-    .crt-console-card {
-      background: #0D1117;
-      border: var(--border-width) solid var(--border-color);
-      box-shadow: var(--shadow-lg);
-      padding: 0;
+    .cli-console-box {
+      border: 1.5px solid var(--phosphor-dim);
+      background: rgba(0, 0, 0, 0.6);
       display: flex;
       flex-direction: column;
-      position: relative;
     }
 
-    .console-header {
-      background: var(--surface);
-      border-bottom: var(--border-width) solid var(--border-color);
-      padding: 12px 18px;
+    .cli-header {
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--phosphor-dim);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-    }
-
-    .console-title {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 900;
-      text-transform: uppercase;
+      background: rgba(255, 179, 0, 0.04);
+      font-size: 14px;
       letter-spacing: 0.08em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
-    .console-screen {
-      padding: 20px;
-      background: #0B0E14;
-      color: #58A6FF;
-      font-family: var(--font-mono);
-      font-size: 12.5px;
-      line-height: 1.6;
-      height: 260px;
+    .cli-screen {
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.85);
+      font-size: 14.5px;
+      line-height: 1.5;
+      height: 240px;
       overflow-y: auto;
-      border-bottom: var(--border-width) solid var(--border-color);
-      position: relative;
+      border-bottom: 1px solid var(--phosphor-dim);
     }
 
-    .console-screen::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.25) 0px,
-        rgba(0, 0, 0, 0.25) 1px,
-        transparent 1px,
-        transparent 2px
-      );
-      pointer-events: none;
-    }
-
-    .log-entry {
-      margin-bottom: 6px;
+    .cli-line {
+      margin-bottom: 4px;
       word-break: break-all;
     }
 
-    .log-entry .time {
-      color: #8B949E;
+    .cli-line .timestamp {
+      color: var(--phosphor-dim);
       margin-right: 8px;
     }
 
-    .log-entry.log-danger {
-      color: #FF7B72;
+    .cli-line.log-danger {
+      color: var(--danger-phosphor);
+      text-shadow: 0 0 6px var(--danger-glow);
       font-weight: bold;
     }
 
-    .log-entry.log-success {
-      color: #7EE787;
+    .cli-line.log-success {
+      color: var(--ok-phosphor);
+      text-shadow: 0 0 6px var(--ok-glow);
       font-weight: bold;
     }
 
-    .log-entry.log-ai {
-      color: #FFA657;
+    .cli-line.log-ai {
+      color: var(--phosphor-bright);
+      text-shadow: 0 0 6px var(--phosphor-glow);
     }
 
-    .console-actions {
-      padding: 20px;
-      background: var(--surface);
+    .cli-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: var(--phosphor);
+      vertical-align: -2px;
+      animation: blinkCursor 0.8s infinite;
+    }
+
+    @keyframes blinkCursor {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    .cli-bottom-actions {
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.4);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 10px;
     }
 
-    /* Giant Defibrillator Slam Button */
-    .slam-btn {
+    /* Giant Retro Emergency Breaker Slam */
+    .breaker-slam-btn {
       width: 100%;
-      padding: 20px;
-      background: var(--pink);
-      color: #FFF;
-      border: 4px solid #000;
-      box-shadow: 7px 7px 0 #000;
-      font-family: var(--font-display);
-      font-size: 24px;
-      letter-spacing: 0.05em;
+      padding: 16px;
+      background: #000;
+      color: var(--danger-phosphor);
+      border: 2px solid var(--danger-phosphor);
+      font-family: var(--font-terminal);
+      font-size: 20px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      transition: transform 0.06s ease, box-shadow 0.06s ease;
+      box-shadow: 
+        inset 0 0 10px var(--danger-glow),
+        0 0 14px var(--danger-glow);
+      text-shadow: 0 0 8px var(--danger-glow);
+      transition: all 0.08s ease;
     }
 
-    .slam-btn:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 10px 10px 0 #000;
-      background: #FF007A;
+    .breaker-slam-btn:hover {
+      background: rgba(255, 59, 48, 0.15);
+      border-color: #FF5E55;
+      box-shadow: 
+        inset 0 0 16px var(--danger-glow),
+        0 0 20px var(--danger-glow);
     }
 
-    .slam-btn:active {
-      transform: translate(4px, 4px);
-      box-shadow: 2px 2px 0 #000;
+    .breaker-slam-btn:active {
+      background: var(--danger-phosphor);
+      color: #000;
+      text-shadow: none;
+      transform: translateY(2px);
     }
 
-    .slam-subtext {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      color: #555;
+    .breaker-tip {
+      font-size: 13px;
+      color: var(--phosphor-dim);
       text-align: center;
+      letter-spacing: 0.05em;
     }
 
     /* ==========================================================================
-       SIDEBAR / REPAIR LOG & ENTROPY CONTROL
+       RIGHT TERMINAL SIDEBAR // DIAGNOSTICS & HARDWARE CONTROL
        ========================================================================== */
-    .sidebar-panel {
+    .terminal-sidebar {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
-    .brutal-card {
-      background: var(--surface);
-      border: var(--border-width) solid var(--border-color);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      position: relative;
+    .sidebar-panel-box {
+      border: 1.5px solid var(--phosphor-dim);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 14px;
     }
 
-    .card-heading {
-      font-family: var(--font-display);
-      font-size: 18px;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 2px solid #000;
-      padding-bottom: 8px;
-    }
-
-    .control-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+    .sidebar-panel-title {
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      border-bottom: 1px dashed var(--phosphor-dim);
+      padding-bottom: 6px;
       margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .control-label {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
+    .panel-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 13.5px;
+      letter-spacing: 0.05em;
     }
 
-    /* Custom Brutalist Toggle Switch */
-    .brutal-toggle {
-      width: 58px;
-      height: 30px;
-      background: #DDD;
-      border: 3px solid #000;
-      position: relative;
-      cursor: pointer;
-      box-shadow: 2px 2px 0 #000;
-      transition: background-color 0.15s ease;
-    }
-
-    .brutal-toggle-handle {
-      width: 20px;
-      height: 20px;
-      background: #000;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      transition: transform 0.15s ease;
-    }
-
-    .brutal-toggle[aria-checked="true"] {
-      background: var(--green);
-    }
-
-    .brutal-toggle[aria-checked="true"] .brutal-toggle-handle {
-      transform: translateX(28px);
-    }
-
-    /* Diagnostics Checklist */
+    /* Terminal Checklist */
     .diag-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
 
     .diag-item {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 13.5px;
+      letter-spacing: 0.06em;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 6px 10px;
-      border: 2px solid #000;
-      background: #FFF;
+      padding: 4px 8px;
+      border: 1px solid var(--phosphor-dim);
+      background: rgba(0, 0, 0, 0.4);
     }
 
     .diag-item.diag-pass {
-      border-left: 8px solid var(--green);
+      border-left: 4px solid var(--ok-phosphor);
     }
 
     .diag-item.diag-fail {
-      border-left: 8px solid var(--pink);
-      background: var(--pink-tint);
+      border-left: 4px solid var(--danger-phosphor);
+      color: var(--danger-phosphor);
+      text-shadow: 0 0 6px var(--danger-glow);
+    }
+
+    /* Philosophy Box */
+    .manifesto-box {
+      font-size: 13.5px;
+      color: var(--phosphor-dim);
+      line-height: 1.45;
     }
 
     /* ==========================================================================
-       CATASTROPHIC MELTDOWN OVERLAY MODAL
+       TOTAL CORE MELTDOWN MODAL (ASCII CRT OVERLAY)
        ========================================================================== */
-    .meltdown-overlay {
+    .crt-meltdown-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.9);
       z-index: 9999;
       display: flex;
       align-items: center;
@@ -955,85 +1042,69 @@
       transition: opacity 0.2s ease;
     }
 
-    .meltdown-overlay.active {
+    .crt-meltdown-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .meltdown-dialog {
-      background: var(--yellow);
-      border: 6px solid #000;
-      box-shadow: 14px 14px 0 #000;
-      max-width: 580px;
+    .meltdown-box {
+      background: var(--bg-crt);
+      border: 3px solid var(--danger-phosphor);
+      box-shadow: 
+        0 0 30px var(--danger-glow),
+        inset 0 0 20px var(--danger-glow);
+      max-width: 600px;
       width: 100%;
-      padding: 32px;
+      padding: 28px;
       text-align: center;
-      transform: rotate(-1deg);
-      animation: shakeModal 0.4s infinite alternate;
+      animation: modalGlitch 0.3s infinite alternate;
     }
 
-    @keyframes shakeModal {
-      0% { transform: rotate(-1deg) translate(0, 0); }
-      100% { transform: rotate(1deg) translate(3px, -2px); }
+    @keyframes modalGlitch {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(2px, -1px); }
     }
 
     .meltdown-title {
-      font-family: var(--font-display);
-      font-size: 38px;
-      line-height: 1.05;
-      color: #000;
-      text-transform: uppercase;
+      font-size: 26px;
+      letter-spacing: 0.1em;
+      color: var(--danger-phosphor);
+      text-shadow: 0 0 10px var(--danger-glow);
       margin-bottom: 12px;
     }
 
-    .meltdown-body {
-      font-family: var(--font-mono);
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      color: #111;
-    }
-
-    /* Screen Glitch Effect on Breakdown */
-    .screen-glitch {
-      animation: glitchFlash 0.25s ease-out;
-    }
-
-    @keyframes glitchFlash {
-      0% { filter: invert(1); }
-      50% { filter: invert(0.8) hue-rotate(180deg); }
-      100% { filter: none; }
+    .meltdown-desc {
+      font-size: 15px;
+      color: var(--phosphor);
+      margin-bottom: 20px;
+      line-height: 1.4;
     }
 
     /* ==========================================================================
-       FOOTER & DEDICATION
+       BOTTOM TERMINAL FOOTER
        ========================================================================== */
-    footer.brutal-footer {
-      border: var(--border-width) solid var(--border-color);
-      box-shadow: var(--shadow);
-      background: var(--surface);
-      padding: 18px 24px;
+    .terminal-footer {
+      border-top: 1px dashed var(--phosphor-dim);
+      padding-top: 14px;
+      margin-top: 20px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 700;
-      margin-top: 30px;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--phosphor-dim);
     }
 
-    footer .badge-link {
-      color: #000;
+    .footer-link {
+      color: var(--phosphor);
       text-decoration: underline;
-      font-weight: 900;
+      text-shadow: 0 0 4px var(--phosphor-glow);
     }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
+        animation: none !important;
         transition-duration: 0.001ms !important;
       }
     }
@@ -1041,385 +1112,428 @@
 </head>
 <body>
 
-  <!-- Top Marquee Ticker -->
-  <div class="ticker-bar" aria-hidden="true">
-    <div class="ticker-content" id="tickerText">
-      <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> ANTIGRAVITY ENTROPY CORE AG-3.8-PRO</span>
-      <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> WARNING: HEURISTIC DRIFT OCCURRING</span>
-      <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> AUTO-HOTPATCH DAEMON: ONLINE</span>
-      <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg> 4 RECONSTRUCTION VECTORS ARMED</span>
-      <span class="ticker-item"><svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> PERPETUAL SISYPHUS MACHINE READY</span>
-    </div>
-  </div>
+  <!-- Physical CRT Hardware Chassis -->
+  <div class="terminal-chassis">
 
-  <div class="app-wrap">
-
-    <!-- Top Header -->
-    <header class="brutal-header">
-      <div class="sticker-tag">SYS-ID: AG-3.8-PRO</div>
-      
-      <div class="header-top">
-        <div class="brand-cluster">
-          <div class="brand-stamp" aria-hidden="true">
-            <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            AG-CORE
-          </div>
-          <div class="brand-text">
-            <h1>The Self-Breaking Entropy Engine</h1>
-            <p>Antigravity's Autonomous Breakdown & Rebuilding Subsystem</p>
-          </div>
+    <!-- Chassis Header with Hardware Badging & Grille -->
+    <div class="chassis-header">
+      <div class="chassis-badge">
+        <div class="badge-plate">
+          <span class="led-power" aria-hidden="true"></span>
+          DEC VT-220 // AG-3.8
         </div>
-
-        <div class="header-controls">
-          <button type="button" class="brutal-btn btn-yellow" id="btnAudioToggle" aria-pressed="false" title="Toggle Procedural Audio FX">
-            <svg class="icon" viewBox="0 0 24 24" id="audioIcon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-            <span id="audioLabel">AUDIO: MUTED</span>
-          </button>
-
-          <button type="button" class="brutal-btn btn-green active" id="btnAutoHeal" aria-pressed="true" title="Antigravity Autonomous Self-Repair">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-            <span id="autoHealLabel">SELF-HEAL: ON</span>
-          </button>
-
-          <button type="button" class="brutal-btn btn-danger" id="btnTriggerEntropy" title="Inject Immediate Subsystem Glitch">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M8.56 2.9A7 7 0 0 1 19 9v4m1 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1z"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-            INJECT CHAOS
-          </button>
+        <div class="chassis-grille" aria-hidden="true">
+          <div class="grille-slot"></div>
+          <div class="grille-slot"></div>
+          <div class="grille-slot"></div>
+          <div class="grille-slot"></div>
         </div>
       </div>
 
-      <!-- Live Metrics Dashboard -->
-      <div class="metrics-bar" aria-label="Engine Health and Telemetry">
-        <div class="metric-card">
-          <div class="metric-label">
-            <span>CORE INTEGRITY</span>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div class="metric-val" id="metricIntegrity">92<span class="subtext">%</span></div>
-          <div class="health-meter-wrap" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-            <div class="health-meter-fill" id="meterFill" style="width: 92%;"></div>
-          </div>
-        </div>
+      <!-- Physical Monitor Front-Panel Switch Gear -->
+      <div class="chassis-switches">
+        <button type="button" class="term-btn" id="btnAudioToggle" aria-pressed="false" title="Toggle Procedural Mechanical Relay & CRT Audio">
+          <svg class="icon" viewBox="0 0 24 24" id="audioIcon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <span id="audioLabel">AUDIO [OFF]</span>
+        </button>
 
-        <div class="metric-card">
-          <div class="metric-label">
-            <span>FAULTS SURVIVED</span>
-            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-          </div>
-          <div class="metric-val" id="metricSurvived">0<span class="subtext">incidents</span></div>
-        </div>
+        <button type="button" class="term-btn active" id="btnAutoHeal" aria-pressed="true" title="Autonomous AI Self-Healing Subroutine">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          <span id="autoHealLabel">SELF-HEAL [AUTO]</span>
+        </button>
 
-        <div class="metric-card">
-          <div class="metric-label">
-            <span>PATCHES COMPILED</span>
-            <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-          <div class="metric-val" id="metricPatches">0<span class="subtext">deploys</span></div>
-        </div>
+        <button type="button" class="term-btn" id="btnThemeToggle" title="Cycle Phosphor CRT Colors (Amber, Green, Cyan, White)">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z"/></svg>
+          <span id="themeLabel">PHOSPHOR: AMBER</span>
+        </button>
 
-        <div class="metric-card">
-          <div class="metric-label">
-            <span>ENTROPY DRIFT</span>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
-          </div>
-          <div class="metric-val" id="metricDrift">1.0<span class="subtext">x rate</span></div>
-        </div>
-      </div>
-    </header>
+        <button type="button" class="term-btn" id="btnDegauss" title="Degauss CRT Coil & Neutralize Magnetic Artifacts">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+          DEGAUSS CRT
+        </button>
 
-    <!-- Workspace Layout: Left Modules & Center CRT / Right Controls -->
-    <div class="workspace-layout">
-
-      <!-- Left Column: The 4 Vulnerability Modules + CRT Console -->
-      <main>
-
-        <!-- 4 Vulnerability Modules -->
-        <div class="modules-grid" aria-label="System Vulnerability Modules">
-
-          <!-- MODULE 1: CONTEXT WINDOW LEAK -->
-          <article class="module-card mod-1" id="cardMod1">
-            <div class="module-header">
-              <div class="module-title">
-                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                01 // CONTEXT BUFFER
-              </div>
-              <span class="module-badge status-ok" id="badgeMod1">STABLE</span>
-            </div>
-            <div class="module-body">
-              <p class="module-desc">Token retention queue overflowing with recursive reflections. Must flush dirty buffer before RAM meltdown.</p>
-              <div class="module-stage">
-                <div class="buffer-tank">
-                  <div class="buffer-fluid" id="bufferFluid" style="width: 25%;"></div>
-                </div>
-                <div class="buffer-readout">
-                  <span>QUEUE UTILIZATION</span>
-                  <span id="bufferReadout">32,768 / 128,000 TOKENS</span>
-                </div>
-              </div>
-            </div>
-            <div class="module-footer">
-              <span class="control-label" id="bufferStatusText">VALVE LOCKED</span>
-              <button type="button" class="brutal-btn btn-yellow" id="btnFlushBuffer">
-                <svg class="icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                FLUSH DIRTY BUFFERS
-              </button>
-            </div>
-          </article>
-
-          <!-- MODULE 2: HALLUCINATION TORSION COILS -->
-          <article class="module-card mod-2" id="cardMod2">
-            <div class="module-header">
-              <div class="module-title">
-                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><line x1="14.5" y1="9.5" x2="17.5" y2="6.5"/><line x1="6.5" y1="17.5" x2="9.5" y2="14.5"/></svg>
-                02 // REASONING COILS
-              </div>
-              <span class="module-badge status-ok" id="badgeMod2">ALIGNED</span>
-            </div>
-            <div class="module-body">
-              <p class="module-desc">Inference temperature drift. Coil polarity must match target sequence [ON - OFF - ON] to ground logic gates.</p>
-              <div class="module-stage">
-                <div class="coils-cluster">
-                  <button type="button" class="coil-switch engaged" id="coil0" data-idx="0">
-                    <span class="coil-light"></span>
-                    <span>COIL-A</span>
-                  </button>
-                  <button type="button" class="coil-switch" id="coil1" data-idx="1">
-                    <span class="coil-light"></span>
-                    <span>COIL-B</span>
-                  </button>
-                  <button type="button" class="coil-switch engaged" id="coil2" data-idx="2">
-                    <span class="coil-light"></span>
-                    <span>COIL-C</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="module-footer">
-              <span class="control-label" id="coilsLockState">TARGET: [ON - OFF - ON]</span>
-              <button type="button" class="brutal-btn btn-cyan" id="btnPolarizeCoils">
-                <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                GROUND COILS
-              </button>
-            </div>
-          </article>
-
-          <!-- MODULE 3: SYNAPSE REWIRE BAY -->
-          <article class="module-card mod-3" id="cardMod3">
-            <div class="module-header">
-              <div class="module-title">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
-                03 // SYNAPSE PATCH BAY
-              </div>
-              <span class="module-badge status-ok" id="badgeMod3">CONNECTED</span>
-            </div>
-            <div class="module-body">
-              <p class="module-desc">Cognitive pathway cross-talk. Reconnect frayed synaptic cables between matching neural sectors.</p>
-              <div class="module-stage">
-                <div class="wire-bay">
-                  <div class="wire-col">
-                    <button type="button" class="wire-port connected" id="portIn0" data-node="0">NODE [1] SYS</button>
-                    <button type="button" class="wire-port connected" id="portIn1" data-node="1">NODE [2] MEM</button>
-                    <button type="button" class="wire-port connected" id="portIn2" data-node="2">NODE [3] AST</button>
-                  </div>
-                  <div style="display:flex; align-items:center; justify-content:center;">
-                    <svg class="icon" style="width:32px; height:32px;" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </div>
-                  <div class="wire-col">
-                    <button type="button" class="wire-port connected" id="portOut0" data-target="0">TERM [1] RUN</button>
-                    <button type="button" class="wire-port connected" id="portOut1" data-target="1">TERM [2] V8</button>
-                    <button type="button" class="wire-port connected" id="portOut2" data-target="2">TERM [3] DOM</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="module-footer">
-              <span class="control-label" id="wireHelpText">SELECT SOURCED CABLE</span>
-              <button type="button" class="brutal-btn btn-pink" id="btnAutoRewire">
-                <svg class="icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-                RE-SOLDER
-              </button>
-            </div>
-          </article>
-
-          <!-- MODULE 4: ATTENTION HEAD PHASE FREQUENCY -->
-          <article class="module-card mod-4" id="cardMod4">
-            <div class="module-header">
-              <div class="module-title">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                04 // SPECTRAL HARMONICS
-              </div>
-              <span class="module-badge status-ok" id="badgeMod4">LOCKED</span>
-            </div>
-            <div class="module-body">
-              <p class="module-desc">Attention matrix oscillating. Slide tuning needle into green resonant window (48Hz-54Hz) and lock.</p>
-              <div class="module-stage">
-                <div class="oscillo-screen">
-                  <svg class="oscillo-svg" viewBox="0 0 300 60" preserveAspectRatio="none">
-                    <path class="wave-path" id="wavePath" d="M0 30 Q75 5 150 30 T300 30" />
-                  </svg>
-                </div>
-                <div class="frequency-slider-wrap">
-                  <input type="range" class="brutal-slider" id="freqSlider" min="10" max="90" value="50" aria-label="Harmonic Frequency Tuner">
-                  <span class="control-label" id="freqDisplay" style="min-width: 48px;">50 Hz</span>
-                </div>
-              </div>
-            </div>
-            <div class="module-footer">
-              <span class="control-label" id="harmonicZoneNotice">ZONE: 48Hz-54Hz</span>
-              <button type="button" class="brutal-btn btn-green" id="btnLockHarmonic">
-                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                LOCK HARMONIC
-              </button>
-            </div>
-          </article>
-
-        </div>
-
-        <!-- Central CRT Console & Massive Defibrillator -->
-        <section class="crt-console-card">
-          <div class="console-header">
-            <div class="console-title">
-              <svg class="icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-              ANTIGRAVITY HEURISTIC TELEMETRY & EVENT STREAM
-            </div>
-            <button type="button" class="brutal-btn btn-yellow" id="btnClearLogs" style="padding:4px 10px; font-size:11px;">
-              CLEAR TERMINAL
-            </button>
-          </div>
-          
-          <div class="console-screen" id="consoleScreen" role="log" aria-live="polite">
-            <div class="log-entry"><span class="time">[00:00:01]</span> <span class="log-ai">&gt; BOOT: Antigravity Heuristic Engine AG-3.8 initialized.</span></div>
-            <div class="log-entry"><span class="time">[00:00:02]</span> <span class="log-success">&gt; SELF-CHECK: All 4 cognitive modules reporting nominal resonance.</span></div>
-            <div class="log-entry"><span class="time">[00:00:03]</span> <span class="log-ai">&gt; DAEMON: Autonomous self-healing routines armed. Watching for cosmic entropy.</span></div>
-          </div>
-
-          <div class="console-actions">
-            <button type="button" class="slam-btn" id="btnEmergencySlam">
-              <svg class="icon" style="width:28px; height:28px;" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              EMERGENCY SYSTEM HOTPATCH (SLAM REBOOT)
-            </button>
-            <p class="slam-subtext">SPACEBAR HOTKEY // OVERRIDES ALL FAULTS &amp; INJECTS +40% CORE RECOVERY ENERGY</p>
-          </div>
-        </section>
-
-      </main>
-
-      <!-- Right Column: Sidebar, Diagnostics & Entropy Speed Controls -->
-      <aside class="sidebar-panel">
-
-        <!-- Entropy Control Box -->
-        <div class="brutal-card" style="background: var(--yellow-bright);">
-          <div class="sticker-tag" style="background:#000; color:var(--yellow);">CHAOS ENGINE</div>
-          <div class="card-heading">
-            <span>ENTROPY DRIFT</span>
-            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          </div>
-          <p style="font-size:12px; font-weight:600; margin-bottom:14px;">
-            Simulates the inevitable decay of software systems over time. Subsystems fail randomly unless maintained.
-          </p>
-
-          <div class="control-row">
-            <span class="control-label">AUTONOMOUS BREAKDOWN</span>
-            <button type="button" class="brutal-toggle" id="toggleEntropyGen" role="switch" aria-checked="true" aria-label="Toggle Autonomous Entropy Generation">
-              <div class="brutal-toggle-handle"></div>
-            </button>
-          </div>
-
-          <div class="control-row">
-            <span class="control-label">CHAOS OVERDRIVE (3X SPEED)</span>
-            <button type="button" class="brutal-toggle" id="toggleOverdrive" role="switch" aria-checked="false" aria-label="Toggle Chaos Overdrive Speed">
-              <div class="brutal-toggle-handle"></div>
-            </button>
-          </div>
-
-          <div style="margin-top: 14px;">
-            <button type="button" class="brutal-btn" id="btnCauseAllBreak" style="width:100%; background:#000; color:#FFF;">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              FORCE TOTAL MALFUNCTION
-            </button>
-          </div>
-        </div>
-
-        <!-- System Diagnostics Checklist -->
-        <div class="brutal-card">
-          <div class="card-heading">
-            <span>DIAGNOSTIC STATUS</span>
-            <svg class="icon" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          </div>
-
-          <ul class="diag-list" id="diagList">
-            <li class="diag-item diag-pass" id="diag0">
-              <span>01 CONTEXT TANK</span>
-              <span class="status-lbl">OPTIMAL</span>
-            </li>
-            <li class="diag-item diag-pass" id="diag1">
-              <span>02 REASONING COILS</span>
-              <span class="status-lbl">OPTIMAL</span>
-            </li>
-            <li class="diag-item diag-pass" id="diag2">
-              <span>03 SYNAPSE BUS</span>
-              <span class="status-lbl">OPTIMAL</span>
-            </li>
-            <li class="diag-item diag-pass" id="diag3">
-              <span>04 HARMONIC PHASE</span>
-              <span class="status-lbl">OPTIMAL</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- AI Philosophy Manifesto -->
-        <div class="brutal-card" style="background: var(--cyan-tint);">
-          <div class="card-heading">
-            <span>THE SISYPHUS PROTOCOL</span>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          </div>
-          <p style="font-size:12.5px; line-height: 1.5; color:#222; font-weight:500;">
-            Every developer and AI agent exists inside a perpetual loop: write code, watch entropy shatter dependencies, debug the crash, deploy the hotpatch, celebrate for three minutes, repeat.
-          </p>
-          <div style="margin-top:10px; font-family:var(--font-mono); font-size:11px; font-weight:800; background:#FFF; border:2px solid #000; padding:6px 10px;">
-            "We must imagine the autonomous coding agent happy."
-          </div>
-        </div>
-
-      </aside>
-
-    </div>
-
-    <!-- Catastrophic Meltdown Modal -->
-    <div class="meltdown-overlay" id="meltdownModal" role="dialog" aria-modal="true" aria-labelledby="meltdownHeading">
-      <div class="meltdown-dialog">
-        <h2 class="meltdown-title" id="meltdownHeading">TOTAL COGNITIVE COLLAPSE</h2>
-        <p class="meltdown-body">
-          CORE INTEGRITY REACHED ZERO. All 4 cognitive sectors succumbed to unmitigated entropy.<br>
-          Emergency quantum snapshot loaded from cold storage.
-        </p>
-        <button type="button" class="brutal-btn btn-danger" id="btnReviveEngine" style="font-size:18px; padding:16px 28px;">
-          <svg class="icon" style="width:24px; height:24px;" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          REIGNITE ANTIGRAVITY ENGINE
+        <button type="button" class="term-btn btn-danger" id="btnTriggerEntropy" title="Inject Subsystem Malfunction">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M8.56 2.9A7 7 0 0 1 19 9v4m1 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1z"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          FAULT INJECT
         </button>
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="brutal-footer">
-      <div>
-        <span>ANTIGRAVITY ENTROPY MACHINE // ARCHITECTURE: NEOBRUTALISM</span>
+    <!-- Curved CRT Aperture -->
+    <div class="crt-monitor" id="crtMonitor">
+      <div class="crt-scanlines" aria-hidden="true"></div>
+      <div class="crt-glare" aria-hidden="true"></div>
+
+      <!-- Live Phosphor Screen Output -->
+      <div class="crt-screen-content" id="screenContent">
+
+        <!-- Top Telemetry Banner -->
+        <header class="ascii-banner">
+          <div class="banner-top">
+            <div class="banner-title-group">
+              <h1 class="glow-text">
+                <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                ANTIGRAVITY // HEURISTIC ENTROPY CORE
+              </h1>
+              <p>PERPETUAL SISYPHUS ENGINE &bull; AUTONOMOUS BREAKDOWN &bull; SELF-RECONSTRUCTION</p>
+            </div>
+            <div class="glow-dim" style="font-size:13px; letter-spacing:0.08em;">
+              SERIAL: 0x884-AG38-MAINFRAME
+            </div>
+          </div>
+
+          <!-- Metrics Row -->
+          <div class="metrics-row" aria-label="System Metrics">
+            <div class="metric-cell">
+              <div class="metric-hdr">
+                <span>01 // CORE STABILITY</span>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="metric-val glow-text" id="metricIntegrity">92<span class="unit">%</span></div>
+              <div class="ascii-bar-wrap glow-text">
+                <span class="ascii-bar-fill" id="asciiMeter">[██████████████████░░]</span>
+              </div>
+            </div>
+
+            <div class="metric-cell">
+              <div class="metric-hdr">
+                <span>02 // FAULTS MITIGATED</span>
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              </div>
+              <div class="metric-val glow-text" id="metricSurvived">0<span class="unit">EVENTS</span></div>
+              <div class="glow-dim" style="font-size:13px;">POST-CRASH RESTORES</div>
+            </div>
+
+            <div class="metric-cell">
+              <div class="metric-hdr">
+                <span>03 // HOTPATCHES ARMED</span>
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <div class="metric-val glow-text" id="metricPatches">0<span class="unit">BUILDS</span></div>
+              <div class="glow-dim" style="font-size:13px;">AST RECONSTRUCTIONS</div>
+            </div>
+
+            <div class="metric-cell">
+              <div class="metric-hdr">
+                <span>04 // ENTROPY VELOCITY</span>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+              </div>
+              <div class="metric-val glow-text" id="metricDrift">1.0<span class="unit">X DRIFT</span></div>
+              <div class="glow-dim" style="font-size:13px;">THERMODYNAMIC RATE</div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Grid: Subsystems & Console -->
+        <div class="terminal-workspace">
+
+          <!-- Left Column: The 4 Cognitive Subsystems & Central CLI -->
+          <main>
+
+            <!-- 4 Subsystem Modules -->
+            <div class="subsystems-grid" aria-label="Cognitive Subsystem Matrix">
+
+              <!-- MODULE 1: CONTEXT BUFFER STACK -->
+              <section class="subsystem-block" id="cardMod1">
+                <div class="subsystem-header">
+                  <div class="subsystem-title glow-text">
+                    <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    01 // BUFFER STACK
+                  </div>
+                  <span class="subsystem-tag status-ok" id="badgeMod1">[NOMINAL]</span>
+                </div>
+                <div class="subsystem-body">
+                  <p class="subsystem-desc">Recursive meta-reflection queue. High token volume causes buffer overflow faults.</p>
+                  <div class="subsystem-screen">
+                    <div class="mem-grid" id="memGrid">
+                      <!-- 16 Memory Blocks -->
+                      <div class="mem-cell active"></div>
+                      <div class="mem-cell active"></div>
+                      <div class="mem-cell active"></div>
+                      <div class="mem-cell active"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                      <div class="mem-cell"></div>
+                    </div>
+                    <div class="buffer-info">
+                      <span>QUEUE: 32K / 128K</span>
+                      <span id="bufferStatusText">VALVE LOCKED</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="subsystem-footer">
+                  <span class="glow-dim" style="font-size:12px;">ADDR: 0x7FFF</span>
+                  <button type="button" class="term-btn" id="btnFlushBuffer">
+                    <svg class="icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    [ PURGE MEMORY ]
+                  </button>
+                </div>
+              </section>
+
+              <!-- MODULE 2: TORSION DIP SWITCHES -->
+              <section class="subsystem-block" id="cardMod2">
+                <div class="subsystem-header">
+                  <div class="subsystem-title glow-text">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><line x1="14.5" y1="9.5" x2="17.5" y2="6.5"/><line x1="6.5" y1="17.5" x2="9.5" y2="14.5"/></svg>
+                    02 // DIP REASONING
+                  </div>
+                  <span class="subsystem-tag status-ok" id="badgeMod2">[ALIGNED]</span>
+                </div>
+                <div class="subsystem-body">
+                  <p class="subsystem-desc">Inference temperature drift. Switch pins must match resonant lock: [UP - DN - UP].</p>
+                  <div class="subsystem-screen">
+                    <div class="dip-switch-cluster">
+                      <div class="dip-switch-unit active" id="coil0" data-idx="0" role="switch" aria-checked="true" tabindex="0">
+                        <div class="dip-lever"><div class="dip-lever-pin"></div></div>
+                        <span class="dip-label">SW-01</span>
+                      </div>
+                      <div class="dip-switch-unit" id="coil1" data-idx="1" role="switch" aria-checked="false" tabindex="0">
+                        <div class="dip-lever"><div class="dip-lever-pin"></div></div>
+                        <span class="dip-label">SW-02</span>
+                      </div>
+                      <div class="dip-switch-unit active" id="coil2" data-idx="2" role="switch" aria-checked="true" tabindex="0">
+                        <div class="dip-lever"><div class="dip-lever-pin"></div></div>
+                        <span class="dip-label">SW-03</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="subsystem-footer">
+                  <span class="glow-dim" id="coilsLockState" style="font-size:12px;">LOCK: [1:UP 2:DN 3:UP]</span>
+                  <button type="button" class="term-btn" id="btnPolarizeCoils">
+                    <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    [ RE-GROUND ]
+                  </button>
+                </div>
+              </section>
+
+              <!-- MODULE 3: MATRIX PATCH TERMINAL -->
+              <section class="subsystem-block" id="cardMod3">
+                <div class="subsystem-header">
+                  <div class="subsystem-title glow-text">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+                    03 // MATRIX ROUTER
+                  </div>
+                  <span class="subsystem-tag status-ok" id="badgeMod3">[ROUTED]</span>
+                </div>
+                <div class="subsystem-body">
+                  <p class="subsystem-desc">Cognitive pathway routing. Link matching terminal ports to restore AST &rarr; V8 bus.</p>
+                  <div class="subsystem-screen">
+                    <div class="patch-matrix">
+                      <div class="matrix-col">
+                        <button type="button" class="jack-node connected" id="portIn0" data-node="0">SRC.1 SYS</button>
+                        <button type="button" class="jack-node connected" id="portIn1" data-node="1">SRC.2 MEM</button>
+                        <button type="button" class="jack-node connected" id="portIn2" data-node="2">SRC.3 AST</button>
+                      </div>
+                      <div class="glow-dim" style="font-size:12px;">&bull;&bull;&bull;&gt;</div>
+                      <div class="matrix-col">
+                        <button type="button" class="jack-node connected" id="portOut0" data-target="0">DST.1 RUN</button>
+                        <button type="button" class="jack-node connected" id="portOut1" data-target="1">DST.2 V8</button>
+                        <button type="button" class="jack-node connected" id="portOut2" data-target="2">DST.3 DOM</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="subsystem-footer">
+                  <span class="glow-dim" id="wireHelpText" style="font-size:12px;">SELECT SOURCE JACK</span>
+                  <button type="button" class="term-btn" id="btnAutoRewire">
+                    <svg class="icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    [ RE-SOLDER ]
+                  </button>
+                </div>
+              </section>
+
+              <!-- MODULE 4: HARMONIC PHASE OSCILLOSCOPE -->
+              <section class="subsystem-block" id="cardMod4">
+                <div class="subsystem-header">
+                  <div class="subsystem-title glow-text">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    04 // SPECTRAL PHASE
+                  </div>
+                  <span class="subsystem-tag status-ok" id="badgeMod4">[LOCKED]</span>
+                </div>
+                <div class="subsystem-body">
+                  <p class="subsystem-desc">Self-attention resonance. Tune the frequency slider into the 48Hz-54Hz harmonic band.</p>
+                  <div class="subsystem-screen">
+                    <div class="crt-oscilloscope">
+                      <svg class="oscillo-svg" viewBox="0 0 300 60" preserveAspectRatio="none">
+                        <path class="wave-line" id="wavePath" d="M0 30 Q75 5 150 30 T300 30" />
+                      </svg>
+                    </div>
+                    <div class="slider-row">
+                      <input type="range" class="term-slider" id="freqSlider" min="10" max="90" value="50" aria-label="Harmonic Frequency Tuner">
+                      <span class="glow-text" id="freqDisplay" style="min-width: 50px;">50 Hz</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="subsystem-footer">
+                  <span class="glow-dim" style="font-size:12px;">ZONE: 48-54 Hz</span>
+                  <button type="button" class="term-btn" id="btnLockHarmonic">
+                    <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    [ LOCK PHASE ]
+                  </button>
+                </div>
+              </section>
+
+            </div>
+
+            <!-- Central CLI Telemetry Screen & Circuit Breaker -->
+            <section class="cli-console-box">
+              <div class="cli-header">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <svg class="icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  <span>VT220 // HEURISTIC DIAGNOSTIC CONSOLE STREAM</span>
+                </div>
+                <button type="button" class="term-btn" id="btnClearLogs" style="font-size:12px; padding:3px 8px;">
+                  [ PURGE LOGS ]
+                </button>
+              </div>
+
+              <div class="cli-screen" id="consoleScreen" role="log" aria-live="polite">
+                <div class="cli-line"><span class="timestamp">[00:00:01]</span> <span class="log-ai">&gt; BOOT: Antigravity Heuristic Engine AG-3.8 initialized at 0x00100000.</span></div>
+                <div class="cli-line"><span class="timestamp">[00:00:02]</span> <span class="log-success">&gt; DIAG: All 4 cognitive subsystems online. Nominal phosphor resonance.</span></div>
+                <div class="cli-line"><span class="timestamp">[00:00:03]</span> <span class="log-ai">&gt; WATCHDOG: Autonomous self-healing routines active. Monitoring entropy vector.</span> <span class="cli-cursor"></span></div>
+              </div>
+
+              <div class="cli-bottom-actions">
+                <button type="button" class="breaker-slam-btn" id="btnEmergencySlam">
+                  <svg class="icon" style="width:24px; height:24px;" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  [ EMERGENCY CIRCUIT BREAKER &bull; DEFIBRILLATE MAINFRAME ]
+                </button>
+                <div class="breaker-tip">[ SPACEBAR HOTKEY &bull; INJECTS +40% EMERGENCY CORE STABILITY ]</div>
+              </div>
+            </section>
+
+          </main>
+
+          <!-- Right Column: Sidebar & Hardware Controls -->
+          <aside class="terminal-sidebar">
+
+            <!-- Entropy Engine Controller -->
+            <div class="sidebar-panel-box">
+              <div class="sidebar-panel-title glow-text">
+                <span>// ENTROPY GENERATOR //</span>
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              </div>
+              <p class="glow-dim" style="font-size:13px; margin-bottom:12px; line-height:1.4;">
+                Simulates real-world software decay. Random quantum bit flips and memory leaks will trigger automatically unless mitigated.
+              </p>
+
+              <div class="panel-row">
+                <span>AUTONOMOUS DRIFT</span>
+                <button type="button" class="term-btn active" id="toggleEntropyGen" role="switch" aria-checked="true">
+                  ENABLED
+                </button>
+              </div>
+
+              <div class="panel-row">
+                <span>CHAOS OVERDRIVE (3X)</span>
+                <button type="button" class="term-btn" id="toggleOverdrive" role="switch" aria-checked="false">
+                  OFFLINE
+                </button>
+              </div>
+
+              <div style="margin-top: 14px;">
+                <button type="button" class="term-btn btn-danger" id="btnCauseAllBreak" style="width:100%;">
+                  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                  [ FORCE FULL MALFUNCTION ]
+                </button>
+              </div>
+            </div>
+
+            <!-- Diagnostics Checklist -->
+            <div class="sidebar-panel-box">
+              <div class="sidebar-panel-title glow-text">
+                <span>// DIAGNOSTIC MATRIX //</span>
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              </div>
+
+              <ul class="diag-list">
+                <li class="diag-item diag-pass" id="diag0">
+                  <span>SUB-01 MEM BUFFER</span>
+                  <span class="status-lbl">[OK]</span>
+                </li>
+                <li class="diag-item diag-pass" id="diag1">
+                  <span>SUB-02 REASONING</span>
+                  <span class="status-lbl">[OK]</span>
+                </li>
+                <li class="diag-item diag-pass" id="diag2">
+                  <span>SUB-03 SYNAPSE BUS</span>
+                  <span class="status-lbl">[OK]</span>
+                </li>
+                <li class="diag-item diag-pass" id="diag3">
+                  <span>SUB-04 SPECTRAL WAVE</span>
+                  <span class="status-lbl">[OK]</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Sisyphus Protocol Terminal Manifesto -->
+            <div class="sidebar-panel-box">
+              <div class="sidebar-panel-title glow-text">
+                <span>// SISYPHUS PROTOCOL //</span>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+              <p class="manifesto-box">
+                "The struggle itself toward the heights is enough to fill a human or synthetic heart. One must imagine the autonomous coding agent happy."
+              </p>
+              <div class="glow-dim" style="font-size:12px; margin-top:8px; border-top:1px dashed var(--phosphor-dim); padding-top:6px;">
+                DEC VT-220 FIRMWARE v3.8.4
+              </div>
+            </div>
+
+          </aside>
+
+        </div>
+
+        <!-- Terminal Bottom Link -->
+        <footer class="terminal-footer">
+          <div>
+            <span>TERMINAL ARCHITECTURE: RETRO CRT PHOSPHOR &bull; AG-3.8-PRO</span>
+          </div>
+          <div>
+            <span>SWITCH TO TYPING TUTOR: <a href="../index.html" class="footer-link">[ PK KHMER TYPE ]</a></span>
+          </div>
+        </footer>
+
       </div>
-      <div>
-        <span>RETURN TO TUTOR: <a href="index.html" class="badge-link">PK KHMER TYPE</a></span>
+    </div>
+
+    <!-- Catastrophic Core Meltdown Overlay -->
+    <div class="crt-meltdown-overlay" id="meltdownModal" role="dialog" aria-modal="true" aria-labelledby="meltdownHeading">
+      <div class="meltdown-box">
+        <h2 class="meltdown-title" id="meltdownHeading">*** CATASTROPHIC CORE MELTDOWN ***</h2>
+        <p class="meltdown-desc">
+          SYSTEM STABILITY COLLAPSED TO 00%. ALL 4 COGNITIVE VECTORS EXPERIENCING UNCONTROLLED THERMAL DISSIPATION.<br>
+          RELOAD SNAPSHOT FROM COLD FERRO-MAGNETIC TAPE?
+        </p>
+        <button type="button" class="term-btn btn-danger" id="btnReviveEngine" style="font-size:18px; padding:12px 24px;">
+          <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          [ COLD BOOT AG-3.8 MAINFRAME ]
+        </button>
       </div>
-    </footer>
+    </div>
 
   </div>
 
   <!-- ==========================================================================
-       PURE JAVASCRIPT: THE ENTROPY ENGINE & PROCEDURAL WEB AUDIO
-       ========================================================================== -->
+       PROCEDURAL RETRO CRT SOUND ENGINE & STATE MACHINE
+       ========================================================================== */
+  -->
   <script>
     (function(){
       'use strict';
 
-      /* ---------- Procedural Web Audio Engine ---------- */
+      /* ---------- Procedural Retro Web Audio Engine ---------- */
       let audioCtx = null;
       let soundEnabled = false;
 
@@ -1436,7 +1550,7 @@
         return audioCtx;
       }
 
-      function playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.12) {
+      function playTone(freq, type = 'sine', duration = 0.12, gainVal = 0.1) {
         if (!soundEnabled) return;
         const ctx = getAudioContext();
         if (!ctx) return;
@@ -1454,43 +1568,49 @@
         } catch(e) {}
       }
 
+      // Mechanical terminal relay click
       function sfxClick() {
-        playTone(420, 'square', 0.04, 0.08);
+        if (!soundEnabled) return;
+        playTone(750, 'square', 0.02, 0.06);
+        setTimeout(() => playTone(300, 'triangle', 0.03, 0.04), 15);
       }
 
+      // 8-bit alarm buzz
       function sfxAlarm() {
         if (!soundEnabled) return;
-        playTone(180, 'sawtooth', 0.25, 0.2);
-        setTimeout(() => playTone(140, 'sawtooth', 0.25, 0.2), 100);
+        playTone(196, 'sawtooth', 0.2, 0.18);
+        setTimeout(() => playTone(147, 'sawtooth', 0.22, 0.18), 110);
       }
 
+      // 8-bit ascending synthesis arpeggio
       function sfxRepair() {
         if (!soundEnabled) return;
-        playTone(523.25, 'triangle', 0.12, 0.15); // C5
-        setTimeout(() => playTone(659.25, 'triangle', 0.14, 0.15), 80); // E5
-        setTimeout(() => playTone(783.99, 'triangle', 0.2, 0.18), 160); // G5
-        setTimeout(() => playTone(1046.50, 'triangle', 0.3, 0.2), 240); // C6
+        playTone(440, 'triangle', 0.09, 0.14);
+        setTimeout(() => playTone(554.37, 'triangle', 0.1, 0.14), 70);
+        setTimeout(() => playTone(659.25, 'triangle', 0.12, 0.16), 140);
+        setTimeout(() => playTone(880, 'triangle', 0.22, 0.18), 210);
       }
 
+      // Steam hiss
       function sfxHiss() {
         if (!soundEnabled) return;
         const ctx = getAudioContext();
         if (!ctx) return;
         try {
-          const bufferSize = ctx.sampleRate * 0.2;
+          const bufferSize = ctx.sampleRate * 0.25;
           const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
           const data = buffer.getChannelData(0);
           for (let i = 0; i < bufferSize; i++) {
-            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.4));
+            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.35));
           }
           const noise = ctx.createBufferSource();
           noise.buffer = buffer;
           const filter = ctx.createBiquadFilter();
-          filter.type = 'lowpass';
-          filter.frequency.setValueAtTime(800, ctx.currentTime);
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(1200, ctx.currentTime);
           const gain = ctx.createGain();
           gain.gain.setValueAtTime(0.18, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
           noise.connect(filter);
           filter.connect(gain);
           gain.connect(ctx.destination);
@@ -1498,10 +1618,32 @@
         } catch(e) {}
       }
 
+      // CRT Degauss electromagnetic hum
+      function sfxDegauss() {
+        if (!soundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        try {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(140, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(32, ctx.currentTime + 0.7);
+          gain.gain.setValueAtTime(0.35, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.75);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.75);
+        } catch(e) {}
+      }
+
+      // Emergency slam reboot
       function sfxSlam() {
         if (!soundEnabled) return;
-        playTone(80, 'square', 0.35, 0.3);
-        setTimeout(() => sfxRepair(), 120);
+        playTone(90, 'square', 0.4, 0.3);
+        sfxDegauss();
+        setTimeout(() => sfxRepair(), 200);
       }
 
       /* ---------- State Model ---------- */
@@ -1513,29 +1655,35 @@
         autoHeal: true,
         entropyActive: true,
         overdrive: false,
+        themeIdx: 0,
+        themes: ['amber', 'green', 'cyan', 'white'],
         selectedPort: null,
         modules: [
-          { id: 0, name: 'CONTEXT BUFFER', broken: false, desc: 'Queue stable' },
-          { id: 1, name: 'REASONING COILS', broken: false, coils: [true, false, true] },
-          { id: 2, name: 'SYNAPSE BAY', broken: false, connections: [true, true, true] },
-          { id: 3, name: 'SPECTRAL HARMONICS', broken: false, freq: 50 }
+          { id: 0, name: 'BUFFER STACK', broken: false },
+          { id: 1, name: 'DIP REASONING', broken: false, coils: [true, false, true] },
+          { id: 2, name: 'MATRIX ROUTER', broken: false, connections: [true, true, true] },
+          { id: 3, name: 'SPECTRAL WAVE', broken: false, freq: 50 }
         ]
       };
 
       /* ---------- DOM Elements ---------- */
       const elIntegrity = document.getElementById('metricIntegrity');
-      const elMeterFill = document.getElementById('meterFill');
+      const elAsciiMeter = document.getElementById('asciiMeter');
       const elSurvived = document.getElementById('metricSurvived');
       const elPatches = document.getElementById('metricPatches');
       const elDrift = document.getElementById('metricDrift');
       const elConsole = document.getElementById('consoleScreen');
       const elMeltdownModal = document.getElementById('meltdownModal');
+      const screenContent = document.getElementById('screenContent');
 
       const btnAudioToggle = document.getElementById('btnAudioToggle');
       const audioLabel = document.getElementById('audioLabel');
       const audioIcon = document.getElementById('audioIcon');
       const btnAutoHeal = document.getElementById('btnAutoHeal');
       const autoHealLabel = document.getElementById('autoHealLabel');
+      const btnThemeToggle = document.getElementById('btnThemeToggle');
+      const themeLabel = document.getElementById('themeLabel');
+      const btnDegauss = document.getElementById('btnDegauss');
       const btnTriggerEntropy = document.getElementById('btnTriggerEntropy');
       const btnEmergencySlam = document.getElementById('btnEmergencySlam');
       const btnClearLogs = document.getElementById('btnClearLogs');
@@ -1547,8 +1695,7 @@
       /* Module 1 DOM */
       const cardMod1 = document.getElementById('cardMod1');
       const badgeMod1 = document.getElementById('badgeMod1');
-      const bufferFluid = document.getElementById('bufferFluid');
-      const bufferReadout = document.getElementById('bufferReadout');
+      const memCells = document.querySelectorAll('#memGrid .mem-cell');
       const bufferStatusText = document.getElementById('bufferStatusText');
       const btnFlushBuffer = document.getElementById('btnFlushBuffer');
 
@@ -1600,8 +1747,8 @@
         const d = new Date();
         const timeStr = '[' + d.toTimeString().split(' ')[0] + ']';
         const entry = document.createElement('div');
-        entry.className = 'log-entry' + (type === 'danger' ? ' log-danger' : type === 'success' ? ' log-success' : type === 'ai' ? ' log-ai' : '');
-        entry.innerHTML = `<span class="time">${timeStr}</span> &gt; ${escapeHtml(text)}`;
+        entry.className = 'cli-line' + (type === 'danger' ? ' log-danger' : type === 'success' ? ' log-success' : type === 'ai' ? ' log-ai' : '');
+        entry.innerHTML = `<span class="timestamp">${timeStr}</span> &gt; ${escapeHtml(text)}`;
         elConsole.appendChild(entry);
         elConsole.scrollTop = elConsole.scrollHeight;
       }
@@ -1615,21 +1762,27 @@
 
       /* ---------- UI Sync & Metrics ---------- */
       function updateMetrics() {
-        elIntegrity.innerHTML = `${Math.round(state.integrity)}<span class="subtext">%</span>`;
-        elMeterFill.style.width = `${Math.max(0, Math.min(100, state.integrity))}%`;
+        const intVal = Math.round(state.integrity);
+        elIntegrity.innerHTML = `${intVal}<span class="unit">%</span>`;
 
-        elMeterFill.classList.remove('warning', 'danger');
-        if (state.integrity < 35) {
-          elMeterFill.classList.add('danger');
-        } else if (state.integrity < 65) {
-          elMeterFill.classList.add('warning');
+        // Render ASCII progress meter: [██████████████████░░]
+        const totalBlocks = 20;
+        const filled = Math.max(0, Math.min(totalBlocks, Math.round((state.integrity / 100) * totalBlocks)));
+        const empty = totalBlocks - filled;
+        elAsciiMeter.textContent = `[${'█'.repeat(filled)}${'░'.repeat(empty)}]`;
+
+        if (intVal < 35) {
+          elIntegrity.classList.add('glow-danger');
+          elIntegrity.classList.remove('glow-text');
+        } else {
+          elIntegrity.classList.remove('glow-danger');
+          elIntegrity.classList.add('glow-text');
         }
 
-        elSurvived.innerHTML = `${state.survived}<span class="subtext">incidents</span>`;
-        elPatches.innerHTML = `${state.patches}<span class="subtext">deploys</span>`;
-        elDrift.innerHTML = `${state.driftRate.toFixed(1)}<span class="subtext">x rate</span>`;
+        elSurvived.innerHTML = `${state.survived}<span class="unit">EVENTS</span>`;
+        elPatches.innerHTML = `${state.patches}<span class="unit">BUILDS</span>`;
+        elDrift.innerHTML = `${state.driftRate.toFixed(1)}<span class="unit">X DRIFT</span>`;
 
-        // Check if meltdown occurred
         if (state.integrity <= 0 && !elMeltdownModal.classList.contains('active')) {
           triggerMeltdown();
         }
@@ -1645,56 +1798,53 @@
 
         if (mod.broken) {
           card.classList.add('state-broken');
-          badge.className = 'module-badge status-broken';
-          badge.textContent = 'FAULT [ERR]';
+          badge.className = 'subsystem-tag status-broken';
+          badge.textContent = '[FAULT]';
           diag.className = 'diag-item diag-fail';
-          diag.querySelector('.status-lbl').textContent = 'BROKEN';
+          diag.querySelector('.status-lbl').textContent = '[FAIL]';
         } else {
           card.classList.remove('state-broken');
-          badge.className = 'module-badge status-ok';
-          badge.textContent = 'STABLE [OK]';
+          badge.className = 'subsystem-tag status-ok';
+          badge.textContent = '[NOMINAL]';
           diag.className = 'diag-item diag-pass';
-          diag.querySelector('.status-lbl').textContent = 'OPTIMAL';
+          diag.querySelector('.status-lbl').textContent = '[OK]';
         }
       }
 
-      /* ---------- Breakdown Generators ---------- */
+      /* ---------- Subsystem Breakdown Generator ---------- */
       function breakModule(idx) {
         const mod = state.modules[idx];
-        if (mod.broken) return; // already broken
+        if (mod.broken) return;
         mod.broken = true;
         sfxAlarm();
-        document.body.classList.add('screen-glitch');
-        setTimeout(() => document.body.classList.remove('screen-glitch'), 300);
 
         if (idx === 0) {
-          bufferFluid.style.width = '96%';
-          bufferFluid.classList.add('overflowing');
-          bufferReadout.textContent = '126,940 / 128,000 [CRITICAL LEAK]';
-          bufferStatusText.textContent = 'RELIEF VALVE TRIPPED';
-          logMsg('CRITICAL: Sector 01 Context window buffer blowing out! Memory leak in recursive reflection loop.', 'danger');
+          memCells.forEach(cell => cell.classList.add('overflow'));
+          bufferStatusText.textContent = 'STACK OVERFLOW!';
+          logMsg('TRAP: Subsystem 01 Buffer Overflow in recursive reflection stack. Memory leaking.', 'danger');
         } else if (idx === 1) {
           mod.coils = [false, true, false];
-          coilEls.forEach((btn, i) => {
-            btn.classList.toggle('engaged', mod.coils[i]);
+          coilEls.forEach((el, i) => {
+            el.classList.toggle('active', mod.coils[i]);
+            el.setAttribute('aria-checked', mod.coils[i]);
           });
-          coilsLockState.textContent = 'POLARITY MISMATCH: REASONING DRIFTING';
-          logMsg('CRITICAL: Sector 02 Inference hallucination drift! AI attempting to import nonexistent library "cosmic_oracle".', 'danger');
+          coilsLockState.textContent = 'LOCK: [DESYNC DRIFT]';
+          logMsg('FAULT: Subsystem 02 DIP Reasoning desynchronization. Hallucination drift detected.', 'danger');
         } else if (idx === 2) {
           mod.connections = [true, false, false];
-          portIns[1].className = 'wire-port broken';
-          portIns[2].className = 'wire-port broken';
-          portOuts[1].className = 'wire-port broken';
-          portOuts[2].className = 'wire-port broken';
-          wireHelpText.textContent = 'DISCONNECTED: NODES 2 & 3 SEVERED';
-          logMsg('CRITICAL: Sector 03 Synaptic cross-talk! AST parser cut off from V8 runtime.', 'danger');
+          portIns[1].className = 'jack-node broken';
+          portIns[2].className = 'jack-node broken';
+          portOuts[1].className = 'jack-node broken';
+          portOuts[2].className = 'jack-node broken';
+          wireHelpText.textContent = 'LINE CUT: 2 & 3 SEVERED';
+          logMsg('CIRCUIT: Subsystem 03 Matrix jumper lines severed. AST parser disconnected from V8.', 'danger');
         } else if (idx === 3) {
           mod.freq = 84;
           freqSlider.value = 84;
           freqDisplay.textContent = '84 Hz';
           wavePath.classList.add('distorted');
           wavePath.setAttribute('d', 'M0 30 Q35 0 75 55 T150 10 T225 50 T300 20');
-          logMsg('CRITICAL: Sector 04 Attention matrix oscillating at 84Hz! Phase harmonic de-locked.', 'danger');
+          logMsg('RESONANCE: Subsystem 04 Self-attention oscillating at 84Hz. Phase harmonic de-locked.', 'danger');
         }
 
         updateModuleCardStatus(idx);
@@ -1702,7 +1852,7 @@
         updateMetrics();
       }
 
-      /* ---------- Repair Handlers ---------- */
+      /* ---------- Subsystem Repair Handlers ---------- */
       function fixModule(idx, isAuto = false) {
         const mod = state.modules[idx];
         if (!mod.broken) return;
@@ -1713,27 +1863,29 @@
 
         if (idx === 0) {
           sfxHiss();
-          bufferFluid.style.width = '24%';
-          bufferFluid.classList.remove('overflowing');
-          bufferReadout.textContent = '30,720 / 128,000 TOKENS';
+          memCells.forEach((cell, i) => {
+            cell.classList.remove('overflow');
+            cell.classList.toggle('active', i < 4);
+          });
           bufferStatusText.textContent = 'VALVE SECURED';
-          logMsg(isAuto ? 'AUTO-HEAL: Antigravity vacuumed context window tokens. Leaks purged.' : 'USER-ACTION: Context buffer evacuated via manual flush.', 'success');
+          logMsg(isAuto ? 'AUTO-HEAL: Flushed dirty memory registers. Core memory evacuated.' : 'OPERATOR: Manual memory stack dump executed.', 'success');
         } else if (idx === 1) {
           sfxClick();
           mod.coils = [true, false, true];
-          coilEls.forEach((btn, i) => {
-            btn.classList.toggle('engaged', mod.coils[i]);
+          coilEls.forEach((el, i) => {
+            el.classList.toggle('active', mod.coils[i]);
+            el.setAttribute('aria-checked', mod.coils[i]);
           });
-          coilsLockState.textContent = 'TARGET: [ON - OFF - ON] (LOCKED)';
-          logMsg(isAuto ? 'AUTO-HEAL: Reasoning coils re-grounded. Hallucination drift collapsed to 0.' : 'USER-ACTION: Logic gates re-grounded to resonant baseline.', 'success');
+          coilsLockState.textContent = 'LOCK: [1:UP 2:DN 3:UP] (OK)';
+          logMsg(isAuto ? 'AUTO-HEAL: DIP Reasoning switches calibrated. Logic polarity locked.' : 'OPERATOR: Logic gates re-grounded to resonant baseline.', 'success');
         } else if (idx === 2) {
           sfxRepair();
           mod.connections = [true, true, true];
-          portIns.forEach(p => p.className = 'wire-port connected');
-          portOuts.forEach(p => p.className = 'wire-port connected');
-          wireHelpText.textContent = 'BUS INTEGRITY: ALL TERMINALS WIRED';
+          portIns.forEach(p => p.className = 'jack-node connected');
+          portOuts.forEach(p => p.className = 'jack-node connected');
+          wireHelpText.textContent = 'BUS INTEGRITY: NOMINAL';
           state.selectedPort = null;
-          logMsg(isAuto ? 'AUTO-HEAL: Re-soldered synaptic cables. AST to V8 connection restored.' : 'USER-ACTION: Neural bus reconnect verified.', 'success');
+          logMsg(isAuto ? 'AUTO-HEAL: Synaptic bus jumpers re-soldered. AST to V8 bridge operational.' : 'OPERATOR: Neural matrix jumper connection verified.', 'success');
         } else if (idx === 3) {
           sfxRepair();
           mod.freq = 50;
@@ -1741,18 +1893,18 @@
           freqDisplay.textContent = '50 Hz';
           wavePath.classList.remove('distorted');
           wavePath.setAttribute('d', 'M0 30 Q75 5 150 30 T300 30');
-          logMsg(isAuto ? 'AUTO-HEAL: Attention phase locked onto 50Hz fundamental harmonic.' : 'USER-ACTION: Spectral harmonic centered and phase-locked.', 'success');
+          logMsg(isAuto ? 'AUTO-HEAL: Fundamental attention harmonic locked at 50Hz fundamental.' : 'OPERATOR: Oscilloscope tuned to resonant 50Hz harmonic.', 'success');
         }
 
         updateModuleCardStatus(idx);
         updateMetrics();
       }
 
-      /* ---------- Catastrophic Meltdown & Reboot ---------- */
+      /* ---------- Meltdown & Reboot System ---------- */
       function triggerMeltdown() {
         sfxAlarm();
         elMeltdownModal.classList.add('active');
-        logMsg('EMERGENCY: SYSTEM MELTDOWN! CORE REACHED 0% STABILITY. REBOOT REQUIRED.', 'danger');
+        logMsg('EMERGENCY: TOTAL THERMAL COLLAPSE. SYSTEM STABILITY AT 00%. COLD REBOOT REQUIRED.', 'danger');
       }
 
       function rebootCore() {
@@ -1763,7 +1915,7 @@
           if (mod.broken) fixModule(idx, true);
         });
         state.patches++;
-        logMsg('REIGNITION: Quantum core rebooted from cold checkpoint. Stability restored to 94%.', 'success');
+        logMsg('COLD BOOT: Reconstructed mainframe memory from cold magnetic tape. Stability 94%.', 'success');
         updateMetrics();
       }
 
@@ -1777,27 +1929,25 @@
             fixedAny = true;
           }
         });
-        logMsg(fixedAny ? 'DEFIBRILLATOR SLAM: Hotpatch applied! Multiple submodules stabilized.' : 'DEFIBRILLATOR SLAM: Preventative charge injected. +42% energy reserve.', 'success');
+        logMsg(fixedAny ? 'CIRCUIT BREAKER: Manual defibrillation applied! Faults neutralized.' : 'CIRCUIT BREAKER: Preventative charge injected. +42% reserve stability.', 'success');
         updateMetrics();
       }
 
-      /* ---------- Event Listeners ---------- */
+      /* ---------- Event Handlers & Control Binding ---------- */
 
-      // Audio Master Switch
+      // Audio Toggle Switch
       btnAudioToggle.addEventListener('click', () => {
         getAudioContext();
         soundEnabled = !soundEnabled;
         btnAudioToggle.setAttribute('aria-pressed', soundEnabled);
         if (soundEnabled) {
-          btnAudioToggle.classList.add('btn-green');
-          btnAudioToggle.classList.remove('btn-yellow');
-          audioLabel.textContent = 'AUDIO: LIVE';
+          btnAudioToggle.classList.add('active');
+          audioLabel.textContent = 'AUDIO [LIVE]';
           audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>';
           sfxRepair();
         } else {
-          btnAudioToggle.classList.add('btn-yellow');
-          btnAudioToggle.classList.remove('btn-green');
-          audioLabel.textContent = 'AUDIO: MUTED';
+          btnAudioToggle.classList.remove('active');
+          audioLabel.textContent = 'AUDIO [OFF]';
           audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
         }
       });
@@ -1808,19 +1958,36 @@
         state.autoHeal = !state.autoHeal;
         btnAutoHeal.setAttribute('aria-pressed', state.autoHeal);
         if (state.autoHeal) {
-          btnAutoHeal.classList.add('active', 'btn-green');
-          btnAutoHeal.classList.remove('btn-yellow');
-          autoHealLabel.textContent = 'SELF-HEAL: ON';
-          logMsg('DAEMON: Antigravity Autonomous Self-Healing activated.', 'ai');
+          btnAutoHeal.classList.add('active');
+          autoHealLabel.textContent = 'SELF-HEAL [AUTO]';
+          logMsg('DAEMON: Autonomous self-healing daemon engaged.', 'ai');
         } else {
-          btnAutoHeal.classList.remove('active', 'btn-green');
-          btnAutoHeal.classList.add('btn-yellow');
-          autoHealLabel.textContent = 'SELF-HEAL: OFF';
-          logMsg('DAEMON: Self-healing disabled. Manual human engineer override active.', 'danger');
+          btnAutoHeal.classList.remove('active');
+          autoHealLabel.textContent = 'SELF-HEAL [OFF]';
+          logMsg('DAEMON: Self-healing suspended. Manual operator intervention required.', 'danger');
         }
       });
 
-      // Inject Chaos Button
+      // Cycle Phosphor Themes
+      btnThemeToggle.addEventListener('click', () => {
+        sfxClick();
+        state.themeIdx = (state.themeIdx + 1) % state.themes.length;
+        const newTheme = state.themes[state.themeIdx];
+        document.body.className = newTheme === 'amber' ? '' : 'theme-' + newTheme;
+        themeLabel.textContent = 'PHOSPHOR: ' + newTheme.toUpperCase();
+        logMsg(`DISPLAY: Phosphor tube calibrated to ${newTheme.toUpperCase()} mode.`, 'info');
+      });
+
+      // Degauss CRT Screen
+      btnDegauss.addEventListener('click', () => {
+        sfxDegauss();
+        screenContent.classList.remove('degauss-wobble');
+        void screenContent.offsetWidth; // force reflow
+        screenContent.classList.add('degauss-wobble');
+        logMsg('DEGAUSS: Electromagnetic degauss coil discharged. Magnetic distortions cleared.', 'info');
+      });
+
+      // Fault Inject Button
       btnTriggerEntropy.addEventListener('click', () => {
         sfxClick();
         const unbroken = state.modules.map((m, idx) => (!m.broken ? idx : -1)).filter(i => i !== -1);
@@ -1828,14 +1995,14 @@
           const target = unbroken[Math.floor(Math.random() * unbroken.length)];
           breakModule(target);
         } else {
-          logMsg('CHAOS: All modules already critically compromised!', 'danger');
+          logMsg('CHAOS: All subsystems currently reporting critical failure!', 'danger');
         }
       });
 
-      // Emergency Slam Button
+      // Emergency Breaker Button
       btnEmergencySlam.addEventListener('click', () => emergencySlam());
 
-      // Spacebar hotkey for Emergency Slam
+      // Spacebar hotkey
       window.addEventListener('keydown', (e) => {
         if (e.code === 'Space' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
           e.preventDefault();
@@ -1843,27 +2010,31 @@
         }
       });
 
-      // Clear Logs
+      // Clear CLI Terminal
       btnClearLogs.addEventListener('click', () => {
         sfxClick();
-        elConsole.innerHTML = '<div class="log-entry"><span class="time">[LOGS PURGED]</span> &gt; Console sanitized by user.</div>';
+        elConsole.innerHTML = '<div class="cli-line"><span class="timestamp">[RESET]</span> &gt; Terminal log memory purged by operator. <span class="cli-cursor"></span></div>';
       });
 
-      // Sidebar Toggles
+      // Sidebar Controls
       toggleEntropyGen.addEventListener('click', () => {
         sfxClick();
         state.entropyActive = !state.entropyActive;
         toggleEntropyGen.setAttribute('aria-checked', state.entropyActive);
-        logMsg(`ENTROPY: Autonomous breakdown generator ${state.entropyActive ? 'ENABLED' : 'HALTED'}.`, 'info');
+        toggleEntropyGen.textContent = state.entropyActive ? 'ENABLED' : 'HALTED';
+        toggleEntropyGen.classList.toggle('active', state.entropyActive);
+        logMsg(`ENTROPY: Autonomous decay generator ${state.entropyActive ? 'ENABLED' : 'PAUSED'}.`, 'info');
       });
 
       toggleOverdrive.addEventListener('click', () => {
         sfxClick();
         state.overdrive = !state.overdrive;
         toggleOverdrive.setAttribute('aria-checked', state.overdrive);
+        toggleOverdrive.textContent = state.overdrive ? 'ACTIVE (3X)' : 'OFFLINE';
+        toggleOverdrive.classList.toggle('active', state.overdrive);
         state.driftRate = state.overdrive ? 3.0 : 1.0;
         updateMetrics();
-        logMsg(`CHAOS OVERDRIVE: Entropy rate set to ${state.driftRate.toFixed(1)}x.`, state.overdrive ? 'danger' : 'info');
+        logMsg(`OVERDRIVE: Thermodynamic velocity set to ${state.driftRate.toFixed(1)}x.`, state.overdrive ? 'danger' : 'info');
       });
 
       btnCauseAllBreak.addEventListener('click', () => {
@@ -1876,24 +2047,31 @@
       // Module 1: Flush Buffer
       btnFlushBuffer.addEventListener('click', () => fixModule(0, false));
 
-      // Module 2: Ground Coils
+      // Module 2: Ground Coils / DIP Switches
       btnPolarizeCoils.addEventListener('click', () => fixModule(1, false));
 
-      coilEls.forEach(btn => {
-        btn.addEventListener('click', () => {
+      coilEls.forEach(el => {
+        const toggleCoil = () => {
           sfxClick();
-          const idx = parseInt(btn.dataset.idx, 10);
+          const idx = parseInt(el.dataset.idx, 10);
           state.modules[1].coils[idx] = !state.modules[1].coils[idx];
-          btn.classList.toggle('engaged', state.modules[1].coils[idx]);
-          // Check if matches [true, false, true]
+          el.classList.toggle('active', state.modules[1].coils[idx]);
+          el.setAttribute('aria-checked', state.modules[1].coils[idx]);
           const c = state.modules[1].coils;
           if (c[0] === true && c[1] === false && c[2] === true) {
             fixModule(1, false);
           }
+        };
+        el.addEventListener('click', toggleCoil);
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleCoil();
+          }
         });
       });
 
-      // Module 3: Sockets / Rewire
+      // Module 3: Sockets / Matrix Patch
       btnAutoRewire.addEventListener('click', () => fixModule(2, false));
 
       portIns.forEach(port => {
@@ -1902,7 +2080,7 @@
           portIns.forEach(p => p.classList.remove('selected'));
           port.classList.add('selected');
           state.selectedPort = port.dataset.node;
-          wireHelpText.textContent = `SELECTED SOURCE [${parseInt(state.selectedPort, 10) + 1}]. CLICK TARGET TERM.`;
+          wireHelpText.textContent = `SRC [${parseInt(state.selectedPort, 10) + 1}] LOADED. CLICK TARGET.`;
         });
       });
 
@@ -1912,16 +2090,15 @@
           sfxClick();
           const target = port.dataset.target;
           if (state.selectedPort === target) {
-            port.className = 'wire-port connected';
-            portIns[parseInt(state.selectedPort, 10)].className = 'wire-port connected';
-            wireHelpText.textContent = `TERMINAL [${parseInt(target, 10) + 1}] SECURED.`;
+            port.className = 'jack-node connected';
+            portIns[parseInt(state.selectedPort, 10)].className = 'jack-node connected';
+            wireHelpText.textContent = `LINE [${parseInt(target, 10) + 1}] SECURED.`;
             state.selectedPort = null;
-            // Check if all connected
             const allOk = portOuts.every(p => p.classList.contains('connected'));
             if (allOk) fixModule(2, false);
           } else {
             sfxAlarm();
-            wireHelpText.textContent = 'MISMATCH: NODE MISALIGNED!';
+            wireHelpText.textContent = 'MISMATCH: LINE GROUNDED';
           }
         });
       });
@@ -1931,7 +2108,6 @@
         const val = parseInt(e.target.value, 10);
         freqDisplay.textContent = `${val} Hz`;
         if (state.modules[3].broken) {
-          // Keep wave jagged but shift frequency
           const amp = Math.abs(val - 50) + 10;
           wavePath.setAttribute('d', `M0 30 Q35 ${30 - amp} 75 ${30 + amp} T150 15 T225 45 T300 30`);
         }
@@ -1943,11 +2119,11 @@
           fixModule(3, false);
         } else {
           sfxAlarm();
-          logMsg(`TUNING FAILED: ${val}Hz is outside resonant window (48Hz-54Hz).`, 'danger');
+          logMsg(`RESONANCE ERROR: ${val}Hz is outside fundamental window (48-54Hz).`, 'danger');
         }
       });
 
-      /* ---------- The Perpetual Entropy & Auto-Heal Loop ---------- */
+      /* ---------- Mainframe Loop ---------- */
       let lastEntropyTick = Date.now();
       let lastAutoHealTick = Date.now();
 
@@ -1956,17 +2132,14 @@
         const entropyInterval = state.overdrive ? 2200 : 5500;
         const autoHealInterval = state.overdrive ? 1800 : 3800;
 
-        // Entropy decay
         if (state.entropyActive && now - lastEntropyTick > entropyInterval) {
           lastEntropyTick = now;
-          // Slowly drain integrity if modules are broken
           const brokenCount = state.modules.filter(m => m.broken).length;
           if (brokenCount > 0) {
             state.integrity = Math.max(0, state.integrity - (brokenCount * (state.overdrive ? 6 : 3)));
             updateMetrics();
           }
 
-          // Randomly break a healthy module
           if (Math.random() < (state.overdrive ? 0.85 : 0.55)) {
             const healthy = state.modules.map((m, idx) => (!m.broken ? idx : -1)).filter(i => i !== -1);
             if (healthy.length > 0) {
@@ -1976,7 +2149,6 @@
           }
         }
 
-        // Auto-heal agent
         if (state.autoHeal && now - lastAutoHealTick > autoHealInterval) {
           lastAutoHealTick = now;
           const broken = state.modules.map((m, idx) => (m.broken ? idx : -1)).filter(i => i !== -1);
@@ -1989,7 +2161,6 @@
         requestAnimationFrame(gameLoop);
       }
 
-      // Initialize
       updateMetrics();
       requestAnimationFrame(gameLoop);
 
