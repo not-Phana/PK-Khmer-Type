@@ -81,9 +81,17 @@ jobs:
           cp icon-*.png _site/
           cp -r css js data Documents docs assets launch _site/
 
+          [ -d concepts ] && cp -r concepts _site/
+          [ -d downloads ] && cp -r downloads _site/
+          [ -d profile ] && cp -r profile _site/
+
           # Copy optional documentation if present
           [ -f README.md ] && cp README.md _site/
-          [ -f docs/khmer_writing_system_reference.md ] && cp docs/khmer_writing_system_reference.md _site/ || [ -f khmer_writing_system_reference.md ] && cp khmer_writing_system_reference.md _site/
+          if [ -f docs/khmer_writing_system_reference.md ]; then
+            cp docs/khmer_writing_system_reference.md _site/
+          elif [ -f khmer_writing_system_reference.md ]; then
+            cp khmer_writing_system_reference.md _site/
+          fi
 
           echo "Staged site contents:"
           ls -la _site/

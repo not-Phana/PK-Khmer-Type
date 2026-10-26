@@ -5600,8 +5600,25 @@
           toggleModal();
         } else if (e.key === 'Escape') {
           toggleModal(false);
+        } else {
+          // Ingest physical key into cockpit telemetry
+          handleKeyStroke(e.code);
         }
       });
+
+      /* ---------- ANSI Key Code to Heatmap Index Mapping ---------- */
+      const codeToHeatCell = {
+        'Digit1': 0, 'Digit2': 1, 'Digit3': 2, 'Digit4': 3, 'Digit5': 4,
+        'Digit6': 5, 'Digit7': 6, 'Digit8': 7, 'Digit9': 8, 'Digit0': 9,
+        'Minus': 10, 'Equal': 11,
+        'KeyQ': 12, 'KeyW': 13, 'KeyE': 14, 'KeyR': 15, 'KeyT': 16,
+        'KeyY': 17, 'KeyU': 18, 'KeyI': 19, 'KeyO': 20, 'KeyP': 21,
+        'BracketLeft': 22,
+        'KeyA': 23, 'KeyS': 24, 'KeyD': 25, 'KeyF': 26, 'KeyG': 27,
+        'KeyH': 28, 'KeyJ': 29, 'KeyK': 30, 'KeyL': 31, 'Semicolon': 32,
+        'KeyZ': 33, 'KeyX': 34, 'KeyC': 35, 'KeyV': 36, 'KeyB': 37,
+        'KeyN': 38, 'KeyM': 39, 'Comma': 40, 'Period': 41
+      };
 
       /* ---------- Live Kinematic Keyboard Engine ---------- */
       const keyCoords = {
@@ -5640,6 +5657,12 @@
         if (keyEl) {
           keyEl.classList.add('active');
           setTimeout(() => keyEl.classList.remove('active'), 110);
+        }
+
+        // Illuminate 1:1 heatmap matrix cell
+        const heatIdx = codeToHeatCell[code];
+        if (heatIdx !== undefined) {
+          incrementHeat(heatIdx);
         }
 
         const metrics = calculateDistance(code);
@@ -5685,6 +5708,12 @@
         if (railBarRight) railBarRight.style.width = rightPct + '%';
         if (railLblLeft) railLblLeft.textContent = leftPct + '%';
         if (railLblRight) railLblRight.textContent = rightPct + '%';
+
+        // Update Top Avionics Deck & Bottom Dock
+        if (deckKeyBadge) deckKeyBadge.textContent = `[${code.replace('Key', '')}]`;
+        if (dockKeyCount) dockKeyCount.textContent = String(state.keystrokes).padStart(5, '0');
+        if (dockSpeed) dockSpeed.textContent = `${cpm} CPM (${wpm} WPM)`;
+        if (dockDist) dockDist.textContent = state.accumDistMm.toFixed(2) + ' mm';
 
         // Fatigue metric formula
         const fatigue = Math.min(1.0, 0.04 + (state.keystrokes * 0.0008) + (wpm * 0.004));
@@ -5958,6 +5987,260 @@
           box.innerHTML = isUnchecked ? '' : '<svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg>';
         });
       });
+
+      /* ---------- Chuon Nath Consonant Series Matrix ---------- */
+      seriesChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          sfxPop();
+          const series = chip.dataset.series;
+          const char = chip.dataset.char;
+          const sound = chip.dataset.sound;
+          const hex = 'U+' + char.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0');
+
+          seriesChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+
+          if (seriesSelectedChar) seriesSelectedChar.textContent = `${char} [${hex}]`;
+          if (seriesInherent) seriesInherent.textContent = `${sound} (${series === '1' ? '1st Series' : '2nd Series'})`;
+          if (seriesVowelShift) {
+            if (series === '1') {
+              seriesVowelShift.textContent = '[aː] High Register';
+              seriesVowelShift.style.color = 'var(--neo-mint)';
+            } else {
+              seriesVowelShift.textContent = '[iə] Low Register';
+              seriesVowelShift.style.color = 'var(--neo-cyan)';
+            }
+          }
+
+          if (probeInput) {
+            probeInput.value = char;
+            inspectKhmerString(char);
+          }
+        });
+      });
+
+      /* ---------- Air-Gap Watchdog & Roster CSV Export ---------- */
+      if (btnPingAirGap) {
+        btnPingAirGap.addEventListener('click', () => {
+          sfxStamp();
+          btnPingAirGap.style.background = 'var(--neo-mint)';
+          btnPingAirGap.style.color = '#000';
+          if (watchdogBytes) watchdogBytes.textContent = '0 BYTES [VERIFIED AIR-GAPPED]';
+          setTimeout(() => {
+            btnPingAirGap.style.background = '';
+            btnPingAirGap.style.color = '';
+          }, 1200);
+        });
+      }
+
+      if (btnDownloadRosterCsv) {
+        btnDownloadRosterCsv.addEventListener('click', () => {
+          sfxStamp();
+          const prov = rosterProvinceSelect ? rosterProvinceSelect.value : 'BAT';
+          const grade = rosterGradeSelect ? rosterGradeSelect.value : 'G7';
+          const csv = "STUDENT_ID,STUDENT_NAME,PROVINCE,GRADE,LESSONS_COMPLETED,ACCURACY_PCT,WPM,HMAC_SHA256\n"
+            + `PK-${prov}-001,Sokha Chan,${prov},${grade},148,99.2,42.5,a7c9f8e11b\n`
+            + `PK-${prov}-002,Sovannary Reach,${prov},${grade},218,98.8,56.1,e42b133d9a\n`
+            + `PK-${prov}-003,Kiri Vuthy,${prov},${grade},86,96.4,31.0,0fa8867cc2\n`
+            + `PK-${prov}-004,Dara Pich,${prov},${grade},190,97.5,48.2,c991e12aa3\n`
+            + `PK-${prov}-005,Vannak Meas,${prov},${grade},182,99.1,51.4,9f82db4110\n`;
+          const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `pk-roster-${prov}-${grade}-${Date.now()}.csv`;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      /* ---------- Synthesizer Modulation Shaper ---------- */
+      if (sliderSynthPitch) {
+        sliderSynthPitch.addEventListener('input', (e) => {
+          const val = parseInt(e.target.value, 10);
+          state.customSynth.pitch = val;
+          if (lblSynthPitch) lblSynthPitch.textContent = `${val} Hz`;
+        });
+      }
+      if (sliderSynthDecay) {
+        sliderSynthDecay.addEventListener('input', (e) => {
+          const val = parseInt(e.target.value, 10);
+          state.customSynth.decay = val;
+          if (lblSynthDecay) lblSynthDecay.textContent = `${val} ms`;
+        });
+      }
+      if (sliderSynthQ) {
+        sliderSynthQ.addEventListener('input', (e) => {
+          const val = parseFloat(e.target.value);
+          state.customSynth.q = val;
+          if (lblSynthQ) lblSynthQ.textContent = `${val.toFixed(1)} Q`;
+        });
+      }
+      if (btnAuditionSynth) {
+        btnAuditionSynth.addEventListener('click', () => {
+          playCustomSynthesizer(state.customSynth.pitch, state.customSynth.decay, state.customSynth.q);
+        });
+      }
+
+      /* ---------- Rhythmic Cadence Metronome ---------- */
+      function tickMetronome() {
+        if (!state.metronomeActive) return;
+        const step = state.metronomeStep;
+        metronomeLeds.forEach((led, idx) => {
+          led.classList.toggle('active', idx === step);
+        });
+
+        if (state.audio) {
+          const ctx = getAudioContext();
+          if (ctx) {
+            const t = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            const isDownbeat = (step === 0);
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(isDownbeat ? 880 : 440, t);
+            const vol = state.masterGain !== undefined ? state.masterGain : 0.8;
+            gain.gain.setValueAtTime((isDownbeat ? 0.15 : 0.08) * vol, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.025);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.03);
+          }
+        }
+        state.metronomeStep = (state.metronomeStep + 1) % 4;
+      }
+
+      function startMetronome() {
+        if (state.metronomeTimer) clearInterval(state.metronomeTimer);
+        state.metronomeActive = true;
+        state.metronomeStep = 0;
+        const bpm = Math.max(30, state.metronomeWpm * 1.5);
+        const intervalMs = (60 / bpm) * 1000;
+        state.metronomeTimer = setInterval(tickMetronome, intervalMs);
+        if (lblMetronomeState) lblMetronomeState.textContent = 'STOP CADENCE';
+        if (btnToggleMetronome) {
+          btnToggleMetronome.style.background = 'var(--neo-coral)';
+          btnToggleMetronome.style.color = '#FFF';
+        }
+        tickMetronome();
+      }
+
+      function stopMetronome() {
+        state.metronomeActive = false;
+        if (state.metronomeTimer) clearInterval(state.metronomeTimer);
+        state.metronomeTimer = null;
+        metronomeLeds.forEach(led => led.classList.remove('active'));
+        if (lblMetronomeState) lblMetronomeState.textContent = 'START CADENCE';
+        if (btnToggleMetronome) {
+          btnToggleMetronome.style.background = '';
+          btnToggleMetronome.style.color = '';
+        }
+      }
+
+      if (btnToggleMetronome) {
+        btnToggleMetronome.addEventListener('click', () => {
+          if (state.metronomeActive) stopMetronome();
+          else startMetronome();
+        });
+      }
+
+      metronomeBpmBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          sfxPop();
+          metronomeBpmBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          state.metronomeWpm = parseInt(btn.dataset.wpm, 10);
+          if (lblMetronomeBpm) lblMetronomeBpm.textContent = `${state.metronomeWpm} WPM`;
+          if (state.metronomeActive) startMetronome();
+        });
+      });
+
+      /* ---------- Sandbox 5: Chuon Nath Syllable Constructor Workbench ---------- */
+      let currentSyllable = 'ស្ដ្រី';
+
+      function renderSyllableStack(str) {
+        if (syllableLargePreview) syllableLargePreview.textContent = str || '-';
+        if (!syllableCodepoints) return;
+        syllableCodepoints.innerHTML = '';
+        if (!str) return;
+
+        const chars = Array.from(str);
+        chars.forEach(ch => {
+          const hex = 'U+' + ch.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0');
+          const pill = document.createElement('span');
+          pill.className = 'codepoint-pill';
+          const code = ch.charCodeAt(0);
+          if (ch === '\u17D2') {
+            pill.style.color = 'var(--neo-yellow)';
+            pill.textContent = `${hex} [COENG]`;
+          } else if (code >= 0x17B6 && code <= 0x17C5) {
+            pill.style.color = 'var(--neo-cyan)';
+            pill.textContent = `${hex} [${ch}]`;
+          } else if (code >= 0x17C6) {
+            pill.style.color = 'var(--neo-coral)';
+            pill.textContent = `${hex} [${ch}]`;
+          } else {
+            pill.textContent = `${hex} [${ch}]`;
+          }
+          syllableCodepoints.appendChild(pill);
+        });
+      }
+
+      clusterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const char = chip.dataset.char;
+          currentSyllable += char;
+          renderSyllableStack(currentSyllable);
+          playMechanicalSwitch(state.activeProfile);
+          if (syllablePhonetic) syllablePhonetic.textContent = `COMPOSED LENGTH: ${currentSyllable.length} CODEPOINTS`;
+        });
+      });
+
+      presetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          sfxPop();
+          currentSyllable = btn.dataset.preset;
+          renderSyllableStack(currentSyllable);
+          if (syllablePhonetic) {
+            syllablePhonetic.textContent = `PHONETIC: ${btn.dataset.ipa} // MEANING: ${btn.dataset.meaning}`;
+          }
+        });
+      });
+
+      if (btnClearSyllable) {
+        btnClearSyllable.addEventListener('click', () => {
+          sfxPop();
+          currentSyllable = '';
+          renderSyllableStack('');
+          if (syllablePhonetic) syllablePhonetic.textContent = 'BENCH CLEARED // SELECT ROOT CONSONANT';
+        });
+      }
+
+      if (btnCopySyllable) {
+        btnCopySyllable.addEventListener('click', () => {
+          sfxStamp();
+          if (navigator.clipboard && currentSyllable) {
+            navigator.clipboard.writeText(currentSyllable);
+          }
+        });
+      }
+
+      /* ---------- Dock Quick Actions ---------- */
+      if (dockBtnMute) {
+        dockBtnMute.addEventListener('click', () => {
+          toggleAudio();
+          if (dockMuteLabel) dockMuteLabel.textContent = state.audio ? 'AUDIO [LIVE]' : 'AUDIO [MUTED]';
+        });
+      }
+
+      if (dockBtnTheme) {
+        dockBtnTheme.addEventListener('click', () => {
+          cycleTheme();
+          const themeName = state.themes[state.themeIdx];
+          if (dockThemeLabel) dockThemeLabel.textContent = 'THEME: ' + themeName.toUpperCase();
+        });
+      }
 
     })();
   </script>
