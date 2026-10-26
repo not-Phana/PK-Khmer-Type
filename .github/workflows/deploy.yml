@@ -36,6 +36,7 @@ jobs:
           for file in js/*.js js/vendor/*.js launch/*.js scripts/*.js tests/*.js; do
             [ -f "$file" ] && node --check "$file"
           done
+          [ -f sw.js ] && node --check sw.js
           echo "All core, vendor, config, test, and launch JS files passed syntax validation."
 
       - name: Validate Curriculum Integrity
@@ -77,6 +78,7 @@ jobs:
           mkdir -p _site
           # Copy core web application pages, welcome portal, and SEO/AI visibility assets into staging directory
           cp *.html manifest.json logo.svg robots.txt sitemap.xml llms.txt .nojekyll _site/
+          [ -f sw.js ] && cp sw.js _site/
           [ -f BingSiteAuth.xml ] && cp BingSiteAuth.xml _site/
           cp icon-*.png _site/
           cp -r css js data Documents docs assets launch _site/

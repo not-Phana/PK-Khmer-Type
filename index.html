@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.supabase.co https://avatars.githubusercontent.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.supabase.co https://avatars.githubusercontent.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://fonts.googleapis.com https://fonts.gstatic.com; worker-src 'self' blob:; media-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self';">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <title>PK Khmer Type — Free Khmer Typing Practice, Khmer Standard &amp; NiDA Keyboard Trainer (ក្តារចុចខ្មែរ)</title>
@@ -498,6 +498,16 @@
     </button>
     <button id="statsOpenBtn" aria-haspopup="dialog" aria-label="Open statistics dashboard"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> <span class="i18n-t" data-en="Statistics" data-km="ស្ថិតិ">Statistics</span></button>
     <button id="settingsOpenBtn" aria-haspopup="dialog" aria-label="Open settings"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1.51-1V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> <span class="i18n-t" data-en="Settings" data-km="ការកំណត់">Settings</span></button>
+    <button id="pkOfflineIndicator" class="top-action-btn pk-offline-pill" aria-haspopup="dialog" aria-label="Connection and Local Storage Status" title="Offline Mode: Progress is saved locally. Click for details." hidden>
+      <span class="pk-offline-dot" aria-hidden="true"></span>
+      <svg class="pk-icon pk-offline-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22.61 16.95A5 5 0 0 0 18 10h-1.26a8 8 0 0 0-7.05-6M5 5a8 8 0 0 0-4 7 5 5 0 0 0 4 5h11"/>
+        <line x1="1" y1="1" x2="23" y2="23"/>
+      </svg>
+      <span class="pk-offline-label">
+        <span class="i18n-t" data-en="Offline Mode (Saved)" data-km="ក្រៅបណ្តាញ (រក្សាទុក)">Offline Mode (Saved)</span>
+      </span>
+    </button>
     <button id="authOpenBtn" class="auth-nav-btn" aria-haspopup="dialog" aria-label="Sign in or create an account" hidden><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span class="i18n-t" data-en="Sign In" data-km="ចូល">Sign In</span></button>
     <button id="authAccountChip" class="auth-account-chip" aria-haspopup="dialog" aria-label="Your account" hidden>
       <span class="auth-chip-avatar" id="authChipAvatar">?</span>
@@ -4467,6 +4477,89 @@
   </div>
 </div>
 
+<!-- ================= Local Storage & Offline Hub Modal ================= -->
+<div class="modal-backdrop pk-offline-backdrop" id="pkOfflineModal" hidden role="dialog" aria-modal="true" aria-labelledby="pkOfflineTitle" aria-describedby="pkOfflineDesc">
+  <div class="modal-card pk-offline-card">
+    <div class="pk-offline-head">
+      <div class="pk-offline-title-row">
+        <div class="pk-offline-icon-badge" aria-hidden="true">
+          <svg class="pk-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+            <line x1="6" y1="6" x2="6.01" y2="6"/>
+            <line x1="6" y1="18" x2="6.01" y2="18"/>
+          </svg>
+        </div>
+        <div>
+          <h3 id="pkOfflineTitle" class="pk-offline-title">
+            <span class="i18n-t" data-en="Local Storage &amp; Offline Hub" data-km="ការរក្សាទុកក្នុងម៉ាស៊ីន និងដំណើរការក្រៅបណ្តាញ">Local Storage &amp; Offline Hub</span>
+          </h3>
+          <span class="pk-offline-badge-live" id="pkOfflineModalStatusBadge">
+            <span class="pk-offline-dot" aria-hidden="true"></span>
+            <span id="pkOfflineModalStatusText">Offline Mode Active</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="modal-close-btn" id="pkOfflineCloseBtn" aria-label="Close offline hub">
+        <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="pk-offline-body">
+      <p id="pkOfflineDesc" class="pk-offline-desc">
+        <span class="i18n-t" data-en="No internet connection? No problem! PK Khmer Type is engineered to be 100% local-first. All typing metrics, lesson unlocks, custom lessons, and high scores are safely preserved in your browser." data-km="គ្មានអ៊ីនធឺណិត? មិនមែនជាបញ្ហាឡើយ! PK Khmer Type ត្រូវបានរចនាឡើងដើម្បីដំណើរការលើម៉ាស៊ីនផ្ទាល់។ រាល់មេរៀន ពិន្ទុ និងការកំណត់ទាំងអស់ត្រូវបានរក្សាទុកយ៉ាងមានសុវត្ថិភាពក្នុងកម្មវិធីរុករករបស់អ្នក។">No internet connection? No problem! PK Khmer Type is engineered to be 100% local-first. All typing metrics, lesson unlocks, custom lessons, and high scores are safely preserved in your browser.</span>
+      </p>
+
+      <div class="pk-offline-metrics-grid">
+        <div class="pk-offline-metric-card">
+          <span class="pk-offline-metric-label i18n-t" data-en="Local Storage" data-km="ទំហំផ្ទុកលើម៉ាស៊ីន">Local Storage</span>
+          <span class="pk-offline-metric-value active" id="pkOfflineStorageState">Active &bull; Safe</span>
+          <span class="pk-offline-metric-sub i18n-t" data-en="IndexedDB &amp; LocalStorage" data-km="IndexedDB និង LocalStorage">IndexedDB &amp; LocalStorage</span>
+        </div>
+        <div class="pk-offline-metric-card">
+          <span class="pk-offline-metric-label i18n-t" data-en="Pending Cloud Queue" data-km="ជួររង់ចាំធ្វើសមកាលកម្ម">Pending Cloud Queue</span>
+          <span class="pk-offline-metric-value" id="pkOfflinePendingQueueCount">0 Items</span>
+          <span class="pk-offline-metric-sub i18n-t" data-en="Auto-syncs upon reconnect" data-km="ធ្វើសមកាលកម្មស្វ័យប្រវត្តពេលភ្ជាប់ឡើងវិញ">Auto-syncs upon reconnect</span>
+        </div>
+        <div class="pk-offline-metric-card">
+          <span class="pk-offline-metric-label i18n-t" data-en="Curriculum Readiness" data-km="មេរៀនរួចរាល់">Curriculum Readiness</span>
+          <span class="pk-offline-metric-value ready">222 / 222</span>
+          <span class="pk-offline-metric-sub i18n-t" data-en="100% Available Offline" data-km="១០០% ដំណើរការក្រៅបណ្តាញ">100% Available Offline</span>
+        </div>
+      </div>
+
+      <div class="pk-offline-callout">
+        <div class="pk-offline-callout-icon" aria-hidden="true">
+          <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+        </div>
+        <div class="pk-offline-callout-text i18n-t" data-en="You can export your progress file anytime to carry it on a USB flash drive or restore it onto another device with zero network needed." data-km="អ្នកអាចទាញយកឯកសារបម្រុងទុក (Backup) គ្រប់ពេលដើម្បីដាក់ក្នុង USB ឬផ្ទេរទៅកុំព្យូទ័រផ្សេងដោយមិនចាំបាច់មានអ៊ីនធឺណិតឡើយ។">
+          You can export your progress file anytime to carry it on a USB flash drive or restore it onto another device with zero network needed.
+        </div>
+      </div>
+    </div>
+
+    <div class="pk-offline-foot">
+      <button type="button" class="modal-secondary-btn" id="pkOfflineExportBtn">
+        <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span class="i18n-t" data-en="Export Local Backup (.json)" data-km="ទាញយកឯកសារបម្រុងទុក (.json)">Export Local Backup (.json)</span>
+      </button>
+      <button type="button" class="modal-secondary-btn" id="pkOfflineImportBtn">
+        <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <span class="i18n-t" data-en="Import Backup (.json)" data-km="បញ្ចូលឯកសារបម្រុងទុក (.json)">Import Backup (.json)</span>
+      </button>
+      <input type="file" id="pkOfflineImportFileInput" accept=".json,application/json" hidden>
+      <button type="button" class="auth-submit-btn" id="pkOfflineResumeBtn">
+        <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span class="i18n-t" data-en="Continue Practicing" data-km="បន្តការហ្វឹកហាត់">Continue Practicing</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <noscript>
   <article style="max-width:960px;margin:24px auto;padding:24px;background:#111626;color:#f2e8cf;border:1px solid rgba(255,209,102,0.3);border-radius:14px;font-family:sans-serif;line-height:1.6;">
     <h2>PK Khmer Type (ក្តារចុចខ្មែរ PK) — Free Interactive Khmer &amp; English Typing Tutor</h2>
@@ -4510,6 +4603,7 @@
   <script defer src="js/supabase-config.js?v=86"></script>
   <script defer src="js/cloud-sync.js?v=86"></script>
   <script defer src="js/storage.js?v=86"></script>
+  <script defer src="js/offline-bridge.js?v=87"></script>
   <script defer src="data/curriculum-data.js?v=86"></script>
   <script defer src="data/adaptive-vocab.js?v=86"></script>
   <script defer src="js/typing.js?v=86"></script>

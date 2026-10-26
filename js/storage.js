@@ -253,6 +253,9 @@ const AuthProvider = (function () {
     if (!err) return fallbackMsg || 'Unable to sign in. Please try again.';
     const raw = String(err.message || err.error_description || err || '').trim();
     const lower = raw.toLowerCase();
+    if (lower.includes('failed to fetch') || lower.includes('networkerror') || lower.includes('offline') || (typeof navigator !== 'undefined' && navigator.onLine === false)) {
+      return 'Offline Mode Active: Could not reach the cloud server. Your typing progress is safely preserved in local storage on this computer.';
+    }
     if (lower.includes('invalid login credentials') || lower.includes('invalid email or password')) {
       return 'Invalid email or password. Please check your credentials and try again.';
     }
