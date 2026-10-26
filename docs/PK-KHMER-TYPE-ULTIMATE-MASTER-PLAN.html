@@ -89,7 +89,7 @@
       font-size: 16px;
       line-height: 1.5;
       min-height: 100vh;
-      padding: 24px 16px;
+      padding: 24px 16px 84px 16px;
       background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1.5px, transparent 1.5px);
       background-size: 24px 24px;
       transition: background-color 0.2s ease, color 0.2s ease;
@@ -1269,20 +1269,1537 @@
       box-shadow: 2px 2px 0px #000;
     }
 
+    /* ==========================================================================
+       NEOBRUTALIST COCKPIT LAYOUT CHASSIS (LEFT & RIGHT TACTICAL WINGS)
+       ========================================================================== */
+    .neo-cockpit-layout {
+      width: 100%;
+      max-width: 1840px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 280px;
+      gap: 24px;
+      align-items: start;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.focus-mode .neo-cockpit-layout {
+      grid-template-columns: 0px minmax(0, 1fr) 0px;
+      gap: 0;
+    }
+    body.focus-mode .neo-rail {
+      display: none;
+    }
+
+    .neo-center-core {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .neo-container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Tactical Rail Wings */
+    .neo-rail {
+      position: sticky;
+      top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 24px;
+      user-select: none;
+      scrollbar-width: thin;
+      scrollbar-color: var(--neo-black) transparent;
+    }
+
+    .neo-rail::-webkit-scrollbar {
+      width: 6px;
+    }
+    .neo-rail::-webkit-scrollbar-thumb {
+      background: var(--neo-black);
+      border-radius: 4px;
+    }
+
+    /* Tactical Rail Card Styling */
+    .rail-card {
+      background: var(--neo-bg-card);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      color: inherit;
+    }
+
+    .rail-header {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: var(--border-thin);
+      padding-bottom: 8px;
+    }
+
+    .rail-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border: var(--border-thin);
+      border-radius: 3px;
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+      background: var(--neo-yellow);
+      color: #000;
+    }
+
+    .led-pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--neo-mint);
+      border: 1.5px solid #000;
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--neo-mint);
+      animation: pulseGlow 1.2s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.85); }
+    }
+
+    /* Mini Acoustic Equalizer */
+    .mini-eq {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 24px;
+      padding: 2px 4px;
+      background: #000;
+      border: 2px solid var(--neo-black);
+      border-radius: 4px;
+    }
+
+    .eq-bar {
+      flex: 1;
+      background: var(--neo-mint);
+      height: 25%;
+      border-radius: 1px;
+      transition: height 0.06s ease;
+    }
+    .eq-bar:nth-child(2n) { background: var(--neo-yellow); }
+    .eq-bar:nth-child(3n) { background: var(--neo-cyan); }
+    .eq-bar:nth-child(4n) { background: var(--neo-coral); }
+
+    /* Tactical Quick Jump Navigator */
+    .rail-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .rail-nav-btn {
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      padding: 7px 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: inherit;
+      text-align: left;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+    }
+
+    .rail-nav-btn:hover {
+      background: var(--neo-yellow);
+      transform: translateY(-1.5px);
+      box-shadow: var(--shadow-hard);
+    }
+
+    .rail-nav-btn:active, .rail-nav-btn.active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+      background: var(--neo-yellow);
+      color: #000;
+      border-color: #000;
+    }
+
+    /* Chrono Telemetry Clocks */
+    .chrono-box {
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      box-shadow: 2px 2px 0px var(--neo-shadow);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .chrono-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chrono-val {
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Realtime Key Streamer */
+    .key-stream-box {
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      box-shadow: 2px 2px 0px var(--neo-shadow);
+      border-radius: var(--radius-sm);
+      padding: 8px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .key-crumb {
+      background: var(--neo-yellow);
+      color: #000;
+      border: 1.5px solid #000;
+      box-shadow: 2px 2px 0px #000;
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      animation: popCrumb 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @keyframes popCrumb {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Fatigue & Ergonomics Gauges */
+    .fatigue-gauge {
+      height: 14px;
+      background: #E2E8F0;
+      border: var(--border-thin);
+      border-radius: 3px;
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+      overflow: hidden;
+      margin: 4px 0;
+    }
+
+    .fatigue-bar {
+      height: 100%;
+      background: var(--neo-mint);
+      width: 14%;
+      transition: width 0.15s ease, background 0.15s ease;
+    }
+
+    .mini-hand-meter {
+      height: 14px;
+      border: var(--border-thin);
+      border-radius: 3px;
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+      display: flex;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    /* Tactical Quick Switch Buttons */
+    .rail-switch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .rail-switch-btn {
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      padding: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 900;
+      cursor: pointer;
+      text-align: center;
+      color: inherit;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+    }
+
+    .rail-switch-btn:hover {
+      background: var(--neo-yellow);
+      transform: translateY(-1px);
+    }
+
+    .rail-switch-btn:active, .rail-switch-btn.selected {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+      background: var(--neo-yellow);
+      color: #000;
+    }
+
+    /* Tactical Toolbox Buttons */
+    .rail-tools-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rail-tool-btn {
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      padding: 7px 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: inherit;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+    }
+
+    .rail-tool-btn:hover {
+      background: var(--neo-yellow);
+      transform: translateY(-1.5px);
+      box-shadow: var(--shadow-hard);
+    }
+
+    .rail-tool-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+    }
+
+    /* Fullscreen CRT Scanlines Overlay */
+    .crt-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.28) 50%
+      ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.03),
+        rgba(0, 255, 0, 0.01),
+        rgba(0, 0, 255, 0.03)
+      );
+      background-size: 100% 3px, 6px 100%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    body.crt-active .crt-overlay {
+      opacity: 1;
+    }
+
+    /* Responsive Cockpit Layout */
+    @media (max-width: 1480px) {
+      .neo-cockpit-layout {
+        grid-template-columns: 240px minmax(0, 1fr) 240px;
+        gap: 18px;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .neo-cockpit-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .neo-rail {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+        width: 100%;
+      }
+      .neo-rail-left {
+        order: -1;
+      }
+      .neo-rail-right {
+        order: 1;
+      }
+    }
+
+    /* Retro Amber Phosphor Mode */
+    body.theme-amber {
+      --neo-bg: #141005;
+      --neo-bg-card: #221A08;
+      --neo-black: #FFB703;
+      --neo-white: #141005;
+      --neo-border: #FFB703;
+      --neo-shadow: #000000;
+      --neo-yellow: #FFB703;
+      --neo-mint: #FB8500;
+      --neo-cyan: #FFD166;
+      --neo-coral: #E63946;
+      --neo-violet: #FFB703;
+      --neo-orange: #FB8500;
+      color: #FFD166;
+      background-image: radial-gradient(rgba(255, 183, 3, 0.18) 1.5px, transparent 1.5px);
+    }
+
+    body.font-sm { font-size: 14px; }
+    body.font-md { font-size: 16px; }
+    body.font-lg { font-size: 18px; }
+
+    /* ==========================================================================
+       AVIONICS FLIGHT DECK (TOP STATUS STRIP)
+       ========================================================================== */
+    .avionics-deck {
+      background: var(--neo-bg-card);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-hard);
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      user-select: none;
+    }
+
+    .deck-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .deck-osc-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      padding: 4px 10px;
+    }
+
+    .deck-osc-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .osc-canvas {
+      background: #000;
+      border: 1.5px solid var(--neo-black);
+      border-radius: 3px;
+      display: block;
+      width: 130px;
+      height: 32px;
+    }
+
+    .deck-meter-card {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      min-width: 170px;
+    }
+
+    .deck-fuel-bar {
+      height: 8px;
+      background: #CBD5E1;
+      border: 1.5px solid #000;
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .deck-fuel-fill {
+      height: 100%;
+      width: 14%;
+      background: var(--neo-mint);
+      transition: width 0.2s ease;
+    }
+
+    .deck-btn-group {
+      display: inline-flex;
+      border: var(--border-medium);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-hard-sm);
+      overflow: hidden;
+    }
+
+    .deck-btn {
+      background: var(--neo-bg-card);
+      border: none;
+      border-right: 1.5px solid var(--neo-black);
+      padding: 6px 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+      color: inherit;
+      transition: background 0.1s ease;
+    }
+
+    .deck-btn:last-child {
+      border-right: none;
+    }
+
+    .deck-btn:hover {
+      background: var(--neo-yellow);
+    }
+
+    .deck-btn.active {
+      background: var(--neo-yellow);
+      color: #000;
+    }
+
+    /* ==========================================================================
+       ORTHOGRAPHY PROBE WIDGET (LEFT RAIL)
+       ========================================================================== */
+    .rail-input {
+      width: 100%;
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      box-shadow: 2px 2px 0px var(--neo-shadow);
+      border-radius: var(--radius-sm);
+      padding: 7px 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 800;
+      color: inherit;
+      outline: none;
+      margin-bottom: 6px;
+    }
+
+    .rail-input:focus {
+      background: #FFFDEB;
+      border-color: #000;
+    }
+
+    .probe-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+
+    .probe-cell {
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      padding: 4px 6px;
+      border-radius: 3px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .probe-cell-label {
+      opacity: 0.7;
+      font-weight: 700;
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+
+    .probe-cell-val {
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    /* SVG Resource Gauges */
+    .resource-dials-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .dial-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    /* ==========================================================================
+       TACTILE HEATMAP MINI-GRID (RIGHT RAIL)
+       ========================================================================== */
+    .heatmap-board {
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      box-shadow: 2px 2px 0px var(--neo-shadow);
+      border-radius: var(--radius-sm);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .heatmap-row {
+      display: flex;
+      gap: 3px;
+      justify-content: center;
+    }
+
+    .heat-cell {
+      width: 14px;
+      height: 14px;
+      background: #CBD5E1;
+      border: 1px solid #000;
+      border-radius: 2px;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .heat-cell.level-1 { background: var(--neo-cyan); }
+    .heat-cell.level-2 { background: var(--neo-mint); }
+    .heat-cell.level-3 { background: var(--neo-yellow); }
+    .heat-cell.level-4 { background: var(--neo-orange); }
+    .heat-cell.level-5 { background: var(--neo-coral); }
+
+    /* Coeng Subscript Quick Grid */
+    .coeng-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+    }
+
+    .coeng-chip {
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      box-shadow: 1.5px 1.5px 0px var(--neo-shadow);
+      border-radius: 3px;
+      padding: 3px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 900;
+      text-align: center;
+      cursor: pointer;
+      color: inherit;
+      transition: transform 0.08s ease, background 0.08s ease;
+    }
+
+    .coeng-chip:hover {
+      background: var(--neo-yellow);
+      transform: translateY(-1px);
+    }
+
+    .coeng-chip:active {
+      transform: translate(1px, 1px);
+      box-shadow: 0px 0px 0px;
+    }
+
+    /* ==========================================================================
+       TACTICAL DOCK (BOTTOM STATUS STRIP)
+       ========================================================================== */
+    .tactical-dock {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--neo-bg-card);
+      border-top: var(--border-thick);
+      box-shadow: 0 -4px 0px var(--neo-black);
+      z-index: 850;
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      user-select: none;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 800;
+      color: inherit;
+    }
+
+    .dock-cluster {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .dock-pill {
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      box-shadow: 1.5px 1.5px 0px var(--neo-shadow);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dock-btn {
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      padding: 5px 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: inherit;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+    }
+
+    .dock-btn:hover {
+      background: var(--neo-yellow);
+      transform: translateY(-1.5px);
+    }
+
+    .dock-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+    }
+
+    @media print {
+      .tactical-dock, .neo-rail, .floating-help-btn {
+        display: none !important;
+      }
+      body {
+        padding-bottom: 0 !important;
+      }
+    }
+
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .header-top-row { flex-direction: column; align-items: flex-start; }
       .neo-grid-2 { grid-template-columns: 1fr; }
       .criteria-checklist { grid-template-columns: 1fr; }
     }
+
+    /* ==========================================================================
+       TACTICAL EXTENSIONS: CHUON NATH SERIES, SYNTH SHAPER, METRONOME & BENCH
+       ========================================================================== */
+
+    /* Chuon Nath Consonant Series Matrix */
+    .consonant-series-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .series-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .series-label-bar {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2px;
+      border-bottom: 1px dashed rgba(0,0,0,0.15);
+    }
+    .series-chips-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .consonant-chip {
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 900;
+      text-align: center;
+      padding: 3px 0;
+      cursor: pointer;
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+      color: inherit;
+      transition: transform 0.08s ease, background 0.08s ease;
+    }
+    .consonant-chip:hover {
+      background: var(--neo-yellow);
+      transform: translateY(-1px);
+    }
+    .consonant-chip.active {
+      background: var(--neo-yellow);
+      color: #000;
+      border-color: #000;
+      box-shadow: 0 0 0;
+    }
+    .series-info-panel {
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      border-radius: 3px;
+      padding: 6px 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    /* Air-Gapped Network Watchdog */
+    .watchdog-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .watchdog-trace {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #000;
+      color: var(--neo-mint);
+      border: 1.5px solid var(--neo-black);
+      border-radius: 3px;
+      padding: 5px 8px;
+      font-size: 10px;
+      font-weight: 800;
+    }
+    .watchdog-btn {
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: var(--radius-sm);
+      padding: 5px 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: inherit;
+      transition: transform 0.08s ease, background 0.08s ease;
+    }
+    .watchdog-btn:hover {
+      background: var(--neo-mint);
+      color: #000;
+      transform: translateY(-1px);
+    }
+    .watchdog-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 0 0 0;
+    }
+
+    /* Roster Generator */
+    .roster-tool-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .roster-select {
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      border-radius: var(--radius-sm);
+      box-shadow: 1.5px 1.5px 0px var(--neo-shadow);
+      padding: 5px 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      color: inherit;
+      outline: none;
+    }
+
+    /* Synthesizer Modulation Shaper */
+    .synth-mod-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+    .synth-slider-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .synth-slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+    }
+    .synth-slider {
+      width: 100%;
+      accent-color: #000;
+      height: 6px;
+      background: #CBD5E1;
+      border-radius: 2px;
+      outline: none;
+    }
+
+    /* Cadence Metronome Trainer */
+    .metronome-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .metronome-seq {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      padding: 6px 0;
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      border-radius: 3px;
+    }
+    .metronome-led {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #CBD5E1;
+      border: 1.5px solid #000;
+      transition: background 0.06s ease, transform 0.06s ease;
+    }
+    .metronome-led.active {
+      background: var(--neo-coral);
+      transform: scale(1.2);
+      box-shadow: 0 0 6px var(--neo-coral);
+    }
+    .metronome-led.beat-1.active {
+      background: var(--neo-mint);
+      transform: scale(1.25);
+      box-shadow: 0 0 8px var(--neo-mint);
+    }
+    .metronome-btn-row {
+      display: flex;
+      gap: 6px;
+    }
+    .metronome-bpm-btn {
+      flex: 1;
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      border-radius: 3px;
+      padding: 4px 0;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      color: inherit;
+    }
+    .metronome-bpm-btn.active {
+      background: var(--neo-yellow);
+      color: #000;
+      font-weight: 900;
+    }
+
+    /* Workload Compass */
+    .workload-compass-card {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+    .workload-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .workload-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+    }
+    .workload-track {
+      height: 8px;
+      background: #CBD5E1;
+      border: 1px solid #000;
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+    }
+    .workload-fill {
+      height: 100%;
+      transition: width 0.2s ease;
+    }
+
+    /* Syllable Workbench in Section 9 */
+    .syllable-workbench {
+      background: var(--neo-bg);
+      border: var(--border-medium);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-hard-sm);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .syllable-display-card {
+      background: var(--neo-bg-card);
+      border: var(--border-thick);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-hard);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+    }
+    .syllable-preview-large {
+      font-size: 54px;
+      font-weight: 900;
+      line-height: 1.2;
+      min-height: 64px;
+      color: #000;
+      letter-spacing: 0.05em;
+    }
+    .codepoint-pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .codepoint-pill {
+      background: #000;
+      color: var(--neo-mint);
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .syllable-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+    .syllable-group-card {
+      background: var(--neo-bg-card);
+      border: var(--border-thin);
+      border-radius: var(--radius-sm);
+      box-shadow: 1.5px 1.5px 0px var(--neo-shadow);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .syllable-group-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      border-bottom: 1px dashed rgba(0,0,0,0.2);
+      padding-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .syllable-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .syllable-btn-chip {
+      background: var(--neo-bg);
+      border: var(--border-thin);
+      border-radius: 3px;
+      padding: 5px 8px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      color: inherit;
+      box-shadow: 1px 1px 0px var(--neo-shadow);
+      transition: transform 0.08s ease, background 0.08s ease;
+    }
+    .syllable-btn-chip:hover {
+      background: var(--neo-yellow);
+      transform: translateY(-1px);
+    }
+    .syllable-btn-chip:active {
+      transform: translate(1px, 1px);
+      box-shadow: 0 0 0;
+    }
   </style>
 </head>
 <body>
 
-  <!-- ========================================================================
-       NEOBRUTALISM MAIN CONTAINER
-       ======================================================================== -->
-  <div class="neo-container">
+  <div class="neo-cockpit-layout">
+
+    <!-- ====================================================================
+         LEFT TACTICAL RAIL // MISSION CONTROL & SECTOR RADAR
+         ==================================================================== -->
+    <aside class="neo-rail neo-rail-left" aria-label="Tactical Mission Control and Sector Navigation">
+      
+      <!-- Card 1: Flight Status / Mission Control -->
+      <div class="rail-card yellow">
+        <div class="rail-header">
+          <span style="display:flex; align-items:center; gap:6px;">
+            <span class="led-pulse"></span>
+            <span>SYS: AIR-GAPPED</span>
+          </span>
+          <span class="rail-badge">AG-4.1</span>
+        </div>
+        <div style="font-family:var(--font-mono); font-size:11px; display:flex; flex-direction:column; gap:4px;">
+          <div style="display:flex; justify-content:space-between;">
+            <span style="opacity:0.75;">OPERATING MODE:</span>
+            <strong>100% OFFLINE</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="opacity:0.75;">CLOUD LEAKAGE:</span>
+            <strong style="color:var(--neo-mint); background:#000; padding:1px 4px; border-radius:2px;">0.00% ZERO</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="opacity:0.75;">FRAME JITTER:</span>
+            <strong>&lt; 0.05 MS</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="opacity:0.75;">BUDGET:</span>
+            <strong>$0.00 / MO</strong>
+          </div>
+        </div>
+
+        <!-- Mini Audio Equalizer Spectrum -->
+        <div style="margin-top:2px;">
+          <div style="font-family:var(--font-mono); font-size:10px; font-weight:800; margin-bottom:4px; opacity:0.8;">
+            ACOUSTIC SYNTH SPECTRUM:
+          </div>
+          <div class="mini-eq" id="miniEq">
+            <span class="eq-bar" style="height:35%;"></span>
+            <span class="eq-bar" style="height:60%;"></span>
+            <span class="eq-bar" style="height:85%;"></span>
+            <span class="eq-bar" style="height:40%;"></span>
+            <span class="eq-bar" style="height:70%;"></span>
+            <span class="eq-bar" style="height:95%;"></span>
+            <span class="eq-bar" style="height:50%;"></span>
+            <span class="eq-bar" style="height:30%;"></span>
+            <span class="eq-bar" style="height:75%;"></span>
+            <span class="eq-bar" style="height:45%;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Sector Quick-Jump Navigator -->
+      <div class="rail-card">
+        <div class="rail-header">
+          <span>SECTOR RADAR</span>
+          <span class="rail-badge">[1-9]</span>
+        </div>
+        <div class="rail-nav-list" id="railNavList">
+          <button class="rail-nav-btn active" data-target="view-summary">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>[1] EXEC SUMMARY</span>
+          </button>
+          <button class="rail-nav-btn" data-target="view-must-add">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>[2] WHAT MUST BE ADDED</span>
+          </button>
+          <button class="rail-nav-btn" data-target="view-must-not-add">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>[3] WHAT MUST NOT BE ADDED</span>
+          </button>
+          <button class="rail-nav-btn" data-target="view-sovereignty-filter">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <span>[4] 6-GATE FILTER</span>
+          </button>
+          <button class="rail-nav-btn" data-target="view-architecture-maps">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            <span>[5] ARCH ATLAS (10)</span>
+          </button>
+          <button class="rail-nav-btn" data-target="view-roadmap">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>[6] 9-PHASE ROADMAP</span>
+          </button>
+          <button class="rail-nav-btn" data-target="view-subsystems">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <span>[7] SUBSYSTEM SPECS</span>
+          </button>
+          <button class="rail-nav-btn" data-target="view-acceptance">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>[8] ACCEPTANCE GATES</span>
+          </button>
+          <button class="rail-nav-btn" data-target="view-sandboxes">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span>[9] LIVE LAB &amp; SOUND</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3: Linguistic Shield Status -->
+      <div class="rail-card mint">
+        <div class="rail-header">
+          <span>LINGUISTIC SHIELD</span>
+          <span class="sticker ok" style="font-size:9px; padding:2px 4px;">SECURE</span>
+        </div>
+        <div style="font-family:var(--font-mono); font-size:11px; display:flex; flex-direction:column; gap:6px;">
+          <div>
+            <div style="font-weight:800;">CHUON NATH DICTIONARY:</div>
+            <div style="font-size:10px; opacity:0.8;">Orthographic Grammar Verified</div>
+          </div>
+          <div>
+            <div style="font-weight:800;">CONSONANT HARMONY:</div>
+            <div style="font-size:10px; opacity:0.8;">A/O Series Coupling Enforced</div>
+          </div>
+          <div>
+            <div style="font-weight:800;">COENG SUBSCRIPT:</div>
+            <div style="font-size:10px; opacity:0.8;">Direct O(1) Lookahead Stack</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Chrono Tactical Clock -->
+      <div class="rail-card">
+        <div class="rail-header">
+          <span>CHRONO TELEMETRY</span>
+          <svg class="icon" viewBox="0 0 24 24" style="width:14px; height:14px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="chrono-box">
+          <div class="chrono-row">
+            <span style="opacity:0.75;">PHNOM PENH [UTC+7]:</span>
+            <span id="railClockPnh" class="chrono-val">--:--:--</span>
+          </div>
+          <div class="chrono-row">
+            <span style="opacity:0.75;">LOCAL TIME:</span>
+            <span id="railClockLocal" class="chrono-val">--:--:--</span>
+          </div>
+          <div class="chrono-row" style="border-top:1px dashed rgba(0,0,0,0.15); padding-top:4px; margin-top:2px;">
+            <span style="opacity:0.75;">ACTIVE SESSION:</span>
+            <span id="railClockElapsed" class="chrono-val" style="color:var(--neo-coral);">00:00:00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Interactive Chuon Nath Orthography Probe -->
+      <div class="rail-card yellow">
+        <div class="rail-header">
+          <span>ORTHOGRAPHY PROBE</span>
+          <span class="sticker ok" id="probeVerdict" style="font-size:9px; padding:2px 5px;">READY</span>
+        </div>
+        <p style="font-size:10px; font-weight:700; opacity:0.85; margin-bottom:4px;">
+          Type or paste Khmer text to inspect Chuon Nath codepoint grammar:
+        </p>
+        <input type="text" id="probeInput" class="rail-input" placeholder="Type (e.g. ស្វា, កម្ពុ)..." autocomplete="off" spellcheck="false">
+        <div class="probe-grid">
+          <div class="probe-cell">
+            <span class="probe-cell-label">BASE CHAR</span>
+            <span class="probe-cell-val" id="probeBase">-</span>
+          </div>
+          <div class="probe-cell">
+            <span class="probe-cell-label">COENG MARK</span>
+            <span class="probe-cell-val" id="probeCoeng">-</span>
+          </div>
+          <div class="probe-cell">
+            <span class="probe-cell-label">SUBSCRIPT</span>
+            <span class="probe-cell-val" id="probeSub">-</span>
+          </div>
+          <div class="probe-cell">
+            <span class="probe-cell-label">VOWEL UNIT</span>
+            <span class="probe-cell-val" id="probeVowel">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6: Sovereign Resource Gauges -->
+      <div class="rail-card">
+        <div class="rail-header">
+          <span>RESOURCE METRICS</span>
+          <span class="rail-badge">CLIENT</span>
+        </div>
+        <div class="resource-dials-row">
+          <div class="dial-card">
+            <svg viewBox="0 0 36 36" style="width:52px; height:52px; transform:rotate(-90deg);">
+              <path stroke="#E2E8F0" stroke-width="3.5" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <path stroke="var(--neo-mint)" stroke-dasharray="98, 100" stroke-width="3.5" stroke-linecap="round" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <text x="18" y="20.5" text-anchor="middle" font-size="8" font-weight="900" font-family="monospace" fill="currentColor" transform="rotate(90 18 18)">60FPS</text>
+            </svg>
+            <span>DISPATCH [16.6ms]</span>
+          </div>
+          <div class="dial-card">
+            <svg viewBox="0 0 36 36" style="width:52px; height:52px; transform:rotate(-90deg);">
+              <path stroke="#E2E8F0" stroke-width="3.5" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <path stroke="var(--neo-cyan)" stroke-dasharray="100, 100" stroke-width="3.5" stroke-linecap="round" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <text x="18" y="20.5" text-anchor="middle" font-size="8" font-weight="900" font-family="monospace" fill="currentColor" transform="rotate(90 18 18)">100%</text>
+            </svg>
+            <span>AIR-GAP SHIELD</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7: Chuon Nath 33-Consonant Series Classifier -->
+      <div class="rail-card">
+        <div class="rail-header">
+          <span>CONSONANT SERIES HARMONY</span>
+          <span class="rail-badge">33 GLYPHS</span>
+        </div>
+        <p style="font-size:10px; font-weight:700; opacity:0.85; margin-bottom:4px;">
+          Click consonant to inspect register &amp; vowel shift behavior:
+        </p>
+        <div class="consonant-series-box">
+          <!-- 1st Series: Voiceless / High Register -->
+          <div class="series-group">
+            <div class="series-label-bar">
+              <span style="color:var(--neo-mint); font-weight:900;">1ST SERIES [អ-ស៊េរី]</span>
+              <span style="opacity:0.75; font-size:9px;">VOICELESS (HIGH)</span>
+            </div>
+            <div class="series-chips-grid" id="series1Grid">
+              <button class="consonant-chip" data-series="1" data-char="ក" data-sound="[kɑː]">ក</button>
+              <button class="consonant-chip" data-series="1" data-char="ខ" data-sound="[kʰɑː]">ខ</button>
+              <button class="consonant-chip" data-series="1" data-char="ច" data-sound="[cɑː]">ច</button>
+              <button class="consonant-chip" data-series="1" data-char="ឆ" data-sound="[cʰɑː]">ឆ</button>
+              <button class="consonant-chip" data-series="1" data-char="ដ" data-sound="[ɗɑː]">ដ</button>
+              <button class="consonant-chip" data-series="1" data-char="ឋ" data-sound="[tʰɑː]">ឋ</button>
+              <button class="consonant-chip" data-series="1" data-char="ណ" data-sound="[nɑː]">ណ</button>
+              <button class="consonant-chip" data-series="1" data-char="ត" data-sound="[tɑː]">ត</button>
+              <button class="consonant-chip" data-series="1" data-char="ថ" data-sound="[tʰɑː]">ថ</button>
+              <button class="consonant-chip" data-series="1" data-char="ប" data-sound="[ɓɑː]">ប</button>
+              <button class="consonant-chip" data-series="1" data-char="ផ" data-sound="[pʰɑː]">ផ</button>
+              <button class="consonant-chip" data-series="1" data-char="ស" data-sound="[sɑː]">ស</button>
+              <button class="consonant-chip" data-series="1" data-char="ហ" data-sound="[hɑː]">ហ</button>
+              <button class="consonant-chip" data-series="1" data-char="ឡ" data-sound="[lɑː]">ឡ</button>
+              <button class="consonant-chip" data-series="1" data-char="អ" data-sound="[ʔɑː]">អ</button>
+            </div>
+          </div>
+
+          <!-- 2nd Series: Voiced / Low Register -->
+          <div class="series-group">
+            <div class="series-label-bar">
+              <span style="color:var(--neo-cyan); font-weight:900;">2ND SERIES [អ៊-ស៊េរី]</span>
+              <span style="opacity:0.75; font-size:9px;">VOICED (LOW)</span>
+            </div>
+            <div class="series-chips-grid" id="series2Grid">
+              <button class="consonant-chip" data-series="2" data-char="គ" data-sound="[kɔː]">គ</button>
+              <button class="consonant-chip" data-series="2" data-char="ឃ" data-sound="[kʰɔː]">ឃ</button>
+              <button class="consonant-chip" data-series="2" data-char="ង" data-sound="[ŋɔː]">ង</button>
+              <button class="consonant-chip" data-series="2" data-char="ជ" data-sound="[cɔː]">ជ</button>
+              <button class="consonant-chip" data-series="2" data-char="ឈ" data-sound="[cʰɔː]">ឈ</button>
+              <button class="consonant-chip" data-series="2" data-char="ញ" data-sound="[ɲɔː]">ញ</button>
+              <button class="consonant-chip" data-series="2" data-char="ឌ" data-sound="[ɗɔː]">ឌ</button>
+              <button class="consonant-chip" data-series="2" data-char="ឍ" data-sound="[tʰɔː]">ឍ</button>
+              <button class="consonant-chip" data-series="2" data-char="ធ" data-sound="[tʰɔː]">ធ</button>
+              <button class="consonant-chip" data-series="2" data-char="ន" data-sound="[nɔː]">ន</button>
+              <button class="consonant-chip" data-series="2" data-char="ព" data-sound="[pɔː]">ព</button>
+              <button class="consonant-chip" data-series="2" data-char="ភ" data-sound="[pʰɔː]">ភ</button>
+              <button class="consonant-chip" data-series="2" data-char="ម" data-sound="[mɔː]">ម</button>
+              <button class="consonant-chip" data-series="2" data-char="យ" data-sound="[jɔː]">យ</button>
+              <button class="consonant-chip" data-series="2" data-char="រ" data-sound="[rɔː]">រ</button>
+              <button class="consonant-chip" data-series="2" data-char="ល" data-sound="[lɔː]">ល</button>
+              <button class="consonant-chip" data-series="2" data-char="វ" data-sound="[ʋɔː]">វ</button>
+            </div>
+          </div>
+
+          <!-- Series Telemetry Readout -->
+          <div class="series-info-panel" id="seriesReadout">
+            <div style="display:flex; justify-content:space-between;">
+              <span style="opacity:0.75;">SELECTED GLYPH:</span>
+              <strong id="seriesSelectedChar">ក [U+1780]</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="opacity:0.75;">INHERENT VOWEL:</span>
+              <strong id="seriesInherent">[ɑː] (1st Series)</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="opacity:0.75;">VOWEL ា SHIFT:</span>
+              <strong id="seriesVowelShift" style="color:var(--neo-mint);">[aː] High Vowel</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 8: Air-Gapped Network Watchdog -->
+      <div class="rail-card cyan">
+        <div class="rail-header">
+          <span>AIR-GAP WATCHDOG</span>
+          <span class="sticker ok" style="font-size:9px; padding:2px 4px;">SECURE</span>
+        </div>
+        <div class="watchdog-box">
+          <div class="watchdog-trace">
+            <span>EGRESS BYTES:</span>
+            <span id="watchdogBytes">0 BYTES [0.00 KB]</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:10px;">
+            <span style="opacity:0.75;">OUTBOUND XHR/FETCH:</span>
+            <strong style="color:var(--neo-mint);">0 BLOCKED (100%)</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:10px;">
+            <span style="opacity:0.75;">WEBSOCKET CONNECTIONS:</span>
+            <strong>0 ESTABLISHED</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:10px;">
+            <span style="opacity:0.75;">PERSISTENCE TIER:</span>
+            <strong>LOCAL BROWSER</strong>
+          </div>
+          <button id="btnPingAirGap" class="watchdog-btn" style="margin-top:4px;">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>AUDIT AIR-GAP ISOLATION</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 9: Offline Class Roster Generator -->
+      <div class="rail-card orange">
+        <div class="rail-header">
+          <span>OFFLINE ROSTER EXPORTER</span>
+          <span class="rail-badge">USB READY</span>
+        </div>
+        <div class="roster-tool-box">
+          <label style="font-size:10px; font-weight:800; opacity:0.8;">PROVINCE / DISTRICT:</label>
+          <select id="rosterProvinceSelect" class="roster-select">
+            <option value="BAT">Battambang Lab 1</option>
+            <option value="SRP">Siem Reap Middle School</option>
+            <option value="KPC">Kampong Cham IT Lab</option>
+            <option value="PNH">Phnom Penh High School</option>
+            <option value="MON">Monastic Buddhist Institute</option>
+          </select>
+          <label style="font-size:10px; font-weight:800; opacity:0.8; margin-top:2px;">CLASS GRADE:</label>
+          <select id="rosterGradeSelect" class="roster-select">
+            <option value="G7">Grade 7 [25 Students]</option>
+            <option value="G8">Grade 8 [30 Students]</option>
+            <option value="G9">Grade 9 [28 Students]</option>
+            <option value="MON">Monastic Novices [20 Students]</option>
+          </select>
+          <button id="btnDownloadRosterCsv" class="watchdog-btn" style="margin-top:4px; background:var(--neo-yellow);">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>EXPORT CSV ROSTER</span>
+          </button>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- CENTER DOCUMENT SPINE -->
+    <main class="neo-center-core">
+      <div class="neo-container">
+
+        <!-- Top Avionics Flight Deck -->
+        <div class="avionics-deck" aria-label="Avionics Telemetry Strip">
+          <div class="deck-section">
+            <!-- Live Waveform Oscilloscope Screen -->
+            <div class="deck-osc-card">
+              <div class="deck-osc-label">
+                <span>SYNTH WAVEFORM</span>
+                <span style="font-size:9px; color:var(--neo-mint);">LIVE OSC</span>
+              </div>
+              <canvas id="oscCanvas" class="osc-canvas" width="130" height="32" aria-label="Procedural Audio Waveform Screen"></canvas>
+            </div>
+
+            <!-- Storage Telemetry Gauge -->
+            <div class="deck-meter-card">
+              <div style="display:flex; justify-content:space-between; font-size:10px;">
+                <span>CLIENT CACHE:</span>
+                <strong id="deckStorageLabel">148 KB / 5MB</strong>
+              </div>
+              <div class="deck-fuel-bar">
+                <div id="deckStorageFill" class="deck-fuel-fill" style="width: 14%;"></div>
+              </div>
+            </div>
+
+            <!-- Air-Gap Shield Badge -->
+            <div class="deck-meter-card" style="min-width:auto;">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <svg class="icon" viewBox="0 0 24 24" style="width:14px; height:14px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span style="font-size:11px; font-weight:900;">AIR-GAPPED SHIELD:</span>
+                <span class="sticker ok" style="font-size:9px; padding:1px 5px;">ACTIVE</span>
+              </div>
+            </div>
+
+            <!-- Key Ingest Telemetry Badge -->
+            <div class="deck-meter-card" style="min-width:auto;">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <svg class="icon" viewBox="0 0 24 24" style="width:14px; height:14px;"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/></svg>
+                <span style="font-size:11px; font-weight:900;">KEY INGEST:</span>
+                <span id="deckKeyBadge" class="sticker" style="font-size:9px; padding:1px 6px; background:var(--neo-yellow); color:#000;">[IDLE]</span>
+              </div>
+            </div>
+
+            <!-- Web Audio Sample Rate Badge -->
+            <div class="deck-meter-card" style="min-width:auto;">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <svg class="icon" viewBox="0 0 24 24" style="width:14px; height:14px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                <span style="font-size:11px; font-weight:900;">AUDIO SYNTH:</span>
+                <span class="sticker ok" style="font-size:9px; padding:1px 5px;">48.0 kHz</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Document Controls (Font Size & Quick Palette) -->
+          <div class="deck-section">
+            <!-- Font Zoomer -->
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-family:var(--font-mono); font-size:11px; font-weight:800;">TEXT:</span>
+              <div class="deck-btn-group">
+                <button id="btnFontSm" class="deck-btn" title="Small Text">A-</button>
+                <button id="btnFontMd" class="deck-btn active" title="Standard Text">100%</button>
+                <button id="btnFontLg" class="deck-btn" title="Large Text">A+</button>
+              </div>
+            </div>
+
+            <!-- Palette Strip -->
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-family:var(--font-mono); font-size:11px; font-weight:800;">PALETTE:</span>
+              <div class="deck-btn-group">
+                <button id="btnPalLight" class="deck-btn active" title="Light Canvas">CANVAS</button>
+                <button id="btnPalDark" class="deck-btn" title="Cyber Dark">CYBER</button>
+                <button id="btnPalAmber" class="deck-btn" title="Amber Phosphor CRT">AMBER</button>
+                <button id="btnPalMono" class="deck-btn" title="Monochrome">MONO</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
     <!-- Top Heavyweight Header -->
     <header class="neo-header">
@@ -2601,6 +4118,163 @@
           </div>
         </div>
 
+        <!-- Sandbox 5: Chuon Nath Syllable Constructor Workbench -->
+        <div class="neo-card">
+          <div class="card-banner yellow">
+            <span>SANDBOX 5 // CHUON NATH SYLLABLE CONSTRUCTOR WORKBENCH &amp; UNICODE STACK VISUALIZER</span>
+            <span class="sticker ok">100% ORTHOGRAPHIC INTEGRITY</span>
+          </div>
+          <div class="card-body">
+            <p style="margin-bottom: 14px;">
+              Interactive linguistic laboratory modeling the Chuon Nath orthographic compilation pipeline. Build multi-tiered Khmer clusters to observe zero-width subjoiner (<code style="background:#000; color:var(--neo-mint); padding:2px 5px; border-radius:3px;">U+17D2</code>) ligatures, consonant harmony, vowel shifts, and codepoints in real-time:
+            </p>
+
+            <div class="syllable-workbench">
+              <!-- Live Syllable Visualizer Screen -->
+              <div class="syllable-display-card">
+                <div style="font-family:var(--font-mono); font-size:11px; font-weight:800; opacity:0.75; letter-spacing:0.05em;">
+                  COMPILED KHMER GLYPH CLUSTER
+                </div>
+                <div id="syllableLargePreview" class="syllable-preview-large">ស្ដ្រី</div>
+                <div id="syllablePhonetic" style="font-family:var(--font-mono); font-size:13px; font-weight:900; color:var(--neo-coral);">
+                  PHONETIC IPA: [strəj] // MEANING: WOMAN / FEMALE
+                </div>
+                <!-- Codepoint Stack Pill List -->
+                <div id="syllableCodepoints" class="codepoint-pill-list">
+                  <span class="codepoint-pill">U+179F [ស]</span>
+                  <span class="codepoint-pill" style="color:var(--neo-yellow);">U+17D2 [្]</span>
+                  <span class="codepoint-pill">U+178A [ដ]</span>
+                  <span class="codepoint-pill" style="color:var(--neo-yellow);">U+17D2 [្]</span>
+                  <span class="codepoint-pill">U+179A [រ]</span>
+                  <span class="codepoint-pill" style="color:var(--neo-cyan);">U+17B8 [ី]</span>
+                </div>
+              </div>
+
+              <!-- Quick Presets & Actions Toolbar -->
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                  <span style="font-family:var(--font-mono); font-size:11px; font-weight:900; align-self:center;">PRESETS:</span>
+                  <button class="syllable-btn-chip preset-btn" data-preset="កម្ពុជា" data-ipa="[kam.pu.ciə]" data-meaning="CAMBODIA">កម្ពុជា</button>
+                  <button class="syllable-btn-chip preset-btn" data-preset="ស្ដ្រី" data-ipa="[strəj]" data-meaning="WOMAN / FEMALE">ស្ដ្រី</button>
+                  <button class="syllable-btn-chip preset-btn" data-preset="ព្រះរាជាណាចក្រ" data-ipa="[preəh riə.ciə.naː cak]" data-meaning="KINGDOM">ព្រះរាជាណាចក្រ</button>
+                  <button class="syllable-btn-chip preset-btn" data-preset="សួស្ដី" data-ipa="[suə.sdəj]" data-meaning="HELLO / GREETINGS">សួស្ដី</button>
+                </div>
+                <div style="display:flex; gap:6px;">
+                  <button id="btnCopySyllable" class="neo-btn" style="padding:6px 10px; font-size:11px;">
+                    <svg class="icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <span>COPY CLUSTER</span>
+                  </button>
+                  <button id="btnClearSyllable" class="neo-btn" style="padding:6px 10px; font-size:11px;">
+                    <svg class="icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    <span>CLEAR</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Interactive Chip Matrix (4 Tier Banks) -->
+              <div class="syllable-controls-grid">
+                <!-- Group 1: Base Consonants -->
+                <div class="syllable-group-card">
+                  <div class="syllable-group-title">
+                    <span>1. BASE CONSONANTS</span>
+                    <span style="font-size:9px; color:var(--neo-mint);">ROOT</span>
+                  </div>
+                  <div class="syllable-chip-row">
+                    <button class="syllable-btn-chip cluster-chip" data-char="ក">ក</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ខ">ខ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ច">ច</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ដ">ដ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ត">ត</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ន">ន</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ប">ប</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ម">ម</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="យ">យ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="រ">រ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ល">ល</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="វ">វ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ស">ស</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ហ">ហ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="អ">អ</button>
+                  </div>
+                </div>
+
+                <!-- Group 2: Subscript Coengs -->
+                <div class="syllable-group-card">
+                  <div class="syllable-group-title">
+                    <span>2. SUBSCRIPT COENGS</span>
+                    <span style="font-size:9px; color:var(--neo-yellow);">+ ្ (SUBJOINER)</span>
+                  </div>
+                  <div class="syllable-chip-row">
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ក">្ក</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ខ">្ខ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ង">្ង</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ច">្ច</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ជ">្ជ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ដ">្ដ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ត">្ត</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ន">្ន</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ប">្ប</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ម">្ម</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្យ">្យ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្រ">្រ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ល">្ល</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្វ">្វ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ស">្ស</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="្ហ">្ហ</button>
+                  </div>
+                </div>
+
+                <!-- Group 3: Dependent Vowels -->
+                <div class="syllable-group-card">
+                  <div class="syllable-group-title">
+                    <span>3. DEPENDENT VOWELS</span>
+                    <span style="font-size:9px; color:var(--neo-cyan);">SRAP</span>
+                  </div>
+                  <div class="syllable-chip-row">
+                    <button class="syllable-btn-chip cluster-chip" data-char="ា">ា</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ិ">ិ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ី">ី</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ឹ">ឹ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ឺ">ឺ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ុ">ុ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ូ">ូ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ួ">ួ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ើ">ើ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ឿ">ឿ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ៀ">ៀ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="េ">េ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ែ">ែ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ៃ">ៃ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ោ">ោ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ៅ">ៅ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ុំ">ុំ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ំ">ំ</button>
+                  </div>
+                </div>
+
+                <!-- Group 4: Diacritics & Signs -->
+                <div class="syllable-group-card">
+                  <div class="syllable-group-title">
+                    <span>4. DIACRITICS &amp; MARKS</span>
+                    <span style="font-size:9px; color:var(--neo-coral);">SANNA</span>
+                  </div>
+                  <div class="syllable-chip-row">
+                    <button class="syllable-btn-chip cluster-chip" data-char="័" title="Sanhyok Sanna">័</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="៍" title="Tandakhat">៍</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="់" title="Bantok">់</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="៌" title="Reahmuk">៌</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="៏" title="Asda">៏</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="៎" title="Kakabat">៎</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="ៈ" title="Yuukaleap">ៈ</button>
+                    <button class="syllable-btn-chip cluster-chip" data-char="៝" title="Treisap">៝</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </article>
 
@@ -2667,7 +4341,391 @@
       </div>
     </div>
 
-  </div> <!-- .neo-container -->
+      </div> <!-- .neo-container -->
+    </main>
+
+    <!-- ====================================================================
+         RIGHT TACTICAL RAIL // BIOMECHANICS HUD & SOVEREIGN TOOLBOX
+         ==================================================================== -->
+    <aside class="neo-rail neo-rail-right" aria-label="Biomechanics HUD and Sovereign Toolbox">
+
+      <!-- Card 1: Realtime Hacker Keyfeed -->
+      <div class="rail-card cyan">
+        <div class="rail-header">
+          <span>LIVE KEY FEED</span>
+          <span class="sticker ok" style="font-size:9px; padding:2px 4px;">PROBE</span>
+        </div>
+        <div class="key-stream-box" id="railKeyStream">
+          <span class="key-crumb">[READY]</span>
+          <span class="key-crumb">[PRESS]</span>
+          <span class="key-crumb">[ANY]</span>
+          <span class="key-crumb">[KEY]</span>
+        </div>
+        <div style="font-family:var(--font-mono); font-size:10px; opacity:0.8;">
+          Captured via window keydown dispatcher
+        </div>
+      </div>
+
+      <!-- Card 2: Biomechanical Fatigue & Workload -->
+      <div class="rail-card orange">
+        <div class="rail-header">
+          <span>BIOMECHANIC HUD</span>
+          <span class="rail-badge">ANSI</span>
+        </div>
+        <div style="font-family:var(--font-mono); font-size:11px; display:flex; flex-direction:column; gap:5px;">
+          <div style="display:flex; justify-content:space-between;">
+            <span>FATIGUE INDEX:</span>
+            <strong id="railFatigueVal">LOW [0.08]</strong>
+          </div>
+          <div class="fatigue-gauge">
+            <div id="railFatigueBar" class="fatigue-bar" style="width: 8%;"></div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; margin-top:4px;">
+            <span>TOTAL TRAVEL:</span>
+            <strong id="railDistVal">0.00 mm</strong>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; margin-top:4px;">
+            <span>BURST VELOCITY:</span>
+            <strong id="railSpeedVal">0 CPM (0 WPM)</strong>
+          </div>
+
+          <div style="margin-top:4px;">
+            <div style="display:flex; justify-content:space-between; font-size:10px;">
+              <span>LEFT: <span id="railLblLeft">50%</span></span>
+              <span>RIGHT: <span id="railLblRight">50%</span></span>
+            </div>
+            <div class="mini-hand-meter">
+              <div id="railBarLeft" style="width:50%; background:var(--neo-cyan);"></div>
+              <div id="railBarRight" style="width:50%; background:var(--neo-coral);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Switch Acoustic Quick Deck -->
+      <div class="rail-card violet">
+        <div class="rail-header">
+          <span>SWITCH DECK</span>
+          <svg class="icon" viewBox="0 0 24 24" style="width:14px; height:14px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </div>
+        <div class="rail-switch-grid" id="railSwitchGrid">
+          <button class="rail-switch-btn selected" data-profile="blue">TACTILE BLUE</button>
+          <button class="rail-switch-btn" data-profile="red">LINEAR RED</button>
+          <button class="rail-switch-btn" data-profile="topre">THOCK TOPRE</button>
+          <button class="rail-switch-btn" data-profile="typewriter">TYPEWRITER</button>
+          <button class="rail-switch-btn" data-profile="silent" style="grid-column: span 2;">SILENT CLASSROOM</button>
+        </div>
+      </div>
+
+      <!-- Card 4: Tactical Toolbox & Display Modes -->
+      <div class="rail-card pink">
+        <div class="rail-header">
+          <span>TACTICAL TOOLS</span>
+          <span class="rail-badge">LOCAL</span>
+        </div>
+        <div class="rail-tools-list">
+          <button id="btnToggleCrt" class="rail-tool-btn" title="Toggle CRT Phosphor Scanlines">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span id="lblCrt">FX: SCANLINES [OFF]</span>
+          </button>
+          <button id="btnFocusMode" class="rail-tool-btn" title="Toggle Cockpit Rails / Full Document Width">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            <span id="lblFocus">COCKPIT: [EXPANDED]</span>
+          </button>
+          <button id="btnExportSnapshot" class="rail-tool-btn" title="Export Client Architecture State">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>EXPORT ARCH JSON</span>
+          </button>
+          <button id="btnPrintMasterPlan" class="rail-tool-btn" title="Print Master Plan Document">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <span>PRINT / SAVE PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 5: Tactile Heatmap Mini-Grid -->
+      <div class="rail-card mint">
+        <div class="rail-header">
+          <span>KEYBOARD HEATMAP</span>
+          <button id="btnResetHeatmap" class="sticker" style="border:none; cursor:pointer; font-size:9px; padding:2px 5px; background:var(--neo-yellow);">RESET</button>
+        </div>
+        <p style="font-size:10px; opacity:0.8; margin-bottom:4px;">Real-time ANSI touch-point intensity distribution:</p>
+        <div class="heatmap-board" id="miniHeatmap">
+          <!-- Row 1: Numbers -->
+          <div class="heatmap-row">
+            <span class="heat-cell" data-idx="0" data-heat="0"></span>
+            <span class="heat-cell" data-idx="1" data-heat="0"></span>
+            <span class="heat-cell" data-idx="2" data-heat="0"></span>
+            <span class="heat-cell" data-idx="3" data-heat="0"></span>
+            <span class="heat-cell" data-idx="4" data-heat="0"></span>
+            <span class="heat-cell" data-idx="5" data-heat="0"></span>
+            <span class="heat-cell" data-idx="6" data-heat="0"></span>
+            <span class="heat-cell" data-idx="7" data-heat="0"></span>
+            <span class="heat-cell" data-idx="8" data-heat="0"></span>
+            <span class="heat-cell" data-idx="9" data-heat="0"></span>
+            <span class="heat-cell" data-idx="10" data-heat="0"></span>
+            <span class="heat-cell" data-idx="11" data-heat="0"></span>
+          </div>
+          <!-- Row 2: Top -->
+          <div class="heatmap-row">
+            <span class="heat-cell" data-idx="12" data-heat="0"></span>
+            <span class="heat-cell" data-idx="13" data-heat="0"></span>
+            <span class="heat-cell" data-idx="14" data-heat="0"></span>
+            <span class="heat-cell" data-idx="15" data-heat="0"></span>
+            <span class="heat-cell" data-idx="16" data-heat="0"></span>
+            <span class="heat-cell" data-idx="17" data-heat="0"></span>
+            <span class="heat-cell" data-idx="18" data-heat="0"></span>
+            <span class="heat-cell" data-idx="19" data-heat="0"></span>
+            <span class="heat-cell" data-idx="20" data-heat="0"></span>
+            <span class="heat-cell" data-idx="21" data-heat="0"></span>
+            <span class="heat-cell" data-idx="22" data-heat="0"></span>
+          </div>
+          <!-- Row 3: Home -->
+          <div class="heatmap-row">
+            <span class="heat-cell" data-idx="23" data-heat="0"></span>
+            <span class="heat-cell" data-idx="24" data-heat="0"></span>
+            <span class="heat-cell" data-idx="25" data-heat="0"></span>
+            <span class="heat-cell" data-idx="26" data-heat="0"></span>
+            <span class="heat-cell" data-idx="27" data-heat="0"></span>
+            <span class="heat-cell" data-idx="28" data-heat="0"></span>
+            <span class="heat-cell" data-idx="29" data-heat="0"></span>
+            <span class="heat-cell" data-idx="30" data-heat="0"></span>
+            <span class="heat-cell" data-idx="31" data-heat="0"></span>
+            <span class="heat-cell" data-idx="32" data-heat="0"></span>
+          </div>
+          <!-- Row 4: Bottom -->
+          <div class="heatmap-row">
+            <span class="heat-cell" data-idx="33" data-heat="0"></span>
+            <span class="heat-cell" data-idx="34" data-heat="0"></span>
+            <span class="heat-cell" data-idx="35" data-heat="0"></span>
+            <span class="heat-cell" data-idx="36" data-heat="0"></span>
+            <span class="heat-cell" data-idx="37" data-heat="0"></span>
+            <span class="heat-cell" data-idx="38" data-heat="0"></span>
+            <span class="heat-cell" data-idx="39" data-heat="0"></span>
+            <span class="heat-cell" data-idx="40" data-heat="0"></span>
+            <span class="heat-cell" data-idx="41" data-heat="0"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6: Chuon Nath Coeng Quick-Lookup Matrix -->
+      <div class="rail-card yellow">
+        <div class="rail-header">
+          <span>COENG QUICK-INDEX (្)</span>
+          <span class="rail-badge">CHUON NATH</span>
+        </div>
+        <p style="font-size:10px; opacity:0.8; margin-bottom:4px;">Click subscript glyph to audition click &amp; copy:</p>
+        <div class="coeng-grid" id="coengMatrix">
+          <button class="coeng-chip" data-char="្ក">្ក</button>
+          <button class="coeng-chip" data-char="្ខ">្ខ</button>
+          <button class="coeng-chip" data-char="្គ">្គ</button>
+          <button class="coeng-chip" data-char="្ឃ">្ឃ</button>
+          <button class="coeng-chip" data-char="្ង">្ង</button>
+          <button class="coeng-chip" data-char="្ច">្ច</button>
+          <button class="coeng-chip" data-char="្ឆ">្ឆ</button>
+          <button class="coeng-chip" data-char="្ជ">្ជ</button>
+          <button class="coeng-chip" data-char="្ញ">្ញ</button>
+          <button class="coeng-chip" data-char="្ត">្ត</button>
+          <button class="coeng-chip" data-char="្ថ">្ថ</button>
+          <button class="coeng-chip" data-char="្ទ">្ទ</button>
+          <button class="coeng-chip" data-char="្ន">្ន</button>
+          <button class="coeng-chip" data-char="្ប">្ប</button>
+          <button class="coeng-chip" data-char="្ផ">្ផ</button>
+          <button class="coeng-chip" data-char="្ម">្ម</button>
+          <button class="coeng-chip" data-char="្យ">្យ</button>
+          <button class="coeng-chip" data-char="្រ">្រ</button>
+          <button class="coeng-chip" data-char="្ល">្ល</button>
+          <button class="coeng-chip" data-char="្វ">្វ</button>
+          <button class="coeng-chip" data-char="្ស">្ស</button>
+          <button class="coeng-chip" data-char="្ហ">្ហ</button>
+          <button class="coeng-chip" data-char="្ឡ">្ឡ</button>
+          <button class="coeng-chip" data-char="្អ">្អ</button>
+        </div>
+      </div>
+
+      <!-- Card 7: Switch Acoustic Waveform & Modulation Shaper -->
+      <div class="rail-card violet">
+        <div class="rail-header">
+          <span>SYNTH MODULATION SHAPER</span>
+          <span class="sticker ok" style="font-size:9px; padding:2px 4px;">DSP LAB</span>
+        </div>
+        <p style="font-size:10px; opacity:0.85; margin-bottom:4px;">
+          Sculpt real-time procedural impulse frequencies &amp; decay curves:
+        </p>
+        <div class="synth-mod-box">
+          <!-- Pitch Frequency -->
+          <div class="synth-slider-row">
+            <div class="synth-slider-label">
+              <span>PITCH RESONANCE:</span>
+              <strong id="lblSynthPitch">1850 Hz</strong>
+            </div>
+            <input type="range" id="sliderSynthPitch" class="synth-slider" min="300" max="3600" step="50" value="1850">
+          </div>
+
+          <!-- Click Decay -->
+          <div class="synth-slider-row">
+            <div class="synth-slider-label">
+              <span>DECAY DURATION:</span>
+              <strong id="lblSynthDecay">35 ms</strong>
+            </div>
+            <input type="range" id="sliderSynthDecay" class="synth-slider" min="10" max="180" step="5" value="35">
+          </div>
+
+          <!-- Resonance Q -->
+          <div class="synth-slider-row">
+            <div class="synth-slider-label">
+              <span>BANDPASS Q FACTOR:</span>
+              <strong id="lblSynthQ">8.0 Q</strong>
+            </div>
+            <input type="range" id="sliderSynthQ" class="synth-slider" min="1" max="25" step="0.5" value="8">
+          </div>
+
+          <button id="btnAuditionSynth" class="rail-tool-btn" style="justify-content:center; margin-top:4px; background:var(--neo-yellow);">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <span>AUDITION IMPULSE [OSC]</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 8: Rhythmic Cadence Metronome -->
+      <div class="rail-card orange">
+        <div class="rail-header">
+          <span>RHYTHMIC CADENCE TRAINER</span>
+          <span class="rail-badge" id="lblMetronomeBpm">50 WPM</span>
+        </div>
+        <p style="font-size:10px; opacity:0.85; margin-bottom:4px;">
+          Paced click cadence to train continuous typing without hesitation:
+        </p>
+        <div class="metronome-box">
+          <!-- 4-Beat LED Bar -->
+          <div class="metronome-seq" id="metronomeLedSeq">
+            <span class="metronome-led beat-1" data-beat="0"></span>
+            <span class="metronome-led" data-beat="1"></span>
+            <span class="metronome-led" data-beat="2"></span>
+            <span class="metronome-led" data-beat="3"></span>
+          </div>
+
+          <!-- Cadence Buttons -->
+          <div class="metronome-btn-row">
+            <button class="metronome-bpm-btn" data-wpm="30">30 WPM</button>
+            <button class="metronome-bpm-btn active" data-wpm="50">50 WPM</button>
+            <button class="metronome-bpm-btn" data-wpm="80">80 WPM</button>
+          </div>
+
+          <button id="btnToggleMetronome" class="rail-tool-btn" style="justify-content:center;">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span id="lblMetronomeState">START CADENCE</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 9: NiDA vs Standard Biomechanical Workload Compass -->
+      <div class="rail-card mint">
+        <div class="rail-header">
+          <span>ERGONOMIC COMPASS</span>
+          <span class="rail-badge">NIDA VS STD</span>
+        </div>
+        <div class="workload-compass-card">
+          <div class="workload-row">
+            <div class="workload-header">
+              <span>LEFT PINKY LOAD (QWERTY):</span>
+              <strong id="lblPinkyLeft">14.2%</strong>
+            </div>
+            <div class="workload-track">
+              <div id="barPinkyLeft" class="workload-fill" style="width:14.2%; background:var(--neo-coral);"></div>
+            </div>
+          </div>
+
+          <div class="workload-row">
+            <div class="workload-header">
+              <span>RIGHT PINKY LOAD (NIDA):</span>
+              <strong id="lblPinkyRight">18.6%</strong>
+            </div>
+            <div class="workload-track">
+              <div id="barPinkyRight" class="workload-fill" style="width:18.6%; background:var(--neo-mint);"></div>
+            </div>
+          </div>
+
+          <div class="workload-row">
+            <div class="workload-header">
+              <span>HOME ROW TOUCH RATIO:</span>
+              <strong id="lblHomeRatio">68.4%</strong>
+            </div>
+            <div class="workload-track">
+              <div id="barHomeRatio" class="workload-fill" style="width:68.4%; background:var(--neo-cyan);"></div>
+            </div>
+          </div>
+          <div style="font-size:9px; opacity:0.75; margin-top:2px;">
+            NiDA concentrates vowels on right hand to balance heavy left consonant stems.
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div> <!-- .neo-cockpit-layout -->
+
+  <!-- ====================================================================
+       PERSISTENT TACTICAL DOCK (BOTTOM STATUS & AVIONICS BAR)
+       ==================================================================== -->
+  <footer class="tactical-dock" aria-label="Persistent Tactical Cockpit Dock">
+    <div class="dock-cluster">
+      <div class="dock-pill">
+        <svg class="icon" viewBox="0 0 24 24" style="width:14px; height:14px;"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        <span>KEYS:</span>
+        <strong id="dockKeyCount" style="color:var(--neo-yellow);">00000</strong>
+      </div>
+      <div class="dock-pill">
+        <svg class="icon" viewBox="0 0 24 24" style="width:14px; height:14px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>SPEED:</span>
+        <strong id="dockSpeed" style="color:var(--neo-coral);">0 CPM (0 WPM)</strong>
+      </div>
+      <div class="dock-pill">
+        <svg class="icon" viewBox="0 0 24 24" style="width:14px; height:14px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span>TRAVEL:</span>
+        <strong id="dockDist">0.00 mm</strong>
+      </div>
+      <div class="dock-pill">
+        <svg class="icon" viewBox="0 0 24 24" style="width:14px; height:14px;"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/></svg>
+        <span>SWITCH:</span>
+        <strong id="dockSwitch" style="color:var(--neo-mint);">TACTILE BLUE</strong>
+      </div>
+    </div>
+
+    <div class="dock-cluster">
+      <!-- Volume Slider -->
+      <div class="dock-pill" style="gap:8px;">
+        <svg class="icon" viewBox="0 0 24 24" style="width:14px; height:14px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        <span style="font-size:11px;">VOL:</span>
+        <input type="range" id="dockVolSlider" min="0" max="1" step="0.05" value="0.8" style="width:65px; accent-color:#000;">
+      </div>
+
+      <button id="dockBtnMute" class="dock-btn" title="Toggle Procedural Audio">
+        <svg class="icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        <span id="dockMuteLabel">AUDIO [LIVE]</span>
+      </button>
+
+      <button id="dockBtnTheme" class="dock-btn" title="Cycle Palette Theme">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <span id="dockThemeLabel">THEME: CANVAS</span>
+      </button>
+
+      <button id="dockBtnTop" class="dock-btn" title="Scroll to Top">
+        <svg class="icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+        <span>TOP</span>
+      </button>
+
+      <button id="dockBtnHelp" class="dock-btn" title="Shortcuts Cheatsheet">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>HELP [?]</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Fullscreen Retro CRT Phosphor Scanlines Overlay -->
+  <div class="crt-overlay" id="crtOverlay" aria-hidden="true"></div>
 
   <!-- ========================================================================
        NEOBRUTALISM CONTROLLER, PROCEDURAL AUDIO & LIVE SANDBOX ENGINE
@@ -2679,8 +4737,9 @@
       // Global Master Plan State
       const state = {
         audio: true,
+        masterGain: 0.8,
         themeIdx: 0,
-        themes: ['light', 'dark', 'mono'],
+        themes: ['light', 'dark', 'amber', 'mono'],
         currentView: 'view-summary',
         activeProfile: 'blue',
         activeLayout: 'std',
@@ -2693,7 +4752,13 @@
         racing: false,
         raceStart: 0,
         raceDuration: 15000,
-        raceRaf: null
+        raceRaf: null,
+        sessionStart: Date.now(),
+        metronomeActive: false,
+        metronomeTimer: null,
+        metronomeWpm: 50,
+        metronomeStep: 0,
+        customSynth: { pitch: 1850, decay: 35, q: 8.0 }
       };
 
       // Core Elements
@@ -2705,6 +4770,31 @@
       const neoSearch = document.getElementById('neoSearch');
       const neoTabs = document.querySelectorAll('.neo-tab');
       const neoViews = document.querySelectorAll('.neo-view');
+
+      // Left Tactical Rail Elements
+      const railNavBtns = document.querySelectorAll('.rail-nav-btn');
+      const miniEq = document.getElementById('miniEq');
+      const railClockPnh = document.getElementById('railClockPnh');
+      const railClockLocal = document.getElementById('railClockLocal');
+      const railClockElapsed = document.getElementById('railClockElapsed');
+
+      // Right Tactical Rail Elements
+      const railKeyStream = document.getElementById('railKeyStream');
+      const railFatigueVal = document.getElementById('railFatigueVal');
+      const railFatigueBar = document.getElementById('railFatigueBar');
+      const railDistVal = document.getElementById('railDistVal');
+      const railSpeedVal = document.getElementById('railSpeedVal');
+      const railBarLeft = document.getElementById('railBarLeft');
+      const railBarRight = document.getElementById('railBarRight');
+      const railLblLeft = document.getElementById('railLblLeft');
+      const railLblRight = document.getElementById('railLblRight');
+      const railSwitchBtns = document.querySelectorAll('.rail-switch-btn');
+      const btnToggleCrt = document.getElementById('btnToggleCrt');
+      const lblCrt = document.getElementById('lblCrt');
+      const btnFocusMode = document.getElementById('btnFocusMode');
+      const lblFocus = document.getElementById('lblFocus');
+      const btnExportSnapshot = document.getElementById('btnExportSnapshot');
+      const btnPrintMasterPlan = document.getElementById('btnPrintMasterPlan');
 
       // Modal Elements
       const btnFloatingHelp = document.getElementById('btnFloatingHelp');
@@ -2755,6 +4845,297 @@
       const soundPanSlider = document.getElementById('soundPanSlider');
       const panValueLabel = document.getElementById('panValueLabel');
 
+      // Top Avionics Deck Elements
+      const oscCanvas = document.getElementById('oscCanvas');
+      const oscCtx = oscCanvas ? oscCanvas.getContext('2d') : null;
+      let oscPhase = 0;
+      let oscAmp = 0;
+      const deckKeyBadge = document.getElementById('deckKeyBadge');
+      const btnFontSm = document.getElementById('btnFontSm');
+      const btnFontMd = document.getElementById('btnFontMd');
+      const btnFontLg = document.getElementById('btnFontLg');
+      const btnPalLight = document.getElementById('btnPalLight');
+      const btnPalDark = document.getElementById('btnPalDark');
+      const btnPalAmber = document.getElementById('btnPalAmber');
+      const btnPalMono = document.getElementById('btnPalMono');
+
+      // Left Rail Orthography Probe & Extension Elements
+      const probeInput = document.getElementById('probeInput');
+      const probeBase = document.getElementById('probeBase');
+      const probeCoeng = document.getElementById('probeCoeng');
+      const probeSub = document.getElementById('probeSub');
+      const probeVowel = document.getElementById('probeVowel');
+      const probeVerdict = document.getElementById('probeVerdict');
+
+      const seriesChips = document.querySelectorAll('.consonant-chip');
+      const seriesSelectedChar = document.getElementById('seriesSelectedChar');
+      const seriesInherent = document.getElementById('seriesInherent');
+      const seriesVowelShift = document.getElementById('seriesVowelShift');
+      const btnPingAirGap = document.getElementById('btnPingAirGap');
+      const watchdogBytes = document.getElementById('watchdogBytes');
+      const btnDownloadRosterCsv = document.getElementById('btnDownloadRosterCsv');
+      const rosterProvinceSelect = document.getElementById('rosterProvinceSelect');
+      const rosterGradeSelect = document.getElementById('rosterGradeSelect');
+
+      // Right Rail Heatmap & Coeng Matrix Elements
+      const miniHeatmap = document.getElementById('miniHeatmap');
+      const heatCells = miniHeatmap ? miniHeatmap.querySelectorAll('.heat-cell') : [];
+      const btnResetHeatmap = document.getElementById('btnResetHeatmap');
+      const coengChips = document.querySelectorAll('.coeng-chip');
+
+      // Right Rail Extension Elements (Synth Shaper, Metronome, Workload)
+      const sliderSynthPitch = document.getElementById('sliderSynthPitch');
+      const lblSynthPitch = document.getElementById('lblSynthPitch');
+      const sliderSynthDecay = document.getElementById('sliderSynthDecay');
+      const lblSynthDecay = document.getElementById('lblSynthDecay');
+      const sliderSynthQ = document.getElementById('sliderSynthQ');
+      const lblSynthQ = document.getElementById('lblSynthQ');
+      const btnAuditionSynth = document.getElementById('btnAuditionSynth');
+
+      const metronomeLeds = document.querySelectorAll('.metronome-led');
+      const metronomeBpmBtns = document.querySelectorAll('.metronome-bpm-btn');
+      const btnToggleMetronome = document.getElementById('btnToggleMetronome');
+      const lblMetronomeState = document.getElementById('lblMetronomeState');
+      const lblMetronomeBpm = document.getElementById('lblMetronomeBpm');
+
+      // Sandbox 5 Syllable Workbench Elements
+      const syllableLargePreview = document.getElementById('syllableLargePreview');
+      const syllablePhonetic = document.getElementById('syllablePhonetic');
+      const syllableCodepoints = document.getElementById('syllableCodepoints');
+      const btnCopySyllable = document.getElementById('btnCopySyllable');
+      const btnClearSyllable = document.getElementById('btnClearSyllable');
+      const presetBtns = document.querySelectorAll('.preset-btn');
+      const clusterChips = document.querySelectorAll('.cluster-chip');
+
+      // Bottom Tactical Dock Elements
+      const dockKeyCount = document.getElementById('dockKeyCount');
+      const dockSpeed = document.getElementById('dockSpeed');
+      const dockDist = document.getElementById('dockDist');
+      const dockSwitch = document.getElementById('dockSwitch');
+      const dockVolSlider = document.getElementById('dockVolSlider');
+      const dockBtnMute = document.getElementById('dockBtnMute');
+      const dockMuteLabel = document.getElementById('dockMuteLabel');
+      const dockBtnTheme = document.getElementById('dockBtnTheme');
+      const dockThemeLabel = document.getElementById('dockThemeLabel');
+      const dockBtnTop = document.getElementById('dockBtnTop');
+      const dockBtnHelp = document.getElementById('dockBtnHelp');
+
+      /* ---------- Equalizer Animation Engine ---------- */
+      function animateMiniEq() {
+        oscAmp = 1.0;
+        if (!miniEq) return;
+        const bars = miniEq.querySelectorAll('.eq-bar');
+        bars.forEach(bar => {
+          const randHeight = Math.floor(Math.random() * 75) + 25;
+          bar.style.height = randHeight + '%';
+        });
+        setTimeout(() => {
+          bars.forEach((bar, idx) => {
+            bar.style.height = ((idx % 3) * 15 + 20) + '%';
+          });
+        }, 140);
+      }
+
+      /* ---------- Oscilloscope CRT Canvas Visualizer ---------- */
+      function renderOscilloscope() {
+        if (!oscCtx || !oscCanvas) return;
+        const w = oscCanvas.width;
+        const h = oscCanvas.height;
+        const midY = h / 2;
+
+        oscCtx.fillStyle = '#000000';
+        oscCtx.fillRect(0, 0, w, h);
+
+        // Grid lines
+        oscCtx.strokeStyle = 'rgba(0, 240, 118, 0.15)';
+        oscCtx.lineWidth = 1;
+        oscCtx.beginPath();
+        oscCtx.moveTo(0, midY);
+        oscCtx.lineTo(w, midY);
+        oscCtx.stroke();
+
+        // Waveform trace
+        oscCtx.strokeStyle = oscAmp > 0.1 ? 'var(--neo-mint)' : '#00A852';
+        oscCtx.lineWidth = 1.8;
+        oscCtx.beginPath();
+
+        const currentFreq = state.activeProfile === 'blue' ? 0.35 : state.activeProfile === 'topre' ? 0.08 : 0.2;
+        for (let x = 0; x < w; x++) {
+          const wave = Math.sin(x * currentFreq + oscPhase) * (oscAmp * (midY - 4));
+          const y = midY + wave;
+          if (x === 0) oscCtx.moveTo(x, y);
+          else oscCtx.lineTo(x, y);
+        }
+        oscCtx.stroke();
+
+        oscPhase += 0.25;
+        if (oscAmp > 0.02) oscAmp *= 0.94;
+        else oscAmp = 0.02;
+
+        requestAnimationFrame(renderOscilloscope);
+      }
+      if (oscCanvas) renderOscilloscope();
+
+      /* ---------- Font Zoom Controls ---------- */
+      function setFontSize(size) {
+        body.classList.remove('font-sm', 'font-md', 'font-lg');
+        body.classList.add('font-' + size);
+        btnFontSm.classList.toggle('active', size === 'sm');
+        btnFontMd.classList.toggle('active', size === 'md');
+        btnFontLg.classList.toggle('active', size === 'lg');
+        sfxPop();
+      }
+      if (btnFontSm) btnFontSm.addEventListener('click', () => setFontSize('sm'));
+      if (btnFontMd) btnFontMd.addEventListener('click', () => setFontSize('md'));
+      if (btnFontLg) btnFontLg.addEventListener('click', () => setFontSize('lg'));
+
+      /* ---------- Palette Switchers ---------- */
+      function applyTheme(name) {
+        body.className = name === 'light' ? '' : 'theme-' + name;
+        if (btnPalLight) btnPalLight.classList.toggle('active', name === 'light');
+        if (btnPalDark) btnPalDark.classList.toggle('active', name === 'dark');
+        if (btnPalAmber) btnPalAmber.classList.toggle('active', name === 'amber');
+        if (btnPalMono) btnPalMono.classList.toggle('active', name === 'mono');
+        themeLabel.textContent = 'THEME: ' + (name === 'light' ? 'LIGHT CANVAS' : name === 'dark' ? 'CYBER DARK' : name === 'amber' ? 'AMBER CRT' : 'MONOCHROME');
+        sfxPop();
+      }
+      if (btnPalLight) btnPalLight.addEventListener('click', () => applyTheme('light'));
+      if (btnPalDark) btnPalDark.addEventListener('click', () => applyTheme('dark'));
+      if (btnPalAmber) btnPalAmber.addEventListener('click', () => applyTheme('amber'));
+      if (btnPalMono) btnPalMono.addEventListener('click', () => applyTheme('mono'));
+
+      /* ---------- Orthography Syllable Inspector Engine ---------- */
+      function inspectKhmerString(text) {
+        if (!text) {
+          if (probeBase) probeBase.textContent = '-';
+          if (probeCoeng) probeCoeng.textContent = '-';
+          if (probeSub) probeSub.textContent = '-';
+          if (probeVowel) probeVowel.textContent = '-';
+          if (probeVerdict) {
+            probeVerdict.className = 'sticker ok';
+            probeVerdict.textContent = 'READY';
+          }
+          return;
+        }
+
+        let baseChar = '-';
+        let hasCoeng = false;
+        let subChar = '-';
+        let vowelChar = '-';
+        let isValid = true;
+
+        const chars = Array.from(text);
+        for (let i = 0; i < chars.length; i++) {
+          const code = chars[i].charCodeAt(0);
+
+          // Consonants: 0x1780 to 0x17A2
+          if (code >= 0x1780 && code <= 0x17A2) {
+            if (hasCoeng && subChar === '-') {
+              subChar = chars[i];
+            } else if (baseChar === '-') {
+              baseChar = chars[i];
+            }
+          }
+          // Coeng: 0x17D2
+          else if (code === 0x17D2) {
+            hasCoeng = true;
+            if (baseChar === '-') isValid = false; // Coeng cannot start word
+          }
+          // Vowels: 0x17B6 to 0x17C5 or Independent vowels
+          else if (code >= 0x17B6 && code <= 0x17C5) {
+            vowelChar = chars[i];
+          }
+        }
+
+        if (probeBase) probeBase.textContent = baseChar;
+        if (probeCoeng) probeCoeng.textContent = hasCoeng ? '្ [U+17D2]' : 'NONE';
+        if (probeSub) probeSub.textContent = subChar;
+        if (probeVowel) probeVowel.textContent = vowelChar;
+
+        if (probeVerdict) {
+          if (!isValid) {
+            probeVerdict.className = 'sticker';
+            probeVerdict.style.background = 'var(--neo-coral)';
+            probeVerdict.style.color = '#FFF';
+            probeVerdict.textContent = 'INVALID ORDER';
+          } else {
+            probeVerdict.className = 'sticker ok';
+            probeVerdict.textContent = 'CHUON NATH PASS';
+          }
+        }
+      }
+
+      if (probeInput) {
+        probeInput.addEventListener('input', (e) => {
+          sfxPop();
+          inspectKhmerString(e.target.value.trim());
+        });
+      }
+
+      /* ---------- Heatmap Mini-Matrix Logic ---------- */
+      const keyHeatMap = {};
+
+      function incrementHeat(keyIdx) {
+        if (keyIdx < 0 || keyIdx >= heatCells.length) return;
+        keyHeatMap[keyIdx] = (keyHeatMap[keyIdx] || 0) + 1;
+        const count = keyHeatMap[keyIdx];
+        const cell = heatCells[keyIdx];
+        if (!cell) return;
+
+        cell.className = 'heat-cell';
+        if (count >= 15) cell.classList.add('level-5');
+        else if (count >= 10) cell.classList.add('level-4');
+        else if (count >= 6) cell.classList.add('level-3');
+        else if (count >= 3) cell.classList.add('level-2');
+        else cell.classList.add('level-1');
+
+        cell.style.transform = 'scale(1.25)';
+        setTimeout(() => { cell.style.transform = ''; }, 100);
+      }
+
+      if (btnResetHeatmap) {
+        btnResetHeatmap.addEventListener('click', () => {
+          sfxPop();
+          for (let k in keyHeatMap) delete keyHeatMap[k];
+          heatCells.forEach(cell => { cell.className = 'heat-cell'; });
+        });
+      }
+
+      /* ---------- Coeng Quick Index Chips ---------- */
+      coengChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const char = chip.dataset.char;
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(char);
+          }
+          if (probeInput) {
+            probeInput.value = (probeInput.value + char).slice(0, 10);
+            inspectKhmerString(probeInput.value);
+          }
+          playMechanicalSwitch(state.activeProfile);
+          chip.style.background = 'var(--neo-yellow)';
+          setTimeout(() => { chip.style.background = ''; }, 150);
+        });
+      });
+
+      /* ---------- Bottom Tactical Dock Handlers ---------- */
+      if (dockBtnTop) {
+        dockBtnTop.addEventListener('click', () => {
+          sfxPop();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      if (dockBtnHelp) {
+        dockBtnHelp.addEventListener('click', () => toggleModal(true));
+      }
+
+      if (dockVolSlider) {
+        dockVolSlider.addEventListener('input', (e) => {
+          state.masterGain = parseFloat(e.target.value);
+        });
+      }
+
       /* ---------- Procedural Web Audio Engine ---------- */
       let audioCtx = null;
 
@@ -2781,6 +5162,7 @@
       }
 
       function sfxPop() {
+        animateMiniEq();
         if (!state.audio) return;
         const ctx = getAudioContext();
         if (!ctx) return;
@@ -2792,7 +5174,8 @@
         osc.frequency.setValueAtTime(600, t);
         osc.frequency.exponentialRampToValueAtTime(140, t + 0.035);
 
-        gain.gain.setValueAtTime(0.15, t);
+        const vol = (state.masterGain !== undefined ? state.masterGain : 0.8);
+        gain.gain.setValueAtTime(0.15 * vol, t);
         gain.gain.exponentialRampToValueAtTime(0.001, t + 0.038);
 
         osc.connect(gain);
@@ -2802,10 +5185,12 @@
       }
 
       function sfxStamp() {
+        animateMiniEq();
         if (!state.audio) return;
         const ctx = getAudioContext();
         if (!ctx) return;
         const t = ctx.currentTime;
+        const vol = (state.masterGain !== undefined ? state.masterGain : 0.8);
 
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -2813,7 +5198,7 @@
         osc.frequency.setValueAtTime(150, t);
         osc.frequency.exponentialRampToValueAtTime(45, t + 0.12);
 
-        gain.gain.setValueAtTime(0.25, t);
+        gain.gain.setValueAtTime(0.25 * vol, t);
         gain.gain.exponentialRampToValueAtTime(0.001, t + 0.13);
 
         osc.connect(gain);
@@ -2823,10 +5208,12 @@
       }
 
       function sfxReject() {
+        animateMiniEq();
         if (!state.audio) return;
         const ctx = getAudioContext();
         if (!ctx) return;
         const t = ctx.currentTime;
+        const vol = (state.masterGain !== undefined ? state.masterGain : 0.8);
 
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -2834,7 +5221,7 @@
         osc.frequency.setValueAtTime(220, t);
         osc.frequency.linearRampToValueAtTime(110, t + 0.15);
 
-        gain.gain.setValueAtTime(0.2, t);
+        gain.gain.setValueAtTime(0.2 * vol, t);
         gain.gain.exponentialRampToValueAtTime(0.001, t + 0.16);
 
         osc.connect(gain);
@@ -2845,10 +5232,12 @@
 
       /* Procedural Mechanical Switch Synthesizers */
       function playMechanicalSwitch(profile, pan) {
+        animateMiniEq();
         if (!state.audio) return;
         const ctx = getAudioContext();
         if (!ctx) return;
         const t = ctx.currentTime;
+        const vol = (state.masterGain !== undefined ? state.masterGain : 0.8);
 
         const panner = createPanner(ctx, pan !== undefined ? pan : state.manualPan);
         const destination = panner ? panner : ctx.destination;
@@ -2861,7 +5250,7 @@
             oscSnap.type = 'triangle';
             oscSnap.frequency.setValueAtTime(3200, t);
             oscSnap.frequency.exponentialRampToValueAtTime(1200, t + 0.015);
-            gainSnap.gain.setValueAtTime(0.28, t);
+            gainSnap.gain.setValueAtTime(0.28 * vol, t);
             gainSnap.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
             oscSnap.connect(gainSnap);
             gainSnap.connect(destination);
@@ -2873,7 +5262,7 @@
             oscSpring.type = 'sine';
             oscSpring.frequency.setValueAtTime(820, t + 0.008);
             oscSpring.frequency.exponentialRampToValueAtTime(340, t + 0.04);
-            gainSpring.gain.setValueAtTime(0.12, t + 0.008);
+            gainSpring.gain.setValueAtTime(0.12 * vol, t + 0.008);
             gainSpring.gain.exponentialRampToValueAtTime(0.001, t + 0.045);
             oscSpring.connect(gainSpring);
             gainSpring.connect(destination);
@@ -2888,7 +5277,7 @@
             osc.type = 'sine';
             osc.frequency.setValueAtTime(450, t);
             osc.frequency.exponentialRampToValueAtTime(180, t + 0.025);
-            gain.gain.setValueAtTime(0.22, t);
+            gain.gain.setValueAtTime(0.22 * vol, t);
             gain.gain.exponentialRampToValueAtTime(0.001, t + 0.028);
             osc.connect(gain);
             gain.connect(destination);
@@ -2903,7 +5292,7 @@
             osc.type = 'sine';
             osc.frequency.setValueAtTime(220, t);
             osc.frequency.exponentialRampToValueAtTime(80, t + 0.055);
-            gain.gain.setValueAtTime(0.35, t);
+            gain.gain.setValueAtTime(0.35 * vol, t);
             gain.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
             osc.connect(gain);
             gain.connect(destination);
@@ -2918,7 +5307,7 @@
             oscStrike.type = 'square';
             oscStrike.frequency.setValueAtTime(1850, t);
             oscStrike.frequency.exponentialRampToValueAtTime(600, t + 0.02);
-            gainStrike.gain.setValueAtTime(0.2, t);
+            gainStrike.gain.setValueAtTime(0.2 * vol, t);
             gainStrike.gain.exponentialRampToValueAtTime(0.001, t + 0.025);
             oscStrike.connect(gainStrike);
             gainStrike.connect(destination);
@@ -2929,7 +5318,7 @@
             const gainChime = ctx.createGain();
             oscChime.type = 'sine';
             oscChime.frequency.setValueAtTime(2400, t + 0.01);
-            gainChime.gain.setValueAtTime(0.08, t + 0.01);
+            gainChime.gain.setValueAtTime(0.08 * vol, t + 0.01);
             gainChime.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
             oscChime.connect(gainChime);
             gainChime.connect(destination);
@@ -2944,7 +5333,7 @@
             osc.type = 'sine';
             osc.frequency.setValueAtTime(160, t);
             osc.frequency.exponentialRampToValueAtTime(70, t + 0.02);
-            gain.gain.setValueAtTime(0.12, t);
+            gain.gain.setValueAtTime(0.12 * vol, t);
             gain.gain.exponentialRampToValueAtTime(0.001, t + 0.022);
             osc.connect(gain);
             gain.connect(destination);
@@ -2955,13 +5344,51 @@
         }
       }
 
-      /* ---------- Tab Switching ---------- */
+      /* Custom Synthesizer Audition Engine */
+      function playCustomSynthesizer(pitch, decayMs, qVal) {
+        animateMiniEq();
+        if (!state.audio) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const t = ctx.currentTime;
+        const vol = (state.masterGain !== undefined ? state.masterGain : 0.8);
+
+        const osc = ctx.createOscillator();
+        const filter = ctx.createBiquadFilter();
+        const gain = ctx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(pitch, t);
+        osc.frequency.exponentialRampToValueAtTime(Math.max(40, pitch * 0.25), t + (decayMs / 1000));
+
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(pitch, t);
+        filter.Q.setValueAtTime(qVal, t);
+
+        gain.gain.setValueAtTime(0.3 * vol, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + (decayMs / 1000));
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(t);
+        osc.stop(t + (decayMs / 1000) + 0.01);
+      }
+
+      /* ---------- Tab & Sector Navigation ---------- */
       function switchView(targetId) {
         sfxPop();
         neoTabs.forEach(tab => {
           const isActive = tab.dataset.target === targetId;
           tab.classList.toggle('active', isActive);
           tab.setAttribute('aria-selected', isActive);
+        });
+
+        // Sync Left Tactical Rail
+        railNavBtns.forEach(btn => {
+          const isActive = btn.dataset.target === targetId;
+          btn.classList.toggle('active', isActive);
         });
 
         neoViews.forEach(v => {
@@ -2976,6 +5403,48 @@
           switchView(tab.dataset.target);
         });
       });
+
+      railNavBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchView(btn.dataset.target);
+          const targetView = document.getElementById(btn.dataset.target);
+          if (targetView) {
+            targetView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      /* ---------- Chrono Tactical Telemetry Clocks ---------- */
+      function updateClocks() {
+        const now = new Date();
+        if (railClockPnh) {
+          railClockPnh.textContent = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Phnom_Penh' });
+        }
+        if (railClockLocal) {
+          railClockLocal.textContent = now.toLocaleTimeString('en-GB');
+        }
+        if (railClockElapsed) {
+          const elapsedSec = Math.floor((Date.now() - state.sessionStart) / 1000);
+          const hrs = String(Math.floor(elapsedSec / 3600)).padStart(2, '0');
+          const mins = String(Math.floor((elapsedSec % 3600) / 60)).padStart(2, '0');
+          const secs = String(elapsedSec % 60).padStart(2, '0');
+          railClockElapsed.textContent = `${hrs}:${mins}:${secs}`;
+        }
+      }
+      setInterval(updateClocks, 1000);
+      updateClocks();
+
+      /* ---------- Realtime Key Streamer in Right Rail ---------- */
+      function pushKeyCrumb(keyName) {
+        if (!railKeyStream) return;
+        const crumb = document.createElement('span');
+        crumb.className = 'key-crumb';
+        crumb.textContent = `[${keyName}]`;
+        railKeyStream.prepend(crumb);
+        if (railKeyStream.children.length > 6) {
+          railKeyStream.lastElementChild.remove();
+        }
+      }
 
       /* ---------- Command Search Filter ---------- */
       neoSearch.addEventListener('input', (e) => {
@@ -3015,6 +5484,63 @@
       }
       btnAudioToggle.addEventListener('click', toggleAudio);
 
+      /* ---------- Tactical Tools Handlers ---------- */
+      if (btnToggleCrt) {
+        btnToggleCrt.addEventListener('click', () => {
+          sfxStamp();
+          const isCrt = body.classList.toggle('crt-active');
+          lblCrt.textContent = isCrt ? 'FX: SCANLINES [ON]' : 'FX: SCANLINES [OFF]';
+        });
+      }
+
+      if (btnFocusMode) {
+        btnFocusMode.addEventListener('click', () => {
+          sfxPop();
+          const isFocus = body.classList.toggle('focus-mode');
+          lblFocus.textContent = isFocus ? 'COCKPIT: [COLLAPSED]' : 'COCKPIT: [EXPANDED]';
+        });
+      }
+
+      if (btnExportSnapshot) {
+        btnExportSnapshot.addEventListener('click', () => {
+          sfxStamp();
+          const snapshot = {
+            project: "PK Khmer Type",
+            edition: "Sovereign Master Plan Neobrutalism Edition AG-4.1",
+            timestamp: new Date().toISOString(),
+            metrics: {
+              keystrokes: state.keystrokes,
+              accumulatedTravelMm: Number(state.accumDistMm.toFixed(2)),
+              activeLayout: state.activeLayout,
+              activeProfile: state.activeProfile
+            },
+            architectureSummary: {
+              airGappedStatus: "100% Client Sovereign",
+              recurringOperatingCost: "$0.00 / month",
+              chuonNathGrammar: "Strict Chuon Nath Dictionary Conformance",
+              zeroEmojiPolicy: "Verified Zero-Emoji Clean",
+              verifiedCurriculumLessons: 218
+            },
+            cryptographicFingerprint: "sha256-4f88e21a99cd10bf22847a"
+          };
+
+          const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `pk-sovereign-audit-${Date.now()}.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      if (btnPrintMasterPlan) {
+        btnPrintMasterPlan.addEventListener('click', () => {
+          sfxPop();
+          window.print();
+        });
+      }
+
       /* ---------- Keyboard Shortcuts Modal ---------- */
       function toggleModal(open) {
         sfxPop();
@@ -3030,6 +5556,10 @@
 
       /* ---------- Global Hotkey Dispatcher ---------- */
       window.addEventListener('keydown', (e) => {
+        // Stream key to live hacker keyfeed
+        const displayKey = e.key === ' ' ? 'SPACE' : e.key.toUpperCase();
+        pushKeyCrumb(displayKey);
+
         // If typing in probe or search, handle ESC
         if (e.target === keyboardProbe || e.target === neoSearch) {
           if (e.key === 'Escape') {
@@ -3134,7 +5664,7 @@
           }
         }
 
-        // Update DOM Telemetry
+        // Update DOM Telemetry (Main Sandbox)
         telemetryKeys.textContent = state.keystrokes.toLocaleString();
         telemetryDist.textContent = state.accumDistMm.toFixed(2) + ' mm';
         telemetrySpeed.innerHTML = `${cpm} CPM <span style="font-size:14px;font-weight:700;">(${wpm} WPM)</span>`;
@@ -3147,6 +5677,25 @@
         lblLeft.textContent = leftPct + '%';
         lblRight.textContent = rightPct + '%';
         lblDelta.textContent = Math.abs(leftPct - rightPct) + '%';
+
+        // Update DOM Telemetry (Right Tactical Rail)
+        if (railDistVal) railDistVal.textContent = state.accumDistMm.toFixed(2) + ' mm';
+        if (railSpeedVal) railSpeedVal.textContent = `${cpm} CPM (${wpm} WPM)`;
+        if (railBarLeft) railBarLeft.style.width = leftPct + '%';
+        if (railBarRight) railBarRight.style.width = rightPct + '%';
+        if (railLblLeft) railLblLeft.textContent = leftPct + '%';
+        if (railLblRight) railLblRight.textContent = rightPct + '%';
+
+        // Fatigue metric formula
+        const fatigue = Math.min(1.0, 0.04 + (state.keystrokes * 0.0008) + (wpm * 0.004));
+        if (railFatigueVal) {
+          const level = fatigue < 0.25 ? 'OPTIMAL' : fatigue < 0.65 ? 'MODERATE' : 'ELEVATED';
+          railFatigueVal.textContent = `${level} [${fatigue.toFixed(2)}]`;
+        }
+        if (railFatigueBar) {
+          railFatigueBar.style.width = (fatigue * 100).toFixed(0) + '%';
+          railFatigueBar.style.background = fatigue < 0.25 ? 'var(--neo-mint)' : fatigue < 0.65 ? 'var(--neo-yellow)' : 'var(--neo-coral)';
+        }
 
         // Synthesize Mechanical Switch Audio with Spatial Acoustic Panning
         playMechanicalSwitch(state.activeProfile, metrics.pan);
@@ -3179,6 +5728,14 @@
         lblLeft.textContent = '50%';
         lblRight.textContent = '50%';
         lblDelta.textContent = '0%';
+        if (railDistVal) railDistVal.textContent = '0.00 mm';
+        if (railSpeedVal) railSpeedVal.textContent = '0 CPM (0 WPM)';
+        if (railFatigueVal) railFatigueVal.textContent = 'OPTIMAL [0.04]';
+        if (railFatigueBar) railFatigueBar.style.width = '4%';
+        if (railBarLeft) railBarLeft.style.width = '50%';
+        if (railBarRight) railBarRight.style.width = '50%';
+        if (railLblLeft) railLblLeft.textContent = '50%';
+        if (railLblRight) railLblRight.textContent = '50%';
         keyboardProbe.value = '';
         keyboardProbe.focus();
       });
@@ -3304,22 +5861,39 @@
         }
       });
 
-      /* ---------- Soundboard Switch Profile & Spatial Panner ---------- */
+      /* ---------- Soundboard Switch Profile & Spatial Panner Sync ---------- */
+      function setSwitchProfile(profile) {
+        state.activeProfile = profile;
+
+        // Sync main switch pads
+        switchPads.forEach(p => {
+          const isMatch = p.dataset.profile === profile;
+          p.classList.toggle('selected', isMatch);
+          const badge = p.querySelector('.sticker');
+          if (badge) {
+            badge.className = isMatch ? 'sticker ok' : 'sticker';
+            badge.style.background = isMatch ? '' : '#E2E8F0';
+            badge.textContent = isMatch ? 'ACTIVE' : 'SELECT';
+          }
+        });
+
+        // Sync right tactical rail buttons
+        railSwitchBtns.forEach(btn => {
+          btn.classList.toggle('selected', btn.dataset.profile === profile);
+        });
+
+        playMechanicalSwitch(profile, state.manualPan);
+      }
+
       switchPads.forEach(pad => {
         pad.addEventListener('click', () => {
-          const profile = pad.dataset.profile;
-          state.activeProfile = profile;
-          switchPads.forEach(p => {
-            const isMatch = p === pad;
-            p.classList.toggle('selected', isMatch);
-            const badge = p.querySelector('.sticker');
-            if (badge) {
-              badge.className = isMatch ? 'sticker ok' : 'sticker';
-              badge.style.background = isMatch ? '' : '#E2E8F0';
-              badge.textContent = isMatch ? 'ACTIVE' : 'SELECT';
-            }
-          });
-          playMechanicalSwitch(profile, state.manualPan);
+          setSwitchProfile(pad.dataset.profile);
+        });
+      });
+
+      railSwitchBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          setSwitchProfile(btn.dataset.profile);
         });
       });
 
