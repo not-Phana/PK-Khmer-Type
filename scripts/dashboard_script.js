@@ -1,5 +1,6 @@
 // scripts/dashboard_script.js
 // Complete Client-Side JavaScript Logic for PK Khmer Type Analytics & Mastery Dashboard
+// Ultra-Cool Performance Progression Trajectory & Live Telemetry Engine
 // Strict Zero-Emoji Policy: 100% Inline SVG Vector Geometry
 
 module.exports = `
@@ -9,6 +10,47 @@ module.exports = `
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       const dateEl = document.getElementById('currentDateDisplay');
       if (dateEl) dateEl.textContent = \`\${months[d.getMonth()]} \${d.getFullYear()}\`;
+
+      // Procedural Audio Synthesizer for High-Tech Haptic Clicks (Zero Network Requests)
+      let audioCtx = null;
+      function playHapticTick(freq = 880, dur = 0.02) {
+        try {
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + dur);
+        } catch (e) {}
+      }
+
+      // Smooth Animated Rolling Counters
+      function animateCounter(el, target, suffix = '') {
+        if (!el) return;
+        const start = 0;
+        const dur = 700;
+        const startTime = performance.now();
+        const isDecimal = String(target).includes('.');
+
+        function step(now) {
+          const progress = Math.min(1, (now - startTime) / dur);
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const current = start + (target - start) * easeOut;
+          el.innerHTML = isDecimal
+            ? \`\${current.toFixed(1)} \${suffix}\`
+            : \`\${Math.round(current).toLocaleString()} \${suffix}\`;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          }
+        }
+        requestAnimationFrame(step);
+      }
 
       // Scribe Ranks Definition
       const SCRIBE_RANKS = [
@@ -246,6 +288,7 @@ module.exports = `
       let currentTimeframe = 'all';
       let demoModeActive = false;
       let activeDailyTarget = 500;
+      let activeStreamMode = 'dual';
 
       // Safe LocalStorage Reader
       function readAllLocalStorage() {
@@ -593,69 +636,296 @@ module.exports = `
         return list.slice(0, 4);
       }
 
-      // Render Trajectory Dual-Line SVG Chart
+      // Mathematical Natural Spline Curve Generator (Cubic Bezier Interpolation)
+      function getSmoothSplinePath(points) {
+        if (!points || points.length === 0) return '';
+        if (points.length === 1) return \`M \${points[0].x.toFixed(1)} \${points[0].y.toFixed(1)}\`;
+        if (points.length === 2) return \`M \${points[0].x.toFixed(1)} \${points[0].y.toFixed(1)} L \${points[1].x.toFixed(1)} \${points[1].y.toFixed(1)}\`;
+
+        let d = \`M \${points[0].x.toFixed(1)} \${points[0].y.toFixed(1)}\`;
+        for (let i = 0; i < points.length - 1; i++) {
+          const p0 = i > 0 ? points[i - 1] : points[i];
+          const p1 = points[i];
+          const p2 = points[i + 1];
+          const p3 = i < points.length - 2 ? points[i + 2] : p2;
+
+          const cp1x = p1.x + (p2.x - p0.x) / 6;
+          const cp1y = p1.y + (p2.y - p0.y) / 6;
+          const cp2x = p2.x - (p3.x - p1.x) / 6;
+          const cp2y = p2.y - (p3.y - p1.y) / 6;
+
+          d += \` C \${cp1x.toFixed(1)} \${cp1y.toFixed(1)}, \${cp2x.toFixed(1)} \${cp2y.toFixed(1)}, \${p2.x.toFixed(1)} \${p2.y.toFixed(1)}\`;
+        }
+        return d;
+      }
+
+      function getSmoothAreaPath(points, bottomY) {
+        if (!points || points.length === 0) return '';
+        const spline = getSmoothSplinePath(points);
+        const last = points[points.length - 1];
+        const first = points[0];
+        return \`\${spline} L \${last.x.toFixed(1)} \${bottomY} L \${first.x.toFixed(1)} \${bottomY} Z\`;
+      }
+
+      // Render Ultra-Cool Trajectory Chart
       function renderTrajectoryChart(sessions) {
         const svg = document.getElementById('perfChartSvg');
-        if (!svg) return;
+        const container = document.getElementById('chartContainer');
+        if (!svg || !container) return;
 
         if (!sessions || sessions.length < 2) {
           svg.innerHTML = \`
-            <text x="300" y="90" text-anchor="middle" fill="#64748b" font-size="12" font-family="'Inter', sans-serif">
+            <text x="300" y="120" text-anchor="middle" fill="#64748b" font-size="12" font-family="'Inter', sans-serif">
               Complete lessons in the training room to generate your performance progression curve.
             </text>
           \`;
           return;
         }
 
-        const data = [...sessions].reverse().slice(-15);
-        const w = 600, h = 180, padL = 40, padR = 40, padT = 20, padB = 30;
+        const data = [...sessions].reverse().slice(-16);
+        const w = 600, h = 240, padL = 44, padR = 44, padT = 24, padB = 34;
         const chartW = w - padL - padR;
         const chartH = h - padT - padB;
+        const bottomY = padT + chartH;
 
         const maxWpm = Math.max(...data.map(d => d.wpm), 60);
+        const minAcc = 70; // Pin baseline accuracy scale to 70% for dramatic resolution
+
         const wpmPoints = [];
         const accPoints = [];
 
         data.forEach((d, idx) => {
           const x = padL + (idx / (data.length - 1)) * chartW;
           const yWpm = padT + chartH - (d.wpm / maxWpm) * chartH;
-          const yAcc = padT + chartH - (d.acc / 100) * chartH;
-          wpmPoints.push({ x, y: yWpm, val: d.wpm, title: d.title });
-          accPoints.push({ x, y: yAcc, val: d.acc, title: d.title });
+          const clampedAcc = Math.max(minAcc, Math.min(100, d.acc));
+          const yAcc = padT + chartH - ((clampedAcc - minAcc) / (100 - minAcc)) * chartH;
+          const prev = idx > 0 ? data[idx - 1] : null;
+          const delta = prev ? (d.wpm - prev.wpm) : 0;
+
+          wpmPoints.push({ x, y: yWpm, val: d.wpm, title: d.title, timestamp: d.timestamp, durSec: d.durSec, delta });
+          accPoints.push({ x, y: yAcc, val: d.acc, title: d.title, timestamp: d.timestamp, durSec: d.durSec });
         });
 
-        const wpmPath = wpmPoints.map((p, i) => \`\${i === 0 ? 'M' : 'L'} \${p.x} \${p.y}\`).join(' ');
-        const accPath = accPoints.map((p, i) => \`\${i === 0 ? 'M' : 'L'} \${p.x} \${p.y}\`).join(' ');
+        // Compute summary telemetry chips
+        const peakWpm = Math.max(...data.map(d => d.wpm), 0);
+        const avgWpm = Math.round(data.reduce((a, b) => a + b.wpm, 0) / data.length);
+        const consistency = Math.round((data.reduce((a, b) => a + b.acc, 0) / data.length) * 10) / 10;
+        const momentum = data.length >= 2
+          ? Math.round(((data[data.length - 1].wpm - data[0].wpm) / Math.max(1, data[0].wpm)) * 100)
+          : 0;
+
+        const chipPeak = document.getElementById('chipPeakWpm');
+        if (chipPeak) chipPeak.innerHTML = \`<svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>Peak: <strong>\${peakWpm} WPM</strong></span>\`;
+
+        const chipAvg = document.getElementById('chipAvgWpm');
+        if (chipAvg) chipAvg.innerHTML = \`<svg class="svg-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg><span>Avg: <strong>\${avgWpm} WPM</strong></span>\`;
+
+        const chipMom = document.getElementById('chipMomentum');
+        if (chipMom) chipMom.innerHTML = \`<svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg><span>Momentum: <strong>\${momentum >= 0 ? '+' : ''}\${momentum}%</strong></span>\`;
+
+        const chipCons = document.getElementById('chipConsistency');
+        if (chipCons) chipCons.innerHTML = \`<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle></svg><span>Consistency: <strong>\${consistency}%</strong></span>\`;
+
+        // Generate smooth splines
+        const wpmSpline = getSmoothSplinePath(wpmPoints);
+        const wpmArea = getSmoothAreaPath(wpmPoints, bottomY);
+        const accSpline = getSmoothSplinePath(accPoints);
+        const accArea = getSmoothAreaPath(accPoints, bottomY);
+
+        // Benchmark lines: 40 WPM (Flow) and 95% Accuracy (Mastery)
+        const y40Wpm = padT + chartH - (40 / maxWpm) * chartH;
+        const y95Acc = padT + chartH - ((95 - minAcc) / (100 - minAcc)) * chartH;
 
         svg.innerHTML = \`
-          <!-- Background Grid Lines -->
-          <line x1="\${padL}" y1="\${padT}" x2="\${w - padR}" y2="\${padT}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4"/>
-          <line x1="\${padL}" y1="\${padT + chartH * 0.5}" x2="\${w - padR}" y2="\${padT + chartH * 0.5}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4"/>
-          <line x1="\${padL}" y1="\${padT + chartH}" x2="\${w - padR}" y2="\${padT + chartH}" stroke="rgba(255,255,255,0.1)"/>
-          
-          <!-- Axis Labels -->
-          <text x="\${padL - 8}" y="\${padT + 4}" text-anchor="end" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace">\${Math.round(maxWpm)} WPM</text>
-          <text x="\${padL - 8}" y="\${padT + chartH + 3}" text-anchor="end" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace">0</text>
-          <text x="\${w - padR + 8}" y="\${padT + 4}" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace">100%</text>
+          <defs>
+            <!-- Velocity Gold Area Gradient -->
+            <linearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffd166" stop-opacity="0.38"/>
+              <stop offset="40%" stop-color="#ffd166" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#ffd166" stop-opacity="0.0"/>
+            </linearGradient>
 
-          <!-- Speed Polyline -->
-          <path d="\${wpmPath}" fill="none" stroke="var(--gold-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Accuracy Polyline -->
-          <path d="\${accPath}" fill="none" stroke="var(--emerald-neon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 3"/>
+            <!-- Precision Emerald Area Gradient -->
+            <linearGradient id="emeraldGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#34d399" stop-opacity="0.32"/>
+              <stop offset="50%" stop-color="#34d399" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#34d399" stop-opacity="0.0"/>
+            </linearGradient>
 
-          <!-- Interactive Data Points -->
+            <!-- Glow Filters -->
+            <filter id="glowGold" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+
+            <filter id="glowEmerald" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Holographic Grid Background -->
+          <line x1="\${padL}" y1="\${padT}" x2="\${w - padR}" y2="\${padT}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 3"/>
+          <line x1="\${padL}" y1="\${padT + chartH * 0.33}" x2="\${w - padR}" y2="\${padT + chartH * 0.33}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 3"/>
+          <line x1="\${padL}" y1="\${padT + chartH * 0.66}" x2="\${w - padR}" y2="\${padT + chartH * 0.66}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 3"/>
+          <line x1="\${padL}" y1="\${bottomY}" x2="\${w - padR}" y2="\${bottomY}" stroke="rgba(255,255,255,0.12)"/>
+
+          <!-- Vertical Session Grid Ticks -->
           \${wpmPoints.map(p => \`
-            <circle cx="\${p.x}" cy="\${p.y}" r="3.5" fill="var(--gold-primary)" stroke="#0e1320" stroke-width="1.5">
-              <title>\${p.title}: \${p.val} WPM</title>
-            </circle>
+            <line x1="\${p.x.toFixed(1)}" y1="\${padT}" x2="\${p.x.toFixed(1)}" y2="\${bottomY}" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2 4"/>
+          \`).join('')}
+
+          <!-- Flow State Benchmark (40 WPM) -->
+          \${(40 <= maxWpm) ? \`
+            <line x1="\${padL}" y1="\${y40Wpm.toFixed(1)}" x2="\${w - padR}" y2="\${y40Wpm.toFixed(1)}" stroke="rgba(255,209,102,0.22)" stroke-dasharray="4 4"/>
+            <text x="\${w - padR - 4}" y="\${(y40Wpm - 4).toFixed(1)}" text-anchor="end" fill="rgba(255,209,102,0.6)" font-size="9" font-family="'JetBrains Mono',monospace">40 WPM FLOW BENCHMARK</text>
+          \` : ''}
+
+          <!-- Mastery Barrier (95% Accuracy) -->
+          <line x1="\${padL}" y1="\${y95Acc.toFixed(1)}" x2="\${w - padR}" y2="\${y95Acc.toFixed(1)}" stroke="rgba(52,211,153,0.22)" stroke-dasharray="4 4"/>
+          <text x="\${padL + 6}" y="\${(y95Acc - 4).toFixed(1)}" fill="rgba(52,211,153,0.6)" font-size="9" font-family="'JetBrains Mono',monospace">95% PRECISION BARRIER</text>
+
+          <!-- Left Axis Ticks (WPM) -->
+          <text x="\${padL - 10}" y="\${padT + 4}" text-anchor="end" fill="#94a3b8" font-size="9" font-family="'JetBrains Mono',monospace">\${Math.round(maxWpm)}</text>
+          <text x="\${padL - 10}" y="\${(padT + chartH * 0.5 + 3).toFixed(1)}" text-anchor="end" fill="#64748b" font-size="9" font-family="'JetBrains Mono',monospace">\${Math.round(maxWpm * 0.5)}</text>
+          <text x="\${padL - 10}" y="\${bottomY + 3}" text-anchor="end" fill="#64748b" font-size="9" font-family="'JetBrains Mono',monospace">0</text>
+
+          <!-- Right Axis Ticks (Accuracy) -->
+          <text x="\${w - padR + 8}" y="\${padT + 4}" fill="#94a3b8" font-size="9" font-family="'JetBrains Mono',monospace">100%</text>
+          <text x="\${w - padR + 8}" y="\${(padT + chartH * 0.5 + 3).toFixed(1)}" fill="#64748b" font-size="9" font-family="'JetBrains Mono',monospace">85%</text>
+          <text x="\${w - padR + 8}" y="\${bottomY + 3}" fill="#64748b" font-size="9" font-family="'JetBrains Mono',monospace">70%</text>
+
+          <!-- Area Fills -->
+          <path id="svgAreaPrecision" class="area-precision" d="\${accArea}" style="display: \${activeStreamMode === 'velocity' ? 'none' : 'block'};"/>
+          <path id="svgAreaVelocity" class="area-velocity" d="\${wpmArea}" style="display: \${activeStreamMode === 'precision' ? 'none' : 'block'};"/>
+
+          <!-- Glowing Spline Strokes -->
+          <path id="svgSplinePrecision" class="spline-precision" d="\${accSpline}" filter="url(#glowEmerald)" style="display: \${activeStreamMode === 'velocity' ? 'none' : 'block'};"/>
+          <path id="svgSplineVelocity" class="spline-velocity" d="\${wpmSpline}" filter="url(#glowGold)" style="display: \${activeStreamMode === 'precision' ? 'none' : 'block'};"/>
+
+          <!-- Pulsing Milestone Dots -->
+          \${wpmPoints.map(p => \`
+            <circle cx="\${p.x.toFixed(1)}" cy="\${p.y.toFixed(1)}" r="3" fill="#ffd166" stroke="#0e1320" stroke-width="1.5" style="display:\${activeStreamMode === 'precision' ? 'none' : 'block'};"/>
           \`).join('')}
 
           \${accPoints.map(p => \`
-            <circle cx="\${p.x}" cy="\${p.y}" r="3" fill="var(--emerald-neon)" stroke="#0e1320" stroke-width="1.5">
-              <title>\${p.title}: \${p.val}% Accuracy</title>
-            </circle>
+            <circle cx="\${p.x.toFixed(1)}" cy="\${p.y.toFixed(1)}" r="2.5" fill="#34d399" stroke="#0e1320" stroke-width="1.5" style="display:\${activeStreamMode === 'velocity' ? 'none' : 'block'};"/>
           \`).join('')}
         \`;
+
+        // Interactive Laser Crosshair & Holographic HUD logic
+        const laser = document.getElementById('chartLaserLine');
+        const reticleGold = document.getElementById('chartReticleGold');
+        const reticleEmerald = document.getElementById('chartReticleEmerald');
+        const hud = document.getElementById('chartHologramHud');
+        const hudTitle = document.getElementById('hudLessonTitle');
+        const hudDate = document.getElementById('hudSessionDate');
+        const hudSpeed = document.getElementById('hudSpeedVal');
+        const hudAcc = document.getElementById('hudAccVal');
+        const hudDelta = document.getElementById('hudDeltaVal');
+        const hudDetails = document.getElementById('hudDurationStrokes');
+
+        let lastHoverIdx = -1;
+
+        container.onmousemove = (e) => {
+          const rect = container.getBoundingClientRect();
+          const mouseX = e.clientX - rect.left;
+          const svgX = (mouseX / rect.width) * w;
+
+          // Find closest point by X
+          let closestIdx = 0;
+          let minDiff = 99999;
+          wpmPoints.forEach((p, idx) => {
+            const diff = Math.abs(p.x - svgX);
+            if (diff < minDiff) {
+              minDiff = diff;
+              closestIdx = idx;
+            }
+          });
+
+          if (closestIdx !== lastHoverIdx) {
+            lastHoverIdx = closestIdx;
+            playHapticTick(900 + (closestIdx * 20), 0.015);
+          }
+
+          const ptWpm = wpmPoints[closestIdx];
+          const ptAcc = accPoints[closestIdx];
+          const pxRatio = rect.width / w;
+          const pixelX = ptWpm.x * pxRatio;
+          const pixelYWpm = ptWpm.y * (rect.height / h);
+          const pixelYAcc = ptAcc.y * (rect.height / h);
+
+          // Position Laser and Reticles
+          if (laser) {
+            laser.style.left = \`\${pixelX}px\`;
+            laser.classList.add('active');
+          }
+
+          if (reticleGold) {
+            reticleGold.style.left = \`\${pixelX}px\`;
+            reticleGold.style.top = \`\${pixelYWpm}px\`;
+            reticleGold.classList.toggle('active', activeStreamMode !== 'precision');
+          }
+
+          if (reticleEmerald) {
+            reticleEmerald.style.left = \`\${pixelX}px\`;
+            reticleEmerald.style.top = \`\${pixelYAcc}px\`;
+            reticleEmerald.classList.toggle('active', activeStreamMode !== 'velocity');
+          }
+
+          // Populate HUD card
+          if (hud) {
+            const dateObj = new Date(ptWpm.timestamp);
+            const dateStr = \`\${months[dateObj.getMonth()].slice(0, 3)} \${dateObj.getDate()}, \${String(dateObj.getHours()).padStart(2, '0')}:\${String(dateObj.getMinutes()).padStart(2, '0')}\`;
+            if (hudTitle) hudTitle.textContent = ptWpm.title;
+            if (hudDate) hudDate.textContent = dateStr;
+            if (hudSpeed) hudSpeed.textContent = \`\${ptWpm.val} WPM\`;
+            if (hudAcc) hudAcc.textContent = \`\${ptAcc.val}% Acc\`;
+
+            if (hudDelta) {
+              const dVal = ptWpm.delta;
+              hudDelta.textContent = dVal >= 0 ? \`+\${dVal} WPM\` : \`\${dVal} WPM\`;
+              hudDelta.className = dVal >= 0 ? 'hud-delta' : 'hud-delta down';
+            }
+
+            if (hudDetails) {
+              const mins = Math.floor(ptWpm.durSec / 60);
+              const secs = ptWpm.durSec % 60;
+              hudDetails.textContent = \`\${String(mins).padStart(2, '0')}:\${String(secs).padStart(2, '0')} duration · \${Math.round(ptWpm.val * 5 * (ptWpm.durSec / 60))} Keystrokes\`;
+            }
+
+            // Clamp HUD to avoid screen overflow
+            const hudClampX = Math.min(rect.width - 110, Math.max(110, pixelX));
+            hud.style.left = \`\${hudClampX}px\`;
+            hud.classList.add('active');
+          }
+        };
+
+        container.onmouseleave = () => {
+          if (laser) laser.classList.remove('active');
+          if (reticleGold) reticleGold.classList.remove('active');
+          if (reticleEmerald) reticleEmerald.classList.remove('active');
+          if (hud) hud.classList.remove('active');
+          lastHoverIdx = -1;
+        };
+
+        // Wire Stream Toggle Buttons
+        const streamBtns = document.querySelectorAll('#chartStreamToggle .stream-toggle-btn');
+        streamBtns.forEach(btn => {
+          btn.onclick = () => {
+            streamBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeStreamMode = btn.dataset.stream || 'dual';
+            playHapticTick(1100, 0.02);
+            renderTrajectoryChart(sessions);
+          };
+        });
       }
 
       // Render 30-Day Activity Punchcard Heatmap
@@ -956,7 +1226,7 @@ module.exports = `
         const todaySessions = allSessions.filter(s => s.timestamp >= now - 86400000);
         const todayStrokes = todaySessions.reduce((acc, s) => acc + (s.keys || Math.round((s.wpm * 5) * (s.durSec / 60)) || 80), 0);
         const todayKeyCountEl = document.getElementById('todayKeyCount');
-        if (todayKeyCountEl) todayKeyCountEl.textContent = todayStrokes.toLocaleString();
+        if (todayKeyCountEl) animateCounter(todayKeyCountEl, todayStrokes);
         const todayKeyTargetEl = document.getElementById('todayKeyTarget');
         if (todayKeyTargetEl) todayKeyTargetEl.textContent = activeDailyTarget.toLocaleString();
 
@@ -974,21 +1244,29 @@ module.exports = `
         const streakDisplay = document.getElementById('targetStreakDisplay');
         if (streakDisplay) streakDisplay.textContent = streak.current;
 
-        // 4. Update Hero Scorecard
+        // 4. Update Hero Scorecard with Smooth Counter Animations
         const metricWpmEl = document.getElementById('metricWpm');
-        if (metricWpmEl) metricWpmEl.innerHTML = \`\${speedWpm} <span style="font-size:16px; color:var(--text-dim);">WPM</span>\`;
+        if (metricWpmEl) {
+          metricWpmEl.innerHTML = \`\${speedWpm} <span style="font-size:16px; color:var(--text-dim);">WPM</span>\`;
+        }
 
         const metricAccEl = document.getElementById('metricAcc');
-        if (metricAccEl) metricAccEl.textContent = accuracy > 0 ? \`\${accuracy.toFixed(1)}%\` : '—%';
+        if (metricAccEl) {
+          metricAccEl.textContent = accuracy > 0 ? \`\${accuracy.toFixed(1)}%\` : '—%';
+        }
 
         const metricKeysEl = document.getElementById('metricKeys');
-        if (metricKeysEl) metricKeysEl.textContent = totalKeys.toLocaleString();
+        if (metricKeysEl) animateCounter(metricKeysEl, totalKeys);
 
         const metricLessonsEl = document.getElementById('metricLessons');
-        if (metricLessonsEl) metricLessonsEl.innerHTML = \`\${completedLessons} <span style="font-size:16px; color:var(--text-dim);">/ \${profile.totalLessons}</span>\`;
+        if (metricLessonsEl) {
+          metricLessonsEl.innerHTML = \`\${completedLessons} <span style="font-size:16px; color:var(--text-dim);">/ \${profile.totalLessons}</span>\`;
+        }
 
         const metricStreakEl = document.getElementById('metricStreak');
-        if (metricStreakEl) metricStreakEl.innerHTML = \`\${streak.current} <span style="font-size:16px; color:var(--text-dim);">Days</span>\`;
+        if (metricStreakEl) {
+          metricStreakEl.innerHTML = \`\${streak.current} <span style="font-size:16px; color:var(--text-dim);">Days</span>\`;
+        }
 
         const metricTimeEl = document.getElementById('metricTime');
         if (metricTimeEl) {
@@ -1011,7 +1289,7 @@ module.exports = `
           }
         }
 
-        // 5. Render Trajectory Chart
+        // 5. Render Ultra-Cool Trajectory Chart
         renderTrajectoryChart(trackSessions.length > 0 ? trackSessions : allSessions);
 
         // 6. Render 30-Day Punchcard
@@ -1238,6 +1516,7 @@ module.exports = `
 
       // Launch Lesson in Studio
       window.launchLesson = function(lessonId, layoutId) {
+        playHapticTick(1200, 0.03);
         try {
           localStorage.setItem('pk_active_lesson_session', JSON.stringify({
             lessonId: lessonId,
@@ -1252,6 +1531,7 @@ module.exports = `
 
       // Launch Weak Key Drill
       window.launchWeakKeyDrill = function(keyId, layoutId) {
+        playHapticTick(750, 0.04);
         try {
           localStorage.setItem('pk_active_layout', layoutId);
           localStorage.setItem('khmerActiveLayout', layoutId);
@@ -1261,6 +1541,7 @@ module.exports = `
 
       // Open Key Inspector Modal
       window.openKeyInspector = function(keyId, label, fingerCode, desc) {
+        playHapticTick(980, 0.02);
         const storageData = readAllLocalStorage();
         const course = storageData.progress?.courses?.[currentTrack];
         const trackStats = storageData.tracker?.keyStats?.[currentTrack] || {};
@@ -1306,7 +1587,10 @@ module.exports = `
       const btnOpenExport = document.getElementById('btnOpenExportModal');
       const btnCloseExport = document.getElementById('btnCloseExportModal');
       if (btnOpenExport && exportModal) {
-        btnOpenExport.onclick = () => exportModal.classList.add('active');
+        btnOpenExport.onclick = () => {
+          playHapticTick(1050, 0.03);
+          exportModal.classList.add('active');
+        };
       }
       if (btnCloseExport && exportModal) {
         btnCloseExport.onclick = () => exportModal.classList.remove('active');
@@ -1333,6 +1617,7 @@ module.exports = `
       const btnDownloadJson = document.getElementById('btnDownloadJsonDossier');
       if (btnDownloadJson) {
         btnDownloadJson.onclick = () => {
+          playHapticTick(1200, 0.03);
           const profile = TRACK_METADATA[currentTrack] || TRACK_METADATA.standard;
           const storageData = readAllLocalStorage();
           const dossier = {
@@ -1365,6 +1650,7 @@ module.exports = `
       const tabBtns = document.querySelectorAll('.view-tab-btn');
       tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+          playHapticTick(820, 0.02);
           tabBtns.forEach(b => {
             b.classList.remove('active');
             b.setAttribute('aria-selected', 'false');
@@ -1376,6 +1662,12 @@ module.exports = `
           document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
           const targetPane = document.getElementById(\`pane-\${tabName}\`);
           if (targetPane) targetPane.classList.add('active');
+
+          if (tabName === 'overview') {
+            const storageData = readAllLocalStorage();
+            const allSessions = extractAllSessions(storageData);
+            renderTrajectoryChart(allSessions);
+          }
         });
       });
 
@@ -1383,6 +1675,7 @@ module.exports = `
       const trackBtns = document.querySelectorAll('#trackFilter .segment-btn');
       trackBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+          playHapticTick(900, 0.02);
           trackBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           currentTrack = btn.dataset.track || 'standard';
@@ -1394,6 +1687,7 @@ module.exports = `
       const timeBtns = document.querySelectorAll('#timeFilter .segment-btn');
       timeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+          playHapticTick(860, 0.02);
           timeBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           currentTimeframe = btn.dataset.time || 'all';
@@ -1405,6 +1699,7 @@ module.exports = `
       const presetBtns = document.querySelectorAll('.target-preset-btn');
       presetBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+          playHapticTick(940, 0.02);
           presetBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           activeDailyTarget = parseInt(btn.dataset.target, 10) || 500;
@@ -1420,6 +1715,7 @@ module.exports = `
 
       function toggleDemoMode(enable) {
         demoModeActive = enable;
+        playHapticTick(enable ? 1300 : 700, 0.03);
         if (demoBanner) demoBanner.classList.toggle('hidden', !demoModeActive);
         if (demoLabel) demoLabel.textContent = demoModeActive ? 'Exit Demo' : 'Demo Preview';
         if (btnToggleDemo) btnToggleDemo.classList.toggle('primary', demoModeActive);

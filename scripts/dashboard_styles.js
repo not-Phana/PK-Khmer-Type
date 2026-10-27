@@ -1,6 +1,6 @@
 // scripts/dashboard_styles.js
 // Complete CSS Styles for PK Khmer Type Analytics & Mastery Dashboard
-// Pure Cyber-Angkor Dark Theme, Glassmorphism, Responsive Tables, Print CSS
+// Pure Cyber-Angkor Dark Theme, Glassmorphism, Responsive Tables, Print CSS, Ultra-Cool Trajectory Telemetry
 
 module.exports = `
     :root {
@@ -668,18 +668,264 @@ module.exports = `
       color: var(--text-muted);
     }
 
-    /* TRAJECTORY DUAL-LINE CHART */
+    /* ULTRA-COOL PERFORMANCE TRAJECTORY HUD & VISUALIZATION */
+    .chart-module {
+      background: linear-gradient(180deg, #101626 0%, #0c101c 100%);
+      border: 1px solid rgba(255, 209, 102, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-module::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(255, 209, 102, 0.7), rgba(56, 189, 248, 0.7), transparent);
+    }
+
+    .chart-top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 12px;
+    }
+
+    .chart-telemetry-chips {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chart-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .chart-chip strong {
+      font-family: 'JetBrains Mono', monospace;
+      color: #fff;
+    }
+
+    .chart-chip.gold { border-color: rgba(255, 209, 102, 0.4); color: var(--gold-primary); }
+    .chart-chip.emerald { border-color: rgba(52, 211, 153, 0.4); color: var(--emerald-neon); }
+    .chart-chip.cyan { border-color: rgba(56, 189, 248, 0.4); color: var(--cyan-neon); }
+
+    .chart-stream-toggle {
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      padding: 2.5px;
+      gap: 2px;
+    }
+
+    .stream-toggle-btn {
+      background: transparent;
+      border: none;
+      border-radius: 999px;
+      padding: 4px 11px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .stream-toggle-btn:hover { color: #fff; }
+    .stream-toggle-btn.active {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 209, 102, 0.4);
+      color: var(--gold-primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
     .chart-container {
       width: 100%;
-      height: 200px;
+      height: 240px;
       position: relative;
       margin-top: 6px;
+      user-select: none;
+      cursor: crosshair;
     }
 
     .perf-chart-svg {
       width: 100%;
       height: 100%;
       overflow: visible;
+      display: block;
+    }
+
+    /* Glowing Splines & Neon Area Ribbons */
+    .spline-velocity {
+      fill: none;
+      stroke: var(--gold-primary);
+      stroke-width: 2.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.65));
+      transition: opacity 0.3s ease;
+    }
+
+    .spline-precision {
+      fill: none;
+      stroke: var(--emerald-neon);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 4 4;
+      filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.65));
+      transition: opacity 0.3s ease;
+    }
+
+    .area-velocity {
+      fill: url(#goldGradient);
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+
+    .area-precision {
+      fill: url(#emeraldGradient);
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Holographic Laser Crosshair & Interactive HUD */
+    .chart-laser-line {
+      position: absolute;
+      top: 15px;
+      bottom: 25px;
+      width: 1.5px;
+      background: linear-gradient(180deg, rgba(255, 209, 102, 0.9), rgba(56, 189, 248, 0.9), transparent);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease, left 0.06s ease-out;
+      z-index: 5;
+    }
+
+    .chart-laser-line.active { opacity: 1; }
+
+    .chart-reticle-gold, .chart-reticle-emerald {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0;
+      z-index: 6;
+      transition: opacity 0.15s ease, left 0.06s ease-out, top 0.06s ease-out;
+    }
+
+    .chart-reticle-gold {
+      background: var(--gold-primary);
+      box-shadow: 0 0 14px var(--gold-primary), inset 0 0 3px #000;
+      border: 2px solid #fff;
+    }
+
+    .chart-reticle-emerald {
+      background: var(--emerald-neon);
+      box-shadow: 0 0 14px var(--emerald-neon), inset 0 0 3px #000;
+      border: 2px solid #fff;
+    }
+
+    .chart-reticle-gold.active, .chart-reticle-emerald.active { opacity: 1; }
+
+    /* Interactive Holographic HUD Tooltip Card */
+    .chart-hologram-hud {
+      position: absolute;
+      bottom: calc(100% - 15px);
+      left: 0;
+      transform: translateX(-50%);
+      background: rgba(12, 17, 28, 0.95);
+      border: 1px solid rgba(255, 209, 102, 0.45);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8), 0 0 24px rgba(255, 209, 102, 0.2);
+      backdrop-filter: blur(18px);
+      pointer-events: none;
+      opacity: 0;
+      z-index: 20;
+      min-width: 190px;
+      transition: opacity 0.15s ease, left 0.06s ease-out;
+    }
+
+    .chart-hologram-hud.active { opacity: 1; }
+
+    .hud-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 4px;
+    }
+
+    .hud-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .hud-date {
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+
+    .hud-metrics {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .hud-metric-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .hud-metric-label {
+      font-size: 9px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .hud-delta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--emerald-neon);
+    }
+
+    .hud-delta.down {
+      background: rgba(251, 113, 133, 0.15);
+      color: var(--rose-neon);
     }
 
     /* 30-DAY ACTIVITY PUNCHCARD */
@@ -1151,13 +1397,13 @@ module.exports = `
       box-shadow: 0 0 12px rgba(251, 113, 133, 0.5);
     }
 
-    /* INTERACTIVE KEYBOARD HEATMAP */
+    /* INTERACTIVE 3D MECHANICAL KEYBOARD HEATMAP */
     .keyboard-heatmap-wrap {
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      background: rgba(0, 0, 0, 0.45);
-      padding: 14px;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 16px;
       border-radius: var(--radius-md);
       border: 1px solid rgba(255, 255, 255, 0.06);
       user-select: none;
@@ -1173,7 +1419,7 @@ module.exports = `
 
     .hm-key {
       flex: 1;
-      height: 40px;
+      height: 42px;
       max-width: 50px;
       background: #141a29;
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1189,6 +1435,7 @@ module.exports = `
       color: #fff;
       cursor: pointer;
       transition: var(--transition);
+      box-shadow: 0 4px 0 #090c14, 0 5px 10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
 
     .hm-key:hover {
@@ -1198,13 +1445,35 @@ module.exports = `
       border-color: #fff;
     }
 
+    .hm-key:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #090c14, inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
     .hm-key.w-15 { max-width: 72px; font-size: 11px; }
     .hm-key.w-20 { max-width: 90px; font-size: 11px; }
     .hm-key.w-space { max-width: 270px; font-size: 11px; }
 
-    .hm-key.high { background: #093322; border-color: rgba(52, 211, 153, 0.5); color: var(--emerald-neon); }
-    .hm-key.mid { background: #3d2f09; border-color: rgba(255, 209, 102, 0.5); color: var(--gold-primary); }
-    .hm-key.low { background: #3b0e17; border-color: rgba(251, 113, 133, 0.6); color: var(--rose-neon); }
+    .hm-key.high {
+      background: #093322;
+      border-color: rgba(52, 211, 153, 0.6);
+      color: var(--emerald-neon);
+      box-shadow: 0 4px 0 #04170e, 0 6px 14px rgba(52, 211, 153, 0.3), inset 0 1px 0 rgba(52, 211, 153, 0.4);
+    }
+
+    .hm-key.mid {
+      background: #3d2f09;
+      border-color: rgba(255, 209, 102, 0.6);
+      color: var(--gold-primary);
+      box-shadow: 0 4px 0 #1f1704, 0 6px 14px rgba(255, 209, 102, 0.3), inset 0 1px 0 rgba(255, 209, 102, 0.4);
+    }
+
+    .hm-key.low {
+      background: #3b0e17;
+      border-color: rgba(251, 113, 133, 0.7);
+      color: var(--rose-neon);
+      box-shadow: 0 4px 0 #1f050b, 0 6px 14px rgba(251, 113, 133, 0.3), inset 0 1px 0 rgba(251, 113, 133, 0.4);
+    }
 
     /* MILESTONE ACHIEVEMENTS & TROPHIES */
     .achievements-grid {
@@ -1297,7 +1566,7 @@ module.exports = `
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.82);
       backdrop-filter: blur(8px);
       z-index: 1000;
       display: flex;
@@ -1323,7 +1592,7 @@ module.exports = `
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
       position: relative;
     }
 

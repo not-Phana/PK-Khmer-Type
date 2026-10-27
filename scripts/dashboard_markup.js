@@ -282,20 +282,88 @@ module.exports = `
       <!-- DUAL-LINE VELOCITY TRAJECTORY & 30-DAY PUNCHCARD ROW -->
       <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
         
-        <!-- MODULE: TRAJECTORY VELOCITY CHART -->
-        <div class="dash-module">
-          <div class="module-head">
-            <h2 class="module-title">
-              <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-              <span>Performance Progression Trajectory</span>
-            </h2>
-            <div style="display:flex; align-items:center; gap:14px; font-size:11px;">
-              <span style="color:var(--gold-primary); font-weight:700;">● Speed (WPM)</span>
-              <span style="color:var(--emerald-neon); font-weight:700;">● Accuracy (%)</span>
+        <!-- MODULE: ULTRA-COOL TRAJECTORY VELOCITY CHART -->
+        <div class="dash-module chart-module">
+          <div class="chart-top-bar">
+            <div>
+              <h2 class="module-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                <span>Performance Progression Trajectory</span>
+              </h2>
+              <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">
+                Real-time velocity wave &amp; precision harmonic curve across practice sessions.
+              </div>
+            </div>
+
+            <!-- Telemetry Stream Mode Toggles -->
+            <div class="chart-stream-toggle" id="chartStreamToggle">
+              <button class="stream-toggle-btn active" data-stream="dual" type="button">
+                <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                <span>Dual Stream</span>
+              </button>
+              <button class="stream-toggle-btn" data-stream="velocity" type="button">
+                <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                <span>Velocity Wave</span>
+              </button>
+              <button class="stream-toggle-btn" data-stream="precision" type="button">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span>Precision Wave</span>
+              </button>
             </div>
           </div>
+
+          <!-- Micro-Telemetry Stat Chips Row -->
+          <div class="chart-telemetry-chips">
+            <div class="chart-chip gold" id="chipPeakWpm">
+              <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <span>Peak: <strong>0 WPM</strong></span>
+            </div>
+            <div class="chart-chip cyan" id="chipAvgWpm">
+              <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+              <span>Avg: <strong>0 WPM</strong></span>
+            </div>
+            <div class="chart-chip emerald" id="chipMomentum">
+              <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+              <span>Momentum: <strong>+0%</strong></span>
+            </div>
+            <div class="chart-chip" id="chipConsistency" style="border-color:rgba(167,139,250,0.4); color:var(--violet-neon);">
+              <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle></svg>
+              <span>Consistency: <strong>0%</strong></span>
+            </div>
+          </div>
+
+          <!-- Interactive SVG Trajectory Canvas & Floating Holographic HUD -->
           <div class="chart-container" id="chartContainer">
-            <svg class="perf-chart-svg" id="perfChartSvg" viewBox="0 0 600 180"></svg>
+            <div class="chart-laser-line" id="chartLaserLine"></div>
+            <div class="chart-reticle-gold" id="chartReticleGold"></div>
+            <div class="chart-reticle-emerald" id="chartReticleEmerald"></div>
+
+            <!-- Floating Hologram Tooltip Card -->
+            <div class="chart-hologram-hud" id="chartHologramHud">
+              <div class="hud-header">
+                <span class="hud-title" id="hudLessonTitle">Lesson Drill</span>
+                <span class="hud-date" id="hudSessionDate">Oct 27</span>
+              </div>
+              <div class="hud-metrics">
+                <div>
+                  <div class="hud-metric-label">Velocity</div>
+                  <div class="hud-metric-val" id="hudSpeedVal" style="color:var(--gold-primary);">0 WPM</div>
+                </div>
+                <div>
+                  <div class="hud-metric-label">Precision</div>
+                  <div class="hud-metric-val" id="hudAccVal" style="color:var(--emerald-neon);">0%</div>
+                </div>
+                <div>
+                  <div class="hud-metric-label">Burst Delta</div>
+                  <div class="hud-delta" id="hudDeltaVal">+0 WPM</div>
+                </div>
+              </div>
+              <div style="font-size:10px; color:var(--text-dim); border-top:1px solid rgba(255,255,255,0.06); padding-top:4px;" id="hudDurationStrokes">
+                00:00 · 0 Strokes
+              </div>
+            </div>
+
+            <svg class="perf-chart-svg" id="perfChartSvg" viewBox="0 0 600 240"></svg>
           </div>
         </div>
 
