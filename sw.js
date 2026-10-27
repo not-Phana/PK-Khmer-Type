@@ -20,6 +20,7 @@ var PRECACHE_ASSETS = [
   "welcome.html",
   "404.html",
   "dashboard.html",
+  "motion-graphic.html",
   "manifest.json",
   "logo.svg",
   "icon-16.png",

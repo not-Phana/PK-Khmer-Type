@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PK Khmer Type — Cinematic Motion Graphic & App Showcase</title>
+  <meta name="description" content="Cinematic motion graphic and interactive typing showcase for PK Khmer Type — Cambodia's premier mechanical touch-typing studio.">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Kantumruy+Pro:wght@400;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       PK Khmer Type — Motion Graphic Studio
+       Strict Zero-Emoji, 60 FPS Procedural Canvas & Web Audio
+       ========================================================================== */
+    :root {
+      --bg-void: #05070d;
+      --bg-card: rgba(14, 18, 32, 0.85);
+      --gold-primary: #ffd166;
+      --gold-amber: #ff9d2e;
+      --cyan-neon: #38bdf8;
+      --emerald-neon: #34d399;
+      --ruby-neon: #ff4757;
+      --ink: #f8fafc;
+      --ink-dim: #94a3b8;
+      --glass-border: rgba(255, 209, 102, 0.22);
+      --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-khmer: 'Kantumruy Pro', 'Khmer OS Siemreap', 'Khmer OS', 'Noto Sans Khmer', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Cascadia Code', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-void);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 20px 16px 40px;
+    }
+
+    /* Ambient Studio Background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 50% 10%, rgba(255, 157, 46, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 10% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 90% 70%, rgba(255, 71, 87, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, #05070d 0%, #080c18 60%, #05070d 100%);
+    }
+
+    .mg-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Header Bar */
+    .mg-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .mg-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .mg-logo-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255, 209, 102, 0.1);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px rgba(255, 209, 102, 0.2);
+    }
+
+    .mg-brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mg-brand-title span {
+      color: var(--gold-primary);
+      font-family: var(--font-khmer);
+    }
+
+    .mg-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 209, 102, 0.12);
+      border: 1px solid rgba(255, 209, 102, 0.3);
+      color: var(--gold-primary);
+    }
+
+    .mg-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mg-nav-btn {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-dim);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 14px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mg-nav-btn:hover {
+      color: #ffffff;
+      border-color: var(--gold-primary);
+      background: rgba(255, 209, 102, 0.12);
+      box-shadow: 0 0 14px rgba(255, 209, 102, 0.2);
+    }
+
+    .mg-nav-btn.primary {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-amber));
+      color: #05070d;
+      border-color: transparent;
+      font-weight: 700;
+    }
+
+    .mg-nav-btn.primary:hover {
+      box-shadow: 0 0 20px rgba(255, 209, 102, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* Motion Graphic Frame / Stage */
+    .mg-stage-card {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000000;
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(255, 209, 102, 0.12);
+    }
+
+    #mgCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Controls Overlay */
+    .mg-controls-panel {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Timeline Scrubber */
+    .mg-timeline-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mg-time-label {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--ink-dim);
+      min-width: 82px;
+      text-align: center;
+    }
+
+    .mg-progress-track {
+      position: relative;
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      cursor: pointer;
+      overflow: visible;
+    }
+
+    .mg-progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-amber), var(--gold-primary));
+      border-radius: 999px;
+      width: 0%;
+      box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+    }
+
+    .mg-scrubber-handle {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid var(--gold-primary);
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px rgba(255, 209, 102, 0.8);
+      pointer-events: none;
+      transition: transform 0.1s ease;
+    }
+
+    .mg-timeline-row:hover .mg-scrubber-handle {
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    /* Chapter Markers on Track */
+    .mg-chapter-marker {
+      position: absolute;
+      top: -3px;
+      width: 2px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 1px;
+      pointer-events: none;
+    }
+
+    /* Bottom Button Row */
+    .mg-btn-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .mg-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mg-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .mg-icon-btn:hover {
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      background: rgba(255, 209, 102, 0.12);
+    }
+
+    .mg-icon-btn.active {
+      border-color: var(--gold-primary);
+      color: #05070d;
+      background: var(--gold-primary);
+    }
+
+    .mg-scene-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .mg-scene-pill {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ink-dim);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.18s ease;
+    }
+
+    .mg-scene-pill:hover {
+      color: #ffffff;
+      border-color: rgba(255, 209, 102, 0.4);
+    }
+
+    .mg-scene-pill.active {
+      background: rgba(255, 209, 102, 0.15);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+
+    .mg-action-btn {
+      font-family: var(--font-sans);
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--ink);
+    }
+
+    .mg-action-btn:hover {
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      background: rgba(255, 209, 102, 0.12);
+    }
+
+    .mg-action-btn.export-btn {
+      background: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 157, 46, 0.2));
+      border-color: rgba(255, 209, 102, 0.45);
+      color: #ffffff;
+    }
+
+    .mg-action-btn.export-btn:hover {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 16px rgba(255, 209, 102, 0.35);
+      transform: translateY(-1px);
+    }
+
+    /* Explanation Showcase Grid Below */
+    .mg-explain-section {
+      width: 100%;
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .mg-explain-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: border-color 0.2s ease;
+    }
+
+    .mg-explain-card:hover {
+      border-color: rgba(255, 209, 102, 0.3);
+    }
+
+    .mg-explain-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mg-explain-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 209, 102, 0.1);
+      border: 1px solid rgba(255, 209, 102, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-primary);
+      flex-shrink: 0;
+    }
+
+    .mg-explain-title {
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .mg-explain-desc {
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--ink-dim);
+    }
+
+    /* Recording Indicator */
+    .mg-rec-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ruby-neon);
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(255, 71, 87, 0.15);
+      border: 1px solid rgba(255, 71, 87, 0.3);
+    }
+
+    .mg-rec-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--ruby-neon);
+      box-shadow: 0 0 6px var(--ruby-neon);
+      animation: recPulse 1s infinite;
+    }
+
+    @keyframes recPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @media (max-width: 768px) {
+      .mg-btn-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .mg-scene-pills {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="mg-container">
+  <!-- Top Navigation Bar -->
+  <header class="mg-header">
+    <a href="index.html" class="mg-brand">
+      <div class="mg-logo-wrap">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2.5"/>
+          <line x1="6" y1="8" x2="6.01" y2="8"/>
+          <line x1="10" y1="8" x2="10.01" y2="8"/>
+          <line x1="14" y1="8" x2="14.01" y2="8"/>
+          <line x1="18" y1="8" x2="18.01" y2="8"/>
+          <line x1="6" y1="12" x2="8" y2="12" stroke="#ffd166" stroke-width="2.5"/>
+          <line x1="16" y1="12" x2="18" y2="12" stroke="#ffd166" stroke-width="2.5"/>
+          <line x1="7" y1="16" x2="17" y2="16"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="mg-brand-title">PK <span>ខ្មែរ</span> Type</h1>
+      </div>
+      <span class="mg-badge">MOTION GRAPHIC SHOWCASE</span>
+    </a>
+
+    <div class="mg-nav-actions">
+      <a href="index.html" class="mg-nav-btn primary">
+        <span>Enter Studio</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Motion Graphic Canvas Stage (16:9 Cinema 1080p) -->
+  <main class="mg-stage-card" id="mgStageCard">
+    <canvas id="mgCanvas" width="1920" height="1080"></canvas>
+  </main>
+
+  <!-- Playback Control Center -->
+  <section class="mg-controls-panel" aria-label="Motion Graphic Controls">
+    <!-- Timeline Scrubber -->
+    <div class="mg-timeline-row">
+      <span class="mg-time-label" id="mgTimeDisplay">00:00 / 00:40</span>
+      <div class="mg-progress-track" id="mgProgressTrack" role="slider" aria-label="Timeline position" aria-valuemin="0" aria-valuemax="40" aria-valuenow="0" tabindex="0">
+        <div class="mg-progress-bar" id="mgProgressBar"></div>
+        <div class="mg-scrubber-handle" id="mgScrubberHandle"></div>
+        <!-- Chapter markers at 7s, 17s, 25s, 33s -->
+        <span class="mg-chapter-marker" style="left: 17.5%;" title="Act 2: Mechanical Typing Calibration"></span>
+        <span class="mg-chapter-marker" style="left: 42.5%;" title="Act 3: Khmer Unicode Chords"></span>
+        <span class="mg-chapter-marker" style="left: 62.5%;" title="Act 4: Curriculum & Modes"></span>
+        <span class="mg-chapter-marker" style="left: 82.5%;" title="Act 5: Grand Finale"></span>
+      </div>
+    </div>
+
+    <!-- Button Row -->
+    <div class="mg-btn-row">
+      <!-- Playback buttons -->
+      <div class="mg-btn-group">
+        <button type="button" class="mg-icon-btn active" id="mgPlayBtn" aria-label="Play or Pause">
+          <svg id="mgPlayIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+        <button type="button" class="mg-icon-btn" id="mgRestartBtn" aria-label="Restart from beginning">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        </button>
+        <button type="button" class="mg-icon-btn" id="mgAudioBtn" aria-label="Toggle mechanical switch audio">
+          <svg id="mgAudioIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
+        <button type="button" class="mg-action-btn" id="mgSpeedBtn" title="Cycle playback speed">
+          <span id="mgSpeedLabel">1.0x</span>
+        </button>
+      </div>
+
+      <!-- Chapter Navigation Pills -->
+      <nav class="mg-scene-pills" aria-label="Jump to scene">
+        <button type="button" class="mg-scene-pill active" data-time="0">1. Scriptorium Overture</button>
+        <button type="button" class="mg-scene-pill" data-time="7">2. Live Typing 88 WPM</button>
+        <button type="button" class="mg-scene-pill" data-time="17">3. Khmer Unicode Chords</button>
+        <button type="button" class="mg-scene-pill" data-time="25">4. 222-Lesson Curriculum</button>
+        <button type="button" class="mg-scene-pill" data-time="33">5. Grand Finale</button>
+      </nav>
+
+      <!-- Action buttons: Export Video & Fullscreen -->
+      <div class="mg-btn-group">
+        <div id="mgRecIndicator" class="mg-rec-badge" hidden>
+          <span class="mg-rec-dot" aria-hidden="true"></span>
+          <span>RECORDING 60FPS</span>
+        </div>
+        <button type="button" class="mg-action-btn export-btn" id="mgExportVideoBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span id="mgExportLabel">Export Video (.webm)</span>
+        </button>
+        <button type="button" class="mg-icon-btn" id="mgFullscreenBtn" aria-label="Toggle Fullscreen">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explanatory Showcase Cards -->
+  <section class="mg-explain-section">
+    <article class="mg-explain-card">
+      <div class="mg-explain-head">
+        <div class="mg-explain-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/></svg>
+        </div>
+        <h2 class="mg-explain-title">Dual Khmer Layouts</h2>
+      </div>
+      <p class="mg-explain-desc">
+        Complete support for both <strong>Khmer Standard (ថ/ញ home anchors)</strong> and the official <strong>Khmer NiDA Unicode (ថ/ Coeng ្)</strong> layouts, with dynamic Shift and AltGr modifier layers.
+      </p>
+    </article>
+
+    <article class="mg-explain-card">
+      <div class="mg-explain-head">
+        <div class="mg-explain-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h2 class="mg-explain-title">222 Structured Lessons</h2>
+      </div>
+      <p class="mg-explain-desc">
+        Across 40 levels with <strong>100% full alphabet coverage</strong>: all 33 consonants, dependent vowels, subscript Coengs, diacritics, independent vowels, and numerals are systematically mastered.
+      </p>
+    </article>
+
+    <article class="mg-explain-card">
+      <div class="mg-explain-head">
+        <div class="mg-explain-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h2 class="mg-explain-title">Tactile Web Audio Acoustics</h2>
+      </div>
+      <p class="mg-explain-desc">
+        Procedurally synthesized Holy Panda, Topre, and Linear mechanical switch clicks with zero sound samples. Every keystroke delivers immediate acoustic and visual feedback.
+      </p>
+    </article>
+
+    <article class="mg-explain-card">
+      <div class="mg-explain-head">
+        <div class="mg-explain-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.61 16.95A5 5 0 0 0 18 10h-1.26a8 8 0 0 0-7.05-6M5 5a8 8 0 0 0-4 7 5 5 0 0 0 4 5h11"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </div>
+        <h2 class="mg-explain-title">100% Offline Resilience</h2>
+      </div>
+      <p class="mg-explain-desc">
+        Full Progressive Web App (PWA) with Service Worker and local IndexedDB queuing. Work anywhere with zero internet connection; automatically syncs when reconnected.
+      </p>
+    </article>
+  </section>
+</div>
+
+<script>
+/* ============================================================================
+   PK Khmer Type — Motion Graphic Canvas & Web Audio Synthesizer Engine
+   ============================================================================ */
+(function () {
+  'use strict';
+
+  var canvas = document.getElementById('mgCanvas');
+  var ctx = canvas.getContext('2d');
+  var totalDuration = 40.0; // 40 seconds total
+  var currentTime = 0.0;
+  var isPlaying = true;
+  var playbackSpeed = 1.0;
+  var audioEnabled = true;
+  var lastFrameTime = performance.now();
+
+  // MediaRecorder for in-browser video export
+  var mediaRecorder = null;
+  var recordedChunks = [];
+  var isRecording = false;
+
+  /* ---------- Procedural Web Audio Switch Synthesizer ---------- */
+  var audioCtx = null;
+  function getAudioContext() {
+    if (!audioCtx) {
+      var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        audioCtx = new AudioContextClass();
+      }
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  function playMechanicalClick(pitchMod) {
+    if (!audioEnabled) return;
+    try {
+      var actx = getAudioContext();
+      if (!actx) return;
+
+      var now = actx.currentTime;
+      var pitch = pitchMod || 1.0;
+
+      // 1. Tactile click pop (high-pass burst)
+      var osc = actx.createOscillator();
+      var gain = actx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(1400 * pitch, now);
+      osc.frequency.exponentialRampToValueAtTime(120, now + 0.035);
+
+      gain.gain.setValueAtTime(0.28, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+
+      osc.connect(gain);
+      gain.connect(actx.destination);
+      osc.start(now);
+      osc.stop(now + 0.045);
+
+      // 2. Bottom-out mechanical thud
+      var thudOsc = actx.createOscillator();
+      var thudGain = actx.createGain();
+      thudOsc.type = 'sine';
+      thudOsc.frequency.setValueAtTime(260 * pitch, now + 0.015);
+      thudOsc.frequency.exponentialRampToValueAtTime(50, now + 0.07);
+
+      thudGain.gain.setValueAtTime(0.35, now + 0.015);
+      thudGain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+      thudOsc.connect(thudGain);
+      thudGain.connect(actx.destination);
+      thudOsc.start(now + 0.015);
+      thudOsc.stop(now + 0.085);
+    } catch (_e) {}
+  }
+
+  /* ---------- Stardust & Particle System ---------- */
+  var particles = [];
+  var KHMER_GLYPHS = ['ក', 'ខ', 'គ', 'ង', '្', 'ា', 'ិ', 'ី', 'ថ', 'ញ', 'ដ', 'ឋ', 'ស', 'ហ', 'ឡ', 'អ'];
+  for (var p = 0; p < 80; p++) {
+    particles.push({
+      x: Math.random() * 1920,
+      y: Math.random() * 1080,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: -0.2 - Math.random() * 0.5,
+      size: 1 + Math.random() * 2.5,
+      alpha: 0.1 + Math.random() * 0.45,
+      glyph: Math.random() > 0.65 ? KHMER_GLYPHS[Math.floor(Math.random() * KHMER_GLYPHS.length)] : null,
+      pulse: Math.random() * Math.PI * 2
+    });
+  }
+
+  /* ---------- Typing Sequence Data for Act 2 ---------- */
+  var TYPING_STRING_1 = 'រៀនវាយអក្សរខ្មែរដោយទំនុកចិត្ត និងល្បឿនលឿន'; // 42 units
+  var TYPING_CHARS_1 = TYPING_STRING_1.split('');
+  var lastTypedIndex = -1;
+
+  /* ---------- Virtual Keyboard Rows for Visualizer ---------- */
+  var KBD_ROW_1 = [
+    { label: '`', shift: '~' }, { label: '1', shift: '!' }, { label: '2', shift: '@' }, { label: '3', shift: '#' },
+    { label: '4', shift: '$' }, { label: '5', shift: '%' }, { label: '6', shift: '^' }, { label: '7', shift: '&' },
+    { label: '8', shift: '*' }, { label: '9', shift: '(' }, { label: '0', shift: ')' }, { label: '-', shift: '_' },
+    { label: '=', shift: '+' }, { label: 'Backspace', w: 1.8 }
+  ];
+  var KBD_ROW_2 = [
+    { label: 'Tab', w: 1.5 }, { label: 'ឆ', latin: 'Q' }, { label: 'ឹ', latin: 'W' }, { label: 'េ', latin: 'E' },
+    { label: 'រ', latin: 'R' }, { label: 'ត', latin: 'T' }, { label: 'យ', latin: 'Y' }, { label: 'ុ', latin: 'U' },
+    { label: 'ិ', latin: 'I' }, { label: 'ោ', latin: 'O' }, { label: 'ផ', latin: 'P' }, { label: 'ៀ', latin: '[' },
+    { label: 'ឪ', latin: ']' }, { label: '\\', latin: '\\', w: 1.3 }
+  ];
+  var KBD_ROW_3 = [
+    { label: 'Caps', w: 1.7 }, { label: 'ា', latin: 'A' }, { label: 'ស', latin: 'S' }, { label: 'ដ', latin: 'D' },
+    { label: 'ថ', latin: 'F', anchor: true }, { label: 'ង', latin: 'G' }, { label: 'ហ', latin: 'H' }, { label: 'ញ', latin: 'J', anchor: true },
+    { label: 'ក', latin: 'K' }, { label: 'ល', latin: 'L' }, { label: 'ៈ', latin: ';' }, { label: '\'', latin: '\'' },
+    { label: 'Enter', w: 2.1 }
+  ];
+  var KBD_ROW_4 = [
+    { label: 'Shift', w: 2.2 }, { label: 'ឋ', latin: 'Z' }, { label: 'ខ', latin: 'X' }, { label: 'ច', latin: 'C' },
+    { label: 'វ', latin: 'V' }, { label: 'ប', latin: 'B' }, { label: 'ន', latin: 'N' }, { label: 'ម', latin: 'M' },
+    { label: 'អ', latin: ',' }, { label: '៕', latin: '.' }, { label: '៊', latin: '/' }, { label: 'Shift', w: 2.6 }
+  ];
+  var KBD_ROW_5 = [
+    { label: 'Ctrl', w: 1.3 }, { label: 'Win', w: 1.2 }, { label: 'Alt', w: 1.3 },
+    { label: 'Space  (Coeng ្ / Subscript Trigger)', w: 7.4, isSpace: true },
+    { label: 'AltGr', w: 1.3 }, { label: 'Fn', w: 1.1 }, { label: 'Ctrl', w: 1.3 }
+  ];
+
+  /* Active Key Highlight Map (computed per frame) */
+  var activeKeys = {};
+
+  /* ---------- Render Functions ---------- */
+
+  function drawBackground(t) {
+    // 1. Deep gradient
+    var grad = ctx.createLinearGradient(0, 0, 0, 1080);
+    grad.addColorStop(0, '#04060b');
+    grad.addColorStop(0.55, '#090d1c');
+    grad.addColorStop(1, '#05070f');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 1920, 1080);
+
+    // 2. Horizon grid
+    ctx.save();
+    ctx.strokeStyle = 'rgba(255, 209, 102, 0.05)';
+    ctx.lineWidth = 1;
+    var gridSpacing = 48;
+    for (var x = 0; x <= 1920; x += gridSpacing) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, 1080);
+      ctx.stroke();
+    }
+    for (var y = 0; y <= 1080; y += gridSpacing) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(1920, y);
+      ctx.stroke();
+    }
+
+    // 3. Glowing nebulae
+    var g1 = ctx.createRadialGradient(960, 480, 50, 960, 480, 680);
+    g1.addColorStop(0, 'rgba(255, 157, 46, 0.12)');
+    g1.addColorStop(0.5, 'rgba(56, 189, 248, 0.05)');
+    g1.addColorStop(1, 'transparent');
+    ctx.fillStyle = g1;
+    ctx.fillRect(0, 0, 1920, 1080);
+    ctx.restore();
+
+    // 4. Stardust floating particles
+    ctx.save();
+    for (var i = 0; i < particles.length; i++) {
+      var pt = particles[i];
+      pt.x += pt.vx;
+      pt.y += pt.vy;
+      pt.pulse += 0.03;
+      if (pt.y < -20) pt.y = 1100;
+      if (pt.x < -20) pt.x = 1940;
+      if (pt.x > 1940) pt.x = -20;
+
+      var currentAlpha = pt.alpha * (0.7 + 0.3 * Math.sin(pt.pulse));
+      if (pt.glyph) {
+        ctx.fillStyle = 'rgba(255, 209, 102, ' + (currentAlpha * 0.7) + ')';
+        ctx.font = '600 ' + (14 * pt.size) + 'px "Kantumruy Pro", sans-serif';
+        ctx.fillText(pt.glyph, pt.x, pt.y);
+      } else {
+        ctx.fillStyle = 'rgba(255, 255, 255, ' + currentAlpha + ')';
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+  }
+
+  /* Draw Virtual Keyboard Chassis */
+  function drawKeyboardChassis(startX, startY, scale, activeKeyLabel) {
+    ctx.save();
+    ctx.translate(startX, startY);
+    ctx.scale(scale, scale);
+
+    var kbdW = 1200;
+    var kbdH = 430;
+
+    // Chassis glow
+    ctx.shadowColor = 'rgba(255, 209, 102, 0.25)';
+    ctx.shadowBlur = 32;
+
+    // Chassis background
+    ctx.fillStyle = 'rgba(12, 16, 28, 0.94)';
+    ctx.strokeStyle = 'rgba(255, 209, 102, 0.35)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.roundRect(-24, -24, kbdW + 48, kbdH + 48, 20);
+    ctx.fill();
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    var rows = [KBD_ROW_1, KBD_ROW_2, KBD_ROW_3, KBD_ROW_4, KBD_ROW_5];
+    var keyH = 68;
+    var gap = 9;
+    var curY = 0;
+
+    for (var r = 0; r < rows.length; r++) {
+      var row = rows[r];
+      var curX = 0;
+      var unitW = 74;
+
+      for (var k = 0; k < row.length; k++) {
+        var key = row[k];
+        var kw = (key.w || 1.0) * unitW;
+        var isHit = (key.label === activeKeyLabel || key.latin === activeKeyLabel);
+
+        // Keycap frame
+        ctx.save();
+        if (isHit) {
+          ctx.fillStyle = 'linear-gradient(180deg, #ffd166, #ff9d2e)';
+          ctx.fillStyle = '#ff9d2e';
+          ctx.shadowColor = '#ffd166';
+          ctx.shadowBlur = 24;
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 2.5;
+        } else if (key.anchor) {
+          ctx.fillStyle = 'rgba(30, 42, 70, 0.9)';
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.55)';
+          ctx.lineWidth = 1.8;
+        } else {
+          ctx.fillStyle = 'rgba(18, 24, 42, 0.85)';
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+          ctx.lineWidth = 1.2;
+        }
+
+        ctx.beginPath();
+        ctx.roundRect(curX, curY, kw, keyH, 8);
+        ctx.fill();
+        ctx.stroke();
+
+        // Keycap Labels
+        if (isHit) {
+          ctx.fillStyle = '#05070d';
+        } else if (key.anchor) {
+          ctx.fillStyle = '#38bdf8';
+        } else {
+          ctx.fillStyle = '#f8fafc';
+        }
+
+        ctx.font = '700 22px "Kantumruy Pro", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        if (key.isSpace) {
+          ctx.font = '600 15px "Space Grotesk", sans-serif';
+          ctx.fillText('SPACE  ( Coeng ្  /  Subscript Trigger )', curX + kw / 2, curY + keyH / 2);
+        } else {
+          ctx.fillText(key.label, curX + kw / 2, curY + keyH / 2 - (key.latin ? 6 : 0));
+          if (key.latin) {
+            ctx.font = '600 12px "JetBrains Mono", monospace';
+            ctx.fillStyle = isHit ? '#05070d' : 'rgba(255, 255, 255, 0.45)';
+            ctx.fillText(key.latin, curX + kw / 2, curY + keyH / 2 + 16);
+          }
+        }
+
+        // Anchor bump mark for F (ថ) and J (ញ)
+        if (key.anchor) {
+          ctx.fillStyle = isHit ? '#05070d' : '#38bdf8';
+          ctx.fillRect(curX + kw / 2 - 10, curY + keyH - 9, 20, 3);
+        }
+
+        ctx.restore();
+        curX += kw + gap;
+      }
+      curY += keyH + gap;
+    }
+
+    ctx.restore();
+  }
+
+  /* Draw Animated HUD Telemetry (WPM Gauge, Accuracy, Streak) */
+  function drawTelemetryHud(x, y, wpm, acc, streak, lessonText) {
+    ctx.save();
+    ctx.translate(x, y);
+
+    // Card background
+    ctx.fillStyle = 'rgba(12, 16, 28, 0.88)';
+    ctx.strokeStyle = 'rgba(255, 209, 102, 0.3)';
+    ctx.lineWidth = 1.5;
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+    ctx.shadowBlur = 20;
+    ctx.beginPath();
+    ctx.roundRect(0, 0, 1140, 94, 14);
+    ctx.fill();
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // 1. WPM Speedometer Metric
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.font = '700 12px "Space Grotesk", sans-serif';
+    ctx.fillText('TYPING SPEED', 40, 32);
+
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '800 38px "JetBrains Mono", monospace';
+    ctx.fillText(Math.round(wpm) + ' WPM', 40, 72);
+
+    // Divider
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.beginPath();
+    ctx.moveTo(220, 18);
+    ctx.lineTo(220, 76);
+    ctx.stroke();
+
+    // 2. Accuracy Metric
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.font = '700 12px "Space Grotesk", sans-serif';
+    ctx.fillText('ACCURACY', 260, 32);
+
+    ctx.fillStyle = '#34d399';
+    ctx.font = '800 38px "JetBrains Mono", monospace';
+    ctx.fillText(acc + '%', 260, 72);
+
+    // Divider
+    ctx.beginPath();
+    ctx.moveTo(420, 18);
+    ctx.lineTo(420, 76);
+    ctx.stroke();
+
+    // 3. Streak Combo Metric
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.font = '700 12px "Space Grotesk", sans-serif';
+    ctx.fillText('STREAK COMBO', 460, 32);
+
+    ctx.fillStyle = '#ff4757';
+    ctx.font = '800 38px "JetBrains Mono", monospace';
+    ctx.fillText(streak + 'x', 460, 72);
+
+    // Divider
+    ctx.beginPath();
+    ctx.moveTo(640, 18);
+    ctx.lineTo(640, 76);
+    ctx.stroke();
+
+    // 4. Lesson Curriculum Scope
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.font = '700 12px "Space Grotesk", sans-serif';
+    ctx.fillText('CURRICULUM STAGE', 680, 32);
+
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = '700 20px "Space Grotesk", sans-serif';
+    ctx.fillText(lessonText || 'Standard Course · Level 13 / 40', 680, 66);
+
+    ctx.restore();
+  }
+
+  /* ---------- Act Renderers ---------- */
+
+  // ACT 1: Overture & Genesis (0s – 7s)
+  function renderAct1(t) {
+    var progress = t / 7.0; // 0 to 1
+    var fadeIn = Math.min(1.0, t / 1.5);
+    var scale = 1.05 - 0.05 * progress;
+
+    ctx.save();
+    ctx.globalAlpha = fadeIn;
+    ctx.translate(960, 540);
+    ctx.scale(scale, scale);
+
+    // Scriptorium Crest
+    ctx.save();
+    ctx.shadowColor = 'rgba(255, 209, 102, 0.6)';
+    ctx.shadowBlur = 40;
+    ctx.strokeStyle = '#ffd166';
+    ctx.lineWidth = 3.5;
+    ctx.strokeRect(-60, -220, 120, 120);
+
+    // Keyboard icon inside crest
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '700 48px "Kantumruy Pro", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('ក', 0, -160);
+    ctx.restore();
+
+    // Main Title
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 68px "Space Grotesk", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+    ctx.shadowBlur = 24;
+    ctx.fillText('PK KHMER TYPE', 0, -40);
+
+    // Khmer Title
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '700 36px "Kantumruy Pro", sans-serif';
+    ctx.fillText('ក្តារចុចខ្មែរ PK — Touch-Typing Studio', 0, 20);
+
+    // Subtitle Line
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '600 22px "Space Grotesk", sans-serif';
+    ctx.fillText('Cambodia\'s Premier Mechanical & Ergonomic Touch-Typing Tutor', 0, 80);
+
+    // Pill badge: Founder credit
+    ctx.fillStyle = 'rgba(255, 209, 102, 0.12)';
+    ctx.strokeStyle = 'rgba(255, 209, 102, 0.4)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.roundRect(-240, 130, 480, 46, 23);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '700 15px "Space Grotesk", sans-serif';
+    ctx.fillText('FOUNDED & DEVELOPED BY PHANNA KUROSAKI', 0, 158);
+
+    ctx.restore();
+  }
+
+  // ACT 2: Real Mechanical Typing Showcase (7s – 17s)
+  function renderAct2(t) {
+    var actT = t - 7.0; // 0 to 10s
+    var fadeIn = Math.min(1.0, actT / 0.8);
+
+    ctx.save();
+    ctx.globalAlpha = fadeIn;
+
+    // Header Callout
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '700 15px "Space Grotesk", sans-serif';
+    ctx.fillText('LIVE MECHANICAL TYPING CALIBRATION', 960, 68);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 34px "Space Grotesk", sans-serif';
+    ctx.fillText('Real-Time 10-Finger Kinematics & Home-Row Anchors', 960, 110);
+
+    // Typing speed acceleration: ramps from 0 to 88 WPM
+    var wpm = Math.min(88, 12 + actT * 8.2);
+    var acc = 100;
+    var streak = Math.min(42, Math.floor(actT * 4.2));
+
+    // Telemetry HUD
+    drawTelemetryHud(390, 140, wpm, acc, streak, 'Khmer Standard · Lesson 78 / 222');
+
+    // Live Target Prompt Card
+    ctx.fillStyle = 'rgba(15, 20, 36, 0.9)';
+    ctx.strokeStyle = 'rgba(255, 209, 102, 0.35)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(390, 260, 1140, 84, 12);
+    ctx.fill();
+    ctx.stroke();
+
+    // Characters typed so far
+    var totalChars = TYPING_CHARS_1.length;
+    var typedCount = Math.min(totalChars, Math.floor((actT / 9.5) * totalChars));
+    var activeChar = TYPING_CHARS_1[typedCount] || '';
+
+    // Play click sound on new character
+    if (typedCount !== lastTypedIndex && typedCount < totalChars) {
+      playMechanicalClick(0.95 + Math.random() * 0.1);
+      lastTypedIndex = typedCount;
+    }
+
+    // Render Prompt Text
+    ctx.textAlign = 'left';
+    ctx.font = '600 32px "Kantumruy Pro", sans-serif';
+    var textX = 420;
+    var textY = 312;
+
+    for (var c = 0; c < totalChars; c++) {
+      var ch = TYPING_CHARS_1[c];
+      if (c < typedCount) {
+        ctx.fillStyle = '#34d399'; // passed green
+      } else if (c === typedCount) {
+        ctx.fillStyle = '#ffffff'; // active cursor
+        // Cursor bar behind active char
+        ctx.save();
+        ctx.fillStyle = 'rgba(255, 209, 102, 0.4)';
+        ctx.fillRect(textX - 2, textY - 32, ctx.measureText(ch).width + 4, 40);
+        ctx.restore();
+        ctx.fillStyle = '#ffd166';
+      } else {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.35)'; // upcoming
+      }
+      ctx.fillText(ch, textX, textY);
+      textX += ctx.measureText(ch).width;
+    }
+
+    // Render Virtual Keyboard Chassis
+    drawKeyboardChassis(480, 380, 0.8, activeChar);
+
+    // Callout Footer
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.55)';
+    ctx.font = '600 16px "Space Grotesk", sans-serif';
+    ctx.fillText('Home-row tactile bumps on ថ (F) and ញ (J) · Procedural Holy Panda Switch Acoustics', 960, 780);
+
+    ctx.restore();
+  }
+
+  // ACT 3: Complex Khmer Chords & Coeng (ជើង ្) Mastery (17s – 25s)
+  function renderAct3(t) {
+    var actT = t - 17.0; // 0 to 8s
+    var fadeIn = Math.min(1.0, actT / 0.8);
+
+    ctx.save();
+    ctx.globalAlpha = fadeIn;
+
+    // Header Callout
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = '700 15px "Space Grotesk", sans-serif';
+    ctx.fillText('MULTIPLE MODIFIER LAYERS & LIGATURES', 960, 70);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 34px "Space Grotesk", sans-serif';
+    ctx.fillText('Khmer Subscript Coeng (ជើង ្) & Multi-Codepoint Chords', 960, 115);
+
+    // 2 Showcase Columns:
+    // Left: "កម្ពុជា" decomposition
+    // Right: NiDA compound vowel breakdown
+    var leftX = 360;
+    var rightX = 1000;
+    var cardY = 170;
+    var cardW = 560;
+    var cardH = 480;
+
+    // Left Card: Coeng Ligature Flow
+    ctx.fillStyle = 'rgba(15, 20, 36, 0.9)';
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(leftX, cardY, cardW, cardH, 14);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = '700 20px "Space Grotesk", sans-serif';
+    ctx.fillText('SUB-CONSONANT (COENG ្) LIGATURES', leftX + cardW / 2, cardY + 45);
+
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '700 52px "Kantumruy Pro", sans-serif';
+    ctx.fillText('កម្ពុជា  (Kampuchea)', leftX + cardW / 2, cardY + 130);
+
+    // Keystroke Recipe Strip
+    var recipe = ['ក', '+', 'ម', '+', 'Space (្)', '+', 'ព', '+', 'ុ', '+', 'ជ', '+', 'ា'];
+    ctx.font = '700 16px "JetBrains Mono", monospace';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+    ctx.fillText('Keystroke Sequence:', leftX + cardW / 2, cardY + 200);
+
+    ctx.fillStyle = 'rgba(255, 209, 102, 0.15)';
+    ctx.strokeStyle = 'rgba(255, 209, 102, 0.4)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.roundRect(leftX + 30, cardY + 225, cardW - 60, 60, 8);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '700 18px "Kantumruy Pro", sans-serif';
+    ctx.fillText('ក  →  ម  →  [Space / Coeng]  →  ព  →  ុ  →  ជ  →  ា', leftX + cardW / 2, cardY + 262);
+
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '600 15px "Space Grotesk", sans-serif';
+    ctx.fillText('• Standard Layout uses unshifted Space for Coeng ្', leftX + cardW / 2, cardY + 340);
+    ctx.fillText('• Shift+Space produces normal visible space', leftX + cardW / 2, cardY + 375);
+    ctx.fillText('• Zero-Width Space (ZWSP) compatible', leftX + cardW / 2, cardY + 410);
+
+    // Right Card: Multi-Codepoint NiDA & Modifier Layers
+    ctx.fillStyle = 'rgba(15, 20, 36, 0.9)';
+    ctx.strokeStyle = 'rgba(255, 157, 46, 0.4)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(rightX, cardY, cardW, cardH, 14);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#ff9d2e';
+    ctx.font = '700 20px "Space Grotesk", sans-serif';
+    ctx.fillText('MODIFIER LAYERS & NIDA ERGONOMICS', rightX + cardW / 2, cardY + 45);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '700 52px "Kantumruy Pro", sans-serif';
+    ctx.fillText('វិទ្យាសាស្ត្រ  (Science)', rightX + cardW / 2, cardY + 130);
+
+    ctx.font = '700 16px "JetBrains Mono", monospace';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+    ctx.fillText('Modifier Architecture:', rightX + cardW / 2, cardY + 200);
+
+    ctx.fillStyle = 'rgba(255, 157, 46, 0.15)';
+    ctx.strokeStyle = 'rgba(255, 157, 46, 0.4)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.roundRect(rightX + 30, cardY + 225, cardW - 60, 60, 8);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#ff9d2e';
+    ctx.font = '700 16px "Space Grotesk", sans-serif';
+    ctx.fillText('BASE LAYER  ⇄  SHIFT LAYER  ⇄  ALTGR LAYER', rightX + cardW / 2, cardY + 262);
+
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '600 15px "Space Grotesk", sans-serif';
+    ctx.fillText('• NiDA layout places Coeng ្ directly on J key', rightX + cardW / 2, cardY + 340);
+    ctx.fillText('• Compound vowels preserved as atomic typing units', rightX + cardW / 2, cardY + 375);
+    ctx.fillText('• Live modifier layer preview in real time', rightX + cardW / 2, cardY + 410);
+
+    // Bottom Badge
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(560, 690, 800, 52, 26);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '700 16px "Space Grotesk", sans-serif';
+    ctx.fillText('Automated Unicode normalization ensures 100% compliant Khmer text', 960, 722);
+
+    ctx.restore();
+  }
+
+  // ACT 4: Master Curriculum & 100% Offline Resilience (25s – 33s)
+  function renderAct4(t) {
+    var actT = t - 25.0; // 0 to 8s
+    var fadeIn = Math.min(1.0, actT / 0.8);
+
+    ctx.save();
+    ctx.globalAlpha = fadeIn;
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#34d399';
+    ctx.font = '700 15px "Space Grotesk", sans-serif';
+    ctx.fillText('COMPLETE ARCHITECTURE OVERVIEW', 960, 70);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 34px "Space Grotesk", sans-serif';
+    ctx.fillText('Engineered for Complete Literacy & Zero-Network Independence', 960, 115);
+
+    // 4 Pillar Metric Blocks
+    var blockW = 270;
+    var blockH = 460;
+    var startX = 375;
+    var gap = 20;
+
+    var pillars = [
+      {
+        tag: 'CURRICULUM',
+        title: '222 Lessons',
+        sub: '40 Structured Levels',
+        accent: '#ffd166',
+        items: [
+          'Khmer Standard: 78 Lessons',
+          'Khmer NiDA: 78 Lessons',
+          'English QWERTY: 66 Lessons',
+          '100% Full Alphabet Coverage',
+          'Every letter included'
+        ]
+      },
+      {
+        tag: 'ADAPTIVE AI',
+        title: 'Keybr Engine',
+        sub: 'Targeted Letter Mastery',
+        accent: '#38bdf8',
+        items: [
+          'Weakest key calibration',
+          'Continuous error tracking',
+          'Strict 100% unlock bar',
+          'Confidence decay curve',
+          'Dynamic word synthesis'
+        ]
+      },
+      {
+        tag: 'GAMIFICATION',
+        title: 'Arena & Race',
+        sub: 'Real-Time Word Battles',
+        accent: '#ff4757',
+        items: [
+          'Temple Trial Survival Drills',
+          'Bot Pacer WPM Races',
+          'Angkor Scribe Tiers',
+          'Achievement Crests',
+          'Bilingual Live HUD'
+        ]
+      },
+      {
+        tag: 'OFFLINE FIRST',
+        title: 'PWA Offline',
+        sub: 'Connection-Agnostic',
+        accent: '#34d399',
+        items: [
+          '100% Offline Service Worker',
+          'Precached Application Shell',
+          'Local-First IndexedDB Queue',
+          '1-Click JSON Progress Export',
+          'Auto-Sync on Reconnect'
+        ]
+      }
+    ];
+
+    for (var i = 0; i < pillars.length; i++) {
+      var p = pillars[i];
+      var bx = startX + i * (blockW + gap);
+      var by = 180;
+
+      ctx.fillStyle = 'rgba(15, 20, 36, 0.9)';
+      ctx.strokeStyle = p.accent;
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, blockW, blockH, 14);
+      ctx.fill();
+      ctx.stroke();
+
+      // Top Tag
+      ctx.fillStyle = p.accent;
+      ctx.font = '700 12px "Space Grotesk", sans-serif';
+      ctx.fillText(p.tag, bx + blockW / 2, by + 36);
+
+      // Title
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 28px "Space Grotesk", sans-serif';
+      ctx.fillText(p.title, bx + blockW / 2, by + 76);
+
+      // Subtitle
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+      ctx.font = '600 14px "Space Grotesk", sans-serif';
+      ctx.fillText(p.sub, bx + blockW / 2, by + 104);
+
+      // Divider
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.beginPath();
+      ctx.moveTo(bx + 20, by + 128);
+      ctx.lineTo(bx + blockW - 20, by + 128);
+      ctx.stroke();
+
+      // Bullet items
+      ctx.textAlign = 'left';
+      ctx.font = '600 13px "Space Grotesk", sans-serif';
+      ctx.fillStyle = '#cbd5e1';
+      var itemY = by + 165;
+      for (var itemIdx = 0; itemIdx < p.items.length; itemIdx++) {
+        var itm = p.items[itemIdx];
+        // bullet dot
+        ctx.fillStyle = p.accent;
+        ctx.beginPath();
+        ctx.arc(bx + 26, itemY - 4, 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#e2e8f0';
+        ctx.fillText(itm, bx + 38, itemY);
+        itemY += 56;
+      }
+      ctx.textAlign = 'center';
+    }
+
+    ctx.restore();
+  }
+
+  // ACT 5: Grand Finale & Call to Action (33s – 40s)
+  function renderAct5(t) {
+    var actT = t - 33.0; // 0 to 7s
+    var fadeIn = Math.min(1.0, actT / 1.0);
+
+    ctx.save();
+    ctx.globalAlpha = fadeIn;
+
+    ctx.textAlign = 'center';
+
+    // Glowing Scriptorium Crest
+    ctx.save();
+    ctx.shadowColor = 'rgba(255, 209, 102, 0.7)';
+    ctx.shadowBlur = 50;
+    ctx.strokeStyle = '#ffd166';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.roundRect(960 - 55, 130, 110, 110, 18);
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '700 48px "Kantumruy Pro", sans-serif';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('ក', 960, 185);
+    ctx.restore();
+
+    // Grand Headline
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 58px "Space Grotesk", sans-serif';
+    ctx.fillText('Start Your Touch-Typing Journey Today', 960, 310);
+
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '700 32px "Kantumruy Pro", sans-serif';
+    ctx.fillText('ហ្វឹកហាត់វាយអក្សរខ្មែរដោយឥតគិតថ្លៃ គ្រប់ពេលវេលា គ្រប់ទីកន្លែង', 960, 370);
+
+    // Launch URL Card
+    ctx.fillStyle = 'rgba(255, 209, 102, 0.12)';
+    ctx.strokeStyle = 'rgba(255, 209, 102, 0.5)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(620, 430, 680, 74, 37);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '800 32px "JetBrains Mono", monospace';
+    ctx.fillText('not-phana.github.io/PK-Khmer-Type', 960, 478);
+
+    // 3 Spec Pills
+    var pills = [
+      '100% Free & Open Access',
+      'No Sign-In Required to Practice',
+      'Works 100% Offline on PC & Mac'
+    ];
+    var pillStartX = 490;
+    var pillW = 300;
+    var pillGap = 20;
+
+    for (var pi = 0; pi < pills.length; pi++) {
+      var px = pillStartX + pi * (pillW + pillGap);
+      var py = 545;
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(px, py, pillW, 44, 22);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = '700 14px "Space Grotesk", sans-serif';
+      ctx.fillText(pills[pi], px + pillW / 2, py + 27);
+    }
+
+    // Founder Seal & Dedication
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '600 18px "Space Grotesk", sans-serif';
+    ctx.fillText('Engineered with Pride for the Kingdom of Cambodia', 960, 650);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 22px "Space Grotesk", sans-serif';
+    ctx.fillText('Created by Phanna Kurosaki', 960, 690);
+
+    ctx.restore();
+  }
+
+  /* ---------- Main Animation Loop ---------- */
+  function renderFrame(now) {
+    var delta = (now - lastFrameTime) / 1000.0;
+    lastFrameTime = now;
+
+    if (isPlaying) {
+      currentTime += delta * playbackSpeed;
+      if (currentTime >= totalDuration) {
+        currentTime = 0.0; // loop
+        lastTypedIndex = -1;
+      }
+    }
+
+    // Clear and draw background
+    drawBackground(currentTime);
+
+    // Route to current Act
+    if (currentTime < 7.0) {
+      renderAct1(currentTime);
+      updateScenePills(0);
+    } else if (currentTime < 17.0) {
+      renderAct2(currentTime);
+      updateScenePills(1);
+    } else if (currentTime < 25.0) {
+      renderAct3(currentTime);
+      updateScenePills(2);
+    } else if (currentTime < 33.0) {
+      renderAct4(currentTime);
+      updateScenePills(3);
+    } else {
+      renderAct5(currentTime);
+      updateScenePills(4);
+    }
+
+    // Update UI timeline display
+    updateTimelineUI();
+
+    requestAnimationFrame(renderFrame);
+  }
+
+  /* ---------- UI Controls & Bindings ---------- */
+  var timeDisplay = document.getElementById('mgTimeDisplay');
+  var progressBar = document.getElementById('mgProgressBar');
+  var scrubberHandle = document.getElementById('mgScrubberHandle');
+  var progressTrack = document.getElementById('mgProgressTrack');
+  var playBtn = document.getElementById('mgPlayBtn');
+  var playIcon = document.getElementById('mgPlayIcon');
+  var restartBtn = document.getElementById('mgRestartBtn');
+  var audioBtn = document.getElementById('mgAudioBtn');
+  var audioIcon = document.getElementById('mgAudioIcon');
+  var speedBtn = document.getElementById('mgSpeedBtn');
+  var speedLabel = document.getElementById('mgSpeedLabel');
+  var exportVideoBtn = document.getElementById('mgExportVideoBtn');
+  var exportLabel = document.getElementById('mgExportLabel');
+  var recIndicator = document.getElementById('mgRecIndicator');
+  var fullscreenBtn = document.getElementById('mgFullscreenBtn');
+  var scenePills = document.querySelectorAll('.mg-scene-pill');
+
+  function formatTime(sec) {
+    var m = Math.floor(sec / 60);
+    var s = Math.floor(sec % 60);
+    return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  function updateTimelineUI() {
+    var pct = (currentTime / totalDuration) * 100;
+    progressBar.style.width = pct + '%';
+    scrubberHandle.style.left = pct + '%';
+    timeDisplay.textContent = formatTime(currentTime) + ' / ' + formatTime(totalDuration);
+  }
+
+  function updateScenePills(activeIndex) {
+    for (var i = 0; i < scenePills.length; i++) {
+      if (i === activeIndex) {
+        scenePills[i].classList.add('active');
+      } else {
+        scenePills[i].classList.remove('active');
+      }
+    }
+  }
+
+  // Play / Pause
+  playBtn.addEventListener('click', function () {
+    isPlaying = !isPlaying;
+    if (isPlaying) {
+      playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      playBtn.classList.add('active');
+      lastFrameTime = performance.now();
+    } else {
+      playIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+      playBtn.classList.remove('active');
+    }
+  });
+
+  // Restart
+  restartBtn.addEventListener('click', function () {
+    currentTime = 0.0;
+    lastTypedIndex = -1;
+    isPlaying = true;
+    playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    playBtn.classList.add('active');
+    lastFrameTime = performance.now();
+  });
+
+  // Audio Toggle
+  audioBtn.addEventListener('click', function () {
+    audioEnabled = !audioEnabled;
+    if (audioEnabled) {
+      audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>';
+      audioBtn.classList.remove('active');
+    } else {
+      audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+      audioBtn.classList.add('active');
+    }
+  });
+
+  // Playback Speed
+  var speeds = [1.0, 1.5, 2.0];
+  var currentSpeedIdx = 0;
+  speedBtn.addEventListener('click', function () {
+    currentSpeedIdx = (currentSpeedIdx + 1) % speeds.length;
+    playbackSpeed = speeds[currentSpeedIdx];
+    speedLabel.textContent = playbackSpeed.toFixed(1) + 'x';
+  });
+
+  // Scrubber Click & Drag
+  function seekToTrackPosition(e) {
+    var rect = progressTrack.getBoundingClientRect();
+    var clickX = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+    var fraction = clickX / rect.width;
+    currentTime = fraction * totalDuration;
+    lastTypedIndex = -1;
+    updateTimelineUI();
+  }
+
+  var isScrubbing = false;
+  progressTrack.addEventListener('mousedown', function (e) {
+    isScrubbing = true;
+    seekToTrackPosition(e);
+  });
+  window.addEventListener('mousemove', function (e) {
+    if (isScrubbing) seekToTrackPosition(e);
+  });
+  window.addEventListener('mouseup', function () {
+    isScrubbing = false;
+  });
+
+  // Chapter Jump Pills
+  for (var s = 0; s < scenePills.length; s++) {
+    scenePills[s].addEventListener('click', function () {
+      var t = parseFloat(this.getAttribute('data-time'));
+      currentTime = t;
+      lastTypedIndex = -1;
+      updateTimelineUI();
+    });
+  }
+
+  // Fullscreen Toggle
+  fullscreenBtn.addEventListener('click', function () {
+    var stage = document.getElementById('mgStageCard');
+    if (!document.fullscreenElement) {
+      if (stage.requestFullscreen) stage.requestFullscreen();
+      else if (stage.webkitRequestFullscreen) stage.webkitRequestFullscreen();
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+    }
+  });
+
+  /* ---------- Video Export Engine via MediaRecorder (60fps) ---------- */
+  exportVideoBtn.addEventListener('click', function () {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  });
+
+  function startRecording() {
+    try {
+      recordedChunks = [];
+      currentTime = 0.0;
+      lastTypedIndex = -1;
+      isPlaying = true;
+      playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      playBtn.classList.add('active');
+
+      var stream = canvas.captureStream(60); // 60 FPS stream
+      var mimeType = 'video/webm;codecs=vp9';
+      if (!MediaRecorder.isTypeSupported(mimeType)) {
+        mimeType = 'video/webm;codecs=vp8';
+      }
+      if (!MediaRecorder.isTypeSupported(mimeType)) {
+        mimeType = 'video/webm';
+      }
+
+      mediaRecorder = new MediaRecorder(stream, {
+        mimeType: mimeType,
+        videoBitsPerSecond: 6000000 // 6 Mbps high quality
+      });
+
+      mediaRecorder.ondataavailable = function (e) {
+        if (e.data && e.data.size > 0) {
+          recordedChunks.push(e.data);
+        }
+      };
+
+      mediaRecorder.onstop = function () {
+        var blob = new Blob(recordedChunks, { type: 'video/webm' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'pk_khmer_type_motion_graphic_showcase.webm';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 500);
+
+        exportLabel.textContent = 'Export Video (.webm)';
+        exportVideoBtn.classList.remove('active');
+        recIndicator.hidden = true;
+        isRecording = false;
+      };
+
+      mediaRecorder.start();
+      isRecording = true;
+      exportLabel.textContent = 'Stop & Save Recording';
+      exportVideoBtn.classList.add('active');
+      recIndicator.hidden = false;
+
+      // Auto-stop when video reaches 40 seconds
+      var checkEnd = setInterval(function () {
+        if (currentTime >= totalDuration - 0.2) {
+          clearInterval(checkEnd);
+          if (isRecording) stopRecording();
+        }
+      }, 250);
+    } catch (err) {
+      alert('Video recording not supported in this browser: ' + err.message);
+    }
+  }
+
+  function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+      mediaRecorder.stop();
+    }
+  }
+
+  // Start Animation Loop
+  requestAnimationFrame(renderFrame);
+
+  // Expose global controller for automated captures / CDP scripts
+  window.PKMotionGraphic = {
+    seekTo: function (t) { currentTime = t; lastTypedIndex = -1; },
+    play: function () { isPlaying = true; },
+    pause: function () { isPlaying = false; },
+    getCurrentTime: function () { return currentTime; },
+    exportVideo: startRecording
+  };
+})();
+</script>
+</body>
+</html>
