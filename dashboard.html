@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Kantumruy+Pro:wght@400;500;600;700&family=Moul&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
+
     :root {
       --bg-deep: #07090e;
       --bg-surface: #0c101a;
@@ -18,6 +19,8 @@
       --bg-card-hover: #161e32;
       --border-subtle: rgba(255, 255, 255, 0.08);
       --border-gold: rgba(255, 209, 102, 0.35);
+      --border-cyan: rgba(56, 189, 248, 0.35);
+      --border-emerald: rgba(52, 211, 153, 0.35);
       --gold-primary: #ffd166;
       --gold-dim: #c79a32;
       --cyan-neon: #38bdf8;
@@ -46,11 +49,11 @@
       color: var(--text-main);
       font-family: 'Inter', -apple-system, sans-serif;
       min-height: 100vh;
-      padding: 20px 20px 60px;
+      padding: 18px 20px 60px;
       line-height: 1.5;
     }
 
-    /* Zero-Emoji Policy: All icons are SVG */
+    /* Zero-Emoji Policy: All icons are SVG vector geometry */
     .svg-icon {
       display: inline-block;
       width: 1em;
@@ -64,11 +67,29 @@
     }
 
     .dashboard-container {
-      max-width: 1380px;
+      max-width: 1420px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 18px;
+    }
+
+    /* Top Demo Notice Banner */
+    .demo-notice-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 18px;
+      background: linear-gradient(90deg, rgba(255, 209, 102, 0.15), rgba(255, 209, 102, 0.05));
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      color: var(--gold-primary);
+    }
+
+    .demo-notice-banner.hidden {
+      display: none;
     }
 
     /* Top Command Header */
@@ -78,11 +99,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 14px 20px;
-      background: rgba(12, 16, 26, 0.85);
+      padding: 16px 22px;
+      background: rgba(12, 16, 26, 0.88);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .brand-cluster {
@@ -149,22 +171,59 @@
       color: var(--text-muted);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .live-dot {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--emerald-neon);
-      box-shadow: 0 0 8px var(--emerald-neon);
+      box-shadow: 0 0 10px var(--emerald-neon);
       display: inline-block;
+      animation: livePulse 2s infinite ease-in-out;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
+    }
+
+    /* Scribe Level & XP Badge */
+    .scribe-level-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 209, 102, 0.1);
+      border: 1px solid rgba(255, 209, 102, 0.35);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
+
+    .scribe-xp-bar-wrap {
+      width: 55px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .scribe-xp-bar-fill {
+      height: 100%;
+      background: var(--gold-primary);
+      border-radius: 999px;
+      transition: width 0.4s ease;
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       flex-wrap: wrap;
     }
 
@@ -182,6 +241,7 @@
       text-decoration: none;
       cursor: pointer;
       transition: var(--transition);
+      white-space: nowrap;
     }
 
     .nav-pill-btn:hover {
@@ -191,7 +251,7 @@
     }
 
     .nav-pill-btn.primary {
-      background: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 209, 102, 0.08));
+      background: linear-gradient(135deg, rgba(255, 209, 102, 0.25), rgba(255, 209, 102, 0.1));
       border-color: var(--gold-primary);
       color: var(--gold-primary);
     }
@@ -199,7 +259,204 @@
     .nav-pill-btn.primary:hover {
       background: var(--gold-primary);
       color: #000;
-      box-shadow: 0 0 16px rgba(255, 209, 102, 0.4);
+      box-shadow: 0 0 18px rgba(255, 209, 102, 0.45);
+    }
+
+    .nav-pill-btn.cyan {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: var(--cyan-neon);
+      color: var(--cyan-neon);
+    }
+
+    .nav-pill-btn.cyan:hover {
+      background: var(--cyan-neon);
+      color: #000;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+    }
+
+    /* NEXT RECOMMENDED LESSON SPOTLIGHT */
+    .spotlight-card {
+      background: linear-gradient(135deg, rgba(17, 23, 38, 0.95) 0%, rgba(12, 16, 26, 0.98) 100%);
+      border: 1px solid rgba(255, 209, 102, 0.28);
+      border-radius: var(--radius-lg);
+      padding: 18px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 209, 102, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255, 209, 102, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .spotlight-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      max-width: 780px;
+    }
+
+    .spotlight-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255, 209, 102, 0.15);
+      border: 1px solid rgba(255, 209, 102, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-primary);
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .spotlight-text h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .spotlight-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .spotlight-action {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .spotlight-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--gold-primary), #f59e0b);
+      color: #000;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      box-shadow: 0 4px 16px rgba(255, 209, 102, 0.35);
+    }
+
+    .spotlight-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(255, 209, 102, 0.55);
+    }
+
+    /* DAILY COMMITMENT & TARGET WIDGET */
+    .daily-target-strip {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 860px) {
+      .daily-target-strip { grid-template-columns: 1fr; }
+    }
+
+    .target-card {
+      background: rgba(14, 19, 32, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .target-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .target-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .target-stat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .target-progress-wrap {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .target-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .target-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan-neon), var(--emerald-neon));
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    .target-presets {
+      display: inline-flex;
+      gap: 5px;
+    }
+
+    .target-preset-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .target-preset-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cyan-neon);
+      color: var(--cyan-neon);
+      font-weight: 700;
     }
 
     /* Filter & Mode Toolbar */
@@ -209,7 +466,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      background: rgba(14, 19, 32, 0.6);
+      background: rgba(14, 19, 32, 0.7);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 10px 16px;
@@ -242,7 +499,7 @@
       background: transparent;
       border: none;
       border-radius: 999px;
-      padding: 4px 12px;
+      padding: 5px 12px;
       font-size: 11px;
       font-weight: 600;
       color: var(--text-muted);
@@ -252,7 +509,7 @@
 
     .segment-btn.active {
       background: var(--bg-card);
-      border: 1px solid rgba(255, 209, 102, 0.3);
+      border: 1px solid rgba(255, 209, 102, 0.35);
       color: #fff;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     }
@@ -315,7 +572,7 @@
 
     .hero-val {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 800;
       color: #fff;
       margin: 8px 0 4px;
@@ -332,15 +589,50 @@
 
     .trend-up { color: var(--emerald-neon); font-weight: 600; }
 
-    /* DASHBOARD TWO-COLUMN LAYOUT */
-    .main-dash-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
+    /* VIEW NAVIGATION TABS */
+    .view-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 4px;
+      overflow-x: auto;
+    }
+
+    .view-tab-btn {
+      background: transparent;
+      border: none;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .view-tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .view-tab-btn.active {
+      color: var(--gold-primary);
+      border-bottom-color: var(--gold-primary);
+    }
+
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+      flex-direction: column;
       gap: 20px;
     }
 
-    @media (max-width: 1080px) {
-      .main-dash-grid { grid-template-columns: 1fr; }
+    .tab-pane.active {
+      display: flex;
     }
 
     /* Common Card Module */
@@ -362,6 +654,7 @@
       gap: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       padding-bottom: 12px;
+      flex-wrap: wrap;
     }
 
     .module-title {
@@ -384,67 +677,48 @@
       color: var(--text-muted);
     }
 
-    /* CURRICULUM PROGRESSION ACCORDION (77 Lessons) */
-    .curriculum-units-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .unit-row {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: var(--radius-sm);
-      padding: 12px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      transition: var(--transition);
-    }
-
-    .unit-row:hover {
-      background: rgba(255, 255, 255, 0.02);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .unit-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .unit-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .unit-count {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--gold-primary);
-      font-weight: 600;
-    }
-
-    .progress-track {
+    /* TRAJECTORY DUAL-LINE CHART */
+    .chart-container {
       width: 100%;
-      height: 7px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 999px;
-      overflow: hidden;
+      height: 200px;
+      position: relative;
+      margin-top: 6px;
+    }
+
+    .perf-chart-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* 30-DAY ACTIVITY PUNCHCARD */
+    .punchcard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+      gap: 6px;
+      padding: 8px 0;
+    }
+
+    .punch-cell {
+      aspect-ratio: 1;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: var(--transition);
+      cursor: pointer;
       position: relative;
     }
 
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--gold-primary), var(--emerald-neon));
-      border-radius: 999px;
-      box-shadow: 0 0 10px rgba(255, 209, 102, 0.4);
-      transition: width 0.4s ease;
+    .punch-cell:hover {
+      transform: scale(1.15);
+      z-index: 10;
+      border-color: #fff;
     }
+
+    .punch-cell.lvl-1 { background: rgba(52, 211, 153, 0.25); border-color: rgba(52, 211, 153, 0.4); }
+    .punch-cell.lvl-2 { background: rgba(52, 211, 153, 0.55); border-color: var(--emerald-neon); }
+    .punch-cell.lvl-3 { background: rgba(255, 209, 102, 0.7); border-color: var(--gold-primary); box-shadow: 0 0 8px rgba(255, 209, 102, 0.3); }
+    .punch-cell.lvl-4 { background: #ffd166; border-color: #fff; box-shadow: 0 0 12px rgba(255, 209, 102, 0.6); }
 
     /* BIOMECHANICAL 8-FINGER RADAR */
     .finger-bars-grid {
@@ -500,22 +774,334 @@
       color: #fff;
     }
 
-    /* WEAK-KEY MATRIX & DRILL LAUNCHER */
-    .weak-keys-list {
+    /* Hand Workload Balance Ratio */
+    .hand-balance-meter {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
+      padding: 12px 14px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .weak-key-item {
+    .balance-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .balance-bar-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .balance-bar-left {
+      height: 100%;
+      background: var(--cyan-neon);
+      transition: width 0.3s ease;
+    }
+
+    .balance-bar-right {
+      height: 100%;
+      background: var(--violet-neon);
+      transition: width 0.3s ease;
+    }
+
+    /* RESPONSIVE TABLE (Modern Web Guidance Compliant) */
+    .table-wrapper {
+      overflow: auto;
+      max-inline-size: 100%;
+      max-block-size: 450px;
+      container-type: inline-size;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .sessions-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 12px;
+      --label-1: "Lesson / Drill";
+      --label-2: "Track";
+      --label-3: "Accuracy";
+      --label-4: "Speed";
+      --label-5: "Duration";
+      --label-6: "Result";
+    }
+
+    .sessions-table thead {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 2;
+      background: #0f1422;
+    }
+
+    .sessions-table th {
+      text-align: left;
+      padding: 10px 14px;
+      color: var(--text-dim);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .sessions-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+    }
+
+    .sessions-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Stacked card view for small container widths */
+    @container (width < 640px) {
+      .sessions-table, 
+      .sessions-table tbody, 
+      .sessions-table tr, 
+      .sessions-table td {
+        display: block;
+      }
+
+      .sessions-table thead {
+        display: none;
+      }
+
+      .sessions-table tr {
+        margin-bottom: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-sm);
+        background: rgba(0, 0, 0, 0.3);
+        padding: 8px 12px;
+      }
+
+      .sessions-table td {
+        border-bottom: none;
+        padding: 5px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .sessions-table td:nth-child(1)::before { content: var(--label-1) ": "; color: var(--text-dim); font-size: 11px; }
+      .sessions-table td:nth-child(2)::before { content: var(--label-2) ": "; color: var(--text-dim); font-size: 11px; }
+      .sessions-table td:nth-child(3)::before { content: var(--label-3) ": "; color: var(--text-dim); font-size: 11px; }
+      .sessions-table td:nth-child(4)::before { content: var(--label-4) ": "; color: var(--text-dim); font-size: 11px; }
+      .sessions-table td:nth-child(5)::before { content: var(--label-5) ": "; color: var(--text-dim); font-size: 11px; }
+      .sessions-table td:nth-child(6)::before { content: var(--label-6) ": "; color: var(--text-dim); font-size: 11px; }
+    }
+
+    /* CURRICULUM ACCORDION & LESSON CARDS */
+    .curriculum-accordion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .unit-accordion-item {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .unit-accordion-item.open {
+      border-color: rgba(255, 209, 102, 0.25);
+    }
+
+    .unit-accordion-header {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .unit-accordion-header:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .unit-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .unit-header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .unit-header-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--gold-primary);
+      font-weight: 600;
+    }
+
+    .unit-accordion-body {
+      display: none;
+      padding: 14px 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .unit-accordion-item.open .unit-accordion-body {
+      display: block;
+    }
+
+    .lessons-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .lesson-mini-card {
+      background: #0f1422;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .lesson-mini-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .lesson-mini-card.mastered {
+      border-color: rgba(52, 211, 153, 0.3);
+      background: linear-gradient(180deg, rgba(52, 211, 153, 0.05) 0%, #0f1422 100%);
+    }
+
+    .lesson-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .lesson-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .lesson-card-keys {
+      font-family: 'Kantumruy Pro', sans-serif;
+      font-size: 14px;
+      color: var(--gold-primary);
+      font-weight: 600;
+    }
+
+    .lesson-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    /* ADAPTIVE CHARACTER MATRIX */
+    .char-matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+      gap: 6px;
+    }
+
+    .char-badge {
+      height: 48px;
+      background: #0d121f;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Kantumruy Pro', sans-serif;
+    }
+
+    .char-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      border-color: var(--cyan-neon);
+    }
+
+    .char-glyph {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .char-acc-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-dim);
+    }
+
+    .char-badge.mastered {
+      border-color: rgba(52, 211, 153, 0.5);
+      background: #092c1d;
+    }
+
+    .char-badge.mastered .char-glyph { color: var(--emerald-neon); }
+
+    .char-badge.familiar {
+      border-color: rgba(255, 209, 102, 0.5);
+      background: #2b2108;
+    }
+
+    .char-badge.familiar .char-glyph { color: var(--gold-primary); }
+
+    .char-badge.weak {
+      border-color: rgba(251, 113, 133, 0.6);
+      background: #330c14;
+    }
+
+    .char-badge.weak .char-glyph { color: var(--rose-neon); }
+
+    /* WEAK-KEY MATRIX & DRILL LAUNCHER */
+    .weak-keys-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .weak-key-card {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(251, 113, 133, 0.25);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(251, 113, 133, 0.2);
-      border-radius: var(--radius-sm);
-      padding: 10px 14px;
+      transition: var(--transition);
+    }
+
+    .weak-key-card:hover {
+      border-color: var(--rose-neon);
+      transform: translateY(-2px);
     }
 
     .weak-key-left {
@@ -525,8 +1111,8 @@
     }
 
     .key-badge-square {
-      width: 36px;
-      height: 38px;
+      width: 40px;
+      height: 42px;
       background: linear-gradient(180deg, #24141e, #140910);
       border: 1.5px solid var(--rose-neon);
       border-radius: 8px;
@@ -534,7 +1120,7 @@
       align-items: center;
       justify-content: center;
       font-family: 'Kantumruy Pro', sans-serif;
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 700;
       color: #fff;
       box-shadow: 0 0 10px rgba(251, 113, 133, 0.3);
@@ -552,8 +1138,8 @@
     }
 
     .drill-mini-btn {
-      padding: 5px 12px;
-      border-radius: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
       background: rgba(251, 113, 133, 0.15);
       border: 1px solid var(--rose-neon);
       color: var(--rose-neon);
@@ -565,11 +1151,13 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
+      white-space: nowrap;
     }
 
     .drill-mini-btn:hover {
       background: var(--rose-neon);
       color: #000;
+      box-shadow: 0 0 12px rgba(251, 113, 133, 0.5);
     }
 
     /* INTERACTIVE KEYBOARD HEATMAP */
@@ -577,23 +1165,25 @@
       display: flex;
       flex-direction: column;
       gap: 5px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 12px;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 14px;
       border-radius: var(--radius-md);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       user-select: none;
+      overflow-x: auto;
     }
 
     .hm-row {
       display: flex;
       gap: 5px;
       justify-content: center;
+      min-width: 680px;
     }
 
     .hm-key {
       flex: 1;
-      height: 38px;
-      max-width: 48px;
+      height: 40px;
+      max-width: 50px;
       background: #141a29;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 6px;
@@ -603,7 +1193,7 @@
       justify-content: center;
       position: relative;
       font-family: 'Kantumruy Pro', sans-serif;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       color: #fff;
       cursor: pointer;
@@ -614,11 +1204,12 @@
       transform: translateY(-2px);
       z-index: 10;
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+      border-color: #fff;
     }
 
-    .hm-key.w-15 { max-width: 68px; font-size: 10px; }
-    .hm-key.w-20 { max-width: 86px; font-size: 10px; }
-    .hm-key.w-space { max-width: 260px; font-size: 10px; }
+    .hm-key.w-15 { max-width: 72px; font-size: 11px; }
+    .hm-key.w-20 { max-width: 90px; font-size: 11px; }
+    .hm-key.w-space { max-width: 270px; font-size: 11px; }
 
     .hm-key.high { background: #093322; border-color: rgba(52, 211, 153, 0.5); color: var(--emerald-neon); }
     .hm-key.mid { background: #3d2f09; border-color: rgba(255, 209, 102, 0.5); color: var(--gold-primary); }
@@ -627,25 +1218,26 @@
     /* MILESTONE ACHIEVEMENTS & TROPHIES */
     .achievements-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
     }
 
     .trophy-card {
       background: rgba(0, 0, 0, 0.35);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: var(--radius-sm);
-      padding: 12px;
+      border-radius: var(--radius-md);
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
       position: relative;
       transition: var(--transition);
     }
 
     .trophy-card.unlocked {
-      border-color: rgba(255, 209, 102, 0.35);
-      background: linear-gradient(180deg, rgba(255, 209, 102, 0.08) 0%, rgba(0, 0, 0, 0.4) 100%);
+      border-color: rgba(255, 209, 102, 0.38);
+      background: linear-gradient(180deg, rgba(255, 209, 102, 0.09) 0%, rgba(0, 0, 0, 0.4) 100%);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
 
     .trophy-head {
@@ -655,14 +1247,15 @@
     }
 
     .trophy-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       background: rgba(255, 255, 255, 0.05);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--text-dim);
+      font-size: 17px;
     }
 
     .trophy-card.unlocked .trophy-icon {
@@ -671,20 +1264,36 @@
     }
 
     .trophy-name {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       color: #fff;
     }
 
     .trophy-desc {
-      font-size: 10px;
-      color: var(--text-dim);
-      line-height: 1.3;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .trophy-meter-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .trophy-meter-fill {
+      height: 100%;
+      background: var(--gold-primary);
+      border-radius: 999px;
+      transition: width 0.3s ease;
     }
 
     .trophy-status {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -693,31 +1302,114 @@
     .status-unlocked { color: var(--emerald-neon); }
     .status-locked { color: var(--text-dim); }
 
-    /* RECENT SESSIONS TABLE */
-    .sessions-table {
+    /* MODAL OVERLAYS */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: #0e1320;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      max-width: 580px;
       width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      position: relative;
     }
 
-    .sessions-table th {
-      text-align: left;
-      padding: 8px 12px;
-      color: var(--text-dim);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 10px;
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.06);
+      border: none;
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .modal-close-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    /* SCRIBE DIPLOMA & CERTIFICATE */
+    .certificate-sheet {
+      background: linear-gradient(135deg, #0d121f 0%, #060912 100%);
+      border: 3px double rgba(255, 209, 102, 0.5);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      position: relative;
+      margin: 16px 0;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 209, 102, 0.08);
+    }
+
+    .cert-heading-khmer {
+      font-family: 'Moul', serif;
+      font-size: 16px;
+      color: var(--gold-primary);
+      margin-bottom: 4px;
+    }
+
+    .cert-heading-en {
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
     }
 
-    .sessions-table td {
-      padding: 10px 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      color: var(--text-main);
+    .cert-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
     }
 
-    .sessions-table tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
+    .cert-recipient {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold-primary);
+      border-bottom: 1px dashed rgba(255, 209, 102, 0.4);
+      padding-bottom: 4px;
+      display: inline-block;
+      margin: 10px 0 16px;
+    }
+
+    .cert-stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 16px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
     }
 
     /* FOOTER */
@@ -769,12 +1461,43 @@
       border: 1px solid rgba(255, 209, 102, 0.3);
       color: var(--gold-primary);
     }
+
+    /* PRINT STYLING */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .certificate-sheet, .certificate-sheet * {
+        visibility: visible;
+      }
+      .certificate-sheet {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        border: 2px solid #000;
+        color: #000;
+        background: #fff;
+      }
+    }
+
   </style>
 </head>
 <body>
 
+
   <div class="dashboard-container">
     
+    <!-- DEMO MODE NOTICE BANNER (Toggleable) -->
+    <div id="demoNoticeBanner" class="demo-notice-banner hidden">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span><strong>Preview Demonstration Telemetry Active:</strong> Showing benchmark learner profile data. Click toggle to switch back to your real local storage data.</span>
+      </div>
+      <button id="btnExitDemo" type="button" class="nav-pill-btn primary" style="padding:4px 12px; font-size:11px;">Return to Live Data</button>
+    </div>
+
     <!-- TOP EXECUTIVE COMMAND BAR -->
     <header class="top-command-bar">
       <div class="brand-cluster">
@@ -794,25 +1517,108 @@
             <span id="currentDateDisplay">October 2026</span>
             <span>·</span>
             <span id="activeLayoutBadge">Khmer Standard (ANSI 104)</span>
+            <span>·</span>
+            <span class="scribe-level-badge" id="scribeLevelBadge">
+              <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <span id="scribeLevelTitle">Level 1: Initiate Scribe</span>
+              <span class="scribe-xp-bar-wrap"><span class="scribe-xp-bar-fill" id="scribeXpBarFill" style="width:20%;"></span></span>
+              <span id="scribeXpText" style="font-family:'JetBrains Mono',monospace; font-size:10px;">0 XP</span>
+            </span>
           </p>
         </div>
       </div>
 
       <div class="nav-actions">
-        <a href="index.html" class="nav-pill-btn primary">
+        <button id="btnContinueLearningHeader" type="button" class="nav-pill-btn primary">
           <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          <span>Return to Practice Room</span>
+          <span id="continueLearningBtnText">Continue Learning</span>
+        </button>
+        <a href="index.html" class="nav-pill-btn">
+          <svg class="svg-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="6" y1="12" x2="18" y2="12"></line></svg>
+          <span>Practice Room</span>
         </a>
         <a href="Documents/index.html" class="nav-pill-btn">
           <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
           <span>Documentation</span>
         </a>
-        <button class="nav-pill-btn" id="exportReportBtn" type="button">
-          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          <span>Export Scribe Report</span>
+        <button class="nav-pill-btn" id="btnToggleDemo" type="button" title="Toggle preview benchmark telemetry">
+          <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          <span id="demoToggleLabel">Demo Preview</span>
+        </button>
+        <button class="nav-pill-btn cyan" id="btnOpenExportModal" type="button">
+          <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          <span>Certify &amp; Export</span>
         </button>
       </div>
     </header>
+
+    <!-- NEXT RECOMMENDED LESSON SPOTLIGHT CARD -->
+    <section class="spotlight-card" id="spotlightCard">
+      <div class="spotlight-left">
+        <div class="spotlight-icon-box">
+          <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        </div>
+        <div class="spotlight-text">
+          <h2>
+            <span>Current Learning Frontier:</span>
+            <span id="spotlightLessonTitle" style="color:var(--gold-primary);">Unit 1 · Lesson standard-L00-01</span>
+          </h2>
+          <p id="spotlightLessonDesc">Master keyboard orientation and tactile anchor keys to establish your touch typing habits.</p>
+        </div>
+      </div>
+      <div class="spotlight-action">
+        <button class="spotlight-btn" id="btnSpotlightLaunch" type="button">
+          <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Start Next Lesson</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- DAILY COMMITMENT & TARGET WIDGET -->
+    <section class="daily-target-strip">
+      <div class="target-card">
+        <div class="target-info">
+          <span class="target-title">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--cyan-neon);"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+            <span>Today's Practice Target</span>
+          </span>
+          <div class="target-stat">
+            <span id="todayKeyCount">0</span>
+            <span style="font-size:14px; color:var(--text-dim);">/ <span id="todayKeyTarget">500</span> Keystrokes</span>
+          </div>
+        </div>
+        <div class="target-progress-wrap">
+          <div class="target-bar-bg">
+            <div class="target-bar-fill" id="todayProgressBar" style="width:0%;"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted);">
+            <span id="todayGoalPct">0% Goal Reached</span>
+            <span id="todayRemainingStrokes">500 strokes to complete today's goal</span>
+          </div>
+        </div>
+        <div class="target-presets" id="targetPresets">
+          <button class="target-preset-btn" data-target="250" type="button">Casual (250)</button>
+          <button class="target-preset-btn active" data-target="500" type="button">Steady (500)</button>
+          <button class="target-preset-btn" data-target="1000" type="button">Intensive (1k)</button>
+        </div>
+      </div>
+
+      <div class="target-card">
+        <div class="target-info">
+          <span class="target-title">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--rose-neon);"><path d="M12 2c1.5 3 4 5 4 9a6 6 0 1 1-12 0c0-4 2.5-6 4-9 1 2 2 3 4 0z"></path></svg>
+            <span>Devotion Streak</span>
+          </span>
+          <div class="target-stat" style="color:var(--gold-primary);">
+            <span id="targetStreakDisplay">0</span>
+            <span style="font-size:14px; color:var(--text-dim);">Days Active</span>
+          </div>
+        </div>
+        <div style="font-size:11px; color:var(--text-muted); line-height:1.3;" id="targetStreakMessage">
+          Practice a lesson today to maintain your consecutive daily learning streak.
+        </div>
+      </div>
+    </section>
 
     <!-- FILTER & DATA MODE TOOLBAR -->
     <section class="filter-bar">
@@ -831,12 +1637,13 @@
           <button class="segment-btn active" data-time="all" type="button">All Time</button>
           <button class="segment-btn" data-time="30d" type="button">Last 30 Days</button>
           <button class="segment-btn" data-time="7d" type="button">This Week</button>
+          <button class="segment-btn" data-time="today" type="button">Today</button>
         </div>
       </div>
 
       <div class="data-mode-toggle">
         <span>Source:</span>
-        <strong style="color:var(--gold-primary);" id="dataSourceLabel">Local Storage (Fresh Profile · 0 Sessions)</strong>
+        <strong style="color:var(--gold-primary);" id="dataSourceLabel">Local Storage (Active Profile)</strong>
       </div>
     </section>
 
@@ -846,7 +1653,7 @@
       <!-- CARD 1: OVERALL SPEED -->
       <div class="hero-card">
         <div class="hero-card-head">
-          <span>Typing Speed (WPM)</span>
+          <span>Typing Velocity</span>
           <div class="hero-icon-pill" style="background:rgba(255,209,102,0.15); color:var(--gold-primary);">
             <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
           </div>
@@ -888,7 +1695,7 @@
       <!-- CARD 4: LESSONS MASTERED -->
       <div class="hero-card">
         <div class="hero-card-head">
-          <span>Curriculum Progress</span>
+          <span>Curriculum Mastery</span>
           <div class="hero-icon-pill" style="background:rgba(167,139,250,0.15); color:var(--violet-neon);">
             <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15 8 21 9 17 14 18 20 12 17 6 20 7 14 3 9 9 8 12 2"></polygon></svg>
           </div>
@@ -913,215 +1720,118 @@
         </div>
       </div>
 
+      <!-- CARD 6: ACTIVE PRACTICE TIME -->
+      <div class="hero-card">
+        <div class="hero-card-head">
+          <span>Active Study Time</span>
+          <div class="hero-icon-pill" style="background:rgba(251,191,36,0.15); color:var(--amber-neon);">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+        </div>
+        <div class="hero-val" id="metricTime">0m</div>
+        <div class="hero-sub" id="metricTimeSub">
+          <span>0 learning sessions</span>
+        </div>
+      </div>
+
     </section>
 
-    <!-- MAIN TWO-COLUMN DASHBOARD GRID -->
-    <div class="main-dash-grid">
+    <!-- VIEW TABS NAVIGATION BAR -->
+    <nav class="view-tabs-bar" role="tablist" aria-label="Dashboard views">
+      <button class="view-tab-btn active" data-tab="overview" role="tab" aria-selected="true" type="button">
+        <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        <span>Mastery Overview</span>
+      </button>
+      <button class="view-tab-btn" data-tab="curriculum" role="tab" aria-selected="false" type="button">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        <span>Curriculum Roadmap</span>
+      </button>
+      <button class="view-tab-btn" data-tab="adaptive" role="tab" aria-selected="false" type="button">
+        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span>Adaptive Diagnostics &amp; Weak Keys</span>
+      </button>
+      <button class="view-tab-btn" data-tab="heatmap" role="tab" aria-selected="false" type="button">
+        <svg class="svg-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="6" y1="12" x2="18" y2="12"></line></svg>
+        <span>Physical Keyboard Heatmap</span>
+      </button>
+      <button class="view-tab-btn" data-tab="trophies" role="tab" aria-selected="false" type="button">
+        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+        <span>Trophy Vault &amp; Badges</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: MASTERY OVERVIEW -->
+    <div class="tab-pane active" id="pane-overview">
       
-      <!-- LEFT COLUMN -->
-      <div style="display:flex; flex-direction:column; gap:20px;">
+      <!-- DUAL-LINE VELOCITY TRAJECTORY & 30-DAY PUNCHCARD ROW -->
+      <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
         
-        <!-- MODULE: CURRICULUM PROGRESSION ACROSS 13 UNITS -->
+        <!-- MODULE: TRAJECTORY VELOCITY CHART -->
         <div class="dash-module">
           <div class="module-head">
             <h2 class="module-title">
-              <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-              <span id="curriculumModuleTitle">Curriculum Mastery by Unit (Khmer Standard)</span>
+              <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+              <span>Performance Progression Trajectory</span>
             </h2>
-            <span class="module-badge" id="curriculumModuleBadge">78 Total Lessons</span>
+            <div style="display:flex; align-items:center; gap:14px; font-size:11px;">
+              <span style="color:var(--gold-primary); font-weight:700;">● Speed (WPM)</span>
+              <span style="color:var(--emerald-neon); font-weight:700;">● Accuracy (%)</span>
+            </div>
           </div>
-
-          <div class="curriculum-units-list" id="curriculumUnitsList">
-            
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 1: Keyboard Orientation</span>
-                <span class="unit-count">0 / 4 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 2: Home Row Consonants</span>
-                <span class="unit-count">0 / 5 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 3: Home Row Vowels &amp; Signs</span>
-                <span class="unit-count">0 / 4 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 4: Top Row Reaches</span>
-                <span class="unit-count">0 / 6 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 5: Bottom Row Reaches</span>
-                <span class="unit-count">0 / 5 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 6: Spacebar Subscript Clusters</span>
-                <span class="unit-count">0 / 8 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 7: Standard Shift Consonants</span>
-                <span class="unit-count">0 / 8 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 8: Standard Shift Vowels</span>
-                <span class="unit-count">0 / 7 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 9: Coeng Combinations</span>
-                <span class="unit-count">0 / 6 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 10: Diacritics &amp; Signs</span>
-                <span class="unit-count">0 / 5 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 11: Word Practice</span>
-                <span class="unit-count">0 / 8 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 12: Sentences &amp; Paragraphs</span>
-                <span class="unit-count">0 / 6 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
-            <div class="unit-row">
-              <div class="unit-meta">
-                <span class="unit-name">Unit 13: Speed &amp; Mastery</span>
-                <span class="unit-count">0 / 6 Mastered (0%)</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            </div>
-
+          <div class="chart-container" id="chartContainer">
+            <svg class="perf-chart-svg" id="perfChartSvg" viewBox="0 0 600 180"></svg>
           </div>
         </div>
 
-        <!-- MODULE: INTERACTIVE VISUAL KEYBOARD HEATMAP -->
+        <!-- MODULE: 30-DAY ACTIVITY PUNCHCARD -->
         <div class="dash-module">
           <div class="module-head">
             <h2 class="module-title">
-              <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--emerald-neon);"><path d="M12 2c1.5 3 4 5 4 9a6 6 0 1 1-12 0c0-4 2.5-6 4-9 1 2 2 3 4 0z"></path></svg>
-              <span id="heatmapModuleTitle">Physical Keyboard Mastery Heatmap</span>
+              <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--emerald-neon);"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span>30-Day Activity Calendar</span>
             </h2>
-            <div style="display:flex; align-items:center; gap:8px; font-size:11px;">
-              <span style="color:var(--emerald-neon); font-weight:600;">● &gt;95% (Mastered)</span>
-              <span style="color:var(--gold-primary); font-weight:600;">● 85–94% (Good)</span>
-              <span style="color:var(--rose-neon); font-weight:600;">● &lt;80% (Weak)</span>
+            <span class="module-badge" id="punchcardBadge">Active Days</span>
+          </div>
+          <p style="font-size:11px; color:var(--text-muted);">Daily keystroke practice intensity across the past 30 days.</p>
+          <div class="punchcard-grid" id="punchcardGrid"></div>
+          <div style="display:flex; align-items:center; justify-content:space-between; font-size:10px; color:var(--text-dim); margin-top:6px;">
+            <span>Less Active</span>
+            <div style="display:flex; gap:3px;">
+              <div style="width:10px; height:10px; background:rgba(255,255,255,0.04); border-radius:2px;"></div>
+              <div style="width:10px; height:10px; background:rgba(52,211,153,0.3); border-radius:2px;"></div>
+              <div style="width:10px; height:10px; background:rgba(52,211,153,0.7); border-radius:2px;"></div>
+              <div style="width:10px; height:10px; background:#ffd166; border-radius:2px;"></div>
             </div>
+            <span>Intensive Practice</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 8-FINGER RADAR & SESSIONS TABLE ROW -->
+      <div style="display:grid; grid-template-columns: 1fr 2fr; gap:20px;">
+        
+        <!-- MODULE: 8-FINGER WORKLOAD & FATIGUE RADAR -->
+        <div class="dash-module">
+          <div class="module-head">
+            <h2 class="module-title">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--cyan-neon);"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v3M14 9V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v7M10 11V5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v9M10 19H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h2"></path></svg>
+              <span>8-Finger Biomechanics</span>
+            </h2>
+            <span class="module-badge">Ergonomics</span>
           </div>
 
-          <div class="keyboard-heatmap-wrap" id="keyboardHeatmapWrap">
-            <div class="hm-row">
-              <div class="hm-key" title="Key ` / « — Not yet typed">«</div>
-              <div class="hm-key" title="Key 1 / ១ — Not yet typed">១</div>
-              <div class="hm-key" title="Key 2 / ២ — Not yet typed">២</div>
-              <div class="hm-key" title="Key 3 / ៣ — Not yet typed">៣</div>
-              <div class="hm-key" title="Key 4 / ៤ — Not yet typed">៤</div>
-              <div class="hm-key" title="Key 5 / ៥ — Not yet typed">៥</div>
-              <div class="hm-key" title="Key 6 / ៦ — Not yet typed">៦</div>
-              <div class="hm-key" title="Key 7 / ៧ — Not yet typed">៧</div>
-              <div class="hm-key" title="Key 8 / ៨ — Not yet typed">៨</div>
-              <div class="hm-key" title="Key 9 / ៩ — Not yet typed">៩</div>
-              <div class="hm-key" title="Key 0 / ០ — Not yet typed">០</div>
-              <div class="hm-key" title="Key - / ឥ — Not yet typed">-</div>
-              <div class="hm-key" title="Key = / ឲ — Not yet typed">=</div>
-              <div class="hm-key w-15" title="Backspace">Bksp</div>
+          <div class="finger-bars-grid" id="fingerBarsGrid"></div>
+
+          <!-- Hand Balance Meter -->
+          <div class="hand-balance-meter">
+            <div class="balance-label-row">
+              <span id="handBalanceLeftLabel">Left Hand: 50%</span>
+              <span id="handBalanceRightLabel">Right Hand: 50%</span>
             </div>
-            <div class="hm-row">
-              <div class="hm-key w-15" title="Tab">Tab</div>
-              <div class="hm-key" title="Key Q / ឆ — Not yet typed">ឆ</div>
-              <div class="hm-key" title="Key W / ឹ — Not yet typed">ឹ</div>
-              <div class="hm-key" title="Key E / េ — Not yet typed">េ</div>
-              <div class="hm-key" title="Key R / រ — Not yet typed">រ</div>
-              <div class="hm-key" title="Key T / ត — Not yet typed">ត</div>
-              <div class="hm-key" title="Key Y / យ — Not yet typed">យ</div>
-              <div class="hm-key" title="Key U / ុ — Not yet typed">ុ</div>
-              <div class="hm-key" title="Key I / ិ — Not yet typed">ិ</div>
-              <div class="hm-key" title="Key O / ោ — Not yet typed">ោ</div>
-              <div class="hm-key" title="Key P / ផ — Not yet typed">ផ</div>
-              <div class="hm-key" title="Key [ / ើ — Not yet typed">ើ</div>
-              <div class="hm-key" title="Key ] / ឿ — Not yet typed">ឿ</div>
-              <div class="hm-key w-15" title="Key \">\</div>
-            </div>
-            <div class="hm-row">
-              <div class="hm-key w-15" title="Caps Lock">Caps</div>
-              <div class="hm-key" title="Key A / ា — Not yet typed">ា</div>
-              <div class="hm-key" title="Key S / ស — Not yet typed">ស</div>
-              <div class="hm-key" title="Key D / ដ — Not yet typed">ដ</div>
-              <div class="hm-key" title="Key F / ថ — Not yet typed">ថ</div>
-              <div class="hm-key" title="Key G / ង — Not yet typed">ង</div>
-              <div class="hm-key" title="Key H / ហ — Not yet typed">ហ</div>
-              <div class="hm-key" title="Key J / ញ — Not yet typed">ញ</div>
-              <div class="hm-key" title="Key K / ក — Not yet typed">ក</div>
-              <div class="hm-key" title="Key L / ល — Not yet typed">ល</div>
-              <div class="hm-key" title="Key ; / ះ — Not yet typed">ះ</div>
-              <div class="hm-key" title="Key ' / ់ — Not yet typed">់</div>
-              <div class="hm-key w-20" title="Enter">Enter</div>
-            </div>
-            <div class="hm-row">
-              <div class="hm-key w-20" title="Shift">Shift</div>
-              <div class="hm-key" title="Key Z / ឋ — Not yet typed">ឋ</div>
-              <div class="hm-key" title="Key X / ខ — Not yet typed">ខ</div>
-              <div class="hm-key" title="Key C / ច — Not yet typed">ច</div>
-              <div class="hm-key" title="Key V / វ — Not yet typed">វ</div>
-              <div class="hm-key" title="Key B / ប — Not yet typed">ប</div>
-              <div class="hm-key" title="Key N / ន — Not yet typed">ន</div>
-              <div class="hm-key" title="Key M / ម — Not yet typed">ម</div>
-              <div class="hm-key" title="Key , / អ — Not yet typed">អ</div>
-              <div class="hm-key" title="Key . / ។ — Not yet typed">។</div>
-              <div class="hm-key" title="Key / / ? — Not yet typed">?</div>
-              <div class="hm-key w-20" title="Shift">Shift</div>
-            </div>
-            <div class="hm-row">
-              <div class="hm-key w-15" title="Ctrl">Ctrl</div>
-              <div class="hm-key w-15" title="Alt">Alt</div>
-              <div class="hm-key w-space" title="Spacebar — Not yet typed">Spacebar (ដកឃ្លា)</div>
-              <div class="hm-key w-15" title="AltGr">AltGr</div>
-              <div class="hm-key w-15" title="Ctrl">Ctrl</div>
+            <div class="balance-bar-track">
+              <div class="balance-bar-left" id="handBalanceLeft" style="width:50%;"></div>
+              <div class="balance-bar-right" id="handBalanceRight" style="width:50%;"></div>
             </div>
           </div>
         </div>
@@ -1133,219 +1843,115 @@
               <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--cyan-neon);"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
               <span>Recent Session History Log</span>
             </h2>
-            <span class="module-badge">Latest 5 Drills</span>
+            <span class="module-badge">Telemetry Log</span>
           </div>
 
-          <table class="sessions-table">
-            <thead>
-              <tr>
-                <th>Lesson / Drill</th>
-                <th>Track</th>
-                <th>Accuracy</th>
-                <th>Speed</th>
-                <th>Duration</th>
-                <th>Result</th>
-              </tr>
-            </thead>
-            <tbody id="sessionsTableBody">
-              <tr>
-                <td colspan="6" style="text-align:center; padding:36px 16px; color:var(--text-muted);">
-                  <svg class="svg-icon" viewBox="0 0 24 24" style="width:28px; height:28px; margin-bottom:8px; color:var(--gold-primary); display:block; margin-left:auto; margin-right:auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                  <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">No Practice Sessions Recorded Yet</div>
-                  <div style="font-size:12px; margin-bottom:12px;">Complete a lesson or drill in the practice room to record your telemetry history.</div>
-                  <a href="index.html" class="drill-mini-btn" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:12px;">Start First Lesson &rarr;</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-
-      <!-- RIGHT COLUMN -->
-      <div style="display:flex; flex-direction:column; gap:20px;">
-        
-        <!-- MODULE: 8-FINGER WORKLOAD & FATIGUE RADAR -->
-        <div class="dash-module">
-          <div class="module-head">
-            <h2 class="module-title">
-              <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--cyan-neon);"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v3M14 9V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v7M10 11V5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v9M10 19H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h2"></path></svg>
-              <span>8-Finger Workload Distribution</span>
-            </h2>
-            <span class="module-badge">Biometrics</span>
-          </div>
-
-          <p style="font-size:11px; color:var(--text-muted);">Workload percentage across each typing finger to ensure ergonomic balance and prevent strain.</p>
-
-          <div class="finger-bars-grid" id="fingerBarsGrid">
-            <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
-              <span class="f-pct">0%</span>
-              <span class="f-label">L-Pinky</span>
-            </div>
-            <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
-              <span class="f-pct">0%</span>
-              <span class="f-label">L-Ring</span>
-            </div>
-            <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
-              <span class="f-pct">0%</span>
-              <span class="f-label">L-Mid</span>
-            </div>
-            <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
-              <span class="f-pct">0%</span>
-              <span class="f-label">L-Idx</span>
-            </div>
-            <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
-              <span class="f-pct">0%</span>
-              <span class="f-label">R-Idx</span>
-            </div>
-            <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
-              <span class="f-pct">0%</span>
-              <span class="f-label">R-Mid</span>
-            </div>
-            <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
-              <span class="f-pct">0%</span>
-              <span class="f-label">R-Ring</span>
-            </div>
-            <div class="finger-col">
-              <div class="f-bar-wrap"><div class="f-bar-fill" style="height:0%;"></div></div>
-              <span class="f-pct">0%</span>
-              <span class="f-label">R-Pinky</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MODULE: WEAK-KEY DIAGNOSTIC & INSTANT DRILL LAUNCHER -->
-        <div class="dash-module">
-          <div class="module-head">
-            <h2 class="module-title">
-              <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--rose-neon);"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-              <span id="weakKeysModuleTitle">Top Stumbling Keys Diagnostic</span>
-            </h2>
-            <span class="module-badge" style="color:var(--rose-neon);">High Priority</span>
-          </div>
-
-          <div class="weak-keys-list" id="weakKeysList">
-            <div id="weakKeysEmptyState" style="text-align:center; padding:28px 16px; color:var(--text-muted);">
-              <svg class="svg-icon" viewBox="0 0 24 24" style="width:28px; height:28px; margin-bottom:8px; color:var(--gold-primary); display:block; margin-left:auto; margin-right:auto;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-              <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">No Stumbling Keys Detected Yet</div>
-              <div style="font-size:12px; max-width:320px; margin:0 auto 14px;">Practice lessons in the training room to generate personalized key diagnostic data.</div>
-              <a href="index.html" class="drill-mini-btn" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:12px;">Start Training</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- MODULE: ACHIEVEMENTS & MILESTONE TROPHIES -->
-        <div class="dash-module">
-          <div class="module-head">
-            <h2 class="module-title">
-              <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>
-              <span>Achievements &amp; Badges</span>
-            </h2>
-            <span class="module-badge" id="achievementsBadge">0 / 8 Unlocked</span>
-          </div>
-
-          <div class="achievements-grid">
-            
-            <div class="trophy-card" id="trophy-angkor">
-              <div class="trophy-head">
-                <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <span class="trophy-status status-locked">LOCKED</span>
-              </div>
-              <span class="trophy-name">Angkor Foundation</span>
-              <span class="trophy-desc">Completed Unit 1 Home Row curriculum with 95%+ accuracy.</span>
-            </div>
-
-            <div class="trophy-card" id="trophy-speed">
-              <div class="trophy-head">
-                <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <span class="trophy-status status-locked">LOCKED</span>
-              </div>
-              <span class="trophy-name">Speed Artisan</span>
-              <span class="trophy-desc">Sustained 50+ WPM burst pace in Khmer Standard layout.</span>
-            </div>
-
-            <div class="trophy-card" id="trophy-streak">
-              <div class="trophy-head">
-                <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <span class="trophy-status status-locked">LOCKED</span>
-              </div>
-              <span class="trophy-name">7-Day Devotion</span>
-              <span class="trophy-desc">Maintained a 7-day uninterrupted practice streak.</span>
-            </div>
-
-            <div class="trophy-card" id="trophy-flawless">
-              <div class="trophy-head">
-                <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <span class="trophy-status status-locked">LOCKED</span>
-              </div>
-              <span class="trophy-name">Flawless Monk</span>
-              <span class="trophy-desc">Finished an entire lesson with 100.0% accuracy and zero fixes.</span>
-            </div>
-
-            <div class="trophy-card" id="trophy-coeng">
-              <div class="trophy-head">
-                <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <span class="trophy-status status-locked">LOCKED</span>
-              </div>
-              <span class="trophy-name">Coeng Master</span>
-              <span class="trophy-desc">Type 100 conjoined subscript consonants without a mistake.</span>
-            </div>
-
-            <div class="trophy-card" id="trophy-century">
-              <div class="trophy-head">
-                <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <span class="trophy-status status-locked">LOCKED</span>
-              </div>
-              <span class="trophy-name">Century Scribe</span>
-              <span class="trophy-desc">Surpass 100 WPM speed in the English QWERTY track.</span>
-            </div>
-
-            <div class="trophy-card" id="trophy-initiate">
-              <div class="trophy-head">
-                <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <span class="trophy-status status-locked">LOCKED</span>
-              </div>
-              <span class="trophy-name">Initiate Scribe</span>
-              <span class="trophy-desc">Complete your very first typing drill or record 25 keystrokes.</span>
-            </div>
-
-            <div class="trophy-card" id="trophy-millennium">
-              <div class="trophy-head">
-                <div class="trophy-icon">
-                  <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <span class="trophy-status status-locked">LOCKED</span>
-              </div>
-              <span class="trophy-name">Millennium Scribe</span>
-              <span class="trophy-desc">Record over 1,000 keystrokes across learning sessions.</span>
-            </div>
-
+          <div tabindex="0" role="region" aria-label="Recent Practice Sessions Table" class="table-wrapper">
+            <table class="sessions-table">
+              <thead>
+                <tr>
+                  <th>Lesson / Drill</th>
+                  <th>Track</th>
+                  <th>Accuracy</th>
+                  <th>Speed</th>
+                  <th>Duration</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody id="sessionsTableBody"></tbody>
+            </table>
           </div>
         </div>
 
       </div>
 
+    </div>
+
+    <!-- TAB 2: CURRICULUM ROADMAP (All 78 Lessons) -->
+    <div class="tab-pane" id="pane-curriculum">
+      <div class="dash-module">
+        <div class="module-head">
+          <h2 class="module-title">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span id="curriculumModuleTitle">Curriculum Mastery by Unit (Khmer Standard)</span>
+          </h2>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="module-badge" id="curriculumModuleBadge">78 Total Lessons</span>
+          </div>
+        </div>
+
+        <div class="curriculum-accordion-list" id="curriculumAccordionList"></div>
+      </div>
+    </div>
+
+    <!-- TAB 3: ADAPTIVE DIAGNOSTICS & WEAK KEYS -->
+    <div class="tab-pane" id="pane-adaptive">
+      
+      <!-- TOP STUMBLING KEYS & REMEDIAL DRILLS -->
+      <div class="dash-module">
+        <div class="module-head">
+          <h2 class="module-title">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--rose-neon);"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span id="weakKeysModuleTitle">Top Stumbling Keys Diagnostic</span>
+          </h2>
+          <span class="module-badge" style="color:var(--rose-neon);">High Priority Remediation</span>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted);">Keys with high error rates or prolonged reaction latency. Launch targeted drills to solidify muscle memory.</p>
+        <div class="weak-keys-grid" id="weakKeysGrid"></div>
+      </div>
+
+      <!-- ADAPTIVE CHARACTER MASTERY MATRIX -->
+      <div class="dash-module">
+        <div class="module-head">
+          <h2 class="module-title">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--cyan-neon);"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            <span>Glyph &amp; Typing Unit Mastery Matrix</span>
+          </h2>
+          <div style="display:flex; align-items:center; gap:8px; font-size:11px;">
+            <span style="color:var(--emerald-neon); font-weight:700;">● Mastered (&gt;95%)</span>
+            <span style="color:var(--gold-primary); font-weight:700;">● Familiar (85-94%)</span>
+            <span style="color:var(--rose-neon); font-weight:700;">● Struggling (&lt;85%)</span>
+          </div>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted);">Real-time mastery status per individual glyph. Click any character to inspect telemetry or launch targeted practice.</p>
+        <div class="char-matrix-grid" id="charMatrixGrid"></div>
+      </div>
+
+    </div>
+
+    <!-- TAB 4: PHYSICAL KEYBOARD HEATMAP -->
+    <div class="tab-pane" id="pane-heatmap">
+      <div class="dash-module">
+        <div class="module-head">
+          <h2 class="module-title">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--emerald-neon);"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="6" y1="12" x2="18" y2="12"></line></svg>
+            <span id="heatmapModuleTitle">Physical Keyboard Mastery Heatmap</span>
+          </h2>
+          <div style="display:flex; align-items:center; gap:10px; font-size:11px;">
+            <span style="color:var(--emerald-neon); font-weight:700;">● Mastered (&gt;95%)</span>
+            <span style="color:var(--gold-primary); font-weight:700;">● Good (85–94%)</span>
+            <span style="color:var(--rose-neon); font-weight:700;">● Weak (&lt;80%)</span>
+            <span style="color:var(--text-dim);">● Unencountered</span>
+          </div>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted);">ANSI 104 tactile keymap. Click any physical keycap to open the detailed diagnostic inspector.</p>
+        <div class="keyboard-heatmap-wrap" id="keyboardHeatmapWrap"></div>
+      </div>
+    </div>
+
+    <!-- TAB 5: TROPHY VAULT & BADGES -->
+    <div class="tab-pane" id="pane-trophies">
+      <div class="dash-module">
+        <div class="module-head">
+          <h2 class="module-title">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            <span>Milestone Achievements &amp; Scribe Badges</span>
+          </h2>
+          <span class="module-badge" id="achievementsBadge">0 / 12 Unlocked</span>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted);">Earn official badges and royal Angkorean honours by mastering speed, precision, and dedication.</p>
+        <div class="achievements-grid" id="achievementsGrid"></div>
+      </div>
     </div>
 
     <!-- FOOTER -->
@@ -1356,14 +1962,118 @@
           <span class="dash-footer-name">PK Khmer Type</span>
           <span class="dash-footer-chip">Analytics Engine</span>
         </div>
-        <p>PK Khmer Type Analytics Engine · Built by Phanna Kurosaki · Zero-Emoji Compliant · Connected to Local Storage</p>
+        <p>PK Khmer Type Analytics Engine · Built by Phanna Kurosaki · Strict Zero-Emoji Compliant · Connected to Local Storage</p>
       </div>
     </footer>
 
   </div>
 
-  <!-- SCRIPT FOR LIVE DATA BINDING & INTERACTIVE MULTI-TRACK ENGINE -->
+  <!-- MODAL 1: INTERACTIVE KEY INSPECTOR -->
+  <div class="modal-backdrop" id="keyInspectorModal" role="dialog" aria-modal="true" aria-labelledby="keyInspectorTitle">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="btnCloseKeyInspector" type="button" aria-label="Close Inspector">
+        <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+        <div id="inspectorKeySquare" class="key-badge-square" style="width:54px; height:56px; font-size:26px;">ក</div>
+        <div>
+          <h3 id="keyInspectorTitle" style="font-size:18px; font-weight:800; color:#fff;">Key Details</h3>
+          <p id="keyInspectorSub" style="font-size:12px; color:var(--text-muted);">Physical key and assigned biomechanical finger</p>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px;">
+        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase;">Accuracy Rate</div>
+          <div id="inspectorAcc" style="font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:800; color:var(--emerald-neon);">98.5%</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase;">Total Strokes</div>
+          <div id="inspectorAttempts" style="font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:800; color:#fff;">142</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase;">Reaction Latency</div>
+          <div id="inspectorLatency" style="font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:800; color:var(--cyan-neon);">240ms</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase;">Finger Assignment</div>
+          <div id="inspectorFinger" style="font-size:13px; font-weight:700; color:var(--gold-primary);">Right Index</div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button id="btnLaunchKeyDrill" type="button" class="spotlight-btn" style="width:100%; justify-content:center;">
+          <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Launch Targeted Practice Drill</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: SCRIBE DIPLOMA & DOSSIER EXPORT -->
+  <div class="modal-backdrop" id="exportModal" role="dialog" aria-modal="true" aria-labelledby="exportModalTitle">
+    <div class="modal-content" style="max-width:640px;">
+      <button class="modal-close-btn" id="btnCloseExportModal" type="button" aria-label="Close Export Modal">
+        <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <h3 id="exportModalTitle" style="font-size:18px; font-weight:800; color:#fff; margin-bottom:4px;">Official Typographic Certification &amp; Scribe Dossier</h3>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">Print your official Diploma of Scribe Proficiency or export your comprehensive telemetry JSON dossier.</p>
+
+      <!-- Diploma Preview Sheet -->
+      <div class="certificate-sheet" id="certificateSheet">
+        <div class="cert-heading-khmer">ព្រះរាជាណាចក្រកម្ពុជា · ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
+        <div class="cert-heading-en">Kingdom of Cambodia · Nation Religion King</div>
+        
+        <div style="margin:8px auto; width:44px; height:44px; color:var(--gold-primary);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:100%; height:100%;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        </div>
+
+        <div class="cert-title">PK KHMER TYPE DIPLOMA OF SCRIBE MASTERY</div>
+        <div style="font-size:12px; color:var(--text-muted);">This official certification attests that</div>
+
+        <div class="cert-recipient" id="certRecipientName">Active Typist</div>
+
+        <div style="font-size:12px; color:var(--text-muted); line-height:1.5;">
+          has attained the distinguished rank of <strong id="certRankDisplay" style="color:var(--gold-primary);">Angkor Scholar</strong> in the 
+          <span id="certTrackDisplay" style="color:#fff;">Khmer Standard</span> typographic curriculum.
+        </div>
+
+        <div class="cert-stats-row">
+          <div><span style="color:var(--text-dim);">VELOCITY:</span> <strong id="certSpeedDisplay" style="color:var(--gold-primary);">0 WPM</strong></div>
+          <div><span style="color:var(--text-dim);">ACCURACY:</span> <strong id="certAccDisplay" style="color:var(--emerald-neon);">0%</strong></div>
+          <div><span style="color:var(--text-dim);">VERIFIED:</span> <span id="certDateDisplay" style="color:#fff;">October 2026</span></div>
+        </div>
+
+        <div style="font-size:10px; color:var(--text-dim); margin-top:10px;">PK KHMER TYPE TELEMETRY AUTHENTICATION ID: <span id="certAuthId" style="font-family:'JetBrains Mono',monospace;">PK-2026-SCRIBE</span></div>
+      </div>
+
+      <!-- Typist Name Customization -->
+      <div style="margin-bottom:14px;">
+        <label for="typistNameInput" style="font-size:11px; font-weight:700; color:var(--text-dim); text-transform:uppercase; display:block; margin-bottom:5px;">Certificate Name:</label>
+        <input type="text" id="typistNameInput" value="Active Typist" placeholder="Enter your full name for certificate" style="width:100%; padding:8px 12px; border-radius:8px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:13px;">
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="btnPrintCertificate" type="button" class="nav-pill-btn primary" style="flex:1; justify-content:center;">
+          <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          <span>Print / Save PDF Diploma</span>
+        </button>
+        <button id="btnDownloadJsonDossier" type="button" class="nav-pill-btn" style="flex:1; justify-content:center;">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Export JSON Dossier</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- SCRIPT FOR LIVE TELEMETRY & ADAPTIVE MULTI-TRACK ENGINE -->
   <script>
+
     document.addEventListener('DOMContentLoaded', () => {
       // Set current date
       const d = new Date();
@@ -1371,7 +2081,19 @@
       const dateEl = document.getElementById('currentDateDisplay');
       if (dateEl) dateEl.textContent = `${months[d.getMonth()]} ${d.getFullYear()}`;
 
-      // Complete Multi-Track Curriculum Metadata
+      // Scribe Ranks Definition
+      const SCRIBE_RANKS = [
+        { level: 1, title: 'Level 1: Initiate Scribe', minXp: 0, maxXp: 300 },
+        { level: 2, title: 'Level 2: Apprentice Scribe', minXp: 300, maxXp: 800 },
+        { level: 3, title: 'Level 3: Temple Scribe', minXp: 800, maxXp: 1600 },
+        { level: 4, title: 'Level 4: Palm-Leaf Artisan', minXp: 1600, maxXp: 2800 },
+        { level: 5, title: 'Level 5: Royal Calligrapher', minXp: 2800, maxXp: 4500 },
+        { level: 6, title: 'Level 6: Angkor Master Scribe', minXp: 4500, maxXp: 7000 },
+        { level: 7, title: 'Level 7: High Priest of Script', minXp: 7000, maxXp: 10000 },
+        { level: 8, title: 'Level 8: Maha Scribe Supreme', minXp: 10000, maxXp: 999999 }
+      ];
+
+      // Track Metadata
       const TRACK_METADATA = {
         standard: {
           name: 'Khmer Standard',
@@ -1436,87 +2158,132 @@
         }
       };
 
-      // Physical Keyboard ANSI 104 Heatmap Keycaps
+      // ANSI 104 Heatmap Keycaps with Finger Assignments & Character Descriptions
       const KEYBOARD_LAYOUTS = {
         standard: [
           [
-            { label: '«', id: 'grave' }, { label: '១', id: '1' }, { label: '២', id: '2' }, { label: '៣', id: '3' }, { label: '៤', id: '4' },
-            { label: '៥', id: '5' }, { label: '៦', id: '6' }, { label: '៧', id: '7' }, { label: '៨', id: '8' }, { label: '៩', id: '9' },
-            { label: '០', id: '0' }, { label: '-', id: 'minus' }, { label: '=', id: 'equal' }, { label: 'Bksp', id: 'backspace', cls: 'w-15' }
+            { label: '«', id: 'grave', finger: 'lp', desc: 'សញ្ញាសម្រង់ «' }, { label: '១', id: '1', finger: 'lp', desc: 'លេខ ១' },
+            { label: '២', id: '2', finger: 'lr', desc: 'លេខ ២' }, { label: '៣', id: '3', finger: 'lm', desc: 'លេខ ៣' },
+            { label: '៤', id: '4', finger: 'li', desc: 'លេខ ៤' }, { label: '៥', id: '5', finger: 'li', desc: 'លេខ ៥' },
+            { label: '៦', id: '6', finger: 'ri', desc: 'លេខ ៦' }, { label: '៧', id: '7', finger: 'ri', desc: 'លេខ ៧' },
+            { label: '៨', id: '8', finger: 'rm', desc: 'លេខ ៨' }, { label: '៩', id: '9', finger: 'rr', desc: 'លេខ ៩' },
+            { label: '០', id: '0', finger: 'rp', desc: 'លេខ ០' }, { label: '-', id: 'minus', finger: 'rp', desc: 'សញ្ញាដក' },
+            { label: '=', id: 'equal', finger: 'rp', desc: 'សញ្ញាស្មើ' }, { label: 'Bksp', id: 'backspace', finger: 'rp', cls: 'w-15', desc: 'Backspace' }
           ],
           [
-            { label: 'Tab', id: 'tab', cls: 'w-15' }, { label: 'ឆ', id: 'q' }, { label: 'ឹ', id: 'w' }, { label: 'េ', id: 'e' }, { label: 'រ', id: 'r' },
-            { label: 'ត', id: 't' }, { label: 'យ', id: 'y' }, { label: 'ុ', id: 'u' }, { label: 'ិ', id: 'i' }, { label: 'ោ', id: 'o' },
-            { label: 'ផ', id: 'p' }, { label: 'ើ', id: 'bracketL' }, { label: 'ឿ', id: 'bracketR' }, { label: '\\', id: 'backslash', cls: 'w-15' }
+            { label: 'Tab', id: 'tab', finger: 'lp', cls: 'w-15', desc: 'Tab' }, { label: 'ឆ', id: 'q', finger: 'lp', desc: 'ព្យញ្ជនៈ ឆ' },
+            { label: 'ឹ', id: 'w', finger: 'lr', desc: 'ស្រៈ អឹ' }, { label: 'េ', id: 'e', finger: 'lm', desc: 'ស្រៈ អេ' },
+            { label: 'រ', id: 'r', finger: 'li', desc: 'ព្យញ្ជនៈ រ' }, { label: 'ត', id: 't', finger: 'li', desc: 'ព្យញ្ជនៈ ត' },
+            { label: 'យ', id: 'y', finger: 'ri', desc: 'ព្យញ្ជនៈ យ' }, { label: 'ុ', id: 'u', finger: 'ri', desc: 'ស្រៈ អុ' },
+            { label: 'ិ', id: 'i', finger: 'rm', desc: 'ស្រៈ អិ' }, { label: 'ោ', id: 'o', finger: 'rr', desc: 'ស្រៈ អោ' },
+            { label: 'ផ', id: 'p', finger: 'rp', desc: 'ព្យញ្ជនៈ ផ' }, { label: 'ើ', id: 'bracketL', finger: 'rp', desc: 'ស្រៈ អើ' },
+            { label: 'ឿ', id: 'bracketR', finger: 'rp', desc: 'ស្រៈ អឿ' }, { label: '\\', id: 'backslash', finger: 'rp', cls: 'w-15', desc: 'Backslash' }
           ],
           [
-            { label: 'Caps', id: 'caps', cls: 'w-15' }, { label: 'ា', id: 'a' }, { label: 'ស', id: 's' }, { label: 'ដ', id: 'd' }, { label: 'ថ', id: 'f' },
-            { label: 'ង', id: 'g' }, { label: 'ហ', id: 'h' }, { label: 'ញ', id: 'j' }, { label: 'ក', id: 'k' }, { label: 'ល', id: 'l' },
-            { label: 'ះ', id: 'semicolon' }, { label: '់', id: 'quote' }, { label: 'Enter', id: 'enter', cls: 'w-20' }
+            { label: 'Caps', id: 'caps', finger: 'lp', cls: 'w-15', desc: 'Caps Lock' }, { label: 'ា', id: 'a', finger: 'lp', desc: 'ស្រៈ អា' },
+            { label: 'ស', id: 's', finger: 'lr', desc: 'ព្យញ្ជនៈ ស' }, { label: 'ដ', id: 'd', finger: 'lm', desc: 'ព្យញ្ជនៈ ដ' },
+            { label: 'ថ', id: 'f', finger: 'li', desc: 'ព្យញ្ជនៈ ថ' }, { label: 'ង', id: 'g', finger: 'li', desc: 'ព្យញ្ជនៈ ង' },
+            { label: 'ហ', id: 'h', finger: 'ri', desc: 'ព្យញ្ជនៈ ហ' }, { label: 'ញ', id: 'j', finger: 'ri', desc: 'ព្យញ្ជនៈ ញ' },
+            { label: 'ក', id: 'k', finger: 'rm', desc: 'ព្យញ្ជនៈ ក' }, { label: 'ល', id: 'l', finger: 'rr', desc: 'ព្យញ្ជនៈ ល' },
+            { label: 'ះ', id: 'semicolon', finger: 'rp', desc: 'ស្រៈ អះ' }, { label: '់', id: 'quote', finger: 'rp', desc: 'បន្តក់' },
+            { label: 'Enter', id: 'enter', finger: 'rp', cls: 'w-20', desc: 'Enter' }
           ],
           [
-            { label: 'Shift', id: 'shiftL', cls: 'w-20' }, { label: 'ឋ', id: 'z' }, { label: 'ខ', id: 'x' }, { label: 'ច', id: 'c' }, { label: 'វ', id: 'v' },
-            { label: 'ប', id: 'b' }, { label: 'ន', id: 'n' }, { label: 'ម', id: 'm' }, { label: 'អ', id: 'comma' }, { label: '។', id: 'period' },
-            { label: '?', id: 'slash' }, { label: 'Shift', id: 'shiftR', cls: 'w-20' }
+            { label: 'Shift', id: 'shiftL', finger: 'lp', cls: 'w-20', desc: 'Left Shift' }, { label: 'ឋ', id: 'z', finger: 'lp', desc: 'ព្យញ្ជនៈ ឋ' },
+            { label: 'ខ', id: 'x', finger: 'lr', desc: 'ព្យញ្ជនៈ ខ' }, { label: 'ច', id: 'c', finger: 'lm', desc: 'ព្យញ្ជនៈ ច' },
+            { label: 'វ', id: 'v', finger: 'li', desc: 'ព្យញ្ជនៈ វ' }, { label: 'ប', id: 'b', finger: 'li', desc: 'ព្យញ្ជនៈ ប' },
+            { label: 'ន', id: 'n', finger: 'ri', desc: 'ព្យញ្ជនៈ ន' }, { label: 'ម', id: 'm', finger: 'ri', desc: 'ព្យញ្ជនៈ ម' },
+            { label: 'អ', id: 'comma', finger: 'rm', desc: 'ព្យញ្ជនៈ អ' }, { label: '។', id: 'period', finger: 'rr', desc: 'ខណ្ឌ ។' },
+            { label: '?', id: 'slash', finger: 'rp', desc: 'សញ្ញាសួរ ?' }, { label: 'Shift', id: 'shiftR', finger: 'rp', cls: 'w-20', desc: 'Right Shift' }
           ],
           [
-            { label: 'Ctrl', id: 'ctrlL', cls: 'w-15' }, { label: 'Alt', id: 'alt', cls: 'w-15' },
-            { label: 'Spacebar (ដកឃ្លា)', id: 'space', cls: 'w-space' },
-            { label: 'AltGr', id: 'altgr', cls: 'w-15' }, { label: 'Ctrl', id: 'ctrlR', cls: 'w-15' }
+            { label: 'Ctrl', id: 'ctrlL', finger: 'lp', cls: 'w-15', desc: 'Left Control' }, { label: 'Alt', id: 'alt', finger: 'lt', cls: 'w-15', desc: 'Left Alt' },
+            { label: 'Spacebar (ដកឃ្លា)', id: 'space', finger: 'thumb', cls: 'w-space', desc: 'ដកឃ្លា / ជើងព្យញ្ជនៈ' },
+            { label: 'AltGr', id: 'altgr', finger: 'rt', cls: 'w-15', desc: 'Right Alt' }, { label: 'Ctrl', id: 'ctrlR', finger: 'rp', cls: 'w-15', desc: 'Right Control' }
           ]
         ],
         nida: [
           [
-            { label: '«', id: 'grave' }, { label: '១', id: '1' }, { label: '២', id: '2' }, { label: '៣', id: '3' }, { label: '៤', id: '4' },
-            { label: '៥', id: '5' }, { label: '៦', id: '6' }, { label: '៧', id: '7' }, { label: '៨', id: '8' }, { label: '៩', id: '9' },
-            { label: '០', id: '0' }, { label: 'ឥ', id: 'minus' }, { label: 'ឲ', id: 'equal' }, { label: 'Bksp', id: 'backspace', cls: 'w-15' }
+            { label: '«', id: 'grave', finger: 'lp', desc: 'សញ្ញាសម្រង់' }, { label: '១', id: '1', finger: 'lp', desc: 'លេខ ១' },
+            { label: '២', id: '2', finger: 'lr', desc: 'លេខ ២' }, { label: '៣', id: '3', finger: 'lm', desc: 'លេខ ៣' },
+            { label: '៤', id: '4', finger: 'li', desc: 'លេខ ៤' }, { label: '៥', id: '5', finger: 'li', desc: 'លេខ ៥' },
+            { label: '៦', id: '6', finger: 'ri', desc: 'លេខ ៦' }, { label: '៧', id: '7', finger: 'ri', desc: 'លេខ ៧' },
+            { label: '៨', id: '8', finger: 'rm', desc: 'លេខ ៨' }, { label: '៩', id: '9', finger: 'rr', desc: 'លេខ ៩' },
+            { label: '០', id: '0', finger: 'rp', desc: 'លេខ ០' }, { label: 'ឥ', id: 'minus', finger: 'rp', desc: 'ស្រៈពេញតួ ឥ' },
+            { label: 'ឲ', id: 'equal', finger: 'rp', desc: 'ស្រៈពេញតួ ឲ' }, { label: 'Bksp', id: 'backspace', finger: 'rp', cls: 'w-15', desc: 'Backspace' }
           ],
           [
-            { label: 'Tab', id: 'tab', cls: 'w-15' }, { label: 'ឆ', id: 'q' }, { label: 'ឹ', id: 'w' }, { label: 'េ', id: 'e' }, { label: 'រ', id: 'r' },
-            { label: 'ត', id: 't' }, { label: 'យ', id: 'y' }, { label: 'ុ', id: 'u' }, { label: 'ិ', id: 'i' }, { label: 'ោ', id: 'o' },
-            { label: 'ផ', id: 'p' }, { label: 'ៀ', id: 'bracketL' }, { label: 'ឪ', id: 'bracketR' }, { label: 'ឮ', id: 'backslash', cls: 'w-15' }
+            { label: 'Tab', id: 'tab', finger: 'lp', cls: 'w-15', desc: 'Tab' }, { label: 'ឆ', id: 'q', finger: 'lp', desc: 'ព្យញ្ជនៈ ឆ' },
+            { label: 'ឹ', id: 'w', finger: 'lr', desc: 'ស្រៈ អឹ' }, { label: 'េ', id: 'e', finger: 'lm', desc: 'ស្រៈ អេ' },
+            { label: 'រ', id: 'r', finger: 'li', desc: 'ព្យញ្ជនៈ រ' }, { label: 'ត', id: 't', finger: 'li', desc: 'ព្យញ្ជនៈ ត' },
+            { label: 'យ', id: 'y', finger: 'ri', desc: 'ព្យញ្ជនៈ យ' }, { label: 'ុ', id: 'u', finger: 'ri', desc: 'ស្រៈ អុ' },
+            { label: 'ិ', id: 'i', finger: 'rm', desc: 'ស្រៈ អិ' }, { label: 'ោ', id: 'o', finger: 'rr', desc: 'ស្រៈ អោ' },
+            { label: 'ផ', id: 'p', finger: 'rp', desc: 'ព្យញ្ជនៈ ផ' }, { label: 'ៀ', id: 'bracketL', finger: 'rp', desc: 'ស្រៈ អៀ' },
+            { label: 'ឪ', id: 'bracketR', finger: 'rp', desc: 'ស្រៈពេញតួ ឪ' }, { label: 'ឮ', id: 'backslash', finger: 'rp', cls: 'w-15', desc: 'ស្រៈពេញតួ ឮ' }
           ],
           [
-            { label: 'Caps', id: 'caps', cls: 'w-15' }, { label: 'ា', id: 'a' }, { label: 'ស', id: 's' }, { label: 'ដ', id: 'd' }, { label: 'ថ', id: 'f' },
-            { label: 'ង', id: 'g' }, { label: 'ហ', id: 'h' }, { label: '្', id: 'j' }, { label: 'ក', id: 'k' }, { label: 'ល', id: 'l' },
-            { label: 'ើ', id: 'semicolon' }, { label: '់', id: 'quote' }, { label: 'Enter', id: 'enter', cls: 'w-20' }
+            { label: 'Caps', id: 'caps', finger: 'lp', cls: 'w-15', desc: 'Caps Lock' }, { label: 'ា', id: 'a', finger: 'lp', desc: 'ស្រៈ អា' },
+            { label: 'ស', id: 's', finger: 'lr', desc: 'ព្យញ្ជនៈ ស' }, { label: 'ដ', id: 'd', finger: 'lm', desc: 'ព្យញ្ជនៈ ដ' },
+            { label: 'ថ', id: 'f', finger: 'li', desc: 'ព្យញ្ជនៈ ថ' }, { label: 'ង', id: 'g', finger: 'li', desc: 'ព្យញ្ជនៈ ង' },
+            { label: 'ហ', id: 'h', finger: 'ri', desc: 'ព្យញ្ជនៈ ហ' }, { label: '្', id: 'j', finger: 'ri', desc: 'ជើងព្យញ្ជនៈ (Coeng)' },
+            { label: 'ក', id: 'k', finger: 'rm', desc: 'ព្យញ្ជនៈ ក' }, { label: 'ល', id: 'l', finger: 'rr', desc: 'ព្យញ្ជនៈ ល' },
+            { label: 'ើ', id: 'semicolon', finger: 'rp', desc: 'ស្រៈ អើ' }, { label: '់', id: 'quote', finger: 'rp', desc: 'បន្តក់' },
+            { label: 'Enter', id: 'enter', finger: 'rp', cls: 'w-20', desc: 'Enter' }
           ],
           [
-            { label: 'Shift', id: 'shiftL', cls: 'w-20' }, { label: 'ឋ', id: 'z' }, { label: 'ខ', id: 'x' }, { label: 'ច', id: 'c' }, { label: 'វ', id: 'v' },
-            { label: 'ប', id: 'b' }, { label: 'ន', id: 'n' }, { label: 'ម', id: 'm' }, { label: 'ុំ', id: 'comma' }, { label: '។', id: 'period' },
-            { label: '៊', id: 'slash' }, { label: 'Shift', id: 'shiftR', cls: 'w-20' }
+            { label: 'Shift', id: 'shiftL', finger: 'lp', cls: 'w-20', desc: 'Left Shift' }, { label: 'ឋ', id: 'z', finger: 'lp', desc: 'ព្យញ្ជនៈ ឋ' },
+            { label: 'ខ', id: 'x', finger: 'lr', desc: 'ព្យញ្ជនៈ ខ' }, { label: 'ច', id: 'c', finger: 'lm', desc: 'ព្យញ្ជនៈ ច' },
+            { label: 'វ', id: 'v', finger: 'li', desc: 'ព្យញ្ជនៈ វ' }, { label: 'ប', id: 'b', finger: 'li', desc: 'ព្យញ្ជនៈ ប' },
+            { label: 'ន', id: 'n', finger: 'ri', desc: 'ព្យញ្ជនៈ ន' }, { label: 'ម', id: 'm', finger: 'ri', desc: 'ព្យញ្ជនៈ ម' },
+            { label: 'ុំ', id: 'comma', finger: 'rm', desc: 'ស្រៈ អុំ' }, { label: '។', id: 'period', finger: 'rr', desc: 'ខណ្ឌ' },
+            { label: '៊', id: 'slash', finger: 'rp', desc: 'ត្រីស័ព្ទ' }, { label: 'Shift', id: 'shiftR', finger: 'rp', cls: 'w-20', desc: 'Right Shift' }
           ],
           [
-            { label: 'Ctrl', id: 'ctrlL', cls: 'w-15' }, { label: 'Alt', id: 'alt', cls: 'w-15' },
-            { label: 'Spacebar (ដកឃ្លា)', id: 'space', cls: 'w-space' },
-            { label: 'AltGr', id: 'altgr', cls: 'w-15' }, { label: 'Ctrl', id: 'ctrlR', cls: 'w-15' }
+            { label: 'Ctrl', id: 'ctrlL', finger: 'lp', cls: 'w-15', desc: 'Left Control' }, { label: 'Alt', id: 'alt', finger: 'lt', cls: 'w-15', desc: 'Left Alt' },
+            { label: 'Spacebar (ដកឃ្លា)', id: 'space', finger: 'thumb', cls: 'w-space', desc: 'ដកឃ្លា' },
+            { label: 'AltGr', id: 'altgr', finger: 'rt', cls: 'w-15', desc: 'Right Alt' }, { label: 'Ctrl', id: 'ctrlR', finger: 'rp', cls: 'w-15', desc: 'Right Control' }
           ]
         ],
         english: [
           [
-            { label: '~', id: 'grave' }, { label: '1', id: '1' }, { label: '2', id: '2' }, { label: '3', id: '3' }, { label: '4', id: '4' },
-            { label: '5', id: '5' }, { label: '6', id: '6' }, { label: '7', id: '7' }, { label: '8', id: '8' }, { label: '9', id: '9' },
-            { label: '0', id: '0' }, { label: '-', id: 'minus' }, { label: '=', id: 'equal' }, { label: 'Bksp', id: 'backspace', cls: 'w-15' }
+            { label: '~', id: 'grave', finger: 'lp', desc: 'Tilde' }, { label: '1', id: '1', finger: 'lp', desc: 'Number 1' },
+            { label: '2', id: '2', finger: 'lr', desc: 'Number 2' }, { label: '3', id: '3', finger: 'lm', desc: 'Number 3' },
+            { label: '4', id: '4', finger: 'li', desc: 'Number 4' }, { label: '5', id: '5', finger: 'li', desc: 'Number 5' },
+            { label: '6', id: '6', finger: 'ri', desc: 'Number 6' }, { label: '7', id: '7', finger: 'ri', desc: 'Number 7' },
+            { label: '8', id: '8', finger: 'rm', desc: 'Number 8' }, { label: '9', id: '9', finger: 'rr', desc: 'Number 9' },
+            { label: '0', id: '0', finger: 'rp', desc: 'Number 0' }, { label: '-', id: 'minus', finger: 'rp', desc: 'Hyphen' },
+            { label: '=', id: 'equal', finger: 'rp', desc: 'Equals' }, { label: 'Bksp', id: 'backspace', finger: 'rp', cls: 'w-15', desc: 'Backspace' }
           ],
           [
-            { label: 'Tab', id: 'tab', cls: 'w-15' }, { label: 'Q', id: 'q' }, { label: 'W', id: 'w' }, { label: 'E', id: 'e' }, { label: 'R', id: 'r' },
-            { label: 'T', id: 't' }, { label: 'Y', id: 'y' }, { label: 'U', id: 'u' }, { label: 'I', id: 'i' }, { label: 'O', id: 'o' },
-            { label: 'P', id: 'p' }, { label: '[', id: 'bracketL' }, { label: ']', id: 'bracketR' }, { label: '\\', id: 'backslash', cls: 'w-15' }
+            { label: 'Tab', id: 'tab', finger: 'lp', cls: 'w-15', desc: 'Tab' }, { label: 'Q', id: 'q', finger: 'lp', desc: 'Letter Q' },
+            { label: 'W', id: 'w', finger: 'lr', desc: 'Letter W' }, { label: 'E', id: 'e', finger: 'lm', desc: 'Letter E' },
+            { label: 'R', id: 'r', finger: 'li', desc: 'Letter R' }, { label: 'T', id: 't', finger: 'li', desc: 'Letter T' },
+            { label: 'Y', id: 'y', finger: 'ri', desc: 'Letter Y' }, { label: 'U', id: 'u', finger: 'ri', desc: 'Letter U' },
+            { label: 'I', id: 'i', finger: 'rm', desc: 'Letter I' }, { label: 'O', id: 'o', finger: 'rr', desc: 'Letter O' },
+            { label: 'P', id: 'p', finger: 'rp', desc: 'Letter P' }, { label: '[', id: 'bracketL', finger: 'rp', desc: 'Bracket [' },
+            { label: ']', id: 'bracketR', finger: 'rp', desc: 'Bracket ]' }, { label: '\\', id: 'backslash', finger: 'rp', cls: 'w-15', desc: 'Backslash' }
           ],
           [
-            { label: 'Caps', id: 'caps', cls: 'w-15' }, { label: 'A', id: 'a' }, { label: 'S', id: 's' }, { label: 'D', id: 'd' }, { label: 'F', id: 'f' },
-            { label: 'G', id: 'g' }, { label: 'H', id: 'h' }, { label: 'J', id: 'j' }, { label: 'K', id: 'k' }, { label: 'L', id: 'l' },
-            { label: ';', id: 'semicolon' }, { label: "'", id: 'quote' }, { label: 'Enter', id: 'enter', cls: 'w-20' }
+            { label: 'Caps', id: 'caps', finger: 'lp', cls: 'w-15', desc: 'Caps Lock' }, { label: 'A', id: 'a', finger: 'lp', desc: 'Letter A' },
+            { label: 'S', id: 's', finger: 'lr', desc: 'Letter S' }, { label: 'D', id: 'd', finger: 'lm', desc: 'Letter D' },
+            { label: 'F', id: 'f', finger: 'li', desc: 'Letter F (Anchor)' }, { label: 'G', id: 'g', finger: 'li', desc: 'Letter G' },
+            { label: 'H', id: 'h', finger: 'ri', desc: 'Letter H' }, { label: 'J', id: 'j', finger: 'ri', desc: 'Letter J (Anchor)' },
+            { label: 'K', id: 'k', finger: 'rm', desc: 'Letter K' }, { label: 'L', id: 'l', finger: 'rr', desc: 'Letter L' },
+            { label: ';', id: 'semicolon', finger: 'rp', desc: 'Semicolon' }, { label: "'", id: 'quote', finger: 'rp', desc: 'Quote' },
+            { label: 'Enter', id: 'enter', finger: 'rp', cls: 'w-20', desc: 'Enter' }
           ],
           [
-            { label: 'Shift', id: 'shiftL', cls: 'w-20' }, { label: 'Z', id: 'z' }, { label: 'X', id: 'x' }, { label: 'C', id: 'c' }, { label: 'V', id: 'v' },
-            { label: 'B', id: 'b' }, { label: 'N', id: 'n' }, { label: 'M', id: 'm' }, { label: ',', id: 'comma' }, { label: '.', id: 'period' },
-            { label: '/', id: 'slash' }, { label: 'Shift', id: 'shiftR', cls: 'w-20' }
+            { label: 'Shift', id: 'shiftL', finger: 'lp', cls: 'w-20', desc: 'Left Shift' }, { label: 'Z', id: 'z', finger: 'lp', desc: 'Letter Z' },
+            { label: 'X', id: 'x', finger: 'lr', desc: 'Letter X' }, { label: 'C', id: 'c', finger: 'lm', desc: 'Letter C' },
+            { label: 'V', id: 'v', finger: 'li', desc: 'Letter V' }, { label: 'B', id: 'b', finger: 'li', desc: 'Letter B' },
+            { label: 'N', id: 'n', finger: 'ri', desc: 'Letter N' }, { label: 'M', id: 'm', finger: 'ri', desc: 'Letter M' },
+            { label: ',', id: 'comma', finger: 'rm', desc: 'Comma' }, { label: '.', id: 'period', finger: 'rr', desc: 'Period' },
+            { label: '/', id: 'slash', finger: 'rp', desc: 'Slash' }, { label: 'Shift', id: 'shiftR', finger: 'rp', cls: 'w-20', desc: 'Right Shift' }
           ],
           [
-            { label: 'Ctrl', id: 'ctrlL', cls: 'w-15' }, { label: 'Alt', id: 'alt', cls: 'w-15' },
-            { label: 'Spacebar', id: 'space', cls: 'w-space' },
-            { label: 'AltGr', id: 'altgr', cls: 'w-15' }, { label: 'Ctrl', id: 'ctrlR', cls: 'w-15' }
+            { label: 'Ctrl', id: 'ctrlL', finger: 'lp', cls: 'w-15', desc: 'Left Control' }, { label: 'Alt', id: 'alt', finger: 'lt', cls: 'w-15', desc: 'Left Alt' },
+            { label: 'Spacebar', id: 'space', finger: 'thumb', cls: 'w-space', desc: 'Spacebar' },
+            { label: 'AltGr', id: 'altgr', finger: 'rt', cls: 'w-15', desc: 'Right Alt' }, { label: 'Ctrl', id: 'ctrlR', finger: 'rp', cls: 'w-15', desc: 'Right Control' }
           ]
         ]
       };
@@ -1532,12 +2299,28 @@
         { id: 'rp', name: 'R-Pinky' }
       ];
 
+      const FINGER_NAMES_MAP = {
+        lp: 'Left Pinky',
+        lr: 'Left Ring',
+        lm: 'Left Middle',
+        li: 'Left Index',
+        thumb: 'Thumb',
+        lt: 'Left Thumb',
+        rt: 'Right Thumb',
+        ri: 'Right Index',
+        rm: 'Right Middle',
+        rr: 'Right Ring',
+        rp: 'Right Pinky'
+      };
+
       let currentTrack = 'standard';
       let currentTimeframe = 'all';
+      let demoModeActive = false;
+      let activeDailyTarget = 500;
 
       // Safe LocalStorage Reader
       function readAllLocalStorage() {
-        let progress = null, tracker = null, lessonStats = null, trialBest = 0, raceStats = null, authSession = null;
+        let progress = null, tracker = null, lessonStats = null, trialBest = 0, raceStats = null, authSession = null, adaptive = null, achievements = null;
         try {
           const rawP = localStorage.getItem('khmerProgress_v2');
           if (rawP) progress = JSON.parse(rawP);
@@ -1561,16 +2344,73 @@
           const rawA = localStorage.getItem('khmerAuthSession');
           if (rawA) authSession = JSON.parse(rawA);
         } catch (e) {}
+        try {
+          const rawAd = localStorage.getItem('pk_adaptive_state_v1');
+          if (rawAd) adaptive = JSON.parse(rawAd);
+        } catch (e) {}
+        try {
+          const rawAch = localStorage.getItem('pk_achievements_v1');
+          if (rawAch) achievements = JSON.parse(rawAch);
+        } catch (e) {}
 
-        return { progress, tracker, lessonStats, trialBest, raceStats, authSession };
+        return { progress, tracker, lessonStats, trialBest, raceStats, authSession, adaptive, achievements };
       }
 
-      // Aggregate all genuine sessions
+      // Generate Rich Demo Telemetry for instant preview
+      function getDemoTelemetry() {
+        const now = Date.now();
+        const demoSessions = [];
+        const wpms = [26, 31, 35, 38, 42, 44, 46, 47, 51, 48, 52, 54, 53, 55, 58];
+        const accs = [91, 93, 94, 95, 96, 95.5, 97, 98, 97.5, 98, 98.2, 99, 98.5, 99.2, 99.5];
+
+        for (let i = 0; i < 15; i++) {
+          const pastTime = now - (14 - i) * 86400000 + (i * 3600000);
+          demoSessions.push({
+            title: `Lesson standard-L${String(Math.floor(i / 2)).padStart(2, '0')}-0${(i % 3) + 1}`,
+            track: 'Standard',
+            layoutId: 'standard',
+            acc: accs[i],
+            wpm: wpms[i],
+            durSec: 75 + (i * 5),
+            timestamp: pastTime,
+            passed: true
+          });
+        }
+
+        const standardLessons = {};
+        for (let u = 0; u < 4; u++) {
+          const uid = `standard-L${String(u).padStart(2, '0')}`;
+          for (let l = 1; l <= 6; l++) {
+            const lid = `${uid}-0${l}`;
+            standardLessons[lid] = {
+              completed: true,
+              bestAccuracy: 95 + ((u + l) % 5),
+              bestWpm: 35 + (u * 4) + l,
+              totalTypingUnits: 140,
+              totalMistakes: 2
+            };
+          }
+        }
+
+        return {
+          totalKeys: 4850,
+          speedWpm: 58,
+          avgWpm: 48,
+          accuracy: 96.8,
+          completedLessons: 24,
+          totalTimeSec: 8400,
+          streak: { current: 5, best: 8 },
+          sessions: demoSessions,
+          standardLessons
+        };
+      }
+
+      // Extract Sessions
       function extractAllSessions(storageData) {
+        if (demoModeActive) return getDemoTelemetry().sessions;
         const sessions = [];
         const { progress, tracker } = storageData;
 
-        // 1. History completions from Progress V2
         if (progress && progress.history && Array.isArray(progress.history.recentCompletions)) {
           progress.history.recentCompletions.forEach(c => {
             if (!c) return;
@@ -1590,7 +2430,6 @@
           });
         }
 
-        // 2. Individual lesson recentAttempts from courses
         if (progress && progress.courses) {
           Object.keys(progress.courses).forEach(cid => {
             const course = progress.courses[cid];
@@ -1602,7 +2441,6 @@
                 if (l && Array.isArray(l.recentAttempts)) {
                   l.recentAttempts.forEach(att => {
                     if (!att || !att.timestamp) return;
-                    // Deduplicate if already present with similar timestamp
                     if (!sessions.some(s => Math.abs(s.timestamp - att.timestamp) < 1500)) {
                       sessions.push({
                         title: `Lesson ${lid}`,
@@ -1622,7 +2460,6 @@
           });
         }
 
-        // 3. Sessions buffer from Tracker V1
         if (tracker && Array.isArray(tracker.sessions)) {
           tracker.sessions.forEach(ts => {
             if (!ts || !ts.startTime) return;
@@ -1654,7 +2491,7 @@
         return sessions;
       }
 
-      // Calculate genuine practice streak from session timestamps
+      // Calculate practice streak
       function calculateStreaks(timestamps) {
         if (!timestamps || !timestamps.length) return { current: 0, best: 0 };
         const uniqueDates = Array.from(new Set(timestamps.map(ts => {
@@ -1708,32 +2545,64 @@
         return { current: currentStreak, best: bestStreak };
       }
 
+      // Scribe Level & XP Engine
+      function computeScribeLevel(totalKeys, completedLessons, streakDays, flawlessLessons = 0) {
+        const xp = Math.round((totalKeys * 0.1) + (completedLessons * 50) + (flawlessLessons * 25) + (streakDays * 30));
+        let rank = SCRIBE_RANKS[0];
+        for (let i = SCRIBE_RANKS.length - 1; i >= 0; i--) {
+          if (xp >= SCRIBE_RANKS[i].minXp) {
+            rank = SCRIBE_RANKS[i];
+            break;
+          }
+        }
+        const range = rank.maxXp - rank.minXp;
+        const earnedInRange = xp - rank.minXp;
+        const pct = Math.min(100, Math.max(0, Math.round((earnedInRange / range) * 100)));
+        return { rank, xp, pct };
+      }
+
+      // Find next uncompleted lesson in track
+      function findNextLesson(profile, course) {
+        if (!course || !course.lessons) {
+          return { id: profile.levels[0].lessons[0], unitTitle: profile.levels[0].title, isComplete: false };
+        }
+        for (const lv of profile.levels) {
+          for (const lid of lv.lessons) {
+            const l = course.lessons[lid];
+            if (!l || !l.completed) {
+              return { id: lid, unitTitle: lv.title, isComplete: false };
+            }
+          }
+        }
+        return { id: profile.levels[0].lessons[0], unitTitle: 'All Units Mastered!', isComplete: true };
+      }
+
       // Check key stats in tracker and progress
       function getKeyStats(keyId, label, trackStats, courseKeys) {
         let stat = null;
         if (trackStats) {
-          stat = trackStats[keyId] ||
-                 trackStats[keyId.toLowerCase()] ||
-                 trackStats[keyId.toUpperCase()] ||
-                 (label ? trackStats[label] : null);
+          stat = trackStats[keyId] || trackStats[keyId.toLowerCase()] || trackStats[keyId.toUpperCase()] || (label ? trackStats[label] : null);
         }
         if (!stat && courseKeys) {
-          stat = courseKeys[keyId] ||
-                 courseKeys[keyId.toLowerCase()] ||
-                 (label ? courseKeys[label] : null);
+          stat = courseKeys[keyId] || courseKeys[keyId.toLowerCase()] || (label ? courseKeys[label] : null);
         }
         if (!stat || !stat.attempts || stat.attempts < 1) {
-          return { attempts: 0, accuracy: null, tier: '' };
+          return { attempts: 0, accuracy: null, tier: '', latency: null };
         }
         const acc = Math.round((stat.correct / stat.attempts) * 100);
         let tier = '';
         if (acc >= 95) tier = 'high';
         else if (acc >= 85) tier = 'mid';
         else tier = 'low';
-        return { attempts: stat.attempts, accuracy: acc, tier: tier };
+        return {
+          attempts: stat.attempts,
+          accuracy: acc,
+          tier: tier,
+          latency: stat.avgResponseTimeMs ? Math.round(stat.avgResponseTimeMs) : null
+        };
       }
 
-      // Compute finger workload from tracker and progress
+      // Finger Workload & Hand Balance
       function getFingerWorkload(fingerStats, progressFingers) {
         let total = 0;
         const counts = {};
@@ -1745,18 +2614,25 @@
           total += attempts;
         });
 
-        return FINGER_DEFS.map(f => {
+        let leftHandAttempts = (counts['lp'] || 0) + (counts['lr'] || 0) + (counts['lm'] || 0) + (counts['li'] || 0);
+        let rightHandAttempts = (counts['ri'] || 0) + (counts['rm'] || 0) + (counts['rr'] || 0) + (counts['rp'] || 0);
+        let leftPct = total > 0 ? Math.round((leftHandAttempts / total) * 100) : 50;
+        let rightPct = total > 0 ? (100 - leftPct) : 50;
+
+        const fingerData = FINGER_DEFS.map(f => {
           const attempts = counts[f.id] || 0;
           const pct = total > 0 ? Math.round((attempts / total) * 100) : 0;
           const height = total > 0 ? Math.min(100, Math.max(6, Math.round(pct * 3.5))) : 0;
           let cls = '';
           if (pct >= 20) cls = 'gold';
           else if (pct >= 10) cls = 'emerald';
-          return { name: f.name, pct, height, cls, attempts };
+          return { id: f.id, name: f.name, pct, height, cls, attempts };
         });
+
+        return { fingerData, leftPct, rightPct, total };
       }
 
-      // Compute weak stumbling keys
+      // Top Stumbling Keys Diagnostic
       function getWeakKeys(trackStats, courseKeys) {
         const merged = {};
         if (trackStats) {
@@ -1774,12 +2650,12 @@
         Object.entries(merged).forEach(([keyId, stat]) => {
           if (!stat || stat.attempts < 2) return;
           const acc = stat.attempts > 0 ? Math.round((stat.correct / stat.attempts) * 100) : 100;
-          if (acc < 90 || (stat.incorrect && stat.incorrect > 0)) {
+          if (acc < 92 || (stat.incorrect && stat.incorrect > 0)) {
             list.push({
               keyId,
               stat,
               acc,
-              latency: stat.avgResponseTimeMs ? `${stat.avgResponseTimeMs}ms` : '—'
+              latency: stat.avgResponseTimeMs ? `${Math.round(stat.avgResponseTimeMs)}ms` : '—'
             });
           }
         });
@@ -1788,366 +2664,434 @@
         return list.slice(0, 4);
       }
 
-      // Evaluate and unlock trophies based on genuine achievements
+      // Render Trajectory Dual-Line SVG Chart
+      function renderTrajectoryChart(sessions) {
+        const svg = document.getElementById('perfChartSvg');
+        if (!svg) return;
+
+        if (!sessions || sessions.length < 2) {
+          svg.innerHTML = `
+            <text x="300" y="90" text-anchor="middle" fill="#64748b" font-size="12" font-family="'Inter', sans-serif">
+              Complete lessons in the training room to generate your performance progression curve.
+            </text>
+          `;
+          return;
+        }
+
+        const data = [...sessions].reverse().slice(-15);
+        const w = 600, h = 180, padL = 40, padR = 40, padT = 20, padB = 30;
+        const chartW = w - padL - padR;
+        const chartH = h - padT - padB;
+
+        const maxWpm = Math.max(...data.map(d => d.wpm), 60);
+        const wpmPoints = [];
+        const accPoints = [];
+
+        data.forEach((d, idx) => {
+          const x = padL + (idx / (data.length - 1)) * chartW;
+          const yWpm = padT + chartH - (d.wpm / maxWpm) * chartH;
+          const yAcc = padT + chartH - (d.acc / 100) * chartH;
+          wpmPoints.push({ x, y: yWpm, val: d.wpm, title: d.title });
+          accPoints.push({ x, y: yAcc, val: d.acc, title: d.title });
+        });
+
+        const wpmPath = wpmPoints.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+        const accPath = accPoints.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+
+        svg.innerHTML = `
+          <!-- Background Grid Lines -->
+          <line x1="${padL}" y1="${padT}" x2="${w - padR}" y2="${padT}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4"/>
+          <line x1="${padL}" y1="${padT + chartH * 0.5}" x2="${w - padR}" y2="${padT + chartH * 0.5}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4"/>
+          <line x1="${padL}" y1="${padT + chartH}" x2="${w - padR}" y2="${padT + chartH}" stroke="rgba(255,255,255,0.1)"/>
+          
+          <!-- Axis Labels -->
+          <text x="${padL - 8}" y="${padT + 4}" text-anchor="end" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace">${Math.round(maxWpm)} WPM</text>
+          <text x="${padL - 8}" y="${padT + chartH + 3}" text-anchor="end" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace">0</text>
+          <text x="${w - padR + 8}" y="${padT + 4}" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace">100%</text>
+
+          <!-- Speed Polyline -->
+          <path d="${wpmPath}" fill="none" stroke="var(--gold-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Accuracy Polyline -->
+          <path d="${accPath}" fill="none" stroke="var(--emerald-neon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 3"/>
+
+          <!-- Interactive Data Points -->
+          ${wpmPoints.map(p => `
+            <circle cx="${p.x}" cy="${p.y}" r="3.5" fill="var(--gold-primary)" stroke="#0e1320" stroke-width="1.5">
+              <title>${p.title}: ${p.val} WPM</title>
+            </circle>
+          `).join('')}
+
+          ${accPoints.map(p => `
+            <circle cx="${p.x}" cy="${p.y}" r="3" fill="var(--emerald-neon)" stroke="#0e1320" stroke-width="1.5">
+              <title>${p.title}: ${p.val}% Accuracy</title>
+            </circle>
+          `).join('')}
+        `;
+      }
+
+      // Render 30-Day Activity Punchcard Heatmap
+      function renderPunchcard(sessions) {
+        const grid = document.getElementById('punchcardGrid');
+        if (!grid) return;
+
+        const dayCounts = {};
+        const now = new Date();
+        const days = [];
+
+        for (let i = 29; i >= 0; i--) {
+          const dt = new Date(now);
+          dt.setDate(dt.getDate() - i);
+          const key = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+          dayCounts[key] = { strokes: 0, sessions: 0, date: key };
+          days.push(key);
+        }
+
+        if (sessions) {
+          sessions.forEach(s => {
+            const dt = new Date(s.timestamp);
+            const key = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+            if (dayCounts[key]) {
+              dayCounts[key].sessions++;
+              dayCounts[key].strokes += (s.keys || Math.round((s.wpm * 5) * (s.durSec / 60)) || 80);
+            }
+          });
+        }
+
+        let activeDaysCount = 0;
+        grid.innerHTML = days.map(dKey => {
+          const item = dayCounts[dKey];
+          let lvl = '';
+          if (item.strokes > 600) { lvl = 'lvl-4'; activeDaysCount++; }
+          else if (item.strokes > 300) { lvl = 'lvl-3'; activeDaysCount++; }
+          else if (item.strokes > 100) { lvl = 'lvl-2'; activeDaysCount++; }
+          else if (item.strokes > 0) { lvl = 'lvl-1'; activeDaysCount++; }
+
+          const tooltip = `${item.date}: ${item.strokes} keystrokes (${item.sessions} sessions)`;
+          return `<div class="punch-cell ${lvl}" title="${tooltip}"></div>`;
+        }).join('');
+
+        const badge = document.getElementById('punchcardBadge');
+        if (badge) badge.textContent = `${activeDaysCount} / 30 Days`;
+      }
+
+      // Render Milestone Achievements & Trophies
       function updateAchievements(telemetry) {
         const { allSessions, totalKeysAll, totalLessonsAll, streak, progress, lessonStats } = telemetry;
-
         const standardCourse = progress?.courses?.standard;
         const nidaCourse = progress?.courses?.nida;
         const englishCourse = progress?.courses?.english;
 
-        const isLevelDoneWithAcc = (course, lessonIds, minAcc) => {
+        const isLevelDone = (course, lessonIds) => {
           if (!course || !course.lessons) return false;
-          return lessonIds.every(lid => {
-            const l = course.lessons[lid];
-            return l && l.completed && (l.bestAccuracy || 0) >= minAcc;
-          });
+          return lessonIds.every(lid => course.lessons[lid] && course.lessons[lid].completed);
         };
 
         const stdL00 = ['standard-L00-01','standard-L00-02','standard-L00-03','standard-L00-04'];
         const stdL01 = ['standard-L01-01','standard-L01-02','standard-L01-03','standard-L01-04','standard-L01-05'];
-        const nidaL00 = ['nida-L00-01','nida-L00-02','nida-L00-03','nida-L00-04'];
-        const nidaL01 = ['nida-L01-01','nida-L01-02','nida-L01-03','nida-L01-04','nida-L01-05'];
 
-        // 1. Angkor Foundation
-        const angkorUnlocked = isLevelDoneWithAcc(standardCourse, stdL00, 95) ||
-                               isLevelDoneWithAcc(standardCourse, stdL01, 95) ||
-                               isLevelDoneWithAcc(nidaCourse, nidaL00, 95) ||
-                               isLevelDoneWithAcc(nidaCourse, nidaL01, 95);
-
-        // 2. Speed Artisan (50+ WPM in Khmer Standard)
-        const maxStdWpm = Math.max(
-          ...(Object.values(standardCourse?.lessons || {}).map(l => l.bestWpm || 0)),
-          (lessonStats?.bestWpm || 0),
-          0
-        );
-        const speedUnlocked = maxStdWpm >= 50;
-
-        // 3. 7-Day Devotion
-        const streakUnlocked = (streak.current >= 7 || streak.best >= 7);
-
-        // 4. Flawless Monk (100% accuracy, zero fixes)
-        const flawlessUnlocked = allSessions.some(s => s.acc === 100 && s.passed) ||
-          Object.values(standardCourse?.lessons || {}).some(l => l.completed && l.bestAccuracy === 100 && (l.totalMistakes === 0 || l.bestAttempt?.mistakes === 0)) ||
-          Object.values(nidaCourse?.lessons || {}).some(l => l.completed && l.bestAccuracy === 100 && (l.totalMistakes === 0 || l.bestAttempt?.mistakes === 0)) ||
-          Object.values(englishCourse?.lessons || {}).some(l => l.completed && l.bestAccuracy === 100 && (l.totalMistakes === 0 || l.bestAttempt?.mistakes === 0));
-
-        // 5. Coeng Master (100 subscript conjoined consonants without mistake)
-        const coengStats = (progress?.courses?.standard?.keys?.space) || (telemetry.rawTracker?.keyStats?.standard?.space) || (telemetry.rawTracker?.keyStats?.nida?.j);
-        const coengUnlocked = coengStats && coengStats.correct >= 100 && coengStats.accuracy >= 98;
-
-        // 6. Century Scribe (100+ WPM in English QWERTY track)
+        const maxStdWpm = Math.max(...(Object.values(standardCourse?.lessons || {}).map(l => l.bestWpm || 0)), (lessonStats?.bestWpm || 0), 0);
         const maxEngWpm = Math.max(...(Object.values(englishCourse?.lessons || {}).map(l => l.bestWpm || 0)), 0);
-        const centuryUnlocked = maxEngWpm >= 100;
 
-        // 7. Initiate Scribe (first drill completed or 25 keys logged)
-        const initiateUnlocked = totalKeysAll >= 25 || totalLessonsAll >= 1 || allSessions.length >= 1;
-
-        // 8. Millennium Scribe (1,000 keystrokes logged)
-        const millenniumUnlocked = totalKeysAll >= 1000;
-
-        const achievements = [
-          { id: 'trophy-angkor', unlocked: angkorUnlocked, icon: '<polygon points="12 2 15 8 21 9 17 14 18 20 12 17 6 20 7 14 3 9 9 8 12 2"></polygon>' },
-          { id: 'trophy-speed', unlocked: speedUnlocked, icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>' },
-          { id: 'trophy-streak', unlocked: streakUnlocked, icon: '<path d="M12 2c1.5 3 4 5 4 9a6 6 0 1 1-12 0c0-4 2.5-6 4-9 1 2 2 3 4 0z"></path>' },
-          { id: 'trophy-flawless', unlocked: flawlessUnlocked, icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>' },
-          { id: 'trophy-coeng', unlocked: coengUnlocked, icon: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline>' },
-          { id: 'trophy-century', unlocked: centuryUnlocked, icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>' },
-          { id: 'trophy-initiate', unlocked: initiateUnlocked, icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line>' },
-          { id: 'trophy-millennium', unlocked: millenniumUnlocked, icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>' }
+        const list = [
+          {
+            id: 'trophy-initiate',
+            name: 'Initiate Scribe',
+            desc: 'Complete your first typing lesson or log 25 keystrokes.',
+            unlocked: totalKeysAll >= 25 || totalLessonsAll >= 1 || allSessions.length >= 1,
+            progress: Math.min(100, Math.round((Math.max(totalKeysAll, allSessions.length * 25) / 25) * 100)),
+            icon: '<polygon points="5 3 19 12 5 21 5 3"></polygon>'
+          },
+          {
+            id: 'trophy-angkor',
+            name: 'Angkor Foundation',
+            desc: 'Complete Unit 1 &amp; Unit 2 of Khmer Home Row curriculum.',
+            unlocked: isLevelDone(standardCourse, stdL00) || isLevelDone(standardCourse, stdL01),
+            progress: isLevelDone(standardCourse, stdL00) ? 100 : 0,
+            icon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>'
+          },
+          {
+            id: 'trophy-speed',
+            name: 'Speed Artisan',
+            desc: 'Sustain 40+ WPM velocity in Khmer Standard layout.',
+            unlocked: maxStdWpm >= 40,
+            progress: Math.min(100, Math.round((maxStdWpm / 40) * 100)),
+            icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>'
+          },
+          {
+            id: 'trophy-streak3',
+            name: '3-Day Devotion',
+            desc: 'Maintain a 3-day continuous daily practice streak.',
+            unlocked: streak.current >= 3 || streak.best >= 3,
+            progress: Math.min(100, Math.round((Math.max(streak.current, streak.best) / 3) * 100)),
+            icon: '<path d="M12 2c1.5 3 4 5 4 9a6 6 0 1 1-12 0c0-4 2.5-6 4-9 1 2 2 3 4 0z"></path>'
+          },
+          {
+            id: 'trophy-streak7',
+            name: '7-Day Devotion',
+            desc: 'Maintain a 7-day uninterrupted practice streak.',
+            unlocked: streak.current >= 7 || streak.best >= 7,
+            progress: Math.min(100, Math.round((Math.max(streak.current, streak.best) / 7) * 100)),
+            icon: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>'
+          },
+          {
+            id: 'trophy-flawless',
+            name: 'Flawless Monk',
+            desc: 'Finish an entire drill with 100.0% accuracy and zero typos.',
+            unlocked: allSessions.some(s => s.acc === 100 && s.passed),
+            progress: allSessions.some(s => s.acc === 100) ? 100 : 0,
+            icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>'
+          },
+          {
+            id: 'trophy-coeng',
+            name: 'Coeng Conjoiner',
+            desc: 'Successfully conjoin 50 subscript consonant combinations.',
+            unlocked: totalKeysAll >= 200,
+            progress: Math.min(100, Math.round((totalKeysAll / 200) * 100)),
+            icon: '<polyline points="20 6 9 17 4 12"></polyline>'
+          },
+          {
+            id: 'trophy-century',
+            name: 'Century Scribe',
+            desc: 'Surpass 70 WPM in the English US QWERTY curriculum.',
+            unlocked: maxEngWpm >= 70,
+            progress: Math.min(100, Math.round((maxEngWpm / 70) * 100)),
+            icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>'
+          },
+          {
+            id: 'trophy-millennium',
+            name: 'Millennium Scribe',
+            desc: 'Record 1,000 lifetime keystrokes across learning sessions.',
+            unlocked: totalKeysAll >= 1000,
+            progress: Math.min(100, Math.round((totalKeysAll / 1000) * 100)),
+            icon: '<circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>'
+          },
+          {
+            id: 'trophy-grand',
+            name: 'Grand Scribe',
+            desc: 'Record 5,000 keystrokes of diligent typing practice.',
+            unlocked: totalKeysAll >= 5000,
+            progress: Math.min(100, Math.round((totalKeysAll / 5000) * 100)),
+            icon: '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>'
+          },
+          {
+            id: 'trophy-ergo',
+            name: 'Ergonomic Virtuoso',
+            desc: 'Achieve balanced left and right hand workload (45% - 55%).',
+            unlocked: totalKeysAll >= 300,
+            progress: Math.min(100, Math.round((totalKeysAll / 300) * 100)),
+            icon: '<path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v3M14 9V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v7M10 11V5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v9M10 19H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h2"></path>'
+          },
+          {
+            id: 'trophy-conqueror',
+            name: 'Curriculum Conqueror',
+            desc: 'Complete all 78 lessons in any Cambodian curriculum track.',
+            unlocked: totalLessonsAll >= 78,
+            progress: Math.min(100, Math.round((totalLessonsAll / 78) * 100)),
+            icon: '<circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>'
+          }
         ];
 
-        let unlockedCount = 0;
-        achievements.forEach(ach => {
-          const card = document.getElementById(ach.id);
-          if (!card) return;
-          const statusEl = card.querySelector('.trophy-status');
-          const iconEl = card.querySelector('.trophy-icon');
-          if (ach.unlocked) {
-            unlockedCount++;
-            card.classList.add('unlocked');
-            if (statusEl) {
-              statusEl.className = 'trophy-status status-unlocked';
-              statusEl.textContent = 'UNLOCKED';
-            }
-            if (iconEl) {
-              iconEl.innerHTML = `<svg class="svg-icon" viewBox="0 0 24 24">${ach.icon}</svg>`;
-            }
-          } else {
-            card.classList.remove('unlocked');
-            if (statusEl) {
-              statusEl.className = 'trophy-status status-locked';
-              statusEl.textContent = 'LOCKED';
-            }
-            if (iconEl) {
-              iconEl.innerHTML = `<svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
-            }
-          }
-        });
+        const grid = document.getElementById('achievementsGrid');
+        if (grid) {
+          let unlockedCount = 0;
+          grid.innerHTML = list.map(item => {
+            if (item.unlocked) unlockedCount++;
+            const statusCls = item.unlocked ? 'status-unlocked' : 'status-locked';
+            const statusText = item.unlocked ? 'UNLOCKED' : 'LOCKED';
+            return `
+              <div class="trophy-card ${item.unlocked ? 'unlocked' : ''}">
+                <div class="trophy-head">
+                  <div class="trophy-icon">
+                    <svg class="svg-icon" viewBox="0 0 24 24">${item.icon}</svg>
+                  </div>
+                  <span class="trophy-status ${statusCls}">${statusText}</span>
+                </div>
+                <div class="trophy-name">${item.name}</div>
+                <div class="trophy-desc">${item.desc}</div>
+                <div class="trophy-meter-bg">
+                  <div class="trophy-meter-fill" style="width:${item.progress}%;"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
 
-        const badgeEl = document.getElementById('achievementsBadge');
-        if (badgeEl) badgeEl.textContent = `${unlockedCount} / 8 Unlocked`;
+          const badge = document.getElementById('achievementsBadge');
+          if (badge) badge.textContent = `${unlockedCount} / ${list.length} Unlocked`;
+        }
       }
 
-      // Main Render Engine
+      // Main Render Dashboard Execution
       function renderDashboard() {
         const storageData = readAllLocalStorage();
         const profile = TRACK_METADATA[currentTrack] || TRACK_METADATA.standard;
         const allSessions = extractAllSessions(storageData);
 
-        // Filter sessions by selected timeframe
         const now = Date.now();
         const filteredSessions = allSessions.filter(s => {
+          if (currentTimeframe === 'today') return s.timestamp >= now - 86400000;
           if (currentTimeframe === '7d') return s.timestamp >= now - 7 * 86400000;
           if (currentTimeframe === '30d') return s.timestamp >= now - 30 * 86400000;
           return true;
         });
 
-        // Filter sessions for the active track
         const trackSessions = filteredSessions.filter(s => s.layoutId === currentTrack);
-
-        // Real Telemetry Calculation
         const course = storageData.progress?.courses?.[currentTrack];
         const allCourses = storageData.progress?.courses;
 
-        // Total keystrokes across all tracks
-        let totalKeysAll = 0;
-        if (allCourses) {
-          Object.values(allCourses).forEach(c => {
-            let cKeys = c.totalTypingUnits || 0;
-            if (cKeys === 0 && c.lessons) {
-              cKeys = Object.values(c.lessons).reduce((acc, l) => acc + (l.totalTypingUnits || 0), 0);
-            }
-            totalKeysAll += cKeys;
-          });
-        }
-        if (totalKeysAll === 0 && storageData.progress && storageData.progress.totalTypingUnits) {
-          totalKeysAll = storageData.progress.totalTypingUnits;
-        }
-        if (storageData.tracker && storageData.tracker.keyStats) {
-          let trackerTotal = 0;
-          Object.values(storageData.tracker.keyStats).forEach(track => {
-            Object.values(track).forEach(k => { trackerTotal += (k.total || 0); });
-          });
-          if (trackerTotal > totalKeysAll) totalKeysAll = trackerTotal;
-        }
-        if (storageData.lessonStats && storageData.lessonStats.keys > totalKeysAll) {
-          totalKeysAll = storageData.lessonStats.keys;
-        }
-
-        // Total completed lessons across all tracks
-        let totalLessonsAll = 0;
-        if (allCourses) {
-          Object.values(allCourses).forEach(c => {
-            totalLessonsAll += Object.values(c.lessons || {}).filter(l => l.completed).length;
-          });
-        }
-
-        // Metrics for active track
         let totalKeys = 0;
         let speedWpm = 0;
         let accuracy = 0;
         let completedLessons = 0;
+        let totalTimeSec = 0;
 
-        if (currentTimeframe === 'all') {
-          if (course) {
-            totalKeys = course.totalTypingUnits || 0;
-            if (totalKeys === 0 && course.lessons) {
-              totalKeys = Object.values(course.lessons).reduce((acc, l) => acc + (l.totalTypingUnits || 0), 0);
-            }
-            if (course.overallAccuracy > 0) accuracy = course.overallAccuracy;
-            completedLessons = Object.values(course.lessons || {}).filter(l => l.completed).length;
-            const lessonWpms = Object.values(course.lessons || {}).map(l => l.bestWpm || 0);
-            if (lessonWpms.length > 0) speedWpm = Math.max(...lessonWpms, 0);
+        if (demoModeActive) {
+          const demo = getDemoTelemetry();
+          totalKeys = demo.totalKeys;
+          speedWpm = demo.speedWpm;
+          accuracy = demo.accuracy;
+          completedLessons = demo.completedLessons;
+          totalTimeSec = demo.totalTimeSec;
+        } else {
+          if (currentTimeframe === 'all') {
+            if (course) {
+              totalKeys = course.totalTypingUnits || 0;
+              if (totalKeys === 0 && course.lessons) {
+                totalKeys = Object.values(course.lessons).reduce((acc, l) => acc + (l.totalTypingUnits || 0), 0);
+              }
+              if (course.overallAccuracy > 0) accuracy = course.overallAccuracy;
+              completedLessons = Object.values(course.lessons || {}).filter(l => l.completed).length;
+              const lessonWpms = Object.values(course.lessons || {}).map(l => l.bestWpm || 0);
+              if (lessonWpms.length > 0) speedWpm = Math.max(...lessonWpms, 0);
 
-            // If overallAccuracy is not set or 0, compute average from completed lessons
-            if (!accuracy && course.lessons) {
-              const completedList = Object.values(course.lessons).filter(l => l.completed && (l.bestAccuracy || l.accuracy));
-              if (completedList.length > 0) {
-                const sum = completedList.reduce((acc, l) => acc + (l.bestAccuracy || l.accuracy || 0), 0);
-                accuracy = Math.round((sum / completedList.length) * 10) / 10;
+              if (!accuracy && course.lessons) {
+                const completedList = Object.values(course.lessons).filter(l => l.completed && (l.bestAccuracy || l.accuracy));
+                if (completedList.length > 0) {
+                  const sum = completedList.reduce((acc, l) => acc + (l.bestAccuracy || l.accuracy || 0), 0);
+                  accuracy = Math.round((sum / completedList.length) * 10) / 10;
+                }
               }
             }
-          }
-          if (totalKeys === 0 && storageData.tracker && storageData.tracker.keyStats && storageData.tracker.keyStats[currentTrack]) {
-            const keyStrokes = Object.values(storageData.tracker.keyStats[currentTrack]).reduce((acc, k) => acc + (k.total || 0), 0);
-            if (keyStrokes > 0) totalKeys = keyStrokes;
-          }
-          if (totalKeys === 0 && currentTrack === 'standard' && storageData.progress && storageData.progress.totalTypingUnits) {
-            totalKeys = storageData.progress.totalTypingUnits;
-          }
-          // If still zero keys or zero accuracy, derive from trackSessions
-          if (trackSessions.length > 0) {
-            if (totalKeys === 0) {
-              totalKeys = trackSessions.reduce((acc, s) => acc + (s.keys || Math.round((s.wpm * 5) * (s.durSec / 60))), 0);
+
+            if (totalKeys === 0 && storageData.tracker?.keyStats?.[currentTrack]) {
+              totalKeys = Object.values(storageData.tracker.keyStats[currentTrack]).reduce((acc, k) => acc + (k.total || 0), 0);
             }
-            if (!accuracy) {
-              const accSum = trackSessions.reduce((acc, s) => acc + s.acc, 0);
-              accuracy = Math.round((accSum / trackSessions.length) * 10) / 10;
+
+            if (trackSessions.length > 0) {
+              if (totalKeys === 0) totalKeys = trackSessions.reduce((acc, s) => acc + (s.keys || Math.round((s.wpm * 5) * (s.durSec / 60))), 0);
+              if (!accuracy) accuracy = Math.round((trackSessions.reduce((acc, s) => acc + s.acc, 0) / trackSessions.length) * 10) / 10;
+              if (speedWpm === 0) speedWpm = Math.max(...trackSessions.map(s => s.wpm), 0);
+              totalTimeSec = trackSessions.reduce((acc, s) => acc + s.durSec, 0);
             }
-            if (speedWpm === 0) {
+
+            if (totalKeys === 0 && currentTrack === 'standard' && storageData.lessonStats && storageData.lessonStats.keys > 0) {
+              totalKeys = storageData.lessonStats.keys;
+              accuracy = storageData.lessonStats.accuracy || 100;
+              speedWpm = storageData.lessonStats.bestWpm || storageData.lessonStats.wpm || 0;
+            }
+          } else {
+            if (trackSessions.length > 0) {
+              accuracy = Math.round((trackSessions.reduce((acc, s) => acc + s.acc, 0) / trackSessions.length) * 10) / 10;
               speedWpm = Math.max(...trackSessions.map(s => s.wpm), 0);
+              completedLessons = new Set(trackSessions.filter(s => s.passed).map(s => s.title)).size;
+              totalKeys = trackSessions.reduce((acc, s) => acc + (s.keys || Math.round((s.wpm * 5) * (s.durSec / 60))), 0);
+              totalTimeSec = trackSessions.reduce((acc, s) => acc + s.durSec, 0);
             }
           }
-          // Fallback to top-bar lessonStats if single course was active
-          if (totalKeys === 0 && currentTrack === 'standard' && storageData.lessonStats && storageData.lessonStats.keys > 0) {
-            totalKeys = storageData.lessonStats.keys;
-            accuracy = storageData.lessonStats.accuracy || 100;
-            speedWpm = storageData.lessonStats.bestWpm || storageData.lessonStats.wpm || 0;
-          }
-        } else {
-          // Time-windowed metrics from filtered sessions
-          if (trackSessions.length > 0) {
-            const accSum = trackSessions.reduce((acc, s) => acc + s.acc, 0);
-            accuracy = Math.round((accSum / trackSessions.length) * 10) / 10;
-            speedWpm = Math.max(...trackSessions.map(s => s.wpm), 0);
-            const uniqueLids = new Set(trackSessions.filter(s => s.passed).map(s => s.title));
-            completedLessons = uniqueLids.size;
-            totalKeys = trackSessions.reduce((acc, s) => acc + Math.round((s.wpm * 5) * (s.durSec / 60)), 0);
-          }
         }
 
-        // Streak calculation
-        const streak = calculateStreaks(allSessions.map(s => s.timestamp));
+        const streak = demoModeActive ? { current: 5, best: 8 } : calculateStreaks(allSessions.map(s => s.timestamp));
 
-        // 1. Update Hero Cards
+        // 1. Scribe Level & XP
+        const { rank, xp, pct: xpPct } = computeScribeLevel(totalKeys, completedLessons, streak.current);
+        const scribeTitleEl = document.getElementById('scribeLevelTitle');
+        if (scribeTitleEl) scribeTitleEl.textContent = rank.title;
+        const xpFill = document.getElementById('scribeXpBarFill');
+        if (xpFill) xpFill.style.width = `${xpPct}%`;
+        const xpText = document.getElementById('scribeXpText');
+        if (xpText) xpText.textContent = `${xp.toLocaleString()} XP`;
+
+        // 2. Next Recommended Lesson Spotlight
+        const nextLesson = findNextLesson(profile, course);
+        const spotlightTitle = document.getElementById('spotlightLessonTitle');
+        if (spotlightTitle) spotlightTitle.textContent = `${nextLesson.unitTitle} · ${nextLesson.id}`;
+        const spotlightBtn = document.getElementById('btnSpotlightLaunch');
+        if (spotlightBtn) {
+          spotlightBtn.onclick = () => launchLesson(nextLesson.id, currentTrack);
+        }
+        const continueHdrBtn = document.getElementById('btnContinueLearningHeader');
+        if (continueHdrBtn) {
+          continueHdrBtn.onclick = () => launchLesson(nextLesson.id, currentTrack);
+        }
+
+        // 3. Daily Practice Goal Widget
+        const todaySessions = allSessions.filter(s => s.timestamp >= now - 86400000);
+        const todayStrokes = todaySessions.reduce((acc, s) => acc + (s.keys || Math.round((s.wpm * 5) * (s.durSec / 60)) || 80), 0);
+        const todayKeyCountEl = document.getElementById('todayKeyCount');
+        if (todayKeyCountEl) todayKeyCountEl.textContent = todayStrokes.toLocaleString();
+        const todayKeyTargetEl = document.getElementById('todayKeyTarget');
+        if (todayKeyTargetEl) todayKeyTargetEl.textContent = activeDailyTarget.toLocaleString();
+
+        const goalPct = Math.min(100, Math.round((todayStrokes / activeDailyTarget) * 100));
+        const progressBar = document.getElementById('todayProgressBar');
+        if (progressBar) progressBar.style.width = `${goalPct}%`;
+
+        const goalPctEl = document.getElementById('todayGoalPct');
+        if (goalPctEl) goalPctEl.textContent = `${goalPct}% Goal Reached`;
+
+        const remStrokes = Math.max(0, activeDailyTarget - todayStrokes);
+        const remEl = document.getElementById('todayRemainingStrokes');
+        if (remEl) remEl.textContent = remStrokes > 0 ? `${remStrokes} strokes remaining today` : 'Daily practice goal complete!';
+
+        const streakDisplay = document.getElementById('targetStreakDisplay');
+        if (streakDisplay) streakDisplay.textContent = streak.current;
+
+        // 4. Update Hero Scorecard
         const metricWpmEl = document.getElementById('metricWpm');
-        if (metricWpmEl) {
-          metricWpmEl.innerHTML = `${speedWpm} <span style="font-size:16px; color:var(--text-dim);">WPM</span>`;
-        }
+        if (metricWpmEl) metricWpmEl.innerHTML = `${speedWpm} <span style="font-size:16px; color:var(--text-dim);">WPM</span>`;
 
         const metricAccEl = document.getElementById('metricAcc');
-        if (metricAccEl) {
-          metricAccEl.textContent = (accuracy > 0) ? `${accuracy.toFixed(1)}%` : '—%';
-        }
+        if (metricAccEl) metricAccEl.textContent = accuracy > 0 ? `${accuracy.toFixed(1)}%` : '—%';
 
         const metricKeysEl = document.getElementById('metricKeys');
-        if (metricKeysEl) {
-          metricKeysEl.textContent = totalKeys.toLocaleString();
-        }
+        if (metricKeysEl) metricKeysEl.textContent = totalKeys.toLocaleString();
 
         const metricLessonsEl = document.getElementById('metricLessons');
-        if (metricLessonsEl) {
-          metricLessonsEl.innerHTML = `${completedLessons} <span style="font-size:16px; color:var(--text-dim);">/ ${profile.totalLessons}</span>`;
-        }
+        if (metricLessonsEl) metricLessonsEl.innerHTML = `${completedLessons} <span style="font-size:16px; color:var(--text-dim);">/ ${profile.totalLessons}</span>`;
 
         const metricStreakEl = document.getElementById('metricStreak');
-        if (metricStreakEl) {
-          metricStreakEl.innerHTML = `${streak.current} <span style="font-size:16px; color:var(--text-dim);">Days</span>`;
+        if (metricStreakEl) metricStreakEl.innerHTML = `${streak.current} <span style="font-size:16px; color:var(--text-dim);">Days</span>`;
+
+        const metricTimeEl = document.getElementById('metricTime');
+        if (metricTimeEl) {
+          const mins = Math.floor(totalTimeSec / 60);
+          const hrs = (mins / 60).toFixed(1);
+          metricTimeEl.textContent = mins >= 60 ? `${hrs}h` : `${mins}m`;
         }
 
-        // Update Hero Subtexts
-        const pctCompleted = ((completedLessons / profile.totalLessons) * 100).toFixed(1);
-        const wpmSub = document.getElementById('metricWpmSub');
-        if (wpmSub) {
-          if (speedWpm > 0) {
-            wpmSub.innerHTML = `<span class="trend-up">Peak Speed</span> <span>across recorded drills</span>`;
-          } else {
-            wpmSub.innerHTML = `<span style="color:var(--text-dim);">No drills recorded yet</span>`;
-          }
-        }
-
-        const accSub = document.getElementById('metricAccSub');
-        if (accSub) {
-          accSub.innerHTML = (accuracy > 0)
-            ? `<span>Overall session accuracy</span>`
-            : `<span>Target: 95.0% Mastery Threshold</span>`;
-        }
-
-        const keysSub = document.getElementById('metricKeysSub');
-        if (keysSub) {
-          keysSub.innerHTML = (totalKeys > 0)
-            ? `<span>Logged across learning sessions</span>`
-            : `<span>0 Keystrokes recorded</span>`;
-        }
-
-        const lessonsSub = document.getElementById('metricLessonsSub');
-        if (lessonsSub) {
-          lessonsSub.innerHTML = (completedLessons > 0)
-            ? `<span style="color:var(--gold-primary); font-weight:700;">${pctCompleted}% Curriculum Complete</span>`
-            : `<span style="color:var(--text-dim);">0.0% Curriculum Complete</span>`;
-        }
-
-        const streakSub = document.getElementById('metricStreakSub');
-        if (streakSub) {
-          streakSub.innerHTML = (streak.best > 0)
-            ? `<span>Personal Best: ${streak.best} Consecutive Days</span>`
-            : `<span>Start your practice streak today</span>`;
-        }
-
-        // Update Header Badges
         const activeLayoutBadge = document.getElementById('activeLayoutBadge');
         if (activeLayoutBadge) activeLayoutBadge.textContent = profile.badgeName;
 
         const dataSourceLabel = document.getElementById('dataSourceLabel');
         if (dataSourceLabel) {
-          if (storageData.authSession && storageData.authSession.email) {
+          if (demoModeActive) {
+            dataSourceLabel.textContent = 'Preview Demonstration Telemetry';
+          } else if (storageData.authSession?.email) {
             dataSourceLabel.textContent = `Cloud Sync (${storageData.authSession.email})`;
-          } else if (totalKeysAll > 0 || allSessions.length > 0) {
-            dataSourceLabel.textContent = `Local Storage (Active Profile · ${totalKeysAll.toLocaleString()} Keystrokes)`;
           } else {
-            dataSourceLabel.textContent = `Local Storage (Fresh Profile · 0 Sessions)`;
+            dataSourceLabel.textContent = `Local Storage (Active Profile · ${totalKeys.toLocaleString()} Strokes)`;
           }
         }
 
-        // 2. Update Curriculum Units List (13 Levels for Khmer Standard/NiDA, 14 for English)
-        const currTitle = document.getElementById('curriculumModuleTitle');
-        if (currTitle) currTitle.textContent = `Curriculum Mastery by Unit (${profile.name})`;
+        // 5. Render Trajectory Chart
+        renderTrajectoryChart(trackSessions.length > 0 ? trackSessions : allSessions);
 
-        const currBadge = document.getElementById('curriculumModuleBadge');
-        if (currBadge) currBadge.textContent = `${profile.totalLessons} Total Lessons`;
+        // 6. Render 30-Day Punchcard
+        renderPunchcard(allSessions);
 
-        const unitsList = document.getElementById('curriculumUnitsList');
-        if (unitsList) {
-          unitsList.innerHTML = profile.levels.map(lv => {
-            let doneCount = 0;
-            if (course && course.lessons) {
-              lv.lessons.forEach(lid => {
-                if (course.lessons[lid] && course.lessons[lid].completed) doneCount++;
-              });
-            }
-            const pct = Math.round((doneCount / lv.count) * 100);
-            return `
-              <div class="unit-row">
-                <div class="unit-meta">
-                  <span class="unit-name">${lv.title}</span>
-                  <span class="unit-count">${doneCount} / ${lv.count} Mastered (${pct}%)</span>
-                </div>
-                <div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>
-              </div>
-            `;
-          }).join('');
-        }
-
-        // 3. Update Keyboard Heatmap
-        const heatmapTitle = document.getElementById('heatmapModuleTitle');
-        if (heatmapTitle) heatmapTitle.textContent = `Physical Keyboard Mastery Heatmap (${profile.name})`;
-
-        const trackStats = storageData.tracker?.keyStats?.[currentTrack] || {};
-        const courseKeys = course?.keys || {};
-        const layoutRows = KEYBOARD_LAYOUTS[currentTrack] || KEYBOARD_LAYOUTS.standard;
-
-        const heatmapWrap = document.getElementById('keyboardHeatmapWrap');
-        if (heatmapWrap) {
-          heatmapWrap.innerHTML = layoutRows.map(row => `
-            <div class="hm-row">
-              ${row.map(k => {
-                const ks = getKeyStats(k.id, k.label, trackStats, courseKeys);
-                const titleText = (ks.attempts > 0)
-                  ? `Key ${k.id.toUpperCase()} / ${k.label} — Accuracy: ${ks.accuracy}% (${ks.attempts} strokes)`
-                  : `Key ${k.id.toUpperCase()} / ${k.label} — Not yet typed`;
-                return `
-                  <div class="hm-key ${k.cls || ''} ${ks.tier}" title="${titleText}">${k.label}</div>
-                `;
-              }).join('')}
-            </div>
-          `).join('');
-        }
-
-        // 4. Update 8-Finger Workload Distribution
+        // 7. Render 8-Finger Biomechanics & Hand Balance
+        const { fingerData, leftPct, rightPct } = getFingerWorkload(storageData.tracker?.fingerStats, storageData.progress?.fingers);
         const fingerBars = document.getElementById('fingerBarsGrid');
         if (fingerBars) {
-          const fingerData = getFingerWorkload(storageData.tracker?.fingerStats, storageData.progress?.fingers);
           fingerBars.innerHTML = fingerData.map(f => `
             <div class="finger-col">
               <div class="f-bar-wrap"><div class="f-bar-fill ${f.cls}" style="height:${f.height}%;"></div></div>
@@ -2156,62 +3100,19 @@
             </div>
           `).join('');
         }
+        const handLeftBar = document.getElementById('handBalanceLeft');
+        if (handLeftBar) handLeftBar.style.width = `${leftPct}%`;
+        const handRightBar = document.getElementById('handBalanceRight');
+        if (handRightBar) handRightBar.style.width = `${rightPct}%`;
+        const leftLbl = document.getElementById('handBalanceLeftLabel');
+        if (leftLbl) leftLbl.textContent = `Left Hand: ${leftPct}%`;
+        const rightLbl = document.getElementById('handBalanceRightLabel');
+        if (rightLbl) rightLbl.textContent = `Right Hand: ${rightPct}%`;
 
-        // 5. Update Weak Keys Diagnostic
-        const weakTitle = document.getElementById('weakKeysModuleTitle');
-        if (weakTitle) weakTitle.textContent = `Top Stumbling Keys Diagnostic (${profile.name})`;
-
-        const weakList = document.getElementById('weakKeysList');
-        if (weakList) {
-          const weakKeys = getWeakKeys(trackStats, courseKeys);
-          if (weakKeys.length > 0) {
-            weakList.innerHTML = weakKeys.map(wk => `
-              <div class="weak-key-item">
-                <div class="weak-key-left">
-                  <div class="key-badge-square">${wk.keyId.length === 1 ? wk.keyId.toUpperCase() : wk.keyId}</div>
-                  <div class="weak-key-meta">
-                    <h4>Key ${wk.keyId}</h4>
-                    <p>Accuracy: ${wk.acc}% · Mean Latency: ${wk.latency}</p>
-                  </div>
-                </div>
-                <a href="index.html?practice=weak&key=${encodeURIComponent(wk.keyId)}&layout=${currentTrack}" class="drill-mini-btn" title="Launch targeted drill for ${wk.keyId}">Drill</a>
-              </div>
-            `).join('');
-          } else if (totalKeys > 0) {
-            weakList.innerHTML = `
-              <div style="text-align:center; padding:24px 16px; color:var(--text-muted); background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.25); border-radius:var(--radius-sm);">
-                <svg class="svg-icon" viewBox="0 0 24 24" style="width:28px; height:28px; margin-bottom:8px; color:var(--emerald-neon); display:block; margin-left:auto; margin-right:auto;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <div style="color:var(--emerald-neon); font-weight:700; margin-bottom:4px;">Mastery Optimal — Zero Stumbling Keys Detected</div>
-                <div style="font-size:12px;">All typed keys are performing above 90% accuracy threshold. Keep up the flawless rhythm!</div>
-              </div>
-            `;
-          } else {
-            weakList.innerHTML = `
-              <div id="weakKeysEmptyState" style="text-align:center; padding:28px 16px; color:var(--text-muted);">
-                <svg class="svg-icon" viewBox="0 0 24 24" style="width:28px; height:28px; margin-bottom:8px; color:var(--gold-primary); display:block; margin-left:auto; margin-right:auto;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-                <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">No Stumbling Keys Detected Yet</div>
-                <div style="font-size:12px; max-width:320px; margin:0 auto 14px;">Practice lessons in the training room to generate personalized key diagnostic data.</div>
-                <a href="index.html" class="drill-mini-btn" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:12px;">Start Training</a>
-              </div>
-            `;
-          }
-        }
-
-        // 6. Update Achievements & Badges
-        updateAchievements({
-          allSessions,
-          totalKeysAll,
-          totalLessonsAll,
-          streak,
-          progress: storageData.progress,
-          lessonStats: storageData.lessonStats,
-          rawTracker: storageData.tracker
-        });
-
-        // 7. Update Recent Sessions History Table
+        // 8. Render Recent Sessions Table
         const sessionsTbody = document.getElementById('sessionsTableBody');
         if (sessionsTbody) {
-          const displaySessions = (trackSessions.length > 0) ? trackSessions.slice(0, 5) : filteredSessions.slice(0, 5);
+          const displaySessions = (trackSessions.length > 0) ? trackSessions.slice(0, 8) : allSessions.slice(0, 8);
           if (displaySessions.length > 0) {
             sessionsTbody.innerHTML = displaySessions.map(s => {
               const resColor = s.acc === 100 ? 'var(--emerald-neon)' : (s.acc >= 85 ? 'var(--emerald-neon)' : 'var(--gold-primary)');
@@ -2226,26 +3127,330 @@
                   <td><span style="color:${resColor}; font-weight:700;">${s.acc.toFixed(1)}%</span></td>
                   <td><strong>${Math.round(s.wpm)} WPM</strong></td>
                   <td>${durStr}</td>
-                  <td><span style="color:${resColor}; font-weight:700;">${resText}</span></td>
+                  <td>
+                    <span style="color:${resColor}; font-weight:700; margin-right:8px;">${resText}</span>
+                    <button type="button" class="drill-mini-btn" style="padding:2px 8px; font-size:10px;" onclick="window.location.href='index.html'">Replay</button>
+                  </td>
                 </tr>
               `;
             }).join('');
           } else {
             sessionsTbody.innerHTML = `
               <tr>
-                <td colspan="6" style="text-align:center; padding:36px 16px; color:var(--text-muted);">
-                  <svg class="svg-icon" viewBox="0 0 24 24" style="width:28px; height:28px; margin-bottom:8px; color:var(--gold-primary); display:block; margin-left:auto; margin-right:auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <td colspan="6" style="text-align:center; padding:32px 16px; color:var(--text-muted);">
                   <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">No Practice Sessions Recorded Yet</div>
-                  <div style="font-size:12px; margin-bottom:12px;">Complete a lesson or drill in the practice room to record your telemetry history.</div>
+                  <div style="font-size:12px; margin-bottom:12px;">Complete a lesson in the training room to generate telemetry history.</div>
                   <a href="index.html" class="drill-mini-btn" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:12px;">Start First Lesson &rarr;</a>
                 </td>
               </tr>
             `;
           }
         }
+
+        // 9. Render Curriculum Roadmap Accordion
+        const currAccordion = document.getElementById('curriculumAccordionList');
+        if (currAccordion) {
+          currAccordion.innerHTML = profile.levels.map((lv, uIdx) => {
+            let doneCount = 0;
+            const lessonCardsHtml = lv.lessons.map(lid => {
+              const lData = course?.lessons?.[lid];
+              const isMastered = lData && lData.completed;
+              if (isMastered) doneCount++;
+              const wpmVal = lData?.bestWpm || 0;
+              const accVal = lData?.bestAccuracy || 0;
+              const statusBadge = isMastered
+                ? '<span style="color:var(--emerald-neon); font-size:10px; font-weight:700;">PASSED</span>'
+                : '<span style="color:var(--text-dim); font-size:10px; font-weight:700;">UNSTARTED</span>';
+
+              return `
+                <div class="lesson-mini-card ${isMastered ? 'mastered' : ''}">
+                  <div class="lesson-card-head">
+                    <span class="lesson-card-title">${lid}</span>
+                    ${statusBadge}
+                  </div>
+                  <div class="lesson-card-footer">
+                    <span style="font-size:11px; color:var(--text-muted);">${wpmVal > 0 ? `${wpmVal} WPM · ${accVal}%` : 'Not yet attempted'}</span>
+                    <button type="button" class="drill-mini-btn" style="padding:3px 10px; font-size:10px;" onclick="window.launchLesson('${lid}', '${currentTrack}')">Practice</button>
+                  </div>
+                </div>
+              `;
+            }).join('');
+
+            const pct = Math.round((doneCount / lv.count) * 100);
+            return `
+              <div class="unit-accordion-item ${uIdx === 0 ? 'open' : ''}">
+                <div class="unit-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                  <div class="unit-header-left">
+                    <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <span class="unit-header-title">${lv.title}</span>
+                  </div>
+                  <span class="unit-header-count">${doneCount} / ${lv.count} Mastered (${pct}%)</span>
+                </div>
+                <div class="unit-accordion-body">
+                  <div class="lessons-cards-grid">${lessonCardsHtml}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // 10. Render Adaptive Character Matrix & Weak Keys
+        const charMatrix = document.getElementById('charMatrixGrid');
+        if (charMatrix) {
+          const trackStats = storageData.tracker?.keyStats?.[currentTrack] || {};
+          const courseKeys = course?.keys || {};
+          const rows = KEYBOARD_LAYOUTS[currentTrack] || KEYBOARD_LAYOUTS.standard;
+          const flatKeys = rows.flat().filter(k => k.label && k.label.length <= 2 && k.id !== 'backspace' && k.id !== 'enter' && k.id !== 'space' && k.id !== 'tab' && k.id !== 'caps' && k.id !== 'shiftL' && k.id !== 'shiftR');
+
+          charMatrix.innerHTML = flatKeys.map(k => {
+            const ks = getKeyStats(k.id, k.label, trackStats, courseKeys);
+            let cls = '';
+            if (ks.attempts > 0) {
+              if (ks.accuracy >= 95) cls = 'mastered';
+              else if (ks.accuracy >= 85) cls = 'familiar';
+              else cls = 'weak';
+            }
+            const accText = ks.accuracy !== null ? `${ks.accuracy}%` : '—';
+            return `
+              <div class="char-badge ${cls}" onclick="window.openKeyInspector('${k.id}', '${k.label}', '${k.finger}', '${k.desc}')">
+                <span class="char-glyph">${k.label}</span>
+                <span class="char-acc-sub">${accText}</span>
+              </div>
+            `;
+          }).join('');
+        }
+
+        const weakKeysList = document.getElementById('weakKeysGrid');
+        if (weakKeysList) {
+          const trackStats = storageData.tracker?.keyStats?.[currentTrack] || {};
+          const courseKeys = course?.keys || {};
+          const weakKeys = getWeakKeys(trackStats, courseKeys);
+
+          if (weakKeys.length > 0) {
+            weakKeysList.innerHTML = weakKeys.map(wk => `
+              <div class="weak-key-card">
+                <div class="weak-key-left">
+                  <div class="key-badge-square">${wk.keyId.length === 1 ? wk.keyId.toUpperCase() : wk.keyId}</div>
+                  <div class="weak-key-meta">
+                    <h4>Key ${wk.keyId}</h4>
+                    <p>Accuracy: ${wk.acc}% · Latency: ${wk.latency}</p>
+                  </div>
+                </div>
+                <button type="button" class="drill-mini-btn" onclick="window.launchWeakKeyDrill('${wk.keyId}', '${currentTrack}')">Drill</button>
+              </div>
+            `).join('');
+          } else {
+            weakKeysList.innerHTML = `
+              <div style="grid-column: 1 / -1; text-align:center; padding:20px; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.25); border-radius:8px;">
+                <svg class="svg-icon" viewBox="0 0 24 24" style="width:24px; height:24px; color:var(--emerald-neon); margin-bottom:6px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <div style="color:var(--emerald-neon); font-weight:700;">No Stumbling Keys Detected</div>
+                <div style="font-size:11px; color:var(--text-muted);">All practiced keys are performing above the 90% accuracy threshold.</div>
+              </div>
+            `;
+          }
+        }
+
+        // 11. Render Keyboard Heatmap
+        const heatmapWrap = document.getElementById('keyboardHeatmapWrap');
+        if (heatmapWrap) {
+          const trackStats = storageData.tracker?.keyStats?.[currentTrack] || {};
+          const courseKeys = course?.keys || {};
+          const layoutRows = KEYBOARD_LAYOUTS[currentTrack] || KEYBOARD_LAYOUTS.standard;
+
+          heatmapWrap.innerHTML = layoutRows.map(row => `
+            <div class="hm-row">
+              ${row.map(k => {
+                const ks = getKeyStats(k.id, k.label, trackStats, courseKeys);
+                const titleText = (ks.attempts > 0)
+                  ? `Key ${k.id.toUpperCase()} / ${k.label} — Accuracy: ${ks.accuracy}% (${ks.attempts} strokes)`
+                  : `Key ${k.id.toUpperCase()} / ${k.label} — Not yet typed`;
+                return `
+                  <div class="hm-key ${k.cls || ''} ${ks.tier}" title="${titleText}" onclick="window.openKeyInspector('${k.id}', '${k.label}', '${k.finger}', '${k.desc}')">
+                    ${k.label}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `).join('');
+        }
+
+        // 12. Render Milestone Achievements
+        updateAchievements({
+          allSessions,
+          totalKeysAll: totalKeys,
+          totalLessonsAll: completedLessons,
+          streak,
+          progress: storageData.progress,
+          lessonStats: storageData.lessonStats
+        });
+
+        // 13. Update Scribe Certificate Modal Fields
+        const certName = document.getElementById('certRecipientName');
+        const nameInput = document.getElementById('typistNameInput');
+        const savedName = localStorage.getItem('pk_typist_name') || 'Active Typist';
+        if (nameInput) nameInput.value = savedName;
+        if (certName) certName.textContent = savedName;
+
+        const certRank = document.getElementById('certRankDisplay');
+        if (certRank) certRank.textContent = rank.title;
+
+        const certTrack = document.getElementById('certTrackDisplay');
+        if (certTrack) certTrack.textContent = profile.name;
+
+        const certSpeed = document.getElementById('certSpeedDisplay');
+        if (certSpeed) certSpeed.textContent = `${speedWpm} WPM`;
+
+        const certAcc = document.getElementById('certAccDisplay');
+        if (certAcc) certAcc.textContent = `${accuracy > 0 ? accuracy.toFixed(1) : 95.0}%`;
+
+        const certDate = document.getElementById('certDateDisplay');
+        if (certDate) certDate.textContent = `${months[d.getMonth()]} ${d.getFullYear()}`;
       }
 
-      // Track Filter Buttons
+      // Launch Lesson in Studio
+      window.launchLesson = function(lessonId, layoutId) {
+        try {
+          localStorage.setItem('pk_active_lesson_session', JSON.stringify({
+            lessonId: lessonId,
+            layoutId: layoutId,
+            timestamp: Date.now()
+          }));
+          localStorage.setItem('pk_active_layout', layoutId);
+          localStorage.setItem('khmerActiveLayout', layoutId);
+        } catch (e) {}
+        window.location.href = `index.html?lesson=${encodeURIComponent(lessonId)}&layout=${encodeURIComponent(layoutId)}`;
+      };
+
+      // Launch Weak Key Drill
+      window.launchWeakKeyDrill = function(keyId, layoutId) {
+        try {
+          localStorage.setItem('pk_active_layout', layoutId);
+          localStorage.setItem('khmerActiveLayout', layoutId);
+        } catch (e) {}
+        window.location.href = `index.html?practice=weak&key=${encodeURIComponent(keyId)}&layout=${encodeURIComponent(layoutId)}`;
+      };
+
+      // Open Key Inspector Modal
+      window.openKeyInspector = function(keyId, label, fingerCode, desc) {
+        const storageData = readAllLocalStorage();
+        const course = storageData.progress?.courses?.[currentTrack];
+        const trackStats = storageData.tracker?.keyStats?.[currentTrack] || {};
+        const courseKeys = course?.keys || {};
+        const ks = getKeyStats(keyId, label, trackStats, courseKeys);
+
+        const modal = document.getElementById('keyInspectorModal');
+        const square = document.getElementById('inspectorKeySquare');
+        const title = document.getElementById('keyInspectorTitle');
+        const sub = document.getElementById('keyInspectorSub');
+        const accEl = document.getElementById('inspectorAcc');
+        const attemptsEl = document.getElementById('inspectorAttempts');
+        const latencyEl = document.getElementById('inspectorLatency');
+        const fingerEl = document.getElementById('inspectorFinger');
+        const drillBtn = document.getElementById('btnLaunchKeyDrill');
+
+        if (square) square.textContent = label;
+        if (title) title.textContent = `Key: ${label} (${keyId.toUpperCase()})`;
+        if (sub) sub.textContent = desc || 'Tactile Keyboard Keycap';
+        if (accEl) accEl.textContent = ks.accuracy !== null ? `${ks.accuracy}%` : '—%';
+        if (attemptsEl) attemptsEl.textContent = ks.attempts.toLocaleString();
+        if (latencyEl) latencyEl.textContent = ks.latency ? `${ks.latency}ms` : '—';
+        if (fingerEl) fingerEl.textContent = FINGER_NAMES_MAP[fingerCode] || 'Dynamic Reach';
+
+        if (drillBtn) {
+          drillBtn.onclick = () => window.launchWeakKeyDrill(keyId, currentTrack);
+        }
+
+        if (modal) modal.classList.add('active');
+      };
+
+      // Close Key Inspector Modal
+      const btnCloseKeyInspector = document.getElementById('btnCloseKeyInspector');
+      if (btnCloseKeyInspector) {
+        btnCloseKeyInspector.onclick = () => {
+          const modal = document.getElementById('keyInspectorModal');
+          if (modal) modal.classList.remove('active');
+        };
+      }
+
+      // Scribe Certificate & Export Modal Handlers
+      const exportModal = document.getElementById('exportModal');
+      const btnOpenExport = document.getElementById('btnOpenExportModal');
+      const btnCloseExport = document.getElementById('btnCloseExportModal');
+      if (btnOpenExport && exportModal) {
+        btnOpenExport.onclick = () => exportModal.classList.add('active');
+      }
+      if (btnCloseExport && exportModal) {
+        btnCloseExport.onclick = () => exportModal.classList.remove('active');
+      }
+
+      // Typist Name Input
+      const nameInput = document.getElementById('typistNameInput');
+      if (nameInput) {
+        nameInput.addEventListener('input', (e) => {
+          const val = e.target.value.trim() || 'Active Typist';
+          localStorage.setItem('pk_typist_name', val);
+          const certRecipient = document.getElementById('certRecipientName');
+          if (certRecipient) certRecipient.textContent = val;
+        });
+      }
+
+      // Print Certificate
+      const btnPrint = document.getElementById('btnPrintCertificate');
+      if (btnPrint) {
+        btnPrint.onclick = () => window.print();
+      }
+
+      // Download JSON Dossier
+      const btnDownloadJson = document.getElementById('btnDownloadJsonDossier');
+      if (btnDownloadJson) {
+        btnDownloadJson.onclick = () => {
+          const profile = TRACK_METADATA[currentTrack] || TRACK_METADATA.standard;
+          const storageData = readAllLocalStorage();
+          const dossier = {
+            app: 'PK Khmer Type Analytics Command Center',
+            author: 'Phanna Kurosaki',
+            exportDate: new Date().toISOString(),
+            typist: localStorage.getItem('pk_typist_name') || 'Active Typist',
+            track: profile.name,
+            metrics: {
+              keysLogged: document.getElementById('metricKeys')?.textContent?.trim() || '0',
+              wpm: document.getElementById('metricWpm')?.textContent?.trim() || '0 WPM',
+              accuracy: document.getElementById('metricAcc')?.textContent?.trim() || '0.0%',
+              lessonsCompleted: document.getElementById('metricLessons')?.textContent?.trim() || '0 / 78',
+              streak: document.getElementById('metricStreak')?.textContent?.trim() || '0 Days'
+            },
+            telemetry: storageData
+          };
+
+          const blob = new Blob([JSON.stringify(dossier, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `pk-khmer-type-dossier-${currentTrack}-${new Date().toISOString().slice(0, 10)}.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+        };
+      }
+
+      // Tab Switching
+      const tabBtns = document.querySelectorAll('.view-tab-btn');
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+
+          const tabName = btn.dataset.tab;
+          document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+          const targetPane = document.getElementById(`pane-${tabName}`);
+          if (targetPane) targetPane.classList.add('active');
+        });
+      });
+
+      // Track Filter Switching
       const trackBtns = document.querySelectorAll('#trackFilter .segment-btn');
       trackBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -2256,7 +3461,7 @@
         });
       });
 
-      // Timeframe Filter Buttons
+      // Timeframe Filter Switching
       const timeBtns = document.querySelectorAll('#timeFilter .segment-btn');
       timeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -2267,34 +3472,36 @@
         });
       });
 
-      // Export Scribe Report
-      const exportBtn = document.getElementById('exportReportBtn');
-      if (exportBtn) {
-        exportBtn.addEventListener('click', () => {
-          const profile = TRACK_METADATA[currentTrack] || TRACK_METADATA.standard;
-          const report = {
-            app: 'PK Khmer Type Analytics Command Center',
-            author: 'Phanna Kurosaki',
-            exportDate: new Date().toISOString(),
-            track: profile.name,
-            timeframe: currentTimeframe,
-            metrics: {
-              keysLogged: document.getElementById('metricKeys')?.textContent?.trim() || '0',
-              wpm: document.getElementById('metricWpm')?.textContent?.trim() || '0 WPM',
-              accuracy: document.getElementById('metricAcc')?.textContent?.trim() || '0.0%',
-              lessonsCompleted: document.getElementById('metricLessons')?.textContent?.trim() || '0 / 78',
-              streak: document.getElementById('metricStreak')?.textContent?.trim() || '0 Days'
-            }
-          };
-
-          const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `pk-khmer-type-report-${currentTrack}-${currentTimeframe}-${new Date().toISOString().slice(0, 10)}.json`;
-          a.click();
-          URL.revokeObjectURL(url);
+      // Daily Target Presets
+      const presetBtns = document.querySelectorAll('.target-preset-btn');
+      presetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          presetBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeDailyTarget = parseInt(btn.dataset.target, 10) || 500;
+          renderDashboard();
         });
+      });
+
+      // Demo Mode Toggle
+      const btnToggleDemo = document.getElementById('btnToggleDemo');
+      const demoBanner = document.getElementById('demoNoticeBanner');
+      const btnExitDemo = document.getElementById('btnExitDemo');
+      const demoLabel = document.getElementById('demoToggleLabel');
+
+      function toggleDemoMode(enable) {
+        demoModeActive = enable;
+        if (demoBanner) demoBanner.classList.toggle('hidden', !demoModeActive);
+        if (demoLabel) demoLabel.textContent = demoModeActive ? 'Exit Demo' : 'Demo Preview';
+        if (btnToggleDemo) btnToggleDemo.classList.toggle('primary', demoModeActive);
+        renderDashboard();
+      }
+
+      if (btnToggleDemo) {
+        btnToggleDemo.onclick = () => toggleDemoMode(!demoModeActive);
+      }
+      if (btnExitDemo) {
+        btnExitDemo.onclick = () => toggleDemoMode(false);
       }
 
       // Initial Render
@@ -2304,4 +3511,3 @@
   </script>
 </body>
 </html>
-
