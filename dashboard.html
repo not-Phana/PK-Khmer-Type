@@ -861,10 +861,10 @@
     /* Interactive Holographic HUD Tooltip Card */
     .chart-hologram-hud {
       position: absolute;
-      bottom: calc(100% - 15px);
+      top: 10px;
       left: 0;
-      transform: translateX(-50%);
-      background: rgba(12, 17, 28, 0.95);
+      transform: translateX(0);
+      background: rgba(12, 17, 28, 0.96);
       border: 1px solid rgba(255, 209, 102, 0.45);
       border-radius: 12px;
       padding: 10px 14px;
@@ -876,7 +876,8 @@
       pointer-events: none;
       opacity: 0;
       z-index: 20;
-      min-width: 190px;
+      min-width: 205px;
+      max-width: 260px;
       transition: opacity 0.15s ease, left 0.06s ease-out;
     }
 
@@ -886,20 +887,26 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      gap: 10px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 4px;
+      padding-bottom: 5px;
     }
 
     .hud-title {
       font-size: 11px;
       font-weight: 800;
       color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 150px;
     }
 
     .hud-date {
       font-size: 10px;
       color: var(--text-dim);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .hud-metrics {
@@ -3290,7 +3297,21 @@
           if (hud) {
             const dateObj = new Date(ptWpm.timestamp);
             const dateStr = `${months[dateObj.getMonth()].slice(0, 3)} ${dateObj.getDate()}, ${String(dateObj.getHours()).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
-            if (hudTitle) hudTitle.textContent = ptWpm.title;
+            if (hudTitle) {
+              let titleClean = String(ptWpm.title || 'Practice Drill').trim();
+              titleClean = titleClean.replace(/^Lesson\s+Lesson\s+/i, 'Lesson ');
+              if (/adaptive[-_\s]*stage[-_\s]*(\d+)/i.test(titleClean)) {
+                const m = titleClean.match(/adaptive[-_\s]*stage[-_\s]*(\d+)/i);
+                titleClean = `Adaptive Stage ${m[1]}`;
+              } else if (/^Lesson\s+adaptive/i.test(titleClean)) {
+                titleClean = titleClean.replace(/^Lesson\s+adaptive[-_\s]*/i, 'Adaptive Practice ');
+              } else {
+                titleClean = titleClean.replace(/[-_]+/g, ' ');
+                titleClean = titleClean.replace(/\b([a-z])/g, (_, ch) => ch.toUpperCase());
+              }
+              hudTitle.textContent = titleClean;
+              hudTitle.title = titleClean;
+            }
             if (hudDate) hudDate.textContent = dateStr;
             if (hudSpeed) hudSpeed.textContent = `${ptWpm.val} WPM`;
             if (hudAcc) hudAcc.textContent = `${ptAcc.val}% Acc`;
@@ -3302,14 +3323,35 @@
             }
 
             if (hudDetails) {
-              const mins = Math.floor(ptWpm.durSec / 60);
-              const secs = ptWpm.durSec % 60;
-              hudDetails.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')} duration · ${Math.round(ptWpm.val * 5 * (ptWpm.durSec / 60))} Keystrokes`;
+              const durSec = Math.round(Number(ptWpm.durSec) || 0);
+              const mins = Math.floor(durSec / 60);
+              const secs = durSec % 60;
+              const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+              const strokes = Math.round((Number(ptWpm.val) || 0) * 5 * (durSec / 60));
+              hudDetails.textContent = `${timeStr} duration · ${strokes.toLocaleString()} Keystrokes`;
             }
 
-            // Clamp HUD to avoid screen overflow
-            const hudClampX = Math.min(rect.width - 110, Math.max(110, pixelX));
-            hud.style.left = `${hudClampX}px`;
+            // Position HUD dynamically inside chart bounds (flip side to avoid laser collision and overflow)
+            const hudWidth = hud.offsetWidth || 215;
+            const isRightHalf = pixelX > (rect.width / 2);
+            let targetLeft;
+            if (isRightHalf) {
+              // Float to the left of the laser line
+              targetLeft = pixelX - 14;
+              hud.style.transform = 'translateX(-100%)';
+              if (targetLeft - hudWidth < 8) {
+                targetLeft = hudWidth + 8;
+              }
+            } else {
+              // Float to the right of the laser line
+              targetLeft = pixelX + 14;
+              hud.style.transform = 'translateX(0)';
+              if (targetLeft + hudWidth > rect.width - 8) {
+                targetLeft = rect.width - hudWidth - 8;
+              }
+            }
+            hud.style.left = `${targetLeft}px`;
+            hud.style.top = '10px';
             hud.classList.add('active');
           }
         };
