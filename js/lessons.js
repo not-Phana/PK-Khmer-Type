@@ -1209,32 +1209,36 @@ window.LESSONS = LESSONS = LESSON_SETS[currentLayoutId] || LESSONS_STANDARD;
 
 function initCurriculumFromData(layoutId, levelsData, lessonsData, exercisesData){
   if(!levelsData || !lessonsData || !exercisesData) return null;
-  const exMap = Array.isArray(exercisesData)
-    ? exercisesData.reduce((acc, ex)=>{ acc[ex.id] = ex; return acc; }, {})
-    : exercisesData;
+  const actualLevels = Array.isArray(levelsData) ? levelsData : (levelsData.levels || []);
+  const actualLessons = Array.isArray(lessonsData) ? lessonsData : (lessonsData.lessons || []);
+  const actualExercises = (exercisesData && exercisesData.exercises) ? exercisesData.exercises : exercisesData;
+
+  const exMap = Array.isArray(actualExercises)
+    ? actualExercises.reduce((acc, ex)=>{ acc[ex.id] = ex; return acc; }, {})
+    : actualExercises;
 
   const lvlMap = {};
-  levelsData.forEach(lvl => lvlMap[lvl.id] = lvl);
+  actualLevels.forEach(lvl => lvlMap[lvl.id] = lvl);
 
-  const compiledLessons = lessonsData.map(l => createLessonModel(l, exMap, layoutId, lvlMap[l.level]));
+  const compiledLessons = actualLessons.map(l => createLessonModel(l, exMap, layoutId, lvlMap[l.level]));
 
   if(layoutId === 'standard'){
     LEVELS_STANDARD.length = 0;
-    LEVELS_STANDARD.push(...levelsData);
+    LEVELS_STANDARD.push(...actualLevels);
     LESSONS_STANDARD.length = 0;
     LESSONS_STANDARD.push(...compiledLessons);
     LESSON_SETS.standard = LESSONS_STANDARD;
     LEVEL_SETS.standard = LEVELS_STANDARD;
   } else if(layoutId === 'nida'){
     LEVELS_NIDA.length = 0;
-    LEVELS_NIDA.push(...levelsData);
+    LEVELS_NIDA.push(...actualLevels);
     LESSONS_NIDA.length = 0;
     LESSONS_NIDA.push(...compiledLessons);
     LESSON_SETS.nida = LESSONS_NIDA;
     LEVEL_SETS.nida = LEVELS_NIDA;
   } else if(layoutId === 'english'){
     LEVELS_ENGLISH.length = 0;
-    LEVELS_ENGLISH.push(...levelsData);
+    LEVELS_ENGLISH.push(...actualLevels);
     LESSONS_ENGLISH.length = 0;
     LESSONS_ENGLISH.push(...compiledLessons);
     LESSON_SETS.english = LESSONS_ENGLISH;
