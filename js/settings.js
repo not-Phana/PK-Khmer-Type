@@ -1169,14 +1169,18 @@ function initSettingsToggles() {
     chip.style.display = "flex";
     if (thumb) thumb.style.backgroundImage = 'url("' + url.replace(/["'\\]/g, "") + '")';
     if (label) {
-      if (url.startsWith("data:")) {
+      const matched = (typeof WALLPAPER_PRESETS !== "undefined") && WALLPAPER_PRESETS.find(p => p.url === url);
+      const isKm = document.documentElement.classList.contains("site-km-mode");
+      if (matched) {
+        label.textContent = isKm && matched.nameKm ? matched.nameKm : matched.name;
+      } else if (url.startsWith("data:")) {
         label.textContent = "Uploaded Artwork";
       } else if (url.startsWith("blob:")) {
         label.textContent = "Local Session";
       } else if (url.includes("unsplash.com")) {
         label.textContent = "Unsplash Studio";
       } else if (url.includes("assets/")) {
-        label.textContent = "Studio Asset";
+        label.textContent = "Khmer Heritage";
       } else {
         try {
           var parsed = new URL(url);
@@ -1300,52 +1304,100 @@ function initSettingsToggles() {
   /* ================= Custom Wallpaper Studio & Gallery Modal Controller ================= */
   const WALLPAPER_PRESETS = [
     {
+      id: "angkor-sunrise",
+      name: "Angkor Wat Sunrise",
+      nameKm: "អង្គរវត្ត ពេលព្រលឹម",
+      tag: "Khmer Heritage",
+      tagKm: "បេតិកភណ្ឌខ្មែរ",
+      url: "assets/wallpapers/angkor-wat-sunrise.jpg"
+    },
+    {
+      id: "bayon-faces",
+      name: "Bayon Smiling Faces",
+      nameKm: "ប្រាសាទបាយ័ន ថ្មញញឹម",
+      tag: "Angkor Thom",
+      tagKm: "អង្គរធំ",
+      url: "assets/wallpapers/bayon-stone-faces.jpg"
+    },
+    {
+      id: "ta-prohm-roots",
+      name: "Ta Prohm Sanctuary",
+      nameKm: "ប្រាសាទតាព្រហ្ម ឫសឈើបុរាណ",
+      tag: "Jungle Temple",
+      tagKm: "ប្រាសាទព្រៃព្រឹក្សា",
+      url: "assets/wallpapers/ta-prohm-roots.jpg"
+    },
+    {
+      id: "angkor-twilight",
+      name: "Angkor Wat Twilight",
+      nameKm: "អង្គរវត្ត ពេលអស្តង្គត",
+      tag: "Sunset Reflection",
+      tagKm: "ស្រមោលឆ្លុះទឹក",
+      url: "assets/wallpapers/angkor-wat-twilight.jpg"
+    },
+    {
+      id: "banteay-srei",
+      name: "Banteay Srei Carvings",
+      nameKm: "បន្ទាយស្រី ក្បូរក្បាច់បុរាណ",
+      tag: "Pink Sandstone",
+      tagKm: "ថ្មភក់ពណ៌ផ្កាឈូក",
+      url: "assets/wallpapers/banteay-srei-carvings.jpg"
+    },
+    {
+      id: "cambodia-countryside",
+      name: "Cambodia Sugar Palms",
+      nameKm: "វាលស្រែ និងដើមត្នោតខ្មែរ",
+      tag: "Countryside",
+      tagKm: "ទេសភាពស្រុកស្រែ",
+      url: "assets/wallpapers/cambodia-countryside.jpg"
+    },
+    {
       id: "neo-tokyo",
       name: "Cyber Neo-Tokyo",
+      nameKm: "ស៊ីប័រ ណេអូតូក្យូ",
       tag: "Cyberpunk",
+      tagKm: "ស៊ីប័រភាំង",
       url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80"
     },
     {
       id: "lofi-night",
       name: "Lo-Fi Midnight",
+      nameKm: "រាត្រី ឡូហ្វៃ",
       tag: "Anime Night",
+      tagKm: "រាត្រីស្ងប់ស្ងាត់",
       url: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1920&q=80"
     },
     {
       id: "synthwave",
       name: "Retro Synthwave",
+      nameKm: "ស៊ីនវ៉េវ បែបបុរាណ",
       tag: "80s Neon",
+      tagKm: "ពន្លឺណេអុង ៨០",
       url: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1920&q=80"
     },
     {
       id: "obsidian-circuit",
       name: "Obsidian Circuit",
+      nameKm: "សៀគ្វី អប់ស៊ីឌៀន",
       tag: "Tech Minimal",
+      tagKm: "បច្ចេកវិទ្យា",
       url: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1920&q=80"
     },
     {
       id: "dark-slate",
       name: "Dark Slate Glass",
+      nameKm: "កញ្ចក់ ស្លេតងងឹត",
       tag: "Atmospheric",
+      tagKm: "បរិយាកាស",
       url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=80"
     },
     {
       id: "nebula-space",
       name: "Deep Cosmic Nebula",
+      nameKm: "អ័ព្ទលំហ ណេប៊ូឡា",
       tag: "Astronomy",
+      tagKm: "តារាសាស្ត្រ",
       url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80"
-    },
-    {
-      id: "pk-studio-home",
-      name: "PK Studio Home",
-      tag: "App Capture",
-      url: "assets/pk-canva-studio-home.png"
-    },
-    {
-      id: "pk-focus-mode",
-      name: "PK Focus Mode",
-      tag: "App Capture",
-      url: "assets/pk-canva-focus-mode.png"
     }
   ];
 
@@ -1355,14 +1407,17 @@ function initSettingsToggles() {
   function renderWallpaperGallery() {
     const grid = document.getElementById("wallpaperGalleryGrid");
     if (!grid || grid.children.length > 0) return;
+    const isKm = document.documentElement.classList.contains("site-km-mode");
     const currentWp = safeGet("khmerCustomWallpaperUrl", "") || safeGet(WALLPAPER_KEY, "");
     grid.innerHTML = WALLPAPER_PRESETS.map((p) => {
       const isCur = currentWp === p.url;
-      return `<button type="button" class="wallpaper-gallery-item${isCur ? ' active' : ''}" data-preset-id="${p.id}" data-preset-url="${p.url}" title="Click to preview · Double-click to apply">
+      const displayName = isKm && p.nameKm ? p.nameKm : p.name;
+      const displayTag = isKm && p.tagKm ? p.tagKm : p.tag;
+      return `<button type="button" class="wallpaper-gallery-card wallpaper-gallery-item${isCur ? ' active' : ''}" data-preset-id="${p.id}" data-preset-url="${p.url}" title="${isKm ? 'ចុចដើម្បីមើលសាកល្បង · ចុច២ដងដើម្បីប្រើប្រាស់' : 'Click to preview · Double-click to apply'}">
         <div class="wallpaper-gallery-thumb" style="background-image:url('${p.url}')">
-          <span class="wallpaper-gallery-badge">${p.tag}</span>
+          <span class="wallpaper-gallery-badge">${displayTag}</span>
         </div>
-        <div class="wallpaper-gallery-name">${p.name}</div>
+        <div class="wallpaper-gallery-name">${displayName}</div>
       </button>`;
     }).join("");
 

@@ -3558,12 +3558,21 @@ html.theme-sepia #accentChoice button.active {
   padding: 0 2px;
 }
 .wallpaper-gallery-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: rgba(10, 14, 26, 0.82);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 209, 102, 0.35);
   font-family: var(--font-mono, monospace);
-  font-size: 0.6rem;
+  font-size: 0.58rem;
+  font-weight: 700;
   color: var(--gold-bright, #ffd166);
-  opacity: 0.8;
-  padding: 0 2px 2px;
+  padding: 1px 6px;
   border-radius: 5px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
 }
 
 /* Modal Footer */

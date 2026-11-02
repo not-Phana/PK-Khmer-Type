@@ -11,7 +11,7 @@
  * Strict Zero-Emoji Policy: 100% SVG vector icons only.
  * ============================================================================ */
 
-var CACHE_VERSION = "pk-khmer-type-v87";
+var CACHE_VERSION = "pk-khmer-type-v88";
 var FONT_CACHE = "pk-khmer-type-fonts-v1";
 
 var PRECACHE_ASSETS = [
@@ -29,6 +29,12 @@ var PRECACHE_ASSETS = [
   "icon-180.png",
   "icon-192.png",
   "icon-512.png",
+  "assets/wallpapers/angkor-wat-sunrise.jpg",
+  "assets/wallpapers/bayon-stone-faces.jpg",
+  "assets/wallpapers/ta-prohm-roots.jpg",
+  "assets/wallpapers/angkor-wat-twilight.jpg",
+  "assets/wallpapers/banteay-srei-carvings.jpg",
+  "assets/wallpapers/cambodia-countryside.jpg",
   "css/base.css",
   "css/keyboard.css",
   "css/typing.css",
