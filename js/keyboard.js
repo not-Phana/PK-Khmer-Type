@@ -1787,8 +1787,8 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
         factorY = targetKey === 'backspace' ? 0.60 : 0.15;
       } else if(isDistant){
         // Distant top row & perimeter keys (Escape, numbers): gentle wrist float
-        factorX = 0.26;
-        factorY = 0.30;
+        factorX = 0.40;
+        factorY = 0.58;
       }
 
       palmShiftX = reachDx * factorX;
@@ -2160,7 +2160,22 @@ function updateHandsOverlay(){
       }
     } else if(isActive && targetKey){
       const rawTarget = keyCenter(targetKey, wrapRect);
-      targetPt = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };
+      let tPt = rawTarget ? { x: rawTarget.x, y: rawTarget.y + 2 } : { x: hb.bases[f.id].x, y: hb.bases[f.id].y - 74 };
+      if(wrapRect && wrapRect.height > 0){
+        tPt.y = Math.max(12, Math.min(wrapRect.height - 10, tPt.y));
+      }
+      const knuckle = hb.bases[f.id];
+      if(knuckle){
+        const maxReach = (f.restLen || 100) * 1.45;
+        const dx = tPt.x - knuckle.x;
+        const dy = tPt.y - knuckle.y;
+        const dist = Math.hypot(dx, dy);
+        if(dist > maxReach){
+          const ratio = maxReach / dist;
+          tPt = { x: knuckle.x + dx * ratio, y: knuckle.y + dy * ratio };
+        }
+      }
+      targetPt = tPt;
     } else if(isRow5Modifier){
       // When whole hand lowers off keyboard for Row 5 modifiers (Ctrl, Win, Alt, AltGr),
       // non-active fingers do not stay pinned to the keyboard ("hand dont necessary need the hand always on the keyboard").
@@ -2399,6 +2414,18 @@ function triggerFingerRelease(keyId){
   }
 }
 if(typeof window !== 'undefined') window.triggerFingerRelease = triggerFingerRelease;
+
+if(typeof window !== 'undefined'){
+  let scrollTimer = null;
+  window.addEventListener('scroll', () => {
+    if(scrollTimer) return;
+    scrollTimer = requestAnimationFrame(() => {
+      scrollTimer = null;
+      invalidateKeyCoordCache();
+      if(handsOn && typeof updateHandsOverlay === 'function') updateHandsOverlay();
+    });
+  }, { passive: true });
+}
 
 if(typeof ResizeObserver !== 'undefined' && boardWrap){
   const ro = new ResizeObserver(()=>{

@@ -50,7 +50,6 @@
   position: fixed;
   pointer-events: none;
   border: 2px solid #ffd166;
-  border-radius: 5px;
   box-shadow: 0 0 0 1px rgba(255, 209, 102, 0.3),
               0 0 24px rgba(255, 209, 102, 0.45),
               inset 0 0 12px rgba(255, 209, 102, 0.15);
@@ -75,7 +74,6 @@
   width: min(92vw, 360px);
   background: #0d1222;
   border: 1px solid rgba(255, 209, 102, 0.4);
-  border-radius: 5px;
   padding: 20px 22px 18px;
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75),
               0 0 28px rgba(255, 209, 102, 0.18);
@@ -345,7 +343,6 @@ html.site-km-mode .pk-tut-tlang-arrow {
   width: min(92vw, 530px);
   background: #0a0e1c;
   border: 1px solid rgba(255, 209, 102, 0.45);
-  border-radius: 5px;
   padding: 30px 28px 26px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8),
               0 0 36px rgba(255, 209, 102, 0.2);
@@ -514,7 +511,6 @@ html.site-km-mode .pk-tut-tlang-arrow {
   text-align: left;
   background: rgba(16, 22, 38, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 5px;
   padding: 16px 20px;
   margin-bottom: 24px;
   list-style: none;
@@ -582,7 +578,6 @@ html.site-km-mode .pk-tut-tlang-arrow {
   padding: 10px 14px;
   background: rgba(14, 20, 36, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
   cursor: pointer;
   transition: all 0.22s cubic-bezier(0.2, 0.9, 0.3, 1);
   user-select: none;

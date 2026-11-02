@@ -12,7 +12,6 @@
   overflow: hidden;
   background: linear-gradient(180deg, rgba(22, 26, 42, 0.98), rgba(12, 14, 24, 0.99));
   border: 1px solid rgba(255, 209, 102, 0.22);
-  border-radius: 5px;
   box-shadow:
     0 25px 70px -15px rgba(0, 0, 0, 0.85),
     0 0 35px rgba(255, 209, 102, 0.08),
@@ -372,7 +371,6 @@
   margin-bottom: 8px;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 5px;
   position: relative;
   transition:
     transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1016,7 +1014,6 @@
 .settings-storage-card {
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 5px;
   padding: 14px 16px;
   margin-bottom: 12px;
 }
@@ -2888,7 +2885,6 @@ html.theme-sunset .modal-close:hover {
   padding: 10px 14px;
   background: rgba(0, 0, 0, 0.28);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 5px;
   flex-wrap: wrap;
   animation: settingsFadeIn 0.2s ease;
 }

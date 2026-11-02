@@ -92,7 +92,6 @@
     width:min(92vw, 860px);
     box-sizing:border-box;
     padding:22px;
-    border-radius:5px;
     background:linear-gradient(180deg, #141830, #0c0e1c);
     border:1px solid #2a3155;
     box-shadow:
@@ -114,7 +113,6 @@
   .board-wrap::before{
     content:"";
     position:absolute; inset:0;
-    border-radius:5px;
     background:radial-gradient(ellipse 90% 60% at 50% 0%, rgba(255,209,102,0.18), transparent 75%);
     opacity:0;
     transition:opacity .18s ease;
@@ -204,7 +202,6 @@
     width:min(90vw, 840px);
     margin:14px auto 18px;
     padding:20px 26px;
-    border-radius:5px;
     background:rgba(14, 17, 27, 0.92);
     backdrop-filter:blur(16px);
     -webkit-backdrop-filter:blur(16px);
@@ -241,7 +238,6 @@
     font-size:2.4rem;
     background:rgba(0,0,0,0.32);
     border:1px solid rgba(255,255,255,0.07);
-    border-radius:5px;
     padding:12px 18px;
   }
   .tw-char{
@@ -288,7 +284,6 @@
     width:min(90vw, 840px);
     margin:14px auto 18px;
     padding:20px 26px;
-    border-radius:5px;
     background:rgba(14, 17, 27, 0.92);
     backdrop-filter:blur(16px);
     -webkit-backdrop-filter:blur(16px);
@@ -507,7 +502,6 @@
     gap:8px;
     margin-bottom:16px;
     padding:10px 14px;
-    border-radius:5px;
     background:rgba(12, 16, 28, 0.75);
     border:1px solid rgba(255, 255, 255, 0.09);
     box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 4px 18px rgba(0,0,0,0.4);
@@ -766,7 +760,6 @@
     position:relative;
     width:min(90vw, 420px);
     padding:30px 26px 26px;
-    border-radius:5px;
     background:linear-gradient(180deg, #141830 0%, #0c0e1c 100%);
     border:1px solid rgba(255,209,102,0.45);
     box-shadow:0 0 60px rgba(255,209,102,0.25), 0 25px 60px rgba(0,0,0,0.7);
@@ -944,7 +937,6 @@
     padding:12px 18px;
     background:linear-gradient(135deg, rgba(38,18,22,0.95), rgba(22,14,24,0.96));
     border:1px solid rgba(255,90,95,0.6);
-    border-radius:5px;
     box-shadow:
       0 12px 32px rgba(0,0,0,0.65),
       0 0 24px rgba(255,90,95,0.22),
@@ -1080,7 +1072,6 @@
     padding:12px 16px;
     background:rgba(255,209,102,0.05);
     border:1px solid rgba(255,209,102,0.22);
-    border-radius:5px;
   }
   .nida-qb-title{
     font-family:'Space Grotesk','Noto Sans Khmer',sans-serif;
@@ -1252,7 +1243,6 @@
     padding:12px 14px;
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,209,102,0.25);
-    border-radius:5px;
     text-decoration:none;
     color:inherit;
     transition:all .18s ease;
@@ -1310,7 +1300,6 @@
     padding:14px 16px;
     background:rgba(0,0,0,0.22);
     border:1px solid rgba(255,255,255,0.08);
-    border-radius:5px;
   }
   .nida-mobile-card h4{
     margin:0 0 10px;
@@ -1334,7 +1323,6 @@
     padding:14px 16px;
     background:linear-gradient(180deg, rgba(16,21,36,0.8), rgba(12,16,28,0.9));
     border:1px solid rgba(255,209,102,0.25);
-    border-radius:5px;
     box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);
   }
   .nida-test-header{

@@ -6,7 +6,7 @@
   ### ស្ទូឌីយោហ្វឹកហាត់វាយអក្សរខ្មែរ PK — High-Performance Touch Typing Studio
 
   <p>
-    <b>The definitive touch-typing tutor for Khmer Unicode (Standard &amp; NiDA) and English.</b><br />
+    <b>The definitive touch-typing studio for Cambodian Unicode (Standard &amp; NiDA) and English.</b><br />
     Engineered with pure vanilla web standards, real-time biomechanical 3D hand kinematics, procedural mechanical audio synthesis, and a sub-0.05ms zero-reflow typing engine.
   </p>
 
@@ -20,21 +20,24 @@
     <a href="https://not-phana.github.io/PK-Khmer-Type/dashboard.html">
       <img src="https://img.shields.io/badge/Telemetry-Live_Dashboard-a78bfa?style=for-the-badge&logo=databricks&logoColor=white" alt="Live Telemetry Dashboard" />
     </a>
+    <a href="https://not-phana.github.io/PK-Khmer-Type/Documents/index.html">
+      <img src="https://img.shields.io/badge/Documentation-Architecture_Hub-34d399?style=for-the-badge&logo=gitbook&logoColor=black" alt="Documentation Hub" />
+    </a>
+    <a href="https://not-phana.github.io/PK-Khmer-Type/Documents/index.html#keycap-3d">
+      <img src="https://img.shields.io/badge/3D_Studio-Keycap_Simulator-f59e0b?style=for-the-badge&logo=three.js&logoColor=black" alt="3D Keycap Studio" />
+    </a>
     <a href="https://not-phana.github.io/PK-Khmer-Type/concepts/entropy-engine.html">
-      <img src="https://img.shields.io/badge/Retro_Terminal-DEC_VT220_CRT-34d399?style=for-the-badge&logo=gnometerminal&logoColor=black" alt="Retro CRT Terminal" />
+      <img src="https://img.shields.io/badge/Retro_Terminal-DEC_VT220_CRT-10b981?style=for-the-badge&logo=gnometerminal&logoColor=black" alt="Retro CRT Terminal" />
     </a>
     <a href="https://github.com/not-Phana/PK-Khmer-Type/raw/main/downloads/KhmerKeyboard-Setup.exe">
       <img src="https://img.shields.io/badge/Windows_Setup-x64_Offline-f43f5e?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows Setup" />
-    </a>
-    <a href="docs/PK-KHMER-TYPE-ULTIMATE-MASTER-PLAN.md">
-      <img src="https://img.shields.io/badge/Master_Plan-Architectural_Spec-e2e8f0?style=for-the-badge&logo=gitbook&logoColor=black" alt="Architectural Master Plan" />
     </a>
   </p>
 
   <p>
     <img src="https://img.shields.io/badge/Release-v2.4.0--Beta-0a0d14?style=flat-square&logo=git&logoColor=ffd166" alt="Release v2.4.0-Beta" />
     <img src="https://img.shields.io/badge/Curriculum-276_Verified_Lessons-0a0d14?style=flat-square&logo=bookstack&logoColor=38bdf8" alt="276 Verified Lessons" />
-    <img src="https://img.shields.io/badge/Test_Suite-147%2F147_Passing-0a0d14?style=flat-square&logo=speedtest&logoColor=34d399" alt="147/147 Tests Passing" />
+    <img src="https://img.shields.io/badge/Test_Suite-159%2F159_Passing-0a0d14?style=flat-square&logo=speedtest&logoColor=34d399" alt="159/159 Tests Passing" />
     <img src="https://img.shields.io/badge/Latency-%3C_0.05ms_Zero--Reflow-0a0d14?style=flat-square&logo=fastapi&logoColor=f43f5e" alt="Sub-0.05ms Input Latency" />
     <img src="https://img.shields.io/badge/Audio-Procedural_Web_Audio-0a0d14?style=flat-square&logo=w3c&logoColor=c084fc" alt="Procedural Web Audio" />
     <img src="https://img.shields.io/badge/Sovereignty-100%25_Local--First_%2F_%240_Cost-0a0d14?style=flat-square&logo=pwa&logoColor=38bdf8" alt="100% Local-First / $0 Cost" />
@@ -53,11 +56,12 @@
 ====================================================================================================
   PK KHMER TYPE :: SOVEREIGN TOUCH-TYPING ENGINE & HIGH-PERFORMANCE LEARNING STUDIO
 ====================================================================================================
-  [LOCAL-FIRST]   100% Offline execution via file:/// with zero mandatory accounts or telemetry.
+  [LOCAL-FIRST]   100% Offline execution via file:/// with optional zero-friction Supabase cloud sync.
   [KHMER UNICODE] Flawless abugida handling: base consonants, Coeng subjoined stacks, and vowels.
   [KINEMATICS]    Real-time 3D translucent biomechanical hands tracking key reaches and modifiers.
   [AUDIO SYNTH]   Zero audio file requests; pure Web Audio synthesis of tactile mechanical switches.
   [PERFORMANCE]   Zero forced-reflow pipeline targeting native 120 FPS display refresh rates.
+  [ZERO-EMOJI]    Strict zero-emoji protocol across entire application; 100% crisp inline SVG vectors.
 ====================================================================================================
 ```
 
@@ -65,20 +69,30 @@
 
 ## Table of Contents
 
-- [Why PK Khmer Type?](#why-pk-khmer-type)
+- [Executive Summary](#executive-summary)
+- [Comparative Architectural Analysis](#comparative-architectural-analysis)
 - [Visual Showcase](#visual-showcase)
-- [Engineering Highlights](#engineering-highlights)
-  - [1. Zero Forced-Reflow Engine (&lt; 0.05ms Input Latency)](#1-zero-forced-reflow-engine--005ms-input-latency)
+- [Core Engineering Pillars](#core-engineering-pillars)
+  - [1. Zero Forced-Reflow Engine (< 0.05ms Input Latency)](#1-zero-forced-reflow-engine--005ms-input-latency)
   - [2. Procedural Web Audio Mechanical Synthesizer](#2-procedural-web-audio-mechanical-synthesizer)
-  - [3. Biomechanical 3D Hand Kinematics](#3-biomechanical-3d-hand-kinematics)
-  - [4. Sovereign Local-First Architecture ($0 Operating Cost)](#4-sovereign-local-first-architecture-0-operating-cost)
+  - [3. Biomechanical 3D Hand Kinematics &amp; Opposite-Hand Choreography](#3-biomechanical-3d-hand-kinematics--opposite-hand-choreography)
+  - [4. Sovereign Local-First + Supabase Cloud Sync Hybrid Topology](#4-sovereign-local-first--supabase-cloud-sync-hybrid-topology)
   - [5. Strict Zero-Emoji Design Protocol](#5-strict-zero-emoji-design-protocol)
-- [Mastering Khmer Script in 60 Seconds](#mastering-khmer-script-in-60-seconds)
+- [The Khmer Abugida Typing Formula](#the-khmer-abugida-typing-formula)
+  - [Golden Rule 1: Always Type the Base Consonant First](#golden-rule-1-always-type-the-base-consonant-first)
+  - [Golden Rule 2: Subscript Consonants via Coeng (ជើងអក្សរ ្)](#golden-rule-2-subscript-consonants-via-coeng-ជើងអក្សរ-)
+  - [Golden Rule 3: Visible Word Spaces (Shift + Space)](#golden-rule-3-visible-word-spaces-shift--space)
+  - [Golden Rule 4: Dynamic 4-Layer Keyboards](#golden-rule-4-dynamic-4-layer-keyboards)
 - [Complete 3-Track Curriculum (276 Lessons)](#complete-3-track-curriculum-276-lessons)
   - [The 9-Stage Progressive Learning Path](#the-9-stage-progressive-learning-path)
-  - [Grandmaster Literature &amp; Classical Scriptorium](#grandmaster-literature--classical-scriptorium)
-- [Adaptive Engine &amp; Test Lab](#adaptive-engine--test-lab)
-- [Custom Lessons Studio (v1.2+)](#custom-lessons-studio-v12)
+  - [Grandmaster Literature &amp; Classical Scriptorium (54 Bonus Lessons)](#grandmaster-literature--classical-scriptorium-54-bonus-lessons)
+- [Interactive Studio Modes &amp; Practice Hubs](#interactive-studio-modes--practice-hubs)
+  - [Custom Lessons Studio (v1.2+)](#custom-lessons-studio-v12)
+  - [Adaptive Weakness Scoring Engine](#adaptive-weakness-scoring-engine)
+  - [Standardized Test Lab &amp; Certification](#standardized-test-lab--certification)
+  - [Ghost Race Multiplayer Simulation](#ghost-race-multiplayer-simulation)
+  - [Smart Mouse Cursor Inspector HUD](#smart-mouse-cursor-inspector-hud)
+  - [3D Keycap Mechanical Studio &amp; Retro CRT Terminal](#3d-keycap-mechanical-studio--retro-crt-terminal)
 - [Keyboard Shortcuts](#keyboard-shortcuts)
 - [Quick Start Guide](#quick-start-guide)
 - [Automated Testing &amp; Verification](#automated-testing--verification)
@@ -87,24 +101,29 @@
 
 ---
 
-## Why PK Khmer Type?
+## Executive Summary
 
-Typing the Khmer abugida script should feel just as fluid, rapid, and natural as typing English.
+Typing the Cambodian abugida script should feel just as rapid, fluid, and intuitive as typing English.
 
-Most typing tutors treat Khmer as a secondary afterthought: characters decompose incorrectly, subscript clusters break across line wraps, keyboard layouts do not reflect Cambodian national standards, and heavy frameworks cause perceptible typing lag.
+Most international typing tutors treat Khmer as a secondary afterthought: characters decompose incorrectly, subscript clusters break across line wraps, keyboard layouts do not reflect Cambodian national standards, and heavy frameworks cause perceptible typing lag.
 
-**PK Khmer Type** was engineered from the ground up to solve these fundamental challenges:
+**PK Khmer Type** was engineered from the ground up to solve these fundamental challenges. Built with pure web standards (HTML5, CSS3, Vanilla ES6+ modules), it delivers sub-millisecond tactile responsiveness, complete offline independence, anatomically grounded finger guidance, and comprehensive coverage of both the **Khmer Standard (Unicode)** and **Khmer NiDA** keyboard standards alongside **English US QWERTY**.
 
-| Architectural Pillar | Generic Typing Tutors | PK Khmer Type |
+---
+
+## Comparative Architectural Analysis
+
+| Architectural Pillar | Generic Web Typing Tutors | PK Khmer Type Studio |
 | :--- | :--- | :--- |
-| **Framework Overhead** | Heavy React/Vue/Angular bundles (&gt; 2MB) | **100% Pure Vanilla JS/CSS** (&lt; 250KB total footprint) |
-| **Input Latency** | 8ms to 24ms (virtual DOM diffing &amp; reflows) | **&lt; 0.05ms** (direct DOM batching &amp; coordinate caching) |
-| **Khmer Layouts** | Single generic mapping | **Khmer Standard, Official NiDA, &amp; English QWERTY** |
-| **Subscript (Coeng ្)** | Unhandled or misaligned cursor positions | **Atomic typing units with NFC canonical decomposition repair** |
-| **Audio Simulation** | Megabytes of static `.mp3` or `.wav` samples | **100% Procedural Web Audio** (zero network asset downloads) |
-| **Finger Guidance** | Static 2D colored keycap charts | **Dynamic 3D biomechanical hands** with live modifier reaches |
-| **Data Privacy** | Cloud account gates, ads, and telemetry | **100% Local-First**, zero trackers, runs offline via `file:///` |
+| **Framework Overhead** | Heavy React/Vue/Angular bundles (> 2MB to 5MB) | **100% Pure Vanilla JS/CSS** (< 250KB total footprint) |
+| **Keystroke Input Latency** | 8ms to 28ms (Virtual DOM reconciliation &amp; reflows) | **< 0.05ms** (Direct DOM patching with geometry caching) |
+| **Khmer Layout Support** | Single unofficial mapping or missing | **Khmer Standard, Official NiDA, &amp; English QWERTY** |
+| **Subscript (Coeng ្)** | Unhandled, broken cursor indices, or misaligned stacks | **Atomic typing units with NFC canonical decomposition repair** |
+| **Audio Feedback** | Heavy static `.mp3` / `.wav` asset downloads | **100% Procedural Web Audio API** (zero network asset downloads) |
+| **Finger Guidance** | Static flat 2D color blocks | **Real-time 3D biomechanical hands** with modifier kinematics |
+| **Data Sovereignty** | Forced sign-ups, third-party analytics, ads, and telemetry | **100% Local-First**, runs offline via `file:///`, optional cloud sync |
 | **Operating Cost** | Recurring cloud databases and API bills | **$0.00 Forever** (Sovereign static client architecture) |
+| **Visual Iconography** | Inconsistent OS emojis (broken on Linux/old Windows) | **Strict Zero-Emoji Policy**: 100% crisp inline SVG vectors |
 
 ---
 
@@ -116,7 +135,7 @@ Most typing tutors treat Khmer as a secondary afterthought: characters decompose
       <h3 align="center">Real-Time Biomechanical Hand Guides</h3>
       <img src="assets/pk-canva-live-lesson.png" alt="Live Lesson Hand Biomechanics" width="100%" />
       <p align="center">
-        <em>Translucent anatomical hands dynamically calculate real-time finger travel paths, natural metacarpal arching, and simultaneous modifier reaches (Shift, AltGr, Ctrl).</em>
+        <em>Translucent anatomical hands dynamically calculate real-time finger travel paths, natural metacarpal arching, and opposite-hand modifier reaches (Shift, AltGr, Ctrl).</em>
       </p>
     </td>
     <td width="50%" valign="top">
@@ -147,165 +166,251 @@ Most typing tutors treat Khmer as a secondary afterthought: characters decompose
 
 ---
 
-## Engineering Highlights
+## Core Engineering Pillars
 
-### 1. Zero Forced-Reflow Engine (&lt; 0.05ms Input Latency)
+### 1. Zero Forced-Reflow Engine (< 0.05ms Input Latency)
 
-Traditional web applications suffer from layout thrashing: querying DOM positions during a keystroke forces the browser's layout engine to synchronously recalculate geometry for the entire page.
+Traditional web applications suffer from **layout thrashing**: querying computed DOM dimensions (`offsetWidth`, `getBoundingClientRect`) during high-frequency keystroke events forces the browser engine to halt execution and synchronously recalculate styles and geometry across the entire page.
 
-PK Khmer Type eliminates layout thrashing completely:
-- **Spatial Geometry Caching (`keyCoordCache`)**: Physical keycap coordinates are pre-calculated once on mount and invalidated exclusively via `ResizeObserver`.
-- **Zero-Reflow Typing Pipeline**: Keystroke handling performs zero geometry queries during active typing. Key press and release states utilize CSS transform classes GPU-accelerated by the compositor.
-- **WeakMap Particle Buffers**: Canvas typing burst FX retrieve cached keycap centers instantly without touching the DOM tree.
-- **Debounced Disk Serialization**: Active lesson progress is debounced (400ms) into `localStorage`, with synchronous flushes reserved for `beforeunload`.
+PK Khmer Type eliminates layout thrashing completely through four coordinated architectural mechanisms:
 
 ```text
-[Keystroke Event] ---> [NFC Normalize] ---> [Compare Unit] ---> [GPU Transform] ---> [Web Audio Synth]
-                                                                        |
-                                                     (Sub-0.05ms Execution Window)
++------------------------------------------------------------------------------------------------+
+|                             ZERO FORCED-REFLOW EXECUTION PIPELINE                              |
++------------------------------------------------------------------------------------------------+
+  [Keystroke Event]
+         |
+         v
+  [Unicode Normalizer] ----> Fast NFC canonical equivalence & decomposed vowel repair
+         |
+         v
+  [Atomic Unit Match]  ----> Evaluates base consonants, Coeng subscript stacks, or vowels
+         |
+         v
+  [ClassList Patch]    ----> GPU-composited CSS transforms (.pressed, .struck, .active)
+         |
+         v
+  [Coordinate Lookup]  ----> keyCoordCache (WeakMap / Precomputed in single synchronous pass)
+         |
+         v
+  [Web Audio Synth]    ----> Low-latency procedural sound impulse (Zero file fetches)
+         |
+         +-----------------> Total execution duration: < 0.05ms (Native 120Hz/240Hz frame budget)
 ```
 
-### 2. Procedural Web Audio Mechanical Synthesizer
-
-PK Khmer Type requires zero external audio files. Tactile mechanical switch feedback is synthesized entirely in browser memory using the **Web Audio API**:
-
-- **Topre Thock**: Dual bandpass biquad filters with smooth low-frequency sine resonance simulating electro-capacitive rubber dome collapse.
-- **Holy Panda**: Crisp, tactile bump transient paired with a high-Q acoustic plastic switch-housing reverberation.
-- **Cherry MX Blue**: High-frequency click-leaf snapping impulse followed by spring reverberation decay.
-- **Silent Linear**: Cushioned low-pass filtered impulse modeling silicone stem dampeners for library and classroom environments.
-- **Temple Hall Ambience**: Real-time white/pink noise convolution network simulating torchlit stone chambers.
-
-### 3. Biomechanical 3D Hand Kinematics
-
-Unlike static keyboard charts, PK Khmer Type features an interactive biomechanical overlay:
-- **Metacarpal Arching**: Anatomical bone segments flex and translate based on finger target distance and row elevation.
-- **Dual-Hand Coordination**: Accurately indicates which hand and specific digit must strike the primary keycap while the opposite hand depresses `Shift`, `AltGr`, or `Ctrl`.
-- **Resting Home Return**: Hands automatically interpolate back to the standard home row rest position (`ASDF` / `JKL;`) upon key release.
-
-### 4. Sovereign Local-First Architecture ($0 Operating Cost)
-
-The platform is designed to last decades without maintenance fees or server outages:
-- **100% Offline Capable**: Runs directly from disk (`file:///`) or as an installable Progressive Web App (PWA) via Service Worker.
-- **Zero Telemetry**: Student keystrokes, accuracy metrics, and speed profiles never leave the user's physical machine.
-- **Zero Accounts Required**: Complete access to all 276 lessons, custom lesson tools, adaptive practice, and analytics without registration.
-- **Air-Gapped Ready**: Portable to rural schools, laboratories, and offline classrooms via USB thumb drive.
-
-### 5. Strict Zero-Emoji Design Protocol
-
-In adherence to high-contrast readability and sovereign typographical control:
-- **Zero Unicode Emojis**: No unpredictable system emojis, colored fonts, or OS-dependent glyph renderings.
-- **Crisp Inline SVG Icons**: Every badge, status indicator, toolbar action, and keycap emblem is rendered as pure SVG vector geometry (`stroke="currentColor"`, `stroke-width="2.2"`, `stroke-linecap="round"`, `stroke-linejoin="round"`).
+- **Scroll-Invariant Coordinate Pre-Population**: All physical keycap boundaries are precomputed synchronously against `boardWrap` during layout initialization (`recalibrateCoordinates`). In-session lookups never read viewport dimensions piecemeal, completely preventing scroll-induced coordinate drift.
+- **Content Visibility & Layout Deferral**: Offscreen lesson cards, leaderboard rows, and settings dialogs utilize modern CSS `content-visibility: auto` and `contain-intrinsic-size: auto 64px`, drastically reducing style and paint overhead during initial page load.
+- **Particle Buffer Geometries**: Typing burst rings and spark animations read element dimensions directly from cached geometry objects rather than querying `el.offsetHeight`.
+- **Debounced Persistence**: Practice metrics and active session states debounce disk serialization (400ms) into `localStorage`, reserving immediate synchronous writes strictly for `beforeunload` events.
 
 ---
 
-## Mastering Khmer Script in 60 Seconds
+### 2. Procedural Web Audio Mechanical Synthesizer
 
-Khmer is an **abugida** writing system where vowels and subscript consonants attach dynamically around a base consonant:
+PK Khmer Type eliminates audio file downloads entirely. Physical tactile switch clicks, bottom-out clacks, and stone hall reverbs are synthesized procedurally in real time using the **Web Audio API**:
 
 ```text
-   +-------------------------------------------------------------------------+
-   |                       KHMER ABUGIDA TYPING FORMULA                      |
-   +-------------------------------------------------------------------------+
-   |                                                                         |
-   |   [Base Consonant]  +  [Coeng Sign ្]  +  [Subscript]  +  [Vowel Sign]    |
-   |                                                                         |
-   |         ក (K)        +       ្ (J/Space) +      ខ (Kh)     +      េ (E)       |
-   |                                                                         |
-   |                     =   ក្ខេ (Rendered Khmer Syllable)                   |
-   +-------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------+
+|                                PROCEDURAL AUDIO SYNTHESIZER                                    |
++------------------------------------------------------------------------------------------------+
+  [Key Strike Down] ---> [Noise / Transient Impulse] ---> [Biquad Filter 1] ---> [Gain Decay]
+                                                                  |
+                                                         [Biquad Filter 2] ---> [Dynamic Pan]
+                                                                  |
+                                                         [Master Reverb]   ---> [Audio Output]
 ```
 
-### Rule 1: Always Type the Base Consonant First
-Type the base consonant first, even when its dependent vowel visually renders to the left, top, or bottom of the character.
+- **Topre Thock**: Dual resonant bandpass filters (low Q) driven by a soft sub-bass sine impulse, modeling the deep acoustic thock of electro-capacitive rubber dome collapse.
+- **Holy Panda**: Sharp high-frequency transient spike paired with a high-Q bandpass peak (600Hz–1200Hz), faithfully capturing the distinctive tactile bump and housing bottom-out.
+- **Cherry MX Blue**: High-frequency click-leaf snapping burst (3kHz–6kHz) accompanied by rapid exponential decay and subtle metallic spring resonance.
+- **Silent Linear**: Heavily attenuated low-pass filtered impulse (cutoff 450Hz) simulating internal silicone stem dampeners for silent library study.
+- **Temple Hall Ambience**: Convolution reverb engine synthesizing realistic stone chamber acoustic reflections.
 
-### Rule 2: Typing Subscript Consonants (`ជើងអក្សរ` — Coeng `្`)
-To stack a consonant beneath another consonant, press the layout's **Coeng key** before striking the second consonant:
+---
 
-| Keyboard Layout | Coeng Trigger Key | Keystroke Recipe | Rendered Result |
+### 3. Biomechanical 3D Hand Kinematics & Opposite-Hand Choreography
+
+The visual hand guide models authentic human ergonomics:
+
+```text
++------------------------------------------------------------------------------------------------+
+|                                KINEMATIC HAND GUIDE ARCHITECTURE                               |
++------------------------------------------------------------------------------------------------+
+  [Target Keycap]  ---> [Finger Code Lookup (L1-L5 / R1-R5)]
+                               |
+                               +---> [Modifier Check: Shift / AltGr / Ctrl]
+                                           |
+    +--------------------------------------+--------------------------------------+
+    |                                                                             |
+    v                                                                             v
+  [Primary Striking Hand]                                               [Opposite Modifier Hand]
+  - Metacarpal Knuckle Arch Calculation                                  - Outward Wrist Pivot
+  - Cubic Bezier Control Points (p0, p1, p2, p3)                         - Modifier Key Alignment
+  - Physiological Extension Limiter (maxLen)                             - Non-Active Digits Rest
+  - Active Fingertip Pad Beacon                                          - Dual Shockwave Ring Burst
+```
+
+- **10 Biomechanical States**: Fused immutable state machine (`HAND_STATES`) handling `HOME_REST`, `REACHING`, `PRESSING`, `HOLDING`, `RELEASING`, `STRIKING`, and `GHOST_HOVER`.
+- **Opposite-Hand Rule**: When a character requires `Shift` (or `Ctrl`), the platform strictly enforces touch-typing ergonomics: if the target character is struck by the left hand, the right pinky (`R5`) depresses `ShiftRight`; if struck by the right hand, the left pinky (`L5`) depresses `ShiftLeft`.
+- **Unified Hand Silhouette**: Procedural SVG contour generator (`buildUnifiedHandSVG`) traces a single mirror-symmetric anatomical polygon along digits, purlicue webs, and radial/ulnar wrist boundaries.
+- **Reduced Motion & Performance Sync**: Respects user preferences (`anim-mode-minimal`, `performance-mode`, `prefers-reduced-motion`) by snapping fingers instantly to target keycaps and halting unnecessary background animation loops.
+
+---
+
+### 4. Sovereign Local-First + Supabase Cloud Sync Hybrid Topology
+
+PK Khmer Type champions user privacy, educational sovereignty, and long-term durability:
+
+```text
+                                  +-----------------------------+
+                                  |   Browser Local Storage     |
+                                  |   - Unlocked Lessons        |
+                                  |   - WPM & Accuracy Totals   |
+                                  |   - Custom Lessons v1       |
+                                  |   - User Settings           |
+                                  +-----------------------------+
+                                                 |
+                                     (Optional / User-Initiated)
+                                                 v
+                                  +-----------------------------+
+                                  |   Supabase Cloud Engine     |
+                                  |   - Monotonic Progress Sync |
+                                  |   - Account Cockpit Backups |
+                                  |   - Row-Level Security (RLS)|
+                                  +-----------------------------+
+```
+
+- **100% Offline Capability**: Runs seamlessly directly from disk via `file:///` or through the cached Service Worker PWA. No server connection is ever required to practice.
+- **Zero Mandatory Accounts**: All 276 curriculum lessons, test lab assessments, custom lesson tools, and analytics are accessible instantly with zero registration gates.
+- **Optional Cloud Backup**: Users can optionally connect their free Supabase backend to synchronize progress across multiple computers, complete with cryptographically isolated Row-Level Security (RLS) policies.
+- **Monotonic Progress Merging**: Offline practice is never overwritten by older cloud snapshots; the synchronization engine deterministically merges the highest mastery scores and lesson completions.
+
+---
+
+### 5. Strict Zero-Emoji Design Protocol
+
+In strict adherence to professional typographical standards and visual predictability:
+- **Zero Emoji Unicode Glyphs**: No system emojis (e.g. smileys, rockets, sparkles, flags) exist in HTML, CSS, JavaScript, documentation, or commit messages. System emojis render inconsistently across operating systems and break visual hierarchy.
+- **Crisp Inline SVG Icons**: All UI badges, buttons, tooltips, and status indicators use crisp vector SVG paths (`stroke="currentColor"`, `stroke-width="2.2"`, `stroke-linecap="round"`, `stroke-linejoin="round"`).
+
+---
+
+## The Khmer Abugida Typing Formula
+
+Khmer is an **abugida** writing system. Vowels and subscript consonants do not simply follow sequentially; they cluster dynamically around and below an initial base consonant:
+
+```text
++--------------------------------------------------------------------------------------------------+
+|                                    KHMER ABUGIDA TYPING FORMULA                                  |
++--------------------------------------------------------------------------------------------------+
+
+       [Base Consonant]   +   [Coeng Sign ្]   +   [Subscript Consonant]   +   [Vowel Sign]
+
+             ក (K)         +        ្ (Coeng)    +           ខ (Kh)          +       េ (E)
+
+                                         =  ក្ខេ  (Kkhe)
++--------------------------------------------------------------------------------------------------+
+```
+
+### Golden Rule 1: Always Type the Base Consonant First
+Type the base consonant first, even when its dependent vowel visually appears to the left (e.g. `េ`, `ែ`, `ៃ`, `ោ`, `ៅ`), above, or below the consonant.
+
+### Golden Rule 2: Subscript Consonants via Coeng (ជើងអក្សរ ្)
+To stack a consonant beneath a leading consonant, strike the layout's dedicated **Coeng key** before typing the second consonant:
+
+| Keyboard Layout | Coeng Trigger Key | Keystroke Recipe | Rendered Syllable |
 | :--- | :---: | :--- | :---: |
 | **Khmer Standard** | `Space` | `ក` + `Space` + `ខ` | **ក្ខ** |
 | **Khmer NiDA** | `J` (`្`) | `ក` + `J` + `ខ` | **ក្ខ** |
 
-### Rule 3: Typing Visible Word Spaces
-Because the physical `Space` bar triggers Coeng (`្`) on the Khmer Standard layout, press **`Shift + Space`** to insert a visible space between words and syntactic clauses.
+### Golden Rule 3: Visible Word Spaces (Shift + Space)
+Because the physical `Space` bar acts as the Coeng (`្`) trigger on the Khmer Standard layout, press **`Shift + Space`** to insert a true visible word break between grammatical phrases.
 
-### Rule 4: Dynamic Modifier Layers
-Hold modifier keys to preview and access all four keyboard layers:
-- **Base Layer**: Unshifted primary consonants and core dependent vowels.
-- **Shift Layer**: Voiced consonants (`ឃោសៈ`), upper diacritics, and compound vowels.
-- **Ctrl Layer**: Currency symbols, Khmer independent vowels (`ស្រៈពេញតួ`), and punctuation.
-- **AltGr Layer (Right Alt)**: Khmer numerals (`០–៩`), lunar calendar symbols, and sacred marks.
+### Golden Rule 4: Dynamic 4-Layer Keyboards
+Both Khmer layouts map characters across four functional layers:
+- **Base Layer**: Primary unvoiced consonants and fundamental dependent vowels.
+- **Shift Layer**: Voiced consonants (`ព្យញ្ជនៈឃោសៈ`), upper diacritics, and compound vowels.
+- **Ctrl Layer**: Currency symbols (`៛`, `$`, `€`), Khmer independent vowels (`ស្រៈពេញតួ`), and rare punctuation.
+- **AltGr Layer (Right Alt)**: Cambodian numerals (`០–៩`), lunar calendar signs, and classical ligature roots.
 
 ---
 
 ## Complete 3-Track Curriculum (276 Lessons)
 
-PK Khmer Type features **276 verified lessons** structured to take learners from absolute zero to complete typing fluency:
+PK Khmer Type includes **276 verified lessons** taking learners from absolute zero to comprehensive scribe mastery:
 
-| Curriculum Track | Levels | Base Lessons | Bonus Vault | Total Lessons | Core Pedagogical Focus |
+| Curriculum Track | Levels | Core Lessons | Bonus Vault | Total Lessons | Core Pedagogical Focus |
 | :--- | :---: | :---: | :---: | :---: | :--- |
 | **Khmer Standard** | 16 | 77 | 18 | **96** | Home row anchors -> Consonants -> Vowels -> Coeng stacks -> Classic literature |
-| **Khmer NiDA** | 16 | 77 | 18 | **96** | Official administrative layout -> Vowel clusters -> Complex subscripts -> Epic prose |
-| **English (US)** | 16 | 68 | 18 | **84** | Home row -> Alpha reaches -> Numerals -> Punctuation -> Homeric &amp; Shakespearean texts |
+| **Khmer NiDA** | 16 | 77 | 18 | **96** | Administrative NiDA layout -> Vowel clusters -> Complex subscripts -> Epic prose |
+| **English (US)** | 16 | 68 | 18 | **84** | Home row -> Alphabet reaches -> Numbers -> Symbols -> Homeric &amp; Shakespearean texts |
 | **Total Platform** | **48** | **222** | **54** | **276** | **Zero-to-fluent mastery across all three major keyboard layouts** |
 
 ### The 9-Stage Progressive Learning Path
 
-Every track maps directly to 9 rigorous pedagogical stages:
-
-1. **Stage 1: Keyboard Familiarity &amp; Home Row Anchors** — Tactile resting points (`F`/`J` or `ក`/`ស`), posture, and baseline coordination.
-2. **Stage 2: Core Consonant &amp; Vowel Coordination** — Foundational alphabet reaches and symmetric alternation.
-3. **Stage 3: Kinematic Reaches &amp; Row Traversal** — Vertical top/bottom row transitions with minimal wrist drift.
-4. **Stage 4: Subscripts &amp; Character Combinations** — Coeng (`្`) clustering, compound vowels, and shift coordination.
-5. **Stage 5: High-Frequency Lexical Drills** — High-frequency daily vocabulary, functional nouns, and core verbs.
-6. **Stage 6: Syntactic Flow &amp; Punctuation** — Full sentence rhythm, quotation marks, and visible word spaces (`Shift + Space`).
-7. **Stage 7: Extended Cultural Literature** — Multi-sentence paragraphs covering historical, cultural, and scientific literature.
-8. **Stage 8: Speed, Endurance &amp; Error Refinement** — High-intensity timed sprints and neuromuscular fatigue resistance.
-9. **Stage 9: Grandmaster Scribe Certification** — Final comprehensive assessment measuring real-world words per minute (WPM) and accuracy.
-
-### Grandmaster Literature &amp; Classical Scriptorium
-
-Completing all 222 base lessons unlocks the prestigious **Level 222+ Bonus Vault** (54 bonus lessons), featuring authentic historical and classical literature:
-- **Angkor Wat Inscriptions &amp; Royal Decrees** (Ancient stone stelae typography)
-- **Reamker Epic Poetry** (Classical Khmer poetic cadence)
-- **Tum Teav** (Cambodian literary romance verses)
-- **Chbap Srey &amp; Chbap Pros** (Ancestral philosophical wisdom)
-- **Buddhist Suttas** (Mangala Sutta &amp; Pali-Sanskrit compound roots)
-- **The Constitution of Cambodia** (Modern legal and administrative prose)
-- **Homer's Odyssey &amp; Shakespearean Soliloquies** (Mastery English literature)
-
----
-
-## Adaptive Engine &amp; Test Lab
+Every track is organized into 9 pedagogical stages:
 
 ```text
-+-----------------------------------------------------------------------------------+
-|                           INTELLIGENT LEARNING PIPELINE                           |
-+-----------------------------------------------------------------------------------+
-|  [Keystroke Observer]  -->  [Weakness Scorer]  -->  [Confidence Engine]           |
-|                                                              |                    |
-|  [Diagnostic Feedback] <--  [Syllable Generator] <---------+                     |
-+-----------------------------------------------------------------------------------+
+[Stage 1: Home Anchors] --------> [Stage 2: Core Consonants & Vowels] --------> [Stage 3: Vertical Reaches]
+           |                                                                                  |
+           v                                                                                  v
+[Stage 6: Syntactic Flow] <------- [Stage 5: High-Frequency Lexicon] <------- [Stage 4: Coeng Subscript Stacks]
+           |
+           v
+[Stage 7: Cultural Prose] -------> [Stage 8: Speed & Fatigue Drills] -------> [Stage 9: Grandmaster Scribe]
 ```
 
-- **Confidence-Aware Weakness Scoring**: Calculates error frequencies and reaction latency across every key. Characters are never prematurely flagged as weak after a single isolated mistake; statistical thresholds require minimum observations before triggering targeted drills.
-- **Deterministic Drill Synthesis**: Generates targeted remedial exercises combining identified weak keys with mastered anchor characters, strictly maintaining valid Khmer phonotactic syllable structure.
-- **Diagnostic Recommendations**: Every adaptive session displays clear reasoning (e.g. *"Drill recommended because Coeng stacks with ្រ exhibited 18% error frequency over the last 3 attempts"*).
-- **Test Lab Standardized Certification**: Formal timed assessments (1, 3, and 5-minute modes) awarding verifiable proficiency certificates across Novice, Apprentice, Journeyman, Artisan, Master, and Grandmaster tiers.
+1. **Stage 1: Home Row Anchors** — Tactile resting points (`F`/`J` or `ក`/`ស`), wrist alignment, and baseline rhythm.
+2. **Stage 2: Core Consonants & Vowels** — Foundational alphabet reaches and symmetric left/right hand alternation.
+3. **Stage 3: Kinematic Row Traversal** — Vertical reaches to top and bottom rows with minimal palm displacement.
+4. **Stage 4: Subscripts & Coeng Stacks** — Complex consonant clustering, compound vowels, and Shift coordination.
+5. **Stage 5: High-Frequency Vocabulary** — Daily conversational words, functional verbs, and essential nouns.
+6. **Stage 6: Syntactic Flow & Punctuation** — Full sentence rhythm, question marks, quotation marks, and visible word spaces (`Shift + Space`).
+7. **Stage 7: Extended Cultural Literature** — Multi-sentence paragraphs covering historical, cultural, and environmental texts.
+8. **Stage 8: Speed, Endurance & Error Refinement** — High-intensity sprints building neuromuscular stamina.
+9. **Stage 9: Grandmaster Scribe Certification** — Comprehensive final assessments measuring real-world WPM and accuracy.
+
+### Grandmaster Literature & Classical Scriptorium (54 Bonus Lessons)
+
+Completing all 222 base lessons unlocks the prestigious **Level 222+ Bonus Vault** (18 bonus lessons per layout, 54 total), featuring verified authentic historical manuscripts:
+- **Angkor Wat Stone Stelae Inscriptions** (Pre-Angkorian and classical epigraphy)
+- **Reamker Epic Poetry** (Classical Cambodian poetic cadence)
+- **Tum Teav** (Cambodian literary romance verses)
+- **Chbap Srey & Chbap Pros** (Ancestral moral codes and deep wisdom)
+- **Buddhist Suttas** (Mangala Sutta, Karaniya Metta Sutta, high Pali-Sanskrit compound roots)
+- **The Constitution of Cambodia** (Modern administrative and constitutional law)
+- **Homeric Epics & Shakespearean Drama** (Mastery English literature)
 
 ---
 
-## Custom Lessons Studio (v1.2+)
+## Interactive Studio Modes & Practice Hubs
 
-Create and customize personal typing curriculum with zero data loss:
-- **Starter Template Library**: Instant one-click templates spanning Khmer Consonants, Coeng Clusters, Dependent Vowels, Pali Roots, and English Pangrams.
-- **Text Transformation Tools**:
-  - `Repeat`: Loop text to configure endurance drills.
-  - `Shuffle Words`: Randomize word sequence to prevent muscle memory complacency.
-  - `Add Spaces`: Automatically space Khmer text for beginner readability.
-  - `Clean Spaces`: Remove redundant double spaces and normalize Khmer punctuation.
-  - `Unicode Inspection`: Calculate unique character units, diacritic density, and layout compatibility.
-- **Local JSON Export &amp; Import**: Backup and restore custom exercises directly to disk with prototype-pollution sanitized JSON validation.
+### Custom Lessons Studio (v1.2+)
+Create custom drills with zero data loss:
+- **Starter Template Library**: Instant one-click starter packs spanning Khmer Consonants, Coeng Clusters, Dependent Vowels, Pali Roots, and English Pangrams.
+- **Text Crafting Tools**: `Repeat` (loop drills for endurance), `Shuffle Words` (prevent muscle memory memorization), `Add Spaces` (insert automatic spacing), `Clean Spaces` (strip redundant whitespace).
+- **Unicode Inspection**: Real-time analysis of unique character units, diacritic density, and layout compatibility.
+- **Local JSON Export & Import**: Backup and restore custom exercises directly to disk with prototype-pollution sanitized validation.
+
+### Adaptive Weakness Scoring Engine
+- **Confidence-Aware Error Scoring**: Tracks error frequencies and reaction latency across every individual key. Characters are never flagged as weak from an isolated slip; rigorous statistical thresholds require multiple observations.
+- **Dynamic Syllable Synthesis**: Procedurally generates targeted remedial drills combining identified weak keys with mastered anchor characters, strictly maintaining valid Khmer phonotactic structure.
+
+### Standardized Test Lab & Certification
+- Formal timed sprints (1-minute, 3-minute, and 5-minute modes).
+- Strict accuracy thresholds awarding verifiable certificates across six tiers: **Novice**, **Apprentice**, **Journeyman**, **Artisan**, **Master**, and **Grandmaster Scribe**.
+
+### Ghost Race Multiplayer Simulation
+- Real-time typing sprints against simulated bot pacers across varying WPM profiles.
+- Live progress avatars, dynamic leaderboard rankings, and post-race telemetry summaries.
+
+### Smart Mouse Cursor Inspector HUD
+- Toggleable via `Alt + M` or toolbar button.
+- Floating learning HUD following the cursor across keycaps, displaying International Phonetic Alphabet (IPA) pronunciation, consonant series (`1st / 2nd`), subjoined glyph forms, and step-by-step keystroke recipes.
+
+### 3D Keycap Mechanical Studio & Retro CRT Terminal
+- **3D Mechanical Studio**: Interactive Three.js simulation demonstrating mechanical switch travel, stem actuation, and keycap physics.
+- **DEC VT-220 CRT Terminal**: Retro typing simulator featuring authentic P1 (green), P3 (amber), and P4 (white) phosphor bloom, scanlines, and CRT curvature.
 
 ---
 
@@ -317,74 +422,77 @@ Create and customize personal typing curriculum with zero data loss:
 | `Alt` + `1` | Switch instantly to **Khmer Standard Layout** |
 | `Alt` + `2` | Switch instantly to **Khmer NiDA Layout** |
 | `Alt` + `3` | Switch instantly to **English (US QWERTY) Layout** |
-| `Alt` + `F` | Toggle **Cinematic Focus Mode** (hides all chrome and docks) |
+| `Alt` + `F` | Toggle **Cinematic Focus Mode** (hides chrome and sidebars) |
 | `Alt` + `L` | Toggle Interface Language (English &lt;--&gt; Khmer) |
-| `Alt` + `M` | Toggle **Smart Mouse Cursor Inspector** (real-time keycode HUD) |
+| `Alt` + `M` | Toggle **Smart Mouse Cursor Inspector HUD** |
 | `Alt` + `S` | Open **Settings &amp; Theme Studio** |
 | `?` | Display global **Shortcuts Cheat Sheet** |
-| `Esc` | Close active dialog / pause lesson / exit Focus Mode |
+| `Esc` | Close active modal / pause lesson / exit Focus Mode |
 
 ---
 
 ## Quick Start Guide
 
 ### Option 1: Zero-Installation Instant Run
-Double-click [`index.html`](file:///e:/Code/khmer%20keyboard/keyboard/idk/index.html) or [`welcome.html`](file:///e:/Code/khmer%20keyboard/keyboard/idk/welcome.html) in any modern browser (Google Chrome, Microsoft Edge, Mozilla Firefox, Apple Safari, Brave). All 276 lessons, audio synthesizers, 3D hand guides, and themes run out of the box directly via `file:///`.
+Open `index.html` or `welcome.html` in any modern browser (Google Chrome, Microsoft Edge, Mozilla Firefox, Apple Safari, Brave, Opera). All 276 lessons, procedural audio synthesizers, 3D hand guides, and themes execute out of the box directly via `file:///`.
 
 ### Option 2: Local Development Server
 
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/not-Phana/PK-Khmer-Type.git
 cd PK-Khmer-Type
 
-# Start Vite local development server
+# 2. Start Vite local development server
 npm run dev
 
 # Or launch the built-in zero-dependency Node HTTP server
 node scripts/dev_server.js
 ```
-Then open `http://localhost:5174/` in your browser.
+
+Open `http://localhost:5174/` in your browser.
 
 ---
 
-## Automated Testing &amp; Verification
+## Automated Testing & Verification
 
-PK Khmer Type enforces continuous quality standards with zero tolerance for broken curriculum links or layout regressions:
+PK Khmer Type enforces continuous quality standards with zero tolerance for broken curriculum progressions, layout thrashing, or regressions:
 
 ```bash
-# Run the complete automated test suite (147 test cases across 12 test files)
+# Run the complete automated test suite (159 test cases across 14 test files)
 npm test
 
 # Run strict curriculum integrity & progressive length audit (276 lessons)
 npm run validate
 
-# Run the 64-check core audit verification suite
+# Run the core audit verification suite
 node scripts/verify_audit_fixes.js
 ```
 
 ### Test Suite Highlights
-- **147/147 Unit Tests Passing**: Validates Unicode NFC decomposition repair, Zero-Width Space compatibility, multi-codepoint NiDA cluster slicing, timer accuracy, monotonic progress merging, and XSS sanitization.
+- **159/159 Unit Tests Passing (100%)**: Validates Unicode NFC decomposition repair, Zero-Width Space compatibility, multi-codepoint NiDA cluster slicing, timer accuracy, monotonic progress merging, hand kinematics, and XSS sanitization.
 - **276/276 Lessons Validated**: Verifies zero broken progression links, zero untaught character introductions, valid 5-stage length curves, and proper modifier key chip assignments.
-- **Strict Zero-Emoji Automated Check**: CI scripts scan all source code and documentation to enforce 100% SVG icon compliance.
+- **Strict Zero-Emoji Automated Check**: Scans all source code, assets, and documentation to enforce 100% SVG vector compliance.
 
 ---
 
-## Project Architecture &amp; File Map
+## Project Architecture & File Map
 
 ```text
 .
 ├── index.html                      # Main touch-typing studio shell
 ├── welcome.html                    # Bilingual interactive welcome experience
 ├── dashboard.html                  # Live mastery telemetry and per-key heatmap
+├── 404.html                        # GitHub Pages client-side fallback router
 ├── manifest.json                   # Progressive Web App (PWA) manifest
 ├── sw.js                           # Offline service worker cache
 ├── logo.svg                        # Vector brand crest (100% inline SVG)
+├── DESIGN.md                       # Comprehensive design system specification
 │
 ├── concepts/                       # Prototyping lab & experimental engines
 │   ├── entropy-engine.html         # Retro DEC VT-220 CRT Terminal (P1/P3/P4 phosphors)
 │   ├── celestial_starlight_pointer # 3D procedural canvas cursor pointer
-│   └── lesson_chassis_redesigns/   # Experimental ergonomic cockpit mockups
+│   └── lesson_chassis_redesigns/   # Ergonomic cockpit layout prototypes
 │
 ├── profile/                        # Author biography and credentials
 │   ├── Phana_Phley_KON_Biography.md# Official curriculum author profile
@@ -396,7 +504,15 @@ node scripts/verify_audit_fixes.js
 ├── docs/                           # Exhaustive technical documentation & blueprints
 │   ├── PK-KHMER-TYPE-ULTIMATE-MASTER-PLAN.md  # Definitive 38-section architectural blueprint
 │   ├── khmer_writing_system_reference.md      # Linguistic reference for Khmer abugida
+│   ├── cloud-sync-setup.md                    # Supabase backend configuration guide
 │   └── DESIGN.md                              # Temple-stone dark aesthetic design tokens
+│
+├── Documents/                      # In-app interactive documentation portal
+│   ├── index.html                  # Interactive documentation hub
+│   ├── docs.css                    # Documentation styling
+│   ├── docs.js                     # Documentation controller & search
+│   ├── keycap3d.js                 # Three.js 3D mechanical keycap simulator
+│   └── three.min.js                # Three.js runtime library
 │
 ├── css/                            # Modular styling architecture
 │   ├── base.css                    # Design tokens, color palette, typography
@@ -419,6 +535,9 @@ node scripts/verify_audit_fixes.js
 │   ├── review.js                   # Spaced repetition and weak-key detector
 │   ├── race.js                     # Typing race mode with simulated bot pacers
 │   ├── cursor-inspector.js         # Anchored cursor HUD and phonetic tooltip
+│   ├── quick_guide.js              # Quick Guide dock with mini keyboard telemetry
+│   ├── cloud-sync.js               # Supabase cloud backup and restore integration
+│   ├── auth-provider.js            # User authentication and account cockpit modal
 │   ├── settings.js                 # Theme switcher and user preference manager
 │   ├── statistics.js               # Lifetime analytics and WPM calculations
 │   ├── smooth-cursor.js            # Smooth trailing cursor badge with idle sleep
@@ -432,24 +551,38 @@ node scripts/verify_audit_fixes.js
 │       ├── nida/                   # Khmer NiDA curriculum (96 lessons)
 │       └── english/                # English US curriculum (84 lessons)
 │
-├── tests/                          # Automated testing suite
+├── supabase/                       # Supabase configuration & database migrations
+│   └── migrations/                 # PostgreSQL migrations with Row-Level Security (RLS)
+│
+├── tests/                          # Automated testing suite (14 test files, 159 tests)
+│   ├── browser_global_scope.test.js
+│   ├── cloud_sync.test.js
 │   ├── comprehensive_audit_verification.test.js
 │   ├── custom_lessons.test.js
+│   ├── hand_biomechanics.test.js
 │   ├── hand_hover_inspector_decoupling.test.js
-│   └── major_evolution_system.test.js
+│   ├── major_evolution_system.test.js
+│   ├── offline_resilience.test.js
+│   ├── performance_optimization_and_dead_code.test.js
+│   ├── phase1_khmer_typing.test.js
+│   ├── round3_audit_fixes.test.js
+│   ├── security_hardening.test.js
+│   ├── targeted_regressions.test.js
+│   └── welcome_page.test.js
 │
 └── scripts/                        # Development & validation automation
     ├── dev_server.js               # Local static HTTP dev server
+    ├── generate_supabase_config.js # Client-side Supabase environment injector
     ├── validate_curriculum.js      # Curriculum integrity & prerequisite validator
-    └── verify_audit_fixes.js       # 64-check regression verification script
+    └── verify_audit_fixes.js       # Core regression verification script
 ```
 
 ---
 
-## Author &amp; License
+## Author & License
 
 Designed and engineered with passion by **Phana Phley (Kon)** in Cambodia to make Khmer and English typing education modern, accessible, beautiful, and completely free for learners everywhere.
 
-- **Developer:** Phana Phley (Kon)
+- **Lead Developer:** Phana Phley (Kon)
 - **Repository:** [`not-Phana/PK-Khmer-Type`](https://github.com/not-Phana/PK-Khmer-Type)
 - **License:** Open source under the [MIT License](LICENSE). Contributions, feedback, and educational deployments are warmly welcome.

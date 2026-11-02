@@ -43,7 +43,6 @@
   padding: 0;
   background: #0d111e;
   border: 1px solid rgba(255, 209, 102, 0.2);
-  border-radius: 5px;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 209, 102, 0.08);
   overflow: hidden;
 }
@@ -240,7 +239,6 @@
   text-align: center;
   padding: 38px 24px;
   border: 1px dashed rgba(255, 209, 102, 0.22);
-  border-radius: 5px;
   background: rgba(17, 22, 38, 0.5);
   margin: 10px 0;
 }
@@ -384,7 +382,6 @@
 .cl-card {
   background: #111628;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 5px;
   padding: 16px 18px;
   display: flex;
   flex-direction: column;
@@ -897,7 +894,6 @@
 .custom-lesson-complete-cta {
   background: linear-gradient(135deg, rgba(255, 209, 102, 0.12), rgba(243, 156, 18, 0.08));
   border: 1px solid rgba(255, 209, 102, 0.3);
-  border-radius: 5px;
   padding: 14px 18px;
   display: flex;
   align-items: center;

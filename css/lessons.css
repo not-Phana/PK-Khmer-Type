@@ -6,7 +6,6 @@
     margin:0;
     background:linear-gradient(180deg, rgba(14, 19, 34, 0.96) 0%, rgba(9, 12, 22, 0.98) 100%);
     border:1px solid rgba(255, 209, 102, 0.22);
-    border-radius:5px;
     padding:0;
     box-sizing:border-box;
     box-shadow:0 20px 50px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,209,102,0.12), 0 0 32px rgba(255,209,102,0.06);
@@ -787,7 +786,6 @@
     margin:0 0 20px;
     background:rgba(14, 18, 36, 0.94);
     border:1px solid var(--stone-3);
-    border-radius:5px;
     padding:0;
     box-sizing:border-box;
     box-shadow:0 8px 30px rgba(0,0,0,0.35);
@@ -1025,16 +1023,20 @@
   }
   .lss-input-wrap .pk-icon{
     position:absolute;
-    left:10px;
+    left:11px;
+    top:50%;
+    transform:translateY(-50%);
     color:var(--ink-dim);
     pointer-events:none;
+    z-index:2;
   }
   .lss-input-wrap input{
     width:100%;
+    box-sizing:border-box;
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,255,255,0.1);
     border-radius:5px;
-    padding:8px 12px 8px 32px;
+    padding:8px 12px 8px 36px;
     color:var(--ink);
     font-family:'Space Grotesk', sans-serif;
     font-size:0.75rem;
@@ -1350,7 +1352,6 @@
     width:min(92vw, 860px);
     margin:44px auto 14px;
     padding:18px 24px 16px;
-    border-radius:5px;
     background:
       radial-gradient(120% 120% at 50% 0%, rgba(30, 38, 62, 0.5) 0%, transparent 65%),
       linear-gradient(180deg, rgba(16, 21, 36, 0.96) 0%, rgba(9, 12, 22, 0.98) 100%);
@@ -1536,7 +1537,6 @@
     gap:5px;
     margin:0 0 14px;
     padding:8px 14px;
-    border-radius:5px;
     background:rgba(0, 0, 0, 0.35);
     border:1px solid rgba(255, 255, 255, 0.08);
     transition:border-color .25s ease, background .25s ease;
@@ -1624,7 +1624,6 @@
     gap:10px;
     margin:0 0 14px;
     padding:12px 18px;
-    border-radius:5px;
     background:rgba(4, 7, 14, 0.68);
     border:1px solid rgba(255, 209, 102, 0.22);
     box-shadow:inset 0 2px 10px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.06);
@@ -2159,7 +2158,6 @@
     position:relative;
     width:min(90vw, 400px);
     padding:36px 28px 28px;
-    border-radius:5px;
     background:
       radial-gradient(ellipse 140% 90% at 50% -10%, rgba(255,209,102,0.14), transparent 55%),
       linear-gradient(180deg, #141830, #0a0c18);
@@ -2216,7 +2214,6 @@
   .lesson-complete-card::after{
     content:'';
     position:absolute; inset:1.5px;
-    border-radius:5px;
     background:
       radial-gradient(ellipse 140% 90% at 50% -10%, rgba(255,209,102,0.14), transparent 55%),
       linear-gradient(180deg, #141830, #0a0c18);
@@ -2419,7 +2416,6 @@
     margin:0 auto 16px;
     padding:10px 14px;
     max-width:320px;
-    border-radius:5px;
     background:rgba(200,71,76,0.12);
     border:1px solid rgba(255,157,46,0.3);
     display:flex;
@@ -2500,7 +2496,6 @@
     backdrop-filter:blur(20px) saturate(160%);
     -webkit-backdrop-filter:blur(20px) saturate(160%);
     border:1px solid rgba(255, 209, 102, 0.18);
-    border-radius:5px;
     box-shadow:
       0 20px 48px -12px rgba(0, 0, 0, 0.7),
       0 0 0 1px rgba(255, 255, 255, 0.05),
@@ -2621,7 +2616,6 @@
   @media (max-width: 768px){
     .toolbar{
       margin:70px auto 0;
-      border-radius:5px;
       padding:10px 12px;
       gap:6px;
       max-width:calc(100% - 24px);
@@ -2635,7 +2629,6 @@
   @media (max-width: 480px){
     .toolbar{
       margin:62px auto 0;
-      border-radius:5px;
       padding:8px 10px;
       gap:5px;
     }
@@ -2677,7 +2670,6 @@
   .lesson-live-hint{
     background:rgba(255,209,102,0.09);
     border:1px solid rgba(255,209,102,0.3);
-    border-radius:5px;
     padding:6px 14px;
     margin:6px auto 10px;
     font-size:0.75rem;
@@ -3111,7 +3103,6 @@
     background: linear-gradient(180deg, #101428 0%, #0a0d1a 100%);
     border: 1px solid rgba(255, 157, 46, 0.35);
     box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
-    border-radius: 5px;
     padding: 16px 20px;
     margin: 12px auto;
     max-width: 900px;
@@ -3498,7 +3489,6 @@
     position: relative;
     width: min(92vw, 440px);
     padding: 32px 26px 26px;
-    border-radius: 5px;
     background:
       radial-gradient(ellipse 140% 90% at 50% -10%, rgba(255, 157, 46, 0.18), transparent 55%),
       linear-gradient(180deg, #13172e, #0a0c18);
@@ -3585,7 +3575,6 @@
     justify-content: space-around;
     background: rgba(0, 0, 0, 0.35);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 5px;
     padding: 12px;
     margin-bottom: 16px;
   }
@@ -3771,11 +3760,22 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   padding: 8px 12px !important;
 }
+.lss-input-wrap {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+}
 .lss-input-wrap input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 8px 12px 8px 36px !important;
   background: rgba(8, 11, 22, 0.65) !important;
   border: 1px solid rgba(255, 255, 255, 0.16) !important;
   border-radius: 5px !important;
   color: #f8fafc !important;
+  font-family: 'Space Grotesk', -apple-system, sans-serif !important;
+  font-size: 0.78rem !important;
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35) !important;
   transition: all 0.2s ease !important;
 }
@@ -3788,8 +3788,19 @@
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold-bright) 28%, transparent), 0 0 16px color-mix(in srgb, var(--gold-bright) 22%, transparent) !important;
 }
 .lss-input-wrap .pk-icon {
+  position: absolute !important;
+  left: 11px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
   color: var(--gold-bright) !important;
-  opacity: 0.85;
+  opacity: 0.85 !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 14px !important;
+  height: 14px !important;
 }
 
 /* Adaptive Practice Hero Pod */
@@ -5080,7 +5091,6 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 8px 10px;
   background: linear-gradient(135deg, rgba(20, 26, 44, 0.95) 0%, rgba(13, 18, 32, 0.98) 100%);
   border: 1px solid rgba(255, 209, 102, 0.32);
-  border-radius: 5px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 209, 102, 0.15);
   cursor: pointer;
   color: var(--ink);
@@ -5192,7 +5202,6 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 22px 24px 20px;
   background: linear-gradient(180deg, rgba(16, 21, 38, 0.98) 0%, rgba(9, 13, 24, 0.99) 100%);
   border: 1px solid rgba(255, 209, 102, 0.32);
-  border-radius: 5px;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.85), 0 0 40px rgba(255, 209, 102, 0.08);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
@@ -5442,7 +5451,6 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 12px 16px;
   background: linear-gradient(135deg, rgba(20, 28, 50, 0.95) 0%, rgba(13, 20, 38, 0.98) 100%);
   border: 1px solid rgba(56, 189, 248, 0.38);
-  border-radius: 5px;
   margin-bottom: 14px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.12);
 }
@@ -5837,7 +5845,6 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 14px;
   background: linear-gradient(135deg, rgba(20, 26, 44, 0.95) 0%, rgba(13, 18, 32, 0.98) 100%);
   border: 1px solid rgba(255, 209, 102, 0.28);
-  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -6044,7 +6051,6 @@ html.anim-mode-minimal .lesson-card:hover {
   font-size: 0.68rem;
   font-weight: 700;
   padding: 2px 8px;
-  border-radius: 5px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -6201,7 +6207,6 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 18px 20px;
   background: linear-gradient(135deg, rgba(255, 209, 102, 0.08) 0%, rgba(20, 24, 38, 0.7) 100%);
   border: 1px solid rgba(255, 209, 102, 0.25);
-  border-radius: 5px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 .lm-vault-badge-pill {
@@ -6238,7 +6243,6 @@ html.anim-mode-minimal .lesson-card:hover {
 .lm-vault-progress-card {
   background: rgba(17, 22, 38, 0.85);
   border: 1px solid rgba(255, 209, 102, 0.22);
-  border-radius: 5px;
   padding: 16px 18px;
   margin-bottom: 22px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
@@ -6354,7 +6358,6 @@ html.anim-mode-minimal .lesson-card:hover {
 .lm-vault-tier-card {
   background: rgba(17, 22, 38, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
   padding: 16px 18px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -6524,7 +6527,6 @@ html.anim-mode-minimal .lesson-card:hover {
   background: linear-gradient(180deg, #161c2e 0%, #0d111d 100%);
   border: 1px solid rgba(255, 209, 102, 0.45);
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 32px rgba(255, 209, 102, 0.18);
-  border-radius: 5px;
   animation: fanfareEntry 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 @keyframes fanfareEntry {
