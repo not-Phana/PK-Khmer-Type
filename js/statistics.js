@@ -244,8 +244,12 @@ function initStatisticsDashboard(){
   }
 
   /* ---------- global (all-time) stats tracking ---------- */
+  function getTotalsKey(){
+    return (typeof window !== 'undefined' && window.LS && window.LS.totals) ? window.LS.totals : 'khmerGlobalStats';
+  }
+
   function loadTotals(){
-    try{ return JSON.parse(safeGet(LS.totals, 'null')) || { keys:0, correct:0, seconds:0, bestWpm:0, days:[] }; }
+    try{ return JSON.parse(safeGet(getTotalsKey(), 'null')) || { keys:0, correct:0, seconds:0, bestWpm:0, days:[] }; }
     catch(e){ return { keys:0, correct:0, seconds:0, bestWpm:0, days:[] }; }
   }
   const totals = loadTotals();
@@ -262,7 +266,7 @@ function initStatisticsDashboard(){
     if(!totalsSaveTimer){
       totalsSaveTimer = setTimeout(() => {
         totalsSaveTimer = null;
-        safeSet(LS.totals, JSON.stringify(totals));
+        safeSet(getTotalsKey(), JSON.stringify(totals));
       }, 1000);
     }
   }
@@ -271,7 +275,7 @@ function initStatisticsDashboard(){
       clearTimeout(totalsSaveTimer);
       totalsSaveTimer = null;
     }
-    safeSet(LS.totals, JSON.stringify(totals));
+    safeSet(getTotalsKey(), JSON.stringify(totals));
   }
   if(typeof window !== 'undefined'){
     window.addEventListener('beforeunload', flushTotalsSaveImmediately);
@@ -299,7 +303,7 @@ function initStatisticsDashboard(){
     const isTrial = (typeof trialActive !== 'undefined' && trialActive);
     if (!isAdaptive && !isLesson && !isRace && !isTrial) return;
     totals.seconds += 5;
-    safeSet(LS.totals, JSON.stringify(totals));
+    safeSet(getTotalsKey(), JSON.stringify(totals));
   }, 5000);
 
   function currentStreakDays(days){
