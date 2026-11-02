@@ -70,7 +70,7 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, var(--doc-gold-bright), var(--doc-gold));
-  border-radius: 5px;
+  border-radius: 9px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
@@ -112,7 +112,7 @@ body {
 .brand-logo {
   width: 40px;
   height: 40px;
-  border-radius: 5px;
+  border-radius: 9px;
   filter: drop-shadow(0 0 10px rgba(255, 157, 46, 0.4));
   transition: transform 0.25s ease;
 }
@@ -139,7 +139,7 @@ body {
   font-size: 0.68rem;
   font-weight: 600;
   padding: 2px 7px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 157, 46, 0.15);
   border: 1px solid rgba(255, 209, 102, 0.35);
   color: var(--doc-gold-bright);
@@ -169,7 +169,7 @@ body {
   width: 100%;
   height: 42px;
   padding: 0 40px 0 42px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(20, 26, 46, 0.7);
   border: 1px solid var(--doc-border);
   color: var(--doc-ink);
@@ -226,7 +226,7 @@ body {
   right: 0;
   max-height: 460px;
   overflow-y: auto;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(12, 16, 32, 0.96);
   border: 1px solid var(--doc-border-glow);
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.85), 0 0 24px rgba(255, 157, 46, 0.25);
@@ -254,7 +254,7 @@ body {
   flex-direction: column;
   gap: 3px;
   padding: 10px 14px;
-  border-radius: 5px;
+  border-radius: 9px;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
@@ -277,7 +277,7 @@ body {
 .search-result-badge {
   font-size: 0.68rem;
   padding: 2px 7px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 209, 102, 0.15);
   color: var(--doc-gold-bright);
   margin-left: auto;
@@ -292,7 +292,7 @@ body {
 .search-highlight {
   background: rgba(255, 209, 102, 0.38);
   color: #fff;
-  border-radius: 5px;
+  border-radius: 9px;
   padding: 0 3px;
   font-weight: 700;
 }
@@ -327,7 +327,7 @@ body {
   align-items: center;
   gap: 7px;
   padding: 8px 14px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--doc-ink-dim);
@@ -348,7 +348,7 @@ body {
   align-items: center;
   gap: 8px;
   padding: 8px 18px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(135deg, var(--doc-gold-bright), var(--doc-gold));
   color: #120e06;
   font-size: 0.88rem;
@@ -419,7 +419,7 @@ body {
   align-items: center;
   gap: 10px;
   padding: 8px 12px;
-  border-radius: 5px;
+  border-radius: 9px;
   font-size: 0.86rem;
   color: var(--doc-ink-dim);
   text-decoration: none;
@@ -437,14 +437,14 @@ body {
   color: var(--doc-gold-bright);
   font-weight: 600;
   border-left: 3px solid var(--doc-gold);
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 9px 9px 0;
 }
 
 .toc-badge {
   margin-left: auto;
   font-size: 0.65rem;
   padding: 2px 6px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 255, 255, 0.06);
   color: var(--doc-ink-muted);
 }
@@ -460,7 +460,7 @@ body {
 .doc-hero {
   position: relative;
   padding: 40px 38px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(145deg, rgba(22, 28, 50, 0.7), rgba(12, 16, 30, 0.7));
   border: 1px solid var(--doc-border);
   backdrop-filter: blur(14px);
@@ -496,7 +496,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 3px 10px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(45, 212, 167, 0.14);
   border: 1px solid rgba(45, 212, 167, 0.35);
   color: var(--doc-mint);
@@ -533,7 +533,7 @@ body {
 
 .metric-card {
   padding: 16px 20px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(14, 18, 32, 0.65);
   border: 1px solid rgba(255, 209, 102, 0.12);
   display: flex;
@@ -611,7 +611,7 @@ body {
 
 .feature-box {
   padding: 24px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: var(--doc-surface);
   border: 1px solid var(--doc-border);
   backdrop-filter: blur(12px);
@@ -634,7 +634,7 @@ body {
 .feature-icon-badge {
   width: 40px;
   height: 40px;
-  border-radius: 5px;
+  border-radius: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -657,7 +657,7 @@ body {
 /* Callout Boxes */
 .callout {
   padding: 18px 22px;
-  border-radius: 5px;
+  border-radius: 9px;
   margin: 24px 0;
   display: flex;
   gap: 16px;
@@ -702,7 +702,7 @@ body {
 /* Data Tables */
 .doc-table-wrap {
   overflow-x: auto;
-  border-radius: 5px;
+  border-radius: 9px;
   border: 1px solid var(--doc-border);
   background: var(--doc-surface);
   margin: 24px 0;
@@ -751,7 +751,7 @@ kbd {
   background: #191f33;
   border: 1px solid rgba(255, 209, 102, 0.3);
   border-bottom: 2px solid var(--doc-gold);
-  border-radius: 5px;
+  border-radius: 9px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
@@ -759,7 +759,7 @@ kbd {
 .code-block-wrap {
   position: relative;
   margin: 20px 0;
-  border-radius: 5px;
+  border-radius: 9px;
   border: 1px solid var(--doc-border);
   background: #090c18;
   overflow: hidden;
@@ -830,7 +830,7 @@ code {
 
 .tab-btn {
   padding: 9px 16px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--doc-ink-dim);
@@ -872,7 +872,7 @@ code {
 
 .spec-col {
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: var(--doc-surface);
   border: 1px solid var(--doc-border);
   backdrop-filter: blur(10px);
@@ -922,7 +922,7 @@ code {
 
 .hand-side {
   padding: 12px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(9, 12, 24, 0.72);
   border: 1px solid rgba(255, 209, 102, 0.14);
 }
@@ -951,7 +951,7 @@ code {
   justify-content: center;
   gap: 2px;
   padding: 8px 4px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(180deg, #1b233a 0%, #121829 100%);
   border: 1px solid rgba(255, 209, 102, 0.28);
   border-bottom: 3px solid var(--doc-gold);
@@ -976,7 +976,7 @@ code {
 .layout-preview-figure {
   margin: 22px 0 6px;
   padding: 16px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(9, 12, 24, 0.75);
   border: 1px solid rgba(255, 209, 102, 0.16);
   text-align: center;
@@ -988,7 +988,7 @@ code {
   max-width: 828px;
   height: auto;
   margin: 0 auto;
-  border-radius: 5px;
+  border-radius: 9px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
@@ -1099,7 +1099,7 @@ code {
     justify-content: center;
     width: 38px;
     height: 38px;
-    border-radius: 5px;
+    border-radius: 9px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.12);
     flex-shrink: 0;
@@ -1158,7 +1158,7 @@ code {
     height: 40px;
     font-size: 16px; /* Prevents iOS Safari zoom on input focus */
     padding: 0 36px 0 38px;
-    border-radius: 5px;
+    border-radius: 9px;
   }
   .search-icon {
     left: 12px;
@@ -1178,7 +1178,7 @@ code {
   }
   .doc-hero {
     padding: 22px 16px;
-    border-radius: 5px;
+    border-radius: 9px;
     margin-bottom: 32px;
   }
   .hero-title {
@@ -1247,7 +1247,7 @@ code {
   .doc-table tr {
     padding: 14px 15px;
     margin-bottom: 12px;
-    border-radius: 5px;
+    border-radius: 9px;
     background: var(--doc-surface);
     border: 1px solid var(--doc-border);
   }
@@ -1278,7 +1278,7 @@ code {
   /* Studio Controls & Layout Preview on Phone */
   .cmd-showcase-stage {
     padding: 16px 14px;
-    border-radius: 5px;
+    border-radius: 9px;
   }
   .cmd-replica-dock {
     flex-wrap: nowrap;
@@ -1310,7 +1310,7 @@ code {
   }
   .layout-preview-figure {
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 9px;
   }
   .docs-footer {
     margin-top: 48px;
@@ -1337,7 +1337,7 @@ code {
 /* ================= 3D Model Interactive Showcase ================= */
 .keycap3d-card {
   position: relative;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(145deg, rgba(18, 24, 44, 0.8), rgba(10, 14, 26, 0.85));
   border: 1px solid var(--doc-border);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 157, 46, 0.08);
@@ -1383,7 +1383,7 @@ code {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 3px 9px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 157, 46, 0.18);
   border: 1px solid rgba(255, 209, 102, 0.4);
   color: var(--doc-gold-bright);
@@ -1431,7 +1431,7 @@ code {
 
 .key-glyph-btn, .key-theme-btn, .key-action-btn, .key-layout-btn, .key-view-btn {
   padding: 6px 12px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--doc-ink-dim);
@@ -1503,7 +1503,7 @@ code {
   align-items: center;
   gap: 12px;
   padding: 13px 18px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 157, 46, 0.07);
   border: 1px solid rgba(255, 157, 46, 0.22);
   border-left: 3px solid var(--doc-gold);
@@ -1789,7 +1789,7 @@ code {
 .wip-switch-rig:focus-visible {
   outline: 2px solid var(--wip-accent);
   outline-offset: 6px;
-  border-radius: 5px;
+  border-radius: 9px;
 }
 
 .wip-switch-svg {
@@ -1874,7 +1874,7 @@ code {
   background: rgba(10, 14, 26, 0.9);
   border: 1px solid var(--wip-accent-glow);
   padding: 2px 7px;
-  border-radius: 5px;
+  border-radius: 9px;
   white-space: nowrap;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
@@ -1912,7 +1912,7 @@ code {
   background: rgba(10, 14, 26, 0.88);
   border: 1px solid var(--wip-accent);
   padding: 4px 10px;
-  border-radius: 5px;
+  border-radius: 9px;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -1941,7 +1941,7 @@ code {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 4px 10px;
-  border-radius: 5px;
+  border-radius: 9px;
   white-space: nowrap;
 }
 .wip-telem-k { color: var(--doc-ink-muted); font-weight: 600; }
@@ -1976,7 +1976,7 @@ code {
   text-transform: uppercase;
   letter-spacing: 0.07em;
   padding: 4px 10px;
-  border-radius: 5px;
+  border-radius: 9px;
   white-space: nowrap;
 }
 
@@ -2063,7 +2063,7 @@ code {
   align-items: center;
   gap: 7px;
   padding: 6px 12px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 0.8rem;
@@ -2102,7 +2102,7 @@ code {
   display: none;
   background: rgba(10, 14, 26, 0.7);
   border: 1px solid var(--wip-accent-glow);
-  border-radius: 5px;
+  border-radius: 9px;
   padding: 12px 14px;
   margin-top: -4px;
 }
@@ -2170,14 +2170,14 @@ code {
   width: 100%;
   height: 6px;
   background: rgba(255, 255, 255, 0.07);
-  border-radius: 5px;
+  border-radius: 9px;
   overflow: visible;
 }
 
 .wip-progress-bar {
   height: 100%;
   width: 68%;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(90deg, var(--wip-accent), var(--wip-accent-dim), var(--doc-mint));
   position: relative;
   animation: wipBarShimmer 2.5s ease-in-out infinite;
@@ -2223,7 +2223,7 @@ code {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 3px 6px;
-  border-radius: 5px;
+  border-radius: 9px;
   transition: background 0.2s ease;
 }
 .wip-stage-pill:hover {
@@ -2378,7 +2378,7 @@ html.anim-mode-minimal .btn-primary-glow {
    ========================================================================== */
 .cmd-showcase-stage {
   position: relative;
-  border-radius: 5px;
+  border-radius: 9px;
   padding: 24px;
   margin: 18px 0 24px;
   background: radial-gradient(120% 140% at 15% 0%, rgba(255, 209, 102, 0.11) 0%, rgba(11, 15, 27, 0.92) 55%, rgba(7, 10, 19, 0.98) 100%);
@@ -2407,7 +2407,7 @@ html.anim-mode-minimal .btn-primary-glow {
   text-transform: uppercase;
   color: #ffd166;
   padding: 5px 12px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 209, 102, 0.12);
   border: 1px solid rgba(255, 209, 102, 0.35);
 }
@@ -2426,7 +2426,7 @@ html.anim-mode-minimal .btn-primary-glow {
   gap: 8px;
   flex-wrap: wrap;
   padding: 8px 10px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(10, 14, 26, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
@@ -2442,7 +2442,7 @@ html.anim-mode-minimal .btn-primary-glow {
   color: #cbd5e1;
   padding: 7px 14px;
   min-height: 36px;
-  border-radius: 5px;
+  border-radius: 9px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -2481,7 +2481,7 @@ html.anim-mode-minimal .btn-primary-glow {
   font-size: 0.64rem;
   font-weight: 700;
   padding: 2px 7px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(8, 12, 22, 0.92);
   border: 1px solid rgba(255, 209, 102, 0.58);
   color: #ffd166;
@@ -2500,7 +2500,7 @@ html.anim-mode-minimal .btn-primary-glow {
 
 .cmd-spec-card {
   position: relative;
-  border-radius: 5px;
+  border-radius: 9px;
   padding: 16px;
   background: rgba(15, 21, 38, 0.65);
   border: 1px solid rgba(255, 255, 255, 0.09);
@@ -2533,7 +2533,7 @@ html.anim-mode-minimal .btn-primary-glow {
 .cmd-spec-icon {
   width: 32px;
   height: 32px;
-  border-radius: 5px;
+  border-radius: 9px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2569,7 +2569,7 @@ html.anim-mode-minimal .btn-primary-glow {
   .mobile-menu-btn {
     width: 34px;
     height: 34px;
-    border-radius: 5px;
+    border-radius: 9px;
   }
   .brand-group {
     gap: 8px;
@@ -2607,7 +2607,7 @@ html.anim-mode-minimal .btn-primary-glow {
   }
   .doc-hero {
     padding: 16px 12px;
-    border-radius: 5px;
+    border-radius: 9px;
     margin-bottom: 24px;
   }
   .hero-eyebrow {

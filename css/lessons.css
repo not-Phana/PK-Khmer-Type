@@ -65,7 +65,7 @@
     justify-content:center;
     width:22px;
     height:22px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255, 209, 102, 0.12);
     border:1px solid rgba(255, 209, 102, 0.32);
     color:var(--gold-bright);
@@ -85,7 +85,7 @@
     justify-content:center;
     width:22px;
     height:22px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.12);
     color:var(--ink-dim);
@@ -121,7 +121,7 @@
     text-transform:uppercase;
     letter-spacing:0.06em;
     padding:2.5px 8px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255, 255, 255, 0.05);
     border:1px solid rgba(255, 255, 255, 0.12);
     color:var(--ink-dim);
@@ -171,7 +171,7 @@
     font-weight:700;
     letter-spacing:0.05em;
     padding:2.5px 8px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255, 209, 102, 0.12);
     border:1px solid rgba(255, 209, 102, 0.35);
     color:var(--gold-bright);
@@ -212,7 +212,7 @@
   }
   .guide-dock-body::-webkit-scrollbar-thumb{
     background:rgba(255,209,102,0.25);
-    border-radius:5px;
+    border-radius:9px;
   }
   .guide-dock-body::-webkit-scrollbar-thumb:hover{
     background:var(--gold);
@@ -221,7 +221,7 @@
   .guide-section{
     background:color-mix(in srgb, var(--stone-2) 65%, var(--stone-1));
     border:1px solid color-mix(in srgb, var(--gold-bright) 14%, var(--stone-3));
-    border-radius:5px;
+    border-radius:9px;
     padding:7px 9px;
   }
   .guide-sec-head{
@@ -242,7 +242,7 @@
   }
   .guide-hand-block{
     background:color-mix(in srgb, var(--stone-1) 85%, #000000);
-    border-radius:5px;
+    border-radius:9px;
     padding:6px 8px;
     border:1px solid var(--stone-3);
   }
@@ -267,7 +267,7 @@
     background:linear-gradient(180deg, var(--stone-3), var(--stone-2));
     border:1px solid color-mix(in srgb, var(--gold-bright) 22%, var(--stone-3));
     border-bottom:2px solid var(--stone-edge);
-    border-radius:5px;
+    border-radius:9px;
     padding:3px 2px;
   }
   .guide-mini-key.gmk-pinky { border-top: 2px solid #ec4899; }
@@ -317,7 +317,7 @@
     font-size:0.68rem;
     background:color-mix(in srgb, var(--gold-bright) 14%, var(--stone-2));
     border:1px solid color-mix(in srgb, var(--gold-bright) 38%, transparent);
-    border-radius:5px;
+    border-radius:9px;
     color:var(--gold-bright);
     font-weight:600;
   }
@@ -336,7 +336,7 @@
   .guide-stat-box{
     background:color-mix(in srgb, var(--stone-1) 85%, #000000);
     border:1px solid var(--stone-3);
-    border-radius:5px;
+    border-radius:9px;
     padding:7px 9px;
     transition:transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .18s ease, border-color .18s ease;
   }
@@ -397,7 +397,7 @@
   .guide-active-card {
     background: color-mix(in srgb, var(--stone-1) 85%, #000000);
     border: 1px solid var(--stone-3);
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 8px 10px;
     margin-bottom: 8px;
     display: flex;
@@ -422,7 +422,7 @@
     font-size: 0.58rem;
     font-weight: 700;
     padding: 1px 6px;
-    border-radius: 5px;
+    border-radius: 9px;
     background: color-mix(in srgb, var(--gold-bright) 12%, var(--stone-2));
     border: 1px solid color-mix(in srgb, var(--gold-bright) 28%, transparent);
     color: var(--gold-bright);
@@ -432,12 +432,12 @@
     width: 100%;
     height: 4px;
     background: rgba(255, 255, 255, 0.08);
-    border-radius: 5px;
+    border-radius: 9px;
     overflow: hidden;
   }
   .gac-progress-bar {
     height: 100%;
-    border-radius: 5px;
+    border-radius: 9px;
     background: linear-gradient(90deg, #38bdf8 0%, var(--gold-bright) 50%, #ffffff 75%, var(--gold-bright) 100%);
     background-size: 200% 100%;
     box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
@@ -462,7 +462,7 @@
     font-size: 0.6rem;
     font-weight: 700;
     padding: 2px 7px;
-    border-radius: 5px;
+    border-radius: 9px;
     background: color-mix(in srgb, var(--gold-bright) 16%, var(--stone-3));
     border: 1px solid color-mix(in srgb, var(--gold-bright) 36%, transparent);
     color: var(--gold-bright);
@@ -489,7 +489,7 @@
   .guide-target-callout {
     background: color-mix(in srgb, var(--stone-1) 85%, #000000);
     border: 1px solid color-mix(in srgb, var(--gold-bright) 20%, var(--stone-3));
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 7px 9px;
     margin-bottom: 8px;
   }
@@ -519,7 +519,7 @@
     background: linear-gradient(180deg, var(--stone-3), var(--stone-2));
     border: 1.5px solid color-mix(in srgb, var(--gold-bright) 45%, var(--stone-3));
     border-bottom: 3px solid var(--stone-edge);
-    border-radius: 5px;
+    border-radius: 9px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45);
     transition: all 0.15s ease;
   }
@@ -601,7 +601,7 @@
     font-size: 0.58rem;
     color: var(--ink-dim);
     padding: 1px 5px;
-    border-radius: 5px;
+    border-radius: 9px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.06);
     cursor: default;
@@ -647,7 +647,7 @@
     gap: 5px;
     font-family: inherit;
     padding: 3px 7px;
-    border-radius: 5px;
+    border-radius: 9px;
     cursor: pointer;
     transition: all 0.15s ease;
     border: 1px solid transparent;
@@ -692,7 +692,7 @@
     font-size: 0.66rem;
     font-weight: 700;
     padding: 6px 10px;
-    border-radius: 5px;
+    border-radius: 9px;
     background: color-mix(in srgb, var(--gold-bright) 14%, var(--stone-3));
     border: 1px solid color-mix(in srgb, var(--gold-bright) 34%, transparent);
     color: var(--gold-bright);
@@ -723,7 +723,7 @@
     justify-content: space-between;
     gap: 6px;
     padding: 5px 8px;
-    border-radius: 5px;
+    border-radius: 9px;
     background: color-mix(in srgb, var(--stone-1) 85%, #000000);
     border: 1px solid var(--stone-3);
     cursor: pointer;
@@ -839,7 +839,7 @@
     justify-content: center;
     width: 22px;
     height: 22px;
-    border-radius: 5px;
+    border-radius: 9px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.12);
     color: var(--ink-muted, #94a3b8);
@@ -863,7 +863,7 @@
     width:min(90vw, 226px) !important;
     min-height:0 !important;
     max-height:min(410px, calc(100vh - 76px)) !important;
-    border-radius:5px !important;
+    border-radius:9px !important;
     background:rgba(10, 13, 26, 0.88) !important;
     border:1px solid rgba(255, 209, 102, 0.22) !important;
     box-shadow:0 10px 28px rgba(0,0,0,0.6) !important;
@@ -908,14 +908,14 @@
     padding:0 6px !important;
     font-size:0.56rem !important;
     gap:3px !important;
-    border-radius:5px !important;
+    border-radius:9px !important;
   }
   html.focus-mode .lsh-badge{
     height:19px !important;
     line-height:17px !important;
     padding:0 5px !important;
     font-size:0.56rem !important;
-    border-radius:5px !important;
+    border-radius:9px !important;
   }
   html.focus-mode .lesson-strip-search{
     padding:4px 8px !important;
@@ -928,7 +928,7 @@
   html.focus-mode .lss-input-wrap input{
     padding:4px 7px 4px 22px !important;
     font-size:0.64rem !important;
-    border-radius:5px !important;
+    border-radius:9px !important;
   }
   html.focus-mode .lesson-strip-body{
     padding:4px 7px 7px !important;
@@ -936,7 +936,7 @@
   html.focus-mode .adaptive-sidebar-card{
     padding:4px 7px !important;
     margin-bottom:4px !important;
-    border-radius:5px !important;
+    border-radius:9px !important;
   }
   html.focus-mode .asc-title{
     font-size:0.62rem !important;
@@ -945,14 +945,14 @@
   html.focus-mode .asc-btn{
     padding:2px 7px !important;
     font-size:0.58rem !important;
-    border-radius:5px !important;
+    border-radius:9px !important;
   }
   html.focus-mode .lesson-level-header{
     font-size:0.64rem !important;
     padding:3px 6px !important;
     margin:3px 0 2px !important;
     gap:4px !important;
-    border-radius:5px !important;
+    border-radius:9px !important;
   }
   html.focus-mode .lesson-level-list{
     gap:3px !important;
@@ -962,7 +962,7 @@
     min-height:0 !important;
     padding:4px 7px !important;
     gap:6px !important;
-    border-radius:5px !important;
+    border-radius:9px !important;
     align-items:center !important;
   }
   html.focus-mode .lesson-card-num{
@@ -1035,7 +1035,7 @@
     box-sizing:border-box;
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,255,255,0.1);
-    border-radius:5px;
+    border-radius:9px;
     padding:8px 12px 8px 36px;
     color:var(--ink);
     font-family:'Space Grotesk', sans-serif;
@@ -1076,7 +1076,7 @@
     height:24px;
     line-height:22px;
     box-sizing:border-box;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255,209,102,0.08);
     border:1px solid rgba(255,157,46,0.25);
     color:var(--gold-bright);
@@ -1091,7 +1091,7 @@
     background:rgba(255,255,255,0.06);
     border:1px solid rgba(255,255,255,0.14);
     color:var(--gold-bright);
-    border-radius:5px;
+    border-radius:9px;
     padding:0;
     width:24px;
     height:24px;
@@ -1113,7 +1113,7 @@
     background:rgba(255,157,46,0.12);
     border:1px solid rgba(255,157,46,0.35);
     color:var(--gold-bright);
-    border-radius:5px;
+    border-radius:9px;
     padding:0 8px;
     height:24px;
     font-size:0.66rem;
@@ -1147,7 +1147,7 @@
   }
   .lesson-strip-body::-webkit-scrollbar-thumb{
     background:rgba(255,209,102,0.3);
-    border-radius:5px;
+    border-radius:9px;
   }
   .lesson-strip-body::-webkit-scrollbar-thumb:hover{
     background:var(--gold);
@@ -1166,7 +1166,7 @@
     letter-spacing:0.02em;
     margin:7px 0 4px;
     padding:5px 8px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255,255,255,0.02);
     cursor:pointer;
     user-select:none;
@@ -1220,7 +1220,7 @@
     min-height:56px;
     flex-shrink:0;
     padding:8px 10px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255,255,255,0.025);
     border:1px solid var(--stone-3);
     cursor:pointer;
@@ -1309,7 +1309,7 @@
   }
   .lce-chip{
     padding:2px 5px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255,209,102,0.08);
     border:1px solid rgba(255,157,46,0.25);
     font-family:'Noto Sans Khmer', sans-serif;
@@ -1320,7 +1320,7 @@
   .lesson-card-type{
     font-size:0.46rem;
     padding:1px 4px;
-    border-radius:5px;
+    border-radius:9px;
     letter-spacing:0.05em;
     text-transform:uppercase;
     color:var(--ink-dim);
@@ -1405,7 +1405,7 @@
     align-items:center;
     gap:6px;
     padding:3px 9px 3px 8px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(52, 211, 153, 0.12);
     border:1px solid rgba(52, 211, 153, 0.35);
   }
@@ -1451,7 +1451,7 @@
     align-items:center;
     gap:6px;
     padding:5px 11px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,255,255,0.12);
     color:var(--ink-dim);
@@ -1476,7 +1476,7 @@
     font-family:'JetBrains Mono', monospace;
     font-size:0.54rem;
     padding:1px 4px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255,255,255,0.08);
     color:var(--gold-bright);
     margin-left:2px;
@@ -1487,7 +1487,7 @@
     align-items:center;
     gap:3px;
     padding:4px 11px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(0,0,0,0.45);
     border:1px solid rgba(255,209,102,0.22);
     font-family:'Orbitron', monospace;
@@ -1515,7 +1515,7 @@
     letter-spacing:0.08em;
     text-transform:uppercase;
     padding:3px 10px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255,209,102,0.12);
     border:1px solid rgba(255,209,102,0.35);
     color:var(--gold-bright);
@@ -1544,14 +1544,14 @@
   .lfb-track{
     height:4px;
     width:100%;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255, 255, 255, 0.06);
     overflow:hidden;
   }
   .lfb-bar{
     height:100%;
     width:0%;
-    border-radius:5px;
+    border-radius:9px;
     background:var(--gold-bright);
     transition:width .25s ease, background .3s ease;
   }
@@ -1672,7 +1672,7 @@
     min-width:62px;
     min-height:56px;
     padding:8px 14px 7px;
-    border-radius:5px;
+    border-radius:9px;
     background:linear-gradient(180deg, #1f2638 0%, #111522 100%);
     border:1px solid rgba(255, 209, 102, 0.38);
     box-shadow:
@@ -1695,7 +1695,7 @@
     width:14px;
     height:2.5px;
     margin:3px auto 0;
-    border-radius:5px;
+    border-radius:9px;
     background:var(--gold-bright);
     box-shadow:0 0 6px var(--gold-bright);
   }
@@ -1711,7 +1711,7 @@
     font-weight:700;
     color:#e2e8f0;
     padding:1px 5px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255,255,255,0.08);
   }
   .nk-finger-badge{
@@ -1719,7 +1719,7 @@
     font-size:0.56rem;
     font-weight:600;
     padding:2px 7px;
-    border-radius:5px;
+    border-radius:9px;
     letter-spacing:0.02em;
     background:rgba(255,255,255,0.06);
     color:var(--ink-dim);
@@ -1763,7 +1763,7 @@
     gap:8px;
     margin:0 0 14px;
     padding:8px 14px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(24, 21, 28, 0.65);
     border:1px solid rgba(255, 209, 102, 0.2);
     box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -1791,7 +1791,7 @@
     display:inline-flex;
     align-items:center;
     padding:3px 10px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255, 209, 102, 0.08);
     border:1px solid rgba(255, 180, 50, 0.28);
     color:var(--gold-bright);
@@ -1809,7 +1809,7 @@
   }
   .lesson-progress-bar{
     height:7px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(255,255,255,0.08);
     border:1px solid rgba(255,255,255,0.1);
     overflow:hidden;
@@ -1846,7 +1846,7 @@
     margin-bottom:16px;
     background:rgba(7, 10, 20, 0.62);
     border:1.5px solid rgba(255, 255, 255, 0.14);
-    border-radius:5px;
+    border-radius:9px;
     box-shadow:inset 0 3px 12px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.06);
     box-sizing:border-box;
   }
@@ -1861,7 +1861,7 @@
     font-size:0.8rem;
     font-weight:600;
     padding:6px 14px;
-    border-radius:5px;
+    border-radius:9px;
     margin:6px auto 10px;
     width:fit-content;
     box-shadow:0 0 12px rgba(239, 68, 68, 0.25);
@@ -1879,7 +1879,7 @@
     font-size:0.65rem;
     font-weight:700;
     padding:2px 7px;
-    border-radius:5px;
+    border-radius:9px;
     margin-left:8px;
   }
   .chassis-caps-warn[hidden]{
@@ -1899,7 +1899,7 @@
     height:auto;
     line-height:1.8;
     padding:4px 10px;
-    border-radius:5px;
+    border-radius:9px;
     border:1.5px solid rgba(255, 255, 255, 0.16);
     border-bottom:4px solid rgba(148, 163, 184, 0.42);
     background:linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
@@ -1974,7 +1974,7 @@
     content:"";
     position:absolute; left:8px; right:8px; bottom:3px;
     height:3px;
-    border-radius:5px;
+    border-radius:9px;
     background:#ffffff;
     box-shadow:0 0 8px rgba(255, 255, 255, 0.85);
     animation:lc-cursor-beam 1.2s ease-in-out infinite alternate;
@@ -2044,7 +2044,7 @@
     align-items:center;
     gap:8px;
     padding:6px 12px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(0, 0, 0, 0.42);
     border:1px solid rgba(255, 255, 255, 0.08);
     box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -2114,7 +2114,7 @@
     border:1px solid rgba(239,68,68,0.38);
     color:#fca5a5;
     padding:7px 14px;
-    border-radius:5px;
+    border-radius:9px;
     cursor:pointer;
     transition:all .18s ease;
   }
@@ -2363,7 +2363,7 @@
     letter-spacing:0.06em;
     text-transform:uppercase;
     padding:9px 18px;
-    border-radius:5px;
+    border-radius:9px;
     cursor:pointer;
     border:1px solid var(--stone-3);
     background:linear-gradient(180deg, rgba(255,255,255,0.04), transparent), var(--stone-1);
@@ -2443,7 +2443,7 @@
     gap:5px;
     background:rgba(10,12,24,0.7);
     border:1px solid rgba(255,157,46,0.45);
-    border-radius:5px;
+    border-radius:9px;
     padding:3px 9px;
     color:var(--ink);
   }
@@ -2526,7 +2526,7 @@
     border:1px solid rgba(255, 255, 255, 0.08);
     color:var(--ink-dim, #94a3b8);
     padding:7px 13px;
-    border-radius:5px;
+    border-radius:9px;
     cursor:pointer;
     user-select:none;
     white-space:nowrap;
@@ -2713,7 +2713,7 @@
     align-items:center;
     gap:8px;
     padding:6px 10px;
-    border-radius:5px;
+    border-radius:9px;
     margin:0 0 14px;
     font-size:0.78rem;
     font-weight:500;
@@ -2744,7 +2744,7 @@
     letter-spacing:0.04em;
     font-size:0.7rem;
     padding:2px 6px;
-    border-radius:5px;
+    border-radius:9px;
     background:rgba(0,0,0,0.25);
     white-space:nowrap;
   }
@@ -2762,7 +2762,7 @@
   .pk-fb-stat-box{
     background:rgba(255,255,255,0.03);
     border:1px solid rgba(255,255,255,0.08);
-    border-radius:5px;
+    border-radius:9px;
     padding:8px 6px;
     text-align:center;
     animation:fb-box-pop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -2829,7 +2829,7 @@
   .pk-fb-insight-col{
     flex:1;
     background:rgba(0,0,0,0.28);
-    border-radius:5px;
+    border-radius:9px;
     padding:10px 12px;
     border:1px solid rgba(255,255,255,0.06);
     animation:fb-fade-slide-up 0.45s ease 0.32s both;
@@ -2857,7 +2857,7 @@
     align-items:center;
     gap:4px;
     padding:3px 7px;
-    border-radius:5px;
+    border-radius:9px;
     font-size:0.72rem;
     animation:fb-chip-pop 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
     transition:transform 0.15s ease, box-shadow 0.15s ease;
@@ -2892,7 +2892,7 @@
   .pk-fb-finger-note{
     background:rgba(255,157,46,0.08);
     border-left:3px solid #ff9d2e;
-    border-radius:5px;
+    border-radius:9px;
     padding:7px 10px;
     font-size:0.72rem;
     color:#ffd8a8;
@@ -2908,7 +2908,7 @@
     margin:10px 0;
     text-align:left;
     background:rgba(0,0,0,0.2);
-    border-radius:5px;
+    border-radius:9px;
     padding:8px 10px;
     animation:fb-fade-slide-up 0.45s ease 0.4s both;
   }
@@ -2931,13 +2931,13 @@
     flex:1;
     height:7px;
     background:rgba(255,255,255,0.08);
-    border-radius:5px;
+    border-radius:9px;
     overflow:hidden;
   }
   .pk-fb-ex-fill{
     height:100%;
     background:linear-gradient(90deg, #10b981, #2dd4a7);
-    border-radius:5px;
+    border-radius:9px;
     transform-origin:left center;
     animation:fb-bar-fill 0.9s cubic-bezier(0.16, 1, 0.3, 1) both 0.25s;
     position:relative;
@@ -2975,7 +2975,7 @@
   .pk-fb-rec-banner{
     background:rgba(255,209,102,0.08);
     border:1px solid rgba(255,209,102,0.3);
-    border-radius:5px;
+    border-radius:9px;
     padding:10px 14px;
     margin-top:14px;
     text-align:left;
@@ -3002,13 +3002,13 @@
   .pk-fb-pause-bar{
     height:8px;
     background:rgba(255,255,255,0.08);
-    border-radius:5px;
+    border-radius:9px;
     overflow:hidden;
   }
   .pk-fb-pause-fill{
     height:100%;
     background:var(--gold-bright);
-    border-radius:5px;
+    border-radius:9px;
     transform-origin:left center;
     animation:fb-bar-fill 0.8s cubic-bezier(0.16, 1, 0.3, 1) both 0.2s;
     box-shadow:0 0 12px rgba(255, 209, 102, 0.4);
@@ -3022,7 +3022,7 @@
   }
   .pk-fb-pause-details{
     background:rgba(0,0,0,0.28);
-    border-radius:5px;
+    border-radius:9px;
     padding:10px 14px;
     margin:12px 0;
     font-size:0.76rem;
@@ -3049,7 +3049,7 @@
     justify-content: space-between;
     background: linear-gradient(135deg, rgba(255, 157, 46, 0.14), rgba(160, 107, 255, 0.08));
     border: 1px solid rgba(255, 157, 46, 0.4);
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 8px 12px;
     margin: 8px 6px 10px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
@@ -3085,7 +3085,7 @@
     background: linear-gradient(135deg, var(--gold), var(--gold-bright));
     color: #0b0d18;
     border: none;
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 5px 12px;
     font-size: 0.72rem;
     font-weight: 700;
@@ -3138,7 +3138,7 @@
     font-size: 0.68rem;
     font-weight: 600;
     padding: 2px 8px;
-    border-radius: 5px;
+    border-radius: 9px;
   }
   .adaptive-focus-badge {
     background: rgba(255, 209, 102, 0.15);
@@ -3147,7 +3147,7 @@
     font-size: 0.68rem;
     font-weight: 700;
     padding: 2px 8px;
-    border-radius: 5px;
+    border-radius: 9px;
     font-family: 'JetBrains Mono', monospace;
   }
   .adaptive-top-actions {
@@ -3165,7 +3165,7 @@
     border: 1px solid rgba(255, 255, 255, 0.18);
     color: var(--ink-dim);
     padding: 4px 10px;
-    border-radius: 5px;
+    border-radius: 9px;
     font-size: 0.72rem;
     font-weight: 600;
     cursor: pointer;
@@ -3181,7 +3181,7 @@
     border: 1px solid rgba(255, 255, 255, 0.18);
     color: var(--ink-dim);
     padding: 4px 10px;
-    border-radius: 5px;
+    border-radius: 9px;
     font-size: 0.72rem;
     font-weight: 600;
     cursor: pointer;
@@ -3202,7 +3202,7 @@
     padding: 8px 6px;
     margin: 8px 0 14px;
     background: rgba(0, 0, 0, 0.35);
-    border-radius: 5px;
+    border-radius: 9px;
     border: 1px solid rgba(255, 255, 255, 0.06);
     /* scrollbar-width: thin (handled via ::-webkit-scrollbar) */
   }
@@ -3211,7 +3211,7 @@
   }
   .adaptive-letter-strip::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.15);
-    border-radius: 5px;
+    border-radius: 9px;
   }
 
   /* Letter Pill */
@@ -3224,7 +3224,7 @@
     min-width: 40px;
     height: 46px;
     padding: 3px 6px 7px;
-    border-radius: 5px;
+    border-radius: 9px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.92rem;
     font-weight: 700;
@@ -3266,13 +3266,13 @@
     right: 4px;
     height: 3px;
     background: rgba(255, 255, 255, 0.08);
-    border-radius: 5px;
+    border-radius: 9px;
     overflow: hidden;
   }
   .as-pill-bar-fill {
     height: 100%;
     width: 0%;
-    border-radius: 5px;
+    border-radius: 9px;
     background: #3b82f6;
     transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -3385,7 +3385,7 @@
     margin: 4px 0 12px;
     background: rgba(0, 0, 0, 0.28);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 5px;
+    border-radius: 9px;
     font-size: 0.75rem;
     font-family: 'JetBrains Mono', monospace;
   }
@@ -3405,7 +3405,7 @@
     display: inline-flex;
     align-items: center;
     padding: 2px 8px;
-    border-radius: 5px;
+    border-radius: 9px;
     font-weight: 700;
     line-height: 1.25;
   }
@@ -3427,7 +3427,7 @@
     font-size: 0.72rem;
     font-weight: 600;
     padding: 1px 6px;
-    border-radius: 5px;
+    border-radius: 9px;
   }
   .afh-weak-chip.needs-practice {
     background: rgba(245, 158, 11, 0.14);
@@ -3448,7 +3448,7 @@
     padding: 4px 12px;
     background: rgba(16, 185, 129, 0.15);
     border: 1px solid rgba(16, 185, 129, 0.4);
-    border-radius: 5px;
+    border-radius: 9px;
     color: #34d399;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.74rem;
@@ -3465,7 +3465,7 @@
     transform: translateX(-50%);
     background: #111425;
     border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 6px 10px;
     font-size: 0.66rem;
     white-space: nowrap;
@@ -3524,7 +3524,7 @@
     gap: 8px;
     background: linear-gradient(90deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
     border: 1px solid rgba(16, 185, 129, 0.5);
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 8px 14px;
     margin-bottom: 16px;
     font-size: 0.82rem;
@@ -3538,7 +3538,7 @@
     gap: 8px;
     background: rgba(0, 0, 0, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 8px 12px;
     margin-bottom: 12px;
     font-size: 0.76rem;
@@ -3565,7 +3565,7 @@
     color: #ffd166;
     background: rgba(255, 209, 102, 0.1);
     border: 1px solid rgba(255, 209, 102, 0.25);
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 6px 10px;
     margin-bottom: 14px;
   }
@@ -3616,7 +3616,7 @@
   .asg-box {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 8px 6px;
   }
   .asg-num {
@@ -3639,7 +3639,7 @@
     background: linear-gradient(135deg, var(--gold), var(--gold-bright));
     color: #0b0d18;
     border: none;
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 12px;
     font-size: 0.92rem;
     font-weight: 700;
@@ -3655,7 +3655,7 @@
     background: transparent;
     color: var(--ink-dim);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 5px;
+    border-radius: 9px;
     padding: 10px;
     font-size: 0.82rem;
     cursor: pointer;
@@ -3686,19 +3686,19 @@
 }
 .lesson-strip-body::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.18) !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   margin: 6px 0 !important;
 }
 .lesson-strip-body::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, var(--gold-bright), var(--gold)) !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   box-shadow: 0 0 8px color-mix(in srgb, var(--gold-bright) 60%, transparent) !important;
 }
 
 /* Upgraded Base Lesson Strip */
 .lesson-strip {
   position: relative;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   background: linear-gradient(165deg, rgba(16, 20, 38, 0.88) 0%, rgba(9, 12, 24, 0.94) 100%) !important;
   backdrop-filter: blur(16px) saturate(165%) !important;
   -webkit-backdrop-filter: blur(16px) saturate(165%) !important;
@@ -3735,7 +3735,7 @@
   border: 1px solid color-mix(in srgb, var(--gold-bright) 48%, transparent) !important;
   color: var(--gold-bright) !important;
   box-shadow: 0 2px 10px color-mix(in srgb, var(--gold-bright) 18%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 .lsh-adaptive-btn:hover {
@@ -3749,7 +3749,7 @@
   background: color-mix(in srgb, var(--gold-bright) 14%, rgba(0, 0, 0, 0.35)) !important;
   border: 1px solid color-mix(in srgb, var(--gold-bright) 45%, transparent) !important;
   color: var(--gold-bright) !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   font-weight: 700 !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
 }
@@ -3772,7 +3772,7 @@
   padding: 8px 12px 8px 36px !important;
   background: rgba(8, 11, 22, 0.65) !important;
   border: 1px solid rgba(255, 255, 255, 0.16) !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   color: #f8fafc !important;
   font-family: 'Space Grotesk', -apple-system, sans-serif !important;
   font-size: 0.78rem !important;
@@ -3809,7 +3809,7 @@
   overflow: hidden;
   background: linear-gradient(135deg, color-mix(in srgb, var(--gold-bright) 18%, rgba(18, 24, 46, 0.85)) 0%, rgba(14, 19, 38, 0.9) 100%) !important;
   border: 1px solid color-mix(in srgb, var(--gold-bright) 52%, transparent) !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   padding: 9px 12px !important;
   margin: 6px 4px 10px !important;
   box-shadow:
@@ -3832,7 +3832,7 @@
   font-family: "Orbitron", sans-serif !important;
   letter-spacing: 0.04em !important;
   text-transform: uppercase !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   padding: 5px 12px !important;
   font-weight: 800 !important;
   box-shadow: 0 3px 12px color-mix(in srgb, var(--gold-bright) 45%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
@@ -3849,7 +3849,7 @@
   background: linear-gradient(90deg, color-mix(in srgb, var(--gold-bright) 12%, rgba(255, 255, 255, 0.04)) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-left: 3px solid var(--gold-bright) !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   padding: 7px 10px !important;
   margin: 6px 0 5px !important;
   color: #f8fafc !important;
@@ -3871,7 +3871,7 @@
 .lesson-card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.025) 100%) !important;
   border: 1px solid rgba(255, 255, 255, 0.11) !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
   transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
@@ -3891,7 +3891,7 @@
   align-items: center !important;
   justify-content: center !important;
   padding: 3px 6px !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   background: color-mix(in srgb, var(--gold-bright) 15%, rgba(0, 0, 0, 0.35)) !important;
   border: 1px solid color-mix(in srgb, var(--gold-bright) 42%, transparent) !important;
   color: var(--gold-bright) !important;
@@ -3910,7 +3910,7 @@
   align-items: center !important;
   gap: 3px !important;
   padding: 2px 7px !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   background: rgba(16, 185, 129, 0.18) !important;
   border: 1px solid rgba(52, 211, 153, 0.5) !important;
   color: #34d399 !important;
@@ -3925,7 +3925,7 @@ html.focus-mode .lesson-strip,
 html.focus-mode #lessonStrip {
   width: min(90vw, 258px) !important;
   max-height: min(465px, calc(100vh - 74px)) !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
   opacity: 0.96 !important;
   background: linear-gradient(165deg, rgba(14, 18, 34, 0.84) 0%, rgba(8, 11, 22, 0.92) 100%) !important;
   backdrop-filter: blur(16px) saturate(170%) !important;
@@ -3957,7 +3957,7 @@ html.focus-mode .lsh-badge {
   height: 22px !important;
   font-size: 0.6rem !important;
   padding: 0 7px !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
 }
 html.focus-mode .lesson-strip-search {
   padding: 6px 10px !important;
@@ -3965,7 +3965,7 @@ html.focus-mode .lesson-strip-search {
 html.focus-mode .lss-input-wrap input {
   padding: 5px 9px 5px 25px !important;
   font-size: 0.68rem !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
 }
 html.focus-mode .lesson-strip-body {
   padding: 6px 9px 10px !important;
@@ -3973,7 +3973,7 @@ html.focus-mode .lesson-strip-body {
 html.focus-mode .adaptive-sidebar-card {
   padding: 6px 9px !important;
   margin: 2px 0 6px !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
 }
 html.focus-mode .asc-title {
   font-size: 0.66rem !important;
@@ -3981,18 +3981,18 @@ html.focus-mode .asc-title {
 html.focus-mode .asc-btn {
   padding: 3px 9px !important;
   font-size: 0.6rem !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
 }
 html.focus-mode .lesson-level-header {
   font-size: 0.68rem !important;
   padding: 5px 8px !important;
   margin: 4px 0 3px !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
 }
 html.focus-mode .lesson-card {
   padding: 5px 8px !important;
   gap: 7px !important;
-  border-radius: 5px !important;
+  border-radius: 9px !important;
 }
 html.focus-mode .lesson-card-num {
   font-size: 0.62rem !important;
@@ -5122,7 +5122,7 @@ html.anim-mode-minimal .lesson-card:hover {
   align-items: center;
   gap: 4px;
   padding: 3px 6px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 209, 102, 0.14);
   border: 1px solid rgba(255, 209, 102, 0.38);
   color: #ffd166;
@@ -5220,7 +5220,7 @@ html.anim-mode-minimal .lesson-card:hover {
 .lm-hub-badge-icon {
   width: 42px;
   height: 42px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(135deg, rgba(255, 209, 102, 0.2) 0%, rgba(56, 189, 248, 0.15) 100%);
   border: 1px solid rgba(255, 209, 102, 0.45);
   color: #ffd166;
@@ -5251,7 +5251,7 @@ html.anim-mode-minimal .lesson-card:hover {
   text-transform: uppercase;
   background: rgba(255, 209, 102, 0.1);
   padding: 2px 7px;
-  border-radius: 5px;
+  border-radius: 9px;
   border: 1px solid rgba(255, 209, 102, 0.25);
 }
 
@@ -5272,7 +5272,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #38bdf8;
   background: rgba(56, 189, 248, 0.1);
   padding: 2px 7px;
-  border-radius: 5px;
+  border-radius: 9px;
   border: 1px solid rgba(56, 189, 248, 0.28);
 }
 
@@ -5291,7 +5291,7 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 10px 12px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 5px;
+  border-radius: 9px;
   transition: border-color 0.18s ease, transform 0.18s ease;
 }
 
@@ -5348,7 +5348,7 @@ html.anim-mode-minimal .lesson-card:hover {
   align-items: center;
   gap: 7px;
   padding: 8px 14px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--ink-dim, #94a3b8);
@@ -5413,7 +5413,7 @@ html.anim-mode-minimal .lesson-card:hover {
 
 .lm-alpha-pill-btn {
   padding: 4px 10px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.09);
   color: var(--ink-dim, #94a3b8);
@@ -5491,7 +5491,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #ffd166;
   background: rgba(255, 209, 102, 0.1);
   padding: 2px 6px;
-  border-radius: 5px;
+  border-radius: 9px;
   border: 1px solid rgba(255, 209, 102, 0.25);
 }
 
@@ -5500,7 +5500,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #94a3b8;
   background: rgba(255, 255, 255, 0.05);
   padding: 2px 6px;
-  border-radius: 5px;
+  border-radius: 9px;
 }
 
 .lm-ai-lesson-line {
@@ -5517,7 +5517,7 @@ html.anim-mode-minimal .lesson-card:hover {
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
   border: 1px solid rgba(56, 189, 248, 0.6);
   color: #fff;
@@ -5563,7 +5563,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #38bdf8;
   background: rgba(56, 189, 248, 0.1);
   padding: 2px 7px;
-  border-radius: 5px;
+  border-radius: 9px;
   border: 1px solid rgba(56, 189, 248, 0.25);
 }
 
@@ -5581,7 +5581,7 @@ html.anim-mode-minimal .lesson-card:hover {
   justify-content: center;
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
+  border-radius: 9px;
   color: var(--ink, #fff);
   font-family: 'Khmer Busra', 'Khmer OS Battambang', 'Space Grotesk', sans-serif;
   font-size: 1.15rem;
@@ -5638,7 +5638,7 @@ html.anim-mode-minimal .lesson-card:hover {
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.09);
   color: var(--ink-dim, #94a3b8);
@@ -5688,7 +5688,7 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 7px 12px 7px 32px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 5px;
+  border-radius: 9px;
   color: var(--ink, #fff);
   font-size: 0.74rem;
   outline: none;
@@ -5717,7 +5717,7 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 10px 12px;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 5px;
+  border-radius: 9px;
   transition: all 0.16s ease;
 }
 
@@ -5747,7 +5747,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: var(--ink-dim, #94a3b8);
   background: rgba(255, 255, 255, 0.05);
   padding: 1px 5px;
-  border-radius: 5px;
+  border-radius: 9px;
 }
 
 .lm-li-title {
@@ -5772,7 +5772,7 @@ html.anim-mode-minimal .lesson-card:hover {
   background: rgba(56, 189, 248, 0.1);
   border: 1px solid rgba(56, 189, 248, 0.25);
   padding: 1px 5px;
-  border-radius: 5px;
+  border-radius: 9px;
 }
 
 .lm-li-launch-btn {
@@ -5782,7 +5782,7 @@ html.anim-mode-minimal .lesson-card:hover {
   justify-content: center;
   gap: 5px;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 209, 102, 0.1);
   border: 1px solid rgba(255, 209, 102, 0.3);
   color: #ffd166;
@@ -5814,7 +5814,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #ffd166;
   background: rgba(255, 209, 102, 0.1);
   padding: 3px 8px;
-  border-radius: 5px;
+  border-radius: 9px;
   border: 1px solid rgba(255, 209, 102, 0.28);
   margin-bottom: 6px;
 }
@@ -5878,7 +5878,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #38bdf8;
   background: rgba(56, 189, 248, 0.1);
   padding: 2px 6px;
-  border-radius: 5px;
+  border-radius: 9px;
   border: 1px solid rgba(56, 189, 248, 0.25);
 }
 
@@ -5923,7 +5923,7 @@ html.anim-mode-minimal .lesson-card:hover {
   gap: 6px;
   width: 100%;
   padding: 8px 12px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(135deg, rgba(255, 209, 102, 0.16) 0%, rgba(255, 209, 102, 0.08) 100%);
   border: 1px solid rgba(255, 209, 102, 0.45);
   color: #ffd166;
@@ -5945,7 +5945,7 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 12px 14px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 5px;
+  border-radius: 9px;
   margin-top: 10px;
 }
 
@@ -6087,7 +6087,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: var(--gold-bright);
   background: rgba(255, 209, 102, 0.16);
   border: 1px solid rgba(255, 209, 102, 0.35);
-  border-radius: 5px;
+  border-radius: 9px;
   padding: 1px 5px;
 }
 
@@ -6098,7 +6098,7 @@ html.anim-mode-minimal .lesson-card:hover {
   gap: 12px;
   margin: 14px 0 6px;
   padding: 12px 14px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(135deg, rgba(255, 209, 102, 0.14), rgba(255, 170, 0, 0.05));
   border: 1px solid rgba(255, 209, 102, 0.38);
   box-shadow: 0 4px 18px rgba(255, 209, 102, 0.12);
@@ -6158,7 +6158,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #12151f;
   background: var(--gold-bright);
   border: none;
-  border-radius: 5px;
+  border-radius: 9px;
   cursor: pointer;
   transition: transform .15s ease, filter .15s ease;
   white-space: nowrap;
@@ -6220,7 +6220,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #ffd166;
   background: rgba(255, 209, 102, 0.12);
   border: 1px solid rgba(255, 209, 102, 0.35);
-  border-radius: 5px;
+  border-radius: 9px;
   padding: 3px 10px;
   margin-bottom: 10px;
 }
@@ -6263,7 +6263,7 @@ html.anim-mode-minimal .lesson-card:hover {
   font-weight: 800;
   letter-spacing: 0.05em;
   padding: 3px 9px;
-  border-radius: 5px;
+  border-radius: 9px;
 }
 .lm-vp-status.locked {
   color: #ff6b6b;
@@ -6299,14 +6299,14 @@ html.anim-mode-minimal .lesson-card:hover {
   width: 100%;
   height: 8px;
   background: rgba(255, 255, 255, 0.08);
-  border-radius: 5px;
+  border-radius: 9px;
   overflow: hidden;
   margin-bottom: 12px;
 }
 .lm-vp-meter-fill {
   height: 100%;
   background: linear-gradient(90deg, #38bdf8, #ffd166);
-  border-radius: 5px;
+  border-radius: 9px;
   transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .lm-vp-meter-fill.complete {
@@ -6338,7 +6338,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #ffd166;
   background: rgba(255, 209, 102, 0.1);
   border: 1px solid rgba(255, 209, 102, 0.35);
-  border-radius: 5px;
+  border-radius: 9px;
   padding: 5px 11px;
   cursor: pointer;
   transition: all 0.16s ease;
@@ -6381,7 +6381,7 @@ html.anim-mode-minimal .lesson-card:hover {
   background: rgba(255, 209, 102, 0.1);
   border: 1px solid rgba(255, 209, 102, 0.3);
   padding: 2px 7px;
-  border-radius: 5px;
+  border-radius: 9px;
 }
 .lm-vt-title {
   font-family: 'Space Grotesk', -apple-system, sans-serif;
@@ -6405,7 +6405,7 @@ html.anim-mode-minimal .lesson-card:hover {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 2px 8px;
-  border-radius: 5px;
+  border-radius: 9px;
   display: inline-block;
 }
 .lm-vt-track-pill.standard {
@@ -6435,7 +6435,7 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 8px 12px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 5px;
+  border-radius: 9px;
   gap: 10px;
   transition: all 0.15s ease;
 }
@@ -6489,7 +6489,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #5fd694;
   background: rgba(95, 214, 148, 0.1);
   padding: 2px 6px;
-  border-radius: 5px;
+  border-radius: 9px;
 }
 .lm-vt-lr-launch-btn {
   display: inline-flex;
@@ -6501,7 +6501,7 @@ html.anim-mode-minimal .lesson-card:hover {
   color: #12151f;
   background: #ffd166;
   border: none;
-  border-radius: 5px;
+  border-radius: 9px;
   cursor: pointer;
   transition: transform 0.12s ease, filter 0.12s ease;
 }
@@ -6570,7 +6570,7 @@ html.anim-mode-minimal .lesson-card:hover {
   background: rgba(255, 209, 102, 0.12);
   border: 1px solid rgba(255, 209, 102, 0.35);
   padding: 3px 10px;
-  border-radius: 5px;
+  border-radius: 9px;
   text-transform: uppercase;
 }
 .gm-fanfare-title {
@@ -6596,7 +6596,7 @@ html.anim-mode-minimal .lesson-card:hover {
 .gm-fstat-item {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 5px;
+  border-radius: 9px;
   padding: 10px 8px;
   display: flex;
   flex-direction: column;
@@ -6631,7 +6631,7 @@ html.anim-mode-minimal .lesson-card:hover {
   padding: 10px 22px;
   font-size: 0.88rem;
   font-weight: 700;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(135deg, #ffd166 0%, #f59e0b 100%);
   color: #12151f;
   border: none;

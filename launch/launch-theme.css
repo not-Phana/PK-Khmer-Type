@@ -140,7 +140,7 @@ body::before {
   max-width: 1040px;
   margin: 0 auto;
   padding: 22px 20px 18px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(180deg, #131929, #0a0e19);
   border: 1px solid #283650;
   box-shadow:
@@ -251,7 +251,7 @@ body::before {
   align-items: center;
   gap: 5px;
   padding: 2px 8px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(135deg, rgba(255, 209, 102, 0.15), rgba(255, 157, 46, 0.08));
   border: 1px solid rgba(255, 209, 102, 0.35);
   color: var(--gold-bright, #ffd166);
@@ -303,7 +303,7 @@ body::before {
   font-weight: 600;
   letter-spacing: 0.02em;
   padding: 6px 12px;
-  border-radius: 5px;
+  border-radius: 9px;
   color: #c9d8eb;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -340,7 +340,7 @@ body::before {
   font-weight: 700;
   letter-spacing: 0.04em;
   padding: 1px 6px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(255, 209, 102, 0.15);
   color: var(--gold-bright, #ffd166);
   border: 1px solid rgba(255, 209, 102, 0.3);
@@ -371,7 +371,7 @@ body::before {
   background: linear-gradient(180deg, #1f2a40, #151d2d);
   border: 1px solid #2e3e5c;
   border-bottom: 3.5px solid #0f1624;
-  border-radius: 5px;
+  border-radius: 9px;
   color: #f1f6ff;
   font-family: var(--font-khmer);
   font-size: 1.05rem;
@@ -399,7 +399,7 @@ body::before {
   position: absolute;
   inset: 2px 2px auto 2px;
   height: 38%;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent);
   pointer-events: none;
 }
@@ -493,7 +493,7 @@ body::before {
   transform: translateX(-50%);
   width: 13px;
   height: 2.5px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: var(--gold-bright, #ffd166);
   opacity: 0.75;
   box-shadow: 0 0 4px rgba(255, 209, 102, 0.5);
@@ -596,7 +596,7 @@ body::before {
   position: absolute;
   top: 15px; left: 5px;
   width: 4px; height: 26px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(180deg, #5c4424, #2a1e0f);
 }
 @keyframes torch-glow {
@@ -913,7 +913,7 @@ body::before {
   gap: 16px;
   padding: 14px 18px;
   margin-top: 14px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: rgba(12, 18, 30, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -929,7 +929,7 @@ body::before {
 .inspector-glyph-box {
   width: 48px;
   height: 48px;
-  border-radius: 5px;
+  border-radius: 9px;
   background: linear-gradient(135deg, rgba(255, 209, 102, 0.15), rgba(93, 233, 213, 0.08));
   border: 1px solid rgba(255, 209, 102, 0.35);
   display: flex;
@@ -974,7 +974,7 @@ body::before {
   align-items: center;
   gap: 5px;
   padding: 4px 10px;
-  border-radius: 5px;
+  border-radius: 9px;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 600;
@@ -1008,11 +1008,11 @@ body::before {
 @media (max-width: 900px) {
   .board-wrap {
     padding: 16px 12px 14px;
-    border-radius: 5px;
+    border-radius: 9px;
   }
   .key {
     height: 42px;
-    border-radius: 5px;
+    border-radius: 9px;
     font-size: 0.95rem;
   }
   .key .space-glyph {
@@ -1043,7 +1043,7 @@ body::before {
   }
   .key {
     height: 34px;
-    border-radius: 5px;
+    border-radius: 9px;
     border-bottom-width: 2px;
     font-size: 0.82rem;
   }
