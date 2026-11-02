@@ -22,7 +22,7 @@ module.exports = `
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
-      --radius-sm: 8px;
+      --radius-sm: 9px;
       --radius-md: 14px;
       --radius-lg: 20px;
       --radius-xl: 28px;
@@ -554,7 +554,7 @@ module.exports = `
     .hero-icon-pill {
       width: 28px;
       height: 28px;
-      border-radius: 8px;
+      border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -857,7 +857,7 @@ module.exports = `
       transform: translateX(-50%);
       background: rgba(12, 17, 28, 0.95);
       border: 1px solid rgba(255, 209, 102, 0.45);
-      border-radius: 12px;
+      border-radius: 9px;
       padding: 10px 14px;
       display: flex;
       flex-direction: column;
@@ -977,7 +977,7 @@ module.exports = `
       height: 90px;
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
+      border-radius: 9px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -1267,7 +1267,7 @@ module.exports = `
       height: 48px;
       background: #0d121f;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
+      border-radius: 9px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1352,7 +1352,7 @@ module.exports = `
       height: 42px;
       background: linear-gradient(180deg, #24141e, #140910);
       border: 1.5px solid var(--rose-neon);
-      border-radius: 8px;
+      border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1423,7 +1423,7 @@ module.exports = `
       max-width: 50px;
       background: #141a29;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 6px;
+      border-radius: 9px;
       display: flex;
       flex-direction: column;
       align-items: center;
