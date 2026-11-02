@@ -568,19 +568,19 @@ module.exports = `
       </div>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px;">
-        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:9px; border:1px solid rgba(255,255,255,0.06);">
           <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase;">Accuracy Rate</div>
           <div id="inspectorAcc" style="font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:800; color:var(--emerald-neon);">98.5%</div>
         </div>
-        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:9px; border:1px solid rgba(255,255,255,0.06);">
           <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase;">Total Strokes</div>
           <div id="inspectorAttempts" style="font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:800; color:#fff;">142</div>
         </div>
-        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:9px; border:1px solid rgba(255,255,255,0.06);">
           <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase;">Reaction Latency</div>
           <div id="inspectorLatency" style="font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:800; color:var(--cyan-neon);">240ms</div>
         </div>
-        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:9px; border:1px solid rgba(255,255,255,0.06);">
           <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase;">Finger Assignment</div>
           <div id="inspectorFinger" style="font-size:13px; font-weight:700; color:var(--gold-primary);">Right Index</div>
         </div>
@@ -636,7 +636,7 @@ module.exports = `
       <!-- Typist Name Customization -->
       <div style="margin-bottom:14px;">
         <label for="typistNameInput" style="font-size:11px; font-weight:700; color:var(--text-dim); text-transform:uppercase; display:block; margin-bottom:5px;">Certificate Name:</label>
-        <input type="text" id="typistNameInput" value="Active Typist" placeholder="Enter your full name for certificate" style="width:100%; padding:8px 12px; border-radius:8px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:13px;">
+        <input type="text" id="typistNameInput" value="Active Typist" placeholder="Enter your full name for certificate" style="width:100%; padding:8px 12px; border-radius:9px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:13px;">
       </div>
 
       <!-- Action Buttons -->

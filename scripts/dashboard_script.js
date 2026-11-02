@@ -1448,7 +1448,7 @@ module.exports = `
             \`).join('');
           } else {
             weakKeysList.innerHTML = \`
-              <div style="grid-column: 1 / -1; text-align:center; padding:20px; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.25); border-radius:8px;">
+              <div style="grid-column: 1 / -1; text-align:center; padding:20px; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.25); border-radius:9px;">
                 <svg class="svg-icon" viewBox="0 0 24 24" style="width:24px; height:24px; color:var(--emerald-neon); margin-bottom:6px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 <div style="color:var(--emerald-neon); font-weight:700;">No Stumbling Keys Detected</div>
                 <div style="font-size:11px; color:var(--text-muted);">All practiced keys are performing above the 90% accuracy threshold.</div>

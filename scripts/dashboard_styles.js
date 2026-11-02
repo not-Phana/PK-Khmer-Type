@@ -23,9 +23,9 @@ module.exports = `
       --text-muted: #94a3b8;
       --text-dim: #64748b;
       --radius-sm: 9px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
-      --radius-xl: 28px;
+      --radius-md: 9px;
+      --radius-lg: 9px;
+      --radius-xl: 9px;
       --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -109,7 +109,7 @@ module.exports = `
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border-radius: 14px;
+      border-radius: 9px;
       outline: none;
       transition: var(--transition);
     }
@@ -122,7 +122,7 @@ module.exports = `
     .brand-avatar {
       width: 48px;
       height: 48px;
-      border-radius: 14px;
+      border-radius: 9px;
       background: #0a0d18;
       border: 1.5px solid rgba(255, 209, 102, 0.45);
       display: flex;
@@ -145,7 +145,7 @@ module.exports = `
       height: 100%;
       display: block;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: 9px;
     }
 
     .brand-info h1 {
@@ -189,7 +189,7 @@ module.exports = `
       background: rgba(255, 209, 102, 0.1);
       border: 1px solid rgba(255, 209, 102, 0.35);
       padding: 4px 10px;
-      border-radius: 999px;
+      border-radius: 9px;
       font-size: 11px;
       font-weight: 700;
       color: var(--gold-primary);
@@ -199,7 +199,7 @@ module.exports = `
       width: 55px;
       height: 5px;
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 999px;
+      border-radius: 9px;
       overflow: hidden;
       display: inline-block;
     }
@@ -207,7 +207,7 @@ module.exports = `
     .scribe-xp-bar-fill {
       height: 100%;
       background: var(--gold-primary);
-      border-radius: 999px;
+      border-radius: 9px;
       transition: width 0.4s ease;
     }
 
@@ -223,7 +223,7 @@ module.exports = `
       align-items: center;
       gap: 7px;
       padding: 7px 14px;
-      border-radius: 999px;
+      border-radius: 9px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border-subtle);
       color: var(--text-main);
@@ -302,7 +302,7 @@ module.exports = `
     .spotlight-icon-box {
       width: 48px;
       height: 48px;
-      border-radius: 14px;
+      border-radius: 9px;
       background: rgba(255, 209, 102, 0.15);
       border: 1px solid rgba(255, 209, 102, 0.35);
       display: flex;
@@ -340,7 +340,7 @@ module.exports = `
       align-items: center;
       gap: 8px;
       padding: 9px 20px;
-      border-radius: 999px;
+      border-radius: 9px;
       background: linear-gradient(135deg, var(--gold-primary), #f59e0b);
       color: #000;
       font-weight: 700;
@@ -416,14 +416,14 @@ module.exports = `
       width: 100%;
       height: 8px;
       background: rgba(255, 255, 255, 0.06);
-      border-radius: 999px;
+      border-radius: 9px;
       overflow: hidden;
     }
 
     .target-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--cyan-neon), var(--emerald-neon));
-      border-radius: 999px;
+      border-radius: 9px;
       transition: width 0.4s ease;
     }
 
@@ -435,7 +435,7 @@ module.exports = `
     .target-preset-btn {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
+      border-radius: 9px;
       padding: 4px 10px;
       font-size: 11px;
       color: var(--text-muted);
@@ -481,7 +481,7 @@ module.exports = `
       display: inline-flex;
       background: rgba(0, 0, 0, 0.45);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 999px;
+      border-radius: 9px;
       padding: 3px;
       gap: 3px;
     }
@@ -489,7 +489,7 @@ module.exports = `
     .segment-btn {
       background: transparent;
       border: none;
-      border-radius: 999px;
+      border-radius: 9px;
       padding: 5px 12px;
       font-size: 11px;
       font-weight: 600;
@@ -662,7 +662,7 @@ module.exports = `
       font-size: 10px;
       font-weight: 700;
       padding: 2px 7px;
-      border-radius: 999px;
+      border-radius: 9px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-muted);
@@ -708,7 +708,7 @@ module.exports = `
       align-items: center;
       gap: 5px;
       padding: 4px 11px;
-      border-radius: 999px;
+      border-radius: 9px;
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.08);
       font-size: 11px;
@@ -729,7 +729,7 @@ module.exports = `
       display: inline-flex;
       background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
+      border-radius: 9px;
       padding: 2.5px;
       gap: 2px;
     }
@@ -737,7 +737,7 @@ module.exports = `
     .stream-toggle-btn {
       background: transparent;
       border: none;
-      border-radius: 999px;
+      border-radius: 9px;
       padding: 4px 11px;
       font-size: 11px;
       font-weight: 700;
@@ -918,7 +918,7 @@ module.exports = `
       font-size: 10px;
       font-weight: 700;
       padding: 1px 5px;
-      border-radius: 4px;
+      border-radius: 9px;
       background: rgba(52, 211, 153, 0.15);
       color: var(--emerald-neon);
     }
@@ -938,7 +938,7 @@ module.exports = `
 
     .punch-cell {
       aspect-ratio: 1;
-      border-radius: 6px;
+      border-radius: 9px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.04);
       transition: var(--transition);
@@ -987,7 +987,7 @@ module.exports = `
 
     .f-bar-fill {
       width: 100%;
-      border-radius: 5px;
+      border-radius: 9px;
       background: var(--cyan-neon);
       transition: height 0.3s ease;
     }
@@ -1034,7 +1034,7 @@ module.exports = `
       width: 100%;
       height: 8px;
       background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
+      border-radius: 9px;
       overflow: hidden;
       display: flex;
     }
@@ -1376,7 +1376,7 @@ module.exports = `
 
     .drill-mini-btn {
       padding: 6px 14px;
-      border-radius: 999px;
+      border-radius: 9px;
       background: rgba(251, 113, 133, 0.15);
       border: 1px solid var(--rose-neon);
       color: var(--rose-neon);
@@ -1509,7 +1509,7 @@ module.exports = `
     .trophy-icon {
       width: 36px;
       height: 36px;
-      border-radius: 10px;
+      border-radius: 9px;
       background: rgba(255, 255, 255, 0.05);
       display: flex;
       align-items: center;
@@ -1539,7 +1539,7 @@ module.exports = `
       width: 100%;
       height: 6px;
       background: rgba(255, 255, 255, 0.06);
-      border-radius: 999px;
+      border-radius: 9px;
       overflow: hidden;
       margin-top: 4px;
     }
@@ -1547,7 +1547,7 @@ module.exports = `
     .trophy-meter-fill {
       height: 100%;
       background: var(--gold-primary);
-      border-radius: 999px;
+      border-radius: 9px;
       transition: width 0.3s ease;
     }
 
@@ -1605,7 +1605,7 @@ module.exports = `
       color: var(--text-muted);
       width: 32px;
       height: 32px;
-      border-radius: 50%;
+      border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1622,7 +1622,7 @@ module.exports = `
     .certificate-sheet {
       background: linear-gradient(135deg, #0d121f 0%, #060912 100%);
       border: 3px double rgba(255, 209, 102, 0.5);
-      border-radius: 12px;
+      border-radius: 9px;
       padding: 30px;
       text-align: center;
       position: relative;
@@ -1698,7 +1698,7 @@ module.exports = `
     .dash-footer-logo {
       width: 22px;
       height: 22px;
-      border-radius: 6px;
+      border-radius: 9px;
       border: 1px solid rgba(255, 209, 102, 0.4);
       box-shadow: 0 0 8px rgba(255, 209, 102, 0.2);
     }
@@ -1716,7 +1716,7 @@ module.exports = `
       text-transform: uppercase;
       letter-spacing: 0.08em;
       padding: 2px 7px;
-      border-radius: 999px;
+      border-radius: 9px;
       background: rgba(255, 209, 102, 0.12);
       border: 1px solid rgba(255, 209, 102, 0.3);
       color: var(--gold-primary);
