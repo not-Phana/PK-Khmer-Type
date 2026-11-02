@@ -50,7 +50,7 @@
   position: fixed;
   pointer-events: none;
   border: 2px solid #ffd166;
-  border-radius: 12px;
+  border-radius: 5px;
   box-shadow: 0 0 0 1px rgba(255, 209, 102, 0.3),
               0 0 24px rgba(255, 209, 102, 0.45),
               inset 0 0 12px rgba(255, 209, 102, 0.15);
@@ -75,7 +75,7 @@
   width: min(92vw, 360px);
   background: #0d1222;
   border: 1px solid rgba(255, 209, 102, 0.4);
-  border-radius: 18px;
+  border-radius: 5px;
   padding: 20px 22px 18px;
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75),
               0 0 28px rgba(255, 209, 102, 0.18);
@@ -105,7 +105,7 @@
 .pk-tut-tooltip-lang-btn {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 209, 102, 0.3);
-  border-radius: 999px;
+  border-radius: 5px;
   padding: 2px 7px;
   color: #cbd5e1;
   font-size: 0.7rem;
@@ -133,7 +133,7 @@
 
 .pk-tut-tlang-opt {
   padding: 1px 4px;
-  border-radius: 4px;
+  border-radius: 5px;
   transition: all 0.2s ease;
 }
 
@@ -161,7 +161,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   color: #ffd166;
   background: rgba(255, 209, 102, 0.14);
   padding: 3px 10px;
-  border-radius: 999px;
+  border-radius: 5px;
   border: 1px solid rgba(255, 209, 102, 0.25);
 }
 
@@ -171,7 +171,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   color: #94a3b8;
   width: 28px;
   height: 28px;
-  border-radius: 8px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,7 +194,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
 .pk-tutorial-icon-box {
   width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: 5px;
   background: linear-gradient(180deg, rgba(255, 209, 102, 0.2), rgba(255, 209, 102, 0.06));
   border: 1px solid rgba(255, 209, 102, 0.45);
   box-shadow: 0 0 14px rgba(255, 209, 102, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -241,7 +241,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   align-items: center;
   gap: 7px;
   padding: 6px 10px;
-  border-radius: 9px;
+  border-radius: 5px;
   background: rgba(255, 255, 255, 0.045);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #e2e8f0;
@@ -307,7 +307,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   font-size: 0.82rem;
   font-weight: 600;
   padding: 7px 14px;
-  border-radius: 999px;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -324,7 +324,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   font-size: 0.84rem;
   font-weight: 700;
   padding: 7px 18px;
-  border-radius: 999px;
+  border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(255, 209, 102, 0.3);
   transition: all 0.15s ease;
@@ -345,7 +345,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   width: min(92vw, 530px);
   background: #0a0e1c;
   border: 1px solid rgba(255, 209, 102, 0.45);
-  border-radius: 24px;
+  border-radius: 5px;
   padding: 30px 28px 26px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8),
               0 0 36px rgba(255, 209, 102, 0.2);
@@ -379,7 +379,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   align-items: center;
   background: rgba(14, 20, 36, 0.9);
   border: 1px solid rgba(255, 209, 102, 0.35);
-  border-radius: 999px;
+  border-radius: 5px;
   padding: 3px;
   gap: 3px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -396,7 +396,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   font-size: 0.76rem;
   font-weight: 600;
   padding: 5px 12px;
-  border-radius: 999px;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
   font-family: inherit;
@@ -420,7 +420,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   align-items: center;
   justify-content: center;
   padding: 1px 6px;
-  border-radius: 999px;
+  border-radius: 5px;
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.04em;
@@ -460,7 +460,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 14px;
+  border-radius: 5px;
   background: rgba(255, 209, 102, 0.1);
   border: 1px solid rgba(255, 209, 102, 0.3);
   color: #ffd166;
@@ -490,7 +490,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 9px;
+  border-radius: 5px;
   background: rgba(255, 209, 102, 0.14);
   border: 1px solid rgba(255, 209, 102, 0.4);
   color: #ffd166;
@@ -514,7 +514,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   text-align: left;
   background: rgba(16, 22, 38, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  border-radius: 5px;
   padding: 16px 20px;
   margin-bottom: 24px;
   list-style: none;
@@ -537,7 +537,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
 .pk-tut-path-num {
   width: 28px;
   height: 28px;
-  border-radius: 8px;
+  border-radius: 5px;
   background: rgba(255, 209, 102, 0.14);
   border: 1px solid rgba(255, 209, 102, 0.32);
   color: #ffd166;
@@ -582,7 +582,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   padding: 10px 14px;
   background: rgba(14, 20, 36, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.22s cubic-bezier(0.2, 0.9, 0.3, 1);
   user-select: none;
@@ -604,7 +604,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
 .pk-tut-track-icon-box {
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: 5px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
@@ -653,7 +653,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   font-size: 0.65rem;
   font-weight: 700;
   padding: 1px 6px;
-  border-radius: 999px;
+  border-radius: 5px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #94a3b8;
@@ -705,7 +705,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   font-size: 0.95rem;
   font-weight: 700;
   padding: 12px 24px;
-  border-radius: 999px;
+  border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(255, 209, 102, 0.35);
   transition: all 0.15s ease;
@@ -724,7 +724,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   font-size: 0.88rem;
   font-weight: 600;
   padding: 10px 20px;
-  border-radius: 999px;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -742,7 +742,7 @@ html.site-km-mode .pk-tut-tlang-arrow {
   transform: translateX(-50%);
   background: rgba(13, 18, 34, 0.92);
   border: 1px solid rgba(255, 209, 102, 0.45);
-  border-radius: 999px;
+  border-radius: 5px;
   padding: 8px 18px 8px 14px;
   display: flex;
   align-items: center;

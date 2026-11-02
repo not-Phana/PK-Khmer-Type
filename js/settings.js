@@ -220,7 +220,7 @@ function ensureUpgradedSettingsModalDOM() {
         <div class="settings-row" data-search="accent color gold jade sapphire ruby cyan amethyst"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Primary Accent Color</span><span class="settings-row-km">ពណ៌លេចធ្លោ</span></div><div class="settings-row-desc">Choose the highlight glow color for active keys, badges, and buttons.</div></div><div class="settings-row-control"><div class="settings-choice accent-choice" id="accentChoice"><button type="button" data-accent="gold" class="active" style="--sw:#ffd166" aria-label="Gold accent"></button><button type="button" data-accent="jade" style="--sw:#5fd694" aria-label="Jade accent"></button><button type="button" data-accent="sapphire" style="--sw:#2dd4a7" aria-label="Sapphire accent"></button><button type="button" data-accent="ruby" style="--sw:#ff5a70" aria-label="Ruby accent"></button><button type="button" data-accent="cyan" style="--sw:#38bdf8" aria-label="Cyber Cyan accent"></button><button type="button" data-accent="amethyst" style="--sw:#c084fc" aria-label="Amethyst accent"></button></div></div></div>
         <div class="settings-row" data-search="khmer font family kantumruy noto sans serif typography"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Khmer Script Font Family</span><span class="settings-row-km">ពុម្ពអក្សរខ្មែរ</span></div><div class="settings-row-desc">Choose the Khmer typeface for keycaps, HUD cards, and typing prompts.</div></div><div class="settings-row-control"><div class="settings-choice" id="khmerFontChoice"><button type="button" data-kfont="kantumruy" class="active">Kantumruy Pro</button><button type="button" data-kfont="noto-sans">Noto Sans Khmer</button><button type="button" data-kfont="noto-serif">Noto Serif Khmer</button></div></div></div>
         <div class="settings-row" data-search="larger text font size big scale zoom"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Larger Text &amp; Key Glyphs</span><span class="settings-row-km">អក្សរធំ</span></div><div class="settings-row-desc">Increase font size across keycaps, reading prompts, and menus.</div></div><div class="settings-row-control"><div class="toggle-switch" id="largeTextToggle" role="switch" aria-checked="false" tabindex="0"></div></div></div>
-        <div class="settings-row wallpaper-settings-row" data-search="custom wallpaper background image photo url upload"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Custom Background Wallpaper</span><span class="settings-row-km">រូបភាពផ្ទៃក្រោយ</span></div><div class="settings-row-desc">Upload an image or paste an image URL for your studio backdrop.</div></div><div class="settings-row-control"><div class="wallpaper-actions"><input type="file" id="wallpaperFileInput" accept="image/*" style="display:none;"><button type="button" class="wallpaper-btn" id="uploadWallpaperBtn">Choose Image</button><button type="button" class="wallpaper-btn" id="urlWallpaperBtn">URL</button><button type="button" class="wallpaper-btn danger" id="removeWallpaperBtn" style="display:none;">Remove</button></div></div></div>
+        <div class="settings-row wallpaper-settings-row" data-search="custom wallpaper background image photo url upload"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Custom Background Wallpaper</span><span class="settings-row-km">រូបភាពផ្ទៃក្រោយ</span></div><div class="settings-row-desc">Upload local artwork or add a custom image URL with live HUD preview &amp; curated studio themes.</div><div class="active-wallpaper-chip" id="activeWallpaperChip" style="display:none;"><div class="active-wallpaper-thumb" id="activeWallpaperThumb"></div><div class="active-wallpaper-meta"><span class="active-wallpaper-status"><span class="active-wallpaper-dot"></span> Active Wallpaper</span><span class="active-wallpaper-label" id="activeWallpaperLabel">Custom Backdrop</span></div></div></div><div class="settings-row-control"><div class="wallpaper-actions"><input type="file" id="wallpaperFileInput" accept="image/*" style="display:none;"><button type="button" class="wallpaper-btn" id="uploadWallpaperBtn" title="Choose local image file">Upload Image</button><button type="button" class="wallpaper-btn wallpaper-btn-highlight" id="urlWallpaperBtn" title="Open Custom Wallpaper Studio &amp; URL Gallery"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Add via URL / Gallery</button><button type="button" class="wallpaper-btn danger" id="removeWallpaperBtn" style="display:none;" title="Remove custom wallpaper">Remove</button></div></div></div>
         <div class="settings-row wallpaper-dim-row" id="wallpaperDimControl" style="display:none;" data-search="wallpaper dimming brightness dark"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Wallpaper Dimming</span></div><div class="settings-row-desc">Darken the custom wallpaper so the keyboard stays crisp.</div></div><div class="settings-row-control"><div class="settings-slider-wrap"><input type="range" id="wallpaperDimSlider" min="15" max="90" value="65"><span class="settings-slider-badge" id="wallpaperDimValue">65%</span></div></div></div>
         <div class="settings-row" data-search="wallpaper blur glass backdrop"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Backdrop Glass Blur</span><span class="settings-row-km">កម្រិតព្រាលផ្ទៃក្រោយ</span></div><div class="settings-row-desc">Apply soft optical depth-of-field blur to custom wallpapers.</div></div><div class="settings-row-control"><div class="settings-slider-wrap"><input type="range" id="wallpaperBlurSlider" min="0" max="24" value="0"><span class="settings-slider-badge" id="wallpaperBlurValue">0px</span></div></div></div>
       </div>
@@ -1118,10 +1118,11 @@ function initSettingsToggles() {
   function isSafeImageUrl(url) {
     if (!url || typeof url !== "string") return false;
     var trimmed = url.trim();
-    if (trimmed.length === 0 || trimmed.length > 4096) return false;
+    if (trimmed.length === 0) return false;
     if (/^data:image\/(png|jpe?g|webp|gif|bmp);base64,[A-Za-z0-9+/=]+$/i.test(trimmed)) {
-      return true;
+      return trimmed.length <= 15 * 1024 * 1024;
     }
+    if (trimmed.length > 4096) return false;
     if (/^blob:[a-zA-Z0-9-.:/]+$/i.test(trimmed)) {
       return true;
     }
@@ -1143,24 +1144,78 @@ function initSettingsToggles() {
     window.isSafeImageUrl = isSafeImageUrl;
   }
 
+  function normalizeImageUrl(url) {
+    if (!url || typeof url !== "string") return "";
+    var t = url.trim();
+    if (!t) return "";
+    if (/^(https?:\/\/|data:|blob:|\/|\.\/|assets\/)/i.test(t)) {
+      return t;
+    }
+    if (/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\//.test(t)) {
+      return "https://" + t;
+    }
+    return t;
+  }
+
+  function syncActiveWallpaperChip(url) {
+    const chip = document.getElementById("activeWallpaperChip");
+    const thumb = document.getElementById("activeWallpaperThumb");
+    const label = document.getElementById("activeWallpaperLabel");
+    if (!chip) return;
+    if (!url) {
+      chip.style.display = "none";
+      return;
+    }
+    chip.style.display = "flex";
+    if (thumb) thumb.style.backgroundImage = 'url("' + url.replace(/["'\\]/g, "") + '")';
+    if (label) {
+      if (url.startsWith("data:")) {
+        label.textContent = "Uploaded Artwork";
+      } else if (url.startsWith("blob:")) {
+        label.textContent = "Local Session";
+      } else if (url.includes("unsplash.com")) {
+        label.textContent = "Unsplash Studio";
+      } else if (url.includes("assets/")) {
+        label.textContent = "Studio Asset";
+      } else {
+        try {
+          var parsed = new URL(url);
+          label.textContent = parsed.hostname.replace(/^www\./, "");
+        } catch (_e) {
+          label.textContent = "Custom Backdrop";
+        }
+      }
+    }
+  }
+
   function applyWallpaper(url, dimPct) {
-    if (!url || !customWallpaperLayer) return;
-    if (!isSafeImageUrl(url)) {
+    if (!url) return;
+    const cwLayer = document.getElementById("customWallpaperLayer");
+    if (!cwLayer) return;
+    const normUrl = normalizeImageUrl(url);
+    if (!isSafeImageUrl(normUrl)) {
       console.warn("PK Khmer Type: Rejected unsafe wallpaper URL.");
       return;
     }
     dimPct = dimPct !== undefined ? dimPct : (parseInt(safeGet(WALLPAPER_DIM_KEY, "65"), 10) || 65);
-    var sanitizedUrl = url.replace(/["'\\]/g, "");
-    customWallpaperLayer.style.backgroundImage = 'url("' + sanitizedUrl + '")';
+    var sanitizedUrl = normUrl.replace(/["'\\]/g, "");
+    cwLayer.style.backgroundImage = 'url("' + sanitizedUrl + '")';
     document.documentElement.style.setProperty("--wallpaper-dim", (dimPct / 100).toString());
     document.body.classList.add("has-custom-wallpaper");
-    if (removeWallpaperBtn) removeWallpaperBtn.style.display = "inline-flex";
-    if (wallpaperDimControl) {
-      wallpaperDimControl.style.display = "flex";
-      wallpaperDimControl.hidden = false;
+
+    const remBtn = document.getElementById("removeWallpaperBtn");
+    const dimCtrl = document.getElementById("wallpaperDimControl");
+    const dimSlider = document.getElementById("wallpaperDimSlider");
+    const dimVal = document.getElementById("wallpaperDimValue");
+    if (remBtn) remBtn.style.display = "inline-flex";
+    if (dimCtrl) {
+      dimCtrl.style.display = "flex";
+      dimCtrl.hidden = false;
     }
-    if (wallpaperDimSlider) wallpaperDimSlider.value = dimPct;
-    if (wallpaperDimValue) wallpaperDimValue.textContent = dimPct + "%";
+    if (dimSlider) dimSlider.value = dimPct;
+    if (dimVal) dimVal.textContent = dimPct + "%";
+
+    syncActiveWallpaperChip(sanitizedUrl);
   }
 
   function removeWallpaper() {
@@ -1181,10 +1236,15 @@ function initSettingsToggles() {
       }
     }
     document.body.classList.remove("has-custom-wallpaper");
-    if (customWallpaperLayer) customWallpaperLayer.style.backgroundImage = "";
-    if (removeWallpaperBtn) removeWallpaperBtn.style.display = "none";
-    if (wallpaperDimControl) wallpaperDimControl.style.display = "none";
-    if (wallpaperFileInput) wallpaperFileInput.value = "";
+    const cwLayer = document.getElementById("customWallpaperLayer");
+    if (cwLayer) cwLayer.style.backgroundImage = "";
+    const remBtn = document.getElementById("removeWallpaperBtn");
+    const dimCtrl = document.getElementById("wallpaperDimControl");
+    const fileInput = document.getElementById("wallpaperFileInput");
+    if (remBtn) remBtn.style.display = "none";
+    if (dimCtrl) dimCtrl.style.display = "none";
+    if (fileInput) fileInput.value = "";
+    syncActiveWallpaperChip("");
     if (typeof showToast === "function") showToast(pkIcon("reset", 18), "Wallpaper removed", "Restored default background.");
   }
 
@@ -1237,27 +1297,363 @@ function initSettingsToggles() {
     });
   }
 
+  /* ================= Custom Wallpaper Studio & Gallery Modal Controller ================= */
+  const WALLPAPER_PRESETS = [
+    {
+      id: "neo-tokyo",
+      name: "Cyber Neo-Tokyo",
+      tag: "Cyberpunk",
+      url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80"
+    },
+    {
+      id: "lofi-night",
+      name: "Lo-Fi Midnight",
+      tag: "Anime Night",
+      url: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1920&q=80"
+    },
+    {
+      id: "synthwave",
+      name: "Retro Synthwave",
+      tag: "80s Neon",
+      url: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1920&q=80"
+    },
+    {
+      id: "obsidian-circuit",
+      name: "Obsidian Circuit",
+      tag: "Tech Minimal",
+      url: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1920&q=80"
+    },
+    {
+      id: "dark-slate",
+      name: "Dark Slate Glass",
+      tag: "Atmospheric",
+      url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=80"
+    },
+    {
+      id: "nebula-space",
+      name: "Deep Cosmic Nebula",
+      tag: "Astronomy",
+      url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80"
+    },
+    {
+      id: "pk-studio-home",
+      name: "PK Studio Home",
+      tag: "App Capture",
+      url: "assets/pk-canva-studio-home.png"
+    },
+    {
+      id: "pk-focus-mode",
+      name: "PK Focus Mode",
+      tag: "App Capture",
+      url: "assets/pk-canva-focus-mode.png"
+    }
+  ];
+
+  let wpPreviewDebounceTimer = null;
+  let activeWpPresetId = null;
+
+  function renderWallpaperGallery() {
+    const grid = document.getElementById("wallpaperGalleryGrid");
+    if (!grid || grid.children.length > 0) return;
+    const currentWp = safeGet("khmerCustomWallpaperUrl", "") || safeGet(WALLPAPER_KEY, "");
+    grid.innerHTML = WALLPAPER_PRESETS.map((p) => {
+      const isCur = currentWp === p.url;
+      return `<button type="button" class="wallpaper-gallery-item${isCur ? ' active' : ''}" data-preset-id="${p.id}" data-preset-url="${p.url}" title="Click to preview · Double-click to apply">
+        <div class="wallpaper-gallery-thumb" style="background-image:url('${p.url}')">
+          <span class="wallpaper-gallery-badge">${p.tag}</span>
+        </div>
+        <div class="wallpaper-gallery-name">${p.name}</div>
+      </button>`;
+    }).join("");
+
+    grid.addEventListener("click", (e) => {
+      const item = e.target.closest(".wallpaper-gallery-item");
+      if (!item) return;
+      const url = item.dataset.presetUrl;
+      const id = item.dataset.presetId;
+      activeWpPresetId = id;
+      grid.querySelectorAll(".wallpaper-gallery-item").forEach((el) => el.classList.toggle("active", el === item));
+      const input = document.getElementById("wallpaperUrlInput");
+      if (input) {
+        input.value = url;
+        const clearBtn = document.getElementById("wallpaperClearUrlBtn");
+        if (clearBtn) clearBtn.style.display = "inline-flex";
+      }
+      updateWallpaperStagePreview(url);
+    });
+
+    grid.addEventListener("dblclick", (e) => {
+      const item = e.target.closest(".wallpaper-gallery-item");
+      if (!item) return;
+      const url = item.dataset.presetUrl;
+      const dimSlider = document.getElementById("wallpaperTuneDimSlider");
+      const blurSlider = document.getElementById("wallpaperTuneBlurSlider");
+      const dimVal = dimSlider ? parseInt(dimSlider.value, 10) : 65;
+      const blurVal = blurSlider ? parseInt(blurSlider.value, 10) : 0;
+      commitWallpaperApply(url, dimVal, blurVal);
+    });
+  }
+
+  function updateWallpaperStagePreview(rawUrl) {
+    const previewBg = document.getElementById("wallpaperPreviewBg");
+    const previewDim = document.getElementById("wallpaperPreviewDim");
+    const statusPill = document.getElementById("wallpaperStatusPill");
+    const statusText = document.getElementById("wallpaperStatusText");
+    const metaBadge = document.getElementById("wallpaperMetaBadge");
+    const dimSlider = document.getElementById("wallpaperTuneDimSlider");
+    const blurSlider = document.getElementById("wallpaperTuneBlurSlider");
+
+    const normUrl = normalizeImageUrl(rawUrl);
+    const dimVal = dimSlider ? parseInt(dimSlider.value, 10) || 65 : 65;
+    const blurVal = blurSlider ? parseInt(blurSlider.value, 10) || 0 : 0;
+
+    if (previewDim) previewDim.style.background = "rgba(5, 7, 13, " + (dimVal / 100) + ")";
+
+    if (!normUrl) {
+      if (previewBg) {
+        previewBg.style.backgroundImage = "";
+        previewBg.style.filter = "";
+      }
+      if (statusText) statusText.textContent = "Enter URL or pick a preset";
+      if (metaBadge) metaBadge.textContent = "Waiting for URL...";
+      if (statusPill) statusPill.className = "wallpaper-status-pill";
+      return;
+    }
+
+    if (!isSafeImageUrl(normUrl)) {
+      if (statusText) statusText.textContent = "Invalid or restricted URL";
+      if (metaBadge) metaBadge.textContent = "RESTRICTED";
+      if (statusPill) statusPill.className = "wallpaper-status-pill error";
+      return;
+    }
+
+    if (statusText) statusText.textContent = "Testing & loading image...";
+    if (statusPill) statusPill.className = "wallpaper-status-pill loading";
+
+    const sanitized = normUrl.replace(/["'\\]/g, "");
+    const img = new Image();
+    img.onload = () => {
+      if (previewBg) {
+        previewBg.style.backgroundImage = 'url("' + sanitized + '")';
+        previewBg.style.filter = blurVal > 0 ? `blur(${blurVal}px)` : "";
+      }
+      const dimTxt = img.naturalWidth + " × " + img.naturalHeight + " PX";
+      if (statusText) statusText.textContent = dimTxt + " · READY";
+      if (metaBadge) metaBadge.textContent = dimTxt;
+      if (statusPill) statusPill.className = "wallpaper-status-pill ready";
+    };
+    img.onerror = () => {
+      if (previewBg) {
+        previewBg.style.backgroundImage = 'url("' + sanitized + '")';
+        previewBg.style.filter = blurVal > 0 ? `blur(${blurVal}px)` : "";
+      }
+      if (statusText) statusText.textContent = "Previewing (CORS-restricted or offline)";
+      if (metaBadge) metaBadge.textContent = "EXTERNAL IMAGE";
+      if (statusPill) statusPill.className = "wallpaper-status-pill";
+    };
+    img.src = sanitized;
+  }
+
+  function commitWallpaperApply(urlOverride, dimOverride, blurOverride) {
+    const input = document.getElementById("wallpaperUrlInput");
+    const dimSlider = document.getElementById("wallpaperTuneDimSlider");
+    const blurSlider = document.getElementById("wallpaperTuneBlurSlider");
+
+    const rawUrl = urlOverride !== undefined ? urlOverride : (input ? input.value : "");
+    const normUrl = normalizeImageUrl(rawUrl);
+
+    if (!normUrl || !normUrl.trim()) {
+      if (typeof showToast === "function") {
+        showToast(pkIcon("zap", 18), "No Image URL", "Please enter an image URL or choose a preset.");
+      }
+      return;
+    }
+
+    if (!isSafeImageUrl(normUrl)) {
+      if (typeof showToast === "function") {
+        showToast(pkIcon("zap", 18), "Invalid Image URL", "Only HTTP, HTTPS, and safe local assets are permitted.");
+      } else {
+        alert("Invalid image URL. Only HTTP and HTTPS URLs are permitted.");
+      }
+      return;
+    }
+
+    const cleanUrl = normUrl.trim();
+    const finalDim = dimOverride !== undefined ? dimOverride : (dimSlider ? parseInt(dimSlider.value, 10) || 65 : 65);
+    const finalBlur = blurOverride !== undefined ? blurOverride : (blurSlider ? parseInt(blurSlider.value, 10) || 0 : 0);
+
+    safeSet(WALLPAPER_KEY, cleanUrl);
+    safeSet("khmerCustomWallpaperUrl", cleanUrl);
+    safeSet(WALLPAPER_DIM_KEY, String(finalDim));
+    safeSet(LS.wallpaperBlur, String(finalBlur));
+
+    applyWallpaper(cleanUrl, finalDim);
+    applyWallpaperBlur(finalBlur);
+
+    closeWallpaperUrlModal();
+
+    if (typeof showToast === "function") {
+      showToast(pkIcon("check", 18), "Wallpaper Applied", "Custom studio backdrop is now live.");
+    }
+  }
+
+  function openWallpaperUrlModal() {
+    const modal = document.getElementById("wallpaperUrlModal");
+    if (!modal) return;
+
+    renderWallpaperGallery();
+
+    const input = document.getElementById("wallpaperUrlInput");
+    const clearBtn = document.getElementById("wallpaperClearUrlBtn");
+    const dimSlider = document.getElementById("wallpaperTuneDimSlider");
+    const dimVal = document.getElementById("wallpaperTuneDimVal");
+    const blurSlider = document.getElementById("wallpaperTuneBlurSlider");
+    const blurVal = document.getElementById("wallpaperTuneBlurVal");
+
+    const curDim = parseInt(safeGet(WALLPAPER_DIM_KEY, "65"), 10) || 65;
+    const curBlur = parseInt(safeGet(LS.wallpaperBlur, "0"), 10) || 0;
+
+    if (dimSlider) dimSlider.value = curDim;
+    if (dimVal) dimVal.textContent = curDim + "%";
+    if (blurSlider) blurSlider.value = curBlur;
+    if (blurVal) blurVal.textContent = curBlur + "px";
+
+    const currentWp = safeGet("khmerCustomWallpaperUrl", "") || safeGet(WALLPAPER_KEY, "");
+    if (input) {
+      if (currentWp.startsWith("data:")) {
+        input.value = "";
+        input.placeholder = "Active: Uploaded local artwork";
+      } else {
+        input.value = currentWp;
+        input.placeholder = "https://images.unsplash.com/... or paste image URL";
+      }
+      if (clearBtn) clearBtn.style.display = input.value ? "inline-flex" : "none";
+    }
+
+    updateWallpaperStagePreview(currentWp.startsWith("data:") ? currentWp : (input ? input.value : ""));
+
+    modal.hidden = false;
+    requestAnimationFrame(() => modal.classList.add("visible"));
+  }
+
+  function closeWallpaperUrlModal() {
+    const modal = document.getElementById("wallpaperUrlModal");
+    if (!modal) return;
+    if (typeof window.closeModalAnimated === "function") {
+      window.closeModalAnimated(modal);
+    } else {
+      modal.classList.remove("visible");
+      modal.hidden = true;
+    }
+  }
+
+  if (typeof window !== "undefined") {
+    window.openWallpaperUrlModal = openWallpaperUrlModal;
+    window.closeWallpaperUrlModal = closeWallpaperUrlModal;
+  }
+
   if (urlWallpaperBtn) {
-    urlWallpaperBtn.addEventListener("click", () => {
-      const current = safeGet(WALLPAPER_KEY, "");
-      const url = prompt("Enter image URL (PNG, JPG, WebP):", current.startsWith("http") ? current : "");
-      if (url && url.trim()) {
-        const cleanUrl = url.trim();
-        if (!isSafeImageUrl(cleanUrl)) {
-          if (typeof showToast === "function") {
-            showToast(pkIcon("zap", 18), "Invalid Image URL", "Please enter a valid HTTP/HTTPS image URL.");
-          } else {
-            alert("Invalid image URL. Only HTTP and HTTPS URLs are permitted.");
-          }
-          return;
-        }
-        safeSet(WALLPAPER_KEY, cleanUrl);
-        safeSet("khmerCustomWallpaperUrl", cleanUrl);
-        applyWallpaper(cleanUrl);
-        if (typeof showToast === "function") showToast(pkIcon("check", 18), "Wallpaper applied", "Custom background updated.");
+    urlWallpaperBtn.addEventListener("click", openWallpaperUrlModal);
+  }
+  const wpModalCloseBtn = document.getElementById("wallpaperModalCloseBtn");
+  if (wpModalCloseBtn) wpModalCloseBtn.addEventListener("click", closeWallpaperUrlModal);
+  const wpModalCancelBtn = document.getElementById("wallpaperModalCancelBtn");
+  if (wpModalCancelBtn) wpModalCancelBtn.addEventListener("click", closeWallpaperUrlModal);
+
+  const wpModal = document.getElementById("wallpaperUrlModal");
+  if (wpModal) {
+    wpModal.addEventListener("click", (e) => {
+      if (e.target === wpModal) closeWallpaperUrlModal();
+    });
+  }
+
+  const wpUrlInput = document.getElementById("wallpaperUrlInput");
+  const wpClearBtn = document.getElementById("wallpaperClearUrlBtn");
+  const wpPasteBtn = document.getElementById("wallpaperPasteBtn");
+  const wpApplyBtn = document.getElementById("wallpaperApplyBtn");
+  const wpModalApplyBtn = document.getElementById("wallpaperModalApplyBtn");
+
+  if (wpUrlInput) {
+    wpUrlInput.addEventListener("input", () => {
+      if (wpClearBtn) wpClearBtn.style.display = wpUrlInput.value ? "inline-flex" : "none";
+      clearTimeout(wpPreviewDebounceTimer);
+      wpPreviewDebounceTimer = setTimeout(() => {
+        updateWallpaperStagePreview(wpUrlInput.value);
+      }, 250);
+    });
+    wpUrlInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        commitWallpaperApply();
       }
     });
   }
+
+  if (wpPasteBtn && wpUrlInput) {
+    wpPasteBtn.addEventListener("click", async () => {
+      try {
+        if (navigator.clipboard && typeof navigator.clipboard.readText === "function") {
+          const text = await navigator.clipboard.readText();
+          if (text && text.trim()) {
+            wpUrlInput.value = text.trim();
+            if (wpClearBtn) wpClearBtn.style.display = "inline-flex";
+            updateWallpaperStagePreview(text.trim());
+          }
+        }
+      } catch (_clipErr) {
+        wpUrlInput.focus();
+      }
+    });
+  }
+
+  if (wpClearBtn && wpUrlInput) {
+    wpClearBtn.addEventListener("click", () => {
+      wpUrlInput.value = "";
+      wpClearBtn.style.display = "none";
+      updateWallpaperStagePreview("");
+      wpUrlInput.focus();
+    });
+  }
+
+  if (wpApplyBtn) wpApplyBtn.addEventListener("click", () => commitWallpaperApply());
+  if (wpModalApplyBtn) wpModalApplyBtn.addEventListener("click", () => commitWallpaperApply());
+
+  const wpTuneDimSlider = document.getElementById("wallpaperTuneDimSlider");
+  const wpTuneDimVal = document.getElementById("wallpaperTuneDimVal");
+  if (wpTuneDimSlider) {
+    wpTuneDimSlider.addEventListener("input", () => {
+      const val = parseInt(wpTuneDimSlider.value, 10) || 65;
+      if (wpTuneDimVal) wpTuneDimVal.textContent = val + "%";
+      const previewDim = document.getElementById("wallpaperPreviewDim");
+      if (previewDim) previewDim.style.background = "rgba(5, 7, 13, " + (val / 100) + ")";
+    });
+  }
+
+  const wpTuneBlurSlider = document.getElementById("wallpaperTuneBlurSlider");
+  const wpTuneBlurVal = document.getElementById("wallpaperTuneBlurVal");
+  if (wpTuneBlurSlider) {
+    wpTuneBlurSlider.addEventListener("input", () => {
+      const val = parseInt(wpTuneBlurSlider.value, 10) || 0;
+      if (wpTuneBlurVal) wpTuneBlurVal.textContent = val + "px";
+      const previewBg = document.getElementById("wallpaperPreviewBg");
+      if (previewBg) previewBg.style.filter = val > 0 ? `blur(${val}px)` : "";
+    });
+  }
+
+  const wpTuneResetBtn = document.getElementById("wallpaperTuneResetBtn");
+  if (wpTuneResetBtn) {
+    wpTuneResetBtn.addEventListener("click", () => {
+      if (wpTuneDimSlider) wpTuneDimSlider.value = 65;
+      if (wpTuneDimVal) wpTuneDimVal.textContent = "65%";
+      if (wpTuneBlurSlider) wpTuneBlurSlider.value = 0;
+      if (wpTuneBlurVal) wpTuneBlurVal.textContent = "0px";
+      const previewDim = document.getElementById("wallpaperPreviewDim");
+      if (previewDim) previewDim.style.background = "rgba(5, 7, 13, 0.65)";
+      const previewBg = document.getElementById("wallpaperPreviewBg");
+      if (previewBg) previewBg.style.filter = "";
+    });
+  }
+
   if (removeWallpaperBtn) removeWallpaperBtn.addEventListener("click", removeWallpaper);
   if (wallpaperDimSlider) {
     wallpaperDimSlider.addEventListener("input", () => {
@@ -1267,6 +1663,7 @@ function initSettingsToggles() {
       safeSet(WALLPAPER_DIM_KEY, String(val));
     });
   }
+
   const savedWallpaper = safeGet(WALLPAPER_KEY, null) || safeGet("khmerCustomWallpaperUrl", null);
   if (savedWallpaper) {
     applyWallpaper(savedWallpaper, parseInt(safeGet(WALLPAPER_DIM_KEY, "65"), 10));
