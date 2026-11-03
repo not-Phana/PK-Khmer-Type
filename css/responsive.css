@@ -57,7 +57,8 @@
   }
 
   @media(min-width:1024px){
-    .lesson-strip{
+    .lesson-strip,
+    #lessonStrip{
       position:fixed;
       right:18px;
       top:90px;
@@ -66,18 +67,22 @@
       width:360px;
       margin:0;
       z-index:60;
-      overflow:hidden;
+      border-radius:9px !important;
+      overflow:hidden !important;
       backdrop-filter:blur(12px);
       -webkit-backdrop-filter:blur(12px);
       box-shadow:0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,209,102,0.18);
       border-color:rgba(255,209,102,0.25);
       transition:width .28s cubic-bezier(.22,1,.36,1), top .28s ease, bottom .28s ease, max-height .28s ease, box-shadow .28s ease, border-color .28s ease;
     }
-    .lesson-strip.expanded{
+    .lesson-strip.expanded,
+    #lessonStrip.expanded{
       top:64px;
       bottom:14px;
       max-height:calc(100vh - 78px);
       width:min(660px, calc(100vw - 760px));
+      border-radius:9px !important;
+      overflow:hidden !important;
       box-shadow:0 18px 54px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,209,102,0.24);
       border-color:rgba(255,209,102,0.35);
     }

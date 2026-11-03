@@ -777,7 +777,8 @@
   }
 
     /* ---------- lessons (compact right-side dock) ---------- */
-  .lesson-strip{
+  .lesson-strip,
+  #lessonStrip{
     display:flex !important;
     flex-direction:column;
     gap:0;
@@ -786,6 +787,7 @@
     margin:0 0 20px;
     background:rgba(14, 18, 36, 0.94);
     border:1px solid var(--stone-3);
+    border-radius:9px !important;
     padding:0;
     box-sizing:border-box;
     box-shadow:0 8px 30px rgba(0,0,0,0.35);
@@ -793,7 +795,7 @@
     animation:lesson-strip-spring-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
     visibility:visible !important;
     opacity:1 !important;
-    overflow:hidden;
+    overflow:hidden !important;
   }
   @keyframes lesson-strip-spring-in{
     0%{
@@ -921,13 +923,18 @@
     padding:4px 8px !important;
   }
   html.focus-mode .lss-input-wrap .pk-icon{
-    left:7px !important;
-    width:11px !important;
-    height:11px !important;
+    position:absolute !important;
+    left:9px !important;
+    top:50% !important;
+    transform:translateY(-50%) !important;
+    width:12px !important;
+    height:12px !important;
+    z-index:2 !important;
   }
-  html.focus-mode .lss-input-wrap input{
-    padding:4px 7px 4px 22px !important;
-    font-size:0.64rem !important;
+  html.focus-mode .lss-input-wrap input,
+  html.focus-mode #lessonSearchInput{
+    padding:5px 8px 5px 34px !important;
+    font-size:0.68rem !important;
     border-radius:9px !important;
   }
   html.focus-mode .lesson-strip-body{
@@ -1030,13 +1037,14 @@
     pointer-events:none;
     z-index:2;
   }
-  .lss-input-wrap input{
+  .lss-input-wrap input,
+  #lessonSearchInput{
     width:100%;
     box-sizing:border-box;
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,255,255,0.1);
-    border-radius:9px;
-    padding:8px 12px 8px 36px;
+    border-radius:9px !important;
+    padding:8px 12px 8px 38px !important;
     color:var(--ink);
     font-family:'Space Grotesk', sans-serif;
     font-size:0.75rem;
@@ -3696,9 +3704,11 @@
 }
 
 /* Upgraded Base Lesson Strip */
-.lesson-strip {
+.lesson-strip,
+#lessonStrip {
   position: relative;
   border-radius: 9px !important;
+  overflow: hidden !important;
   background: linear-gradient(165deg, rgba(16, 20, 38, 0.88) 0%, rgba(9, 12, 24, 0.94) 100%) !important;
   backdrop-filter: blur(16px) saturate(165%) !important;
   -webkit-backdrop-filter: blur(16px) saturate(165%) !important;
@@ -3723,6 +3733,7 @@
 
 /* Header & Actions Polish */
 .lesson-strip-header {
+  border-radius: 9px 9px 0 0 !important;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   padding: 11px 14px !important;
@@ -3766,10 +3777,13 @@
   align-items: center !important;
   width: 100% !important;
 }
-.lss-input-wrap input {
+.lss-input-wrap input,
+#lessonSearchInput,
+.lesson-search-input {
   width: 100% !important;
   box-sizing: border-box !important;
-  padding: 8px 12px 8px 36px !important;
+  padding: 8px 12px 8px 38px !important;
+  padding-left: 38px !important;
   background: rgba(8, 11, 22, 0.65) !important;
   border: 1px solid rgba(255, 255, 255, 0.16) !important;
   border-radius: 9px !important;
@@ -3779,10 +3793,12 @@
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35) !important;
   transition: all 0.2s ease !important;
 }
-.lss-input-wrap input::placeholder {
+.lss-input-wrap input::placeholder,
+#lessonSearchInput::placeholder {
   color: rgba(203, 213, 225, 0.62) !important;
 }
-.lss-input-wrap input:focus {
+.lss-input-wrap input:focus,
+#lessonSearchInput:focus {
   border-color: var(--gold-bright) !important;
   background: rgba(12, 16, 32, 0.85) !important;
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold-bright) 28%, transparent), 0 0 16px color-mix(in srgb, var(--gold-bright) 22%, transparent) !important;
@@ -3962,10 +3978,24 @@ html.focus-mode .lsh-badge {
 html.focus-mode .lesson-strip-search {
   padding: 6px 10px !important;
 }
-html.focus-mode .lss-input-wrap input {
-  padding: 5px 9px 5px 25px !important;
+html.focus-mode .lss-input-wrap input,
+html.focus-mode #lessonSearchInput {
+  padding: 5px 9px 5px 34px !important;
+  padding-left: 34px !important;
   font-size: 0.68rem !important;
   border-radius: 9px !important;
+}
+html.focus-mode .lss-input-wrap .pk-icon {
+  position: absolute !important;
+  left: 9px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 12px !important;
+  height: 12px !important;
+  color: var(--gold-bright) !important;
+  opacity: 0.85 !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
 }
 html.focus-mode .lesson-strip-body {
   padding: 6px 9px 10px !important;
@@ -4283,11 +4313,14 @@ html.theme-light .gac-badge {
   border-color: #fcd34d !important;
   color: #92400e !important;
 }
-html.theme-light .lss-input-wrap input {
+html.theme-light .lss-input-wrap input,
+html.theme-light #lessonSearchInput {
   background: #ffffff !important;
   border: 1px solid #cbd5e1 !important;
   color: #0f172a !important;
   box-shadow: none !important;
+  padding-left: 38px !important;
+  border-radius: 9px !important;
 }
 html.theme-light .lss-input-wrap input::placeholder {
   color: #64748b !important;
@@ -4633,11 +4666,14 @@ html.theme-sepia .guide-kbd {
 html.theme-sepia .guide-stat-num {
   color: #92400e !important;
 }
-html.theme-sepia .lss-input-wrap input {
+html.theme-sepia .lss-input-wrap input,
+html.theme-sepia #lessonSearchInput {
   background: #faf4e8 !important;
   border: 1px solid #ccbc9e !important;
   color: #2c1b0c !important;
   box-shadow: none !important;
+  padding-left: 38px !important;
+  border-radius: 9px !important;
 }
 html.theme-sepia .lss-input-wrap input::placeholder {
   color: #8c6b45 !important;
