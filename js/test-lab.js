@@ -24,19 +24,22 @@
       quick: 'កម្ពុជា ប្រទេសជាតិ សន្តិភាព សាមគ្គីភាព អភិវឌ្ឍន៍ វប្បធម៌ខ្មែរ រុងរឿង សុខដុមរមនា',
       accuracy: 'ព្រះរាជាណាចក្រកម្ពុជា ជាប្រទេសដែលមានប្រវត្តិសាស្ត្រយូរលង់ និងមានប្រាសាទអង្គរវត្តដ៏ល្បីល្បាញក្នុងពិភពលោក។ ប្រជាជនកម្ពុជាមានសាមគ្គីភាព និងស្រឡាញ់សន្តិភាព។',
       speed: 'យើងទាំងអស់គ្នាត្រូវរួមគ្នាថែរក្សាការពារវប្បធម៌ និងអក្សរសាស្ត្រជាតិឱ្យបានគង់វង្ស ដើម្បីអនាគតកូនចៅជំនាន់ក្រោយ។ ការរៀនវាយអក្សរខ្មែរជួយឱ្យការងារកាន់តែរហ័ស។',
-      review: 'ដថ ងក ាិ ីើ សដ សាលា រៀន កូនសិស្ស គ្រូបង្រៀន សៀវភៅ ប៊ិច បន្ទាត់ ក្តារខៀន ថ្នាក់រៀន ចំណេះដឹង បញ្ញា ស្មារតី ឧស្សាហ៍ព្យាយាម ជោគជ័យ។'
+      review: 'ដថ ងក ាិ ីើ សដ សាលា រៀន កូនសិស្ស គ្រូបង្រៀន សៀវភៅ ប៊ិច បន្ទាត់ ក្តារខៀន ថ្នាក់រៀន ចំណេះដឹង បញ្ញា ស្មារតី ឧស្សាហ៍ព្យាយាម ជោគជ័យ។',
+      literature: 'ស្រឡាញ់ខ្លួនឱ្យស្គាល់ខ្មាស់ ស្រឡាញ់ចាស់ឱ្យស្គាល់ទាន ស្រឡាញ់រៀនឱ្យស្គាល់ក្បួន។ ជាតិជាមនុស្សគប្បីមានសេចក្តីព្យាយាម មិនត្រូវបោះបង់សេចក្តីសង្ឃឹមឡើយ។ រឿងទុំទាវ និងរាមកេរ្តិ៍ ជាសម្បត្តិវប្បធម៌ដ៏ឧត្តុង្គឧត្តមនៃព្រះរាជាណាចក្រកម្ពុជា។'
     },
     nida: {
       quick: 'កម្ពុជា ប្រទេសជាតិ សន្តិភាព សាមគ្គីភាព អភិវឌ្ឍន៍ វប្បធម៌ខ្មែរ រុងរឿង សុខដុមរមនា',
       accuracy: 'ព្រះរាជាណាចក្រកម្ពុជា ជាប្រទេសដែលមានប្រវត្តិសាស្ត្រយូរលង់ និងមានប្រាសាទអង្គរវត្តដ៏ល្បីល្បាញក្នុងពិភពលោក។ ប្រជាជនកម្ពុជាមានសាមគ្គីភាព និងស្រឡាញ់សន្តិភាព។',
       speed: 'យើងទាំងអស់គ្នាត្រូវរួមគ្នាថែរក្សាការពារវប្បធម៌ និងអក្សរសាស្ត្រជាតិឱ្យបានគង់វង្ស ដើម្បីអនាគតកូនចៅជំនាន់ក្រោយ។ ការរៀនវាយអក្សរខ្មែរជួយឱ្យការងារកាន់តែរហ័ស។',
-      review: 'ដថ ងក ាិ ីើ សដ សាលា រៀន កូនសិស្ស គ្រូបង្រៀន សៀវភៅ ប៊ិច បន្ទាត់ ក្តារខៀន ថ្នាក់រៀន ចំណេះដឹង បញ្ញា ស្មារតី ឧស្សាហ៍ព្យាយាម ជោគជ័យ។'
+      review: 'ដថ ងក ាិ ីើ សដ សាលា រៀន កូនសិស្ស គ្រូបង្រៀន សៀវភៅ ប៊ិច បន្ទាត់ ក្តារខៀន ថ្នាក់រៀន ចំណេះដឹង បញ្ញា ស្មារតី ឧស្សាហ៍ព្យាយាម ជោគជ័យ។',
+      literature: 'ស្រឡាញ់ខ្លួនឱ្យស្គាល់ខ្មាស់ ស្រឡាញ់ចាស់ឱ្យស្គាល់ទាន ស្រឡាញ់រៀនឱ្យស្គាល់ក្បួន។ ជាតិជាមនុស្សគប្បីមានសេចក្តីព្យាយាម មិនត្រូវបោះបង់សេចក្តីសង្ឃឹមឡើយ។ រឿងទុំទាវ និងរាមកេរ្តិ៍ ជាសម្បត្តិវប្បធម៌ដ៏ឧត្តុង្គឧត្តមនៃព្រះរាជាណាចក្រកម្ពុជា។'
     },
     english: {
       quick: 'the quick brown fox jumps over the lazy dog while practicing touch typing with high accuracy and speed',
       accuracy: 'Mastering touch typing requires consistent rhythm, correct finger placement on the home row, and patient daily practice without looking down at the keyboard keys.',
       speed: 'Focus and steady flow enable great writers to transcribe their thoughts directly onto the screen with effortless speed, natural confidence, and remarkable precision.',
-      review: 'all ask sad fall glad flash salad flask dark lead leaf seed ease call real self free late deal rate talk'
+      review: 'all ask sad fall glad flash salad flask dark lead leaf seed ease call real self free late deal rate talk',
+      literature: 'Knowledge is the true heritage of humanity. The great epics and classic literature remind us that endurance, patience, and deliberate mastery of our craft illuminate the path forward across generations.'
     }
   };
 
@@ -193,6 +196,15 @@
     } else if(preset === 'lesson-review'){
       durationSec = 60;
       targetAccuracy = 95;
+    } else if(preset === 'literature'){
+      durationSec = 120;
+      targetAccuracy = 95;
+    } else if(preset === 'sprint-1m'){
+      durationSec = 60;
+      targetAccuracy = 90;
+    } else if(preset === 'sprint-3m'){
+      durationSec = 180;
+      targetAccuracy = 90;
     } else if(preset === 'custom'){
       durationSec = options.durationSec || 60;
       targetAccuracy = options.targetAccuracy || 95;

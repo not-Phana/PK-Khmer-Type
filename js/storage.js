@@ -2471,6 +2471,133 @@ function initStorageActions() {
     }
   }
 
+  /* =====================================================================
+     PHASE B: CORE RELIABILITY, ROLLBACK SNAPSHOT & STORAGE QUOTA GUARD
+     ===================================================================== */
+  const PRE_RESTORE_SNAPSHOT_KEY = 'pk_pre_restore_snapshot';
+
+  function createPreRestoreSnapshot(reason = 'backup_import') {
+    try {
+      const snapshot = {};
+      const SAFE_PREFIXES = ['khmer', 'pk_', 'kk_'];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (!k || k === PRE_RESTORE_SNAPSHOT_KEY) continue;
+        if (SAFE_PREFIXES.some((pfx) => k.startsWith(pfx)) || (typeof isProgressKey === 'function' && isProgressKey(k))) {
+          snapshot[k] = localStorage.getItem(k);
+        }
+      }
+      const record = {
+        app: 'PK Khmer Type',
+        format: 'pk_pre_restore_snapshot',
+        version: '2.4.0-beta',
+        timestamp: new Date().toISOString(),
+        reason: String(reason || 'backup_import'),
+        keysCount: Object.keys(snapshot).length,
+        data: snapshot
+      };
+      localStorage.setItem(PRE_RESTORE_SNAPSHOT_KEY, JSON.stringify(record));
+      updateRollbackButtonVisibility();
+      return { ok: true, keysCount: record.keysCount, timestamp: record.timestamp };
+    } catch (e) {
+      console.warn('Could not create pre-restore snapshot:', e);
+      return { ok: false, error: e.message };
+    }
+  }
+
+  function hasPreRestoreSnapshot() {
+    try {
+      const raw = localStorage.getItem(PRE_RESTORE_SNAPSHOT_KEY);
+      if (!raw) return false;
+      const parsed = JSON.parse(raw);
+      return Boolean(parsed && parsed.data && typeof parsed.data === 'object' && Object.keys(parsed.data).length > 0);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function getPreRestoreSnapshotInfo() {
+    try {
+      const raw = localStorage.getItem(PRE_RESTORE_SNAPSHOT_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return {
+        timestamp: parsed.timestamp || null,
+        reason: parsed.reason || 'backup_import',
+        keysCount: parsed.keysCount || (parsed.data ? Object.keys(parsed.data).length : 0)
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function rollbackPreRestoreSnapshot() {
+    try {
+      const raw = localStorage.getItem(PRE_RESTORE_SNAPSHOT_KEY);
+      if (!raw) throw new Error('No pre-restore snapshot found.');
+      const parsed = JSON.parse(raw);
+      if (!parsed || !parsed.data || typeof parsed.data !== 'object') {
+        throw new Error('Pre-restore snapshot data is invalid.');
+      }
+      const keys = Object.keys(parsed.data);
+      if (!keys.length) throw new Error('Pre-restore snapshot is empty.');
+      keys.forEach((k) => {
+        localStorage.setItem(k, parsed.data[k]);
+      });
+      return { ok: true, restoredKeysCount: keys.length, timestamp: parsed.timestamp };
+    } catch (e) {
+      console.error('Rollback failed:', e);
+      return { ok: false, error: e.message };
+    }
+  }
+
+  function getStorageQuotaUsage() {
+    let totalBytes = 0;
+    const details = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      const val = localStorage.getItem(k);
+      const itemBytes = (k ? k.length * 2 : 0) + (val ? val.length * 2 : 0);
+      totalBytes += itemBytes;
+      if (k.startsWith('khmerProgress') || k.startsWith('pk_progress')) {
+        details.progress = (details.progress || 0) + itemBytes;
+      } else if (k.startsWith('khmerCustomLessons')) {
+        details.customLessons = (details.customLessons || 0) + itemBytes;
+      } else if (k.startsWith('khmerTracking') || k.startsWith('khmerReview')) {
+        details.telemetry = (details.telemetry || 0) + itemBytes;
+      } else if (k.startsWith('pk_adaptive')) {
+        details.adaptive = (details.adaptive || 0) + itemBytes;
+      } else {
+        details.other = (details.other || 0) + itemBytes;
+      }
+    }
+    const MAX_ESTIMATED_BYTES = 5 * 1024 * 1024;
+    return {
+      usedBytes: totalBytes,
+      usedKilobytes: Math.round((totalBytes / 1024) * 10) / 10,
+      usedMegabytes: Math.round((totalBytes / (1024 * 1024)) * 100) / 100,
+      quotaEstimatedBytes: MAX_ESTIMATED_BYTES,
+      usagePercent: Math.min(100, Math.round((totalBytes / MAX_ESTIMATED_BYTES) * 1000) / 10),
+      details
+    };
+  }
+
+  function updateRollbackButtonVisibility() {
+    const btn = document.getElementById('rollbackProgressBtn');
+    if (btn) {
+      if (hasPreRestoreSnapshot()) {
+        btn.style.display = 'inline-flex';
+        const info = getPreRestoreSnapshotInfo();
+        if (info && info.timestamp) {
+          const dateStr = new Date(info.timestamp).toLocaleTimeString();
+          btn.title = 'Rollback to safety snapshot from ' + dateStr + ' (' + info.keysCount + ' keys)';
+        }
+      } else {
+        btn.style.display = 'none';
+      }
+    }
+  }
+
   const exportBtn = document.getElementById('exportProgressBtn');
   if (exportBtn) {
     exportBtn.addEventListener('click', exportUnifiedBackup);
@@ -2504,6 +2631,7 @@ function initStorageActions() {
             )
           : confirm('Restore backup? This will update your current progress and settings.');
         if (!ok) return;
+        createPreRestoreSnapshot('backup_import');
 
         const FORBIDDEN_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
         const SAFE_PREFIXES = ['khmer', 'pk_', 'kk_'];
@@ -2620,7 +2748,164 @@ function initStorageActions() {
     });
   }
 
-  window.PKExportBackup = exportUnifiedBackup;
+    const rollbackProgressBtn = document.getElementById('rollbackProgressBtn');
+  if (rollbackProgressBtn) {
+    updateRollbackButtonVisibility();
+    rollbackProgressBtn.addEventListener('click', async () => {
+      const info = getPreRestoreSnapshotInfo();
+      const timeStr = info && info.timestamp ? new Date(info.timestamp).toLocaleString() : 'before your last import';
+      const ok = typeof templeConfirm === 'function'
+        ? await templeConfirm(
+            'Revert to the safety snapshot taken ' + timeStr + '? This will undo the imported backup.',
+            { title: 'Rollback to Previous State?', confirmLabel: 'Rollback Snapshot', icon: pkIcon('refresh', 24) }
+          )
+        : confirm('Revert to the safety snapshot taken ' + timeStr + '?');
+      if (!ok) return;
+      const res = rollbackPreRestoreSnapshot();
+      if (res.ok) {
+        if (typeof showToast === 'function') {
+          showToast(pkIcon('check', 18), 'State Restored', 'Restored ' + res.restoredKeysCount + ' items from snapshot.');
+        }
+        setTimeout(() => location.reload(), 600);
+      } else {
+        if (typeof showToast === 'function') {
+          showToast(pkIcon('zap', 18), 'Rollback Failed', res.error || 'Could not restore snapshot.');
+        } else {
+          alert('Rollback failed: ' + (res.error || 'Unknown error'));
+        }
+      }
+    });
+  }
+
+
+  /* =====================================================================
+     PHASE G: SHARED-PC LOCAL MULTI-LEARNER PROFILE ENGINE
+     ===================================================================== */
+  const PROFILES_INDEX_KEY = 'pk_local_profiles_v1';
+  const PROFILE_STORE_PREFIX = 'pk_profile_store_';
+
+  function listLocalProfiles() {
+    try {
+      const raw = localStorage.getItem(PROFILES_INDEX_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && Array.isArray(parsed.profiles)) return parsed.profiles;
+      }
+    } catch (e) {}
+    const defaultList = [{ id: 'default', name: 'Learner 1', createdAt: new Date().toISOString() }];
+    try {
+      localStorage.setItem(PROFILES_INDEX_KEY, JSON.stringify({ activeProfileId: 'default', profiles: defaultList }));
+    } catch (e) {}
+    return defaultList;
+  }
+
+  function getActiveLocalProfile() {
+    try {
+      const raw = localStorage.getItem(PROFILES_INDEX_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.activeProfileId) {
+          const found = (parsed.profiles || []).find((p) => p.id === parsed.activeProfileId);
+          if (found) return found;
+        }
+      }
+    } catch (e) {}
+    return { id: 'default', name: 'Learner 1', createdAt: new Date().toISOString() };
+  }
+
+  function createLocalProfile(name) {
+    if (!name || !name.trim()) return { ok: false, error: 'Profile name is required.' };
+    const cleanName = String(name).trim().slice(0, 32);
+    const profiles = listLocalProfiles();
+    const id = 'prof_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+    const newProfile = { id, name: cleanName, createdAt: new Date().toISOString() };
+    profiles.push(newProfile);
+    const activeId = getActiveLocalProfile().id;
+    localStorage.setItem(PROFILES_INDEX_KEY, JSON.stringify({ activeProfileId: activeId, profiles }));
+    return { ok: true, profile: newProfile };
+  }
+
+  function saveProfilePartition(profileId) {
+    if (!profileId) return;
+    const partition = {};
+    const SAFE_PREFIXES = ['khmer', 'pk_', 'kk_'];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (!k || k === PROFILES_INDEX_KEY || k.startsWith(PROFILE_STORE_PREFIX) || k === PRE_RESTORE_SNAPSHOT_KEY) continue;
+      if (SAFE_PREFIXES.some((pfx) => k.startsWith(pfx)) || (typeof isProgressKey === 'function' && isProgressKey(k))) {
+        partition[k] = localStorage.getItem(k);
+      }
+    }
+    localStorage.setItem(PROFILE_STORE_PREFIX + profileId, JSON.stringify(partition));
+  }
+
+  function loadProfilePartition(profileId) {
+    if (!profileId) return;
+    try {
+      const raw = localStorage.getItem(PROFILE_STORE_PREFIX + profileId);
+      if (!raw) return;
+      const partition = JSON.parse(raw);
+      if (!partition || typeof partition !== 'object') return;
+      Object.keys(partition).forEach((k) => {
+        localStorage.setItem(k, partition[k]);
+      });
+    } catch (e) {}
+  }
+
+  function switchLocalProfile(targetProfileId) {
+    const profiles = listLocalProfiles();
+    const target = profiles.find((p) => p.id === targetProfileId);
+    if (!target) return { ok: false, error: 'Profile not found.' };
+
+    const current = getActiveLocalProfile();
+    saveProfilePartition(current.id);
+
+    const SAFE_PREFIXES = ['khmer', 'pk_', 'kk_'];
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (!k || k === PROFILES_INDEX_KEY || k.startsWith(PROFILE_STORE_PREFIX) || k === PRE_RESTORE_SNAPSHOT_KEY) continue;
+      if (SAFE_PREFIXES.some((pfx) => k.startsWith(pfx)) || (typeof isProgressKey === 'function' && isProgressKey(k))) {
+        keysToRemove.push(k);
+      }
+    }
+    keysToRemove.forEach((k) => localStorage.removeItem(k));
+
+    loadProfilePartition(target.id);
+    localStorage.setItem(PROFILES_INDEX_KEY, JSON.stringify({ activeProfileId: target.id, profiles }));
+
+    return { ok: true, activeProfile: target };
+  }
+
+  function deleteLocalProfile(profileId) {
+    if (profileId === 'default') return { ok: false, error: 'Cannot delete default profile.' };
+    const profiles = listLocalProfiles().filter((p) => p.id !== profileId);
+    localStorage.removeItem(PROFILE_STORE_PREFIX + profileId);
+    const active = getActiveLocalProfile();
+    const newActiveId = (active.id === profileId) ? 'default' : active.id;
+    localStorage.setItem(PROFILES_INDEX_KEY, JSON.stringify({ activeProfileId: newActiveId, profiles }));
+    if (active.id === profileId) {
+      loadProfilePartition('default');
+    }
+    return { ok: true, remainingProfiles: profiles };
+  }
+
+  window.PK_STORAGE = {
+    listLocalProfiles,
+    getActiveLocalProfile,
+    createLocalProfile,
+    switchLocalProfile,
+    deleteLocalProfile,
+    createPreRestoreSnapshot,
+    hasPreRestoreSnapshot,
+    getPreRestoreSnapshotInfo,
+    rollbackPreRestoreSnapshot,
+    getStorageQuotaUsage,
+    exportUnifiedBackup,
+    handleImportFile
+  };
+
+window.PKExportBackup = exportUnifiedBackup;
   window.PKImportBackup = () => {
     if (importProgressInput) importProgressInput.click();
   };

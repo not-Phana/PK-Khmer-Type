@@ -1860,8 +1860,9 @@
             <div class="settings-row-desc i18n-t" data-en="Download a portable JSON backup of your progress and settings, or restore from a file." data-km="ទាញយកឯកសារបម្រុងទុក (.json) នៃវឌ្ឍនភាព និងការកំណត់របស់អ្នក ឬស្ដារទិន្នន័យពីឯកសារ។">Download a portable JSON backup of your progress and settings, or restore from a file.</div>
           </div>
           <div class="settings-row-control">
-            <button type="button" class="secondary-btn" id="exportProgressBtn" style="padding:7px 12px;flex:none;"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> <span class="i18n-t" data-en="Export Backup" data-km="នាំចេញការបម្រុងទុក">Export Backup</span></button>
-            <button type="button" class="secondary-btn" id="importProgressBtn" style="padding:7px 12px;flex:none;"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> <span class="i18n-t" data-en="Import Backup" data-km="នាំចូលការបម្រុងទុក">Import Backup</span></button>
+            <button type="button" class="secondary-btn" id="exportProgressBtn" style="padding:7px 12px;flex:none;"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> <span class="i18n-t" data-en="Export Backup" data-km="នាំចេញការបម្រុងទុក">Export Backup</span></button>
+            <button type="button" class="secondary-btn" id="importProgressBtn" style="padding:7px 12px;flex:none;"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> <span class="i18n-t" data-en="Import Backup" data-km="នាំចូលការបម្រុងទុក">Import Backup</span></button>
+            <button type="button" class="secondary-btn" id="rollbackProgressBtn" style="padding:7px 12px;flex:none;display:none;" title="Revert to safety snapshot taken before last import"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> <span class="i18n-t" data-en="Rollback Import" data-km="ត្រឡប់ការនាំចូល">Rollback Import</span></button>
             <input type="file" id="importProgressInput" accept="application/json" hidden>
           </div>
         </div>
@@ -4831,5 +4832,25 @@
   <script defer src="js/quick_guide.js?v=86"></script>
   <script defer src="js/tutorial.js?v=86"></script>
   <script defer src="js/app.js?v=86"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js').then(function (reg) {
+          reg.addEventListener('updatefound', function () {
+            var inst = reg.installing;
+            if (inst) {
+              inst.addEventListener('statechange', function () {
+                if (inst.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('PK Khmer Type updated: ready for offline use.');
+                }
+              });
+            }
+          });
+        }).catch(function (err) {
+          console.warn('PWA service worker registration skipped:', err);
+        });
+      });
+    }
+  </script>
 </body>
 </html>

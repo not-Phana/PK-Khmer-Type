@@ -1,0 +1,106 @@
+{
+  "version": "1.0.0",
+  "app": "PK Khmer Type",
+  "catalog": "Khmer Cultural Literature Vault",
+  "categories": [
+    {
+      "id": "reamker",
+      "titleEn": "Reamker (Khmer Ramayana)",
+      "titleKm": "រឿងរាមកេរ្តិ៍",
+      "period": "Classical Heritage",
+      "description": "Cambodia's epic poem depicting virtue, justice, and devotion.",
+      "passages": [
+        {
+          "id": "reamker_01",
+          "title": "Invocation to the Sacred Kingdom",
+          "text": "សូមថ្វាយបង្គំព្រះរតនត្រ័យដ៏ប្រសើរថ្លៃថ្លា ដែលជាទីពឹងពំនាក់នៃមនុស្សលោកទាំងពួង។ ព្រះរាមទ្រង់ប្រកបដោយទសពិធរាជធម៌ និងមានសេចក្តីករុណាធម៌ចំពោះប្រជានុរាស្ត្រគ្រប់ទិសទី។"
+        },
+        {
+          "id": "reamker_02",
+          "title": "Bravery of Hanuman",
+          "text": "ហនុមានជាមេទ័ពដ៏មានមហិទ្ធិឫទ្ធិ ស្មោះត្រង់ចំពោះព្រះរាម ហោះកាត់មហាសមុទ្រទៅជួយព្រះនាងសិតាដោយសេចក្តីក្លាហានឥតញញើត។"
+        }
+      ]
+    },
+    {
+      "id": "tum_teav",
+      "titleEn": "Tum Teav (Classical Romance)",
+      "titleKm": "រឿងទុំទាវ",
+      "period": "19th Century Classical Prose",
+      "description": "Preah Botumthera Som's celebrated tragedy of enduring love and social tradition.",
+      "passages": [
+        {
+          "id": "tum_teav_01",
+          "title": "The Eloquence of Tum",
+          "text": "នេនទុំមានទឹកដមសំឡេងដ៏ពីរោះក្នុងការស្មូត្រធម៌ និងច្រៀងចម្រៀងស្នេហា ដែលធ្វើឱ្យអ្នកស្រុកត្បូងឃ្មុំគ្រប់គ្នាកោតសរសើរមិនដាច់ពីមាត់។"
+        },
+        {
+          "id": "tum_teav_02",
+          "title": "Devotion of Teav",
+          "text": "នាងទាវមានរូបឆោមស្រស់សោភាប្រៀបដូចជាផ្កាព្រៃរីកក្នុងសួន។ សេចក្តីស្រឡាញ់រវាងទុំនិងទាវជាសច្ចធម៌នៃចិត្តស្មោះស្ម័គ្រ។"
+        }
+      ]
+    },
+    {
+      "id": "chbap_srey",
+      "titleEn": "Chbap Srey (Code of Conduct for Daughters)",
+      "titleKm": "ច្បាប់ស្រី",
+      "period": "Traditional Wisdom",
+      "description": "Kram Ngoy and classical masters on grace, respect, and family harmony.",
+      "passages": [
+        {
+          "id": "chbap_srey_01",
+          "title": "Respect and Wisdom",
+          "text": "កូនស្រីគប្បីប្រកបដោយសីលធម៌ សេចក្តីថ្លៃថ្នូរ និងការគោរពចាស់ទុំ។ ការនិយាយស្តីត្រូវមានសុជីវធម៌ និងចេះយល់ចិត្តអ្នកដទៃ។"
+        }
+      ]
+    },
+    {
+      "id": "chbap_pros",
+      "titleEn": "Chbap Pros (Code of Conduct for Sons)",
+      "titleKm": "ច្បាប់ប្រុស",
+      "period": "Traditional Wisdom",
+      "description": "Philosophical verse on diligence, courage, and integrity.",
+      "passages": [
+        {
+          "id": "chbap_pros_01",
+          "title": "Diligence and Courage",
+          "text": "កើតជាកូនប្រុសត្រូវមានចិត្តអំណត់ព្យាយាម រៀនសូត្រចំណេះដឹងឱ្យបានជ្រៅជ្រះ កុំខ្ជិលច្រអូស ត្រូវការពារគ្រួសារ និងប្រទេសជាតិ។"
+        }
+      ]
+    },
+    {
+      "id": "constitution",
+      "titleEn": "The Constitution of the Kingdom of Cambodia",
+      "titleKm": "រដ្ឋធម្មនុញ្ញនៃព្រះរាជាណាចក្រកម្ពុជា",
+      "period": "Supreme Law (1993–Present)",
+      "description": "Fundamental charter of national sovereignty, democracy, and education.",
+      "passages": [
+        {
+          "id": "const_01",
+          "title": "Article 1: Sovereignty and Neutrality",
+          "text": "ប្រទេសកម្ពុជាជារដ្ឋឯករាជ្យ អធិបតេយ្យ សន្តិភាព អព្យាក្រឹត អចិន្ត្រៃយ៍ និងមិនចូលបក្សសម្ព័ន្ធ។"
+        },
+        {
+          "id": "const_02",
+          "title": "Article 65: Right to Education",
+          "text": "រដ្ឋត្រូវការពារ និងលើកស្ទួយសិទ្ធិរបស់ប្រជាពលរដ្ឋក្នុងការទទួលបានការអប់រំប្រកបដោយគុណភាពនៅគ្រប់កម្រិត និងត្រូវចាត់វិធានការជាបណ្តើរៗដើម្បីឱ្យការអប់រំនេះបានទៅដល់ពលរដ្ឋគ្រប់រូប។"
+        }
+      ]
+    },
+    {
+      "id": "ict_glossary",
+      "titleEn": "Khmer ICT & Modern Computing Lexicon",
+      "titleKm": "វចនានុក្រមបច្ចេកវិទ្យាព័ត៌មានវិទ្យា",
+      "period": "Modern Computing Terminology",
+      "description": "Standardized Khmer digital vocabulary from the Ministry of Posts and Telecommunications.",
+      "passages": [
+        {
+          "id": "ict_01",
+          "title": "Computing Hardware and Typing",
+          "text": "ក្តារចុច កុំព្យូទ័រ អេក្រង់ ម៉ាស៊ីនបោះពុម្ព ប្រព័ន្ធប្រតិបត្តិការ កម្មវិធីរុករក គេហទំព័រ បណ្តាញសង្គម ទិន្នន័យ ការផ្ទុកក្នុងម៉ាស៊ីន។"
+        }
+      ]
+    }
+  ]
+}

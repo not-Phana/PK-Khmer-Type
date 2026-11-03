@@ -244,6 +244,8 @@
   const PK_CUSTOM_LESSONS = {
     templates: STARTER_TEMPLATES,
 
+    getAllLessons: function(){ return this.getAll(); },
+    createLesson: function(d){ return this.create(d); },
     getAll: function(){
       return loadLessonsRaw();
     },
@@ -1550,6 +1552,168 @@
           }
         }
       });
+    },
+
+    /* =====================================================================
+       PHASE F: OFFLINE CLASSROOM COURSE PACKS & VERIFIABLE GRADE SLIPS
+       ===================================================================== */
+    exportCoursePack: function(courseTitle, author = 'Instructor', lessonIds = null) {
+      const all = this.getAllLessons();
+      const selected = (lessonIds && Array.isArray(lessonIds))
+        ? all.filter(l => lessonIds.includes(l.id))
+        : all;
+
+      if (!selected.length) {
+        return { ok: false, error: 'No lessons available to export in course pack.' };
+      }
+
+      const pack = {
+        format: 'pkcourse',
+        schemaVersion: 1,
+        courseTitle: String(courseTitle || 'Classroom Typing Course').trim(),
+        author: String(author || 'Instructor').trim(),
+        exportedAt: new Date().toISOString(),
+        lessonCount: selected.length,
+        lessons: selected.map(l => ({
+          id: l.id,
+          title: l.title,
+          description: l.description,
+          difficulty: l.difficulty,
+          targetLayout: l.targetLayout,
+          content: l.content
+        }))
+      };
+
+      return { ok: true, pack, json: JSON.stringify(pack, null, 2) };
+    },
+
+    importCoursePack: function(rawJson) {
+      try {
+        const data = typeof rawJson === 'string' ? JSON.parse(rawJson) : rawJson;
+        if (!data || typeof data !== 'object' || Array.isArray(data)) {
+          return { ok: false, error: 'Invalid course pack format.' };
+        }
+        if (data.format !== 'pkcourse' || !Array.isArray(data.lessons)) {
+          return { ok: false, error: 'File is not a valid PK Course pack.' };
+        }
+
+        let importedCount = 0;
+        for (const l of data.lessons) {
+          if (!l || !l.title || !l.content) continue;
+          const sanitizedTitle = String(l.title).slice(0, 100);
+          const sanitizedContent = String(l.content).slice(0, 5000);
+          const sanitizedDesc = String(l.description || '').slice(0, 200);
+          const layout = ['standard', 'nida', 'english'].includes(l.targetLayout) ? l.targetLayout : 'standard';
+          const diff = ['beginner', 'intermediate', 'advanced'].includes(l.difficulty) ? l.difficulty : 'beginner';
+
+          this.createLesson({
+            title: sanitizedTitle,
+            description: sanitizedDesc,
+            targetLayout: layout,
+            difficulty: diff,
+            content: sanitizedContent
+          });
+          importedCount++;
+        }
+
+        return {
+          ok: true,
+          courseTitle: data.courseTitle || 'Imported Course',
+          author: data.author || 'Instructor',
+          importedCount
+        };
+      } catch (e) {
+        return { ok: false, error: e.message };
+      }
+    },
+
+    generateStudentGradeSlip: function(studentName, courseTitle = 'Khmer Touch-Typing Assignment') {
+      const lessons = this.getAllLessons();
+      const progressList = [];
+      let totalWpm = 0;
+      let totalAcc = 0;
+      let completedCount = 0;
+
+      for (const l of lessons) {
+        const prog = this.getProgress(l.id);
+        if (prog && prog.attempts > 0) {
+          if (prog.completed || (prog.completedCount && prog.completedCount > 0)) completedCount++;
+          totalWpm += (prog.bestWpm || 0);
+          totalAcc += (prog.bestAccuracy || 0);
+          progressList.push({
+            lessonId: l.id,
+            title: l.title,
+            attempts: prog.attempts,
+            completed: Boolean(prog.completed),
+            bestWpm: prog.bestWpm || 0,
+            bestAccuracy: prog.bestAccuracy || 0,
+            bestTime: prog.bestTime || 0
+          });
+        }
+      }
+
+      const n = progressList.length || 1;
+      const avgWpm = Math.round((totalWpm / n) * 10) / 10;
+      const avgAcc = Math.round((totalAcc / n) * 10) / 10;
+
+      const payload = {
+        format: 'pkgrade',
+        schemaVersion: 1,
+        studentName: String(studentName || 'Student').trim(),
+        courseTitle: String(courseTitle).trim(),
+        issuedAt: new Date().toISOString(),
+        summary: {
+          totalLessonsAssigned: lessons.length,
+          lessonsCompleted: completedCount,
+          averageWpm: avgWpm,
+          averageAccuracy: avgAcc,
+          passed: completedCount >= Math.max(1, Math.floor(lessons.length * 0.8)) && avgAcc >= 90
+        },
+        records: progressList
+      };
+
+      const rawCheck = `${payload.studentName}|${payload.courseTitle}|${payload.summary.lessonsCompleted}|${payload.summary.averageAccuracy}|${payload.issuedAt}`;
+      let hash = 0x811c9dc5;
+      for (let i = 0; i < rawCheck.length; i++) {
+        hash ^= rawCheck.charCodeAt(i);
+        hash = Math.imul(hash, 0x01000193);
+      }
+      payload.checksum = 'PKG-' + (hash >>> 0).toString(16).toUpperCase().padStart(8, '0');
+
+      return { ok: true, gradeSlip: payload, json: JSON.stringify(payload, null, 2) };
+    },
+
+    verifyStudentGradeSlip: function(slipData) {
+      try {
+        const slip = typeof slipData === 'string' ? JSON.parse(slipData) : slipData;
+        if (!slip || slip.format !== 'pkgrade' || !slip.summary || !slip.checksum) {
+          return { valid: false, reason: 'Invalid or missing grade slip signature.' };
+        }
+
+        const rawCheck = `${slip.studentName}|${slip.courseTitle}|${slip.summary.lessonsCompleted}|${slip.summary.averageAccuracy}|${slip.issuedAt}`;
+        let hash = 0x811c9dc5;
+        for (let i = 0; i < rawCheck.length; i++) {
+          hash ^= rawCheck.charCodeAt(i);
+          hash = Math.imul(hash, 0x01000193);
+        }
+        const expectedChecksum = 'PKG-' + (hash >>> 0).toString(16).toUpperCase().padStart(8, '0');
+
+        if (slip.checksum !== expectedChecksum) {
+          return { valid: false, reason: 'Checksum mismatch: Grade slip data has been modified or tampered with.' };
+        }
+
+        return {
+          valid: true,
+          studentName: slip.studentName,
+          courseTitle: slip.courseTitle,
+          lessonsCompleted: slip.summary.lessonsCompleted,
+          averageWpm: slip.summary.averageWpm,
+          averageAccuracy: slip.summary.averageAccuracy,
+          passed: slip.summary.passed
+        };
+      } catch (e) {
+        return { valid: false, reason: e.message };
+      }
     }
   };
 

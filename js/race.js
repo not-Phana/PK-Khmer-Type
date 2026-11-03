@@ -78,9 +78,11 @@ function stopTrial(){
   boardWrap.classList.remove('trial-active');
   trialToggle.classList.remove('on');
 }
-trialToggle.addEventListener('click', ()=>{
-  if(trialActive) stopTrial(); else startTrial();
-});
+if (trialToggle) {
+  trialToggle.addEventListener('click', ()=>{
+    if(trialActive) stopTrial(); else startTrial();
+  });
+}
 
 function celebrateWord(){
   const rect = boardWrap.getBoundingClientRect();
@@ -1180,3 +1182,58 @@ try {
   Object.defineProperty(window, 'aiTargetWpm', { get: () => aiTargetWpm, set: v => { aiTargetWpm = v; }, configurable: true });
   Object.defineProperty(window, 'aiCharsTyped', { get: () => aiCharsTyped, set: v => { aiCharsTyped = v; }, configurable: true });
 } catch(e) {}
+
+
+/* =====================================================================
+   PHASE G: ASYNCHRONOUS GHOST PACER RECORDING & REPLAY ENGINE
+   ===================================================================== */
+let liveGhostRecording = [];
+let activeGhostPacer = null;
+
+function recordGhostKeystroke(char, elapsedMs) {
+  liveGhostRecording.push({
+    char: String(char),
+    offsetMs: Math.max(0, Math.round(elapsedMs))
+  });
+}
+
+function exportGhostVector(playerName = 'Ghost Racer', targetWpm = 0) {
+  if (!liveGhostRecording.length) return null;
+  const vector = {
+    format: 'pkghost',
+    schemaVersion: 1,
+    recordedAt: new Date().toISOString(),
+    player: String(playerName || 'Ghost Racer'),
+    wpm: Math.round(targetWpm || 0),
+    totalKeystrokes: liveGhostRecording.length,
+    durationMs: liveGhostRecording.length ? liveGhostRecording[liveGhostRecording.length - 1].offsetMs : 0,
+    strokes: liveGhostRecording.slice()
+  };
+  return vector;
+}
+
+function importGhostVector(data) {
+  const parsed = typeof data === 'string' ? JSON.parse(data) : data;
+  if (!parsed || parsed.format !== 'pkghost' || !Array.isArray(parsed.strokes)) {
+    return { ok: false, error: 'Invalid ghost pacer format' };
+  }
+  activeGhostPacer = parsed;
+  return { ok: true, player: parsed.player, wpm: parsed.wpm, strokesCount: parsed.strokes.length };
+}
+
+function getActiveGhostPacer() {
+  return activeGhostPacer;
+}
+
+function clearGhostPacer() {
+  activeGhostPacer = null;
+  liveGhostRecording = [];
+}
+
+window.PK_GHOST_PACER = {
+  recordGhostKeystroke,
+  exportGhostVector,
+  importGhostVector,
+  getActiveGhostPacer,
+  clearGhostPacer
+};

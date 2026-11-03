@@ -839,6 +839,143 @@
     };
   }
 
+  /* =====================================================================
+     PHASE C: KHMER PHONOTACTIC SYLLABLE GENERATOR & ADAPTIVE PARITY
+     ===================================================================== */
+  const KHMER_CONSONANTS_A_SERIES = new Set([
+    'ក', 'ខ', 'ច', 'ឆ', 'ដ', 'ឋ', 'ណ', 'ត', 'ថ', 'ប', 'ផ', 'ស', 'ហ', 'ឡ', 'អ'
+  ]);
+  const KHMER_CONSONANTS_O_SERIES = new Set([
+    'គ', 'ឃ', 'ង', 'ជ', 'ឈ', 'ញ', 'ឌ', 'ឍ', 'ទ', 'ធ', 'ន', 'ព', 'ភ', 'ម', 'យ', 'រ', 'ល', 'វ'
+  ]);
+  const KHMER_DEPENDENT_VOWELS = new Set([
+    'ា', 'ិ', 'ី', 'ឹ', 'ឺ', 'ុ', 'ូ', 'ួ', 'ើ', 'ឿ', 'ៀ', 'េ', 'ែ', 'ៃ', 'ោ', 'ៅ', 'ុំ', 'ុះ', 'េះ', 'ោះ', 'ាំ'
+  ]);
+  const KHMER_DIACRITICS = new Set([
+    'ំ', 'ះ', 'ៈ', '៉', '៊', '់', '៌', '៍', '៎', '៏', '័', '៑'
+  ]);
+  // Chuon Nath authentic permissible subscript clusters
+  const KHMER_VALID_SUBSCRIPTS = {
+    'ក': ['រ', 'ខ', 'ក', 'ល', 'ស'],
+    'ខ': ['ល', 'រ', 'វ'],
+    'គ': ['រ', 'ល', 'វ'],
+    'ង': ['ក', 'ខ'],
+    'ច': ['រ', 'វ', 'ក', 'ឆ'],
+    'ឆ': ['ល', 'រ'],
+    'ជ': ['រ', 'វ', 'ជ', 'ញ'],
+    'ញ': ['ជ', 'ញ'],
+    'ដ': ['រ', 'ឋ', 'ដ'],
+    'ត': ['រ', 'វ', 'ត', 'ម'],
+    'ថ': ['ល', 'រ', 'វ'],
+    'ទ': ['រ', 'វ', 'ទ', 'ម'],
+    'ធ': ['រ', 'ម', 'វ'],
+    'ន': ['ត', 'ថ', 'ទ', 'ធ', 'រ', 'ន'],
+    'ប': ['រ', 'ល', 'ត', 'ប'],
+    'ផ': ['ល', 'រ', 'ក'],
+    'ព': ['រ', 'ល', 'ព'],
+    'ភ': ['រ', 'ល'],
+    'ម': ['ព', 'ភ', 'រ', 'ល', 'ន', 'ម'],
+    'យ': ['រ', 'វ'],
+    'រ': ['រ'],
+    'ល': ['ក', 'ខ', 'ប', 'ល'],
+    'វ': ['រ', 'ល'],
+    'ស': ['ក', 'ខ', 'ដ', 'ត', 'ថ', 'ប', 'ផ', 'ម', 'យ', 'រ', 'ល', 'វ', 'ស', 'ង'],
+    'ហ': ['ល', 'រ', 'វ', 'ម', 'ន'],
+    'ឡ': [],
+    'អ': ['រ']
+  };
+
+  function isKhmerLayout(layoutId) {
+    const l = normalizeLayout(layoutId);
+    return l === 'standard' || l === 'nida';
+  }
+
+  function generatePhonotacticKhmerSyllable(unlockedUnits, rng = Math.random, focusUnit = null) {
+    const validUnits = (unlockedUnits || []).slice();
+    const validSet = new Set(validUnits);
+    validUnits.forEach(u => {
+      for (const ch of u) validSet.add(ch);
+    });
+
+    const consonants = validUnits.filter(u => KHMER_CONSONANTS_A_SERIES.has(u) || KHMER_CONSONANTS_O_SERIES.has(u));
+    if (!consonants.length) return '';
+
+    const vowels = validUnits.filter(u => KHMER_DEPENDENT_VOWELS.has(u));
+    const diacritics = validUnits.filter(u => KHMER_DIACRITICS.has(u));
+    const hasCoeng = validSet.has('្');
+
+    // 1. Select Onset Consonant (favor focusUnit if it's a consonant)
+    let onset = null;
+    if (focusUnit && (KHMER_CONSONANTS_A_SERIES.has(focusUnit) || KHMER_CONSONANTS_O_SERIES.has(focusUnit))) {
+      onset = focusUnit;
+    } else {
+      const idx = Math.floor(rng() * consonants.length);
+      onset = consonants[idx];
+    }
+
+    let syllable = onset;
+
+    // 2. Optional Subscript Cluster (if Coeng is unlocked and permissible cluster exists)
+    if (hasCoeng && rng() < 0.40) {
+      const allowedSubs = KHMER_VALID_SUBSCRIPTS[onset] || [];
+      const availableSubs = allowedSubs.filter(sub => validSet.has(sub));
+      if (availableSubs.length > 0) {
+        const sub = availableSubs[Math.floor(rng() * availableSubs.length)];
+        syllable += '្' + sub;
+      }
+    }
+
+    // 3. Optional Dependent Vowel (favor focusUnit if it's a vowel)
+    if (vowels.length > 0) {
+      let chosenVowel = null;
+      if (focusUnit && KHMER_DEPENDENT_VOWELS.has(focusUnit)) {
+        chosenVowel = focusUnit;
+      } else if (rng() < 0.85) {
+        chosenVowel = vowels[Math.floor(rng() * vowels.length)];
+      }
+      if (chosenVowel) {
+        syllable += chosenVowel;
+      }
+    }
+
+    // 4. Optional Coda / Final Consonant (50% chance if consonants available)
+    if (rng() < 0.50 && consonants.length > 0) {
+      const possibleCodas = consonants.filter(c => c !== 'ឡ' && c !== 'អ');
+      if (possibleCodas.length > 0) {
+        const coda = possibleCodas[Math.floor(rng() * possibleCodas.length)];
+        syllable += coda;
+      }
+    }
+
+    // 5. Optional Diacritic (if unlocked and no long vowel/coda conflict)
+    if (diacritics.length > 0 && rng() < 0.20) {
+      const dia = diacritics[Math.floor(rng() * diacritics.length)];
+      if (!syllable.includes(dia) && !syllable.endsWith('្')) {
+        syllable += dia;
+      }
+    }
+
+    // 6. Zero-Leakage Gate: Verify every codepoint in syllable belongs strictly to validSet
+    for (const ch of syllable) {
+      if (!validSet.has(ch)) return '';
+    }
+
+    return syllable;
+  }
+
+  function generatePhonotacticKhmerWordStream(unlockedUnits, count = 20, rng = Math.random, focusUnit = null) {
+    const stream = [];
+    let attempts = 0;
+    while (stream.length < count && attempts < count * 15) {
+      attempts++;
+      const syl = generatePhonotacticKhmerSyllable(unlockedUnits, rng, focusUnit);
+      if (syl && syl.length > 0) {
+        stream.push(syl);
+      }
+    }
+    return stream;
+  }
+
   /* ---------- Word Filtering & Weighting Generator ---------- */
   function getValidWordsForUnlocked(layoutId, unlockedUnits) {
     const l = normalizeLayout(layoutId);
@@ -930,7 +1067,13 @@
     // Fallback safe: if active set is small or word choices are limited,
     // construct safe syllables / simple words made ONLY from unlocked units
     let candidatePool = validWords.slice();
-    if (candidatePool.length < 8) {
+    if (isKhmerLayout(l)) {
+      // In Khmer layouts, generate phonotactically authentic syllables with zero letter leakage
+      const khmerSyls = generatePhonotacticKhmerWordStream(unlockedUnits, 35, rng, primaryWeakUnit);
+      khmerSyls.forEach(syl => {
+        if (!candidatePool.includes(syl)) candidatePool.push(syl);
+      });
+    } else if (candidatePool.length < 8) {
       const anchors = unlockedUnits.slice(0, 4);
       anchors.forEach(a => {
         unlockedUnits.forEach(b => {
@@ -2154,6 +2297,8 @@
     unlockNextLetter,
     getValidWordsForUnlocked,
     generateAdaptiveDrill,
+    generatePhonotacticKhmerSyllable,
+    generatePhonotacticKhmerWordStream,
     recordStroke,
     completeAdaptiveSession,
     getVocabList,

@@ -1848,6 +1848,37 @@ function areAll222LessonsUnlocked(){
 }
 window.areAll222LessonsUnlocked = areAll222LessonsUnlocked;
 
+
+/* =====================================================================
+   PHASE D: CHECKPOINT GATEKEEPING & STAGE ACCURACY ENFORCEMENT
+   ===================================================================== */
+const CHECKPOINT_REQUIRED_ACCURACY = 90;
+
+function isStageBoundaryCheckpoint(prevId, nextId, list) {
+  if(!prevId || !nextId) return false;
+  const lList = list || LESSONS;
+  if(!lList || !lList.length) return false;
+  const prevDef = lList.find(l => String(l.id) === String(prevId));
+  const nextDef = lList.find(l => String(l.id) === String(nextId));
+  if(!prevDef || !nextDef || !prevDef.level || !nextDef.level) return false;
+  if(prevDef.level === nextDef.level) return false;
+
+  const cLayout = (typeof currentLayoutId !== 'undefined' && currentLayoutId) ? currentLayoutId : 'standard';
+  const stages = typeof getCurriculumStages === 'function' ? getCurriculumStages(cLayout) : LEARNING_STAGES;
+  if(!stages || !stages.length) return false;
+
+  let prevStageId = null;
+  let nextStageId = null;
+  for(const stg of stages){
+    const levels = stg.levelIds && stg.levelIds[cLayout];
+    if(Array.isArray(levels)){
+      if(levels.includes(prevDef.level)) prevStageId = stg.id;
+      if(levels.includes(nextDef.level)) nextStageId = stg.id;
+    }
+  }
+  return prevStageId !== null && nextStageId !== null && prevStageId !== nextStageId;
+}
+
 function isLessonLocked(id){
   if(String(id).startsWith('cust_') || (currentLesson && currentLesson.id === id && currentLesson.isCustom)){
     return false;
@@ -1863,6 +1894,22 @@ function isLessonLocked(id){
           list = subList;
           idx = found;
           break;
+        }
+      }
+    }
+  }
+  if(idx < 0){
+    const cData = (typeof window !== 'undefined' && window.CURRICULUM_DATA) || (typeof global !== 'undefined' && global.CURRICULUM_DATA);
+    if(cData){
+      for(const k of Object.keys(cData)){
+        const track = cData[k];
+        if(track && Array.isArray(track.lessons)){
+          const found = track.lessons.findIndex(l => String(l.id) === String(id));
+          if(found >= 0){
+            list = track.lessons;
+            idx = found;
+            break;
+          }
         }
       }
     }
@@ -1896,10 +1943,21 @@ function isLessonLocked(id){
   const prevId = prevReqId || (idx > 0 ? list[idx - 1].id : null);
   if(!prevId) return false;
   const prevBest = getLessonBest(prevId);
-  return !prevBest; // any completed attempt on the previous lesson unlocks the next one
+  if(!prevBest) return true; // Any completed attempt on the previous lesson unlocks within same stage
+
+  // Phase D Checkpoint Gate: If crossing a stage boundary, checkpoint requires >= 90% accuracy
+  if(isStageBoundaryCheckpoint(prevId, def.id, list)){
+    const acc = typeof prevBest.accuracy === 'number' ? prevBest.accuracy : 0;
+    if(acc < CHECKPOINT_REQUIRED_ACCURACY){
+      return true; // Locked until previous stage checkpoint achieves >= 90% accuracy
+    }
+  }
+  return false;
 }
 window.isLessonLocked = isLessonLocked;
 window.getLessonBest = getLessonBest;
+window.isStageBoundaryCheckpoint = isStageBoundaryCheckpoint;
+window.CHECKPOINT_REQUIRED_ACCURACY = CHECKPOINT_REQUIRED_ACCURACY;
 
 function toggleAllLessonsUnlocked(){
   allLessonsUnlocked = !allLessonsUnlocked;
