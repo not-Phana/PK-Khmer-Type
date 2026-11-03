@@ -1136,14 +1136,49 @@ function initSettingsToggles() {
     document.documentElement.style.setProperty("--border-radius", px + "px");
     document.documentElement.style.setProperty("--app-radius", px + "px");
 
-    let st = document.getElementById("pkCustomBorderRadiusStyle");
-    if (!st) {
-      st = document.createElement("style");
-      st.id = "pkCustomBorderRadiusStyle";
-      document.head.appendChild(st);
+    const oldSt = document.getElementById("pkCustomBorderRadiusStyle");
+    const newSt = document.createElement("style");
+    newSt.id = "pkCustomBorderRadiusStyle";
+    const extraSharp = px === 0 ? ".toggle-switch, .toggle-switch::after, input[type=\"checkbox\"] { border-radius: 0px !important; }" : "";
+    newSt.textContent = ":root {" +
+      "--radius: " + px + "px !important;" +
+      "--radius-xs: " + Math.max(0, px - 6) + "px !important;" +
+      "--radius-sm: " + Math.max(0, px - 3) + "px !important;" +
+      "--radius-md: " + px + "px !important;" +
+      "--radius-lg: " + (px + 3) + "px !important;" +
+      "--radius-xl: " + (px + 6) + "px !important;" +
+      "--radius-pill: " + (px === 0 ? "0px" : Math.max(px, 16) + "px") + " !important;" +
+      "--border-radius: " + px + "px !important;" +
+      "--app-radius: " + px + "px !important;" +
+      "}" +
+      "*:not(html):not(body):not(canvas):not(svg):not(path):not(circle):not(line):not(polyline):not(rect):not(polygon):not(defs):not(linearGradient):not(stop):not(.modal-backdrop):not(.modal):not(.custom-wallpaper-layer):not(.custom-wallpaper-dim):not(.horizon):not(.focus-screen-ripple):not(.motes):not(.scanline-overlay):not(.toast-stack):not([class*=\"dot\"]):not([class*=\"avatar\"]):not([class*=\"orb\"]):not([class*=\"circle\"]):not([class*=\"flame\"]):not(.swatch-quick-l):not(.swatch-quick-r):not(.site-lang-toggle-icon):not(.pk-cmb-av) {" +
+      "border-radius: " + px + "px !important;" +
+      "}" +
+      ".lesson-strip-header, .guide-dock-header, .modal-header, [class*=\"-modal-header\"], [class*=\"-dock-header\"], [class*=\"-strip-header\"] {" +
+      "border-radius: " + px + "px " + px + "px 0 0 !important;" +
+      "}" +
+      ".modal-footer, [class*=\"-modal-footer\"], [class*=\"-dock-footer\"] {" +
+      "border-radius: 0 0 " + px + "px " + px + "px !important;" +
+      "}" +
+      "::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {" +
+      "border-radius: " + px + "px !important;" +
+      "}" +
+      extraSharp;
+
+    if (oldSt) {
+      if (typeof oldSt.replaceWith === "function") {
+        oldSt.replaceWith(newSt);
+      } else if (oldSt.parentNode && typeof oldSt.parentNode.replaceChild === "function") {
+        oldSt.parentNode.replaceChild(newSt, oldSt);
+      } else {
+        if (typeof oldSt.remove === "function") oldSt.remove();
+        if (document.head && typeof document.head.appendChild === "function") {
+          document.head.appendChild(newSt);
+        }
+      }
+    } else if (document.head && typeof document.head.appendChild === "function") {
+      document.head.appendChild(newSt);
     }
-    const extraSharp = px === 0 ? '.toggle-switch,.toggle-switch::after,input[type="checkbox"]{border-radius:0px !important;}' : '';
-    st.textContent = ':root{--radius:' + px + 'px !important;--radius-xs:' + Math.max(0, px - 6) + 'px !important;--radius-sm:' + Math.max(0, px - 3) + 'px !important;--radius-md:' + px + 'px !important;--radius-lg:' + (px + 3) + 'px !important;--radius-xl:' + (px + 6) + 'px !important;--radius-pill:' + (px === 0 ? '0px' : Math.max(px, 16) + 'px') + ' !important;--border-radius:' + px + 'px !important;--app-radius:' + px + 'px !important;}button:not(.btn-circle):not(.btn-round):not(.auth-orb):not(.theme-dot),input:not([type="checkbox"]):not([type="radio"]),select,textarea,kbd,code,[class*="-btn"]:not(.btn-circle):not(.btn-round):not(.auth-orb),[class*="-card"],[class*="-chassis"],[class*="-panel"],[class*="-dock"],[class*="-strip"],[class*="-box"],[class*="-tile"],[class*="-banner"],[class*="-hud"],[class*="-pill"]:not(.dot):not(.circle),[class*="-badge"]:not(.dot):not(.circle),[class*="-chip"]:not(.dot):not(.circle),[class*="-tag"],[class*="-item"]:not(.circle),[class*="-input"],[class*="-preview"],.lesson-strip,#lessonStrip,.lesson-strip.expanded,#lessonStrip.expanded,.guide-dock,#guideDock,.guide-section,.guide-hand-block,.guide-stat-box,.keyboard-chassis,#keyboardChassis,.key,.key-cap,.key-cap-inner,.toolbar,.toolbar button,.toolbar-btn,.chassis-action-btn,.modal-card,.settings-modal-card,.wallpaper-modal-card,.stats-modal-card,.cl-modal-card,.shortcuts-modal-card,.auth-modal-card,.temple-confirm-card,.lesson-complete-card,.lesson-card,.lesson-level-header,.lsh-hub-banner,.cl-strip-banner,.adaptive-sidebar-card,.lsh-adaptive-btn,.lsh-badge,.lsh-expand-btn,.lss-input-wrap,.lss-input-wrap input,#lessonSearchInput,.lesson-search-input,.settings-search-input,.stat-tile,.stat-card,.trophy-card,.primary-btn,.secondary-btn,.reset-btn,.settings-row,.settings-choice button,.settings-preset-btn,.settings-filter-pill,.settings-slider-badge,.settings-cat-tab,.settings-storage-card,.settings-action-pill,.radius-live-preview,#radiusLivePreview,.radius-live-badge,.practice-radar-card,.radar-stat,.radar-btn,.radar-start-btn,.layout-pill,.layout-pill-badge,.layout-pill-kbd,.layer-pill,.founder-byline,.prompt-box,#promptBox,.typing-box,#typingPrompt,.typing-input,.target-display,.toast,.pk-toast,.tooltip,.pk-tooltip,.cl-card,.cl-input,.cl-textarea,.cl-btn,.lab-card,.lab-btn,.lab-chart,.top-actions button,.top-actions a.top-action-btn,.lang-switch-capsule,.auth-account-chip{border-radius:' + px + 'px !important;}.lesson-strip-header,.guide-dock-header,.modal-header,[class*="-modal-header"],[class*="-dock-header"],[class*="-strip-header"]{border-radius:' + px + 'px ' + px + 'px 0 0 !important;}.modal-footer,[class*="-modal-footer"],[class*="-dock-footer"]{border-radius:0 0 ' + px + 'px ' + px + 'px !important;}::-webkit-scrollbar-thumb,::-webkit-scrollbar-track{border-radius:' + px + 'px !important;}' + extraSharp;
 
     const slider = document.getElementById("borderRadiusSlider");
     const badge = document.getElementById("borderRadiusValue");
