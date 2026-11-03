@@ -450,14 +450,43 @@ function initStatisticsDashboard(){
 
   function renderStats(targetLayout){
     if(targetLayout) currentStatsLayout = targetLayout;
-    else if(typeof currentLayoutId !== 'undefined') currentStatsLayout = currentLayoutId;
+    else if(typeof currentLayoutId !== "undefined") currentStatsLayout = currentLayoutId;
+
+    const curL = (currentStatsLayout || "standard").toLowerCase();
+    const isEnglishLayout = curL === "english";
+    const isKm = document.documentElement.classList.contains("site-km-mode");
+
     const t = loadTotals();
     const acc = t.keys > 0 ? Math.round((t.correct / t.keys) * 100) : 100;
     const mins = Math.round(t.seconds / 60);
     const streak = currentStreakDays(t.days);
-    const lessonsMastered = LESSONS.filter(l=>{ const b = getLessonBest(l.id); return b && b.mastered; }).length;
+
+    const layoutLessons = (typeof window !== "undefined" && window.LESSON_SETS && window.LESSON_SETS[curL]) || LESSONS;
+    const layoutLevels = (typeof window !== "undefined" && window.LEVEL_SETS && window.LEVEL_SETS[curL]) || LEVELS;
+
+    const lessonsMastered = layoutLessons.filter(l=>{ const b = getLessonBest(l.id); return b && b.mastered; }).length;
+    let layoutSummary = null;
+    let layoutKeys = t.keys;
+    let layoutAcc = acc;
+    let layoutBestWpm = t.bestWpm;
+    let layoutCompletedLessons = lessonsMastered;
+    let layoutTotalLessons = layoutLessons.length;
+
+    const progressApi = (typeof window !== "undefined" && window.PK_PROGRESS) || (typeof global !== "undefined" && global.PK_PROGRESS);
+    if(progressApi && typeof progressApi.getLearnerSummary === "function"){
+      layoutSummary = progressApi.getLearnerSummary(curL);
+      if(layoutSummary){
+        layoutKeys = layoutSummary.totalTypingUnits || t.keys;
+        layoutAcc = layoutSummary.overallAccuracy || acc;
+        if(layoutSummary.lessons){
+          layoutCompletedLessons = layoutSummary.lessons.mastered || 0;
+          layoutTotalLessons = layoutSummary.lessons.total || layoutLessons.length;
+        }
+      }
+    }
+
     let trialBest = 0;
-    try{ trialBest = parseInt(localStorage.getItem('khmerTrialBest') || '0', 10) || 0; }catch(e){}
+    try{ trialBest = parseInt(localStorage.getItem("khmerTrialBest") || "0", 10) || 0; }catch(e){}
 
     let raceBestWpmOverall = 0;
     RACE_DIFFICULTIES.forEach(d=>{
@@ -467,123 +496,118 @@ function initStatisticsDashboard(){
       });
     });
 
-    const overallPct = LESSONS.length ? Math.round((lessonsMastered / LESSONS.length) * 100) : 0;
+    const overallPct = layoutTotalLessons ? Math.round((layoutCompletedLessons / layoutTotalLessons) * 100) : 0;
     const R = 29, C = 2 * Math.PI * R;
-    const isKm = document.documentElement.classList.contains('site-km-mode');
     
-    const heroTitle = isKm ? `${lessonsMastered} នៃ ${LESSONS.length} មេរៀនដែលស្ទាត់` : `${lessonsMastered} of ${LESSONS.length} lessons mastered`;
+    const heroTitle = isKm
+      ? `${layoutCompletedLessons} នៃ ${layoutTotalLessons} មេរៀនដែលស្ទាត់`
+      : `${layoutCompletedLessons} of ${layoutTotalLessons} lessons mastered`;
     
-    const statsHero = document.getElementById('statsHero');
-    statsHero.innerHTML = `
-      <div class="stats-ring-wrap">
-        <svg viewBox="0 0 74 74">
-          <defs><linearGradient id="statsRingGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="var(--gold)"/><stop offset="100%" stop-color="var(--gold-bright)"/>
-          </linearGradient></defs>
-          <circle class="stats-ring-track" cx="37" cy="37" r="${R}"/>
-          <circle class="stats-ring-fill" cx="37" cy="37" r="${R}"
-            stroke-dasharray="${C}" stroke-dashoffset="${C}"/>
-        </svg>
-        <div class="stats-ring-label">${overallPct}%</div>
-      </div>
-      <div class="stats-hero-text">
-        <p class="stats-hero-title i18n-t" data-en="${lessonsMastered} of ${LESSONS.length} lessons mastered" data-km="${lessonsMastered} នៃ ${LESSONS.length} មេរៀនដែលស្ទាត់">${heroTitle}</p>
-        <div class="stats-hero-sub i18n-t" data-en="Best run: &lt;b&gt;${t.bestWpm} WPM&lt;/b&gt; · &lt;b&gt;${acc}%&lt;/b&gt; accuracy" data-km="ល្បឿនល្អបំផុត: &lt;b&gt;${t.bestWpm} WPM&lt;/b&gt; · សុក្រឹតភាព &lt;b&gt;${acc}%&lt;/b&gt;">${isKm ? `ល្បឿនល្អបំផុត: <b>${t.bestWpm} WPM</b> · សុក្រឹតភាព <b>${acc}%</b>` : `Best run: <b>${t.bestWpm} WPM</b> · <b>${acc}%</b> accuracy`}</div>
-      </div>
-      <div class="stats-hero-streak">${pkIcon('flame', 15)} <span class="i18n-t" data-en="${streak}-day streak" data-km="${streak} ថ្ងៃជាប់គ្នា">${isKm ? `${streak} ថ្ងៃជាប់គ្នា` : `${streak}-day streak`}</span></div>`;
-    requestAnimationFrame(()=>{
-      const fill = statsHero.querySelector('.stats-ring-fill');
-      if(fill) fill.style.strokeDashoffset = String(C - (overallPct/100)*C);
-    });
-
-
-    // Fetch layout-isolated metrics if PK_PROGRESS is available
-    const curL = (currentStatsLayout || 'standard').toLowerCase();
-    const isEnglishLayout = curL === 'english';
-    let layoutSummary = null;
-    let layoutKeys = t.keys;
-    let layoutAcc = acc;
-    let layoutBestWpm = t.bestWpm;
-    let layoutCompletedLessons = lessonsMastered;
-    let layoutTotalLessons = LESSONS.length;
-
-    const progressApi = (typeof window !== 'undefined' && window.PK_PROGRESS) || (typeof global !== 'undefined' && global.PK_PROGRESS);
-    if(progressApi && typeof progressApi.getLearnerSummary === 'function'){
-      layoutSummary = progressApi.getLearnerSummary(curL);
-      if(layoutSummary){
-        layoutKeys = layoutSummary.totalTypingUnits || t.keys;
-        layoutAcc = layoutSummary.overallAccuracy || acc;
-        if(layoutSummary.lessons){
-          layoutCompletedLessons = layoutSummary.lessons.mastered || 0;
-          layoutTotalLessons = layoutSummary.lessons.total || LESSONS.length;
-        }
-      }
+    const statsHero = document.getElementById("statsHero");
+    if (statsHero) {
+      statsHero.innerHTML = `
+        <div class="stats-ring-wrap">
+          <svg viewBox="0 0 74 74">
+            <defs><linearGradient id="statsRingGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="var(--gold)"/><stop offset="100%" stop-color="var(--gold-bright)"/>
+            </linearGradient></defs>
+            <circle class="stats-ring-track" cx="37" cy="37" r="${R}"/>
+            <circle class="stats-ring-fill" cx="37" cy="37" r="${R}"
+              stroke-dasharray="${C}" stroke-dashoffset="${C}"/>
+          </svg>
+          <div class="stats-ring-label">${overallPct}%</div>
+        </div>
+        <div class="stats-hero-text">
+          <p class="stats-hero-title i18n-t" data-en="${layoutCompletedLessons} of ${layoutTotalLessons} lessons mastered" data-km="${layoutCompletedLessons} នៃ ${layoutTotalLessons} មេរៀនដែលស្ទាត់">${heroTitle}</p>
+          <div class="stats-hero-sub i18n-t" data-en="Best run: &lt;b&gt;${t.bestWpm} WPM&lt;/b&gt; · &lt;b&gt;${acc}%&lt;/b&gt; accuracy" data-km="ល្បឿនល្អបំផុត: &lt;b&gt;${t.bestWpm} WPM&lt;/b&gt; · សុក្រឹតភាព &lt;b&gt;${acc}%&lt;/b&gt;">${isKm ? `ល្បឿនល្អបំផុត: <b>${t.bestWpm} WPM</b> · សុក្រឹតភាព <b>${acc}%</b>` : `Best run: <b>${t.bestWpm} WPM</b> · <b>${acc}%</b> accuracy`}</div>
+        </div>
+        <div class="stats-hero-streak">${pkIcon("flame", 15)} <span class="i18n-t" data-en="${streak}-day streak" data-km="${streak} ថ្ងៃជាប់គ្នា">${isKm ? `${streak} ថ្ងៃជាប់គ្នា` : `${streak}-day streak`}</span></div>`;
+      requestAnimationFrame(()=>{
+        const fill = statsHero.querySelector(".stats-ring-fill");
+        if(fill) fill.style.strokeDashoffset = String(C - (overallPct/100)*C);
+      });
     }
 
     // Top Navigation Tabs inside Statistics Modal
     const layoutTabsHtml = `
       <div class="stats-layout-bar" role="tablist" aria-label="Statistics Layout Filter">
-        <button type="button" class="stats-layout-pill ${curL === 'standard' ? 'active' : ''}" data-stats-layout="standard">Khmer Standard</button>
-        <button type="button" class="stats-layout-pill ${curL === 'nida' ? 'active' : ''}" data-stats-layout="nida">Khmer NiDA</button>
-        <button type="button" class="stats-layout-pill ${curL === 'english' ? 'active' : ''}" data-stats-layout="english">English (US)</button>
+        <button type="button" class="stats-layout-pill ${curL === "standard" ? "active" : ""}" data-stats-layout="standard">${isKm ? "ក្តារចុចស្តង់ដារ" : "Khmer Standard"}</button>
+        <button type="button" class="stats-layout-pill ${curL === "nida" ? "active" : ""}" data-stats-layout="nida">${isKm ? "ក្តារចុចនីដា" : "Khmer NiDA"}</button>
+        <button type="button" class="stats-layout-pill ${curL === "english" ? "active" : ""}" data-stats-layout="english">${isKm ? "អង់គ្លេស (US)" : "English (US)"}</button>
       </div>
     `;
 
     // Metric Explainer Banner
     const metricExplainerHtml = `
       <div class="stats-metric-note">
-        <span class="smn-badge">${pkIcon('info', 12)} ${isEnglishLayout ? 'WPM FORMULA' : 'KHMER SPEED FORMULA'}</span>
+        <span class="smn-badge">${pkIcon("info", 12)} ${isEnglishLayout ? "WPM FORMULA" : "KHMER SPEED FORMULA"}</span>
         <span class="smn-desc">${isEnglishLayout
-          ? 'Calculated with the international typing standard: 5 characters = 1 word (WPM).'
-          : 'Measured in Characters Per Minute (CPM) and Standardized WPM (5 Khmer typing units = 1 word).'}</span>
+          ? (isKm ? "គណនាតាមស្តង់ដារអន្តរជាតិ: ៥ តួអក្សរ = ១ ពាក្យ (WPM)។" : "Calculated with the international typing standard: 5 characters = 1 word (WPM).")
+          : (isKm ? "វាស់វែងជាតួអក្សរក្នុងមួយនាទី (CPM) និង WPM ស្តង់ដារ (៥ ឯកតាវាយខ្មែរ = ១ ពាក្យ)។" : "Measured in Characters Per Minute (CPM) and Standardized WPM (5 Khmer typing units = 1 word).")}</span>
       </div>
     `;
 
+    // Render Navigation Controls into statsNavWrap
+    let statsNavWrap = document.getElementById("statsNavWrap");
+    if (!statsNavWrap && statsGrid) {
+      statsNavWrap = document.createElement("div");
+      statsNavWrap.id = "statsNavWrap";
+      statsNavWrap.className = "stats-nav-bar-wrap";
+      statsGrid.parentNode.insertBefore(statsNavWrap, statsGrid);
+    }
+    if (statsNavWrap) {
+      statsNavWrap.innerHTML = layoutTabsHtml + metricExplainerHtml;
+    }
+
     const tiles = [
-      [pkIcon('edit', 22), layoutKeys, isEnglishLayout ? 'Total Keystrokes' : 'Typing Units (CPM/WPM)', isEnglishLayout ? 'គ្រាប់ចុចសរុប' : 'តួអក្សរវាយសរុប'],
-      [pkIcon('target', 22), layoutAcc + '%', 'Avg Accuracy', 'ភាពសុក្រឹតមធ្យម'],
-      [pkIcon('zap', 22), layoutBestWpm + ' WPM', 'Best Speed', 'ល្បឿនល្អបំផុត'],
-      [pkIcon('timer', 22), mins + 'm', 'Practice Time', 'រយៈពេលហាត់'],
-      [pkIcon('scroll', 22), layoutCompletedLessons + '/' + layoutTotalLessons, 'Lessons Mastered', 'មេរៀនដែលស្ទាត់'],
-      [pkIcon('flame', 22), streak, 'Day Streak', 'បន្តបន្ទាប់ (ថ្ងៃ)'],
-      [pkIcon('castle', 22), trialBest, 'Temple Trial Best', 'ពិន្ទុសាកល្បងល្អបំផុត'],
-      [pkIcon('flag', 22), raceBestWpmOverall, 'Race Best WPM', 'ប្រណាំង WPM ល្អបំផុត'],
-      [pkIcon('calendar', 22), t.days.length, 'Days Practiced', 'ថ្ងៃដែលបានហាត់'],
+      [pkIcon("edit", 22), layoutKeys, isEnglishLayout ? "Total Keystrokes" : "Typing Units (CPM/WPM)", isEnglishLayout ? "គ្រាប់ចុចសរុប" : "តួអក្សរវាយសរុប"],
+      [pkIcon("target", 22), layoutAcc + "%", "Avg Accuracy", "ភាពសុក្រឹតមធ្យម"],
+      [pkIcon("zap", 22), layoutBestWpm + " WPM", "Best Speed", "ល្បឿនល្អបំផុត"],
+      [pkIcon("timer", 22), mins + "m", "Practice Time", "រយៈពេលហាត់"],
+      [pkIcon("scroll", 22), layoutCompletedLessons + "/" + layoutTotalLessons, "Lessons Mastered", "មេរៀនដែលស្ទាត់"],
+      [pkIcon("flame", 22), streak, "Day Streak", "បន្តបន្ទាប់ (ថ្ងៃ)"],
+      [pkIcon("castle", 22), trialBest, "Temple Trial Best", "ពិន្ទុសាកល្បងល្អបំផុត"],
+      [pkIcon("flag", 22), raceBestWpmOverall, "Race Best WPM", "ប្រណាំង WPM ល្អបំផុត"],
+      [pkIcon("calendar", 22), t.days.length, "Days Practiced", "ថ្ងៃដែលបានហាត់"],
     ];
 
-    statsGrid.innerHTML = layoutTabsHtml + metricExplainerHtml + `<div class="stats-tiles-wrap">` + tiles.map(([icon,val,en,km],i)=>
-      `<div class="stat-tile" style="animation-delay:${i*45}ms">
-        <div class="stat-tile-icon">${icon}</div>
-        <div class="stat-tile-val">${val}</div>
-        <div class="stat-tile-label i18n-t" data-en="${en}" data-km="${km}">${isKm ? km : en}</div>
-      </div>`
-    ).join('') + `</div>`;
+    if (statsGrid) {
+      statsGrid.innerHTML = tiles.map(([icon,val,en,km],i)=>
+        `<div class="stat-tile" style="animation-delay:${i*45}ms">
+          <div class="stat-tile-icon">${icon}</div>
+          <div class="stat-tile-val">${val}</div>
+          <div class="stat-tile-label i18n-t" data-en="${en}" data-km="${km}">${isKm ? km : en}</div>
+        </div>`
+      ).join("");
+    }
 
     // Bind layout pill click handlers
-    const pillEls = statsGrid.querySelectorAll('.stats-layout-pill');
+    const pillEls = (statsNavWrap || statsGrid).querySelectorAll(".stats-layout-pill");
     pillEls.forEach(p => {
-      p.addEventListener('click', () => {
-        const target = p.getAttribute('data-stats-layout');
+      p.addEventListener("click", () => {
+        const target = p.getAttribute("data-stats-layout");
         if(target) renderStats(target);
       });
     });
 
     const byLevel = {};
-    LESSONS.forEach(l=>{ (byLevel[l.level] = byLevel[l.level]||[]).push(l); });
-    statsLessonBars.innerHTML = LEVELS.map((lv,i)=>{
-      const ls = byLevel[lv.id] || [];
-      const done = ls.filter(l=>{ const b = getLessonBest(l.id); return b && b.mastered; }).length;
-      const pct = ls.length ? Math.round((done/ls.length)*100) : 0;
-      const name = (lv.title.split('·')[1] || lv.title).trim();
-      const complete = pct >= 100 ? ' is-complete' : '';
-      const rawNum = lv.levelNumber != null ? Number(lv.levelNumber) : parseInt(String(lv.id).split('-').pop().replace(/^L/i, ''), 10);
-      const displayNum = !isNaN(rawNum) ? (rawNum < 10 ? '0' + rawNum : String(rawNum)) : String(lv.id);
-      return `<div class="stats-bar-row${complete}" style="animation-delay:${i*55}ms">
-        <span class="stats-bar-num">${complete ? pkIcon("check", 12) : displayNum}</span>
-        <span class="stats-bar-name">${name}</span>
-        <div class="stats-bar-track"><div class="stats-bar-fill" style="width:${pct}%"></div></div>
-        <span class="stats-bar-pct">${pct}%</span></div>`;
-    }).join('');
+    layoutLessons.forEach(l=>{ (byLevel[l.level] = byLevel[l.level]||[]).push(l); });
+    if (statsLessonBars) {
+      statsLessonBars.innerHTML = layoutLevels.map((lv,i)=>{
+        const ls = byLevel[lv.id] || [];
+        const done = ls.filter(l=>{ const b = getLessonBest(l.id); return b && b.mastered; }).length;
+        const pct = ls.length ? Math.round((done/ls.length)*100) : 0;
+        const name = (lv.title.split('·')[1] || lv.title).trim();
+        const complete = pct >= 100 ? ' is-complete' : '';
+        const rawNum = lv.levelNumber != null ? Number(lv.levelNumber) : parseInt(String(lv.id).split('-').pop().replace(/^L/i, ''), 10);
+        const displayNum = !isNaN(rawNum) ? (rawNum < 10 ? '0' + rawNum : String(rawNum)) : String(lv.id);
+        return `<div class="stats-bar-row${complete}" style="animation-delay:${i*55}ms">
+          <span class="stats-bar-num">${complete ? pkIcon("check", 12) : displayNum}</span>
+          <span class="stats-bar-name">${name}</span>
+          <div class="stats-bar-track"><div class="stats-bar-fill" style="width:${pct}%"></div></div>
+          <span class="stats-bar-pct">${pct}%</span></div>`;
+      }).join('');
+    }
 
     const statsRaceRecords = document.getElementById('statsRaceRecords');
     const lengthLabels = isKm

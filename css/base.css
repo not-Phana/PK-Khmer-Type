@@ -4728,7 +4728,7 @@
 
   .stats-grid{
     display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;
-    padding:20px 26px 4px;
+    padding:14px 26px 4px;
   }
   .stat-tile{
     --tile-accent: var(--gold-bright);
@@ -9361,12 +9361,19 @@ a.pk-cc-handle:hover {
    ============================================================ */
 
 /* 1. Statistics Layout Switcher & Metric Explainer */
+.stats-nav-bar-wrap {
+  padding: 16px 26px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .stats-layout-bar {
   display: flex;
   gap: 8px;
-  margin-bottom: 14px;
+  margin-bottom: 0;
   background: rgba(255, 255, 255, 0.04);
   padding: 4px;
+  border-radius: 9px;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .stats-layout-pill {
@@ -9398,7 +9405,7 @@ a.pk-cc-handle:hover {
   border: 1px solid rgba(255, 209, 102, 0.25);
   border-radius: 9px;
   padding: 7px 12px;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 .smn-badge {
   display: inline-flex;

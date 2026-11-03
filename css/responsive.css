@@ -196,7 +196,8 @@
   }
 
   @media (max-width:560px){
-    .stats-grid{ grid-template-columns:repeat(2, 1fr); padding:16px 18px 4px; }
+    .stats-nav-bar-wrap{ padding:14px 18px 0; }
+    .stats-grid{ grid-template-columns:repeat(2, 1fr); padding:14px 18px 4px; }
     .stats-header{ padding:20px 18px 16px; }
     .stats-levels-head{ padding:18px 18px 8px; }
     #statsLessonBars{ padding:0 18px 20px; }
