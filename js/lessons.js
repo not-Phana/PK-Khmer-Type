@@ -2048,7 +2048,7 @@ function renderLessonStrip(){
     searchBar.innerHTML = `
       <div class="lss-input-wrap">
         <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="lessonSearchInput" class="i18n-ph lesson-search-input" data-en="Search lessons, letters..." data-km="ស្វែងរកមេរៀន អក្សរ..." placeholder="${searchPlaceholder}" autocomplete="off" style="padding-left:38px !important; border-radius:9px !important;">
+        <input type="text" id="lessonSearchInput" class="i18n-ph lesson-search-input" data-en="Search lessons, letters..." data-km="ស្វែងរកមេរៀន អក្សរ..." placeholder="${searchPlaceholder}" autocomplete="off" style="padding-left:38px !important; border-radius:var(--radius, 9px) !important;">
       </div>
     `;
     frag.appendChild(searchBar);

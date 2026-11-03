@@ -48,7 +48,7 @@
 .settings-icon-badge {
   width: 38px;
   height: 38px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 157, 46, 0.1));
   border: 1px solid rgba(255, 209, 102, 0.35);
   color: var(--gold-bright);
@@ -90,7 +90,7 @@
   font-size: 0.65rem;
   font-weight: 600;
   padding: 3px 9px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(56, 189, 248, 0.12);
   border: 1px solid rgba(56, 189, 248, 0.3);
   color: #38bdf8;
@@ -127,7 +127,7 @@
   padding: 9px 34px 9px 36px;
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   color: #f8fafc;
   font-family: 'Space Grotesk', -apple-system, sans-serif;
   font-size: 0.82rem;
@@ -153,7 +153,7 @@
   padding: 2px 6px;
   font-size: 1rem;
   line-height: 1;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
 }
 .settings-search-clear:hover { color: #fff; }
 
@@ -177,7 +177,7 @@
   font-size: 0.68rem;
   font-weight: 600;
   padding: 6px 11px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #cbd5e1;
@@ -226,7 +226,7 @@
   flex-shrink: 0;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   color: var(--gold-bright, #ffd166);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -272,8 +272,8 @@
 }
 
 .settings-tabs-scroll::-webkit-scrollbar { height: 5px; }
-.settings-tabs-scroll::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 9px; }
-.settings-tabs-scroll::-webkit-scrollbar-thumb { background: rgba(255, 209, 102, 0.35); border-radius: 9px; }
+.settings-tabs-scroll::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: var(--radius, 9px); }
+.settings-tabs-scroll::-webkit-scrollbar-thumb { background: rgba(255, 209, 102, 0.35); border-radius: var(--radius, 9px); }
 .settings-tabs-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255, 209, 102, 0.6); }
 
 .settings-cat-tab {
@@ -281,7 +281,7 @@
   align-items: center;
   gap: 6px;
   padding: 7px 14px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: transparent;
   border: 1px solid transparent;
   color: #94a3b8;
@@ -315,7 +315,7 @@
 }
 
 .settings-body-scroll::-webkit-scrollbar { width: 6px; }
-.settings-body-scroll::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.16); border-radius: 9px; }
+.settings-body-scroll::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.16); border-radius: var(--radius, 9px); }
 
 /* Category Section */
 .settings-section {
@@ -484,7 +484,7 @@
   appearance: none;
   width: 110px;
   height: 6px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 255, 255, 0.15);
   outline: none;
   cursor: pointer;
@@ -536,7 +536,7 @@
   font-size: 0.75rem;
   font-weight: 600;
   padding: 8px 14px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(0, 0, 0, 0.38);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #cbd5e1;
@@ -641,7 +641,7 @@
   width: 100%;
   justify-content: flex-start;
   padding: 10px 14px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   font-size: 0.78rem;
   font-weight: 600;
   gap: 10px;
@@ -992,7 +992,7 @@
   font-size: 0.72rem;
   font-weight: 600;
   padding: 6px 12px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #e2e8f0;
@@ -1073,7 +1073,7 @@
   font-size: 0.7rem;
   font-weight: 600;
   padding: 7px 14px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #cbd5e1;
@@ -1092,7 +1092,7 @@
   font-size: 0.7rem;
   font-weight: 700;
   padding: 7px 16px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: linear-gradient(135deg, var(--gold-bright), var(--gold));
   border: 1px solid var(--gold-bright);
   color: #241405;
@@ -2919,7 +2919,7 @@ html.theme-sunset .modal-close:hover {
   gap: 6px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 3px 8px;
 }
 .color-input-wrap input[type="color"] {
@@ -3013,7 +3013,7 @@ html.theme-sepia #accentChoice button.active {
   margin-top: 8px;
   background: rgba(14, 18, 30, 0.75);
   border: 1px solid rgba(255, 209, 102, 0.3);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   max-width: fit-content;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -3026,7 +3026,7 @@ html.theme-sepia #accentChoice button.active {
 .active-wallpaper-thumb {
   width: 34px;
   height: 24px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background-size: cover;
   background-position: center;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -3090,7 +3090,7 @@ html.theme-sepia #accentChoice button.active {
   max-width: 760px;
   max-height: 90vh;
   overflow-y: auto;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: linear-gradient(180deg, #0e1220 0%, #080a12 100%);
   border: 1px solid rgba(255, 209, 102, 0.3);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(255, 209, 102, 0.08);
@@ -3110,7 +3110,7 @@ html.theme-sepia #accentChoice button.active {
 .wallpaper-modal-icon-badge {
   width: 38px;
   height: 38px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 209, 102, 0.12);
   border: 1px solid rgba(255, 209, 102, 0.3);
   color: var(--gold-bright, #ffd166);
@@ -3157,7 +3157,7 @@ html.theme-sepia #accentChoice button.active {
   align-items: center;
   background: rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 4px 8px;
   transition: all 0.2s ease;
 }
@@ -3197,7 +3197,7 @@ html.theme-sepia #accentChoice button.active {
   color: var(--ink-dim, #d9c6a3);
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.18s ease;
 }
@@ -3217,7 +3217,7 @@ html.theme-sepia #accentChoice button.active {
   color: #241405;
   background: linear-gradient(135deg, #ffd166, #ff9d2e);
   border: 1px solid #ffd166;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   box-shadow: 0 2px 10px rgba(255, 157, 46, 0.35);
   transition: all 0.2s ease;
@@ -3245,7 +3245,7 @@ html.theme-sepia #accentChoice button.active {
   max-height: 290px;
   background: #080b14;
   border: 1px solid rgba(255, 209, 102, 0.28);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   overflow: hidden;
   box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8), 0 8px 24px rgba(0, 0, 0, 0.5);
   display: flex;
@@ -3294,7 +3294,7 @@ html.theme-sepia #accentChoice button.active {
   color: var(--gold-bright, #ffd166);
   background: rgba(14, 18, 30, 0.75);
   border: 1px solid rgba(255, 209, 102, 0.3);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   backdrop-filter: blur(6px);
 }
 .wp-hud-dot {
@@ -3311,12 +3311,12 @@ html.theme-sepia #accentChoice button.active {
   padding: 2px 7px;
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
 }
 .wp-hud-prompt-box {
   background: rgba(10, 14, 26, 0.82);
   border: 1px solid rgba(255, 209, 102, 0.28);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 6px 12px;
   font-size: 0.82rem;
   font-family: var(--font-khmer, sans-serif);
@@ -3362,7 +3362,7 @@ html.theme-sepia #accentChoice button.active {
   color: rgba(255, 255, 255, 0.7);
   background: rgba(22, 28, 46, 0.7);
   border: 0.8px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
 }
 .wp-kbd-k.wp-kbd-w { min-width: 26px; font-size: 0.48rem; }
 .wp-kbd-k.wp-kbd-w2 { min-width: 22px; font-size: 0.48rem; }
@@ -3385,7 +3385,7 @@ html.theme-sepia #accentChoice button.active {
   font-family: var(--font-mono, monospace);
   font-size: 0.65rem;
   font-weight: 600;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(10, 14, 24, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.14);
   color: var(--ink-dim, #d9c6a3);
@@ -3417,7 +3417,7 @@ html.theme-sepia #accentChoice button.active {
   gap: 12px;
   background: rgba(14, 19, 34, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 8px 12px;
   flex-wrap: wrap;
 }
@@ -3455,7 +3455,7 @@ html.theme-sepia #accentChoice button.active {
   color: var(--gold-bright, #ffd166);
   min-width: 34px;
   text-align: right;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
 }
 .wallpaper-tune-reset-btn {
   display: inline-flex;
@@ -3468,7 +3468,7 @@ html.theme-sepia #accentChoice button.active {
   color: var(--ink-dim, #d9c6a3);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.18s ease;
 }
@@ -3514,7 +3514,7 @@ html.theme-sepia #accentChoice button.active {
   position: relative;
   background: rgba(14, 18, 30, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 5px;
   cursor: pointer;
   display: flex;
@@ -3537,7 +3537,7 @@ html.theme-sepia #accentChoice button.active {
 .wallpaper-gallery-thumb {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -3570,7 +3570,7 @@ html.theme-sepia #accentChoice button.active {
   font-weight: 700;
   color: var(--gold-bright, #ffd166);
   padding: 1px 6px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   letter-spacing: 0.02em;
   pointer-events: none;
 }

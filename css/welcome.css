@@ -201,7 +201,7 @@ body {
   height: 2px;
   background: var(--gold-bright);
   transition: width 0.2s ease;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
 }
 
 .welcome-nav-link:hover::after {
@@ -260,7 +260,7 @@ body {
   width: 2px;
   height: 100%;
   background: currentColor;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   animation: soundWave 0.8s ease-in-out infinite alternate;
 }
 
@@ -648,7 +648,7 @@ body {
   height: 1.2em;
   background: var(--gold-bright);
   margin-left: 4px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   animation: cursorBlink 0.9s infinite;
   box-shadow: 0 0 10px var(--gold-bright);
 }
@@ -676,7 +676,7 @@ body {
 .bench-instructions kbd {
   display: inline-block;
   padding: 2px 6px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--border-subtle);
   color: var(--gold-bright);
@@ -769,7 +769,7 @@ body {
   width: 12px;
   height: 2px;
   background: var(--gold-bright);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   box-shadow: 0 0 6px var(--gold-bright);
 }
 

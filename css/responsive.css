@@ -67,7 +67,7 @@
       width:360px;
       margin:0;
       z-index:60;
-      border-radius:9px !important;
+      border-radius: var(--radius, 9px) !important;
       overflow:hidden !important;
       backdrop-filter:blur(12px);
       -webkit-backdrop-filter:blur(12px);
@@ -81,7 +81,7 @@
       bottom:14px;
       max-height:calc(100vh - 78px);
       width:min(660px, calc(100vw - 760px));
-      border-radius:9px !important;
+      border-radius: var(--radius, 9px) !important;
       overflow:hidden !important;
       box-shadow:0 18px 54px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,209,102,0.24);
       border-color:rgba(255,209,102,0.35);
@@ -113,7 +113,7 @@
     .keyboard{ width:100%; max-width:100%; gap:5px;}
     .manuscript{ width:94vw;}
     .row{ --key-gap:5px; gap:5px;}
-    .key{ height:40px; font-size:0.85rem; border-radius:9px;}
+    .key{ height:40px; font-size:0.85rem; border-radius: var(--radius, 9px);}
     .key.mod, .key.label-key{ font-size:0.6rem;}
     h1{ font-size:1.9rem;}
     .tooltip{ font-size:0.6rem; white-space:normal; max-width:150px;}

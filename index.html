@@ -256,14 +256,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/base.css?v=88">
-  <link rel="stylesheet" href="css/keyboard.css?v=88">
-  <link rel="stylesheet" href="css/typing.css?v=88">
-  <link rel="stylesheet" href="css/lessons.css?v=88">
-  <link rel="stylesheet" href="css/responsive.css?v=88">
-  <link rel="stylesheet" href="css/settings.css?v=89">
-  <link rel="stylesheet" href="css/tutorial.css?v=88">
-  <link rel="stylesheet" href="css/custom-lessons.css?v=88">
+  <link rel="stylesheet" href="css/base.css?v=90">
+  <link rel="stylesheet" href="css/keyboard.css?v=90">
+  <link rel="stylesheet" href="css/typing.css?v=90">
+  <link rel="stylesheet" href="css/lessons.css?v=90">
+  <link rel="stylesheet" href="css/responsive.css?v=90">
+  <link rel="stylesheet" href="css/settings.css?v=90">
+  <link rel="stylesheet" href="css/tutorial.css?v=90">
+  <link rel="stylesheet" href="css/custom-lessons.css?v=90">
   <script>
     try {
       var p = localStorage.getItem('khmerSettingPerformanceMode');
@@ -281,14 +281,13 @@
         document.documentElement.classList.add('pk-mobile-gate-dismissed');
       }
       var br = localStorage.getItem('khmerSettingBorderRadius');
-      if (br !== null) {
-        var bPx = Math.max(0, Math.min(32, parseInt(br, 10) || 0));
-        document.documentElement.style.setProperty('--radius', bPx + 'px');
-        var st = document.createElement('style');
-        st.id = 'pkCustomBorderRadiusStyle';
-        st.textContent = ':root{--radius:' + bPx + 'px !important;--radius-sm:' + Math.max(0, bPx - 3) + 'px !important;--radius-md:' + bPx + 'px !important;--radius-lg:' + (bPx + 3) + 'px !important;--radius-xl:' + (bPx + 6) + 'px !important;}.lesson-strip,#lessonStrip,.lesson-strip.expanded,#lessonStrip.expanded,.guide-dock,#guideDock,.guide-section,.guide-hand-block,.guide-stat-box,.keyboard-chassis,.key,.toolbar,.toolbar button,.modal-card,.settings-modal-card,.lesson-complete-card,.lesson-card,.lesson-level-header,.lsh-hub-banner,.cl-strip-banner,.adaptive-sidebar-card,.lsh-adaptive-btn,.lsh-badge,.lsh-expand-btn,.lss-input-wrap input,#lessonSearchInput,.lesson-search-input,.settings-search-input,.stat-tile,.stat-card,.trophy-card,.primary-btn,.secondary-btn,.settings-row,.settings-choice button,.settings-preset-btn,.settings-filter-pill,.settings-slider-badge,.radius-live-preview,#radiusLivePreview{border-radius:' + bPx + 'px !important;}.lesson-strip-header,.guide-dock-header,.modal-header{border-radius:' + bPx + 'px ' + bPx + 'px 0 0 !important;}.modal-footer{border-radius:0 0 ' + bPx + 'px ' + bPx + 'px !important;}';
-        document.head.appendChild(st);
-      }
+      var bPx = Math.max(0, Math.min(32, parseInt(br !== null ? br : '9', 10) || 0));
+      document.documentElement.style.setProperty('--radius', bPx + 'px');
+      var st = document.createElement('style');
+      st.id = 'pkCustomBorderRadiusStyle';
+      var extraSharp = bPx === 0 ? '.toggle-switch,.toggle-switch::after,input[type="checkbox"]{border-radius:0px !important;}' : '';
+      st.textContent = ':root{--radius:' + bPx + 'px !important;--radius-xs:' + Math.max(0, bPx - 6) + 'px !important;--radius-sm:' + Math.max(0, bPx - 3) + 'px !important;--radius-md:' + bPx + 'px !important;--radius-lg:' + (bPx + 3) + 'px !important;--radius-xl:' + (bPx + 6) + 'px !important;--radius-pill:' + (bPx === 0 ? '0px' : Math.max(bPx, 16) + 'px') + ' !important;--border-radius:' + bPx + 'px !important;--app-radius:' + bPx + 'px !important;}button:not(.btn-circle):not(.btn-round):not(.auth-orb):not(.theme-dot),input:not([type="checkbox"]):not([type="radio"]),select,textarea,kbd,code,[class*="-btn"]:not(.btn-circle):not(.btn-round):not(.auth-orb),[class*="-card"],[class*="-chassis"],[class*="-panel"],[class*="-dock"],[class*="-strip"],[class*="-box"],[class*="-tile"],[class*="-banner"],[class*="-hud"],[class*="-pill"]:not(.dot):not(.circle),[class*="-badge"]:not(.dot):not(.circle),[class*="-chip"]:not(.dot):not(.circle),[class*="-tag"],[class*="-item"]:not(.circle),[class*="-input"],[class*="-preview"],.lesson-strip,#lessonStrip,.lesson-strip.expanded,#lessonStrip.expanded,.guide-dock,#guideDock,.guide-section,.guide-hand-block,.guide-stat-box,.keyboard-chassis,#keyboardChassis,.key,.key-cap,.key-cap-inner,.toolbar,.toolbar button,.toolbar-btn,.chassis-action-btn,.modal-card,.settings-modal-card,.wallpaper-modal-card,.stats-modal-card,.cl-modal-card,.shortcuts-modal-card,.auth-modal-card,.temple-confirm-card,.lesson-complete-card,.lesson-card,.lesson-level-header,.lsh-hub-banner,.cl-strip-banner,.adaptive-sidebar-card,.lsh-adaptive-btn,.lsh-badge,.lsh-expand-btn,.lss-input-wrap,.lss-input-wrap input,#lessonSearchInput,.lesson-search-input,.settings-search-input,.stat-tile,.stat-card,.trophy-card,.primary-btn,.secondary-btn,.reset-btn,.settings-row,.settings-choice button,.settings-preset-btn,.settings-filter-pill,.settings-slider-badge,.settings-cat-tab,.settings-storage-card,.settings-action-pill,.radius-live-preview,#radiusLivePreview,.radius-live-badge,.practice-radar-card,.radar-stat,.radar-btn,.radar-start-btn,.layout-pill,.layout-pill-badge,.layout-pill-kbd,.layer-pill,.founder-byline,.prompt-box,#promptBox,.typing-box,#typingPrompt,.typing-input,.target-display,.toast,.pk-toast,.tooltip,.pk-tooltip,.cl-card,.cl-input,.cl-textarea,.cl-btn,.lab-card,.lab-btn,.lab-chart,.top-actions button,.top-actions a.top-action-btn,.lang-switch-capsule,.auth-account-chip{border-radius:' + bPx + 'px !important;}.lesson-strip-header,.guide-dock-header,.modal-header,[class*="-modal-header"],[class*="-dock-header"],[class*="-strip-header"]{border-radius:' + bPx + 'px ' + bPx + 'px 0 0 !important;}.modal-footer,[class*="-modal-footer"],[class*="-dock-footer"]{border-radius:0 0 ' + bPx + 'px ' + bPx + 'px !important;}::-webkit-scrollbar-thumb,::-webkit-scrollbar-track{border-radius:' + bPx + 'px !important;}' + extraSharp;
+      document.head.appendChild(st);
     } catch(e){}
   </script>
 </head>
@@ -1633,7 +1632,7 @@
           </div>
           <div class="settings-row-control">
             <div class="settings-slider-wrap">
-              <input type="range" id="borderRadiusSlider" min="0" max="24" value="9" step="1" aria-label="Interface Corner Radius">
+              <input type="range" id="borderRadiusSlider" min="0" max="32" value="9" step="1" aria-label="Interface Corner Radius">
               <span class="settings-slider-badge" id="borderRadiusValue">9px</span>
             </div>
             <div class="settings-choice radius-choice" id="radiusPresetChoice" style="margin-top:8px;">
@@ -4804,7 +4803,7 @@
   <script defer src="js/test-lab.js?v=87"></script>
   <script defer src="js/race.js?v=86"></script>
   <script defer src="js/statistics.js?v=86"></script>
-  <script defer src="js/settings.js?v=89"></script>
+  <script defer src="js/settings.js?v=90"></script>
   <script defer src="js/shortcuts.js?v=86"></script>
   <script defer src="js/quick_guide.js?v=86"></script>
   <script defer src="js/tutorial.js?v=86"></script>

@@ -15,7 +15,7 @@
   font-size: 11px;
   font-weight: 600;
   padding: 3px 9px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   letter-spacing: 0.3px;
@@ -77,7 +77,7 @@
 .cl-head-icon {
   width: 36px;
   height: 36px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 209, 102, 0.12);
   border: 1px solid rgba(255, 209, 102, 0.25);
   display: flex;
@@ -97,7 +97,7 @@
 .cl-count-badge {
   font-size: 11px;
   padding: 2px 8px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 255, 255, 0.08);
   color: #94a3b8;
   font-weight: 600;
@@ -118,7 +118,7 @@
   font-size: 12px;
   font-weight: 700;
   padding: 7px 14px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   border: none;
   cursor: pointer;
   transition: all 0.18s ease;
@@ -138,7 +138,7 @@
 .cl-close-btn {
   width: 32px;
   height: 32px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: #94a3b8;
@@ -196,7 +196,7 @@
   color: #f2e8cf;
   font-size: 13px;
   padding: 7px 12px 7px 34px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   transition: all 0.15s ease;
 }
 
@@ -218,7 +218,7 @@
   font-size: 11px;
   font-weight: 600;
   padding: 5px 10px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -288,7 +288,7 @@
 .cl-empty-starter-card {
   background: rgba(13, 17, 30, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 12px 14px;
   display: flex;
   flex-direction: column;
@@ -323,7 +323,7 @@
   color: #ffd166;
   background: #090c15;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 6px 8px;
   white-space: nowrap;
   overflow: hidden;
@@ -344,7 +344,7 @@
   font-size: 11px;
   font-weight: 600;
   padding: 4px 8px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.15s ease;
   border: 1px solid transparent;
@@ -407,7 +407,7 @@
   color: #ffd166;
   background: rgba(255, 209, 102, 0.1);
   border: 1px solid rgba(255, 209, 102, 0.2);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 2px 7px;
   line-height: 1.4;
   margin-top: 1px;
@@ -444,7 +444,7 @@
   text-transform: uppercase;
   letter-spacing: 0.4px;
   padding: 2px 7px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
 }
 
 .cl-diff-badge.beginner {
@@ -472,13 +472,13 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #cbd5e1;
   padding: 2px 7px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
 }
 
 .cl-card-preview {
   background: #090c15;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 8px 12px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -535,7 +535,7 @@
   align-items: center;
   gap: 5px;
   padding: 6px 12px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -558,7 +558,7 @@
 .cl-icon-btn {
   width: 28px;
   height: 28px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.07);
   color: #94a3b8;
@@ -639,7 +639,7 @@
   color: #f2e8cf;
   font-size: 13px;
   padding: 8px 12px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   transition: all 0.15s ease;
   font-family: inherit;
 }
@@ -667,7 +667,7 @@
   gap: 8px;
   background: rgba(17, 22, 38, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 10px 12px;
 }
 
@@ -700,7 +700,7 @@
   font-size: 10px;
   font-weight: 600;
   padding: 2px 7px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -732,7 +732,7 @@
   font-size: 11px;
   font-weight: 600;
   padding: 4px 8px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -762,7 +762,7 @@
   font-size: 11px;
   font-weight: 600;
   padding: 4px 9px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -788,7 +788,7 @@
   color: #94a3b8;
   padding: 8px 12px;
   background: rgba(0, 0, 0, 0.25);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
@@ -804,7 +804,7 @@
   color: #ff859e;
   font-size: 12px;
   padding: 8px 12px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   line-height: 1.4;
 }
 
@@ -831,7 +831,7 @@
 .cl-shortcut-hint kbd {
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   padding: 1px 5px;
   font-family: inherit;
   font-size: 10px;
@@ -846,7 +846,7 @@
   font-size: 12px;
   font-weight: 600;
   padding: 7px 14px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -904,7 +904,7 @@
 .cl-cta-icon {
   width: 38px;
   height: 38px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 209, 102, 0.2);
   color: #ffd166;
   display: flex;
@@ -936,7 +936,7 @@
   font-size: 11px;
   font-weight: 700;
   padding: 6px 12px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   border: none;
   cursor: pointer;
   white-space: nowrap;
@@ -992,7 +992,7 @@
   gap: 10px;
   background: linear-gradient(135deg, rgba(255, 209, 102, 0.12) 0%, rgba(18, 24, 46, 0.88) 100%) !important;
   border: 1px solid rgba(255, 209, 102, 0.38) !important;
-  border-radius: 9px !important;
+  border-radius: var(--radius, 9px) !important;
   padding: 8px 12px !important;
   margin: 4px 4px 8px !important;
   box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
@@ -1034,7 +1034,7 @@
   font-weight: 800 !important;
   letter-spacing: 0.04em !important;
   text-transform: uppercase !important;
-  border-radius: 9px !important;
+  border-radius: var(--radius, 9px) !important;
   padding: 4px 10px !important;
   border: none !important;
   box-shadow: 0 3px 10px rgba(243, 156, 18, 0.35) !important;
@@ -1070,7 +1070,7 @@
   padding: 6px 8px;
   background: linear-gradient(135deg, rgba(20, 26, 44, 0.95) 0%, rgba(13, 18, 32, 0.98) 100%);
   border: 1px solid rgba(255, 209, 102, 0.32);
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 209, 102, 0.12);
   cursor: pointer;
   color: var(--ink);
@@ -1115,7 +1115,7 @@
   align-items: center;
   gap: 3px;
   padding: 2.5px 5.5px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 209, 102, 0.14);
   border: 1px solid rgba(255, 209, 102, 0.38);
   color: #ffd166;
@@ -1231,7 +1231,7 @@ html.theme-sepia .lesson-strip-banners-row .lsh-hb-sub {
   min-width: 18px;
   height: 18px;
   padding: 0 5px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 209, 102, 0.18);
   border: 1px solid rgba(255, 209, 102, 0.35);
   color: #ffd166;
@@ -1254,7 +1254,7 @@ html.theme-sepia .lesson-strip-banners-row .lsh-hb-sub {
 .craft-drawer-empty {
   padding: 12px;
   margin: 4px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   background: rgba(255, 255, 255, 0.02);
   border: 1px dashed rgba(255, 209, 102, 0.28);
   text-align: center;
@@ -1279,7 +1279,7 @@ html.theme-sepia .lesson-strip-banners-row .lsh-hb-sub {
   font-size: 11px;
   font-weight: 700;
   padding: 5px 10px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.18s ease;
 }
@@ -1308,7 +1308,7 @@ html.theme-sepia .lesson-strip-banners-row .lsh-hb-sub {
   font-size: 10px;
   font-weight: 700;
   padding: 6px 8px;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   cursor: pointer;
   transition: all 0.15s ease;
 }
