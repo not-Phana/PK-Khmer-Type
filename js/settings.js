@@ -41,6 +41,7 @@ const LS = Object.assign(window.LS || {}, {
   liveStatsHud: "khmerSettingLiveStatsHud",
   targetWpm: "khmerSettingTargetWpm",
   wallpaperBlur: "khmerCustomWallpaperBlur",
+  borderRadius: "khmerSettingBorderRadius",
   totals: "khmerGlobalStats"
 });
 window.LS = LS;
@@ -119,7 +120,7 @@ function ensureUpgradedSettingsModalDOM() {
             <svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           </div>
           <h2 id="settingsModalTitle"><span class="i18n-t" data-en="Settings &amp; Studio" data-km="ការកំណត់ និងស្ទូឌីយោ">Settings &amp; Studio</span> <span class="km-sub">ការកំណត់</span></h2>
-          <span class="settings-count-pill" id="settingsActiveCatCount">32 Controls</span>
+          <span class="settings-count-pill" id="settingsActiveCatCount">33 Controls</span>
           <button type="button" class="settings-version-pill" id="settingsVersionPill" title="PK Khmer Type v2.4 Beta Studio · Click to view Release Info" aria-label="Version 2.4 Beta Release Info">
             <span class="ver-live-dot" aria-hidden="true"></span>
             <span>v2.4 Beta Studio</span>
@@ -215,7 +216,7 @@ function ensureUpgradedSettingsModalDOM() {
       </div>
 
       <div class="settings-section" data-cat-section="appearance">
-        <div class="settings-section-header"><h3 class="settings-section-title">Appearance, Themes &amp; Wallpaper</h3><span class="settings-section-count">7 settings</span></div>
+        <div class="settings-section-header"><h3 class="settings-section-title">Appearance, Themes &amp; Wallpaper</h3><span class="settings-section-count">8 settings</span></div>
         <div class="settings-row settings-row-stacked settings-row-theme" data-search="theme glass transparent dark temple moonlight jungle sunset sepia light system color"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Studio Color Theme</span><span class="settings-row-km">ស្បែកកម្មវិធី</span></div><div class="settings-row-desc">Select the overall atmosphere and lighting palette.</div></div><div class="settings-row-control"><div class="settings-choice" id="themeChoice"><button type="button" data-theme="glass"><span class="theme-dot glass"></span>Transparent Glass</button><button type="button" data-theme="dark" class="active"><span class="theme-dot dark"></span>Dark</button><button type="button" data-theme="temple"><span class="theme-dot temple"></span>Temple</button><button type="button" data-theme="moonlight"><span class="theme-dot moonlight"></span>Moonlight</button><button type="button" data-theme="jungle"><span class="theme-dot jungle"></span>Jungle</button><button type="button" data-theme="sunset"><span class="theme-dot sunset"></span>Sunset</button><button type="button" data-theme="sepia"><span class="theme-dot sepia"></span>Sepia</button><button type="button" data-theme="light"><span class="theme-dot light"></span>Light</button><button type="button" data-theme="system"><span class="theme-dot system"></span>System</button></div></div></div>
         <div class="settings-row" data-search="accent color gold jade sapphire ruby cyan amethyst"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Primary Accent Color</span><span class="settings-row-km">ពណ៌លេចធ្លោ</span></div><div class="settings-row-desc">Choose the highlight glow color for active keys, badges, and buttons.</div></div><div class="settings-row-control"><div class="settings-choice accent-choice" id="accentChoice"><button type="button" data-accent="gold" class="active" style="--sw:#ffd166" aria-label="Gold accent"></button><button type="button" data-accent="jade" style="--sw:#5fd694" aria-label="Jade accent"></button><button type="button" data-accent="sapphire" style="--sw:#2dd4a7" aria-label="Sapphire accent"></button><button type="button" data-accent="ruby" style="--sw:#ff5a70" aria-label="Ruby accent"></button><button type="button" data-accent="cyan" style="--sw:#38bdf8" aria-label="Cyber Cyan accent"></button><button type="button" data-accent="amethyst" style="--sw:#c084fc" aria-label="Amethyst accent"></button></div></div></div>
         <div class="settings-row" data-search="khmer font family kantumruy noto sans serif typography"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Khmer Script Font Family</span><span class="settings-row-km">ពុម្ពអក្សរខ្មែរ</span></div><div class="settings-row-desc">Choose the Khmer typeface for keycaps, HUD cards, and typing prompts.</div></div><div class="settings-row-control"><div class="settings-choice" id="khmerFontChoice"><button type="button" data-kfont="kantumruy" class="active">Kantumruy Pro</button><button type="button" data-kfont="noto-sans">Noto Sans Khmer</button><button type="button" data-kfont="noto-serif">Noto Serif Khmer</button></div></div></div>
@@ -223,6 +224,7 @@ function ensureUpgradedSettingsModalDOM() {
         <div class="settings-row wallpaper-settings-row" data-search="custom wallpaper background image photo url upload"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Custom Background Wallpaper</span><span class="settings-row-km">រូបភាពផ្ទៃក្រោយ</span></div><div class="settings-row-desc">Upload local artwork or add a custom image URL with live HUD preview &amp; curated studio themes.</div><div class="active-wallpaper-chip" id="activeWallpaperChip" style="display:none;"><div class="active-wallpaper-thumb" id="activeWallpaperThumb"></div><div class="active-wallpaper-meta"><span class="active-wallpaper-status"><span class="active-wallpaper-dot"></span> Active Wallpaper</span><span class="active-wallpaper-label" id="activeWallpaperLabel">Custom Backdrop</span></div></div></div><div class="settings-row-control"><div class="wallpaper-actions"><input type="file" id="wallpaperFileInput" accept="image/*" style="display:none;"><button type="button" class="wallpaper-btn" id="uploadWallpaperBtn" title="Choose local image file">Upload Image</button><button type="button" class="wallpaper-btn wallpaper-btn-highlight" id="urlWallpaperBtn" title="Open Custom Wallpaper Studio &amp; URL Gallery"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Add via URL / Gallery</button><button type="button" class="wallpaper-btn danger" id="removeWallpaperBtn" style="display:none;" title="Remove custom wallpaper">Remove</button></div></div></div>
         <div class="settings-row wallpaper-dim-row" id="wallpaperDimControl" style="display:none;" data-search="wallpaper dimming brightness dark"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Wallpaper Dimming</span></div><div class="settings-row-desc">Darken the custom wallpaper so the keyboard stays crisp.</div></div><div class="settings-row-control"><div class="settings-slider-wrap"><input type="range" id="wallpaperDimSlider" min="15" max="90" value="65"><span class="settings-slider-badge" id="wallpaperDimValue">65%</span></div></div></div>
         <div class="settings-row" data-search="wallpaper blur glass backdrop"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Backdrop Glass Blur</span><span class="settings-row-km">កម្រិតព្រាលផ្ទៃក្រោយ</span></div><div class="settings-row-desc">Apply soft optical depth-of-field blur to custom wallpapers.</div></div><div class="settings-row-control"><div class="settings-slider-wrap"><input type="range" id="wallpaperBlurSlider" min="0" max="24" value="0"><span class="settings-slider-badge" id="wallpaperBlurValue">0px</span></div></div></div>
+        <div class="settings-row" data-search="border radius corner curve rounded sharp rounded corners curvature 0px 6px 9px 14px 20px"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Interface Corner Radius</span><span class="settings-row-km">កម្រិតកោងជ្រុង</span></div><div class="settings-row-desc">Customize the border radius across all cards, sidebars, search bars, and buttons.</div></div><div class="settings-row-control"><div class="settings-slider-wrap"><input type="range" id="borderRadiusSlider" min="0" max="24" value="9" step="1" aria-label="Interface Corner Radius"><span class="settings-slider-badge" id="borderRadiusValue">9px</span></div><div class="settings-choice radius-choice" id="radiusPresetChoice" style="margin-top:8px;"><button type="button" data-radius="0" title="Sharp 90-degree square corners">0px</button><button type="button" data-radius="6" title="Sleek IDE / Antigravity subtle curve">6px</button><button type="button" data-radius="9" class="active" title="Default modern rounded curve">9px</button><button type="button" data-radius="14" title="Smooth organic curve">14px</button><button type="button" data-radius="20" title="Pill capsule shape">20px</button></div><div class="radius-live-preview" id="radiusLivePreview" style="margin-top:10px; padding:8px 12px; background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.3); display:flex; align-items:center; justify-content:space-between; gap:10px;"><span style="font-size:0.75rem; color:var(--ink-dim, #94a3b8); font-weight:600;">Live Preview</span><span class="radius-live-badge" style="font-size:0.76rem; font-weight:700; color:var(--gold-bright, #ffd166); padding:2px 8px; background:rgba(255,209,102,0.14); border:1px solid rgba(255,209,102,0.35); border-radius:inherit;" id="radiusLiveBadge">9px</span></div></div></div>
       </div>
 
       <div class="settings-section" data-cat-section="immersion">
@@ -1115,6 +1117,64 @@ function initSettingsToggles() {
   }
   applyWallpaperBlur(safeGet(LS.wallpaperBlur, "0"));
 
+  // Interface Corner Radius (Custom Border Radius)
+  const borderRadiusSlider = document.getElementById("borderRadiusSlider");
+  const borderRadiusValue = document.getElementById("borderRadiusValue");
+  const radiusLivePreview = document.getElementById("radiusLivePreview");
+  const radiusLiveBadge = document.getElementById("radiusLiveBadge");
+  const radiusPresetBtns = document.querySelectorAll("#radiusPresetChoice button");
+
+  function applyBorderRadius(px, save = true) {
+    px = Math.max(0, Math.min(32, parseInt(px, 10) || 0));
+    document.documentElement.style.setProperty("--radius", px + "px");
+    document.documentElement.style.setProperty("--radius-sm", Math.max(0, px - 3) + "px");
+    document.documentElement.style.setProperty("--radius-md", px + "px");
+    document.documentElement.style.setProperty("--radius-lg", (px + 3) + "px");
+    document.documentElement.style.setProperty("--radius-xl", (px + 6) + "px");
+
+    let st = document.getElementById("pkCustomBorderRadiusStyle");
+    if (!st) {
+      st = document.createElement("style");
+      st.id = "pkCustomBorderRadiusStyle";
+      document.head.appendChild(st);
+    }
+    st.textContent = ':root{--radius:' + px + 'px !important;--radius-sm:' + Math.max(0, px - 3) + 'px !important;--radius-md:' + px + 'px !important;--radius-lg:' + (px + 3) + 'px !important;--radius-xl:' + (px + 6) + 'px !important;}.lesson-strip,#lessonStrip,.lesson-strip.expanded,#lessonStrip.expanded,.guide-dock,#guideDock,.guide-section,.guide-hand-block,.guide-stat-box,.keyboard-chassis,.key,.toolbar,.toolbar button,.modal-card,.settings-modal-card,.lesson-complete-card,.lesson-card,.lesson-level-header,.lsh-hub-banner,.cl-strip-banner,.adaptive-sidebar-card,.lsh-adaptive-btn,.lsh-badge,.lsh-expand-btn,.lss-input-wrap input,#lessonSearchInput,.lesson-search-input,.settings-search-input,.stat-tile,.stat-card,.trophy-card,.primary-btn,.secondary-btn,.settings-row,.settings-choice button,.settings-preset-btn,.settings-filter-pill,.settings-slider-badge,.radius-live-preview,#radiusLivePreview{border-radius:' + px + 'px !important;}.lesson-strip-header,.guide-dock-header,.modal-header{border-radius:' + px + 'px ' + px + 'px 0 0 !important;}.modal-footer{border-radius:0 0 ' + px + 'px ' + px + 'px !important;}';
+
+    const slider = document.getElementById("borderRadiusSlider");
+    const badge = document.getElementById("borderRadiusValue");
+    const preview = document.getElementById("radiusLivePreview");
+    const badgePreview = document.getElementById("radiusLiveBadge");
+    const presets = document.querySelectorAll("#radiusPresetChoice button");
+
+    if (slider && parseInt(slider.value, 10) !== px) slider.value = px;
+    if (badge) badge.textContent = px + "px";
+    if (preview) preview.style.borderRadius = px + "px";
+    if (badgePreview) badgePreview.textContent = px + "px";
+
+    presets.forEach((b) => {
+      b.classList.toggle("active", parseInt(b.dataset.radius, 10) === px);
+    });
+
+    if (save) {
+      safeSet(LS.borderRadius, String(px));
+    }
+  }
+  window.applyBorderRadius = applyBorderRadius;
+
+  if (borderRadiusSlider) {
+    borderRadiusSlider.addEventListener("input", () => applyBorderRadius(borderRadiusSlider.value));
+    borderRadiusSlider.addEventListener("change", () => applyBorderRadius(borderRadiusSlider.value));
+  }
+
+  radiusPresetBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const r = parseInt(btn.dataset.radius, 10) || 0;
+      applyBorderRadius(r);
+    });
+  });
+
+  applyBorderRadius(safeGet(LS.borderRadius, "9"), false);
+
   function isSafeImageUrl(url) {
     if (!url || typeof url !== "string") return false;
     var trimmed = url.trim();
@@ -1737,6 +1797,7 @@ function initSettingsToggles() {
       applyAccent(safeGet(LS.accent, "gold"));
       applyKhmerFont(safeGet(LS.khmerFont, "kantumruy"));
       applyWallpaperBlur(safeGet(LS.wallpaperBlur, "0"));
+      applyBorderRadius(safeGet(LS.borderRadius, "9"), false);
       applyHandsOpacity(safeGet(LS.handsOpacity, "44"));
       if (window.PKHandsColor) {
         const res = window.PKHandsColor.applyHandColors();
@@ -2465,6 +2526,7 @@ function initSettingsToggles() {
   function applyStudioPreset(presetName) {
     presetBtns.forEach((b) => b.classList.toggle("active", b.dataset.preset === presetName));
     if (presetName === "default") {
+      applyBorderRadius(9);
       applyTheme("dark");
       applyAccent("gold");
       applyCursorColor("theme");
@@ -2493,6 +2555,7 @@ function initSettingsToggles() {
       applyHighContrast(false);
       applyDyslexiaSpacing(false);
     } else if (presetName === "pro") {
+      applyBorderRadius(6);
       applyTheme("moonlight");
       applyAccent("cyan");
       applyCompactKeys(true);
@@ -2505,6 +2568,7 @@ function initSettingsToggles() {
       applyShockwave(false);
       applyTargetWpm(75);
     } else if (presetName === "immersion") {
+      applyBorderRadius(9);
       applyTheme("temple");
       applyAccent("gold");
       applyCompactKeys(false);
@@ -2521,6 +2585,7 @@ function initSettingsToggles() {
       applyShockwave(true);
       if (!ambienceOn) { ambienceOn = true; startAmbience(); syncAmbienceUI(); }
     } else if (presetName === "performance") {
+      applyBorderRadius(6);
       applyAnimationMode("off");
       applyTorches(false);
       applyScanlines(false);

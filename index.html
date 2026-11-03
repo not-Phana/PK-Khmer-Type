@@ -261,7 +261,7 @@
   <link rel="stylesheet" href="css/typing.css?v=88">
   <link rel="stylesheet" href="css/lessons.css?v=88">
   <link rel="stylesheet" href="css/responsive.css?v=88">
-  <link rel="stylesheet" href="css/settings.css?v=88">
+  <link rel="stylesheet" href="css/settings.css?v=89">
   <link rel="stylesheet" href="css/tutorial.css?v=88">
   <link rel="stylesheet" href="css/custom-lessons.css?v=88">
   <script>
@@ -279,6 +279,15 @@
       }
       if (sessionStorage.getItem('pk_mobile_gate_bypass') === '1') {
         document.documentElement.classList.add('pk-mobile-gate-dismissed');
+      }
+      var br = localStorage.getItem('khmerSettingBorderRadius');
+      if (br !== null) {
+        var bPx = Math.max(0, Math.min(32, parseInt(br, 10) || 0));
+        document.documentElement.style.setProperty('--radius', bPx + 'px');
+        var st = document.createElement('style');
+        st.id = 'pkCustomBorderRadiusStyle';
+        st.textContent = ':root{--radius:' + bPx + 'px !important;--radius-sm:' + Math.max(0, bPx - 3) + 'px !important;--radius-md:' + bPx + 'px !important;--radius-lg:' + (bPx + 3) + 'px !important;--radius-xl:' + (bPx + 6) + 'px !important;}.lesson-strip,#lessonStrip,.lesson-strip.expanded,#lessonStrip.expanded,.guide-dock,#guideDock,.guide-section,.guide-hand-block,.guide-stat-box,.keyboard-chassis,.key,.toolbar,.toolbar button,.modal-card,.settings-modal-card,.lesson-complete-card,.lesson-card,.lesson-level-header,.lsh-hub-banner,.cl-strip-banner,.adaptive-sidebar-card,.lsh-adaptive-btn,.lsh-badge,.lsh-expand-btn,.lss-input-wrap input,#lessonSearchInput,.lesson-search-input,.settings-search-input,.stat-tile,.stat-card,.trophy-card,.primary-btn,.secondary-btn,.settings-row,.settings-choice button,.settings-preset-btn,.settings-filter-pill,.settings-slider-badge,.radius-live-preview,#radiusLivePreview{border-radius:' + bPx + 'px !important;}.lesson-strip-header,.guide-dock-header,.modal-header{border-radius:' + bPx + 'px ' + bPx + 'px 0 0 !important;}.modal-footer{border-radius:0 0 ' + bPx + 'px ' + bPx + 'px !important;}';
+        document.head.appendChild(st);
       }
     } catch(e){}
   </script>
@@ -979,7 +988,7 @@
             <svg class="pk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           </div>
           <h2 id="settingsModalTitle"><span class="i18n-t" data-en="Settings &amp; Studio" data-km="ការកំណត់ និងស្ទូឌីយោ">Settings &amp; Studio</span> <span class="km-sub">ការកំណត់</span></h2>
-          <span class="settings-count-pill i18n-t" id="settingsActiveCatCount" data-en="32 Controls" data-km="32 ការគ្រប់គ្រង">32 Controls</span>
+          <span class="settings-count-pill i18n-t" id="settingsActiveCatCount" data-en="33 Controls" data-km="33 ការគ្រប់គ្រង">33 Controls</span>
         </div>
         <button class="modal-close" id="settingsCloseBtn" aria-label="Close settings"><svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       </div>
@@ -1473,7 +1482,7 @@
       <div class="settings-section" data-cat-section="appearance">
         <div class="settings-section-header">
           <h3 class="settings-section-title i18n-t" data-en="Appearance, Themes &amp; Wallpaper" data-km="រូបរាង ស្បែក និងផ្ទាំងរូបភាព">Appearance, Themes &amp; Wallpaper</h3>
-          <span class="settings-section-count i18n-t" data-en="7 settings" data-km="7 ការកំណត់">7 settings</span>
+          <span class="settings-section-count i18n-t" data-en="8 settings" data-km="8 ការកំណត់">8 settings</span>
         </div>
 
         <div class="settings-row settings-row-stacked settings-row-theme" data-search="theme glass transparent dark temple moonlight jungle sunset sepia light system color">
@@ -1610,6 +1619,33 @@
             <div class="settings-slider-wrap">
               <input type="range" id="wallpaperBlurSlider" min="0" max="24" value="0" aria-label="Wallpaper Glass Blur">
               <span class="settings-slider-badge" id="wallpaperBlurValue">0px</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-row" data-search="border radius corner curve rounded sharp rounded corners curvature 0px 6px 9px 14px 20px">
+          <div class="settings-row-info">
+            <div class="settings-row-title-line">
+              <span class="settings-row-name i18n-t" data-en="Interface Corner Radius" data-km="កម្រិតកោងជ្រុង (Corner Radius)">Interface Corner Radius</span>
+              <span class="settings-row-km">កម្រិតកោងជ្រុង</span>
+            </div>
+            <div class="settings-row-desc i18n-t" data-en="Customize the border radius across all cards, sidebars, search bars, and buttons." data-km="កំណត់កម្រិតកោងនៃជ្រុងសម្រាប់ផ្ទាំង មេរៀន ប៊ូតុង និងប្រអប់ស្វែងរកទាំងអស់។">Customize the border radius across all cards, sidebars, search bars, and buttons.</div>
+          </div>
+          <div class="settings-row-control">
+            <div class="settings-slider-wrap">
+              <input type="range" id="borderRadiusSlider" min="0" max="24" value="9" step="1" aria-label="Interface Corner Radius">
+              <span class="settings-slider-badge" id="borderRadiusValue">9px</span>
+            </div>
+            <div class="settings-choice radius-choice" id="radiusPresetChoice" style="margin-top:8px;">
+              <button type="button" data-radius="0" title="Sharp 90-degree square corners">0px</button>
+              <button type="button" data-radius="6" title="Sleek IDE / Antigravity subtle curve">6px</button>
+              <button type="button" data-radius="9" class="active" title="Default modern rounded curve">9px</button>
+              <button type="button" data-radius="14" title="Smooth organic curve">14px</button>
+              <button type="button" data-radius="20" title="Pill capsule shape">20px</button>
+            </div>
+            <div class="radius-live-preview" id="radiusLivePreview" style="margin-top:10px; padding:8px 12px; background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.3); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <span style="font-size:0.75rem; color:var(--ink-dim, #94a3b8); font-weight:600;" class="i18n-t" data-en="Live Preview" data-km="ការមើលសាកល្បង">Live Preview</span>
+              <span class="radius-live-badge" style="font-size:0.76rem; font-weight:700; color:var(--gold-bright, #ffd166); padding:2px 8px; background:rgba(255,209,102,0.14); border:1px solid rgba(255,209,102,0.35); border-radius:inherit;" id="radiusLiveBadge">9px</span>
             </div>
           </div>
         </div>
@@ -4768,7 +4804,7 @@
   <script defer src="js/test-lab.js?v=87"></script>
   <script defer src="js/race.js?v=86"></script>
   <script defer src="js/statistics.js?v=86"></script>
-  <script defer src="js/settings.js?v=86"></script>
+  <script defer src="js/settings.js?v=89"></script>
   <script defer src="js/shortcuts.js?v=86"></script>
   <script defer src="js/quick_guide.js?v=86"></script>
   <script defer src="js/tutorial.js?v=86"></script>

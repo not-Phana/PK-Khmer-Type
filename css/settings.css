@@ -3622,3 +3622,43 @@ html.theme-sepia #accentChoice button.active {
     display: none;
   }
 }
+
+/* Interface Corner Radius (Custom Border Radius) Controls */
+.radius-choice {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.radius-choice button {
+  padding: 5px 11px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  min-width: 44px;
+  justify-content: center;
+}
+
+.radius-live-preview {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: rgba(255, 209, 102, 0.06);
+  border: 1px solid rgba(255, 209, 102, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: border-radius 0.2s cubic-bezier(0.2, 0, 0, 1), border-color 0.2s ease, background 0.2s ease;
+}
+
+.radius-live-preview .radius-live-badge {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--gold-bright, #ffd166);
+  padding: 2px 10px;
+  background: rgba(255, 209, 102, 0.14);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  border-radius: inherit;
+  letter-spacing: 0.04em;
+}
