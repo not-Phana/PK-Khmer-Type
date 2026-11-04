@@ -793,12 +793,147 @@
       box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
     }
 
-    .chart-telemetry-chips {
+    /* REAL-TIME HEADER HUD TELEMETRY DECK */
+    .chart-telemetry-deck {
+      position: relative;
+      min-height: 52px;
+      margin-bottom: 8px;
+    }
+
+    .telemetry-deck-view {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .telemetry-deck-view.summary-view {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .telemetry-deck-view.summary-view.hidden {
+      opacity: 0;
+      transform: translateY(-4px);
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .telemetry-deck-view.inspect-view {
+      opacity: 0;
+      transform: translateY(4px);
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 6px 14px;
+      background: linear-gradient(90deg, rgba(16, 24, 42, 0.98) 0%, rgba(12, 18, 32, 0.98) 100%);
+      border: 1px solid rgba(255, 209, 102, 0.45);
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 16px rgba(255, 209, 102, 0.15);
+      backdrop-filter: blur(14px);
+      min-height: 48px;
+      box-sizing: border-box;
+    }
+
+    .telemetry-deck-view.inspect-view.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    .inspect-meta-pill {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 170px;
+    }
+
+    .inspect-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .inspect-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+
+    .inspect-date {
+      font-size: 10.5px;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .inspect-meta-sub {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .inspect-metrics-strip {
       display: flex;
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
     }
+
+    .inspect-chip {
+      display: inline-flex;
+      flex-direction: column;
+      padding: 4px 11px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      line-height: 1.15;
+    }
+
+    .inspect-chip .chip-label {
+      font-size: 8.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+    }
+
+    .inspect-chip .chip-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 800;
+    }
+
+    .inspect-chip.gold { border-color: rgba(255, 209, 102, 0.4); }
+    .inspect-chip.gold .chip-val { color: var(--gold-primary); text-shadow: 0 0 8px rgba(255, 209, 102, 0.4); }
+
+    .inspect-chip.emerald { border-color: rgba(52, 211, 153, 0.4); }
+    .inspect-chip.emerald .chip-val { color: var(--emerald-neon); text-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
+
+    .inspect-chip.cyan { border-color: rgba(56, 189, 248, 0.4); }
+    .inspect-chip.cyan .chip-val { color: var(--cyan-neon); text-shadow: 0 0 8px rgba(56, 189, 248, 0.4); }
+
+    .inspect-chip.violet { border-color: rgba(167, 139, 250, 0.4); }
+    .inspect-chip.violet .chip-val { color: var(--violet-neon); text-shadow: 0 0 8px rgba(167, 139, 250, 0.4); }
 
     .chart-chip {
       display: inline-flex;
@@ -907,9 +1042,10 @@
       box-shadow: 0 0 12px rgba(255, 209, 102, 0.28);
     }
 
+    /* Spacious 320px Esports Canvas Container */
     .chart-container {
       width: 100%;
-      height: 240px;
+      height: 320px;
       position: relative;
       margin-top: 6px;
       user-select: none;
@@ -961,7 +1097,7 @@
     .spline-velocity {
       fill: none;
       stroke: url(#velocityStrokeGrad);
-      stroke-width: 2.8;
+      stroke-width: 3;
       stroke-linecap: round;
       stroke-linejoin: round;
       filter: drop-shadow(0 0 10px rgba(255, 209, 102, 0.75));
@@ -994,8 +1130,8 @@
     /* Holographic Laser Crosshair & Interactive Reticles */
     .chart-laser-line {
       position: absolute;
-      top: 26px;
-      height: 180px;
+      top: 32px;
+      height: 248px;
       width: 1.5px;
       background: linear-gradient(180deg, rgba(255, 209, 102, 0.95) 0%, rgba(56, 189, 248, 0.95) 65%, transparent 100%);
       box-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 4px rgba(255, 209, 102, 0.8);
@@ -1009,7 +1145,7 @@
 
     .chart-laser-h-line {
       position: absolute;
-      left: 46px;
+      left: 48px;
       height: 1px;
       border-top: 1px dashed rgba(255, 209, 102, 0.5);
       pointer-events: none;
@@ -1045,89 +1181,12 @@
 
     .chart-reticle-gold.active, .chart-reticle-emerald.active { opacity: 1; }
 
-    /* Interactive Holographic HUD Tooltip Card */
-    .chart-hologram-hud {
-      position: absolute;
-      top: 30px;
-      left: 50px;
-      transform: none;
-      background: rgba(10, 15, 26, 0.96);
-      border: 1px solid rgba(255, 209, 102, 0.45);
-      border-radius: 9px;
-      padding: 12px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 24px rgba(255, 209, 102, 0.18);
-      backdrop-filter: blur(20px);
-      pointer-events: none;
-      opacity: 0;
-      z-index: 20;
-      min-width: 260px;
-      max-width: 330px;
-      transition: opacity 0.15s ease, left 0.05s ease-out;
-    }
-
-    .chart-hologram-hud.active { opacity: 1; }
-
-    .hud-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 6px;
-    }
-
-    .hud-title {
-      font-size: 12px;
-      font-weight: 800;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      flex: 1;
-    }
-
-    .hud-date {
-      font-size: 11px;
-      color: var(--text-dim);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .hud-metrics {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .hud-metric-box {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .hud-metric-val {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .hud-metric-label {
-      font-size: 9px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
     .hud-delta {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 9px;
+      padding: 1px 6px;
+      border-radius: 6px;
       background: rgba(52, 211, 153, 0.15);
       border: 1px solid rgba(52, 211, 153, 0.35);
       color: var(--emerald-neon);
@@ -1139,18 +1198,6 @@
       background: rgba(251, 113, 133, 0.15);
       border-color: rgba(251, 113, 133, 0.35);
       color: var(--rose-neon);
-    }
-
-    .hud-footer-strip {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 10px;
-      color: var(--text-dim);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 6px;
-      margin-top: 2px;
     }
 
     .hud-tier-pill {
@@ -2444,39 +2491,74 @@
             </div>
           </div>
 
-          <!-- Micro-Telemetry Stat Chips Row -->
-          <div class="chart-telemetry-chips">
-            <div class="chart-chip gold" id="chipPeakWpm">
-              <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-              <div class="chip-content">
-                <span class="chip-label">PEAK SPEED</span>
-                <strong class="chip-val">0 WPM</strong>
+          <!-- Real-Time Esports Header HUD Telemetry Deck -->
+          <div class="chart-telemetry-deck" id="chartTelemetryDeck">
+            <!-- Normal Aggregate Summary State -->
+            <div class="telemetry-deck-view summary-view" id="telemetrySummaryView">
+              <div class="chart-chip gold" id="chipPeakWpm">
+                <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <div class="chip-content">
+                  <span class="chip-label">PEAK SPEED</span>
+                  <strong class="chip-val">0 WPM</strong>
+                </div>
+              </div>
+              <div class="chart-chip cyan" id="chipAvgWpm">
+                <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                <div class="chip-content">
+                  <span class="chip-label">AVG PACER</span>
+                  <strong class="chip-val">0 WPM</strong>
+                </div>
+              </div>
+              <div class="chart-chip emerald" id="chipMomentum">
+                <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                <div class="chip-content">
+                  <span class="chip-label">MOMENTUM</span>
+                  <strong class="chip-val">+0%</strong>
+                </div>
+              </div>
+              <div class="chart-chip violet" id="chipConsistency">
+                <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle></svg>
+                <div class="chip-content">
+                  <span class="chip-label">CONSISTENCY</span>
+                  <strong class="chip-val">0%</strong>
+                </div>
               </div>
             </div>
-            <div class="chart-chip cyan" id="chipAvgWpm">
-              <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-              <div class="chip-content">
-                <span class="chip-label">AVG PACER</span>
-                <strong class="chip-val">0 WPM</strong>
+
+            <!-- Real-Time Interactive Header Inspector (Instant Crossfade on Waveform Hover) -->
+            <div class="telemetry-deck-view inspect-view" id="chartHologramHud">
+              <div class="inspect-meta-pill">
+                <div class="inspect-meta-row">
+                  <span class="inspect-title" id="hudLessonTitle">Lesson Drill</span>
+                  <span class="inspect-date" id="hudSessionDate">Oct 30</span>
+                </div>
+                <div class="inspect-meta-sub">
+                  <span id="hudDurationStrokes">00:00 · 0 Strokes</span>
+                  <span class="hud-tier-pill" id="hudTierPill">FLOW STATE</span>
+                </div>
               </div>
-            </div>
-            <div class="chart-chip emerald" id="chipMomentum">
-              <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-              <div class="chip-content">
-                <span class="chip-label">MOMENTUM</span>
-                <strong class="chip-val">+0%</strong>
-              </div>
-            </div>
-            <div class="chart-chip violet" id="chipConsistency">
-              <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle></svg>
-              <div class="chip-content">
-                <span class="chip-label">CONSISTENCY</span>
-                <strong class="chip-val">0%</strong>
+              <div class="inspect-metrics-strip">
+                <div class="inspect-chip gold">
+                  <span class="chip-label">VELOCITY</span>
+                  <strong class="chip-val" id="hudSpeedVal">0 WPM</strong>
+                </div>
+                <div class="inspect-chip emerald">
+                  <span class="chip-label">PRECISION</span>
+                  <strong class="chip-val" id="hudAccVal">0% Acc</strong>
+                </div>
+                <div class="inspect-chip cyan">
+                  <span class="chip-label">BURST DELTA</span>
+                  <strong class="chip-val hud-delta" id="hudDeltaVal">+0 WPM</strong>
+                </div>
+                <div class="inspect-chip violet">
+                  <span class="chip-label">CADENCE</span>
+                  <strong class="chip-val" id="hudCadence">0.0 KPS</strong>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Interactive SVG Trajectory Canvas & Floating Holographic HUD -->
+          <!-- Interactive SVG Trajectory Canvas (Spacious 320px Esports Deck) -->
           <div class="chart-container" id="chartContainer">
             <!-- Tactical Cyber Corner Ticks -->
             <div class="chart-corner-tick top-left"></div>
@@ -2488,37 +2570,11 @@
             <div class="chart-laser-line" id="chartLaserLine"></div>
             <div class="chart-laser-h-line" id="chartLaserHLine"></div>
 
-            <!-- Reticles -->
+            <!-- Reticles Locking onto Curves -->
             <div class="chart-reticle-gold" id="chartReticleGold"></div>
             <div class="chart-reticle-emerald" id="chartReticleEmerald"></div>
 
-            <!-- Floating Holographic HUD Tooltip Card -->
-            <div class="chart-hologram-hud" id="chartHologramHud">
-              <div class="hud-header">
-                <span class="hud-title" id="hudLessonTitle">Lesson Drill</span>
-                <span class="hud-date" id="hudSessionDate">Oct 27</span>
-              </div>
-              <div class="hud-metrics">
-                <div class="hud-metric-box">
-                  <div class="hud-metric-label">Velocity</div>
-                  <div class="hud-metric-val" id="hudSpeedVal" style="color:var(--gold-primary);">0 WPM</div>
-                </div>
-                <div class="hud-metric-box">
-                  <div class="hud-metric-label">Precision</div>
-                  <div class="hud-metric-val" id="hudAccVal" style="color:var(--emerald-neon);">0% Acc</div>
-                </div>
-                <div class="hud-metric-box">
-                  <div class="hud-metric-label">Burst Delta</div>
-                  <div class="hud-delta" id="hudDeltaVal">+0 WPM</div>
-                </div>
-              </div>
-              <div class="hud-footer-strip">
-                <span id="hudDurationStrokes">00:00 · 0 Strokes (0.0 KPS)</span>
-                <span class="hud-tier-pill" id="hudTierPill">FLOW STATE</span>
-              </div>
-            </div>
-
-            <svg class="perf-chart-svg" id="perfChartSvg" viewBox="0 0 600 240"></svg>
+            <svg class="perf-chart-svg" id="perfChartSvg" viewBox="0 0 600 320"></svg>
           </div>
         </div>
 
@@ -3660,14 +3716,14 @@
 
         if (!sessions || sessions.length < 2) {
           svg.innerHTML = `
-            <rect x="0" y="0" width="600" height="240" fill="transparent"/>
-            <circle cx="300" cy="100" r="28" fill="none" stroke="rgba(255,209,102,0.2)" stroke-width="1.5" stroke-dasharray="4 4"/>
-            <circle cx="300" cy="100" r="14" fill="none" stroke="rgba(56,189,248,0.3)" stroke-width="1.5"/>
-            <circle cx="300" cy="100" r="3" fill="#ffd166"/>
-            <text x="300" y="145" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="700" font-family="'Space Grotesk', sans-serif">
+            <rect x="0" y="0" width="600" height="320" fill="transparent"/>
+            <circle cx="300" cy="130" r="32" fill="none" stroke="rgba(255,209,102,0.2)" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <circle cx="300" cy="130" r="16" fill="none" stroke="rgba(56,189,248,0.3)" stroke-width="1.5"/>
+            <circle cx="300" cy="130" r="3" fill="#ffd166"/>
+            <text x="300" y="185" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="700" font-family="'Space Grotesk', sans-serif">
               TELEMETRY STREAM INITIALIZING
             </text>
-            <text x="300" y="165" text-anchor="middle" fill="#64748b" font-size="11" font-family="'Inter', sans-serif">
+            <text x="300" y="208" text-anchor="middle" fill="#64748b" font-size="11" font-family="'Inter', sans-serif">
               Complete typing sessions in the training room to plot your trajectory curve.
             </text>
           `;
@@ -3683,10 +3739,11 @@
           data = rawSessions.slice(-32);
         }
 
-        const w = 600, h = 240, padL = 46, padR = 46, padT = 26, padB = 34;
-        const chartW = w - padL - padR;
-        const chartH = h - padT - padB;
-        const bottomY = padT + chartH;
+        // Roomy 320px Canvas Coordinates
+        const w = 600, h = 320, padL = 48, padR = 48, padT = 32, padB = 40;
+        const chartW = w - padL - padR; // 504
+        const chartH = h - padT - padB; // 248
+        const bottomY = padT + chartH;  // 280
 
         const maxWpm = Math.max(...data.map(d => d.wpm), 60);
         const minAcc = 70; // High-resolution accuracy baseline
@@ -3716,7 +3773,7 @@
           ? Math.round(((data[data.length - 1].wpm - data[0].wpm) / Math.max(1, data[0].wpm)) * 100)
           : 0;
 
-        // Update Stat Chips
+        // Update Stat Chips in Summary Deck
         const chipPeak = document.getElementById('chipPeakWpm');
         if (chipPeak) {
           chipPeak.innerHTML = `
@@ -3783,6 +3840,7 @@
         const y40Wpm = padT + chartH - (40 / maxWpm) * chartH;
         const y95Acc = padT + chartH - ((95 - minAcc) / (100 - minAcc)) * chartH;
         const peakPt = wpmPoints[peakIdx] || wpmPoints[0];
+        const lastPt = wpmPoints[wpmPoints.length - 1];
 
         svg.innerHTML = `
           <defs>
@@ -3840,8 +3898,9 @@
 
           <!-- Holographic Grid Background -->
           <line x1="${padL}" y1="${padT}" x2="${w - padR}" y2="${padT}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
-          <line x1="${padL}" y1="${padT + chartH * 0.33}" x2="${w - padR}" y2="${padT + chartH * 0.33}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 3"/>
-          <line x1="${padL}" y1="${padT + chartH * 0.66}" x2="${w - padR}" y2="${padT + chartH * 0.66}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 3"/>
+          <line x1="${padL}" y1="${(padT + chartH * 0.25).toFixed(1)}" x2="${w - padR}" y2="${(padT + chartH * 0.25).toFixed(1)}" stroke="rgba(255,255,255,0.04)" stroke-dasharray="3 3"/>
+          <line x1="${padL}" y1="${(padT + chartH * 0.50).toFixed(1)}" x2="${w - padR}" y2="${(padT + chartH * 0.50).toFixed(1)}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 3"/>
+          <line x1="${padL}" y1="${(padT + chartH * 0.75).toFixed(1)}" x2="${w - padR}" y2="${(padT + chartH * 0.75).toFixed(1)}" stroke="rgba(255,255,255,0.04)" stroke-dasharray="3 3"/>
           <line x1="${padL}" y1="${bottomY}" x2="${w - padR}" y2="${bottomY}" stroke="rgba(255,255,255,0.14)"/>
 
           <!-- Vertical Session Grid Ticks -->
@@ -3849,16 +3908,23 @@
             <line x1="${p.x.toFixed(1)}" y1="${padT}" x2="${p.x.toFixed(1)}" y2="${bottomY}" stroke="rgba(255,255,255,0.035)" stroke-dasharray="2 4"/>
           `).join('')}
 
+          <!-- Session Axis Markers along Bottom -->
+          ${wpmPoints.map((p, i) => {
+            const showLabel = data.length <= 16 || (i % 2 === 0);
+            if (!showLabel) return '';
+            return `<text x="${p.x.toFixed(1)}" y="${bottomY + 16}" text-anchor="middle" fill="#64748b" font-size="8.5" font-weight="700" font-family="'JetBrains Mono',monospace">#${i + 1}</text>`;
+          }).join('')}
+
           <!-- Flow State Corridor (between 40 WPM and top) -->
           ${(40 <= maxWpm) ? `
             <rect x="${padL}" y="${padT}" width="${chartW}" height="${Math.max(0, y40Wpm - padT)}" fill="url(#flowCorridorGrad)"/>
             <line x1="${padL}" y1="${y40Wpm.toFixed(1)}" x2="${w - padR}" y2="${y40Wpm.toFixed(1)}" stroke="rgba(255,209,102,0.3)" stroke-dasharray="4 4"/>
-            <text x="${w - padR - 4}" y="${(y40Wpm - 4).toFixed(1)}" text-anchor="end" fill="rgba(255,209,102,0.75)" font-size="9" font-weight="700" font-family="'JetBrains Mono',monospace">40 WPM FLOW BENCHMARK</text>
+            <text x="${w - padR - 6}" y="${(y40Wpm - 6).toFixed(1)}" text-anchor="end" fill="rgba(255,209,102,0.75)" font-size="9" font-weight="700" font-family="'JetBrains Mono',monospace">40 WPM FLOW BENCHMARK</text>
           ` : ''}
 
           <!-- Mastery Barrier (95% Accuracy) -->
           <line x1="${padL}" y1="${y95Acc.toFixed(1)}" x2="${w - padR}" y2="${y95Acc.toFixed(1)}" stroke="rgba(52,211,153,0.3)" stroke-dasharray="4 4"/>
-          <text x="${padL + 6}" y="${(y95Acc - 4).toFixed(1)}" fill="rgba(52,211,153,0.75)" font-size="9" font-weight="700" font-family="'JetBrains Mono',monospace">95% PRECISION BARRIER</text>
+          <text x="${padL + 6}" y="${(y95Acc - 6).toFixed(1)}" fill="rgba(52,211,153,0.75)" font-size="9" font-weight="700" font-family="'JetBrains Mono',monospace">95% PRECISION BARRIER</text>
 
           <!-- Left Axis Ticks (WPM) -->
           <text x="${padL - 10}" y="${padT + 4}" text-anchor="end" fill="#94a3b8" font-size="9" font-weight="700" font-family="'JetBrains Mono',monospace">${Math.round(maxWpm)}</text>
@@ -3896,20 +3962,29 @@
               <text x="${peakPt.x.toFixed(1)}" y="${(peakPt.y - 11).toFixed(1)}" text-anchor="middle" fill="#ffd166" font-size="8" font-weight="800" font-family="'JetBrains Mono',monospace">PEAK</text>
             </g>
           ` : ''}
+
+          <!-- Live Pacer Radar Indicator at latest point -->
+          ${(lastPt && activeStreamMode !== 'precision') ? `
+            <circle cx="${lastPt.x.toFixed(1)}" cy="${lastPt.y.toFixed(1)}" r="7" fill="none" stroke="rgba(56,189,248,0.5)" stroke-width="1.2">
+              <animate attributeName="r" values="4;9;4" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"/>
+            </circle>
+          ` : ''}
         `;
 
-        // Interactive Laser Crosshair & Holographic HUD logic
+        // Interactive Laser Crosshair & Real-Time Header HUD Inspector logic
         const laser = document.getElementById('chartLaserLine');
         const laserH = document.getElementById('chartLaserHLine');
         const reticleGold = document.getElementById('chartReticleGold');
         const reticleEmerald = document.getElementById('chartReticleEmerald');
         const hud = document.getElementById('chartHologramHud');
+        const summaryDeck = document.getElementById('telemetrySummaryView');
+
         const hudTitle = document.getElementById('hudLessonTitle');
         const hudTier = document.getElementById('hudTierPill');
         const hudDate = document.getElementById('hudSessionDate');
         const hudSpeed = document.getElementById('hudSpeedVal');
         const hudAcc = document.getElementById('hudAccVal');
-        const hudAccBar = document.getElementById('hudAccBarFill');
         const hudDelta = document.getElementById('hudDeltaVal');
         const hudDetails = document.getElementById('hudDurationStrokes');
         const hudCadence = document.getElementById('hudCadence');
@@ -3922,6 +3997,7 @@
           if (reticleGold) reticleGold.classList.remove('active');
           if (reticleEmerald) reticleEmerald.classList.remove('active');
           if (hud) hud.classList.remove('active');
+          if (summaryDeck) summaryDeck.classList.remove('hidden');
           lastHoverIdx = -1;
         };
 
@@ -3999,7 +4075,7 @@
             reticleEmerald.classList.toggle('active', activeStreamMode !== 'velocity');
           }
 
-          // Populate Holographic HUD Card
+          // Populate Real-Time Esports Header HUD
           if (hud) {
             const dateObj = new Date(ptWpm.timestamp);
             const dateStr = `${months[dateObj.getMonth()].slice(0, 3)} ${dateObj.getDate()}, ${String(dateObj.getHours()).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
@@ -4048,12 +4124,11 @@
             if (hudDate) hudDate.textContent = dateStr;
             if (hudSpeed) hudSpeed.textContent = `${ptWpm.val} WPM`;
             if (hudAcc) hudAcc.textContent = `${ptAcc.val}% Acc`;
-            if (hudAccBar) hudAccBar.style.width = `${ptAcc.val}%`;
 
             if (hudDelta) {
               const dVal = ptWpm.delta;
               hudDelta.textContent = dVal >= 0 ? `+${dVal} WPM` : `${dVal} WPM`;
-              hudDelta.className = dVal >= 0 ? 'hud-delta' : 'hud-delta down';
+              hudDelta.className = dVal >= 0 ? 'chip-val hud-delta' : 'chip-val hud-delta down';
             }
 
             const durSec = Math.max(1, Math.round(Number(ptWpm.durSec) || 0));
@@ -4070,37 +4145,9 @@
               hudCadence.textContent = `${kps.toFixed(1)} KPS`;
             }
 
-            // Position HUD Card strictly inside plot boundary & avoid occluding active curve
-            const hudWidth = hud.offsetWidth || 260;
-            const hudHeight = hud.offsetHeight || 116;
-
-            // Horizontal position: place to right of laser line, flip to left if near right plot boundary
-            let targetLeft;
-            if (pixelX + 16 + hudWidth <= plotRight - 4) {
-              targetLeft = pixelX + 16;
-            } else {
-              targetLeft = pixelX - 16 - hudWidth;
-            }
-            // Strict horizontal clamping inside plot area
-            targetLeft = Math.max(plotLeft + 4, Math.min(targetLeft, plotRight - hudWidth - 4));
-
-            // Smart vertical positioning: avoid occluding active data point
-            let targetTop;
-            const midY = plotTop + (plotBottom - plotTop) * 0.5;
-            if (pixelYWpm < midY) {
-              // Point is high: place HUD card in lower section
-              targetTop = plotBottom - hudHeight - 6;
-              targetTop = Math.max(plotTop + 4, targetTop);
-            } else {
-              // Point is low: place HUD card in upper section
-              targetTop = plotTop + 6;
-              targetTop = Math.min(targetTop, plotBottom - hudHeight - 4);
-            }
-
-            hud.style.left = `${targetLeft}px`;
-            hud.style.top = `${targetTop}px`;
-            hud.style.transform = 'none';
+            // Crossfade Header Deck to Inspector Mode (Leaving Waveform 100% Clean)
             hud.classList.add('active');
+            if (summaryDeck) summaryDeck.classList.add('hidden');
           }
         };
 

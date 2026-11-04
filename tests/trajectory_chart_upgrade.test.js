@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, '..');
 
-test('Trajectory Chart Upgrade: Markup and Telemetry elements integrity', () => {
+test('Trajectory Chart Remake: Esports Telemetry Deck & Real-Time Header HUD integrity', () => {
   const html = fs.readFileSync(path.join(rootDir, 'dashboard.html'), 'utf8');
 
   // Verify core container IDs and classes
@@ -35,32 +35,37 @@ test('Trajectory Chart Upgrade: Markup and Telemetry elements integrity', () => 
   assert.ok(html.includes('chart-corner-tick bottom-left'), 'Corner tick bottom-left exists');
   assert.ok(html.includes('chart-corner-tick bottom-right'), 'Corner tick bottom-right exists');
 
-  // Clean laser line and reticles (without clunky diamond blocks or outer rings)
+  // Clean laser line and reticles
   assert.ok(html.includes('id="chartLaserLine"'), 'Vertical laser crosshair exists');
   assert.ok(html.includes('id="chartLaserHLine"'), 'Horizontal projector guide exists');
   assert.ok(html.includes('id="chartReticleGold"'), 'Gold reticle exists');
   assert.ok(html.includes('id="chartReticleEmerald"'), 'Emerald reticle exists');
-  assert.ok(!html.includes('laser-head top'), 'Laser head diamonds removed');
-  assert.ok(!html.includes('reticle-pulse'), 'Bulky reticle pulse ring removed');
 
-  // Holographic HUD clean structure (no corner glitches or title crowding)
-  assert.ok(html.includes('id="chartHologramHud"'), 'Holographic HUD tooltip card exists');
+  // Real-Time Header HUD Telemetry Deck structure
+  assert.ok(html.includes('id="chartTelemetryDeck"'), 'Real-time telemetry deck container exists');
+  assert.ok(html.includes('id="telemetrySummaryView"'), 'Summary aggregate state view exists');
+  assert.ok(html.includes('id="chartHologramHud"'), 'Holographic Header HUD inspector exists');
   assert.ok(html.includes('id="hudLessonTitle"'), 'HUD title element exists');
   assert.ok(html.includes('id="hudSessionDate"'), 'HUD date element exists');
   assert.ok(html.includes('id="hudTierPill"'), 'HUD tier pill exists');
   assert.ok(html.includes('id="hudDurationStrokes"'), 'HUD duration and strokes exists');
-  assert.ok(!html.includes('hud-corner-accent'), 'Glitchy corner accent brackets removed');
+  assert.ok(html.includes('id="hudSpeedVal"'), 'HUD speed value element exists');
+  assert.ok(html.includes('id="hudAccVal"'), 'HUD accuracy value element exists');
+  assert.ok(html.includes('id="hudDeltaVal"'), 'HUD burst delta element exists');
+  assert.ok(html.includes('id="hudCadence"'), 'HUD cadence element exists');
 
-  // Peak milestone beacon in SVG logic
+  // Peak milestone beacon & cyber matrix grid in SVG logic
   assert.ok(html.includes('peak-milestone-beacon'), 'SVG renders PEAK milestone beacon');
   assert.ok(html.includes('cyberGridPattern'), 'Holographic cyber matrix pattern exists');
 });
 
-test('Trajectory Chart: Holographic HUD & Laser Crosshair Plot Boundary Containment', () => {
+test('Trajectory Chart Remake: 320px Canvas & Unobstructed Plot Area', () => {
   const html = fs.readFileSync(path.join(rootDir, 'dashboard.html'), 'utf8');
 
-  // Verify container overflow containment
-  assert.ok(html.includes('.chart-container {') && html.includes('overflow: hidden;'), 'Chart container has overflow: hidden to prevent edge bleed');
+  // Verify 320px canvas dimensions and overflow containment
+  assert.ok(html.includes('height: 320px;'), 'Chart container expanded to 320px for roomy curves');
+  assert.ok(html.includes('viewBox="0 0 600 320"'), 'SVG viewBox set to 600x320');
+  assert.ok(html.includes('overflow: hidden;'), 'Chart container has overflow: hidden');
 
   // Verify laser line dynamic height strictly bounded to plot area
   assert.ok(html.includes('laser.style.top = `${plotTop}px`'), 'Laser crosshair vertical top anchored to plotTop');
@@ -69,12 +74,9 @@ test('Trajectory Chart: Holographic HUD & Laser Crosshair Plot Boundary Containm
   // Verify horizontal line start anchored to plotLeft
   assert.ok(html.includes('laserH.style.left = `${plotLeft}px`'), 'Laser horizontal projector starts at plotLeft');
 
-  // Verify HUD horizontal clamping strictly within plotLeft and plotRight
-  assert.ok(html.includes('Math.max(plotLeft + 4, Math.min(targetLeft, plotRight - hudWidth - 4))'), 'HUD tooltip horizontally clamped inside plot boundaries');
-
-  // Verify HUD vertical flip to avoid curve occlusion
-  assert.ok(html.includes('plotBottom - hudHeight - 6'), 'HUD flips to lower area when point is high');
-  assert.ok(html.includes('plotTop + 6'), 'HUD flips to upper area when point is low');
+  // Verify Real-Time Header HUD toggling (leaving waveform 100% unobstructed)
+  assert.ok(html.includes("hud.classList.add('active')"), 'Header HUD activates on hover');
+  assert.ok(html.includes("summaryDeck.classList.add('hidden')"), 'Summary view hides during active inspection');
 
   // Verify hover bounds suppression when cursor leaves the plot area
   assert.ok(html.includes('mouseX < plotLeft - 4 || mouseX > plotRight + 4'), 'Hover suppresses crosshair when outside plot horizontal bounds');
