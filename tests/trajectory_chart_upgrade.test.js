@@ -29,23 +29,27 @@ test('Trajectory Chart Upgrade: Markup and Telemetry elements integrity', () => 
   assert.ok(html.includes('data-stream="velocity"'), 'Velocity stream button exists');
   assert.ok(html.includes('data-stream="precision"'), 'Precision stream button exists');
 
-  // Tactical corner ticks
+  // Tactical corner ticks on chart frame
   assert.ok(html.includes('chart-corner-tick top-left'), 'Corner tick top-left exists');
   assert.ok(html.includes('chart-corner-tick top-right'), 'Corner tick top-right exists');
   assert.ok(html.includes('chart-corner-tick bottom-left'), 'Corner tick bottom-left exists');
   assert.ok(html.includes('chart-corner-tick bottom-right'), 'Corner tick bottom-right exists');
 
-  // Dual laser and reticles
+  // Clean laser line and reticles (without clunky diamond blocks or outer rings)
   assert.ok(html.includes('id="chartLaserLine"'), 'Vertical laser crosshair exists');
   assert.ok(html.includes('id="chartLaserHLine"'), 'Horizontal projector guide exists');
   assert.ok(html.includes('id="chartReticleGold"'), 'Gold reticle exists');
   assert.ok(html.includes('id="chartReticleEmerald"'), 'Emerald reticle exists');
+  assert.ok(!html.includes('laser-head top'), 'Laser head diamonds removed');
+  assert.ok(!html.includes('reticle-pulse'), 'Bulky reticle pulse ring removed');
 
-  // Holographic HUD elements
+  // Holographic HUD clean structure (no corner glitches or title crowding)
   assert.ok(html.includes('id="chartHologramHud"'), 'Holographic HUD tooltip card exists');
+  assert.ok(html.includes('id="hudLessonTitle"'), 'HUD title element exists');
+  assert.ok(html.includes('id="hudSessionDate"'), 'HUD date element exists');
   assert.ok(html.includes('id="hudTierPill"'), 'HUD tier pill exists');
-  assert.ok(html.includes('id="hudAccBarFill"'), 'HUD accuracy meter bar exists');
-  assert.ok(html.includes('id="hudCadence"'), 'HUD cadence KPS exists');
+  assert.ok(html.includes('id="hudDurationStrokes"'), 'HUD duration and strokes exists');
+  assert.ok(!html.includes('hud-corner-accent'), 'Glitchy corner accent brackets removed');
 
   // Peak milestone beacon in SVG logic
   assert.ok(html.includes('peak-milestone-beacon'), 'SVG renders PEAK milestone beacon');
