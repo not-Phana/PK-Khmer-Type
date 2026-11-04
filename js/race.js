@@ -8,8 +8,53 @@ var WORD_BANK = window.WORD_BANK || ['អាវ','តា','យាយ','មាន
    (US) layout is selected — Temple Trial and the Typing Race should
    drill the language that's actually on the keys, not always Khmer. */
 var WORD_BANK_EN = window.WORD_BANK_EN || ['cat','dog','sun','run','desk','lamp','fish','bird','tree','king','fast','slow','jump','walk','hand','word','type','game','song','play'];
+
+/* Sanitizer for adaptive words: strips punctuation (like ។, ?, !), spaces, and checks length */
+function getSanitizedAdaptiveWords(arr, minLen, maxLen){
+  if(!Array.isArray(arr) || arr.length === 0) return [];
+  const out = [];
+  const seen = new Set();
+  const min = minLen || 2;
+  const max = maxLen || 8;
+  for(let i = 0; i < arr.length; i++){
+    const raw = String(arr[i] || '').trim();
+    const clean = raw.replace(/[។៕,\.!?\s]/g, '');
+    const len = Array.from(clean).length;
+    if(len >= min && len <= max && !seen.has(clean)){
+      seen.add(clean);
+      out.push(clean);
+    }
+  }
+  return out;
+}
+
 function currentWordBank(){
-  return currentLayoutId === 'english' ? WORD_BANK_EN : WORD_BANK;
+  if(typeof currentLayoutId !== 'undefined' && currentLayoutId === 'english'){
+    const enAdaptive = (typeof window !== 'undefined' && Array.isArray(window.ENGLISH_ADAPTIVE_WORDS))
+      ? window.ENGLISH_ADAPTIVE_WORDS
+      : ((typeof ENGLISH_ADAPTIVE_WORDS !== 'undefined' && Array.isArray(ENGLISH_ADAPTIVE_WORDS)) ? ENGLISH_ADAPTIVE_WORDS : null);
+    if(enAdaptive && enAdaptive.length > 0){
+      const pool = getSanitizedAdaptiveWords(enAdaptive, 3, 7);
+      if(pool.length > 0) return pool;
+    }
+    return WORD_BANK_EN;
+  }
+
+  const kmAdaptive = (typeof window !== 'undefined' && Array.isArray(window.KHMER_ADAPTIVE_WORDS))
+    ? window.KHMER_ADAPTIVE_WORDS
+    : ((typeof KHMER_ADAPTIVE_WORDS !== 'undefined' && Array.isArray(KHMER_ADAPTIVE_WORDS)) ? KHMER_ADAPTIVE_WORDS : null);
+  if(kmAdaptive && kmAdaptive.length > 0){
+    const pool = getSanitizedAdaptiveWords(kmAdaptive, 2, 7);
+    if(pool.length > 0) return pool;
+  }
+  return WORD_BANK;
+}
+
+if (typeof window !== 'undefined') {
+  window.PK_TRIAL_BANK = { currentWordBank, getSanitizedAdaptiveWords, WORD_BANK, WORD_BANK_EN };
+}
+if (typeof global !== 'undefined') {
+  global.PK_TRIAL_BANK = { currentWordBank, getSanitizedAdaptiveWords, WORD_BANK, WORD_BANK_EN };
 }
 let trialActive = false;
 let trialWordChars = [];
@@ -420,29 +465,37 @@ function escapeHtml(s){
   return String(s).replace(/[&<>"']/g, ch=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
 
-raceLbDifficultyTabs.querySelectorAll('.race-pill').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    raceLbDifficulty = btn.dataset.lbDifficulty;
+if (raceLbDifficultyTabs) {
+  raceLbDifficultyTabs.querySelectorAll('.race-pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      raceLbDifficulty = btn.dataset.lbDifficulty;
+      renderRaceLeaderboard();
+    });
+  });
+}
+if (raceLbLengthTabs) {
+  raceLbLengthTabs.querySelectorAll('.race-pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      raceLbLength = btn.dataset.lbLength;
+      renderRaceLeaderboard();
+    });
+  });
+}
+if (raceLeaderboardBtn) {
+  raceLeaderboardBtn.addEventListener('click', ()=>{
+    raceLbDifficulty = raceDifficulty;
+    raceLbLength = raceLength === 'text' ? 'text' : raceLength;
+    if (raceSetupEl) raceSetupEl.hidden = true;
+    if (raceLeaderboardPanel) raceLeaderboardPanel.hidden = false;
     renderRaceLeaderboard();
   });
-});
-raceLbLengthTabs.querySelectorAll('.race-pill').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    raceLbLength = btn.dataset.lbLength;
-    renderRaceLeaderboard();
+}
+if (raceLeaderboardBackBtn) {
+  raceLeaderboardBackBtn.addEventListener('click', ()=>{
+    if (raceLeaderboardPanel) raceLeaderboardPanel.hidden = true;
+    if (raceSetupEl) raceSetupEl.hidden = false;
   });
-});
-raceLeaderboardBtn.addEventListener('click', ()=>{
-  raceLbDifficulty = raceDifficulty;
-  raceLbLength = raceLength === 'text' ? 'text' : raceLength;
-  raceSetupEl.hidden = true;
-  raceLeaderboardPanel.hidden = false;
-  renderRaceLeaderboard();
-});
-raceLeaderboardBackBtn.addEventListener('click', ()=>{
-  raceLeaderboardPanel.hidden = true;
-  raceSetupEl.hidden = false;
-});
+}
 
 function raceBestKey(difficulty, length){
   const cap = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
@@ -543,26 +596,31 @@ function updateRaceSetupBest(){
 }
 
 function setRacePill(row, attr, value){
+  if (!row) return;
   row.querySelectorAll('.race-pill').forEach(btn=>{
     const on = btn.dataset[attr] === value;
     btn.setAttribute('aria-checked', on ? 'true' : 'false');
   });
 }
 
-raceDifficultyRow.querySelectorAll('.race-pill').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    raceDifficulty = btn.dataset.difficulty;
-    setRacePill(raceDifficultyRow, 'difficulty', raceDifficulty);
-    updateRaceSetupBest();
+if (raceDifficultyRow) {
+  raceDifficultyRow.querySelectorAll('.race-pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      raceDifficulty = btn.dataset.difficulty;
+      setRacePill(raceDifficultyRow, 'difficulty', raceDifficulty);
+      updateRaceSetupBest();
+    });
   });
-});
-raceLengthRow.querySelectorAll('.race-pill').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    raceLength = btn.dataset.length;
-    setRacePill(raceLengthRow, 'length', raceLength);
-    updateRaceSetupBest();
+}
+if (raceLengthRow) {
+  raceLengthRow.querySelectorAll('.race-pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      raceLength = btn.dataset.length;
+      setRacePill(raceLengthRow, 'length', raceLength);
+      updateRaceSetupBest();
+    });
   });
-});
+}
 if(raceAiOpponentRow){
   raceAiOpponentRow.querySelectorAll('.race-pill').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -877,10 +935,14 @@ function exitRaceMode(){
   if(existing) existing.remove();
 }
 
-raceToggle.addEventListener('click', ()=>{
-  if(raceMode) exitRaceMode(); else enterRaceMode();
-});
-raceExitLiveBtn.addEventListener('click', exitRaceMode);
+if (raceToggle) {
+  raceToggle.addEventListener('click', ()=>{
+    if(raceMode) exitRaceMode(); else enterRaceMode();
+  });
+}
+if (raceExitLiveBtn) {
+  raceExitLiveBtn.addEventListener('click', exitRaceMode);
+}
 
 function raceRunCountdown(cb){
   if(raceCountingDown) return; // guard against repeated clicks starting multiple timers
@@ -983,7 +1045,9 @@ function startRace(){
     boardWrap.focus && boardWrap.focus();
   });
 }
-raceStartBtn.addEventListener('click', startRace);
+if (raceStartBtn) {
+  raceStartBtn.addEventListener('click', startRace);
+}
 
 function raceFinish(timedOut){
   if(!raceActive) return;

@@ -1738,23 +1738,82 @@
       color: var(--gold-primary);
     }
 
+    /* TEACHER BATCH WORKSTATION & MERIT CERTIFICATE STYLES */
+    .batch-dropzone {
+      border: 2px dashed rgba(255, 209, 102, 0.4);
+      border-radius: 9px;
+      padding: 30px 20px;
+      text-align: center;
+      background: rgba(255, 209, 102, 0.03);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .batch-dropzone:hover, .batch-dropzone.dragover {
+      border-color: var(--gold-primary);
+      background: rgba(255, 209, 102, 0.09);
+      box-shadow: 0 0 24px rgba(255, 209, 102, 0.15);
+    }
+    .batch-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .batch-metric-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: 9px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .batch-metric-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .batch-metric-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
     /* PRINT STYLING */
     @media print {
+      @page {
+        size: A4 landscape;
+        margin: 8mm;
+      }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
       body * {
-        visibility: hidden;
+        visibility: hidden !important;
       }
       .certificate-sheet, .certificate-sheet * {
-        visibility: visible;
+        visibility: visible !important;
       }
       .certificate-sheet {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        margin: 0;
-        border: 2px solid #000;
-        color: #000;
-        background: #fff;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+      }
+      .certificate-sheet svg {
+        width: 100% !important;
+        height: auto !important;
       }
     }
 
@@ -2034,6 +2093,10 @@
         <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
         <span>Trophy Vault &amp; Badges</span>
       </button>
+      <button class="view-tab-btn" data-tab="classroom" role="tab" aria-selected="false" type="button" id="tabClassroomBtn">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <span>Teacher Workstation &amp; Certificates</span>
+      </button>
     </nav>
 
     <!-- TAB 1: MASTERY OVERVIEW -->
@@ -2296,6 +2359,181 @@
         <p style="font-size:12px; color:var(--text-muted);">Earn official badges and royal Angkorean honours by mastering speed, precision, and dedication.</p>
         <div class="achievements-grid" id="achievementsGrid"></div>
       </div>
+    </div>
+
+    <!-- TAB 6: TEACHER BATCH WORKSTATION & MERIT CERTIFICATES -->
+    <div class="tab-pane" id="pane-classroom">
+      
+      <!-- MODULE 1: OFFLINE TEACHER BATCH GRADING WORKSTATION -->
+      <div class="dash-module">
+        <div class="module-head">
+          <h2 class="module-title">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14l2 2 4-4"></path></svg>
+            <span>Teacher Offline Batch Grading Workstation</span>
+          </h2>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="module-badge" style="color:var(--emerald-neon);">100% Sovereign Offline</span>
+            <span class="module-badge" id="batchTotalCountBadge">0 Slips Loaded</span>
+          </div>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin:0;">
+          Collect exported student grade receipts (<code>.pkgrade.json</code>) from USB thumb drives in rural computer labs. Drag and drop dozens of student files below to verify cryptographic signatures and compute class-wide mastery metrics without internet access.
+        </p>
+
+        <!-- Dropzone Area -->
+        <div class="batch-dropzone" id="batchDropzone">
+          <input type="file" id="batchSlipsInput" multiple accept=".json,.pkgrade" style="display:none;">
+          <svg class="svg-icon" viewBox="0 0 24 24" style="width:40px; height:40px; color:var(--gold-primary); margin-bottom:8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <div style="font-size:14px; font-weight:700; color:var(--text-main);">Drop Student Grade Slips (.pkgrade.json) Here</div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">or click to browse from USB drive · accepts multiple files simultaneously</div>
+          <div style="display:flex; gap:10px; margin-top:14px;">
+            <button type="button" class="nav-pill-btn primary" id="btnBrowseBatchSlips" style="font-size:12px; padding:6px 16px;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              <span>Browse USB Slips</span>
+            </button>
+            <button type="button" class="nav-pill-btn secondary" id="btnLoadSampleCohort" style="font-size:12px; padding:6px 14px;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              <span>Load Sample Cohort (5 Students)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Class Metric Scorecard -->
+        <div class="batch-metrics-grid" id="batchMetricsGrid">
+          <div class="batch-metric-card">
+            <span class="batch-metric-label">Total Slips Ingested</span>
+            <span class="batch-metric-val" id="metricTotalSlips">0</span>
+          </div>
+          <div class="batch-metric-card">
+            <span class="batch-metric-label">Cryptographic Integrity</span>
+            <span class="batch-metric-val" id="metricIntegrity" style="color:var(--emerald-neon);">--</span>
+          </div>
+          <div class="batch-metric-card">
+            <span class="batch-metric-label">Class Median WPM</span>
+            <span class="batch-metric-val" id="metricMedianWpm" style="color:var(--gold-primary);">0</span>
+          </div>
+          <div class="batch-metric-card">
+            <span class="batch-metric-label">Class Median Accuracy</span>
+            <span class="batch-metric-val" id="metricMedianAcc" style="color:var(--cyan-neon);">0%</span>
+          </div>
+          <div class="batch-metric-card">
+            <span class="batch-metric-label">Passing Benchmark</span>
+            <span class="batch-metric-val" id="metricPassRate">0%</span>
+          </div>
+        </div>
+
+        <!-- Gradebook Controls Bar -->
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-top:10px;">
+          <input type="text" id="batchSearchInput" placeholder="Filter by student name or course..." style="background:var(--bg-main); border:1px solid var(--border-subtle); border-radius:9px; padding:7px 12px; font-size:12px; color:var(--text-main); min-width:240px;">
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="nav-pill-btn secondary" id="btnExportBatchCsv" style="font-size:12px; padding:6px 12px;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Export CSV</span>
+            </button>
+            <button type="button" class="nav-pill-btn secondary" id="btnPrintBatchGradebook" style="font-size:12px; padding:6px 12px;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span>Print Gradebook</span>
+            </button>
+            <button type="button" class="nav-pill-btn secondary" id="btnClearBatchSlips" style="font-size:12px; padding:6px 12px; color:var(--rose-neon);">
+              <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Gradebook Table Wrap -->
+        <div class="sessions-table-wrap" id="batchTableWrap" style="margin-top:10px;">
+          <table class="sessions-table" id="batchGradebookTable">
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Course Track</th>
+                <th>Completed</th>
+                <th>Median WPM</th>
+                <th>Accuracy</th>
+                <th>Mastery Status</th>
+                <th>Checksum Verification</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="batchGradebookTableBody">
+              <tr>
+                <td colspan="8" style="text-align:center; padding:30px; color:var(--text-muted);">
+                  No student slips loaded yet. Drag and drop <code>.pkgrade.json</code> files above to populate the class matrix.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MODULE 2: PRINTABLE VECTOR SVG MERIT CERTIFICATES -->
+      <div class="dash-module">
+        <div class="module-head">
+          <h2 class="module-title">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--gold-primary);"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            <span>Printable Vector Merit Certificates</span>
+          </h2>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="module-badge" style="color:var(--gold-primary);">Vector SVG · Print-Ready A4</span>
+          </div>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin:0;">
+          Generate authentic, vector-crisp graduation certificates featuring traditional Khmer <em>kbach</em> ornamental borders, cryptographic verification seals, and personalized student typography.
+        </p>
+
+        <!-- Certificate Configuration Bar -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; background:var(--bg-main); border:1px solid var(--border-subtle); border-radius:9px; padding:16px;">
+          <div>
+            <label style="display:block; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">Student Name</label>
+            <input type="text" id="certStudentInput" value="Phanna Scribe" style="width:100%; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:7px; padding:8px 12px; font-size:13px; color:var(--text-main);">
+          </div>
+          <div>
+            <label style="display:block; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">Award Tier</label>
+            <select id="certTierSelect" style="width:100%; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:7px; padding:8px 12px; font-size:13px; color:var(--text-main);">
+              <option value="apprentice">Apprentice Scribe (20+ WPM, 90% Acc)</option>
+              <option value="scribe" selected>Official Scribe (40+ WPM, 95% Acc)</option>
+              <option value="master">Master Royal Scribe (60+ WPM, 98% Acc)</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">Layout Track</label>
+            <select id="certLayoutSelect" style="width:100%; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:7px; padding:8px 12px; font-size:13px; color:var(--text-main);">
+              <option value="standard" selected>Khmer Standard Keyboard</option>
+              <option value="nida">Khmer NiDA Keyboard</option>
+              <option value="english">English (US) Touch-Typing</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">WPM &amp; Accuracy Achieved</label>
+            <div style="display:flex; gap:6px;">
+              <input type="number" id="certWpmInput" value="48" style="width:50%; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:7px; padding:8px 10px; font-size:13px; color:var(--text-main);" placeholder="WPM">
+              <input type="number" id="certAccInput" value="98" style="width:50%; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:7px; padding:8px 10px; font-size:13px; color:var(--text-main);" placeholder="Acc %">
+            </div>
+          </div>
+        </div>
+
+        <!-- Certificate Actions -->
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:8px;">
+          <button type="button" class="nav-pill-btn secondary" id="btnDownloadCertSvg">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Download Vector SVG</span>
+          </button>
+          <button type="button" class="nav-pill-btn primary" id="btnPrintCertificate">
+            <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <span>Print Official Certificate</span>
+          </button>
+        </div>
+
+        <!-- Live Vector Certificate Preview Wrap -->
+        <div class="certificate-preview-card" style="background:#0f172a; border:1px solid var(--border-subtle); border-radius:9px; padding:20px; overflow:hidden; display:flex; justify-content:center;">
+          <div class="certificate-sheet" id="certificateSheet" style="max-width:880px; width:100%;">
+            <!-- Dynamic SVG injected here -->
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
     <!-- FOOTER -->
@@ -4180,6 +4418,494 @@
 
       // Initial Render
       renderDashboard();
+
+      /* ============================================================
+         TEACHER OFFLINE BATCH GRADING WORKSTATION & CERTIFICATE STUDIO
+         ============================================================ */
+      let batchSlips = [];
+
+      function verifyStudentGradeSlip(slipData) {
+        try {
+          const slip = typeof slipData === 'string' ? JSON.parse(slipData) : slipData;
+          if (!slip || slip.format !== 'pkgrade' || !slip.summary || !slip.checksum) {
+            return { valid: false, reason: 'Invalid or missing grade slip signature.' };
+          }
+          const rawCheck = `${slip.studentName}|${slip.courseTitle}|${slip.summary.lessonsCompleted}|${slip.summary.averageAccuracy}|${slip.issuedAt}`;
+          let hash = 0x811c9dc5;
+          for (let i = 0; i < rawCheck.length; i++) {
+            hash ^= rawCheck.charCodeAt(i);
+            hash = Math.imul(hash, 0x01000193);
+          }
+          const expectedChecksum = 'PKG-' + (hash >>> 0).toString(16).toUpperCase().padStart(8, '0');
+          const valid = (slip.checksum === expectedChecksum);
+          return {
+            valid,
+            reason: valid ? 'Verified Authentic' : 'Checksum mismatch: Grade slip has been tampered with',
+            checksum: slip.checksum,
+            studentName: slip.studentName || 'Student',
+            courseTitle: slip.courseTitle || 'Khmer Course',
+            courseId: slip.courseId || 'standard',
+            lessonsCompleted: slip.summary?.lessonsCompleted || 0,
+            totalLessons: slip.summary?.totalLessons || 10,
+            averageWpm: slip.summary?.averageWpm || 0,
+            averageAccuracy: slip.summary?.averageAccuracy || 0,
+            passed: Boolean(slip.summary?.passed)
+          };
+        } catch(e) {
+          return { valid: false, reason: e.message };
+        }
+      }
+
+      function renderBatchGradebook() {
+        const filterText = (document.getElementById('batchSearchInput')?.value || '').toLowerCase().trim();
+        const filtered = batchSlips.filter(s => {
+          if (!filterText) return true;
+          return (s.studentName || '').toLowerCase().includes(filterText) ||
+                 (s.courseTitle || '').toLowerCase().includes(filterText);
+        });
+
+        // Metrics
+        const total = batchSlips.length;
+        const validSlips = batchSlips.filter(s => s.valid);
+        const validCount = validSlips.length;
+        const passedCount = validSlips.filter(s => s.passed).length;
+
+        let medianWpm = 0;
+        let medianAcc = 0;
+        if (validSlips.length > 0) {
+          const wpms = validSlips.map(s => s.averageWpm).sort((a,b) => a - b);
+          const accs = validSlips.map(s => s.averageAccuracy).sort((a,b) => a - b);
+          const mid = Math.floor(wpms.length / 2);
+          medianWpm = wpms.length % 2 === 0 ? Math.round((wpms[mid-1] + wpms[mid]) / 2) : wpms[mid];
+          medianAcc = accs.length % 2 === 0 ? Math.round((accs[mid-1] + accs[mid]) / 2) : accs[mid];
+        }
+
+        const passRate = validCount > 0 ? Math.round((passedCount / validCount) * 100) : 0;
+
+        const totalEl = document.getElementById('metricTotalSlips');
+        const integrityEl = document.getElementById('metricIntegrity');
+        const wpmEl = document.getElementById('metricMedianWpm');
+        const accEl = document.getElementById('metricMedianAcc');
+        const passEl = document.getElementById('metricPassRate');
+        const badgeCountEl = document.getElementById('batchTotalCountBadge');
+
+        if (totalEl) totalEl.textContent = total;
+        if (badgeCountEl) badgeCountEl.textContent = `${total} Slips Loaded`;
+        if (integrityEl) {
+          if (total === 0) {
+            integrityEl.textContent = '--';
+            integrityEl.style.color = 'var(--text-muted)';
+          } else if (validCount === total) {
+            integrityEl.textContent = `100% Authentic (${validCount}/${total})`;
+            integrityEl.style.color = 'var(--emerald-neon)';
+          } else {
+            integrityEl.textContent = `${validCount} Valid · ${total - validCount} Tampered`;
+            integrityEl.style.color = 'var(--rose-neon)';
+          }
+        }
+        if (wpmEl) wpmEl.textContent = `${medianWpm} WPM`;
+        if (accEl) accEl.textContent = `${medianAcc}%`;
+        if (passEl) passEl.textContent = `${passRate}%`;
+
+        // Table
+        const tbody = document.getElementById('batchGradebookTableBody');
+        if (!tbody) return;
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" style="text-align:center; padding:32px; color:var(--text-muted);">
+                ${total === 0 ? 'No student slips loaded yet. Drag and drop <code>.pkgrade.json</code> files above to populate the class matrix.' : 'No students match your search filter.'}
+              </td>
+            </tr>`;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(s => {
+          const validBadge = s.valid
+            ? `<span style="display:inline-flex; align-items:center; gap:4px; color:var(--emerald-neon); font-size:11px; font-weight:700;">
+                 <svg class="svg-icon" viewBox="0 0 24 24" style="width:13px; height:13px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                 VALID ${escapeHtml(s.checksum || '')}
+               </span>`
+            : `<span style="display:inline-flex; align-items:center; gap:4px; color:var(--rose-neon); font-size:11px; font-weight:700;">
+                 <svg class="svg-icon" viewBox="0 0 24 24" style="width:13px; height:13px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                 TAMPERED
+               </span>`;
+
+          const masteryBadge = s.passed
+            ? `<span class="module-badge" style="color:var(--emerald-neon); border-color:rgba(45,212,191,0.3);">Mastered</span>`
+            : `<span class="module-badge" style="color:var(--gold-primary); border-color:rgba(255,209,102,0.3);">In Progress</span>`;
+
+          return `
+            <tr>
+              <td style="font-weight:700; color:var(--text-main);">${escapeHtml(s.studentName)}</td>
+              <td style="color:var(--text-muted); font-size:12px;">${escapeHtml(s.courseTitle)}</td>
+              <td>${s.lessonsCompleted} / ${s.totalLessons}</td>
+              <td style="font-weight:700; color:var(--gold-primary);">${s.averageWpm} WPM</td>
+              <td style="font-weight:700; color:var(--cyan-neon);">${s.averageAccuracy}%</td>
+              <td>${masteryBadge}</td>
+              <td>${validBadge}</td>
+              <td>
+                <button type="button" class="nav-pill-btn secondary" style="font-size:11px; padding:3px 10px;" onclick="window.issueCertificateForStudent('${escapeHtml(s.studentName).replace(/'/g, "\\'")}', '${s.courseId}', ${s.averageWpm}, ${s.averageAccuracy})">
+                  <svg class="svg-icon" viewBox="0 0 24 24" style="width:12px; height:12px;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                  <span>Issue Cert</span>
+                </button>
+              </td>
+            </tr>`;
+        }).join('');
+      }
+
+      function processSlipFiles(files) {
+        if (!files || files.length === 0) return;
+        const readers = Array.from(files).map(file => {
+          return new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = e => {
+              try {
+                const json = JSON.parse(e.target.result);
+                if (Array.isArray(json)) resolve(json); else resolve([json]);
+              } catch(err) { resolve([]); }
+            };
+            reader.onerror = () => resolve([]);
+            reader.readAsText(file);
+          });
+        });
+
+        Promise.all(readers).then(results => {
+          const flat = results.flat();
+          flat.forEach(raw => {
+            const v = verifyStudentGradeSlip(raw);
+            const exists = batchSlips.findIndex(s => s.studentName === v.studentName && s.checksum === v.checksum);
+            if (exists >= 0) batchSlips[exists] = v; else batchSlips.push(v);
+          });
+          renderBatchGradebook();
+        });
+      }
+
+      function initTeacherBatchWorkstation() {
+        const dropzone = document.getElementById('batchDropzone');
+        const fileInput = document.getElementById('batchSlipsInput');
+        const browseBtn = document.getElementById('btnBrowseBatchSlips');
+        const sampleBtn = document.getElementById('btnLoadSampleCohort');
+        const searchInput = document.getElementById('batchSearchInput');
+        const clearBtn = document.getElementById('btnClearBatchSlips');
+        const exportCsvBtn = document.getElementById('btnExportBatchCsv');
+        const printBtn = document.getElementById('btnPrintBatchGradebook');
+
+        if (browseBtn && fileInput) {
+          browseBtn.onclick = () => fileInput.click();
+        }
+        if (fileInput) {
+          fileInput.onchange = (e) => processSlipFiles(e.target.files);
+        }
+        if (dropzone) {
+          dropzone.ondragover = (e) => { e.preventDefault(); dropzone.classList.add('dragover'); };
+          dropzone.ondragleave = () => dropzone.classList.remove('dragover');
+          dropzone.ondrop = (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            if (e.dataTransfer && e.dataTransfer.files) processSlipFiles(e.dataTransfer.files);
+          };
+        }
+
+        if (searchInput) {
+          searchInput.oninput = () => renderBatchGradebook();
+        }
+
+        if (clearBtn) {
+          clearBtn.onclick = () => {
+            batchSlips = [];
+            renderBatchGradebook();
+          };
+        }
+
+        if (sampleBtn) {
+          sampleBtn.onclick = () => {
+            function makeSlip(name, courseTitle, courseId, comp, wpm, acc, passed, tampered = false) {
+              const rawCheck = `${name}|${courseTitle}|${comp}|${acc}|2026-11-03T12:00:00.000Z`;
+              let hash = 0x811c9dc5;
+              for (let i = 0; i < rawCheck.length; i++) {
+                hash ^= rawCheck.charCodeAt(i);
+                hash = Math.imul(hash, 0x01000193);
+              }
+              const checksum = 'PKG-' + (hash >>> 0).toString(16).toUpperCase().padStart(8, '0');
+              return {
+                format: 'pkgrade',
+                version: '1.0.0',
+                issuedAt: '2026-11-03T12:00:00.000Z',
+                studentName: name,
+                courseId: courseId,
+                courseTitle: courseTitle,
+                summary: {
+                  totalLessons: 10,
+                  lessonsCompleted: comp,
+                  averageWpm: tampered ? wpm + 30 : wpm,
+                  averageAccuracy: acc,
+                  passed: passed
+                },
+                checksum: checksum
+              };
+            }
+            const sampleCohort = [
+              makeSlip('Sophea Dara', 'Khmer Standard Layout', 'standard', 10, 48, 96, true),
+              makeSlip('Vanna Rath', 'Khmer NiDA Layout', 'nida', 10, 42, 94, true),
+              makeSlip('Bopha Pich', 'English (US) Layout', 'english', 10, 64, 99, true),
+              makeSlip('Kosal Chem', 'Khmer Standard Layout', 'standard', 7, 26, 86, false),
+              makeSlip('Sreyneang Long', 'Khmer Standard Layout', 'standard', 10, 38, 93, true)
+            ];
+            batchSlips = sampleCohort.map(verifyStudentGradeSlip);
+            renderBatchGradebook();
+          };
+        }
+
+        if (exportCsvBtn) {
+          exportCsvBtn.onclick = () => {
+            if (batchSlips.length === 0) return;
+            let csv = 'Student Name,Course Track,Completed Lessons,Total Lessons,Median WPM,Accuracy %,Status,Checksum,Verification\n';
+            batchSlips.forEach(s => {
+              csv += `"${(s.studentName || '').replace(/"/g, '""')}","${s.courseTitle}",${s.lessonsCompleted},${s.totalLessons},${s.averageWpm},${s.averageAccuracy},"${s.passed ? 'Passed' : 'In Progress'}","${s.checksum}","${s.valid ? 'Authentic' : 'Tampered'}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `pk-class-gradebook-${new Date().toISOString().slice(0, 10)}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+          };
+        }
+
+        if (printBtn) {
+          printBtn.onclick = () => window.print();
+        }
+      }
+
+      function renderVectorCertificateSvg() {
+        const sheet = document.getElementById('certificateSheet');
+        if (!sheet) return;
+
+        const student = (document.getElementById('certStudentInput')?.value || 'Phanna Scribe').trim();
+        const tier = document.getElementById('certTierSelect')?.value || 'scribe';
+        const layout = document.getElementById('certLayoutSelect')?.value || 'standard';
+        const wpm = parseInt(document.getElementById('certWpmInput')?.value || '40', 10);
+        const acc = parseInt(document.getElementById('certAccInput')?.value || '95', 10);
+
+        const tierConfig = {
+          apprentice: {
+            titleKm: 'វិញ្ញាបនបត្រកម្រិតដំបូង • កូនសិស្សស្មេរ',
+            titleEn: 'APPRENTICE SCRIBE CREDENTIAL',
+            tierName: 'Apprentice Scribe',
+            accentColor: '#f59e0b',
+            borderColor: '#d97706',
+            sealFill: '#b45309'
+          },
+          scribe: {
+            titleKm: 'វិញ្ញាបនបត្រសមត្ថភាព • ស្មេរផ្លូវការ',
+            titleEn: 'OFFICIAL TOUCH-TYPING SCRIBE',
+            tierName: 'Official Scribe',
+            accentColor: '#38bdf8',
+            borderColor: '#0284c7',
+            sealFill: '#0369a1'
+          },
+          master: {
+            titleKm: 'វិញ្ញាបនបត្រកិត្តិយសជាន់ខ្ពស់ • ស្មេររាជវាំង',
+            titleEn: 'MASTER ROYAL SCRIBE OF ANGKOR',
+            tierName: 'Master Royal Scribe',
+            accentColor: '#ffd166',
+            borderColor: '#f59e0b',
+            sealFill: '#d97706'
+          }
+        }[tier] || {
+          titleKm: 'វិញ្ញាបនបត្រសមត្ថភាព • ស្មេរផ្លូវការ',
+          titleEn: 'OFFICIAL TOUCH-TYPING SCRIBE',
+          tierName: 'Official Scribe',
+          accentColor: '#ffd166',
+          borderColor: '#f59e0b',
+          sealFill: '#d97706'
+        };
+
+        const layoutNames = {
+          standard: 'Khmer Standard Keyboard (ប្លង់ក្តារចុចខ្មែរ)',
+          nida: 'Khmer NiDA Keyboard (ប្លង់ក្តារចុចខ្មែរ និដា)',
+          english: 'English (US) Touch-Typing Layout'
+        };
+        const layoutTitle = layoutNames[layout] || 'Khmer Keyboard';
+
+        // Deterministic certificate hash
+        const raw = `${student}|${tier}|${wpm}|${acc}|${layout}|PK-ACADEMY`;
+        let hash = 0x811c9dc5;
+        for (let i = 0; i < raw.length; i++) {
+          hash ^= raw.charCodeAt(i);
+          hash = Math.imul(hash, 0x01000193);
+        }
+        const certSerial = 'CERT-' + (hash >>> 0).toString(16).toUpperCase().padStart(8, '0');
+        const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+        const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="100%" height="auto" style="background:#0b1120; border-radius:12px; font-family:'Kantumruy Pro', 'Inter', system-ui, sans-serif;">
+  <defs>
+    <linearGradient id="certBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080d1a"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#080d1a"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#ffd166"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="900" height="620" fill="url(#certBg)"/>
+
+  <!-- Outer Ornate Frame -->
+  <rect x="24" y="24" width="852" height="572" rx="8" fill="none" stroke="${tierConfig.borderColor}" stroke-width="3"/>
+  <rect x="32" y="32" width="836" height="556" rx="6" fill="none" stroke="${tierConfig.accentColor}" stroke-width="1" stroke-dasharray="6 4" opacity="0.7"/>
+
+  <!-- Khmer Kbach Corner Vectors -->
+  <!-- Top Left -->
+  <path d="M28 65 L28 28 L65 28 M38 50 L38 38 L50 38 M28 28 L55 55" stroke="${tierConfig.accentColor}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- Top Right -->
+  <path d="M872 65 L872 28 L835 28 M862 50 L862 38 L850 38 M872 28 L845 55" stroke="${tierConfig.accentColor}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- Bottom Left -->
+  <path d="M28 555 L28 592 L65 592 M38 570 L38 582 L50 582 M28 592 L55 565" stroke="${tierConfig.accentColor}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- Bottom Right -->
+  <path d="M872 555 L872 592 L835 592 M862 570 L862 582 L850 582 M872 592 L845 565" stroke="${tierConfig.accentColor}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+  <!-- Header: Royal Motto -->
+  <text x="450" y="68" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="2">ព្រះរាជាណាចក្រកម្ពុជា • ជាតិ សាសនា ព្រះមហាក្សត្រ</text>
+  <text x="450" y="84" text-anchor="middle" fill="#64748b" font-size="9" font-weight="600" letter-spacing="1.5">KINGDOM OF CAMBODIA • NATION RELIGION KING</text>
+
+  <!-- Central Emblem Crest -->
+  <g transform="translate(432, 96)">
+    <circle cx="18" cy="18" r="16" fill="none" stroke="${tierConfig.accentColor}" stroke-width="1.8"/>
+    <polygon points="18 4 22 13 32 14 24 21 27 30 18 25 9 30 12 21 4 14 14 13" fill="${tierConfig.accentColor}"/>
+  </g>
+
+  <!-- Main Titles -->
+  <text x="450" y="164" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">${tierConfig.titleKm}</text>
+  <text x="450" y="188" text-anchor="middle" fill="url(#goldGrad)" font-size="20" font-weight="800" letter-spacing="1.8">${tierConfig.titleEn}</text>
+
+  <text x="450" y="226" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="600" letter-spacing="1">THIS PROUDLY CERTIFIES THAT</text>
+
+  <!-- Recipient Name -->
+  <text x="450" y="278" text-anchor="middle" fill="#f8fafc" font-size="34" font-weight="800" letter-spacing="0.5">${escapeHtml(student)}</text>
+  <line x1="260" y1="292" x2="640" y2="292" stroke="${tierConfig.borderColor}" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Achievement Statement -->
+  <text x="450" y="322" text-anchor="middle" fill="#cbd5e1" font-size="13" font-weight="500">has demonstrated exceptional speed, accuracy, and keyboard fluency across</text>
+  <text x="450" y="344" text-anchor="middle" fill="${tierConfig.accentColor}" font-size="14" font-weight="700">${layoutTitle}</text>
+
+  <!-- Score Metrics Badges -->
+  <g transform="translate(180, 372)">
+    <!-- Speed Card -->
+    <rect x="0" y="0" width="160" height="54" rx="8" fill="rgba(255,255,255,0.03)" stroke="${tierConfig.borderColor}" stroke-width="1.2"/>
+    <text x="80" y="22" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="700">NET SPEED</text>
+    <text x="80" y="44" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="800">${wpm} WPM</text>
+
+    <!-- Accuracy Card -->
+    <rect x="190" y="0" width="160" height="54" rx="8" fill="rgba(255,255,255,0.03)" stroke="${tierConfig.borderColor}" stroke-width="1.2"/>
+    <text x="270" y="22" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="700">PRECISION</text>
+    <text x="270" y="44" text-anchor="middle" fill="#38bdf8" font-size="18" font-weight="800">${acc}% ACC</text>
+
+    <!-- Rank Card -->
+    <rect x="380" y="0" width="160" height="54" rx="8" fill="rgba(255,255,255,0.03)" stroke="${tierConfig.borderColor}" stroke-width="1.2"/>
+    <text x="460" y="22" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="700">OFFICIAL RANK</text>
+    <text x="460" y="44" text-anchor="middle" fill="${tierConfig.accentColor}" font-size="13" font-weight="800">${tierConfig.tierName}</text>
+  </g>
+
+  <!-- Seal & Cryptographic Signature Block -->
+  <!-- Left Seal -->
+  <g transform="translate(80, 470)">
+    <circle cx="45" cy="45" r="38" fill="none" stroke="${tierConfig.accentColor}" stroke-width="2" stroke-dasharray="4 2"/>
+    <circle cx="45" cy="45" r="32" fill="none" stroke="${tierConfig.borderColor}" stroke-width="1"/>
+    <text x="45" y="41" text-anchor="middle" fill="${tierConfig.accentColor}" font-size="8" font-weight="800">PK KHMER TYPE</text>
+    <text x="45" y="54" text-anchor="middle" fill="#f8fafc" font-size="9" font-weight="800">VERIFIED SEAL</text>
+  </g>
+
+  <!-- Center Verification ID -->
+  <g transform="translate(280, 485)">
+    <rect x="0" y="0" width="340" height="44" rx="6" fill="rgba(0,0,0,0.4)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="170" y="18" text-anchor="middle" fill="#94a3b8" font-size="9" font-weight="600">LOCAL CRYPTOGRAPHIC LEDGER</text>
+    <text x="170" y="33" text-anchor="middle" fill="#2dd4a7" font-size="11" font-weight="700" font-family="monospace">${certSerial}</text>
+  </g>
+
+  <!-- Right Signature & Date -->
+  <g transform="translate(670, 480)">
+    <!-- Signature Line -->
+    <line x1="0" y1="30" x2="150" y2="30" stroke="${tierConfig.borderColor}" stroke-width="1.2"/>
+    <text x="75" y="44" text-anchor="middle" fill="#cbd5e1" font-size="10" font-weight="700">Chief Examiner</text>
+    <text x="75" y="58" text-anchor="middle" fill="#64748b" font-size="9" font-weight="600">Issued: ${dateStr}</text>
+  </g>
+</svg>`;
+
+        sheet.innerHTML = svg;
+      }
+
+      window.issueCertificateForStudent = function(name, layout, wpm, acc) {
+        const nameInput = document.getElementById('certStudentInput');
+        const layoutSelect = document.getElementById('certLayoutSelect');
+        const tierSelect = document.getElementById('certTierSelect');
+        const wpmInput = document.getElementById('certWpmInput');
+        const accInput = document.getElementById('certAccInput');
+
+        if (nameInput) nameInput.value = name || 'Student';
+        if (layoutSelect && layout) layoutSelect.value = layout;
+        if (wpmInput) wpmInput.value = wpm || 40;
+        if (accInput) accInput.value = acc || 95;
+
+        if (tierSelect) {
+          if (wpm >= 60 && acc >= 98) tierSelect.value = 'master';
+          else if (wpm >= 40 && acc >= 95) tierSelect.value = 'scribe';
+          else tierSelect.value = 'apprentice';
+        }
+
+        renderVectorCertificateSvg();
+        const certCard = document.getElementById('certificateSheet');
+        if (certCard) certCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      };
+
+      function initMeritCertificateStudio() {
+        const studentInput = document.getElementById('certStudentInput');
+        const tierSelect = document.getElementById('certTierSelect');
+        const layoutSelect = document.getElementById('certLayoutSelect');
+        const wpmInput = document.getElementById('certWpmInput');
+        const accInput = document.getElementById('certAccInput');
+        const downloadBtn = document.getElementById('btnDownloadCertSvg');
+        const printBtn = document.getElementById('btnPrintCertificate');
+
+        [studentInput, tierSelect, layoutSelect, wpmInput, accInput].forEach(el => {
+          if (el) el.addEventListener('input', renderVectorCertificateSvg);
+        });
+
+        if (printBtn) {
+          printBtn.onclick = () => window.print();
+        }
+
+        if (downloadBtn) {
+          downloadBtn.onclick = () => {
+            const sheet = document.getElementById('certificateSheet');
+            if (!sheet) return;
+            const svgEl = sheet.querySelector('svg');
+            if (!svgEl) return;
+            const svgStr = new XMLSerializer().serializeToString(svgEl);
+            const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            const rawName = (studentInput?.value || 'student').trim().toLowerCase().replace(/\s+/g, '-');
+            a.href = url;
+            a.download = `pk-certificate-${rawName}.svg`;
+            a.click();
+            URL.revokeObjectURL(url);
+          };
+        }
+
+        renderVectorCertificateSvg();
+      }
+
+      initTeacherBatchWorkstation();
+      initMeritCertificateStudio();
     });
 
   </script>

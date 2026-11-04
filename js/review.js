@@ -1199,6 +1199,46 @@
     }
   };
 
+  /* Auto-wire Weak-Key Drill Button and keyboard shortcut (Alt+W) */
+  function wireWeakKeysDrillTrigger(){
+    if(typeof document === 'undefined') return;
+    const btn = document.getElementById('weakKeysDrillBtn');
+    if(btn && !btn._hasWeakKeyHandler){
+      btn._hasWeakKeyHandler = true;
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        const curLayout = (typeof window !== 'undefined' && window.currentLayoutId) ? window.currentLayoutId : 'nida';
+        const drill = api.startAdaptivePractice(curLayout);
+        if(drill && typeof window !== 'undefined' && typeof window.showToast === 'function'){
+          window.showToast(
+            '<svg class="pk-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+            'Weak-Key Drill Loaded',
+            drill.title || 'Targeted remedial practice session active.'
+          );
+        }
+      });
+    }
+
+    if(typeof window !== 'undefined' && !window._hasWeakKeyShortcut){
+      window._hasWeakKeyShortcut = true;
+      window.addEventListener('keydown', function(e){
+        if(e.altKey && (e.key === 'w' || e.key === 'W') && !e.ctrlKey && !e.metaKey){
+          e.preventDefault();
+          const curLayout = (typeof window !== 'undefined' && window.currentLayoutId) ? window.currentLayoutId : 'nida';
+          api.startAdaptivePractice(curLayout);
+        }
+      });
+    }
+  }
+
+  if(typeof document !== 'undefined'){
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', wireWeakKeysDrillTrigger);
+    } else {
+      wireWeakKeysDrillTrigger();
+    }
+  }
+
   global.PK_REVIEW = api;
 
 })(typeof window !== 'undefined' ? window : global);
