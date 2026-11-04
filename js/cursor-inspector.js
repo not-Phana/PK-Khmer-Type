@@ -236,6 +236,42 @@
     }
   };
 
+  // ASCII Symbols & Punctuation Knowledge Base (Bilingual)
+  const ASCII_SYMBOL_DATA = {
+    '\\': { nameEn: 'Backslash', nameKm: 'សញ្ញាខ្វែងថយក្រោយ (Backslash)', ipa: 'Backslash punctuation', type: 'Punctuation' },
+    '|': { nameEn: 'Pipe', nameKm: 'បន្ទាត់ឈរ (Pipe)', ipa: 'Vertical bar / Pipe', type: 'Symbol' },
+    '/': { nameEn: 'Slash', nameKm: 'សញ្ញាខ្វែងទៅមុខ (Slash)', ipa: 'Forward slash', type: 'Punctuation' },
+    '?': { nameEn: 'Question Mark', nameKm: 'សញ្ញាសួរ', ipa: 'Question mark', type: 'Punctuation' },
+    '[': { nameEn: 'Left Bracket', nameKm: 'វង់ក្រចកជ្រុងបើក', ipa: 'Open square bracket', type: 'Punctuation' },
+    ']': { nameEn: 'Right Bracket', nameKm: 'វង់ក្រចកជ្រុងបិទ', ipa: 'Close square bracket', type: 'Punctuation' },
+    '{': { nameEn: 'Left Brace', nameKm: 'វង់ក្រចករលកបើក', ipa: 'Open curly brace', type: 'Punctuation' },
+    '}': { nameEn: 'Right Brace', nameKm: 'វង់ក្រចករលកបិទ', ipa: 'Close curly brace', type: 'Punctuation' },
+    '-': { nameEn: 'Minus / Hyphen', nameKm: 'សញ្ញាដក (Minus)', ipa: 'Hyphen / Minus sign', type: 'Punctuation' },
+    '_': { nameEn: 'Underscore', nameKm: 'បន្ទាត់ក្រោម (Underscore)', ipa: 'Underscore', type: 'Punctuation' },
+    '=': { nameEn: 'Equals', nameKm: 'សញ្ញាស្មើ', ipa: 'Equals sign', type: 'Symbol' },
+    '+': { nameEn: 'Plus', nameKm: 'សញ្ញាបូក', ipa: 'Plus sign', type: 'Symbol' },
+    ';': { nameEn: 'Semicolon', nameKm: 'ក្បៀសចំណុច (Semicolon)', ipa: 'Semicolon mark', type: 'Punctuation' },
+    ':': { nameEn: 'Colon', nameKm: 'ចំណុចពីរ (Colon)', ipa: 'Colon mark', type: 'Punctuation' },
+    "'": { nameEn: 'Single Quote', nameKm: 'សញ្ញាសម្រង់ទោល', ipa: 'Single quotation mark', type: 'Punctuation' },
+    '"': { nameEn: 'Double Quote', nameKm: 'សញ្ញាសម្រង់គូ', ipa: 'Double quotation mark', type: 'Punctuation' },
+    '`': { nameEn: 'Backtick / Grave', nameKm: 'សញ្ញាបត់ឆ្វេង (Backtick)', ipa: 'Grave accent / Backtick', type: 'Punctuation' },
+    '~': { nameEn: 'Tilde', nameKm: 'សញ្ញារលក (Tilde)', ipa: 'Tilde mark', type: 'Punctuation' },
+    ',': { nameEn: 'Comma', nameKm: 'ក្បៀស (Comma)', ipa: 'Comma punctuation', type: 'Punctuation' },
+    '<': { nameEn: 'Less Than', nameKm: 'សញ្ញាតូចជាង', ipa: 'Less than sign', type: 'Symbol' },
+    '.': { nameEn: 'Period', nameKm: 'សញ្ញាចុច (Period)', ipa: 'Full stop / Period', type: 'Punctuation' },
+    '>': { nameEn: 'Greater Than', nameKm: 'សញ្ញាធំជាង', ipa: 'Greater than sign', type: 'Symbol' },
+    '!': { nameEn: 'Exclamation Mark', nameKm: 'សញ្ញាឧទាន', ipa: 'Exclamation point', type: 'Punctuation' },
+    '@': { nameEn: 'At Sign', nameKm: 'សញ្ញា At (@)', ipa: 'At sign', type: 'Symbol' },
+    '#': { nameEn: 'Hash / Number', nameKm: 'សញ្ញាទ្រុងជ្រូក (Hash)', ipa: 'Hash / Number sign', type: 'Symbol' },
+    '$': { nameEn: 'Dollar Sign', nameKm: 'សញ្ញាដុល្លារ', ipa: 'Dollar currency sign', type: 'Currency' },
+    '%': { nameEn: 'Percent', nameKm: 'សញ្ញាភាគរយ', ipa: 'Percent sign', type: 'Symbol' },
+    '^': { nameEn: 'Caret', nameKm: 'សញ្ញាមួក (Caret)', ipa: 'Caret / Circumflex', type: 'Symbol' },
+    '&': { nameEn: 'Ampersand', nameKm: 'សញ្ញា និង (Ampersand)', ipa: 'Ampersand', type: 'Symbol' },
+    '*': { nameEn: 'Asterisk', nameKm: 'សញ្ញាផ្កាយ (Asterisk)', ipa: 'Asterisk sign', type: 'Symbol' },
+    '(': { nameEn: 'Left Parenthesis', nameKm: 'វង់ក្រចកបើក', ipa: 'Open parenthesis', type: 'Punctuation' },
+    ')': { nameEn: 'Right Parenthesis', nameKm: 'វង់ក្រចកបិទ', ipa: 'Close parenthesis', type: 'Punctuation' }
+  };
+
   const HUMAN_KEY_LABELS = {
     grave: '`',
     k1: '1', k2: '2', k3: '3', k4: '4', k5: '5',
@@ -343,12 +379,25 @@
         type: 'Khmer Numeral'
       };
     }
+    // ASCII Symbols & Punctuation
+    if (ASCII_SYMBOL_DATA[char]) {
+      const sym = ASCII_SYMBOL_DATA[char];
+      return {
+        char,
+        name: sym.nameEn,
+        nameEn: sym.nameEn,
+        nameKm: sym.nameKm,
+        ipa: sym.ipa,
+        type: sym.type
+      };
+    }
     // English Letters
     if (/[a-zA-Z]/.test(char)) {
       const isUpper = char === char.toUpperCase() && char !== char.toLowerCase();
       return {
         char,
         name: `Letter ${char.toUpperCase()} · អក្សរ ${char.toUpperCase()}`,
+        nameEn: `Letter ${char.toUpperCase()}`,
         nameKm: `អក្សរ ${char.toUpperCase()}`,
         ipa: isUpper ? 'Shift / Uppercase letter' : 'Base / Lowercase letter',
         type: 'English Letter'
@@ -356,8 +405,9 @@
     }
     return {
       char,
-      name: char,
-      nameKm: char,
+      name: `Key ${char}`,
+      nameEn: `Key ${char}`,
+      nameKm: `គ្រាប់ចុច ${char}`,
       ipa: '',
       type: 'Key'
     };
@@ -558,10 +608,30 @@
       displayGlyph = displayGlyph.charAt(0);
     }
 
-    let mainName = info ? (info.name || `Key ${keyLabel}`) : `Key ${keyLabel}`;
-    let kmTag = info ? (info.nameKm || '') : '';
+    let mainName = '';
+    let kmTag = '';
+
+    if (info) {
+      if (isKm) {
+        mainName = info.nameKm || info.name || `គ្រាប់ចុច ${keyLabel}`;
+        kmTag = (info.nameEn || (info.name !== info.nameKm ? info.name : '')) || '';
+      } else {
+        mainName = info.nameEn || info.name || `Key ${keyLabel}`;
+        kmTag = info.nameKm || '';
+      }
+    } else {
+      mainName = isKm ? `គ្រាប់ចុច ${keyLabel}` : `Key ${keyLabel}`;
+      kmTag = '';
+    }
+
     if (kmTag && mainName.includes(kmTag)) {
       mainName = mainName.replace(kmTag, '').replace('·', '').trim();
+    }
+    if (!mainName || mainName === displayGlyph) {
+      mainName = isKm ? `គ្រាប់ចុច ${keyLabel}` : `Key ${keyLabel}`;
+    }
+    if (kmTag === mainName || kmTag === displayGlyph) {
+      kmTag = '';
     }
     let cardCat = info ? (info.type + (info.series ? (' · ' + info.series) : (info.group ? (' · ' + info.group) : ''))) : (isKm ? 'គ្រាប់ចុចវាយអក្សរ' : 'Typing Key');
 
@@ -759,10 +829,30 @@
       recipeText = `<kbd>${coengKey}</kbd> + <kbd>${keyLabel}</kbd>`;
     }
 
-    let mainName = info ? (info.name || char) : char;
-    let kmTag = info ? (info.nameKm || '') : '';
+    let mainName = '';
+    let kmTag = '';
+
+    if (info) {
+      if (isKm) {
+        mainName = info.nameKm || info.name || `តួអក្សរ ${char}`;
+        kmTag = (info.nameEn || (info.name !== info.nameKm ? info.name : '')) || '';
+      } else {
+        mainName = info.nameEn || info.name || `Character ${char}`;
+        kmTag = info.nameKm || '';
+      }
+    } else {
+      mainName = isKm ? `តួអក្សរ ${char}` : `Character ${char}`;
+      kmTag = '';
+    }
+
     if (kmTag && mainName.includes(kmTag)) {
       mainName = mainName.replace(kmTag, '').replace('·', '').trim();
+    }
+    if (!mainName || mainName === char) {
+      mainName = isKm ? `តួអក្សរ ${char}` : `Character ${char}`;
+    }
+    if (kmTag === mainName || kmTag === char) {
+      kmTag = '';
     }
     let cardCat = info ? (info.type + (info.series ? (' · ' + info.series) : (info.group ? (' · ' + info.group) : ''))) : (isKm ? 'តួអក្សរលំហាត់' : 'Exercise Character');
     let soundHtml = '';

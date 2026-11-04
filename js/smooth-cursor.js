@@ -268,8 +268,23 @@
       if (code === 'Tab' || keyId === 'tab') return 'TAB';
       if (code === 'CapsLock' || keyId === 'caps') return 'CAPS LOCK';
       
-      const charSpan = keyEl.querySelector('.key-main, .main-char, .char-main');
-      const ch = (charSpan && charSpan.textContent.trim()) || keyEl.textContent.trim();
+      // Isolate the active glyph to avoid concatenating shift-badge into dual characters (e.g. \|)
+      const glyphSpan = keyEl.querySelector('.glyph');
+      let ch = (glyphSpan && glyphSpan.textContent.trim()) || '';
+      if (!ch && typeof window !== 'undefined' && window.glyphData && window.glyphData[keyId]) {
+        const curLayer = typeof window.currentLayer === 'function' ? window.currentLayer() : 'base';
+        const gd = window.glyphData[keyId];
+        ch = (gd && (gd[curLayer] || gd.base)) || '';
+      }
+      if (!ch) {
+        const charSpan = keyEl.querySelector('.key-main, .main-char, .char-main');
+        ch = charSpan ? charSpan.textContent.trim() : '';
+      }
+      if (!ch) {
+        const clone = keyEl.cloneNode(true);
+        clone.querySelectorAll('.shift-badge, .sub-glyph, .space-glyph, .space-label, .win-icon, svg').forEach(n => n.remove());
+        ch = clone.textContent.trim();
+      }
       if (ch && ch.length <= 3) return `KEY ${ch}`;
       return 'KEY';
     }

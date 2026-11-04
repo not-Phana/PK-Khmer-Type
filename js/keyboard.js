@@ -1767,8 +1767,8 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
 
       const isCornerMod = ['ctrlL', 'ctrlR', 'win', 'metaL'].includes(targetKey);
       const isLateralMod = ['shiftL', 'shiftR', 'caps'].includes(targetKey);
-      const isPerimeterKey = ['enter', 'backspace'].includes(targetKey);
-      const isDistant = ['grave', 'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k0', 'minus', 'equal', 'tab', 'escape', 'delete', 'extra'].includes(targetKey);
+      const isPerimeterKey = ['enter', 'backspace', 'backslash', 'bracketR', 'bracketL', 'equal', 'minus'].includes(targetKey);
+      const isDistant = ['grave', 'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k0', 'tab', 'escape', 'delete', 'extra'].includes(targetKey);
 
       let factorX = 0.10;
       let factorY = 0.12;
@@ -1782,9 +1782,9 @@ function buildHand(hand, fingers, wrapRect, activeF, targetKey){
         factorX = 0.50;
         factorY = 0.35;
       } else if(isPerimeterKey){
-        // Enter / Backspace: natural wrist pivot to reach key while fingers remain anchored near home row
-        factorX = 0.45;
-        factorY = targetKey === 'backspace' ? 0.60 : 0.15;
+        // Enter / Backspace / Backslash / Brackets: natural wrist pivot & float to reach key comfortably
+        factorX = 0.48;
+        factorY = (['backspace', 'backslash', 'bracketR', 'bracketL', 'equal', 'minus'].includes(targetKey)) ? 0.55 : 0.22;
       } else if(isDistant){
         // Distant top row & perimeter keys (Escape, numbers): gentle wrist float
         factorX = 0.40;
@@ -2166,7 +2166,7 @@ function updateHandsOverlay(){
       }
       const knuckle = hb.bases[f.id];
       if(knuckle){
-        const maxReach = (f.restLen || 100) * 1.45;
+        const maxReach = f.kind === 'pinky' ? ((f.restLen || 100) * 1.85) : ((f.restLen || 100) * 1.60);
         const dx = tPt.x - knuckle.x;
         const dy = tPt.y - knuckle.y;
         const dist = Math.hypot(dx, dy);
@@ -2264,7 +2264,7 @@ function renderFrame(handL, handR, wrapRect){
     let tip = cur ? { x: cur.x, y: cur.y } : (target || origin);
 
     // Physiological maximum reach limit
-    const maxLen = f.kind === 'thumb' ? 115 : (f.kind === 'pinky' ? 185 : (f.kind === 'middle' ? 210 : 200));
+    const maxLen = f.kind === 'thumb' ? 120 : (f.kind === 'pinky' ? 235 : (f.kind === 'middle' ? 225 : 215));
     const d = dist(origin, tip);
     if(d > maxLen){
       const scale = maxLen / d;
