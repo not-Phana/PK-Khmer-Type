@@ -914,6 +914,8 @@
       margin-top: 6px;
       user-select: none;
       cursor: crosshair;
+      overflow: hidden;
+      border-radius: 10px;
     }
 
     .chart-corner-tick {
@@ -992,8 +994,8 @@
     /* Holographic Laser Crosshair & Interactive Reticles */
     .chart-laser-line {
       position: absolute;
-      top: 15px;
-      bottom: 25px;
+      top: 26px;
+      height: 180px;
       width: 1.5px;
       background: linear-gradient(180deg, rgba(255, 209, 102, 0.95) 0%, rgba(56, 189, 248, 0.95) 65%, transparent 100%);
       box-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 4px rgba(255, 209, 102, 0.8);
@@ -1046,9 +1048,9 @@
     /* Interactive Holographic HUD Tooltip Card */
     .chart-hologram-hud {
       position: absolute;
-      top: 10px;
-      left: 0;
-      transform: translateX(0);
+      top: 30px;
+      left: 50px;
+      transform: none;
       background: rgba(10, 15, 26, 0.96);
       border: 1px solid rgba(255, 209, 102, 0.45);
       border-radius: 9px;
@@ -3914,9 +3916,33 @@
 
         let lastHoverIdx = -1;
 
+        const hideCrosshair = () => {
+          if (laser) laser.classList.remove('active');
+          if (laserH) laserH.classList.remove('active');
+          if (reticleGold) reticleGold.classList.remove('active');
+          if (reticleEmerald) reticleEmerald.classList.remove('active');
+          if (hud) hud.classList.remove('active');
+          lastHoverIdx = -1;
+        };
+
         container.onmousemove = (e) => {
           const rect = container.getBoundingClientRect();
           const mouseX = e.clientX - rect.left;
+          const mouseY = e.clientY - rect.top;
+
+          const pxRatio = rect.width / w;
+          const pyRatio = rect.height / h;
+          const plotLeft = padL * pxRatio;
+          const plotRight = (w - padR) * pxRatio;
+          const plotTop = padT * pyRatio;
+          const plotBottom = bottomY * pyRatio;
+
+          // Confine hover bounds strictly to the waveform plot area
+          if (mouseX < plotLeft - 4 || mouseX > plotRight + 4 || mouseY < plotTop - 8 || mouseY > plotBottom + 8) {
+            hideCrosshair();
+            return;
+          }
+
           const svgX = (mouseX / rect.width) * w;
 
           // Find closest point by X coordinate
@@ -3940,22 +3966,23 @@
             playHapticTick(pitch, 0.016);
           }
 
-          const pxRatio = rect.width / w;
-          const pyRatio = rect.height / h;
           const pixelX = ptWpm.x * pxRatio;
           const pixelYWpm = ptWpm.y * pyRatio;
           const pixelYAcc = ptAcc.y * pyRatio;
 
-          // Position Vertical Laser Line
+          // Position Vertical Laser Line (strictly confined between plotTop and plotBottom)
           if (laser) {
             laser.style.left = `${pixelX}px`;
+            laser.style.top = `${plotTop}px`;
+            laser.style.height = `${plotBottom - plotTop}px`;
             laser.classList.add('active');
           }
 
-          // Position Horizontal Projector Guide
+          // Position Horizontal Projector Guide (strictly spans between plotLeft and pixelX)
           if (laserH) {
+            laserH.style.left = `${plotLeft}px`;
             laserH.style.top = `${pixelYWpm}px`;
-            laserH.style.width = `${Math.max(0, pixelX - (padL * pxRatio))}px`;
+            laserH.style.width = `${Math.max(0, pixelX - plotLeft)}px`;
             laserH.classList.toggle('active', activeStreamMode !== 'precision');
           }
 
@@ -4043,33 +4070,41 @@
               hudCadence.textContent = `${kps.toFixed(1)} KPS`;
             }
 
-            // Position HUD Card dynamically inside container
-            const hudWidth = hud.offsetWidth || 230;
-            const isRightHalf = pixelX > (rect.width / 2);
+            // Position HUD Card strictly inside plot boundary & avoid occluding active curve
+            const hudWidth = hud.offsetWidth || 260;
+            const hudHeight = hud.offsetHeight || 116;
+
+            // Horizontal position: place to right of laser line, flip to left if near right plot boundary
             let targetLeft;
-            if (isRightHalf) {
-              targetLeft = pixelX - 16;
-              hud.style.transform = 'translateX(-100%)';
-              if (targetLeft - hudWidth < 8) targetLeft = hudWidth + 8;
-            } else {
+            if (pixelX + 16 + hudWidth <= plotRight - 4) {
               targetLeft = pixelX + 16;
-              hud.style.transform = 'translateX(0)';
-              if (targetLeft + hudWidth > rect.width - 8) targetLeft = rect.width - hudWidth - 8;
+            } else {
+              targetLeft = pixelX - 16 - hudWidth;
             }
+            // Strict horizontal clamping inside plot area
+            targetLeft = Math.max(plotLeft + 4, Math.min(targetLeft, plotRight - hudWidth - 4));
+
+            // Smart vertical positioning: avoid occluding active data point
+            let targetTop;
+            const midY = plotTop + (plotBottom - plotTop) * 0.5;
+            if (pixelYWpm < midY) {
+              // Point is high: place HUD card in lower section
+              targetTop = plotBottom - hudHeight - 6;
+              targetTop = Math.max(plotTop + 4, targetTop);
+            } else {
+              // Point is low: place HUD card in upper section
+              targetTop = plotTop + 6;
+              targetTop = Math.min(targetTop, plotBottom - hudHeight - 4);
+            }
+
             hud.style.left = `${targetLeft}px`;
-            hud.style.top = '10px';
+            hud.style.top = `${targetTop}px`;
+            hud.style.transform = 'none';
             hud.classList.add('active');
           }
         };
 
-        container.onmouseleave = () => {
-          if (laser) laser.classList.remove('active');
-          if (laserH) laserH.classList.remove('active');
-          if (reticleGold) reticleGold.classList.remove('active');
-          if (reticleEmerald) reticleEmerald.classList.remove('active');
-          if (hud) hud.classList.remove('active');
-          lastHoverIdx = -1;
-        };
+        container.onmouseleave = hideCrosshair;
 
         // Wire Stream Toggle Buttons
         const streamBtns = document.querySelectorAll('#chartStreamToggle .stream-toggle-btn');
