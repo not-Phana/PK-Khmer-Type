@@ -1635,7 +1635,7 @@
     }
 
     /* SCRIBE DIPLOMA & CERTIFICATE */
-    .certificate-sheet {
+    .certificate-sheet, .diploma-sheet {
       background: linear-gradient(135deg, #0d121f 0%, #060912 100%);
       border: 3px double rgba(255, 209, 102, 0.5);
       border-radius: 9px;
@@ -1798,7 +1798,74 @@
       body * {
         visibility: hidden !important;
       }
-      .certificate-sheet, .certificate-sheet * {
+
+      /* Non-active modal is completely removed from print flow */
+      .modal-backdrop:not(.active) {
+        display: none !important;
+      }
+
+      /* Case A: Student Scribe Diploma (Modal 2 is open) */
+      body:has(#exportModal.active) .dashboard-container {
+        display: none !important;
+      }
+      #exportModal.active,
+      #exportModal.active .modal-content {
+        display: block !important;
+        position: static !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+      }
+      #exportModal.active #dossierDiplomaSheet,
+      #exportModal.active #dossierDiplomaSheet * {
+        visibility: visible !important;
+      }
+      #exportModal.active #dossierDiplomaSheet {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 24px !important;
+        border: 2px solid #b45309 !important;
+        border-radius: 9px !important;
+        background: #fff !important;
+        color: #111827 !important;
+        box-shadow: none !important;
+      }
+      #exportModal.active #dossierDiplomaSheet .cert-heading-khmer {
+        color: #b45309 !important;
+      }
+      #exportModal.active #dossierDiplomaSheet .cert-heading-en {
+        color: #4b5563 !important;
+      }
+      #exportModal.active #dossierDiplomaSheet .cert-title {
+        color: #111827 !important;
+      }
+      #exportModal.active #dossierDiplomaSheet .cert-recipient {
+        color: #1d4ed8 !important;
+        border-bottom: 2px dashed #b45309 !important;
+      }
+      #exportModal.active #dossierDiplomaSheet div,
+      #exportModal.active #dossierDiplomaSheet span,
+      #exportModal.active #dossierDiplomaSheet strong {
+        color: #111827 !important;
+      }
+      #exportModal.active #dossierDiplomaSheet svg {
+        color: #b45309 !important;
+      }
+
+      /* Case B: Teacher Merit Certificate Studio (Modal is closed, Teacher Studio active) */
+      .dashboard-container,
+      .tab-pane.active,
+      .dash-module,
+      .certificate-preview-card {
+        display: block !important;
+      }
+      .certificate-sheet,
+      .certificate-sheet * {
         visibility: visible !important;
       }
       .certificate-sheet {
@@ -2604,7 +2671,7 @@
       <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">Print your official Diploma of Scribe Proficiency or export your comprehensive telemetry JSON dossier.</p>
 
       <!-- Diploma Preview Sheet -->
-      <div class="certificate-sheet" id="certificateSheet">
+      <div class="diploma-sheet" id="dossierDiplomaSheet">
         <div class="cert-heading-khmer">ព្រះរាជាណាចក្រកម្ពុជា · ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
         <div class="cert-heading-en">Kingdom of Cambodia · Nation Religion King</div>
         
@@ -2639,7 +2706,7 @@
 
       <!-- Action Buttons -->
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button id="btnPrintCertificate" type="button" class="nav-pill-btn primary" style="flex:1; justify-content:center;">
+        <button id="btnPrintDossierDiploma" type="button" class="nav-pill-btn primary" style="flex:1; justify-content:center;">
           <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
           <span>Print / Save PDF Diploma</span>
         </button>
@@ -4294,8 +4361,8 @@
         });
       }
 
-      // Print Certificate
-      const btnPrint = document.getElementById('btnPrintCertificate');
+      // Print Scribe Diploma
+      const btnPrint = document.getElementById('btnPrintDossierDiploma');
       if (btnPrint) {
         btnPrint.onclick = () => window.print();
       }
