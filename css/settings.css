@@ -3534,6 +3534,22 @@ html.theme-sepia #accentChoice button.active {
   box-shadow: 0 0 0 1px var(--gold-bright, #ffd166), 0 0 14px rgba(255, 209, 102, 0.35);
   background: rgba(25, 32, 54, 0.9);
 }
+
+.wallpaper-gallery-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  border-radius: inherit;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+.wallpaper-gallery-card:hover .wallpaper-gallery-img {
+  transform: scale(1.05);
+  filter: contrast(1.08) brightness(1.05);
+}
+
 .wallpaper-gallery-thumb {
   width: 100%;
   aspect-ratio: 16 / 9;

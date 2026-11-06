@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <radialGradient id="ag-bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#090a10"/>
+    </radialGradient>
+    <linearGradient id="ag-spark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="ag-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="62" fill="url(#ag-bg)" stroke="#818cf8" stroke-width="2" stroke-opacity="0.4"/>
+  <!-- Orbiting Agent Ring -->
+  <ellipse cx="64" cy="64" rx="46" ry="24" fill="none" stroke="url(#ag-ring)" stroke-width="1.8" transform="rotate(-28 64 64)" stroke-dasharray="8 4"/>
+  <ellipse cx="64" cy="64" rx="46" ry="24" fill="none" stroke="url(#ag-ring)" stroke-width="1.8" transform="rotate(32 64 64)" stroke-dasharray="8 4" stroke-opacity="0.6"/>
+  <!-- Central DeepMind Diamond Spark -->
+  <path d="M 64 22 C 64 45 79 64 106 64 C 79 64 64 83 64 106 C 64 83 49 64 22 64 C 49 64 64 45 64 22 Z" fill="url(#ag-spark)"/>
+  <!-- Precision Core Ring -->
+  <circle cx="64" cy="64" r="9" fill="#090a10" stroke="#c7d2fe" stroke-width="2"/>
+  <circle cx="64" cy="64" r="4" fill="#38bdf8"/>
+  <!-- Telemetry Nodes -->
+  <circle cx="98" cy="46" r="3" fill="#38bdf8"/>
+  <circle cx="30" cy="82" r="3" fill="#818cf8"/>
+</svg>

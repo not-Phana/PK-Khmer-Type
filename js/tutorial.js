@@ -344,7 +344,7 @@
         <div id="pkTutorialModalCard" class="pk-tutorial-modal-card" style="display:none;" role="dialog" aria-modal="true">
           <div class="pk-tut-modal-header-row">
             <div class="pk-tut-crest-icon">
-              <img src="logo.svg" alt="PK Logo">
+              <img src="logo.svg" onerror="if(!this.dataset.tried){this.dataset.tried='1'; this.src='../logo.svg';}" alt="PK Logo">
             </div>
             <div class="pk-tut-lang-segmented" id="pkTutModalLangSeg" role="group" aria-label="Translate tutorial language">
               <button type="button" class="pk-tut-seg-btn active" id="pkTutModalLangEn" data-tut-lang="en">

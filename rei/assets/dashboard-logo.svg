@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+  <!-- PK Khmer Type — Official Analytics & Telemetry Dashboard Crest Logo -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#07090e"/>
+      <stop offset="100%" stop-color="#0f1422"/>
+    </linearGradient>
+    <linearGradient id="wellGrad" x1="14" y1="14" x2="114" y2="114" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#121829"/>
+      <stop offset="100%" stop-color="#0c101a"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="30" y1="34" x2="98" y2="94" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffe699"/>
+      <stop offset="60%" stop-color="#ffd166"/>
+      <stop offset="100%" stop-color="#ffb703"/>
+    </linearGradient>
+    <linearGradient id="pulseGrad" x1="28" y1="102" x2="100" y2="102" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#ffd166"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Dark Obsidian Mechanical Keycap Base -->
+  <rect width="128" height="128" rx="28" fill="url(#bgGrad)"/>
+  <rect x="2" y="2" width="124" height="124" rx="26" stroke="#1c2438" stroke-width="2"/>
+
+  <!-- Switch Well Dish -->
+  <rect x="14" y="14" width="100" height="100" rx="20" fill="url(#wellGrad)" stroke="#222c44" stroke-width="1.5"/>
+
+  <!-- Precision Corner Registration Brackets -->
+  <path d="M24 34 V24 H34" stroke="#ffd166" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M104 34 V24 H94" stroke="#ffd166" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M24 92 V102 H34" stroke="#ffd166" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M104 92 V102 H94" stroke="#ffd166" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- PK Brand Typography (x=30..98, y=32..88) -->
+  <g filter="url(#goldGlow)">
+    <!-- Letter P -->
+    <rect x="30" y="32" width="8" height="54" rx="4" fill="url(#goldGrad)"/>
+    <path d="M34 36 H48 C54 36 58 40.5 58 48 C58 55.5 54 60 48 60 H34" 
+          stroke="url(#goldGrad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- Letter K -->
+    <rect x="70" y="32" width="8" height="54" rx="4" fill="url(#goldGrad)"/>
+    <path d="M74 58 L94 36" stroke="url(#goldGrad)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M74 58 L94 86" stroke="url(#goldGrad)" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <!-- Analytics Telemetry Pulse Sparkline (Dashboard Motif) -->
+  <path d="M28 100 H44 L48 94 L54 106 L60 97 L65 103 L69 100 H100" 
+        stroke="url(#pulseGrad)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Live Pulse Dot -->
+  <circle cx="100" cy="100" r="2.5" fill="#34d399"/>
+</svg>

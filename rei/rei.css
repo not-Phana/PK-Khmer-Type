@@ -1,0 +1,817 @@
+/* PK Khmer Type Rei — Focused Traditional Typing Tutor Stylesheet */
+/* Strict Zero-Emoji Compliance: Pure SVG vector icons only */
+
+:root {
+  --color-scheme: light dark;
+  --rei-bg: #0b0f19;
+  --rei-surface: #111827;
+  --rei-surface-card: #1b2336;
+  --rei-surface-hover: #26334d;
+  --rei-border: rgba(255, 255, 255, 0.12);
+  --rei-border-subtle: rgba(255, 255, 255, 0.06);
+  --rei-text: #f8fafc;
+  --rei-text-dim: #94a3b8;
+  --rei-text-muted: #64748b;
+  --rei-accent: #f59e0b;
+  --rei-accent-hover: #d97706;
+  --rei-accent-glow: rgba(245, 158, 11, 0.35);
+  --rei-accent-text: #0f172a;
+  --rei-cyan: #06b6d4;
+  --rei-green: #10b981;
+  --rei-green-glow: rgba(16, 185, 129, 0.25);
+  --rei-red: #ef4444;
+  --rei-red-glow: rgba(239, 68, 68, 0.3);
+  --rei-key-bg-top: #1e2638;
+  --rei-key-bg-bot: #141a29;
+  --rei-key-border: #0b0e17;
+  --rei-key-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --rei-font-khmer: 'Kantumruy Pro', 'Khmer OS Siemreap', 'Noto Sans Khmer', sans-serif;
+  --rei-font-mono: 'JetBrains Mono', monospace;
+  --rei-font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --rei-radius: 8px;
+  --rei-radius-lg: 12px;
+}
+
+html.theme-light {
+  --rei-bg: #f8fafc;
+  --rei-surface: #ffffff;
+  --rei-surface-card: #f1f5f9;
+  --rei-surface-hover: #e2e8f0;
+  --rei-border: rgba(15, 23, 42, 0.12);
+  --rei-border-subtle: rgba(15, 23, 42, 0.06);
+  --rei-text: #0f172a;
+  --rei-text-dim: #475569;
+  --rei-text-muted: #94a3b8;
+  --rei-accent: #d97706;
+  --rei-accent-hover: #b45309;
+  --rei-accent-glow: rgba(217, 119, 6, 0.25);
+  --rei-accent-text: #ffffff;
+  --rei-cyan: #0891b2;
+  --rei-green: #059669;
+  --rei-green-glow: rgba(5, 150, 105, 0.2);
+  --rei-red: #dc2626;
+  --rei-red-glow: rgba(220, 38, 38, 0.25);
+  --rei-key-bg-top: #ffffff;
+  --rei-key-bg-bot: #e2e8f0;
+  --rei-key-border: #cbd5e1;
+  --rei-key-shadow: 0 2px 4px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Universal hidden attribute rule */
+[hidden],
+.rei-modal-backdrop[hidden],
+.rei-practice-deck[hidden],
+.rei-lesson-hub[hidden] {
+  display: none !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--rei-bg);
+  color: var(--rei-text);
+  font-family: var(--rei-font-sans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  overflow-x: hidden;
+}
+
+/* Button Reset */
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+/* App Header / Top Navigation Bar */
+.rei-header {
+  height: 56px;
+  background: var(--rei-surface);
+  border-bottom: 1px solid var(--rei-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+.rei-header-left, .rei-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rei-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--rei-text);
+}
+
+.rei-logo-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--rei-accent), #f97316);
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px var(--rei-accent-glow);
+}
+
+.rei-brand-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rei-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--rei-accent);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Action Buttons */
+.rei-btn {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--rei-radius);
+  background: var(--rei-surface-card);
+  border: 1px solid var(--rei-border);
+  color: var(--rei-text);
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.rei-btn:hover {
+  background: var(--rei-surface-hover);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.rei-btn.active {
+  background: var(--rei-accent);
+  color: var(--rei-accent-text);
+  border-color: var(--rei-accent);
+}
+
+.rei-kbd {
+  font-size: 0.7rem;
+  font-family: var(--rei-font-mono);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--rei-border);
+  color: var(--rei-text-dim);
+}
+
+/* Main Workspace */
+.rei-container {
+  flex: 1;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Lessons Hub / Easy-To-Understand Lesson Bar */
+.rei-lesson-hub {
+  background: var(--rei-surface);
+  border: 1px solid var(--rei-border);
+  border-radius: var(--rei-radius-lg);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.rei-hub-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid var(--rei-border-subtle);
+  padding-bottom: 14px;
+}
+
+.rei-curriculum-tabs {
+  display: flex;
+  gap: 6px;
+  background: var(--rei-surface-card);
+  padding: 4px;
+  border-radius: var(--rei-radius);
+  border: 1px solid var(--rei-border);
+}
+
+.rei-tab {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  color: var(--rei-text-dim);
+  transition: all 0.15s ease;
+}
+
+.rei-tab:hover {
+  color: var(--rei-text);
+}
+
+.rei-tab.active {
+  background: var(--rei-surface);
+  color: var(--rei-accent);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.rei-hub-overview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.82rem;
+  color: var(--rei-text-dim);
+}
+
+.rei-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rei-stat-val {
+  font-weight: 700;
+  color: var(--rei-text);
+}
+
+/* Stage Navigation Selector */
+.rei-stages-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.rei-stage-pill {
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--rei-surface-card);
+  border: 1px solid var(--rei-border);
+  border-radius: 20px;
+  color: var(--rei-text-dim);
+  transition: all 0.15s ease;
+}
+
+.rei-stage-pill:hover {
+  color: var(--rei-text);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.rei-stage-pill.active {
+  background: rgba(245, 158, 11, 0.14);
+  color: var(--rei-accent);
+  border-color: var(--rei-accent);
+}
+
+/* Lesson Cards Grid */
+.rei-lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  max-height: 290px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.rei-lesson-card {
+  background: var(--rei-surface-card);
+  border: 1px solid var(--rei-border);
+  border-radius: var(--rei-radius);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.16s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.rei-lesson-card:hover {
+  background: var(--rei-surface-hover);
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.rei-lesson-card.active-lesson {
+  border-color: var(--rei-accent);
+  box-shadow: 0 0 0 2px var(--rei-accent-glow);
+}
+
+.rei-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rei-card-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--rei-accent);
+  letter-spacing: 0.04em;
+}
+
+.rei-card-status {
+  font-size: 0.72rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--rei-text-muted);
+}
+
+.rei-card-status.completed {
+  color: var(--rei-green);
+}
+
+.rei-card-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--rei-text);
+  line-height: 1.3;
+}
+
+.rei-card-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.rei-key-chip {
+  padding: 2px 7px;
+  font-size: 0.78rem;
+  font-family: var(--rei-font-khmer), var(--rei-font-mono);
+  background: var(--rei-surface);
+  border: 1px solid var(--rei-border);
+  border-radius: 4px;
+  color: var(--rei-text);
+}
+
+.rei-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--rei-text-dim);
+}
+
+.rei-card-score {
+  font-weight: 600;
+  color: var(--rei-green);
+}
+
+.rei-card-start-btn {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 4px;
+  background: var(--rei-accent);
+  color: var(--rei-accent-text);
+  gap: 4px;
+}
+
+/* Active Lesson Practice Screen */
+.rei-practice-deck {
+  background: var(--rei-surface);
+  border: 1px solid var(--rei-border);
+  border-radius: var(--rei-radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.rei-practice-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 1px solid var(--rei-border-subtle);
+  padding-bottom: 12px;
+}
+
+.rei-practice-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rei-practice-stage-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--rei-accent);
+  letter-spacing: 0.05em;
+}
+
+.rei-practice-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--rei-text);
+}
+
+.rei-practice-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rei-drill-counter {
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--rei-surface-card);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--rei-border);
+  color: var(--rei-text);
+}
+
+/* Typing Target Area */
+.rei-typing-area {
+  background: var(--rei-surface-card);
+  border: 1px solid var(--rei-border);
+  border-radius: var(--rei-radius);
+  padding: 24px;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.rei-prompt-line {
+  font-family: var(--rei-font-khmer), var(--rei-font-mono);
+  font-size: 1.7rem;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  white-space: pre-wrap;
+  word-break: break-all;
+  user-select: none;
+  width: 100%;
+}
+
+.rei-char {
+  display: inline-block;
+  position: relative;
+  border-radius: 3px;
+  transition: color 0.1s ease, background 0.1s ease;
+}
+
+.rei-char.correct {
+  color: var(--rei-green);
+}
+
+.rei-char.incorrect {
+  color: var(--rei-red);
+  background: var(--rei-red-glow);
+  text-decoration: underline wavy var(--rei-red);
+}
+
+.rei-char.current {
+  background: rgba(245, 158, 11, 0.22);
+  color: var(--rei-accent);
+  box-shadow: 0 0 0 2px var(--rei-accent-glow);
+}
+
+.rei-char.current::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 3px;
+  background: var(--rei-accent);
+  border-radius: 2px;
+  animation: reiCursorBlink 1s infinite;
+}
+
+@keyframes reiCursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+.rei-char.pending {
+  color: var(--rei-text-muted);
+}
+
+/* Telemetry & Stats Bar */
+.rei-telemetry-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--rei-surface-card);
+  border: 1px solid var(--rei-border-subtle);
+  border-radius: var(--rei-radius);
+}
+
+.rei-telemetry-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rei-telemetry-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--rei-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.rei-telemetry-val {
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-family: var(--rei-font-mono);
+  color: var(--rei-text);
+}
+
+.rei-telemetry-val.val-green {
+  color: var(--rei-green);
+}
+
+.rei-telemetry-val.val-accent {
+  color: var(--rei-accent);
+}
+
+/* Virtual Keyboard Chassis */
+.rei-keyboard-wrap {
+  background: var(--rei-surface);
+  border: 1px solid var(--rei-border);
+  border-radius: var(--rei-radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.rei-kb-row {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+.rei-key {
+  --u: 1;
+  flex: var(--u, 1) 1 calc((var(--u, 1) - 1) * 6px);
+  min-width: 0;
+  height: 50px;
+  background: linear-gradient(180deg, var(--rei-key-bg-top), var(--rei-key-bg-bot));
+  border: 1px solid var(--rei-border);
+  border-bottom: 3px solid var(--rei-key-border);
+  border-radius: var(--rei-radius);
+  color: var(--rei-text);
+  font-family: var(--rei-font-khmer), var(--rei-font-mono);
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  user-select: none;
+  cursor: pointer;
+  box-shadow: var(--rei-key-shadow);
+  transition: transform 0.1s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rei-key.pressed {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.rei-key.target-key {
+  border-color: var(--rei-accent);
+  box-shadow: 0 0 12px var(--rei-accent-glow), inset 0 0 6px var(--rei-accent-glow);
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.12));
+}
+
+.rei-key.guide-key {
+  border-color: var(--rei-cyan);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.35);
+  background: linear-gradient(180deg, rgba(6, 182, 212, 0.25), rgba(6, 182, 212, 0.1));
+}
+
+.rei-key-sub {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  font-size: 0.68rem;
+  color: var(--rei-text-muted);
+}
+
+.rei-finger-hint {
+  position: absolute;
+  bottom: 3px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  font-family: var(--rei-font-sans);
+  color: var(--rei-accent);
+  text-transform: uppercase;
+}
+
+/* Modifiers on key */
+.rei-key.mod {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--rei-text-dim);
+  text-transform: uppercase;
+}
+
+/* Lesson Completion Screen */
+.rei-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(8px);
+}
+
+.rei-modal {
+  background: var(--rei-surface);
+  border: 1px solid var(--rei-border);
+  border-radius: var(--rei-radius-lg);
+  padding: 28px;
+  max-width: 440px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.rei-modal-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--rei-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--rei-green);
+}
+
+.rei-modal-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--rei-text);
+}
+
+.rei-modal-sub {
+  font-size: 0.9rem;
+  color: var(--rei-text-dim);
+}
+
+.rei-modal-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.rei-modal-stat-box {
+  background: var(--rei-surface-card);
+  padding: 12px;
+  border-radius: var(--rei-radius);
+  border: 1px solid var(--rei-border-subtle);
+}
+
+.rei-modal-stat-num {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: var(--rei-font-mono);
+  color: var(--rei-text);
+}
+
+.rei-modal-stat-lbl {
+  font-size: 0.72rem;
+  color: var(--rei-text-muted);
+  text-transform: uppercase;
+}
+
+.rei-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rei-btn-primary {
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: var(--rei-radius);
+  background: var(--rei-accent);
+  color: var(--rei-accent-text);
+  gap: 8px;
+}
+
+.rei-btn-primary:hover {
+  background: var(--rei-accent-hover);
+}
+
+/* Minimal Footer */
+.rei-footer {
+  margin-top: auto;
+  padding: 14px 20px;
+  border-top: 1px solid var(--rei-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--rei-text-muted);
+}
+
+.rei-footer-link {
+  color: var(--rei-text-dim);
+  text-decoration: none;
+}
+
+.rei-footer-link:hover {
+  color: var(--rei-accent);
+}
+
+/* Focus Mode */
+body.focus-mode .rei-header,
+body.focus-mode .rei-lesson-hub,
+body.focus-mode .rei-footer {
+  display: none !important;
+}
+
+body.focus-mode .rei-container {
+  max-width: 960px;
+  justify-content: center;
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .rei-header {
+    padding: 0 12px;
+  }
+  .rei-container {
+    padding: 12px;
+    gap: 14px;
+  }
+  .rei-key {
+    height: 42px;
+    font-size: 0.95rem;
+  }
+  .rei-prompt-line {
+    font-size: 1.35rem;
+  }
+  .rei-telemetry-bar {
+    justify-content: space-around;
+  }
+}

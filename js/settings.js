@@ -1226,7 +1226,7 @@ function initSettingsToggles() {
     if (/^blob:[a-zA-Z0-9-.:/]+$/i.test(trimmed)) {
       return true;
     }
-    if (/^(\/|\.\/|assets\/)/i.test(trimmed)) {
+    if (/^(\/|\.\/|\.\.\/|assets\/)/i.test(trimmed)) {
       return !/[<>"'()\\]/.test(trimmed);
     }
     try {
@@ -1248,7 +1248,14 @@ function initSettingsToggles() {
     if (!url || typeof url !== "string") return "";
     var t = url.trim();
     if (!t) return "";
-    if (/^(https?:\/\/|data:|blob:|\/|\.\/|assets\/)/i.test(t)) {
+    var isSubdir = typeof window !== "undefined" && (
+      window.__IS_REI_SUBDIR__ === true ||
+      (window.location && (window.location.pathname.includes('/rei/') || window.location.pathname.endsWith('/rei')))
+    );
+    if (isSubdir && t.startsWith("assets/wallpapers/")) {
+      t = "../" + t;
+    }
+    if (/^(https?:\/\/|data:|blob:|\/|\.\/|\.\.\/|assets\/)/i.test(t)) {
       return t;
     }
     if (/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\//.test(t)) {
@@ -1267,9 +1274,9 @@ function initSettingsToggles() {
       return;
     }
     chip.style.display = "flex";
-    if (thumb) thumb.style.backgroundImage = 'url("' + url.replace(/["'\\]/g, "") + '")';
+    if (thumb) thumb.style.backgroundImage = 'url("' + normalizeImageUrl(url).replace(/["'\\]/g, "") + '")';
     if (label) {
-      const matched = (typeof WALLPAPER_PRESETS !== "undefined") && WALLPAPER_PRESETS.find(p => p.url === url);
+      const matched = (typeof WALLPAPER_PRESETS !== "undefined") && WALLPAPER_PRESETS.find(p => p.url === url || normalizeImageUrl(p.url) === normalizeImageUrl(url));
       const isKm = document.documentElement.classList.contains("site-km-mode");
       if (matched) {
         label.textContent = isKm && matched.nameKm ? matched.nameKm : matched.name;
@@ -1510,11 +1517,15 @@ function initSettingsToggles() {
     const isKm = document.documentElement.classList.contains("site-km-mode");
     const currentWp = safeGet("khmerCustomWallpaperUrl", "") || safeGet(WALLPAPER_KEY, "");
     grid.innerHTML = WALLPAPER_PRESETS.map((p) => {
-      const isCur = currentWp === p.url;
+      const isCur = currentWp === p.url || (currentWp && normalizeImageUrl(currentWp) === normalizeImageUrl(p.url));
       const displayName = isKm && p.nameKm ? p.nameKm : p.name;
       const displayTag = isKm && p.tagKm ? p.tagKm : p.tag;
-      return `<button type="button" class="wallpaper-gallery-card wallpaper-gallery-item${isCur ? ' active' : ''}" data-preset-id="${p.id}" data-preset-url="${p.url}" title="${isKm ? 'ចុចដើម្បីមើលសាកល្បង · ចុច២ដងដើម្បីប្រើប្រាស់' : 'Click to preview · Double-click to apply'}">
-        <div class="wallpaper-gallery-thumb" style="background-image:url('${p.url}')">
+      const thumbUrl = normalizeImageUrl(p.url);
+      const isLocalWp = p.url && p.url.startsWith("assets/wallpapers/");
+      const canonicalWebUrl = isLocalWp ? ("https://not-phana.github.io/PK-Khmer-Type/" + p.url) : thumbUrl;
+      return `<button type="button" class="wallpaper-gallery-card wallpaper-gallery-item${isCur ? ' active' : ''}" data-preset-id="${p.id}" data-preset-url="${p.url}" data-web-url="${canonicalWebUrl}" title="${isKm ? 'ចុចដើម្បីមើលសាកល្បង · ចុច២ដងដើម្បីប្រើប្រាស់' : 'Click to preview · Double-click to apply'}">
+        <div class="wallpaper-gallery-thumb" style="background-image:url('${thumbUrl}')">
+          <img class="wallpaper-gallery-img" src="${thumbUrl}" onerror="if(!this.dataset.fallbackTried){this.dataset.fallbackTried='1'; this.src='${canonicalWebUrl}'; this.parentElement.style.backgroundImage='url(\\'${canonicalWebUrl}\\')';}" alt="${displayName}" loading="lazy" aria-hidden="true">
           <span class="wallpaper-gallery-badge">${displayTag}</span>
         </div>
         <div class="wallpaper-gallery-name">${displayName}</div>
@@ -1598,6 +1609,13 @@ function initSettingsToggles() {
       if (statusPill) statusPill.className = "wallpaper-status-pill ready";
     };
     img.onerror = () => {
+      if (!img.dataset.fallbackTried && (sanitized.startsWith("assets/wallpapers/") || sanitized.startsWith("../assets/wallpapers/"))) {
+        img.dataset.fallbackTried = "1";
+        const cleanAsset = sanitized.replace(/^(\.\.\/)+/, '');
+        const fallbackWeb = "https://not-phana.github.io/PK-Khmer-Type/" + cleanAsset;
+        img.src = fallbackWeb;
+        return;
+      }
       if (previewBg) {
         previewBg.style.backgroundImage = 'url("' + sanitized + '")';
         previewBg.style.filter = blurVal > 0 ? `blur(${blurVal}px)` : "";
@@ -1806,6 +1824,56 @@ function initSettingsToggles() {
       if (previewDim) previewDim.style.background = "rgba(5, 7, 13, 0.65)";
       const previewBg = document.getElementById("wallpaperPreviewBg");
       if (previewBg) previewBg.style.filter = "";
+    });
+  }
+
+  // Modal Direct File Upload & Reset Handlers
+  const modalUploadBtn = document.getElementById("modalUploadWallpaperBtn");
+  const modalFileInput = document.getElementById("modalWallpaperFileInput");
+  if (modalUploadBtn && modalFileInput) {
+    modalUploadBtn.addEventListener("click", () => modalFileInput.click());
+    modalFileInput.addEventListener("change", () => {
+      const file = modalFileInput.files && modalFileInput.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const maxDim = 1920;
+          let w = img.width, h = img.height;
+          if (w > maxDim || h > maxDim) {
+            if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+            else { w = Math.round((w * maxDim) / h); h = maxDim; }
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, w, h);
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+          const input = document.getElementById("wallpaperUrlInput");
+          if (input) {
+            input.value = dataUrl;
+            const clearBtn = document.getElementById("wallpaperClearUrlBtn");
+            if (clearBtn) clearBtn.style.display = "inline-flex";
+          }
+          updateWallpaperStagePreview(dataUrl);
+          const dimSlider = document.getElementById("wallpaperTuneDimSlider");
+          const blurSlider = document.getElementById("wallpaperTuneBlurSlider");
+          const finalDim = dimSlider ? parseInt(dimSlider.value, 10) || 65 : 65;
+          const finalBlur = blurSlider ? parseInt(blurSlider.value, 10) || 0 : 0;
+          commitWallpaperApply(dataUrl, finalDim, finalBlur);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const modalResetBtn = document.getElementById("wallpaperModalResetBtn");
+  if (modalResetBtn) {
+    modalResetBtn.addEventListener("click", () => {
+      removeWallpaper();
+      closeWallpaperUrlModal();
     });
   }
 
@@ -3482,6 +3550,180 @@ if (document.readyState === "loading") {
   }
 
   window.openVersionModal = openVersionModal;
+
+  // Project Scale & Architecture Telemetry Modal Handlers
+  var projectScaleModal = document.getElementById("projectScaleModal");
+  var projectScaleCloseBtn = document.getElementById("projectScaleCloseBtn");
+  var projectScaleAckBtn = document.getElementById("projectScaleAckBtn");
+
+  function openProjectScaleModal() {
+    if (!projectScaleModal) projectScaleModal = document.getElementById("projectScaleModal");
+    if (!projectScaleModal) return;
+    projectScaleModal.hidden = false;
+    if (projectScaleAckBtn) projectScaleAckBtn.focus();
+  }
+
+  function closeProjectScaleModal() {
+    if (!projectScaleModal) projectScaleModal = document.getElementById("projectScaleModal");
+    if (typeof window.closeModalAnimated === "function" && projectScaleModal) {
+      window.closeModalAnimated(projectScaleModal);
+    } else if (projectScaleModal) {
+      projectScaleModal.hidden = true;
+    }
+  }
+
+  window.openProjectScaleModal = openProjectScaleModal;
+
+  // ============================================================
+  // Touch-Typing & Khmer Mastery Tips Modal & Rotating Pro-Tips
+  // ============================================================
+  var masteryTipsModal = document.getElementById("masteryTipsModal");
+  var masteryTipsCloseBtn = document.getElementById("masteryTipsCloseBtn");
+  var masteryTipsAckBtn = document.getElementById("masteryTipsAckBtn");
+
+  function openMasteryTipsModal() {
+    if (!masteryTipsModal) masteryTipsModal = document.getElementById("masteryTipsModal");
+    if (!masteryTipsModal) return;
+    masteryTipsModal.hidden = false;
+    if (masteryTipsAckBtn) masteryTipsAckBtn.focus();
+  }
+
+  function closeMasteryTipsModal() {
+    if (!masteryTipsModal) masteryTipsModal = document.getElementById("masteryTipsModal");
+    if (typeof window.closeModalAnimated === "function" && masteryTipsModal) {
+      window.closeModalAnimated(masteryTipsModal);
+    } else if (masteryTipsModal) {
+      masteryTipsModal.hidden = true;
+    }
+  }
+
+  window.openMasteryTipsModal = openMasteryTipsModal;
+  window.closeMasteryTipsModal = closeMasteryTipsModal;
+
+  if (masteryTipsCloseBtn) masteryTipsCloseBtn.addEventListener("click", closeMasteryTipsModal);
+  if (masteryTipsAckBtn) masteryTipsAckBtn.addEventListener("click", closeMasteryTipsModal);
+
+  if (masteryTipsModal) {
+    masteryTipsModal.addEventListener("click", function (e) {
+      if (e.target === masteryTipsModal) closeMasteryTipsModal();
+    });
+    masteryTipsModal.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMasteryTipsModal();
+    });
+
+    // Category Tab Switching
+    masteryTipsModal.querySelectorAll(".tips-tab-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var targetId = "tipsPanel-" + btn.getAttribute("data-tips-target");
+        masteryTipsModal.querySelectorAll(".tips-tab-btn").forEach(function (b) {
+          b.classList.remove("active");
+          b.setAttribute("aria-selected", "false");
+        });
+        masteryTipsModal.querySelectorAll(".tips-category-panel").forEach(function (p) {
+          p.classList.remove("active");
+        });
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected", "true");
+        var panel = document.getElementById(targetId);
+        if (panel) panel.classList.add("active");
+      });
+    });
+  }
+
+  // Rotating Pro-Tip Ticker Engine
+  var PRO_TIPS_ROTATION = [
+    {
+      en: "To type a Khmer subscript (ជើង), press <kbd>Space</kbd> then the consonant in Standard, or <kbd>J</kbd> then the consonant in NiDA.",
+      km: "ដើម្បីវាយជើងអក្សរខ្មែរ សូមចុច <kbd>Space</kbd> រួចចុចព្យញ្ជនៈ (ស្តង់ដារ) ឬ <kbd>J</kbd> រួចចុចព្យញ្ជនៈ (NiDA)។"
+    },
+    {
+      en: "Press <kbd>Alt+F</kbd> anytime to activate Zen Focus Mode — enlarging the keyboard and silencing distractions.",
+      km: "ចុច <kbd>Alt+F</kbd> គ្រប់ពេលដើម្បីបើកមុខងារផ្ដោតអារម្មណ៍ (Focus Mode) និងពង្រីកក្តារចុច។"
+    },
+    {
+      en: "Rest your index fingers on the tactile bumps of <kbd>F</kbd> and <kbd>J</kbd> without looking down.",
+      km: "ដាក់ម្រាមចង្អុលដៃលើគន្លឹះរលាក់ <kbd>F</kbd> និង <kbd>J</kbd> ដោយមិនបាច់មើលក្តារចុចឡើយ។"
+    },
+    {
+      en: "Press <kbd>Alt+L</kbd> to instantly translate the entire interface between English and Khmer.",
+      km: "ចុច <kbd>Alt+L</kbd> ដើម្បីប្តូរភាសាចំណុចប្រទាក់រវាងភាសាអង់គ្លេស និងខ្មែរភ្លាមៗ។"
+    },
+    {
+      en: "Type dependent vowels AFTER their base consonants (e.g. type <kbd>ត</kbd> + <kbd>ែ</kbd> for <b>តែ</b>).",
+      km: "វាយស្រៈនិស្ស័យបន្ទាប់ពីព្យញ្ជនៈជានិច្ច (ឧ. វាយ <kbd>ត</kbd> + <kbd>ែ</kbd> ដើម្បីបាន <b>តែ</b>)។"
+    },
+    {
+      en: "Aim for &ge;95% accuracy before speeding up. Smooth rhythm builds permanent muscle memory.",
+      km: "ផ្តោតលើភាពត្រឹមត្រូវ &ge;៩៥% មុននឹងបង្កើនល្បឿន។ ចង្វាក់ស្មើគ្នានាំឱ្យចងចាំបានយូរអង្វែង។"
+    },
+    {
+      en: "Hit <kbd>.</kbd> (period) to output the Khmer Khan (<b>។</b>), or <kbd>Shift+.</kbd> for Bariyoosan (<b>៕</b>).",
+      km: "ចុច <kbd>.</kbd> ដើម្បីវាយសញ្ញាខណ្ឌ (<b>។</b>) ឬ <kbd>Shift+.</kbd> សម្រាប់សញ្ញាបរិយោសាន (<b>៕</b>)។"
+    }
+  ];
+  var currentTipIndex = 0;
+
+  function cycleNextProTip() {
+    var contentEl = document.getElementById("proTipContent");
+    if (!contentEl) return;
+    currentTipIndex = (currentTipIndex + 1) % PRO_TIPS_ROTATION.length;
+    var tip = PRO_TIPS_ROTATION[currentTipIndex];
+    var isKm = document.documentElement.getAttribute("lang") === "km";
+    contentEl.setAttribute("data-en", tip.en);
+    contentEl.setAttribute("data-km", tip.km);
+    contentEl.innerHTML = isKm ? tip.km : tip.en;
+  }
+
+  var proTipCycleBtn = document.getElementById("proTipCycleBtn");
+  if (proTipCycleBtn) proTipCycleBtn.addEventListener("click", cycleNextProTip);
+
+  document.addEventListener("click", function (e) {
+    var trigger = e.target.closest("#tipsModalBtn, #tipsModalBtnRei, #proTipOpenBtn, #proTipOpenAllBtn, .tips-modal-btn, .pro-tip-tag, .pro-tip-all-btn");
+    if (trigger) {
+      e.preventDefault();
+      e.stopPropagation();
+      openMasteryTipsModal();
+    }
+  });
+
+  // Universal Alt+T Shortcut
+  window.addEventListener("keydown", function (e) {
+    if (e.altKey && (e.key === "t" || e.key === "T" || e.code === "KeyT")) {
+      // Don't intercept if modifier state is AltGraph
+      if (e.getModifierState && e.getModifierState("AltGraph")) return;
+      e.preventDefault();
+      e.stopPropagation();
+      if (!masteryTipsModal || masteryTipsModal.hidden) {
+        openMasteryTipsModal();
+      } else {
+        closeMasteryTipsModal();
+      }
+    }
+  }, true);
+
+  window.closeProjectScaleModal = closeProjectScaleModal;
+
+  if (projectScaleCloseBtn) projectScaleCloseBtn.addEventListener("click", closeProjectScaleModal);
+  if (projectScaleAckBtn) projectScaleAckBtn.addEventListener("click", closeProjectScaleModal);
+
+  if (projectScaleModal) {
+    projectScaleModal.addEventListener("click", function (e) {
+      if (e.target === projectScaleModal) closeProjectScaleModal();
+    });
+    projectScaleModal.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeProjectScaleModal();
+    });
+  }
+
+  document.addEventListener("click", function (e) {
+    var trigger = e.target.closest("#projectScaleBtn, #projectScaleBtnRei, #versionModalTelemetryBtn, .chassis-scale-btn, .rei-scale-btn, .version-action-scale-btn");
+    if (trigger) {
+      e.preventDefault();
+      e.stopPropagation();
+      openProjectScaleModal();
+    }
+  });
+
   window.closeVersionModal = closeVersionModal;
 
   if (versionModalCloseBtn) versionModalCloseBtn.addEventListener("click", closeVersionModal);

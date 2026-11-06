@@ -1801,7 +1801,7 @@ function getLessonBest(id){
   if(progressApi && typeof progressApi.getLessonProgress === 'function'){
     const cLayout = (typeof currentLayoutId !== 'undefined') ? currentLayoutId : 'nida';
     const prog = progressApi.getLessonProgress(cLayout, id);
-    if(prog && (prog.started || prog.completed || prog.totalAttempts > 0)){
+    if(prog && (prog.completed || prog.passed || (prog.totalAttempts > 0 && typeof prog.bestAccuracy === 'number' && prog.bestAccuracy > 0))){
       return {
         accuracy: prog.bestAccuracy,
         time: prog.bestAttempt ? prog.bestAttempt.timeSec : 0,
@@ -2082,19 +2082,22 @@ function renderLessonStrip(){
     LESSONS.forEach(l => { const b = getLessonBest(l.id); if(b && b.mastered) masteredCount++; });
 
     const isKm = document.documentElement.classList.contains('site-km-mode');
+    const isRei = !!(typeof window !== 'undefined' && (window.__IS_REI__ || document.documentElement.classList.contains('is-rei')));
 
     const topBar = document.createElement('div');
     topBar.className = 'lesson-strip-header';
     topBar.innerHTML = `
       <span class="lsh-title">${pkIcon('book', 14)} <span class="i18n-t" data-en="LESSONS" data-km="មេរៀន">LESSONS</span></span>
       <div class="lsh-actions">
+        ${!isRei ? `
         <button type="button" class="lsh-adaptive-btn" id="lshAdaptiveBtn" title="Start Adaptive Practice" aria-label="Start Adaptive Practice">
           ${pkIcon('refresh', 12)} <span class="i18n-t" data-en="Adaptive" data-km="ការអនុវត្តបន្ស៊ាំ">Adaptive</span>
-        </button>
+        </button>` : ''}
         <span class="lsh-badge" title="${masteredCount}/${LESSONS.length} ${isKm ? 'មេរៀនបានស្ទាត់' : 'Lessons Mastered'}"><span class="lsh-badge-num">${masteredCount}/${LESSONS.length}</span> <span class="lsh-badge-txt"><span class="i18n-t" data-en="Mastered" data-km="ស្ទាត់">Mastered</span></span></span>
+        ${!isRei ? `
         <button type="button" class="lsh-expand-btn" id="lshExpandBtn" title="${isStripExpanded ? 'Compact sidebar (1 column)' : 'Expand sidebar (2 columns)'}" aria-label="Toggle sidebar width">
           ${pkIcon(isStripExpanded ? 'collapse' : 'expand', 12)}
-        </button>
+        </button>` : ''}
       </div>
     `;
     frag.appendChild(topBar);
@@ -2111,35 +2114,103 @@ function renderLessonStrip(){
     `;
     frag.appendChild(searchBar);
 
-    const hubBannerWrap = document.createElement('div');
-    hubBannerWrap.className = 'lesson-strip-banners-row';
-    hubBannerWrap.innerHTML = `
-      <button type="button" class="lsh-hub-banner" id="lshHubBanner" title="${isKm ? 'ស្វែងយល់បន្ថែមអំពី ២២២ មេរៀន និងតួអក្សរគ្រប់ទម្រង់' : 'Explore 222 Handcrafted Lessons & 100% Alphabet Coverage (Every Letter Included)'}">
-        <div class="lsh-hb-left">
-          <span class="lsh-hb-badge">
-            <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <span>222</span>
+    if(isRei){
+      // 1. Easy 3-Step Guide Banner
+      const htuGuide = document.createElement('div');
+      htuGuide.className = 'rei-how-to-use-guide';
+      htuGuide.id = 'reiHowToUseGuide';
+      htuGuide.innerHTML = `
+        <div class="rei-htu-step active">
+          <span class="rei-htu-num">1</span>
+          <span class="rei-htu-text">
+            <span class="rei-htu-main i18n-t" data-en="Pick Stage" data-km="ជ្រើសរើសវគ្គ">Pick Stage</span>
+            <span class="rei-htu-sub i18n-t" data-en="Home, Top, Bottom..." data-km="ជួរកណ្តាល, ជួរលើ...">Home, Top...</span>
           </span>
-          <div class="lsh-hb-text">
-            <span class="lsh-hb-title i18n-t" data-en="222 Lessons" data-km="២២២ មេរៀន">222 Lessons</span>
-            <span class="lsh-hb-sub i18n-t" data-en="All Letters" data-km="គ្រប់តួអក្សរ">All Letters</span>
-          </div>
         </div>
-      </button>
-      <button type="button" class="lsh-hub-banner custom" id="lshCustomBanner" title="${isKm ? 'មេរៀនផ្ទាល់ខ្លួន — បង្កើត និងហ្វឹកហាត់' : 'Custom Lessons — Craft & Practice Your Own Drills'}">
-        <div class="lsh-hb-left">
-          <span class="lsh-hb-badge custom-badge">
-            <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            <span>NEW</span>
+        <svg class="pk-icon rei-htu-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        <div class="rei-htu-step">
+          <span class="rei-htu-num">2</span>
+          <span class="rei-htu-text">
+            <span class="rei-htu-main i18n-t" data-en="Choose Drill" data-km="ជ្រើសមេរៀន">Choose Drill</span>
+            <span class="rei-htu-sub i18n-t" data-en="Click Start Drill" data-km="ចុចប៊ូតុងចាប់ផ្តើម">Click Start</span>
           </span>
-          <div class="lsh-hb-text">
-            <span class="lsh-hb-title i18n-t" data-en="Custom" data-km="ផ្ទាល់ខ្លួន">Custom</span>
-            <span class="lsh-hb-sub i18n-t" data-en="Craft &amp; Train" data-km="បង្កើត &amp; ហាត់">Craft &amp; Train</span>
-          </div>
         </div>
-      </button>
-    `;
-    frag.appendChild(hubBannerWrap);
+        <svg class="pk-icon rei-htu-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        <div class="rei-htu-step">
+          <span class="rei-htu-num">3</span>
+          <span class="rei-htu-text">
+            <span class="rei-htu-main i18n-t" data-en="Type by Guide" data-km="វាយតាមការណែនាំ">Type by Guide</span>
+            <span class="rei-htu-sub i18n-t" data-en="Watch finger & keys" data-km="មើលម្រាមដៃ & គ្រាប់ចុច">Watch keys</span>
+          </span>
+        </div>
+      `;
+      frag.appendChild(htuGuide);
+
+      // 2. Focused Stage Selector Bar
+      const curStage = (typeof reiActiveStage !== 'undefined') ? reiActiveStage : 1;
+      const stageBar = document.createElement('div');
+      stageBar.className = 'rei-strip-stages-bar';
+      stageBar.id = 'reiStripStagesBar';
+      stageBar.innerHTML = `
+        <button type="button" class="rei-stage-btn ${curStage === 1 ? 'active' : ''}" data-stage="1" title="Stage 1: Home Row Anchors & Vowels">1. Home Row</button>
+        <button type="button" class="rei-stage-btn ${curStage === 2 ? 'active' : ''}" data-stage="2" title="Stage 2: Top Row Reaches">2. Top Row</button>
+        <button type="button" class="rei-stage-btn ${curStage === 3 ? 'active' : ''}" data-stage="3" title="Stage 3: Bottom Row Reaches">3. Bottom Row</button>
+        <button type="button" class="rei-stage-btn ${curStage === 4 ? 'active' : ''}" data-stage="4" title="Stage 4: Shift Consonants & Vowels">4. Shift Keys</button>
+        <button type="button" class="rei-stage-btn ${curStage === 5 ? 'active' : ''}" data-stage="5" title="Stage 5: Subscripts & Diacritics">5. Subscripts</button>
+        <button type="button" class="rei-stage-btn ${curStage === 6 ? 'active' : ''}" data-stage="6" title="Stage 6: Word Practice">6. Words</button>
+        <button type="button" class="rei-stage-btn ${curStage === 7 ? 'active' : ''}" data-stage="7" title="Stage 7: Sentences & Flow">7. Flow</button>
+        <button type="button" class="rei-stage-btn ${curStage === 'all' ? 'active' : ''}" data-stage="all" title="View All Lessons">All</button>
+      `;
+      stageBar.addEventListener('click', (e) => {
+        const btn = e.target.closest('.rei-stage-btn');
+        if(!btn) return;
+        const sAttr = btn.dataset.stage;
+        const sNum = (sAttr === 'all') ? 'all' : parseInt(sAttr, 10);
+        reiActiveStage = sNum;
+        if(typeof window !== 'undefined'){
+          window.reiActiveStage = reiActiveStage;
+          window.__reiUserSelectedStage = true;
+        }
+        renderLessonStrip();
+      });
+      frag.appendChild(stageBar);
+
+      // 3. Stage Pedagogical Tip Banner with Stage Progress and Quick Action
+      const stageTipBanner = document.createElement('div');
+      stageTipBanner.className = 'rei-stage-tip-banner';
+      stageTipBanner.id = 'reiStageTipBanner';
+      frag.appendChild(stageTipBanner);
+    } else {
+      const hubBannerWrap = document.createElement('div');
+      hubBannerWrap.className = 'lesson-strip-banners-row';
+      hubBannerWrap.innerHTML = `
+        <button type="button" class="lsh-hub-banner" id="lshHubBanner" title="${isKm ? 'ស្វែងយល់បន្ថែមអំពី ២២២ មេរៀន និងតួអក្សរគ្រប់ទម្រង់' : 'Explore 222 Handcrafted Lessons & 100% Alphabet Coverage (Every Letter Included)'}">
+          <div class="lsh-hb-left">
+            <span class="lsh-hb-badge">
+              <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span>222</span>
+            </span>
+            <div class="lsh-hb-text">
+              <span class="lsh-hb-title i18n-t" data-en="222 Lessons" data-km="២២២ មេរៀន">222 Lessons</span>
+              <span class="lsh-hb-sub i18n-t" data-en="All Letters" data-km="គ្រប់តួអក្សរ">All Letters</span>
+            </div>
+          </div>
+        </button>
+        <button type="button" class="lsh-hub-banner custom" id="lshCustomBanner" title="${isKm ? 'មេរៀនផ្ទាល់ខ្លួន — បង្កើត និងហ្វឹកហាត់' : 'Custom Lessons — Craft & Practice Your Own Drills'}">
+          <div class="lsh-hb-left">
+            <span class="lsh-hb-badge custom-badge">
+              <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <span>NEW</span>
+            </span>
+            <div class="lsh-hb-text">
+              <span class="lsh-hb-title i18n-t" data-en="Custom" data-km="ផ្ទាល់ខ្លួន">Custom</span>
+              <span class="lsh-hb-sub i18n-t" data-en="Craft &amp; Train" data-km="បង្កើត &amp; ហាត់">Craft &amp; Train</span>
+            </div>
+          </div>
+        </button>
+      `;
+      frag.appendChild(hubBannerWrap);
+    }
 
     const adaptiveCard = document.createElement('div');
     adaptiveCard.className = 'adaptive-sidebar-card';
@@ -2165,11 +2236,36 @@ function renderLessonStrip(){
     const bodyEl = document.createElement('div');
     bodyEl.className = 'lesson-strip-body';
     bodyEl.id = 'lessonStripBody';
-    bodyEl.appendChild(adaptiveCard);
+    if(!isRei){
+      bodyEl.appendChild(adaptiveCard);
+    }
+
+    let lessonsToRender = LESSONS;
+    let nextRecommendedId = null;
+
+    if(isRei && typeof reiActiveStage !== 'undefined' && reiActiveStage !== 'all'){
+      const curStageNum = (typeof reiActiveStage !== 'undefined') ? reiActiveStage : 1;
+      const activeStageDef = (typeof REI_STAGE_CONFIG !== 'undefined' && REI_STAGE_CONFIG.find(s => s.id === curStageNum)) || null;
+      if(activeStageDef && typeof matchReiStageLevel === 'function'){
+        lessonsToRender = LESSONS.filter(def => matchReiStageLevel(def.level, activeStageDef));
+      }
+      for(const l of lessonsToRender){
+        const isLocked = isLessonLocked(l.id);
+        const best = getLessonBest(l.id);
+        const isCompleted = best && (best.passed || best.accuracy >= (l.threshold || 85));
+        if(!isLocked && !isCompleted){
+          nextRecommendedId = l.id;
+          break;
+        }
+      }
+    }
 
     let lastLevel = null;
     let listEl = null;
-    LESSONS.forEach((def, idx)=>{
+    lessonsToRender.forEach((def, idx)=>{
+      if(isRei && typeof reiActiveStage !== 'undefined' && reiActiveStage !== 'all' && collapsedLevels){
+        collapsedLevels.delete(String(def.level));
+      }
       if(def.level !== lastLevel){
         const lv = LEVELS.find(l=> String(l.id) === String(def.level));
         const collapsed = collapsedLevels.has(String(def.level));
@@ -2203,10 +2299,18 @@ function renderLessonStrip(){
         lastLevel = def.level;
       }
       const isBonusCard = !!def.isBonus;
+      const isNextRecommended = isRei && (def.id === nextRecommendedId);
       const card = document.createElement('div');
       const locked = isLessonLocked(def.id);
-      card.className = 'lesson-card' + (isBonusCard ? ' bonus-card' : '') + (locked ? ' locked' : '') + (currentLesson && currentLesson.id===def.id ? ' active' : '');
+      card.className = 'lesson-card' + (isBonusCard ? ' bonus-card' : '') + (locked ? ' locked' : '') + (currentLesson && currentLesson.id===def.id ? ' active' : '') + (isNextRecommended ? ' next-recommended' : '');
       card.dataset.lesson = def.id;
+
+      const nextBadgeHtml = isNextRecommended
+        ? `<span class="rei-next-tag"><svg class="pk-icon" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg> <span>${isKm ? 'បន្ទាប់' : 'NEXT'}</span></span>`
+        : '';
+      const startBtnHtml = isNextRecommended
+        ? `<button type="button" class="rei-card-start-btn" aria-label="Start this drill"><svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg> <span>${isKm ? 'ចាប់ផ្តើម' : 'Start'}</span></button>`
+        : '';
 
       const examplesHtml = def.examples && def.examples.length
         ? `<div class="lesson-card-examples"><span class="lce-lbl">${isKm ? 'ឧទាហរណ៍៖' : 'Ex:'}</span> ${def.examples.slice(0, 3).map(ex=>`<span class="lce-chip">${ex}</span>`).join(' ')}</div>`
@@ -2226,8 +2330,10 @@ function renderLessonStrip(){
           <div class="lesson-card-head">
             <span class="lesson-card-title">${def.title}</span>
             <span class="lesson-card-type type-${def.type}">${def.type}</span>
+            ${nextBadgeHtml}
             ${bonusTag}
             ${statusHtml}
+            ${startBtnHtml}
           </div>
           <div class="lesson-card-sub">${def.subtitle}</div>
           ${examplesHtml}
@@ -2236,6 +2342,34 @@ function renderLessonStrip(){
       listEl.appendChild(card);
     });
 
+    if(isRei && typeof reiActiveStage !== 'undefined' && reiActiveStage !== 'all' && lessonsToRender.length > 0){
+      const allStageDone = lessonsToRender.every(l => {
+        const b = getLessonBest(l.id);
+        return b && (b.passed || b.accuracy >= (l.threshold || 85));
+      });
+      if(allStageDone && reiActiveStage < 7){
+        const nextStgDef = typeof REI_STAGE_CONFIG !== 'undefined' ? REI_STAGE_CONFIG.find(s => s.id === reiActiveStage + 1) : null;
+        const nextName = nextStgDef ? (isKm ? nextStgDef.nameKm : nextStgDef.nameEn) : `Stage ${reiActiveStage + 1}`;
+        const advBanner = document.createElement('div');
+        advBanner.className = 'rei-stage-complete-card';
+        advBanner.innerHTML = `
+          <div class="rscc-text">
+            <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <div>
+              <strong>${isKm ? 'បានបញ្ចប់វគ្គនេះជោគជ័យ!' : 'Stage Completed!'}</strong>
+              <div class="rscc-sub">${isKm ? 'ត្រៀមខ្លួនសម្រាប់ ' + nextName : 'Ready for ' + nextName}</div>
+            </div>
+          </div>
+          <button type="button" class="rst-advance-btn" data-next-stage="${reiActiveStage + 1}">
+            <span>${isKm ? 'បន្តទៅ ' + nextName : 'Advance to ' + nextName}</span>
+            <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        `;
+        bodyEl.appendChild(advBanner);
+      }
+    }
+
+    if(!isRei){
     // Render Crafted Lessons Section at the bottom of the drawer
     let customLessons = [];
     if(typeof PK_CUSTOM_LESSONS !== 'undefined' && typeof PK_CUSTOM_LESSONS.getAll === 'function'){
@@ -2330,6 +2464,7 @@ function renderLessonStrip(){
     }
     bodyEl.appendChild(craftList);
 
+    } // end if(!isRei) for custom lessons
     frag.appendChild(bodyEl);
     lessonStrip.replaceChildren(frag);
     lessonStrip.removeAttribute('hidden');
@@ -2337,6 +2472,11 @@ function renderLessonStrip(){
     lessonStrip.classList.remove('minimized');
     lessonStrip.classList.toggle('expanded', isStripExpanded);
 
+    if(isRei){
+      const curStage = (typeof reiActiveStage !== 'undefined') ? reiActiveStage : 1;
+      if(typeof updateReiStageTip === 'function') updateReiStageTip(curStage);
+      if(typeof updateReiStageBadges === 'function') updateReiStageBadges();
+    }
     if(typeof updateMasteryStat === 'function') updateMasteryStat();
   } catch(err){
     console.error('renderLessonStrip error:', err);
@@ -2449,6 +2589,36 @@ lessonStrip.addEventListener('click', (e)=>{
     return;
   }
 
+  // If clicked Rei quick start or stage advance button
+  const quickStartBtn = e.target.closest('.rst-quick-start-btn');
+  if(quickStartBtn){
+    const lId = quickStartBtn.dataset.lessonId;
+    const def = LESSONS.find(l => String(l.id) === String(lId));
+    if(def){
+      isStripExpanded = false;
+      startLesson(def, true);
+    }
+    return;
+  }
+  const advanceBtn = e.target.closest('.rst-advance-btn');
+  if(advanceBtn){
+    const nextStg = parseInt(advanceBtn.dataset.nextStage, 10);
+    if(nextStg && nextStg <= 7){
+      reiActiveStage = nextStg;
+      if(typeof window !== 'undefined'){
+        window.reiActiveStage = reiActiveStage;
+        window.__reiUserSelectedStage = true;
+      }
+      renderLessonStrip();
+      const sBar = document.getElementById('reiStripStagesBar');
+      if(sBar){
+        const activeBtn = sBar.querySelector(`.rei-stage-btn[data-stage="${nextStg}"]`);
+        if(activeBtn && typeof activeBtn.scrollIntoView === 'function') activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+      }
+    }
+    return;
+  }
+
   // If clicked level accordion header
   const header = e.target.closest('.lesson-level-header');
   if(header){
@@ -2495,9 +2665,12 @@ lessonStrip.addEventListener('click', (e)=>{
 
   if(isLessonLocked(id)){
     const def = LESSONS.find(l => String(l.id) === String(id));
+    const isKm = document.documentElement.classList.contains('site-km-mode');
+    card.classList.add('shake');
+    setTimeout(() => card.classList.remove('shake'), 500);
+
     if(def && def.isBonus){
       const completed = countCompletedBaseLessons();
-      const isKm = document.documentElement.classList.contains('site-km-mode');
       if(!areAll222LessonsUnlocked()){
         const msgEn = `Grandmaster Vault is locked. Complete all 222 base lessons to open (${completed}/222 finished).`;
         const msgKm = `ឃ្លាំងមេរៀនពិសេសត្រូវបានចាក់សោ។ សូមបញ្ចប់ ២២២ មេរៀនមូលដ្ឋានជាមុនសិន (${completed}/២២២ បានបញ្ចប់)។`;
@@ -2510,6 +2683,17 @@ lessonStrip.addEventListener('click', (e)=>{
         if(typeof showToast === 'function'){
           showToast(pkIcon('lock', 16), isKm ? 'មេរៀនបន្ទាប់ជាប់សោ' : 'Sequential Unlock', isKm ? msgKm : msgEn);
         }
+      }
+    } else {
+      const prevReqId = def && def.unlockRequirements && def.unlockRequirements.previousLesson;
+      const idx = LESSONS.findIndex(l => String(l.id) === String(id));
+      const prevId = prevReqId || (idx > 0 ? LESSONS[idx - 1].id : null);
+      const prevDef = prevId ? LESSONS.find(l => String(l.id) === String(prevId)) : null;
+      const prevName = prevDef ? (isKm ? (prevDef.titleKm || prevDef.title) : (prevDef.title || prevDef.id)) : (isKm ? 'មេរៀនមុន' : 'previous lesson');
+      const msgEn = `Complete "${prevName}" first to unlock this lesson.`;
+      const msgKm = `សូមបញ្ចប់ "${prevName}" ជាមុនសិន ដើម្បីដោះសោមេរៀននេះ។`;
+      if(typeof showToast === 'function'){
+        showToast(pkIcon('lock', 16), isKm ? 'មេរៀនជាប់សោ' : 'Lesson Locked', isKm ? msgKm : msgEn);
       }
     }
     return;
@@ -2667,8 +2851,16 @@ function updateLessonKeyHighlight(){
   highlightedKeyId = null;
   highlightedModifierKeyId = null;
 
-  if(!lessonActive || !currentLesson){ setActiveFinger(null); return; }
-  if(lessonIndex >= lessonChars.length){ setActiveFinger(null); return; }
+  if(!lessonActive || !currentLesson){
+    setActiveFinger(null);
+    if(typeof updateReiFingerReachGuide === 'function') updateReiFingerReachGuide(null);
+    return;
+  }
+  if(lessonIndex >= lessonChars.length){
+    setActiveFinger(null);
+    if(typeof updateReiFingerReachGuide === 'function') updateReiFingerReachGuide(null);
+    return;
+  }
   const id = lessonKeyIds[lessonIndex];
   const layer = lessonLayers[lessonIndex] || currentLesson.layer || 'base';
   if(id && keyEls[id]){
@@ -2683,9 +2875,370 @@ function updateLessonKeyHighlight(){
     }
   }
   setActiveFinger(id, layer);
+  if(typeof updateReiFingerReachGuide === 'function'){
+    updateReiFingerReachGuide(id, layer, lessonChars ? lessonChars[lessonIndex] : '');
+  }
 }
 window.updateLessonKeyHighlight = updateLessonKeyHighlight;
 window.highlightLessonTarget = updateLessonKeyHighlight;
+
+/* ============================================================
+   Rei Tutor Pedagogical Aids: Stage Guidance & Finger Reaches
+   ============================================================ */
+const REI_STAGE_CONFIG = [
+  {
+    id: 1,
+    nameEn: '1. Home Row',
+    nameKm: '១. ជួរកណ្តាល',
+    titleEn: 'Stage 1 · Home Row Foundation',
+    titleKm: 'វគ្គ ១ · គ្រឹះជួរកណ្តាល',
+    descEn: 'Anchor left index on F (ថ) and right index on J (ញ). Return fingers to home keys after every stroke without looking down.',
+    descKm: 'ដាក់ម្រាមចង្អុលឆ្វេងលើ F (ថ) និងចង្អុលស្តាំលើ J (ញ)។ លើកកដៃបន្តិច ហើយត្រឡប់ម្រាមដៃមកជួរកណ្តាលវិញជានិច្ច។',
+    prefixes: ['L00', 'L01'],
+    legacyLevels: ['1']
+  },
+  {
+    id: 2,
+    nameEn: '2. Top Row',
+    nameKm: '២. ជួរលើ',
+    titleEn: 'Stage 2 · Top Row Reaches',
+    titleKm: 'វគ្គ ២ · ចលនាឈានជួរលើ',
+    descEn: 'Reach upward smoothly with natural finger arcs to E, R, T, Y, U, I, O, P without shifting your wrists or resting palms.',
+    descKm: 'ឈានម្រាមដៃឡើងជួរលើថ្នមៗតាមរាងកោងធម្មជាតិទៅកាន់ E, R, T, Y, U, I, O, P ដោយមិនកម្រើកកដៃ។',
+    prefixes: ['L02', 'L03'],
+    legacyLevels: ['2', '3']
+  },
+  {
+    id: 3,
+    nameEn: '3. Bottom Row',
+    nameKm: '៣. ជួរក្រោម',
+    titleEn: 'Stage 3 · Bottom Row Reaches',
+    titleKm: 'វគ្គ ៣ · ចលនាឈានជួរក្រោម',
+    descEn: 'Curl fingers gently down into Z, X, C, V, B, N, M. Keep shoulders relaxed and maintain a steady, light cadence.',
+    descKm: 'កោងម្រាមដៃចុះជួរក្រោមថ្នមៗទៅកាន់ Z, X, C, V, B, N, M។ រក្សាស្មាឱ្យធូរស្រាល និងវាយដោយចង្វាក់ស្មើ។',
+    prefixes: ['L04'],
+    legacyLevels: ['4']
+  },
+  {
+    id: 4,
+    nameEn: '4. Shift Keys',
+    nameKm: '៤. Shift',
+    titleEn: 'Stage 4 · Shift Key Mastery',
+    titleKm: 'វគ្គ ៤ · ក្បួនប្រើគ្រាប់ចុច Shift',
+    descEn: 'Opposite Pinky Rule: For right-hand keys, hold Left Shift with left pinky. For left-hand keys, hold Right Shift with right pinky.',
+    descKm: 'ក្បួនប្រើ Shift ផ្ទុយដៃ៖ ចុចអក្សរដៃស្តាំ ចុច Shift ឆ្វេង។ ចុចអក្សរដៃឆ្វេង ចុច Shift ស្តាំ។',
+    prefixes: ['L06', 'L07'],
+    legacyLevels: ['5', '6']
+  },
+  {
+    id: 5,
+    nameEn: '5. Subscripts',
+    nameKm: '៥. ជើងអក្សរ',
+    titleEn: 'Stage 5 · Subscripts & Coeng (ជើងអក្សរ)',
+    titleKm: 'វគ្គ ៥ · ជើងអក្សរ និងសញ្ញាពិសេស',
+    descEn: 'Subscript Rule: Press the Coeng Key (Space in Standard, J in NiDA) followed by any consonant (e.g. Space + ក = ្ក).',
+    descKm: 'រូបមន្តជើងអក្សរ៖ ចុចគ្រាប់ចុចជើង (Space ក្នុង Standard, J ក្នុង NiDA) រួចចុចព្យញ្ជនៈ (ឧ. Space + ក = ្ក)។',
+    prefixes: ['L05', 'L08'],
+    legacyLevels: ['7', '8']
+  },
+  {
+    id: 6,
+    nameEn: '6. Words',
+    nameKm: '៦. ពាក្យ',
+    titleEn: 'Stage 6 · Word Building Practice',
+    titleKm: 'វគ្គ ៦ · ការផ្សំពាក្យពេញលេញ',
+    descEn: 'Combine consonants, dependent vowels, and subscripts to form everyday Cambodian words with rhythmic flow.',
+    descKm: 'ផ្សំព្យញ្ជនៈ ស្រៈ និងជើងអក្សរ ដើម្បីបង្កើតពាក្យខ្មែរទូទៅដោយចង្វាក់រលូន។',
+    prefixes: ['L09', 'L10'],
+    legacyLevels: ['9', '10']
+  },
+  {
+    id: 7,
+    nameEn: '7. Flow',
+    nameKm: '៧. រលូន',
+    titleEn: 'Stage 7 · Flow, Speed & Endurance',
+    titleKm: 'វគ្គ ៧ · ភាពរលូន និងល្បឿន',
+    descEn: 'Type complete sentences, proverbs, and paragraphs without pausing. Prioritize 95%+ precision; velocity follows naturally.',
+    descKm: 'ផ្តោតលើភាពសុក្រឹត ៩៥%+ ជាចម្បង ល្បឿននឹងកើនឡើងដោយស្វ័យប្រវត្តិតាមធម្មជាតិ។',
+    prefixes: ['L11', 'L12', 'L13', 'L14', 'L15', 'L16'],
+    legacyLevels: ['11', '12', '13', '14', '15', '16']
+  }
+];
+
+let reiActiveStage = 1;
+if(typeof window !== 'undefined'){
+  window.REI_STAGE_CONFIG = REI_STAGE_CONFIG;
+  window.reiActiveStage = reiActiveStage;
+}
+
+function matchReiStageLevel(levelVal, stageDef){
+  const lv = String(levelVal || '');
+  if(!stageDef) return false;
+  const prefixMatch = (stageDef.prefixes || []).some(p => lv.endsWith('-' + p) || lv.startsWith(p + '-') || lv.includes('-' + p + '-') || lv === p);
+  if(prefixMatch) return true;
+  const legacyMatch = (stageDef.legacyLevels || []).some(k => lv === k);
+  return legacyMatch;
+}
+if(typeof window !== 'undefined') window.matchReiStageLevel = matchReiStageLevel;
+
+const REI_STAGE_TIPS = {
+  1: {
+    titleEn: 'Stage 1 · Home Row Foundation',
+    titleKm: 'វគ្គ ១ · គ្រឹះជួរកណ្តាល',
+    descEn: 'Anchor left index on F (ថ) and right index on J (ញ). Return fingers to home keys after every stroke without looking down.',
+    descKm: 'ដាក់ម្រាមចង្អុលឆ្វេងលើ F (ថ) និងចង្អុលស្តាំលើ J (ញ)។ លើកកដៃបន្តិច ហើយត្រឡប់ម្រាមដៃមកជួរកណ្តាលវិញជានិច្ច។'
+  },
+  2: {
+    titleEn: 'Stage 2 · Top Row Reaches',
+    titleKm: 'វគ្គ ២ · ចលនាឈានជួរលើ',
+    descEn: 'Reach upward smoothly with natural finger arcs to E, R, T, Y, U, I, O, P without shifting your wrists or resting palms.',
+    descKm: 'ឈានម្រាមដៃឡើងជួរលើថ្នមៗតាមរាងកោងធម្មជាតិទៅកាន់ E, R, T, Y, U, I, O, P ដោយមិនកម្រើកកដៃ។'
+  },
+  3: {
+    titleEn: 'Stage 3 · Bottom Row Reaches',
+    titleKm: 'វគ្គ ៣ · ចលនាឈានជួរក្រោម',
+    descEn: 'Curl fingers gently down into Z, X, C, V, B, N, M. Keep shoulders relaxed and maintain a steady, light cadence.',
+    descKm: 'កោងម្រាមដៃចុះជួរក្រោមថ្នមៗទៅកាន់ Z, X, C, V, B, N, M។ រក្សាស្មាឱ្យធូរស្រាល និងវាយដោយចង្វាក់ស្មើ។'
+  },
+  4: {
+    titleEn: 'Stage 4 · Shift Key Mastery',
+    titleKm: 'វគ្គ ៤ · ក្បួនប្រើគ្រាប់ចុច Shift',
+    descEn: 'Opposite Pinky Rule: For right-hand keys, hold Left Shift with left pinky. For left-hand keys, hold Right Shift with right pinky.',
+    descKm: 'ក្បួនប្រើ Shift ផ្ទុយដៃ៖ ចុចអក្សរដៃស្តាំ ចុច Shift ឆ្វេង។ ចុចអក្សរដៃឆ្វេង ចុច Shift ស្តាំ។'
+  },
+  5: {
+    titleEn: 'Stage 5 · Subscripts & Coeng (ជើងអក្សរ)',
+    titleKm: 'វគ្គ ៥ · ជើងអក្សរ និងសញ្ញាពិសេស',
+    descEn: 'Subscript Rule: Press the Coeng Key (Space in Standard, J in NiDA) followed by any consonant (e.g. Space + ក = ្ក).',
+    descKm: 'រូបមន្តជើងអក្សរ៖ ចុចគ្រាប់ចុចជើង (Space ក្នុង Standard, J ក្នុង NiDA) រួចចុចព្យញ្ជនៈ (ឧ. Space + ក = ្ក)។'
+  },
+  6: {
+    titleEn: 'Stage 6 · Word Building Practice',
+    titleKm: 'វគ្គ ៦ · ការផ្សំពាក្យពេញលេញ',
+    descEn: 'Combine consonants, dependent vowels, and subscripts to form everyday Cambodian words with rhythmic flow.',
+    descKm: 'ផ្សំព្យញ្ជនៈ ស្រៈ និងជើងអក្សរ ដើម្បីបង្កើតពាក្យខ្មែរទូទៅដោយចង្វាក់រលូន។'
+  },
+  7: {
+    titleEn: 'Stage 7 · Flow, Speed & Endurance',
+    titleKm: 'វគ្គ ៧ · ភាពរលូន និងល្បឿន',
+    descEn: 'Type complete sentences, proverbs, and paragraphs without pausing. Prioritize 95%+ precision; velocity follows naturally.',
+    descKm: 'ផ្តោតលើភាពសុក្រឹត ៩៥%+ ជាចម្បង ល្បឿននឹងកើនឡើងដោយស្វ័យប្រវត្តិតាមធម្មជាតិ។'
+  }
+};
+
+function updateReiStageTip(stageNum){
+  if(typeof document === 'undefined') return;
+  const banner = document.getElementById('reiStageTipBanner');
+  if(!banner) return;
+  const isKm = document.documentElement && document.documentElement.classList && document.documentElement.classList.contains('site-km-mode');
+  
+  if(stageNum === 'all'){
+    banner.innerHTML = `
+      <div class="rst-header">
+        <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        <span class="rst-title">${isKm ? 'មេរៀនទាំងអស់' : 'All Curriculum Lessons'}</span>
+      </div>
+      <p class="rst-desc">${isKm ? 'មើលមេរៀនទាំងអស់តាមកម្រិតលំដាប់លំដោយ។' : 'Browsing full curriculum across all levels.'}</p>
+    `;
+    return;
+  }
+
+  const sDef = REI_STAGE_CONFIG.find(s => s.id === stageNum) || REI_STAGE_CONFIG[0];
+  const title = isKm ? sDef.titleKm : sDef.titleEn;
+  const desc = isKm ? sDef.descKm : sDef.descEn;
+
+  const stageLessons = (typeof LESSONS !== 'undefined' ? LESSONS : []).filter(l => matchReiStageLevel(l.level, sDef));
+  let completedCount = 0;
+  let nextDrill = null;
+
+  stageLessons.forEach(l => {
+    const best = (typeof getLessonBest === 'function') ? getLessonBest(l.id) : null;
+    const isCompleted = best && (best.passed || best.accuracy >= (l.threshold || 85));
+    if(isCompleted) {
+      completedCount++;
+    } else if(!nextDrill && typeof isLessonLocked === 'function' && !isLessonLocked(l.id)) {
+      nextDrill = l;
+    }
+  });
+
+  const total = stageLessons.length;
+  const pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+  const isAllDone = completedCount >= total && total > 0;
+
+  let actionHtml = '';
+  if(isAllDone){
+    actionHtml = `
+      <div class="rst-action-row">
+        <span class="rst-done-badge">
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>${isKm ? 'បានបញ្ចប់វគ្គនេះជោគជ័យ!' : 'Stage Complete!'}</span>
+        </span>
+        ${stageNum < 7 ? `
+        <button type="button" class="rst-advance-btn" data-next-stage="${stageNum + 1}">
+          <span>${isKm ? 'បន្តទៅវគ្គ ' + (stageNum + 1) : 'Advance to Stage ' + (stageNum + 1)}</span>
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>` : ''}
+      </div>
+    `;
+  } else if(nextDrill){
+    const safeTitle = (typeof escapeHtml === 'function') ? escapeHtml(nextDrill.title) : nextDrill.title;
+    actionHtml = `
+      <div class="rst-action-row">
+        <button type="button" class="rst-quick-start-btn" data-lesson-id="${nextDrill.id}">
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>${isKm ? 'ចាប់ផ្តើម៖ ' : 'Start: '}${safeTitle}</span>
+        </button>
+      </div>
+    `;
+  }
+
+  banner.innerHTML = `
+    <div class="rst-top">
+      <div class="rst-header">
+        <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        <span class="rst-title">${title}</span>
+      </div>
+      <span class="rst-progress-pill">${completedCount}/${total} (${pct}%)</span>
+    </div>
+    <p class="rst-desc">${desc}</p>
+    <div class="rst-progress-track">
+      <div class="rst-progress-bar" style="width:${pct}%"></div>
+    </div>
+    ${actionHtml}
+  `;
+}
+
+
+function isReiStageLocked(stageNum) {
+  if (stageNum === 'all' || stageNum === 1 || stageNum === '1') return false;
+  if (typeof allLessonsUnlocked !== 'undefined' && allLessonsUnlocked) return false;
+  if (typeof areAll222LessonsUnlocked === 'function' && areAll222LessonsUnlocked()) return false;
+  const num = parseInt(stageNum, 10);
+  if (isNaN(num) || num <= 1) return false;
+  
+  const sDef = (typeof REI_STAGE_CONFIG !== 'undefined') ? REI_STAGE_CONFIG.find(s => s.id === num) : null;
+  if (!sDef) return false;
+  const stageLessons = (typeof LESSONS !== 'undefined' ? LESSONS : []).filter(l => matchReiStageLevel(l.level, sDef));
+  if (!stageLessons.length) return false;
+  
+  // A stage is locked if the very first lesson in this stage is locked by curriculum progression
+  if (typeof isLessonLocked === 'function') {
+    return isLessonLocked(stageLessons[0].id);
+  }
+  return false;
+}
+window.isReiStageLocked = isReiStageLocked;
+
+function updateReiStageBadges(){
+  if(typeof document === 'undefined') return;
+  const stageBar = document.getElementById('reiStripStagesBar');
+  if(!stageBar) return;
+  const isKm = document.documentElement && document.documentElement.classList && document.documentElement.classList.contains('site-km-mode');
+
+  stageBar.querySelectorAll('.rei-stage-btn').forEach(btn => {
+    const sAttr = btn.dataset.stage;
+    if(sAttr === 'all'){
+      btn.textContent = isKm ? 'ទាំងអស់' : 'All';
+      return;
+    }
+    const sNum = parseInt(sAttr, 10);
+    const sDef = REI_STAGE_CONFIG.find(s => s.id === sNum);
+    if(!sDef) return;
+    const stageLessons = (typeof LESSONS !== 'undefined' ? LESSONS : []).filter(l => matchReiStageLevel(l.level, sDef));
+    if(!stageLessons.length) return;
+    let completedCount = 0;
+    stageLessons.forEach(l => {
+      const best = (typeof getLessonBest === 'function') ? getLessonBest(l.id) : null;
+      if(best && (best.passed || best.accuracy >= (l.threshold || 85))) {
+        completedCount++;
+      }
+    });
+    const sName = isKm ? sDef.nameKm : sDef.nameEn;
+    if(completedCount >= stageLessons.length && stageLessons.length > 0){
+      btn.innerHTML = `${sName} <span class="rei-stage-badge check" title="${isKm ? 'បានបញ្ចប់វគ្គនេះ' : 'Stage Completed'}"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>`;
+    } else if(completedCount > 0){
+      btn.innerHTML = `${sName} <span class="rei-stage-badge">${completedCount}/${stageLessons.length}</span>`;
+    } else {
+      btn.textContent = sName;
+    }
+  });
+}
+
+const FINGER_REACH_INFO = {
+  lp: { en: 'Left Pinky', km: 'ដៃឆ្វេង · ម្រាមកូន', color: '#ec4899' },
+  lr: { en: 'Left Ring Finger', km: 'ដៃឆ្វេង · ម្រាមនាង', color: '#8b5cf6' },
+  lm: { en: 'Left Middle Finger', km: 'ដៃឆ្វេង · ម្រាមកណ្ដាល', color: '#3b82f6' },
+  li: { en: 'Left Index Finger', km: 'ដៃឆ្វេង · ម្រាមចង្អុល', color: '#10b981' },
+  lt: { en: 'Left Thumb', km: 'ដៃឆ្វេង · មេដៃ', color: '#f59e0b' },
+  rt: { en: 'Right Thumb', km: 'ដៃស្ដាំ · មេដៃ', color: '#f59e0b' },
+  ri: { en: 'Right Index Finger', km: 'ដៃស្ដាំ · ម្រាមចង្អុល', color: '#10b981' },
+  rm: { en: 'Right Middle Finger', km: 'ដៃស្ដាំ · ម្រាមកណ្ដាល', color: '#3b82f6' },
+  rr: { en: 'Right Ring Finger', km: 'ដៃស្ដាំ · ម្រាមនាង', color: '#8b5cf6' },
+  rp: { en: 'Right Pinky', km: 'ដៃស្ដាំ · ម្រាមកូន', color: '#ec4899' }
+};
+
+function updateReiFingerReachGuide(keyId, layer, char){
+  if(typeof document === 'undefined') return;
+  const isKm = document.documentElement && document.documentElement.classList && document.documentElement.classList.contains('site-km-mode');
+  let hud = document.getElementById('reiFingerReachHud');
+  if(!hud){
+    const panel = document.getElementById('lessonPanel');
+    if(!panel) return;
+    hud = document.createElement('div');
+    hud.className = 'rei-finger-reach-hud';
+    hud.id = 'reiFingerReachHud';
+    hud.setAttribute('aria-live', 'polite');
+    const charRow = document.getElementById('lessonCharRow');
+    if(charRow && charRow.parentNode === panel){
+      panel.insertBefore(hud, charRow);
+    } else {
+      panel.appendChild(hud);
+    }
+  }
+
+  if(!keyId){
+    hud.innerHTML = `
+      <span class="rei-reach-dot rest" style="background:#94a3b8;"></span>
+      <span class="rei-reach-label">${isKm ? 'ត្រៀមម្រាមដៃលើជួរដើម (F & J)' : 'Home Row Resting (Index anchors on F & J)'}</span>
+    `;
+    return;
+  }
+
+  const fid = (typeof KEY_FINGER !== 'undefined' && KEY_FINGER[keyId]) || 'li';
+  const fin = FINGER_REACH_INFO[fid] || { en: 'Index Finger', km: 'ម្រាមចង្អុល', color: '#10b981' };
+  const keyLabel = (keyId === 'space') ? 'Space' : keyId.toUpperCase();
+  const safeChar = (char && typeof escapeHtml === 'function') ? escapeHtml(char) : (char || '');
+  const charDisplay = safeChar ? `<span class="rei-reach-char">${safeChar}</span>` : '';
+  const isShift = layer === 'shift';
+
+  let actionText = '';
+  if(isShift){
+    actionText = isKm ? 'ចុចជាមួយ Shift' : 'Hold Shift + Key';
+  } else if(keyId === 'f' || keyId === 'j'){
+    actionText = isKm ? 'គ្រាប់ចុចដើម' : 'Home Anchor Key';
+  } else if(keyId === 'space'){
+    actionText = isKm ? 'ដកឃ្លា / ជើង' : 'Spacebar';
+  } else {
+    actionText = isKm ? 'ចុចផ្ទាល់' : 'Direct Strike';
+  }
+
+  hud.innerHTML = `
+    <span class="rei-reach-dot" style="background:${fin.color}; box-shadow: 0 0 8px ${fin.color};"></span>
+    <span class="rei-reach-finger" style="color:${fin.color}; font-weight:700;">${isKm ? fin.km : fin.en}</span>
+    <span class="rei-reach-arrow" aria-hidden="true">→</span>
+    <span class="rei-reach-key-badge">${isShift ? '<span class="rei-reach-shift">Shift +</span> ' : ''}${keyLabel}</span>
+    ${charDisplay}
+    <span class="rei-reach-action">(${actionText})</span>
+  `;
+}
+
+if(typeof window !== 'undefined'){
+  window.updateReiFingerReachGuide = updateReiFingerReachGuide;
+  window.updateReiStageTip = updateReiStageTip;
+  window.updateReiStageBadges = updateReiStageBadges;
+  window.REI_STAGE_TIPS = REI_STAGE_TIPS;
+  window.FINGER_REACH_INFO = FINGER_REACH_INFO;
+}
 
 
 /* ============================================================

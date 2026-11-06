@@ -3033,7 +3033,12 @@
     animation: modal-backdrop-spring-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     will-change: opacity, backdrop-filter;
   }
-  .modal-backdrop[hidden]{ display:none; }
+  .modal-backdrop[hidden] {
+    display: none !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
 
   .modal-backdrop.is-closing{
     animation: modal-backdrop-spring-out 0.22s cubic-bezier(0.4, 0, 1, 1) forwards !important;
@@ -6809,6 +6814,55 @@ html.theme-glass .top-actions button.active {
 }
 .hero-version-tag:active {
   transform: scale(0.96);
+}
+
+/* Hero Edition Tag (Studio Pro & Rei) */
+.hero-edition-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', system-ui, -apple-system, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  margin: 0 4px;
+  vertical-align: middle;
+  border-radius: var(--radius-xs, 4px);
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(14, 165, 233, 0.08));
+  border: 1px solid rgba(56, 189, 248, 0.55);
+  color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+  line-height: 1.2;
+}
+.hero-edition-tag.rei {
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.22), rgba(255, 157, 46, 0.08));
+  border-color: rgba(255, 209, 102, 0.55);
+  color: var(--gold-bright, #ffd166);
+  box-shadow: 0 0 10px rgba(255, 209, 102, 0.25);
+}
+html.theme-light .hero-edition-tag {
+  background: rgba(2, 132, 199, 0.12);
+  border-color: #0284c7;
+  color: #0369a1;
+}
+html.theme-light .hero-edition-tag.rei {
+  background: rgba(217, 119, 6, 0.12);
+  border-color: #d97706;
+  color: #92400e;
+}
+
+.top-rei-logo-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+  transition: transform 0.2s ease;
+}
+.rei-nav-btn:hover .top-rei-logo-icon {
+  transform: scale(1.15);
 }
 
 .site-footer-version-tag {

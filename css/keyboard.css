@@ -252,7 +252,7 @@
     border-bottom:4px solid #2e1065 !important;
     box-shadow:0 0 0 3px rgba(139, 92, 246, 0.35), 0 8px 20px rgba(124, 58, 237, 0.5) !important;
     animation:lesson-target-pulse 1.3s ease-in-out infinite;
-    z-index:2;
+    z-index:4;
   }
   .key.lesson-target .main,
   .key.lesson-target .sub,
@@ -281,7 +281,7 @@
     border-color:#38bdf8 !important;
     border-bottom:4px solid #0c4a6e !important;
     box-shadow:0 0 0 3px rgba(56, 189, 248, 0.35), 0 4px 14px rgba(2, 132, 199, 0.45) !important;
-    z-index:2;
+    z-index:4;
   }
 
     /* finger guide: illustrated hand overlay showing correct-finger technique */
@@ -291,7 +291,7 @@
     width:100%;
     height:100%;
     pointer-events:none;
-    z-index:5;
+    z-index:25 !important;
     overflow:visible;
     opacity:var(--hands-opacity, 0.44);
     transition:opacity .35s ease, visibility .35s ease;
