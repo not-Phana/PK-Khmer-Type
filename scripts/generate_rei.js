@@ -100,7 +100,6 @@ function buildReiHtml(isSubdir = false) {
       <span class="rei-htu-num">1</span>
       <span class="rei-htu-text">
         <span class="rei-htu-main i18n-t" data-en="Pick Stage" data-km="ជ្រើសរើសវគ្គ">Pick Stage</span>
-        <span class="rei-htu-sub i18n-t" data-en="Home, Top, Bottom..." data-km="ជួរកណ្តាល, ជួរលើ...">Home, Top...</span>
       </span>
     </div>
     <svg class="pk-icon rei-htu-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -108,7 +107,6 @@ function buildReiHtml(isSubdir = false) {
       <span class="rei-htu-num">2</span>
       <span class="rei-htu-text">
         <span class="rei-htu-main i18n-t" data-en="Choose Drill" data-km="ជ្រើសមេរៀន">Choose Drill</span>
-        <span class="rei-htu-sub i18n-t" data-en="Click Start Drill" data-km="ចុចប៊ូតុងចាប់ផ្តើម">Click Start</span>
       </span>
     </div>
     <svg class="pk-icon rei-htu-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -116,7 +114,6 @@ function buildReiHtml(isSubdir = false) {
       <span class="rei-htu-num">3</span>
       <span class="rei-htu-text">
         <span class="rei-htu-main i18n-t" data-en="Type by Guide" data-km="វាយតាមការណែនាំ">Type by Guide</span>
-        <span class="rei-htu-sub i18n-t" data-en="Watch finger & keys" data-km="មើលម្រាមដៃ & គ្រាប់ចុច">Watch keys</span>
       </span>
     </div>
   </div>
@@ -392,16 +389,40 @@ function buildReiHtml(isSubdir = false) {
     }
 
     
-    /* Focus Mode: completely hide lesson strip & reset layout padding for genuine distraction-free typing */
+    /* Focus Mode: Cool Ergonomic Cyber Lessons Bar (Available for Learning) */
     html.focus-mode body.is-rei,
     html.focus-mode.is-rei body {
-      padding-right: 0 !important;
+      padding-right: 375px !important;
+      box-sizing: border-box !important;
+    }
+    @media(max-width: 1023px) {
+      html.focus-mode body.is-rei,
+      html.focus-mode.is-rei body {
+        padding-right: 0 !important;
+      }
     }
     html.focus-mode #lessonStrip,
     html.focus-mode .lesson-strip,
     html.focus-mode .is-rei #lessonStrip,
     html.focus-mode .is-rei .lesson-strip {
-      display: none !important;
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 0.98 !important;
+      width: 355px !important;
+      max-height: calc(100vh - 92px) !important;
+      border-radius: 12px !important;
+      background: linear-gradient(168deg, rgba(14, 18, 38, 0.95) 0%, rgba(8, 11, 24, 0.98) 100%) !important;
+      border: 1px solid rgba(255, 209, 102, 0.32) !important;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 209, 102, 0.15) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
+    }
+    html.focus-mode #lessonStrip.dock-collapsed,
+    html.focus-mode .lesson-strip.dock-collapsed {
+      transform: translateX(calc(100% + 24px)) !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
     }
 
     /* Active Target Key Pulse Animation */

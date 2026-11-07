@@ -404,20 +404,23 @@ test('Rei Tutor: Hands Clearance & Layout Isolation (No overlap with Pro Tips or
   assert.ok(kbCode.includes("classList.remove('hands-guide-off')"), 'keyboard.js must remove hands-guide-off when hands visible');
 });
 
-test('Focus Mode: Completely Hides Lesson Strip & Distractions', () => {
+test('Focus Mode: Cool Ergonomic Cyber Lessons Bar (Available for Learning, No Squished Truncation)', () => {
   const baseCss = fs.readFileSync(path.join(rootDir, 'css/base.css'), 'utf8');
   const lessonsCss = fs.readFileSync(path.join(rootDir, 'css/lessons.css'), 'utf8');
   const reiHtml = fs.readFileSync(path.join(rootDir, 'rei.html'), 'utf8');
 
-  // 1. base.css hides lessonStrip in focus-mode
-  assert.ok(baseCss.includes('html.focus-mode #lessonStrip'), 'base.css must include #lessonStrip in focus-mode hidden list');
+  // 1. base.css does not hide lessonStrip in focus-mode so learners can learn
+  assert.ok(!baseCss.includes('html.focus-mode #lessonStrip'), 'base.css must not hide #lessonStrip in focus-mode');
 
-  // 2. lessons.css hides lesson-strip in focus-mode without forced 258px dock
-  assert.ok(lessonsCss.includes('html.focus-mode .lesson-strip'), 'lessons.css must hide lesson strip in focus-mode');
+  // 2. lessons.css must NOT force squished 226px or 258px docks
   assert.ok(!lessonsCss.includes('width: min(90vw, 258px) !important;'), 'lessons.css must not force 258px squished dock in focus-mode');
+  assert.ok(!lessonsCss.includes('width: min(90vw, 226px) !important;'), 'lessons.css must not force 226px squished dock in focus-mode');
 
-  // 3. rei.html hides lesson strip in focus-mode
-  assert.ok(reiHtml.includes('html.focus-mode #lessonStrip'), 'rei.html must hide lesson strip in focus-mode');
+  // 3. lessons.css provides cool cyber focus dock with generous width
+  assert.ok(lessonsCss.includes('html.focus-mode .lesson-strip'), 'lessons.css must style lesson strip in focus-mode');
+
+  // 4. rei.html does not hide lesson strip in focus-mode
+  assert.ok(!reiHtml.includes('html.focus-mode #lessonStrip,\n    html.focus-mode .lesson-strip,\n    html.focus-mode .is-rei #lessonStrip,\n    html.focus-mode .is-rei .lesson-strip {\n      display: none !important;'), 'rei.html must not hide lesson strip in focus-mode');
 });
 
 test('Rei Tutor: Strict Zero-Emoji Compliance', () => {

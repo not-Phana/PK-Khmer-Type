@@ -2945,10 +2945,7 @@
   html.focus-mode #topLangToggleBtn,
   html.focus-mode #statsOpenBtn,
   html.focus-mode #authOpenBtn,
-  html.focus-mode #authAccountChip,
-  html.focus-mode #lessonStrip,
-  html.focus-mode .lesson-strip,
-  html.focus-mode .lesson-panel{
+  html.focus-mode #authAccountChip{
     display: none !important;
   }
 

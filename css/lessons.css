@@ -855,10 +855,63 @@
     color: var(--gold-bright, #ffd166);
   }
 
-  /* In Focus Mode, hide the lessons dock completely to maintain true distraction-free focus */
+  /* ============================================================
+     COOL ERGONOMIC CYBER LESSONS DOCK IN FOCUS MODE
+     Keeps learning accessible, eliminates all text truncation,
+     features modern cyber glass styling and collapsible Mini-HUD.
+     ============================================================ */
   html.focus-mode .lesson-strip,
-  html.focus-mode #lessonStrip,
-  html.focus-mode .lesson-panel{
+  html.focus-mode #lessonStrip {
+    display: flex !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    opacity: 0.98 !important;
+    width: min(92vw, 365px) !important;
+    min-height: 0 !important;
+    max-height: calc(100vh - 86px) !important;
+    border-radius: var(--radius, 12px) !important;
+    background: linear-gradient(168deg, rgba(14, 18, 38, 0.94) 0%, rgba(8, 11, 24, 0.98) 100%) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 209, 102, 0.28) !important;
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.75),
+      0 0 25px rgba(255, 209, 102, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+    z-index: 95 !important;
+  }
+  @media (min-width: 1024px) {
+    html.focus-mode .lesson-strip,
+    html.focus-mode #lessonStrip {
+      position: fixed !important;
+      right: 18px !important;
+      top: 72px !important;
+      bottom: 18px !important;
+    }
+  }
+  html.focus-mode .lesson-strip:hover,
+  html.focus-mode #lessonStrip:hover {
+    border-color: rgba(255, 209, 102, 0.5) !important;
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.8),
+      0 0 32px rgba(255, 209, 102, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  }
+  /* Collapsed state when learner toggles dock with Alt+K or Hide button */
+  html.focus-mode .lesson-strip.dock-collapsed,
+  html.focus-mode #lessonStrip.dock-collapsed {
+    transform: translateX(calc(100% + 24px)) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 1023px) {
+    html.focus-mode .lesson-strip.dock-collapsed,
+    html.focus-mode #lessonStrip.dock-collapsed {
+      display: none !important;
+    }
+  }
+  html.focus-mode .lesson-panel {
     display: none !important;
   }
 
@@ -1162,10 +1215,11 @@
     font-size:0.78rem;
     font-weight:600;
     color:var(--ink);
-    line-height:1.2;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    line-height:1.3;
+    white-space:normal;
+    word-break:break-word;
+    flex:1;
+    min-width:0;
   }
   .lesson-card-sub{
     font-size:0.66rem;
@@ -4021,9 +4075,8 @@
   text-shadow: none !important;
 }
 
-/* Focus Mode: Hide lesson strip and docks completely for genuine distraction-free typing */
-html.focus-mode .lesson-strip,
-html.focus-mode #lessonStrip {
+/* Focus Mode: Lesson dock maintains ergonomic cyber styling with collapse capability */
+html.focus-mode .lesson-panel {
   display: none !important;
 }
 
@@ -6843,65 +6896,208 @@ html.theme-light .is-rei .key.active-target {
   box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.35), 0 4px 12px rgba(217, 119, 6, 0.25) !important;
 }
 
-/* Easy-To-Use 3-Step Guide */
+/* Easy-To-Use 3-Step Guide (Zero Ellipsis & Clean Ergonomic Track) */
 .rei-how-to-use-guide {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  padding: 8px 10px;
-  background: rgba(255, 209, 102, 0.05);
-  border-bottom: 1px solid rgba(255, 209, 102, 0.15);
-  font-size: 0.72rem;
-  flex-shrink: 0;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  padding: 8px 14px !important;
+  background: rgba(255, 209, 102, 0.05) !important;
+  border-bottom: 1px solid rgba(255, 209, 102, 0.15) !important;
+  font-size: 0.72rem !important;
+  flex-shrink: 0 !important;
 }
 .rei-htu-step {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  min-width: 0 !important;
+  flex-shrink: 0 !important;
 }
 .rei-htu-num {
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  background: rgba(255, 209, 102, 0.2);
-  color: var(--gold, #ffd166);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.65rem;
-  flex-shrink: 0;
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 209, 102, 0.2) !important;
+  color: var(--gold, #ffd166) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 700 !important;
+  font-size: 0.68rem !important;
+  flex-shrink: 0 !important;
 }
 .rei-htu-step.active .rei-htu-num {
-  background: var(--gold, #ffd166);
-  color: #0f172a;
+  background: var(--gold, #ffd166) !important;
+  color: #0f172a !important;
 }
 .rei-htu-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-  overflow: hidden;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  line-height: 1.2 !important;
 }
 .rei-htu-main {
-  font-weight: 700;
-  color: var(--ink, #f1f5f9);
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  font-weight: 700 !important;
+  font-size: 0.72rem !important;
+  color: var(--ink, #f1f5f9) !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 .rei-htu-sub {
-  font-size: 0.62rem;
-  color: var(--ink-dim, #94a3b8);
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  display: none !important; /* Hide multi-line subtitle bloat that caused clipping */
 }
 .rei-htu-arrow {
+  color: var(--gold, #ffd166) !important;
+  opacity: 0.65 !important;
+  flex-shrink: 0 !important;
+}
+
+/* Horizontal Stage Selector Bar Polish */
+.rei-strip-stages-bar {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 12px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+  background: rgba(0, 0, 0, 0.35) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  flex-shrink: 0 !important;
+}
+.rei-strip-stages-bar::-webkit-scrollbar {
+  display: none !important;
+}
+.rei-stage-btn {
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  max-width: none !important;
+  text-overflow: clip !important;
+  padding: 6px 13px !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: var(--ink, #f1f5f9) !important;
+  cursor: pointer !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.rei-stage-btn:hover {
+  background: rgba(255, 209, 102, 0.18) !important;
+  border-color: rgba(255, 209, 102, 0.4) !important;
+  color: #fff !important;
+}
+.rei-stage-btn.active {
+  background: linear-gradient(135deg, #ffd166 0%, #f59e0b 100%) !important;
+  color: #0b0f1d !important;
+  font-weight: 700 !important;
+  border-color: #ffd166 !important;
+  box-shadow: 0 2px 10px rgba(255, 209, 102, 0.45) !important;
+}
+
+/* Floating Cyber Lesson Mini-HUD */
+.focus-lesson-hud {
+  position: fixed;
+  top: 72px;
+  right: 18px;
+  z-index: 90;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(14, 18, 38, 0.94) 0%, rgba(9, 12, 24, 0.96) 100%);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 18px rgba(255, 209, 102, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: flh-slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes flh-slide-in {
+  from { opacity: 0; transform: translateY(-8px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+html.focus-mode .lesson-strip.dock-collapsed ~ .focus-lesson-hud,
+html.focus-mode.dock-is-collapsed .focus-lesson-hud {
+  display: inline-flex !important;
+}
+.flh-dock-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: none;
+  color: var(--ink, #f1f5f9);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+.flh-dock-btn:hover {
+  color: var(--gold-bright, #ffd166);
+  background: rgba(255, 209, 102, 0.1);
+}
+.flh-dock-btn .pk-icon {
+  color: var(--gold-bright, #ffd166);
+}
+.flh-next-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border: none;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+  transition: all 0.15s ease;
+}
+.flh-next-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.6);
+}
+.flh-kbd {
+  padding: 1px 5px;
+  font-size: 0.62rem;
+  font-family: inherit;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Header Collapse Toggle Button */
+.lsh-collapse-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   color: var(--ink-dim, #94a3b8);
-  opacity: 0.45;
-  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.lsh-collapse-btn:hover {
+  background: rgba(255, 209, 102, 0.18);
+  border-color: rgba(255, 209, 102, 0.4);
+  color: var(--gold-bright, #ffd166);
 }
 
 /* Stage Tip Banner Progress and Quick Action */

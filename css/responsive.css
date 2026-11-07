@@ -91,10 +91,7 @@
         width:700px;
       }
     }
-    html.focus-mode .lesson-strip,
-    html.focus-mode .lesson-strip.expanded{
-      display: none !important;
-    }
+
   }
 
   @media (max-width: 640px){

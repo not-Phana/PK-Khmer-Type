@@ -2098,9 +2098,19 @@ function renderLessonStrip(){
         <button type="button" class="lsh-expand-btn" id="lshExpandBtn" title="${isStripExpanded ? 'Compact sidebar (1 column)' : 'Expand sidebar (2 columns)'}" aria-label="Toggle sidebar width">
           ${pkIcon(isStripExpanded ? 'collapse' : 'expand', 12)}
         </button>` : ''}
+        <button type="button" class="lsh-collapse-btn" id="lshCollapseBtn" title="${isKm ? 'បង្រួម / បិទរបារមេរៀន (Alt+K)' : 'Minimize Lessons Dock (Alt+K)'}" aria-label="Minimize Lessons Dock">
+          <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          <span class="lsh-collapse-txt i18n-t" data-en="Hide" data-km="លាក់">Hide</span>
+        </button>
       </div>
     `;
     frag.appendChild(topBar);
+    const collapseBtn = topBar.querySelector('#lshCollapseBtn');
+    if(collapseBtn){
+      collapseBtn.addEventListener('click', () => {
+        if(typeof toggleLessonsDock === 'function') toggleLessonsDock();
+      });
+    }
 
     const searchPlaceholder = isKm ? "ស្វែងរកមេរៀន អក្សរ..." : "Search lessons, letters...";
     
@@ -2124,7 +2134,6 @@ function renderLessonStrip(){
           <span class="rei-htu-num">1</span>
           <span class="rei-htu-text">
             <span class="rei-htu-main i18n-t" data-en="Pick Stage" data-km="ជ្រើសរើសវគ្គ">Pick Stage</span>
-            <span class="rei-htu-sub i18n-t" data-en="Home, Top, Bottom..." data-km="ជួរកណ្តាល, ជួរលើ...">Home, Top...</span>
           </span>
         </div>
         <svg class="pk-icon rei-htu-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -2132,7 +2141,6 @@ function renderLessonStrip(){
           <span class="rei-htu-num">2</span>
           <span class="rei-htu-text">
             <span class="rei-htu-main i18n-t" data-en="Choose Drill" data-km="ជ្រើសមេរៀន">Choose Drill</span>
-            <span class="rei-htu-sub i18n-t" data-en="Click Start Drill" data-km="ចុចប៊ូតុងចាប់ផ្តើម">Click Start</span>
           </span>
         </div>
         <svg class="pk-icon rei-htu-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -2140,7 +2148,6 @@ function renderLessonStrip(){
           <span class="rei-htu-num">3</span>
           <span class="rei-htu-text">
             <span class="rei-htu-main i18n-t" data-en="Type by Guide" data-km="វាយតាមការណែនាំ">Type by Guide</span>
-            <span class="rei-htu-sub i18n-t" data-en="Watch finger & keys" data-km="មើលម្រាមដៃ & គ្រាប់ចុច">Watch keys</span>
           </span>
         </div>
       `;
@@ -2305,12 +2312,10 @@ function renderLessonStrip(){
       card.className = 'lesson-card' + (isBonusCard ? ' bonus-card' : '') + (locked ? ' locked' : '') + (currentLesson && currentLesson.id===def.id ? ' active' : '') + (isNextRecommended ? ' next-recommended' : '');
       card.dataset.lesson = def.id;
 
-      const nextBadgeHtml = isNextRecommended
-        ? `<span class="rei-next-tag"><svg class="pk-icon" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg> <span>${isKm ? 'បន្ទាប់' : 'NEXT'}</span></span>`
-        : '';
       const startBtnHtml = isNextRecommended
-        ? `<button type="button" class="rei-card-start-btn" aria-label="Start this drill"><svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg> <span>${isKm ? 'ចាប់ផ្តើម' : 'Start'}</span></button>`
+        ? `<button type="button" class="rei-card-start-btn" aria-label="Start this drill"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg> <span>${isKm ? 'ចាប់ផ្តើម' : 'Start'}</span></button>`
         : '';
+      const nextBadgeHtml = '';
 
       const examplesHtml = def.examples && def.examples.length
         ? `<div class="lesson-card-examples"><span class="lce-lbl">${isKm ? 'ឧទាហរណ៍៖' : 'Ex:'}</span> ${def.examples.slice(0, 3).map(ex=>`<span class="lce-chip">${ex}</span>`).join(' ')}</div>`
@@ -5400,3 +5405,90 @@ if(typeof global !== 'undefined'){
 if(typeof module !== 'undefined' && module.exports){
   module.exports = global.PK_LESSONS;
 }
+
+
+// ============================================================
+// CYBER LESSONS DOCK & MINI-HUD CONTROLS
+// ============================================================
+function toggleLessonsDock(forceState) {
+  const strip = document.getElementById('lessonStrip');
+  if (!strip) return;
+  const willCollapse = (forceState !== undefined)
+    ? !forceState
+    : !strip.classList.contains('dock-collapsed');
+
+  if (willCollapse) {
+    strip.classList.add('dock-collapsed');
+    document.documentElement.classList.add('dock-is-collapsed');
+    try { localStorage.setItem('pk_lessons_dock_collapsed', '1'); } catch(e){}
+  } else {
+    strip.classList.remove('dock-collapsed');
+    document.documentElement.classList.remove('dock-is-collapsed');
+    try { localStorage.setItem('pk_lessons_dock_collapsed', '0'); } catch(e){}
+  }
+  updateFocusLessonHud();
+}
+window.toggleLessonsDock = toggleLessonsDock;
+
+function updateFocusLessonHud() {
+  if (typeof document === 'undefined') return;
+  let hud = document.getElementById('focusLessonHud');
+  if (!hud) {
+    hud = document.createElement('div');
+    hud.className = 'focus-lesson-hud notranslate';
+    hud.id = 'focusLessonHud';
+    hud.setAttribute('translate', 'no');
+    hud.innerHTML = `
+      <button type="button" class="flh-dock-btn" id="flhDockBtn" title="Open Lessons List (Alt+K)">
+        <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span class="flh-text" id="flhText">Lessons (Alt+K)</span>
+      </button>
+      <button type="button" class="flh-next-btn" id="flhNextBtn" title="Next Drill (Alt+N)">
+        <span class="i18n-t" data-en="Next" data-km="បន្ទាប់">Next</span>
+        <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        <kbd class="flh-kbd">Alt+N</kbd>
+      </button>
+    `;
+    const dBtn = hud.querySelector('#flhDockBtn');
+    if (dBtn) dBtn.addEventListener('click', () => toggleLessonsDock(true));
+    const nBtn = hud.querySelector('#flhNextBtn');
+    if (nBtn) nBtn.addEventListener('click', () => {
+      if (typeof startNextLessonDrill === 'function') startNextLessonDrill();
+    });
+    document.body.appendChild(hud);
+  }
+  const textEl = hud.querySelector('#flhText');
+  if (textEl) {
+    if (typeof currentLesson !== 'undefined' && currentLesson && currentLesson.title) {
+      textEl.textContent = currentLesson.title;
+    } else {
+      textEl.textContent = 'Lessons (Alt+K)';
+    }
+  }
+}
+window.updateFocusLessonHud = updateFocusLessonHud;
+
+function startNextLessonDrill() {
+  if (typeof LESSONS === 'undefined' || !LESSONS || !LESSONS.length) return;
+  let nextDef = null;
+  if (typeof currentLesson !== 'undefined' && currentLesson) {
+    const curIdx = LESSONS.findIndex(l => l.id === currentLesson.id);
+    if (curIdx >= 0 && curIdx < LESSONS.length - 1) {
+      nextDef = LESSONS[curIdx + 1];
+    }
+  }
+  if (!nextDef) {
+    nextDef = LESSONS.find(l => {
+      const b = (typeof getLessonBest === 'function') ? getLessonBest(l.id) : null;
+      return !b || !b.mastered;
+    }) || LESSONS[0];
+  }
+  if (nextDef && typeof startLesson === 'function') {
+    startLesson(nextDef.id, true);
+    if (typeof showToast === 'function') {
+      showToast(pkIcon('zap', 16), 'Next Drill', nextDef.title);
+    }
+    updateFocusLessonHud();
+  }
+}
+window.startNextLessonDrill = startNextLessonDrill;

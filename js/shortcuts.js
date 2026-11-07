@@ -429,6 +429,20 @@
         return;
       }
 
+      // Alt+K: Toggle Lessons Dock
+      if(keyLower === 'k' || e.code === 'KeyK'){
+        e.preventDefault();
+        if(typeof toggleLessonsDock === 'function') toggleLessonsDock();
+        return;
+      }
+
+      // Alt+N: Next Drill
+      if(keyLower === 'n' || e.code === 'KeyN'){
+        e.preventDefault();
+        if(typeof startNextLessonDrill === 'function') startNextLessonDrill();
+        return;
+      }
+
       // Alt+1 / Alt+2 / Alt+3: Layout switching
       if(e.key === '1' || e.code === 'Digit1' || e.code === 'Numpad1'){
         e.preventDefault();
