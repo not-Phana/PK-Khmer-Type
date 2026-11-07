@@ -3682,6 +3682,10 @@ function startLesson(idOrDef, allowDirectPractice = false){
 function scrollToLessonStage(){
   const doScroll = ()=>{
     if(!lessonPanel || lessonPanel.hidden || !boardWrap) return;
+    if(document.documentElement.classList.contains('focus-mode')) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     const vh = window.innerHeight || document.documentElement.clientHeight || 800;
     const boardRect = boardWrap.getBoundingClientRect();

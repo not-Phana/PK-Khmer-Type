@@ -373,6 +373,16 @@ function buildReiHtml(isSubdir = false) {
       .is-rei .lesson-panel:not([hidden]) {
         display: block !important;
       }
+      html.focus-mode .is-rei .board-wrap,
+      html.focus-mode.is-rei .board-wrap {
+        max-width: min(100%, 820px) !important;
+        margin: 0 auto 14px auto !important;
+      }
+      html.focus-mode .is-rei .lesson-panel,
+      html.focus-mode.is-rei .lesson-panel {
+        max-width: min(100%, 820px) !important;
+        margin: 6px auto 10px auto !important;
+      }
     }
 
     /* Tablet and Mobile (< 1024px) */

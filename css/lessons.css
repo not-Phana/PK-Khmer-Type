@@ -4080,6 +4080,104 @@ html.focus-mode .lesson-panel:not([hidden]) {
   display: none !important;
 }
 
+/* Focus Mode: Compact, ergonomically scaled lesson panel to prevent keyboard cutoff */
+html.focus-mode .lesson-panel {
+  width: 100% !important;
+  max-width: min(100%, 820px) !important;
+  margin: 6px auto 10px auto !important;
+  padding: 12px 18px 10px !important;
+  transform: none !important;
+}
+html.focus-mode .lesson-top {
+  margin-bottom: 6px !important;
+  padding-bottom: 6px !important;
+}
+html.focus-mode .lesson-meta-row {
+  margin: 0 0 6px !important;
+}
+html.focus-mode .lesson-flow-banner {
+  margin: 0 0 8px !important;
+  padding: 4px 10px !important;
+}
+html.focus-mode .lesson-newkeys {
+  margin: 0 0 8px !important;
+  padding: 6px 12px !important;
+  gap: 6px !important;
+}
+html.focus-mode .nk-keycap {
+  min-width: 48px !important;
+  min-height: 42px !important;
+  padding: 4px 10px 4px !important;
+}
+html.focus-mode .nk-keycap .nk-char {
+  font-size: 1.25rem !important;
+}
+html.focus-mode .lesson-progress-bar {
+  height: 5px !important;
+  margin-bottom: 8px !important;
+}
+html.focus-mode .rei-finger-reach-hud {
+  margin: 2px 0 6px !important;
+  padding: 4px 10px !important;
+}
+html.focus-mode .lesson-char-row {
+  font-size: 1.85rem !important;
+  min-height: 3.2em !important;
+  line-height: 1.5 !important;
+  padding: 6px 14px !important;
+  margin-bottom: 8px !important;
+}
+html.focus-mode .lc-char {
+  min-width: 1.15em !important;
+  min-height: 1.6em !important;
+  padding: 2px 6px !important;
+}
+html.focus-mode .lc-space {
+  min-width: 1.15em !important;
+  font-size: 1.85rem !important;
+}
+html.focus-mode .lesson-stats {
+  padding-top: 6px !important;
+  gap: 6px !important;
+}
+html.focus-mode .stat-pod {
+  padding: 4px 8px !important;
+  gap: 6px !important;
+}
+html.focus-mode .stat-pod-title {
+  font-size: 0.52rem !important;
+}
+html.focus-mode .stat-pod-num {
+  font-size: 0.74rem !important;
+}
+html.focus-mode #lessonExitBtn,
+html.focus-mode .lesson-exit-tactical-btn {
+  padding: 5px 10px !important;
+  font-size: 0.65rem !important;
+}
+
+@media (max-height: 820px) {
+  html.focus-mode body {
+    padding: 8px 16px 8px !important;
+  }
+  html.focus-mode .lesson-panel {
+    transform: scale(0.85) !important;
+    transform-origin: center top !important;
+    margin: 2px auto -50px auto !important;
+    padding: 8px 14px 6px !important;
+  }
+  html.focus-mode .board-wrap {
+    transform: scale(0.82) !important;
+    transform-origin: center top !important;
+    margin: 0 auto 8px auto !important;
+    padding: 10px 14px 8px !important;
+  }
+  html.focus-mode .key {
+    height: 38px !important;
+    font-size: 0.88rem !important;
+  }
+}
+
 /* ============================================================
    STUDIO THEMES APPLIED TO ALL PANELS, DOCKS & COMPLETE MODALS
    (Light, Sepia, Temple, Moonlight, Jungle, Sunset, Dark, Glass)
