@@ -1265,7 +1265,10 @@
   }
   /* Docks: Quick Guide (Left) & Lessons Navigator (Right) */
   html.theme-light .guide-dock,
-  html.theme-light .lesson-strip {
+  html.theme-light .lesson-strip,
+  html.theme-light #lessonStrip,
+  html.theme-light .lesson-strip-body,
+  html.theme-light #lessonStripBody {
     background: #ffffff !important;
     border: 1px solid #cbd5e1 !important;
     color: #0f172a !important;
@@ -2292,7 +2295,10 @@
   }
   /* Docks: Quick Guide (Left) & Lessons Navigator (Right) */
   html.theme-sepia .guide-dock,
-  html.theme-sepia .lesson-strip {
+  html.theme-sepia .lesson-strip,
+  html.theme-sepia #lessonStrip,
+  html.theme-sepia .lesson-strip-body,
+  html.theme-sepia #lessonStripBody {
     background: #faf4e8 !important;
     border: 1px solid #d4c3a3 !important;
     color: #2c1b0c !important;
@@ -2945,13 +2951,32 @@
   html.focus-mode #topLangToggleBtn,
   html.focus-mode #statsOpenBtn,
   html.focus-mode #authOpenBtn,
-  html.focus-mode #authAccountChip{
+  html.focus-mode #authAccountChip,
+  html.focus-mode #topReiBtn,
+  html.focus-mode #topWelcomeBtn,
+  html.focus-mode #topLearnMoreBtn,
+  html.focus-mode #topCustomLessonsBtn,
+  html.focus-mode #topOverviewBtn,
+  html.focus-mode #topTestLabBtn,
+  html.focus-mode #settingsOpenBtn,
+  html.focus-mode .top-actions-group[aria-label="Curriculum Hubs"],
+  html.focus-mode .top-actions-divider {
     display: none !important;
   }
 
   html.focus-mode body{
     padding: 44px 20px 20px !important;
     justify-content: center;
+    transition: padding-right 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  @media (min-width: 1024px) {
+    html.focus-mode:not(.dock-is-collapsed) body {
+      padding-right: 395px !important;
+    }
+    html.focus-mode.dock-is-collapsed body,
+    html.focus-mode:has(#lessonStrip.dock-collapsed) body {
+      padding-right: 20px !important;
+    }
   }
 
   html.focus-mode .layout-strip{
@@ -2966,6 +2991,9 @@
   /* Guarantee full normal keyboard & key proportions in Focus Mode */
   html.focus-mode .board-wrap{
     padding: 22px !important;
+    width: 100% !important;
+    max-width: min(100%, 1020px) !important;
+    box-sizing: border-box !important;
   }
   html.focus-mode .keyboard{
     width: 100% !important;

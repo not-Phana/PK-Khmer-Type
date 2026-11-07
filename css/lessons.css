@@ -4242,9 +4242,13 @@ html.theme-sunset .adaptive-summary-card {
 }
 
 html.theme-temple .lesson-strip-body,
+html.theme-temple #lessonStripBody,
 html.theme-moonlight .lesson-strip-body,
+html.theme-moonlight #lessonStripBody,
 html.theme-jungle .lesson-strip-body,
-html.theme-sunset .lesson-strip-body {
+html.theme-jungle #lessonStripBody,
+html.theme-sunset .lesson-strip-body,
+html.theme-sunset #lessonStripBody {
   background: var(--stone-1) !important;
 }
 
@@ -4527,8 +4531,10 @@ html.theme-light.focus-mode #lessonStrip:hover {
   border-color: #94a3b8 !important;
   box-shadow: 0 20px 48px rgba(15, 23, 42, 0.12) !important;
 }
-html.theme-light .lesson-strip-body {
+html.theme-light .lesson-strip-body,
+html.theme-light #lessonStripBody {
   background: #ffffff !important;
+  color: #0f172a !important;
 }
 html.theme-light .lesson-strip-body::-webkit-scrollbar-track {
   background: #f1f5f9 !important;
@@ -5104,8 +5110,10 @@ html.theme-sepia.focus-mode #lessonStrip:hover {
   border-color: #9a3412 !important;
   box-shadow: 0 20px 48px rgba(44, 27, 12, 0.16) !important;
 }
-html.theme-sepia .lesson-strip-body {
+html.theme-sepia .lesson-strip-body,
+html.theme-sepia #lessonStripBody {
   background: #fbf7ee !important;
+  color: #2c1b0c !important;
 }
 html.theme-sepia .lesson-strip-body::-webkit-scrollbar-track {
   background: #efe3cc !important;

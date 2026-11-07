@@ -23,7 +23,7 @@ function buildReiHtml(isSubdir = false) {
     /<title>.*?<\/title>/,
     `<title>PK Khmer Type Rei — Cambodian & English Typing Tutor</title>\n  <meta name="color-scheme" content="light dark">\n  <script>window.__IS_REI__ = true; window.__IS_REI_SUBDIR__ = ${isSubdir ? 'true' : 'false'};</script>`
   );
-  html = html.replace('<html lang="en"', '<html lang="en" class="is-rei"');
+  html = html.replace(/<html\s+lang="en"\s+class="([^"]*)"/, '<html lang="en" class="is-rei $1"');
   html = html.replace('<body', '<body class="is-rei"');
 
   // Favicon update for Rei
@@ -1126,8 +1126,32 @@ html.theme-light .rscc-sub {
     }
 
     html.theme-light .lesson-strip-body,
-    html.theme-light.is-rei .lesson-strip-body {
+    html.theme-light.is-rei .lesson-strip-body,
+    html.theme-light #lessonStripBody,
+    html.theme-light.is-rei #lessonStripBody {
       background: #ffffff !important;
+      color: #0f172a !important;
+    }
+
+    html.theme-light .lesson-level-header {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      border-left: 3px solid #d97706 !important;
+      color: #0f172a !important;
+    }
+    html.theme-light .lesson-level-header:hover {
+      background: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+    }
+    html.theme-light .llh-chevron {
+      color: #d97706 !important;
+    }
+
+    html.theme-light .adaptive-sidebar-card {
+      background: linear-gradient(135deg, #fffbeb 0%, #f8fafc 100%) !important;
+      border: 1px solid #fde68a !important;
+      color: #0f172a !important;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
     }
 
     html.theme-light .rei-strip-stages-wrap {

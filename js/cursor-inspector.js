@@ -441,8 +441,28 @@
       }
     }
 
-    // Flip horizontally if overflow right
-    if (posX + hudW > winW - 12) {
+    // Dynamic collision boundary checks against fixed side docks (Lessons Strip on right, Guide Dock on left)
+    let maxRight = winW - 12;
+    let minLeft = 10;
+
+    const lessonStrip = document.getElementById("lessonStrip");
+    if (lessonStrip && !lessonStrip.hidden && !lessonStrip.classList.contains("dock-collapsed")) {
+      const lsRect = lessonStrip.getBoundingClientRect();
+      if (lsRect.left > 200 && lsRect.left < winW && lsRect.width > 50) {
+        maxRight = Math.min(maxRight, lsRect.left - 12);
+      }
+    }
+
+    const guideDock = document.getElementById("guideDock");
+    if (guideDock && !guideDock.hidden && !guideDock.classList.contains("collapsed")) {
+      const gdRect = guideDock.getBoundingClientRect();
+      if (gdRect.right > 0 && gdRect.right < winW / 2 && gdRect.width > 50) {
+        minLeft = Math.max(minLeft, gdRect.right + 12);
+      }
+    }
+
+    // Flip horizontally if overflow right boundary
+    if (posX + hudW > maxRight) {
       posX = x - hudW - gap;
     }
     // Flip vertically if overflow bottom
@@ -450,7 +470,7 @@
       posY = y - hudH - gap;
     }
 
-    posX = Math.max(10, Math.min(posX, winW - hudW - 10));
+    posX = Math.max(minLeft, Math.min(posX, Math.max(minLeft, maxRight - hudW)));
     posY = Math.max(10, Math.min(posY, winH - hudH - 10));
 
     hudEl.style.left = posX + 'px';
