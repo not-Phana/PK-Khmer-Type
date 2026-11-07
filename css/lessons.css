@@ -7598,11 +7598,11 @@ html.theme-light .is-rei .key.active-target {
   flex-wrap: nowrap !important;
   align-items: center !important;
   gap: 6px !important;
-  padding: 8px 6px !important;
+  padding: 6px 4px !important;
   overflow-x: auto !important;
   overflow-y: hidden !important;
-  scrollbar-width: thin !important;
-  scrollbar-color: rgba(255, 209, 102, 0.45) transparent !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
   -webkit-overflow-scrolling: touch !important;
   scroll-behavior: smooth !important;
   flex: 1 !important;
@@ -7613,26 +7613,16 @@ html.theme-light .is-rei .key.active-target {
   cursor: grabbing !important;
 }
 .rei-strip-stages-bar::-webkit-scrollbar {
-  height: 3px !important;
-  display: block !important;
-}
-.rei-strip-stages-bar::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.25) !important;
-  border-radius: 3px !important;
-}
-.rei-strip-stages-bar::-webkit-scrollbar-thumb {
-  background: rgba(255, 209, 102, 0.35) !important;
-  border-radius: 3px !important;
-}
-.rei-strip-stages-bar::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-bright, #ffd166) !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 .rei-stage-btn {
   flex-shrink: 0 !important;
   white-space: nowrap !important;
   max-width: none !important;
   text-overflow: clip !important;
-  padding: 6px 13px !important;
+  padding: 5px 11px !important;
   font-size: 0.72rem !important;
   font-weight: 600 !important;
   border-radius: 9999px !important;
@@ -7661,12 +7651,9 @@ html.theme-light .rei-strip-stages-wrap {
   border-bottom: 1px solid #e2e8f0 !important;
 }
 
-html.theme-light .rei-strip-stages-wrap::before {
-  background: linear-gradient(90deg, #f8fafc, rgba(248, 250, 252, 0)) !important;
-}
-
+html.theme-light .rei-strip-stages-wrap::before,
 html.theme-light .rei-strip-stages-wrap::after {
-  background: linear-gradient(-90deg, #f8fafc, rgba(248, 250, 252, 0)) !important;
+  display: none !important;
 }
 
 html.theme-light .rei-stage-scroll-btn {
@@ -7694,21 +7681,14 @@ html.theme-light .rei-stage-scroll-btn:disabled {
 
 html.theme-light .rei-strip-stages-bar {
   background: transparent !important;
-  scrollbar-color: rgba(217, 119, 6, 0.4) #e2e8f0 !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 
-html.theme-light .rei-strip-stages-bar::-webkit-scrollbar-track {
-  background: #e2e8f0 !important;
-  border-radius: 3px !important;
-}
-
-html.theme-light .rei-strip-stages-bar::-webkit-scrollbar-thumb {
-  background: rgba(217, 119, 6, 0.4) !important;
-  border-radius: 3px !important;
-}
-
-html.theme-light .rei-strip-stages-bar::-webkit-scrollbar-thumb:hover {
-  background: rgba(217, 119, 6, 0.75) !important;
+html.theme-light .rei-strip-stages-bar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* Floating Cyber Lesson Mini-HUD */
@@ -9230,66 +9210,30 @@ html.theme-light .rscc-sub {
     color: #e0f2fe !important;
   }
 
-  /* Stage Wrap Theme Overrides (Eliminates Dark Shadows on Light Themes) */
+  /* Stage Wrap Theme Overrides (Clean, No Fading Masks) */
   html.theme-sepia .rei-strip-stages-wrap {
     background: #f7f2e7 !important;
     border-bottom: 1px solid #e7ddc6 !important;
-  }
-  html.theme-sepia .rei-strip-stages-wrap::before {
-    background: linear-gradient(90deg, #f7f2e7 20%, rgba(247, 242, 231, 0) 100%) !important;
-  }
-  html.theme-sepia .rei-strip-stages-wrap::after {
-    background: linear-gradient(-90deg, #f7f2e7 20%, rgba(247, 242, 231, 0) 100%) !important;
   }
   html.theme-temple .rei-strip-stages-wrap {
     background: rgba(24, 20, 16, 0.85) !important;
     border-bottom: 1px solid rgba(245, 158, 11, 0.2) !important;
   }
-  html.theme-temple .rei-strip-stages-wrap::before {
-    background: linear-gradient(90deg, #181410 20%, rgba(24, 20, 16, 0) 100%) !important;
-  }
-  html.theme-temple .rei-strip-stages-wrap::after {
-    background: linear-gradient(-90deg, #181410 20%, rgba(24, 20, 16, 0) 100%) !important;
-  }
   html.theme-moonlight .rei-strip-stages-wrap {
     background: rgba(12, 18, 34, 0.85) !important;
     border-bottom: 1px solid rgba(56, 189, 248, 0.2) !important;
-  }
-  html.theme-moonlight .rei-strip-stages-wrap::before {
-    background: linear-gradient(90deg, #0c1222 20%, rgba(12, 18, 34, 0) 100%) !important;
-  }
-  html.theme-moonlight .rei-strip-stages-wrap::after {
-    background: linear-gradient(-90deg, #0c1222 20%, rgba(12, 18, 34, 0) 100%) !important;
   }
   html.theme-jungle .rei-strip-stages-wrap {
     background: rgba(4, 24, 16, 0.85) !important;
     border-bottom: 1px solid rgba(16, 185, 129, 0.2) !important;
   }
-  html.theme-jungle .rei-strip-stages-wrap::before {
-    background: linear-gradient(90deg, #041810 20%, rgba(4, 24, 16, 0) 100%) !important;
-  }
-  html.theme-jungle .rei-strip-stages-wrap::after {
-    background: linear-gradient(-90deg, #041810 20%, rgba(4, 24, 16, 0) 100%) !important;
-  }
   html.theme-sunset .rei-strip-stages-wrap {
     background: rgba(26, 12, 20, 0.85) !important;
     border-bottom: 1px solid rgba(249, 115, 22, 0.2) !important;
   }
-  html.theme-sunset .rei-strip-stages-wrap::before {
-    background: linear-gradient(90deg, #1a0c14 20%, rgba(26, 12, 20, 0) 100%) !important;
-  }
-  html.theme-sunset .rei-strip-stages-wrap::after {
-    background: linear-gradient(-90deg, #1a0c14 20%, rgba(26, 12, 20, 0) 100%) !important;
-  }
   html.theme-glass .rei-strip-stages-wrap {
     background: rgba(255, 255, 255, 0.05) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
-  }
-  html.theme-glass .rei-strip-stages-wrap::before {
-    background: linear-gradient(90deg, rgba(20, 26, 44, 0.85) 20%, transparent 100%) !important;
-  }
-  html.theme-glass .rei-strip-stages-wrap::after {
-    background: linear-gradient(-90deg, rgba(20, 26, 44, 0.85) 20%, transparent 100%) !important;
   }
 
   /* Explore All Lessons Button in Rei Mode */

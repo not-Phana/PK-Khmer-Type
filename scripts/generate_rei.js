@@ -93,19 +93,25 @@ function buildReiHtml(isSubdir = false) {
     '<span class="pk-mdg-brand-name">PK KHMER TYPE REI</span>'
   );
 
-  // 5. Stage Navigator in initial HTML (Ergonomic Stage Rail with 0 Truncation)
-  const stageNavigator = `<div class="rei-strip-stages-wrap" id="reiStripStagesWrap">
+  // 5. Cleanly structure #lessonStrip in initial HTML with Stage Rail and 0 leaked static mockup cards
+  const initialReiLessonStrip = `<div class="lesson-strip notranslate" id="lessonStrip" translate="no">
+  <div class="rei-how-to-use-guide" id="reiHowToUseGuide" hidden>
+    <div class="rei-htu-step"><span class="rei-htu-num">1</span><span class="rei-htu-main">Pick Stage</span></div>
+    <div class="rei-htu-step"><span class="rei-htu-num">2</span><span class="rei-htu-main">Choose Drill</span></div>
+    <div class="rei-htu-step"><span class="rei-htu-num">3</span><span class="rei-htu-main">Type by Guide</span></div>
+  </div>
+  <div class="rei-strip-stages-wrap" id="reiStripStagesWrap">
     <button type="button" class="rei-stage-scroll-btn prev" id="reiStageScrollPrev" aria-label="Scroll stages left" title="Scroll left">
       <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="rei-strip-stages-bar" id="reiStripStagesBar" tabindex="0" role="region" aria-label="Stages rail">
-      <button type="button" class="rei-stage-btn active" data-stage="1" title="Stage 1: Home Row Anchors & Vowels">1. Home Row</button>
-      <button type="button" class="rei-stage-btn locked" data-stage="2" aria-disabled="true" title="Stage 2: Top Row Reaches (Locked · Complete Home Row first)">2. Top Row <span class="rei-stage-badge locked" title="Locked"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>
-      <button type="button" class="rei-stage-btn locked" data-stage="3" aria-disabled="true" title="Stage 3: Bottom Row Reaches (Locked · Complete Top Row first)">3. Bottom Row <span class="rei-stage-badge locked" title="Locked"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>
-      <button type="button" class="rei-stage-btn locked" data-stage="4" aria-disabled="true" title="Stage 4: Shift Consonants & Vowels (Locked)">4. Shift Keys <span class="rei-stage-badge locked" title="Locked"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>
-      <button type="button" class="rei-stage-btn locked" data-stage="5" aria-disabled="true" title="Stage 5: Subscripts & Diacritics (Locked)">5. Subscripts <span class="rei-stage-badge locked" title="Locked"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>
-      <button type="button" class="rei-stage-btn locked" data-stage="6" aria-disabled="true" title="Stage 6: Word Practice (Locked)">6. Words <span class="rei-stage-badge locked" title="Locked"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>
-      <button type="button" class="rei-stage-btn locked" data-stage="7" aria-disabled="true" title="Stage 7: Sentences & Flow (Locked)">7. Flow <span class="rei-stage-badge locked" title="Locked"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>
+      <button type="button" class="rei-stage-btn active" data-stage="1" title="Stage 1: Home Row Anchors &amp; Vowels">1. Home Row</button>
+      <button type="button" class="rei-stage-btn locked" data-stage="2" aria-disabled="true" title="Stage 2: Top Row Reaches">2. Top Row</button>
+      <button type="button" class="rei-stage-btn locked" data-stage="3" aria-disabled="true" title="Stage 3: Bottom Row Reaches">3. Bottom Row</button>
+      <button type="button" class="rei-stage-btn locked" data-stage="4" aria-disabled="true" title="Stage 4: Shift Consonants &amp; Vowels">4. Shift Keys</button>
+      <button type="button" class="rei-stage-btn locked" data-stage="5" aria-disabled="true" title="Stage 5: Subscripts &amp; Diacritics">5. Subscripts</button>
+      <button type="button" class="rei-stage-btn locked" data-stage="6" aria-disabled="true" title="Stage 6: Word Practice">6. Words</button>
+      <button type="button" class="rei-stage-btn locked" data-stage="7" aria-disabled="true" title="Stage 7: Sentences &amp; Flow">7. Flow</button>
       <button type="button" class="rei-stage-btn" data-stage="all" title="View All Lessons">All (222)</button>
     </div>
     <button type="button" class="rei-stage-scroll-btn next" id="reiStageScrollNext" aria-label="Scroll stages right" title="Scroll right">
@@ -118,11 +124,12 @@ function buildReiHtml(isSubdir = false) {
       <span class="rst-title" id="reiStageTipTitle">Stage 1 · Home Row Foundation</span>
     </div>
     <p class="rst-desc" id="reiStageTipDesc">Anchor Left Index on F (ថ) and Right Index on J (ញ). Return fingers to home keys after every stroke without looking down.</p>
-  </div>`;
+  </div>
+</div>`;
 
   html = html.replace(
-    /(<div class="lesson-strip-banners-row">[\s\S]*?<\/div>)/,
-    `$1\n  ${stageNavigator}`
+    /(<div class="lesson-strip notranslate" id="lessonStrip" translate="no">)[\s\S]*?(<p id="lessonUnavailableNote")/i,
+    `${initialReiLessonStrip}\n\n$2`
   );
 
   
@@ -881,11 +888,11 @@ html.theme-light .rscc-sub {
       flex-wrap: nowrap !important;
       align-items: center !important;
       gap: 6px !important;
-      padding: 8px 6px !important;
+      padding: 6px 4px !important;
       overflow-x: auto !important;
       overflow-y: hidden !important;
-      scrollbar-width: thin !important;
-      scrollbar-color: rgba(255, 209, 102, 0.45) transparent !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
       -webkit-overflow-scrolling: touch !important;
       scroll-behavior: smooth !important;
       flex: 1 !important;
@@ -896,19 +903,9 @@ html.theme-light .rscc-sub {
       cursor: grabbing !important;
     }
     .rei-strip-stages-bar::-webkit-scrollbar {
-      height: 3px !important;
-      display: block !important;
-    }
-    .rei-strip-stages-bar::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.25) !important;
-      border-radius: 3px !important;
-    }
-    .rei-strip-stages-bar::-webkit-scrollbar-thumb {
-      background: rgba(255, 209, 102, 0.35) !important;
-      border-radius: 3px !important;
-    }
-    .rei-strip-stages-bar::-webkit-scrollbar-thumb:hover {
-      background: var(--gold-bright, #ffd166) !important;
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
     }
     .rei-stage-btn {
       padding: 5px 11px;
@@ -1120,10 +1117,17 @@ html.theme-light .rscc-sub {
 
     /* Light Mode Lesson Sidebar & Cards */
     html.theme-light.is-rei #lessonStrip,
-    html.theme-light .is-rei #lessonStrip {
+    html.theme-light .is-rei #lessonStrip,
+    html.theme-light.focus-mode #lessonStrip,
+    html.theme-light.focus-mode .is-rei #lessonStrip {
       background: #ffffff !important;
       border: 1px solid #cbd5e1 !important;
       box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1) !important;
+    }
+
+    html.theme-light .lesson-strip-body,
+    html.theme-light.is-rei .lesson-strip-body {
+      background: #ffffff !important;
     }
 
     html.theme-light .rei-strip-stages-wrap {
@@ -1162,21 +1166,14 @@ html.theme-light .rscc-sub {
     html.theme-light .rei-strip-stages-bar {
       background: transparent !important;
       border-bottom: none !important;
-      scrollbar-color: rgba(217, 119, 6, 0.4) #e2e8f0 !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
     }
 
-    html.theme-light .rei-strip-stages-bar::-webkit-scrollbar-track {
-      background: #e2e8f0 !important;
-      border-radius: 3px !important;
-    }
-
-    html.theme-light .rei-strip-stages-bar::-webkit-scrollbar-thumb {
-      background: rgba(217, 119, 6, 0.4) !important;
-      border-radius: 3px !important;
-    }
-
-    html.theme-light .rei-strip-stages-bar::-webkit-scrollbar-thumb:hover {
-      background: rgba(217, 119, 6, 0.75) !important;
+    html.theme-light .rei-strip-stages-bar::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
     }
 
     html.theme-light .rei-stage-btn {
