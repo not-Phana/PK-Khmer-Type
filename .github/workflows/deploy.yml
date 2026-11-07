@@ -98,7 +98,6 @@ jobs:
           [ -d rei ] && cp -r rei _site/
           [ -d dist ] && cp -r dist _site/
           [ -d concepts ] && cp -r concepts _site/
-          [ -d downloads ] && cp -r downloads _site/
           [ -d profile ] && cp -r profile _site/
 
           # Copy optional documentation if present
