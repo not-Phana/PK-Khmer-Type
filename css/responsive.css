@@ -93,14 +93,7 @@
     }
     html.focus-mode .lesson-strip,
     html.focus-mode .lesson-strip.expanded{
-      display:flex !important;
-      visibility:visible !important;
-      pointer-events:auto !important;
-      right:14px !important;
-      top:54px !important;
-      bottom:auto !important;
-      width:258px !important;
-      max-height:min(465px, calc(100vh - 70px)) !important;
+      display: none !important;
     }
   }
 

@@ -404,6 +404,22 @@ test('Rei Tutor: Hands Clearance & Layout Isolation (No overlap with Pro Tips or
   assert.ok(kbCode.includes("classList.remove('hands-guide-off')"), 'keyboard.js must remove hands-guide-off when hands visible');
 });
 
+test('Focus Mode: Completely Hides Lesson Strip & Distractions', () => {
+  const baseCss = fs.readFileSync(path.join(rootDir, 'css/base.css'), 'utf8');
+  const lessonsCss = fs.readFileSync(path.join(rootDir, 'css/lessons.css'), 'utf8');
+  const reiHtml = fs.readFileSync(path.join(rootDir, 'rei.html'), 'utf8');
+
+  // 1. base.css hides lessonStrip in focus-mode
+  assert.ok(baseCss.includes('html.focus-mode #lessonStrip'), 'base.css must include #lessonStrip in focus-mode hidden list');
+
+  // 2. lessons.css hides lesson-strip in focus-mode without forced 258px dock
+  assert.ok(lessonsCss.includes('html.focus-mode .lesson-strip'), 'lessons.css must hide lesson strip in focus-mode');
+  assert.ok(!lessonsCss.includes('width: min(90vw, 258px) !important;'), 'lessons.css must not force 258px squished dock in focus-mode');
+
+  // 3. rei.html hides lesson strip in focus-mode
+  assert.ok(reiHtml.includes('html.focus-mode #lessonStrip'), 'rei.html must hide lesson strip in focus-mode');
+});
+
 test('Rei Tutor: Strict Zero-Emoji Compliance', () => {
   const files = [
     'rei/index.html',

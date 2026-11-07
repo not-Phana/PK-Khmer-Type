@@ -392,6 +392,18 @@ function buildReiHtml(isSubdir = false) {
     }
 
     
+    /* Focus Mode: completely hide lesson strip & reset layout padding for genuine distraction-free typing */
+    html.focus-mode body.is-rei,
+    html.focus-mode.is-rei body {
+      padding-right: 0 !important;
+    }
+    html.focus-mode #lessonStrip,
+    html.focus-mode .lesson-strip,
+    html.focus-mode .is-rei #lessonStrip,
+    html.focus-mode .is-rei .lesson-strip {
+      display: none !important;
+    }
+
     /* Active Target Key Pulse Animation */
     @keyframes rei-target-pulse {
       0%, 100% {
