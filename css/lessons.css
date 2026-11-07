@@ -8097,7 +8097,7 @@ html.theme-light .rscc-sub {
   .rei-scale-btn {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     padding: 3px 9px 3px 8px;
     background: rgba(56, 189, 248, 0.08);
     border: 1px solid rgba(56, 189, 248, 0.3);
@@ -8109,6 +8109,8 @@ html.theme-light .rscc-sub {
     transition: all 0.2s ease;
     text-decoration: none;
     line-height: 1.2;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
   .chassis-scale-btn:hover,
   .rei-scale-btn:hover {

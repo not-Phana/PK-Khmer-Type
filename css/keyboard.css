@@ -828,26 +828,37 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:12px;
+    gap:10px;
     width:100%;
     box-sizing:border-box;
-    padding:0 4px 12px 4px;
-    margin-bottom:10px;
+    padding:0 4px 10px 4px;
+    margin-bottom:8px;
     border-bottom:1px solid rgba(255,255,255,0.07);
     position:relative;
     z-index:2;
+    flex-wrap:nowrap !important;
+    white-space:nowrap !important;
   }
 
   .chassis-deck-id{
     display:inline-flex;
     align-items:center;
-    gap:9px;
+    gap:8px;
     font-family:'Space Grotesk', -apple-system, sans-serif;
     font-size:0.75rem;
     font-weight:700;
     letter-spacing:0.06em;
     color:var(--ink-dim);
     user-select:none;
+    white-space:nowrap !important;
+    flex-shrink:0 !important;
+  }
+
+  .chassis-name,
+  .chassis-slash,
+  .chassis-layout-label{
+    white-space:nowrap !important;
+    flex-shrink:0 !important;
   }
 
   .chassis-led-dot{
@@ -908,6 +919,8 @@
     margin-left:4px;
     user-select:none;
     text-decoration:none;
+    white-space:nowrap !important;
+    flex-shrink:0 !important;
   }
   .chassis-version-badge:hover{
     background:linear-gradient(135deg, rgba(255,209,102,0.28), rgba(255,157,46,0.18));
@@ -935,8 +948,10 @@
   .chassis-actions{
     display:inline-flex;
     align-items:center;
-    gap:8px;
-    flex-wrap:wrap;
+    gap:6px;
+    flex-wrap:nowrap !important;
+    white-space:nowrap !important;
+    flex-shrink:0 !important;
   }
 
   .chassis-docs-btn,
@@ -944,20 +959,22 @@
   .chassis-dash-btn{
     display:inline-flex;
     align-items:center;
-    gap:7px;
+    gap:5px;
     text-decoration:none;
     font-family:'Space Grotesk', -apple-system, sans-serif;
-    font-size:0.7rem;
+    font-size:0.68rem;
     font-weight:600;
     letter-spacing:0.02em;
-    padding:6px 14px;
-    border-radius: var(--radius, 9px);
+    padding:4px 10px;
+    border-radius: var(--radius, 8px);
     color:var(--ink-dim);
     background:rgba(255,255,255,0.035);
     border:1px solid rgba(255,255,255,0.1);
     box-shadow:0 2px 6px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.06);
     transition:all .18s cubic-bezier(.22,1,.36,1);
     cursor:pointer;
+    white-space:nowrap !important;
+    flex-shrink:0 !important;
   }
 
   .chassis-docs-btn:hover,
