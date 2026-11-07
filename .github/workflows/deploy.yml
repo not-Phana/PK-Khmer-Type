@@ -39,6 +39,12 @@ jobs:
           [ -f sw.js ] && node --check sw.js
           echo "All core, vendor, config, test, and launch JS files passed syntax validation."
 
+      - name: Prepare Test Environment & Build Artifacts
+        run: |
+          node scripts/generate_supabase_config.js
+          node scripts/generate_rei.js
+          node scripts/bundle_single_file.js
+
       - name: Validate Curriculum Integrity
         run: |
           node scripts/validate_curriculum.js
@@ -70,6 +76,11 @@ jobs:
         run: |
           node scripts/generate_supabase_config.js
 
+      - name: Build Rei Tutor and Standalone Single-File Bundle
+        run: |
+          node scripts/generate_rei.js
+          node scripts/bundle_single_file.js
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
@@ -78,11 +89,14 @@ jobs:
           mkdir -p _site
           # Copy core web application pages, welcome portal, and SEO/AI visibility assets into staging directory
           cp *.html manifest.json logo.svg robots.txt sitemap.xml llms.txt .nojekyll _site/
+          [ -f rei-logo.svg ] && cp rei-logo.svg _site/
           [ -f sw.js ] && cp sw.js _site/
           [ -f BingSiteAuth.xml ] && cp BingSiteAuth.xml _site/
           cp icon-*.png _site/
           cp -r css js data Documents docs assets launch _site/
 
+          [ -d rei ] && cp -r rei _site/
+          [ -d dist ] && cp -r dist _site/
           [ -d concepts ] && cp -r concepts _site/
           [ -d downloads ] && cp -r downloads _site/
           [ -d profile ] && cp -r profile _site/

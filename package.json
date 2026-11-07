@@ -5,7 +5,8 @@
   "description": "PK Khmer Type — Interactive Cambodian (Khmer Standard, Khmer NiDA) & English Touch-Typing Studio with Supabase Cloud Sync",
   "scripts": {
     "dev": "node scripts/generate_supabase_config.js && vite",
-    "build": "node scripts/generate_supabase_config.js",
+    "build": "node scripts/generate_supabase_config.js && node scripts/generate_rei.js && node scripts/bundle_single_file.js",
+    "pretest": "node scripts/generate_supabase_config.js && node scripts/generate_rei.js && node scripts/bundle_single_file.js",
     "test": "node --test tests/*.test.js",
     "validate": "node scripts/validate_curriculum.js",
     "worker:create": "node scripts/worktree_manager.js create",
