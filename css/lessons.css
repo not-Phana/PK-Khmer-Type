@@ -911,9 +911,6 @@
       display: none !important;
     }
   }
-  html.focus-mode .lesson-panel {
-    display: none !important;
-  }
 
   .lesson-strip.expanded{
     width:min(94vw, 680px);
@@ -4075,8 +4072,11 @@
   text-shadow: none !important;
 }
 
-/* Focus Mode: Lesson dock maintains ergonomic cyber styling with collapse capability */
-html.focus-mode .lesson-panel {
+/* Focus Mode: Active lesson drill panel remains centered and visible */
+html.focus-mode .lesson-panel:not([hidden]) {
+  display: block !important;
+}
+.lesson-panel[hidden] {
   display: none !important;
 }
 

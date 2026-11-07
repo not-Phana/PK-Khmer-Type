@@ -370,6 +370,9 @@ function buildReiHtml(isSubdir = false) {
         max-width: 960px !important;
         margin: 10px auto !important;
       }
+      .is-rei .lesson-panel:not([hidden]) {
+        display: block !important;
+      }
     }
 
     /* Tablet and Mobile (< 1024px) */
