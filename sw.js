@@ -11,7 +11,7 @@
  * Strict Zero-Emoji Policy: 100% SVG vector icons only.
  * ============================================================================ */
 
-var CACHE_VERSION = "pk-khmer-type-v91";
+var CACHE_VERSION = "pk-khmer-type-v92";
 var FONT_CACHE = "pk-khmer-type-fonts-v1";
 
 var PRECACHE_ASSETS = [
@@ -172,31 +172,21 @@ self.addEventListener("fetch", function (event) {
     return;
   }
 
-  // 4. Static Application Shell Assets (Cache-First with Network Fallback)
+  // 4. Static Application Shell Assets: Network-First with Cache Fallback
+  // Soft-reloads (Ctrl+R / F5) always receive the freshest CSS/JS immediately,
+  // eliminating stale cached stylesheets while maintaining 100% offline PWA support.
   event.respondWith(
-    caches.match(request, { ignoreSearch: true }).then(function (cachedResponse) {
-      if (cachedResponse) {
-        // Fetch in background to update cache (stale-while-revalidate for local assets)
-        fetch(request).then(function (fresh) {
-          if (fresh && fresh.status === 200) {
-            caches.open(CACHE_VERSION).then(function (cache) {
-              cache.put(request, fresh);
-            });
-          }
-        }).catch(function () {});
-        return cachedResponse;
+    fetch(request).then(function (networkResponse) {
+      if (networkResponse && networkResponse.status === 200) {
+        var clone = networkResponse.clone();
+        caches.open(CACHE_VERSION).then(function (cache) {
+          cache.put(request, clone);
+        });
       }
-
-      return fetch(request).then(function (networkResponse) {
-        if (networkResponse && networkResponse.status === 200) {
-          var clone = networkResponse.clone();
-          caches.open(CACHE_VERSION).then(function (cache) {
-            cache.put(request, clone);
-          });
-        }
-        return networkResponse;
-      }).catch(function () {
-        // Fallback for image requests if offline
+      return networkResponse;
+    }).catch(function () {
+      return caches.match(request, { ignoreSearch: true }).then(function (cachedResponse) {
+        if (cachedResponse) return cachedResponse;
         if (request.destination === "image") {
           return caches.match("logo.svg");
         }
