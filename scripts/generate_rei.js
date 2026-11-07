@@ -1161,9 +1161,60 @@ html.theme-light .rscc-sub {
       box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1) !important;
     }
 
-    html.theme-light .rei-strip-stages-bar {
+    html.theme-light .rei-strip-stages-wrap {
       background: #f8fafc !important;
-      border-bottom: 1px solid #cbd5e1 !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+    }
+
+    html.theme-light .rei-strip-stages-wrap::before {
+      background: linear-gradient(90deg, #f8fafc, rgba(248, 250, 252, 0)) !important;
+    }
+
+    html.theme-light .rei-strip-stages-wrap::after {
+      background: linear-gradient(-90deg, #f8fafc, rgba(248, 250, 252, 0)) !important;
+    }
+
+    html.theme-light .rei-stage-scroll-btn {
+      background: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #d97706 !important;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08) !important;
+    }
+
+    html.theme-light .rei-stage-scroll-btn:hover:not(:disabled) {
+      background: #fffbeb !important;
+      border-color: #f59e0b !important;
+      color: #b45309 !important;
+      transform: scale(1.08) !important;
+      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.2) !important;
+    }
+
+    html.theme-light .rei-stage-scroll-btn:disabled {
+      background: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+      color: #94a3b8 !important;
+      opacity: 0.45 !important;
+      box-shadow: none !important;
+    }
+
+    html.theme-light .rei-strip-stages-bar {
+      background: transparent !important;
+      border-bottom: none !important;
+      scrollbar-color: rgba(217, 119, 6, 0.4) #e2e8f0 !important;
+    }
+
+    html.theme-light .rei-strip-stages-bar::-webkit-scrollbar-track {
+      background: #e2e8f0 !important;
+      border-radius: 3px !important;
+    }
+
+    html.theme-light .rei-strip-stages-bar::-webkit-scrollbar-thumb {
+      background: rgba(217, 119, 6, 0.4) !important;
+      border-radius: 3px !important;
+    }
+
+    html.theme-light .rei-strip-stages-bar::-webkit-scrollbar-thumb:hover {
+      background: rgba(217, 119, 6, 0.75) !important;
     }
 
     html.theme-light .rei-stage-btn {
