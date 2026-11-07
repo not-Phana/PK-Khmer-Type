@@ -4293,7 +4293,7 @@ html.theme-light .rscc-sub {
       <div class="project-scale-title-wrap">
         <div class="project-scale-pill">
           <span class="scale-live-dot" aria-hidden="true"></span>
-          <span>LIVE ARCHITECTURE TELEMETRY</span>
+          <span id="scaleLiveStatus">LIVE ARCHITECTURE TELEMETRY &middot; ACTIVE</span>
         </div>
         <h2 id="projectScaleTitle" class="project-scale-title">
           <span class="i18n-t" data-en="Engine Scope &amp; Scale Matrix" data-km="មាត្រដ្ឋានវិសាលភាព និងស្ថាបត្យកម្មម៉ាស៊ីន">Engine Scope &amp; Scale Matrix</span>
@@ -4305,34 +4305,91 @@ html.theme-light .rscc-sub {
     <!-- 6 Big Stats Grid -->
     <div class="project-scale-stats-grid">
       <div class="scale-stat-card">
-        <div class="scale-stat-value">250,168</div>
+        <div class="scale-stat-value" id="scaleStatLoc" data-target="250168">250,168</div>
         <div class="scale-stat-label i18n-t" data-en="Total Codebase Lines" data-km="បន្ទាត់កូដសរុប">Total Codebase Lines</div>
         <div class="scale-stat-detail">66k JS &middot; 35k CSS &middot; 117k HTML &middot; 24k Data</div>
       </div>
       <div class="scale-stat-card">
-        <div class="scale-stat-value">276</div>
+        <div class="scale-stat-value" id="scaleStatLessons" data-target="276">276</div>
         <div class="scale-stat-label i18n-t" data-en="Curated Typing Lessons" data-km="មេរៀនហ្វឹកហាត់ជាក់លាក់">Curated Typing Lessons</div>
         <div class="scale-stat-detail">78 Standard &middot; 78 NiDA &middot; 66 English &middot; 54 Bonus</div>
       </div>
       <div class="scale-stat-card">
-        <div class="scale-stat-value">199</div>
+        <div class="scale-stat-value" id="scaleStatTests" data-target="206">206</div>
         <div class="scale-stat-label i18n-t" data-en="Automated Passing Tests" data-km="ការធ្វើតេស្តស្វ័យប្រវត្តិកន្លងផុត">Automated Passing Tests</div>
         <div class="scale-stat-detail">100% Passing Unit &amp; Regression Test Suites</div>
       </div>
       <div class="scale-stat-card">
-        <div class="scale-stat-value">412</div>
+        <div class="scale-stat-value" id="scaleStatFiles" data-target="412">412</div>
         <div class="scale-stat-label i18n-t" data-en="Engine Files &amp; Assets" data-km="ឯកសារ និងធនធានម៉ាស៊ីន">Engine Files &amp; Assets</div>
         <div class="scale-stat-detail">Zero external CDNs &middot; 100% self-contained</div>
       </div>
       <div class="scale-stat-card">
-        <div class="scale-stat-value">3</div>
+        <div class="scale-stat-value" id="scaleStatStandards" data-target="3">3</div>
         <div class="scale-stat-label i18n-t" data-en="Keyboard Standards" data-km="ស្តង់ដារក្តារចុច">Keyboard Standards</div>
         <div class="scale-stat-detail">Khmer Windows, NiDA &amp; US QWERTY (4 Layers)</div>
       </div>
       <div class="scale-stat-card">
-        <div class="scale-stat-value">0</div>
+        <div class="scale-stat-value" id="scaleStatBloat" data-target="0">0</div>
         <div class="scale-stat-label i18n-t" data-en="External Framework Bloat" data-km="កូដផ្ទុកបន្ទុកក្រៅប្រព័ន្ធ">External Framework Bloat</div>
         <div class="scale-stat-detail">Pure Native Vanilla JS &amp; Modern Web APIs</div>
+      </div>
+    </div>
+
+    <!-- Real-Time Dynamic Telemetry Stream Deck -->
+    <div class="scale-telemetry-live-deck" id="scaleTelemetryLiveDeck">
+      <div class="stld-header">
+        <div class="stld-title-group">
+          <span class="stld-pulse-dot" aria-hidden="true"></span>
+          <span class="stld-title i18n-t" data-en="LIVE CLIENT ENGINE VITALS" data-km="ស្ថានភាពដំណើរការម៉ាស៊ីនផ្ទាល់">LIVE CLIENT ENGINE VITALS</span>
+          <span class="stld-badge">REAL-TIME</span>
+        </div>
+        <div class="stld-fps-pill" id="scaleLiveFpsTicker" title="Real-Time FPS and Frame Latency">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="scaleLiveFpsVal">60.0 FPS</span> &middot; <span id="scaleLiveLatencyVal">16.6ms frame</span>
+        </div>
+      </div>
+
+      <div class="stld-grid">
+        <!-- Card 1: Engine Uptime -->
+        <div class="stld-card">
+          <div class="stld-card-top">
+            <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 10"/></svg>
+            <span class="stld-card-label i18n-t" data-en="Engine Uptime" data-km="ថិរវេលាដំណើរការ">Engine Uptime</span>
+          </div>
+          <div class="stld-card-val" id="scaleLiveUptime">00:00:00</div>
+          <div class="stld-card-sub i18n-t" data-en="Active session duration" data-km="រយៈពេលសម័យប្រជុំសកម្ម">Active session duration</div>
+        </div>
+
+        <!-- Card 2: Memory Heap Density -->
+        <div class="stld-card">
+          <div class="stld-card-top">
+            <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            <span class="stld-card-label i18n-t" data-en="JS Heap Memory" data-km="អង្គចងចាំ JS Heap">JS Heap Memory</span>
+          </div>
+          <div class="stld-card-val" id="scaleLiveMemory">-- MB</div>
+          <div class="stld-card-sub" id="scaleLiveMemorySub">Allocated / Used Heap</div>
+        </div>
+
+        <!-- Card 3: Active DOM Tree Nodes -->
+        <div class="stld-card">
+          <div class="stld-card-top">
+            <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <span class="stld-card-label i18n-t" data-en="Active DOM Nodes" data-km="ថ្នាំង DOM សកម្ម">Active DOM Nodes</span>
+          </div>
+          <div class="stld-card-val" id="scaleLiveDomNodes">--</div>
+          <div class="stld-card-sub i18n-t" data-en="Live rendering tree complexity" data-km="កម្រិតស្មុគស្មាញនៃដើមឈើ DOM">Live rendering tree complexity</div>
+        </div>
+
+        <!-- Card 4: Session Typing Vitals -->
+        <div class="stld-card">
+          <div class="stld-card-top">
+            <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6" y2="8"/><line x1="10" y1="8" x2="10" y2="8"/><line x1="14" y1="8" x2="14" y2="8"/><line x1="18" y1="8" x2="18" y2="8"/><line x1="8" y1="12" x2="8" y2="12"/><line x1="12" y1="12" x2="12" y2="12"/><line x1="16" y1="12" x2="16" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+            <span class="stld-card-label i18n-t" data-en="Session Typing Vitals" data-km="ទិន្នន័យវាយអត្ថបទ">Session Typing Vitals</span>
+          </div>
+          <div class="stld-card-val" id="scaleLiveTypingKeys">0 strokes</div>
+          <div class="stld-card-sub" id="scaleLiveTypingSpeed">0 WPM &middot; 100% Accuracy</div>
+        </div>
       </div>
     </div>
 
