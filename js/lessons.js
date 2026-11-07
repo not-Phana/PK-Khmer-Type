@@ -2153,21 +2153,31 @@ function renderLessonStrip(){
       `;
       frag.appendChild(htuGuide);
 
-      // 2. Focused Stage Selector Bar
+      // 2. Focused Stage Selector Bar with Horizontal Scroll Navigation & Wheel Support
       const curStage = (typeof reiActiveStage !== 'undefined') ? reiActiveStage : 1;
-      const stageBar = document.createElement('div');
-      stageBar.className = 'rei-strip-stages-bar';
-      stageBar.id = 'reiStripStagesBar';
-      stageBar.innerHTML = `
-        <button type="button" class="rei-stage-btn ${curStage === 1 ? 'active' : ''}" data-stage="1" title="Stage 1: Home Row Anchors & Vowels">1. Home Row</button>
-        <button type="button" class="rei-stage-btn ${curStage === 2 ? 'active' : ''}" data-stage="2" title="Stage 2: Top Row Reaches">2. Top Row</button>
-        <button type="button" class="rei-stage-btn ${curStage === 3 ? 'active' : ''}" data-stage="3" title="Stage 3: Bottom Row Reaches">3. Bottom Row</button>
-        <button type="button" class="rei-stage-btn ${curStage === 4 ? 'active' : ''}" data-stage="4" title="Stage 4: Shift Consonants & Vowels">4. Shift Keys</button>
-        <button type="button" class="rei-stage-btn ${curStage === 5 ? 'active' : ''}" data-stage="5" title="Stage 5: Subscripts & Diacritics">5. Subscripts</button>
-        <button type="button" class="rei-stage-btn ${curStage === 6 ? 'active' : ''}" data-stage="6" title="Stage 6: Word Practice">6. Words</button>
-        <button type="button" class="rei-stage-btn ${curStage === 7 ? 'active' : ''}" data-stage="7" title="Stage 7: Sentences & Flow">7. Flow</button>
-        <button type="button" class="rei-stage-btn ${curStage === 'all' ? 'active' : ''}" data-stage="all" title="View All Lessons">All</button>
+      const stageBarWrap = document.createElement('div');
+      stageBarWrap.className = 'rei-strip-stages-wrap';
+      stageBarWrap.id = 'reiStripStagesWrap';
+      stageBarWrap.innerHTML = `
+        <button type="button" class="rei-stage-scroll-btn prev" id="reiStageScrollPrev" aria-label="Scroll stages left" title="Scroll left">
+          <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="rei-strip-stages-bar" id="reiStripStagesBar" tabindex="0" role="region" aria-label="Stages rail">
+          <button type="button" class="rei-stage-btn ${curStage === 1 ? 'active' : ''}" data-stage="1" title="Stage 1: Home Row Anchors & Vowels">1. Home Row</button>
+          <button type="button" class="rei-stage-btn ${curStage === 2 ? 'active' : ''}" data-stage="2" title="Stage 2: Top Row Reaches">2. Top Row</button>
+          <button type="button" class="rei-stage-btn ${curStage === 3 ? 'active' : ''}" data-stage="3" title="Stage 3: Bottom Row Reaches">3. Bottom Row</button>
+          <button type="button" class="rei-stage-btn ${curStage === 4 ? 'active' : ''}" data-stage="4" title="Stage 4: Shift Consonants & Vowels">4. Shift Keys</button>
+          <button type="button" class="rei-stage-btn ${curStage === 5 ? 'active' : ''}" data-stage="5" title="Stage 5: Subscripts & Diacritics">5. Subscripts</button>
+          <button type="button" class="rei-stage-btn ${curStage === 6 ? 'active' : ''}" data-stage="6" title="Stage 6: Word Practice">6. Words</button>
+          <button type="button" class="rei-stage-btn ${curStage === 7 ? 'active' : ''}" data-stage="7" title="Stage 7: Sentences & Flow">7. Flow</button>
+          <button type="button" class="rei-stage-btn ${curStage === 'all' ? 'active' : ''}" data-stage="all" title="View All Lessons">All</button>
+        </div>
+        <button type="button" class="rei-stage-scroll-btn next" id="reiStageScrollNext" aria-label="Scroll stages right" title="Scroll right">
+          <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       `;
+
+      const stageBar = stageBarWrap.querySelector('#reiStripStagesBar');
       stageBar.addEventListener('click', (e) => {
         const btn = e.target.closest('.rei-stage-btn');
         if(!btn) return;
@@ -2180,7 +2190,9 @@ function renderLessonStrip(){
         }
         renderLessonStrip();
       });
-      frag.appendChild(stageBar);
+
+      if(typeof initReiStageRailScroll === 'function') initReiStageRailScroll(stageBarWrap);
+      frag.appendChild(stageBarWrap);
 
       // 3. Stage Pedagogical Tip Banner with Stage Progress and Quick Action
       const stageTipBanner = document.createElement('div');
@@ -5492,3 +5504,103 @@ function startNextLessonDrill() {
   }
 }
 window.startNextLessonDrill = startNextLessonDrill;
+
+// ============================================================
+// STAGE RAIL HORIZONTAL SCROLL ENGINE (Wheel, Drag & Nav Arrows)
+// ============================================================
+function initReiStageRailScroll(wrapEl) {
+  if (!wrapEl) return;
+  const sBar = wrapEl.querySelector('#reiStripStagesBar') || wrapEl;
+  if (!sBar || sBar.__hScrollInitialized) return;
+  sBar.__hScrollInitialized = true;
+
+  const pBtn = wrapEl.querySelector('#reiStageScrollPrev');
+  const nBtn = wrapEl.querySelector('#reiStageScrollNext');
+
+  function updateScrollButtons() {
+    if (!sBar) return;
+    const maxScroll = sBar.scrollWidth - sBar.clientWidth;
+    const hasOverflow = maxScroll > 2;
+    if (pBtn) pBtn.disabled = sBar.scrollLeft <= 2;
+    if (nBtn) nBtn.disabled = sBar.scrollLeft >= maxScroll - 2;
+    wrapEl.classList.toggle('can-scroll-left', sBar.scrollLeft > 2);
+    wrapEl.classList.toggle('can-scroll-right', hasOverflow && sBar.scrollLeft < maxScroll - 2);
+  }
+
+  sBar.addEventListener('scroll', updateScrollButtons, { passive: true });
+
+  if (pBtn) {
+    pBtn.addEventListener('click', () => {
+      sBar.scrollBy({ left: -140, behavior: 'smooth' });
+    });
+  }
+  if (nBtn) {
+    nBtn.addEventListener('click', () => {
+      sBar.scrollBy({ left: 140, behavior: 'smooth' });
+    });
+  }
+
+  // Mouse Wheel: Converts vertical mouse wheel delta into horizontal scroll
+  wrapEl.addEventListener('wheel', (e) => {
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (delta !== 0) {
+      const maxScroll = sBar.scrollWidth - sBar.clientWidth;
+      if ((delta < 0 && sBar.scrollLeft > 0) || (delta > 0 && sBar.scrollLeft < maxScroll)) {
+        e.preventDefault();
+        sBar.scrollLeft += delta * 1.1;
+        updateScrollButtons();
+      }
+    }
+  }, { passive: false });
+
+  // Mouse Drag-to-Scroll
+  let isDown = false;
+  let startX = 0;
+  let startScroll = 0;
+  let didDrag = false;
+
+  sBar.addEventListener('mousedown', (e) => {
+    isDown = true;
+    didDrag = false;
+    startX = e.pageX - sBar.offsetLeft;
+    startScroll = sBar.scrollLeft;
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDown = false;
+  });
+
+  sBar.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    const x = e.pageX - sBar.offsetLeft;
+    const walk = (x - startX) * 1.3;
+    if (Math.abs(walk) > 4) didDrag = true;
+    sBar.scrollLeft = startScroll - walk;
+    updateScrollButtons();
+  });
+
+  sBar.addEventListener('click', (e) => {
+    if (didDrag) {
+      e.preventDefault();
+      e.stopPropagation();
+      didDrag = false;
+    }
+  }, true);
+
+  // Auto-scroll active stage button into view smoothly
+  setTimeout(() => {
+    const activeBtn = sBar.querySelector('.rei-stage-btn.active');
+    if (activeBtn && typeof activeBtn.scrollIntoView === 'function') {
+      activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+    updateScrollButtons();
+  }, 60);
+}
+window.initReiStageRailScroll = initReiStageRailScroll;
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    const existingWrap = document.getElementById('reiStripStagesWrap') || document.querySelector('.rei-strip-stages-wrap');
+    if (existingWrap) initReiStageRailScroll(existingWrap);
+  });
+}

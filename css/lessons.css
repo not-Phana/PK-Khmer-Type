@@ -6955,24 +6955,112 @@ html.theme-light .is-rei .key.active-target {
   flex-shrink: 0 !important;
 }
 
-/* Horizontal Stage Selector Bar Polish */
+/* Horizontal Stage Selector Rail with Left/Right Nav Arrows & Wheel Support */
+.rei-strip-stages-wrap {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  background: rgba(0, 0, 0, 0.35) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* Edge shadow / gradient fade when scrollable */
+.rei-strip-stages-wrap::before,
+.rei-strip-stages-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.rei-strip-stages-wrap::before {
+  left: 30px;
+  background: linear-gradient(90deg, rgba(14, 18, 38, 0.95), transparent);
+}
+.rei-strip-stages-wrap::after {
+  right: 30px;
+  background: linear-gradient(-90deg, rgba(14, 18, 38, 0.95), transparent);
+}
+.rei-strip-stages-wrap.can-scroll-left::before {
+  opacity: 1;
+}
+.rei-strip-stages-wrap.can-scroll-right::after {
+  opacity: 1;
+}
+
+/* Nav Scroll Buttons on Left and Right */
+.rei-stage-scroll-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 26px !important;
+  height: 26px !important;
+  flex-shrink: 0 !important;
+  margin: 0 4px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  color: var(--gold-bright, #ffd166) !important;
+  cursor: pointer !important;
+  z-index: 6 !important;
+  padding: 0 !important;
+  transition: all 0.15s ease !important;
+}
+.rei-stage-scroll-btn:hover:not(:disabled) {
+  background: rgba(255, 209, 102, 0.22) !important;
+  border-color: rgba(255, 209, 102, 0.5) !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 0 10px rgba(255, 209, 102, 0.35) !important;
+}
+.rei-stage-scroll-btn:disabled {
+  opacity: 0.2 !important;
+  cursor: default !important;
+  pointer-events: none !important;
+}
+
+/* The Horizontal Stages Rail */
 .rei-strip-stages-bar {
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
   align-items: center !important;
   gap: 6px !important;
-  padding: 8px 12px !important;
+  padding: 8px 6px !important;
   overflow-x: auto !important;
   overflow-y: hidden !important;
-  scrollbar-width: none !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 209, 102, 0.45) transparent !important;
   -webkit-overflow-scrolling: touch !important;
-  background: rgba(0, 0, 0, 0.35) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  flex-shrink: 0 !important;
+  scroll-behavior: smooth !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  cursor: grab !important;
+}
+.rei-strip-stages-bar:active {
+  cursor: grabbing !important;
 }
 .rei-strip-stages-bar::-webkit-scrollbar {
-  display: none !important;
+  height: 3px !important;
+  display: block !important;
+}
+.rei-strip-stages-bar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border-radius: 3px !important;
+}
+.rei-strip-stages-bar::-webkit-scrollbar-thumb {
+  background: rgba(255, 209, 102, 0.35) !important;
+  border-radius: 3px !important;
+}
+.rei-strip-stages-bar::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-bright, #ffd166) !important;
 }
 .rei-stage-btn {
   flex-shrink: 0 !important;
