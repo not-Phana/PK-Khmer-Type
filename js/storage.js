@@ -1138,19 +1138,21 @@ window.AccountProgress = AccountProgress;
     updateConfigBanner();
     const user = await AuthProvider.getCurrentUser();
     if (user) {
-      authOpenBtn.hidden = true;
-      authAccountChip.hidden = false;
+      if (authOpenBtn) authOpenBtn.hidden = true;
+      if (authAccountChip) authAccountChip.hidden = false;
       const chipImg = document.createElement('img');
       chipImg.src = user.avatar || window.DEFAULT_AVATAR;
       chipImg.alt = '';
-      authChipAvatar.textContent = '';
-      authChipAvatar.appendChild(chipImg);
-      authChipName.textContent = user.username;
+      if (authChipAvatar) {
+        authChipAvatar.textContent = '';
+        authChipAvatar.appendChild(chipImg);
+      }
+      if (authChipName) authChipName.textContent = user.username;
       if (cloudSyncStatusBadge) cloudSyncStatusBadge.hidden = false;
       updateSyncStatusUI();
     } else {
-      authOpenBtn.hidden = false;
-      authAccountChip.hidden = true;
+      if (authOpenBtn) authOpenBtn.hidden = false;
+      if (authAccountChip) authAccountChip.hidden = true;
       if (cloudSyncStatusBadge) cloudSyncStatusBadge.hidden = true;
     }
     return user;

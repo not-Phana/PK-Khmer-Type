@@ -7532,63 +7532,12 @@ html.theme-light .is-rei .key.active-target {
   box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.35), 0 4px 12px rgba(217, 119, 6, 0.25) !important;
 }
 
-/* Easy-To-Use 3-Step Guide (Zero Ellipsis & Clean Ergonomic Track) */
+/* Easy-To-Use 3-Step Guide (Omitted to keep drawer clean and non-truncated) */
 .rei-how-to-use-guide {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 8px !important;
-  padding: 8px 14px !important;
-  background: rgba(255, 209, 102, 0.05) !important;
-  border-bottom: 1px solid rgba(255, 209, 102, 0.15) !important;
-  font-size: 0.72rem !important;
-  flex-shrink: 0 !important;
+  display: none !important;
 }
 .rei-htu-step {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  min-width: 0 !important;
-  flex-shrink: 0 !important;
-}
-.rei-htu-num {
-  width: 18px !important;
-  height: 18px !important;
-  border-radius: 50% !important;
-  background: rgba(255, 209, 102, 0.2) !important;
-  color: var(--gold, #ffd166) !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-weight: 700 !important;
-  font-size: 0.68rem !important;
-  flex-shrink: 0 !important;
-}
-.rei-htu-step.active .rei-htu-num {
-  background: var(--gold, #ffd166) !important;
-  color: #0f172a !important;
-}
-.rei-htu-text {
-  display: inline-flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  line-height: 1.2 !important;
-}
-.rei-htu-main {
-  font-weight: 700 !important;
-  font-size: 0.72rem !important;
-  color: var(--ink, #f1f5f9) !important;
-  white-space: nowrap !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-}
-.rei-htu-sub {
-  display: none !important; /* Hide multi-line subtitle bloat that caused clipping */
-}
-.rei-htu-arrow {
-  color: var(--gold, #ffd166) !important;
-  opacity: 0.65 !important;
-  flex-shrink: 0 !important;
+  display: none !important;
 }
 
 /* Horizontal Stage Selector Rail with Left/Right Nav Arrows & Wheel Support */
@@ -7596,40 +7545,20 @@ html.theme-light .is-rei .key.active-target {
   position: relative !important;
   display: flex !important;
   align-items: center !important;
-  background: rgba(0, 0, 0, 0.35) !important;
+  background: rgba(0, 0, 0, 0.25) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   flex-shrink: 0 !important;
   width: 100% !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
+  padding: 4px 6px !important;
+  gap: 4px !important;
 }
 
-/* Edge shadow / gradient fade when scrollable */
+/* Eliminate all gradient overlays that caused dark smudges */
 .rei-strip-stages-wrap::before,
 .rei-strip-stages-wrap::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 24px;
-  pointer-events: none;
-  z-index: 5;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-.rei-strip-stages-wrap::before {
-  left: 30px;
-  background: linear-gradient(90deg, rgba(14, 18, 38, 0.95), transparent);
-}
-.rei-strip-stages-wrap::after {
-  right: 30px;
-  background: linear-gradient(-90deg, rgba(14, 18, 38, 0.95), transparent);
-}
-.rei-strip-stages-wrap.can-scroll-left::before {
-  opacity: 1;
-}
-.rei-strip-stages-wrap.can-scroll-right::after {
-  opacity: 1;
+  display: none !important;
 }
 
 /* Nav Scroll Buttons on Left and Right */
@@ -8897,14 +8826,13 @@ html.theme-light .rscc-sub {
     max-width: min(92vw, 860px);
     margin: 24px auto 14px auto;
     padding: 16px 22px 18px 24px;
-    background: linear-gradient(135deg, rgba(20, 27, 50, 0.92) 0%, rgba(12, 17, 34, 0.96) 100%);
+    background: linear-gradient(135deg, rgba(20, 27, 50, 0.94) 0%, rgba(12, 17, 34, 0.98) 100%);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 209, 102, 0.25);
-    border-left: 5px solid #ffd166;
-    border-radius: 12px;
+    border: 1.5px solid rgba(255, 209, 102, 0.28);
+    border-radius: 14px;
     box-shadow:
-      -5px 0 24px -2px rgba(255, 209, 102, 0.45),
+      0 4px 20px -2px rgba(255, 209, 102, 0.14),
       0 14px 34px -8px rgba(0, 0, 0, 0.7),
       inset 0 1px 0 rgba(255, 255, 255, 0.12);
     transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
@@ -8915,7 +8843,7 @@ html.theme-light .rscc-sub {
     transform: translateY(-1px);
     border-color: rgba(255, 209, 102, 0.45);
     box-shadow:
-      -5px 0 30px 0 rgba(255, 209, 102, 0.6),
+      0 6px 26px -2px rgba(255, 209, 102, 0.22),
       0 18px 40px -8px rgba(0, 0, 0, 0.8),
       inset 0 1px 0 rgba(255, 255, 255, 0.16);
   }
@@ -9087,18 +9015,17 @@ html.theme-light .rscc-sub {
   /* Light Mode for Prominent Pro Tips Banner */
   html.theme-light .pro-tips-banner-card {
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
-    border: 1.5px solid #e2e8f0 !important;
-    border-left: 5px solid #d97706 !important;
+    border: 1.5px solid #cbd5e1 !important;
     box-shadow:
-      -5px 0 20px rgba(217, 119, 6, 0.25),
-      0 12px 30px -6px rgba(15, 23, 42, 0.1) !important;
+      0 4px 18px rgba(217, 119, 6, 0.08),
+      0 12px 30px -6px rgba(15, 23, 42, 0.08) !important;
   }
 
   html.theme-light .pro-tips-banner-card:hover {
-    border-color: #cbd5e1 !important;
+    border-color: #94a3b8 !important;
     box-shadow:
-      -5px 0 26px rgba(217, 119, 6, 0.35),
-      0 16px 36px -6px rgba(15, 23, 42, 0.14) !important;
+      0 6px 24px rgba(217, 119, 6, 0.12),
+      0 16px 36px -6px rgba(15, 23, 42, 0.12) !important;
   }
 
   html.theme-light .pro-tip-content-large {
@@ -9144,6 +9071,269 @@ html.theme-light .rscc-sub {
     border-color: #d97706 !important;
     color: #92400e !important;
     box-shadow: 0 0 10px rgba(217, 119, 6, 0.25) !important;
+  }
+
+  /* Multi-Theme Bespoke Palettes: Prominent Pro Tips Banner */
+  html.theme-temple .pro-tips-banner-card {
+    background: linear-gradient(135deg, rgba(32, 26, 20, 0.94) 0%, rgba(20, 16, 12, 0.98) 100%) !important;
+    border: 1.5px solid rgba(245, 158, 11, 0.35) !important;
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15), 0 14px 34px -8px rgba(0, 0, 0, 0.8) !important;
+  }
+  html.theme-temple .pro-tip-content-large {
+    color: #fef3c7 !important;
+  }
+  html.theme-temple .pro-tip-content-large kbd {
+    background: rgba(245, 158, 11, 0.15) !important;
+    border-color: rgba(245, 158, 11, 0.5) !important;
+    color: #fde68a !important;
+  }
+  html.theme-temple .pro-tip-cycle-btn-large {
+    background: rgba(245, 158, 11, 0.15) !important;
+    border-color: rgba(245, 158, 11, 0.45) !important;
+    color: #fde68a !important;
+  }
+  html.theme-temple .pro-tip-all-btn {
+    background: rgba(217, 119, 6, 0.15) !important;
+    border-color: rgba(217, 119, 6, 0.5) !important;
+    color: #fbbf24 !important;
+  }
+
+  html.theme-moonlight .pro-tips-banner-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.94) 0%, rgba(10, 15, 30, 0.98) 100%) !important;
+    border: 1.5px solid rgba(56, 189, 248, 0.35) !important;
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15), 0 14px 34px -8px rgba(0, 0, 0, 0.8) !important;
+  }
+  html.theme-moonlight .pro-tip-content-large {
+    color: #f1f5f9 !important;
+  }
+  html.theme-moonlight .pro-tip-content-large kbd {
+    background: rgba(56, 189, 248, 0.14) !important;
+    border-color: rgba(56, 189, 248, 0.45) !important;
+    color: #7dd3fc !important;
+  }
+  html.theme-moonlight .pro-tip-cycle-btn-large {
+    background: rgba(56, 189, 248, 0.12) !important;
+    border-color: rgba(56, 189, 248, 0.45) !important;
+    color: #38bdf8 !important;
+  }
+  html.theme-moonlight .pro-tip-all-btn {
+    background: rgba(14, 165, 233, 0.15) !important;
+    border-color: rgba(14, 165, 233, 0.5) !important;
+    color: #bae6fd !important;
+  }
+
+  html.theme-jungle .pro-tips-banner-card {
+    background: linear-gradient(135deg, rgba(6, 32, 22, 0.94) 0%, rgba(3, 20, 14, 0.98) 100%) !important;
+    border: 1.5px solid rgba(16, 185, 129, 0.35) !important;
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15), 0 14px 34px -8px rgba(0, 0, 0, 0.8) !important;
+  }
+  html.theme-jungle .pro-tip-content-large {
+    color: #f0fdf4 !important;
+  }
+  html.theme-jungle .pro-tip-content-large kbd {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border-color: rgba(16, 185, 129, 0.45) !important;
+    color: #6ee7b7 !important;
+  }
+  html.theme-jungle .pro-tip-cycle-btn-large {
+    background: rgba(16, 185, 129, 0.12) !important;
+    border-color: rgba(16, 185, 129, 0.45) !important;
+    color: #34d399 !important;
+  }
+  html.theme-jungle .pro-tip-all-btn {
+    background: rgba(5, 150, 105, 0.18) !important;
+    border-color: rgba(5, 150, 105, 0.5) !important;
+    color: #a7f3d0 !important;
+  }
+
+  html.theme-sunset .pro-tips-banner-card {
+    background: linear-gradient(135deg, rgba(34, 16, 26, 0.94) 0%, rgba(20, 10, 16, 0.98) 100%) !important;
+    border: 1.5px solid rgba(249, 115, 22, 0.35) !important;
+    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.15), 0 14px 34px -8px rgba(0, 0, 0, 0.8) !important;
+  }
+  html.theme-sunset .pro-tip-content-large {
+    color: #fff1f2 !important;
+  }
+  html.theme-sunset .pro-tip-content-large kbd {
+    background: rgba(249, 115, 22, 0.15) !important;
+    border-color: rgba(249, 115, 22, 0.45) !important;
+    color: #fdba74 !important;
+  }
+  html.theme-sunset .pro-tip-cycle-btn-large {
+    background: rgba(249, 115, 22, 0.12) !important;
+    border-color: rgba(249, 115, 22, 0.45) !important;
+    color: #fb923c !important;
+  }
+  html.theme-sunset .pro-tip-all-btn {
+    background: rgba(225, 29, 72, 0.18) !important;
+    border-color: rgba(225, 29, 72, 0.5) !important;
+    color: #fecdd3 !important;
+  }
+
+  html.theme-sepia .pro-tips-banner-card {
+    background: linear-gradient(135deg, #fdfbf7 0%, #f7f2e7 100%) !important;
+    border: 1.5px solid #d7c9aa !important;
+    box-shadow: 0 4px 18px rgba(180, 83, 9, 0.08), 0 12px 30px -6px rgba(62, 39, 35, 0.08) !important;
+  }
+  html.theme-sepia .pro-tip-content-large {
+    color: #3e2723 !important;
+    text-shadow: none !important;
+  }
+  html.theme-sepia .pro-tip-content-large kbd {
+    background: #fdf8ed !important;
+    border-color: #d97706 !important;
+    color: #78350f !important;
+    box-shadow: 0 1px 3px rgba(62, 39, 35, 0.08), inset 0 1px 0 #ffffff !important;
+  }
+  html.theme-sepia .pro-tip-cycle-btn-large {
+    background: #fbf5e6 !important;
+    border-color: #d97706 !important;
+    color: #78350f !important;
+  }
+  html.theme-sepia .pro-tip-cycle-btn-large:hover {
+    background: #f7ebd0 !important;
+    color: #451a03 !important;
+  }
+  html.theme-sepia .pro-tip-all-btn {
+    background: #ede3cb !important;
+    border-color: #b45309 !important;
+    color: #78350f !important;
+  }
+  html.theme-sepia .pro-tip-all-btn:hover {
+    background: #e2d4b5 !important;
+    color: #451a03 !important;
+  }
+
+  html.theme-glass .pro-tips-banner-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15), 0 16px 40px -8px rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  }
+  html.theme-glass .pro-tip-content-large {
+    color: #ffffff !important;
+  }
+  html.theme-glass .pro-tip-content-large kbd {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    color: #ffffff !important;
+  }
+  html.theme-glass .pro-tip-cycle-btn-large {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+  }
+  html.theme-glass .pro-tip-all-btn {
+    background: rgba(56, 189, 248, 0.18) !important;
+    border-color: rgba(56, 189, 248, 0.45) !important;
+    color: #e0f2fe !important;
+  }
+
+  /* Stage Wrap Theme Overrides (Eliminates Dark Shadows on Light Themes) */
+  html.theme-sepia .rei-strip-stages-wrap {
+    background: #f7f2e7 !important;
+    border-bottom: 1px solid #e7ddc6 !important;
+  }
+  html.theme-sepia .rei-strip-stages-wrap::before {
+    background: linear-gradient(90deg, #f7f2e7 20%, rgba(247, 242, 231, 0) 100%) !important;
+  }
+  html.theme-sepia .rei-strip-stages-wrap::after {
+    background: linear-gradient(-90deg, #f7f2e7 20%, rgba(247, 242, 231, 0) 100%) !important;
+  }
+  html.theme-temple .rei-strip-stages-wrap {
+    background: rgba(24, 20, 16, 0.85) !important;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2) !important;
+  }
+  html.theme-temple .rei-strip-stages-wrap::before {
+    background: linear-gradient(90deg, #181410 20%, rgba(24, 20, 16, 0) 100%) !important;
+  }
+  html.theme-temple .rei-strip-stages-wrap::after {
+    background: linear-gradient(-90deg, #181410 20%, rgba(24, 20, 16, 0) 100%) !important;
+  }
+  html.theme-moonlight .rei-strip-stages-wrap {
+    background: rgba(12, 18, 34, 0.85) !important;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2) !important;
+  }
+  html.theme-moonlight .rei-strip-stages-wrap::before {
+    background: linear-gradient(90deg, #0c1222 20%, rgba(12, 18, 34, 0) 100%) !important;
+  }
+  html.theme-moonlight .rei-strip-stages-wrap::after {
+    background: linear-gradient(-90deg, #0c1222 20%, rgba(12, 18, 34, 0) 100%) !important;
+  }
+  html.theme-jungle .rei-strip-stages-wrap {
+    background: rgba(4, 24, 16, 0.85) !important;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.2) !important;
+  }
+  html.theme-jungle .rei-strip-stages-wrap::before {
+    background: linear-gradient(90deg, #041810 20%, rgba(4, 24, 16, 0) 100%) !important;
+  }
+  html.theme-jungle .rei-strip-stages-wrap::after {
+    background: linear-gradient(-90deg, #041810 20%, rgba(4, 24, 16, 0) 100%) !important;
+  }
+  html.theme-sunset .rei-strip-stages-wrap {
+    background: rgba(26, 12, 20, 0.85) !important;
+    border-bottom: 1px solid rgba(249, 115, 22, 0.2) !important;
+  }
+  html.theme-sunset .rei-strip-stages-wrap::before {
+    background: linear-gradient(90deg, #1a0c14 20%, rgba(26, 12, 20, 0) 100%) !important;
+  }
+  html.theme-sunset .rei-strip-stages-wrap::after {
+    background: linear-gradient(-90deg, #1a0c14 20%, rgba(26, 12, 20, 0) 100%) !important;
+  }
+  html.theme-glass .rei-strip-stages-wrap {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  }
+  html.theme-glass .rei-strip-stages-wrap::before {
+    background: linear-gradient(90deg, rgba(20, 26, 44, 0.85) 20%, transparent 100%) !important;
+  }
+  html.theme-glass .rei-strip-stages-wrap::after {
+    background: linear-gradient(-90deg, rgba(20, 26, 44, 0.85) 20%, transparent 100%) !important;
+  }
+
+  /* Explore All Lessons Button in Rei Mode */
+  .rei-stage-explore-more {
+    display: flex;
+    justify-content: center;
+    padding: 12px 10px 16px;
+  }
+  .rei-explore-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: var(--radius, 9px);
+    background: rgba(255, 209, 102, 0.1);
+    border: 1px solid rgba(255, 209, 102, 0.4);
+    color: var(--gold-bright, #ffd166);
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s ease;
+  }
+  .rei-explore-all-btn:hover {
+    background: rgba(255, 209, 102, 0.22);
+    border-color: #ffd166;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(255, 209, 102, 0.25);
+  }
+  html.theme-light .rei-explore-all-btn {
+    background: #fef3c7 !important;
+    border-color: #d97706 !important;
+    color: #92400e !important;
+    box-shadow: 0 2px 8px rgba(217, 119, 6, 0.15) !important;
+  }
+  html.theme-light .rei-explore-all-btn:hover {
+    background: #fde68a !important;
+    color: #78350f !important;
+  }
+  html.theme-sepia .rei-explore-all-btn {
+    background: #fbf5e6 !important;
+    border-color: #b45309 !important;
+    color: #78350f !important;
   }
 
   @media (max-width: 600px) {

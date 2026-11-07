@@ -2089,15 +2089,13 @@ function renderLessonStrip(){
     topBar.innerHTML = `
       <span class="lsh-title">${pkIcon('book', 14)} <span class="i18n-t" data-en="LESSONS" data-km="មេរៀន">LESSONS</span></span>
       <div class="lsh-actions">
-        ${!isRei ? `
         <button type="button" class="lsh-adaptive-btn" id="lshAdaptiveBtn" title="Start Adaptive Practice" aria-label="Start Adaptive Practice">
           ${pkIcon('refresh', 12)} <span class="i18n-t" data-en="Adaptive" data-km="ការអនុវត្តបន្ស៊ាំ">Adaptive</span>
-        </button>` : ''}
+        </button>
         <span class="lsh-badge" title="${masteredCount}/${LESSONS.length} ${isKm ? 'មេរៀនបានស្ទាត់' : 'Lessons Mastered'}"><span class="lsh-badge-num">${masteredCount}/${LESSONS.length}</span> <span class="lsh-badge-txt"><span class="i18n-t" data-en="Mastered" data-km="ស្ទាត់">Mastered</span></span></span>
-        ${!isRei ? `
         <button type="button" class="lsh-expand-btn" id="lshExpandBtn" title="${isStripExpanded ? 'Compact sidebar (1 column)' : 'Expand sidebar (2 columns)'}" aria-label="Toggle sidebar width">
           ${pkIcon(isStripExpanded ? 'collapse' : 'expand', 12)}
-        </button>` : ''}
+        </button>
         <button type="button" class="lsh-collapse-btn" id="lshCollapseBtn" title="${isKm ? 'បង្រួម / បិទរបារមេរៀន (Alt+K)' : 'Minimize Lessons Dock (Alt+K)'}" aria-label="Minimize Lessons Dock">
           <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
           <span class="lsh-collapse-txt i18n-t" data-en="Hide" data-km="លាក់">Hide</span>
@@ -2124,36 +2122,38 @@ function renderLessonStrip(){
     `;
     frag.appendChild(searchBar);
 
-    if(isRei){
-      // 1. Easy 3-Step Guide Banner
-      const htuGuide = document.createElement('div');
-      htuGuide.className = 'rei-how-to-use-guide';
-      htuGuide.id = 'reiHowToUseGuide';
-      htuGuide.innerHTML = `
-        <div class="rei-htu-step active">
-          <span class="rei-htu-num">1</span>
-          <span class="rei-htu-text">
-            <span class="rei-htu-main i18n-t" data-en="Pick Stage" data-km="ជ្រើសរើសវគ្គ">Pick Stage</span>
+    const hubBannerWrap = document.createElement('div');
+    hubBannerWrap.className = 'lesson-strip-banners-row';
+    hubBannerWrap.innerHTML = `
+      <button type="button" class="lsh-hub-banner" id="lshHubBanner" title="${isKm ? 'ស្វែងយល់បន្ថែមអំពី ២២២ មេរៀន និងតួអក្សរគ្រប់ទម្រង់' : 'Explore 222 Handcrafted Lessons & 100% Alphabet Coverage (Every Letter Included)'}">
+        <div class="lsh-hb-left">
+          <span class="lsh-hb-badge">
+            <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span>222</span>
           </span>
+          <div class="lsh-hb-text">
+            <span class="lsh-hb-title i18n-t" data-en="222 Lessons" data-km="២២២ មេរៀន">222 Lessons</span>
+            <span class="lsh-hb-sub i18n-t" data-en="All Letters" data-km="គ្រប់តួអក្សរ">All Letters</span>
+          </div>
         </div>
-        <svg class="pk-icon rei-htu-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-        <div class="rei-htu-step">
-          <span class="rei-htu-num">2</span>
-          <span class="rei-htu-text">
-            <span class="rei-htu-main i18n-t" data-en="Choose Drill" data-km="ជ្រើសមេរៀន">Choose Drill</span>
+      </button>
+      <button type="button" class="lsh-hub-banner custom" id="lshCustomBanner" title="${isKm ? 'មេរៀនផ្ទាល់ខ្លួន — បង្កើត និងហ្វឹកហាត់' : 'Custom Lessons — Craft & Practice Your Own Drills'}">
+        <div class="lsh-hb-left">
+          <span class="lsh-hb-badge custom-badge">
+            <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <span>NEW</span>
           </span>
+          <div class="lsh-hb-text">
+            <span class="lsh-hb-title i18n-t" data-en="Custom" data-km="ផ្ទាល់ខ្លួន">Custom</span>
+            <span class="lsh-hb-sub i18n-t" data-en="Craft &amp; Train" data-km="បង្កើត &amp; ហាត់">Craft &amp; Train</span>
+          </div>
         </div>
-        <svg class="pk-icon rei-htu-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-        <div class="rei-htu-step">
-          <span class="rei-htu-num">3</span>
-          <span class="rei-htu-text">
-            <span class="rei-htu-main i18n-t" data-en="Type by Guide" data-km="វាយតាមការណែនាំ">Type by Guide</span>
-          </span>
-        </div>
-      `;
-      frag.appendChild(htuGuide);
+      </button>
+    `;
+    frag.appendChild(hubBannerWrap);
 
-      // 2. Focused Stage Selector Bar with Horizontal Scroll Navigation & Wheel Support
+    if(isRei){
+      // Focused Stage Selector Bar with Horizontal Scroll Navigation & Wheel Support
       const curStage = (typeof reiActiveStage !== 'undefined') ? reiActiveStage : 1;
       const stageBarWrap = document.createElement('div');
       stageBarWrap.className = 'rei-strip-stages-wrap';
@@ -2170,7 +2170,7 @@ function renderLessonStrip(){
           <button type="button" class="rei-stage-btn ${curStage === 5 ? 'active' : ''}" data-stage="5" title="Stage 5: Subscripts & Diacritics">5. Subscripts</button>
           <button type="button" class="rei-stage-btn ${curStage === 6 ? 'active' : ''}" data-stage="6" title="Stage 6: Word Practice">6. Words</button>
           <button type="button" class="rei-stage-btn ${curStage === 7 ? 'active' : ''}" data-stage="7" title="Stage 7: Sentences & Flow">7. Flow</button>
-          <button type="button" class="rei-stage-btn ${curStage === 'all' ? 'active' : ''}" data-stage="all" title="View All Lessons">All</button>
+          <button type="button" class="rei-stage-btn ${curStage === 'all' ? 'active' : ''}" data-stage="all" title="View All Lessons">All (222)</button>
         </div>
         <button type="button" class="rei-stage-scroll-btn next" id="reiStageScrollNext" aria-label="Scroll stages right" title="Scroll right">
           <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -2199,36 +2199,6 @@ function renderLessonStrip(){
       stageTipBanner.className = 'rei-stage-tip-banner';
       stageTipBanner.id = 'reiStageTipBanner';
       frag.appendChild(stageTipBanner);
-    } else {
-      const hubBannerWrap = document.createElement('div');
-      hubBannerWrap.className = 'lesson-strip-banners-row';
-      hubBannerWrap.innerHTML = `
-        <button type="button" class="lsh-hub-banner" id="lshHubBanner" title="${isKm ? 'ស្វែងយល់បន្ថែមអំពី ២២២ មេរៀន និងតួអក្សរគ្រប់ទម្រង់' : 'Explore 222 Handcrafted Lessons & 100% Alphabet Coverage (Every Letter Included)'}">
-          <div class="lsh-hb-left">
-            <span class="lsh-hb-badge">
-              <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              <span>222</span>
-            </span>
-            <div class="lsh-hb-text">
-              <span class="lsh-hb-title i18n-t" data-en="222 Lessons" data-km="២២២ មេរៀន">222 Lessons</span>
-              <span class="lsh-hb-sub i18n-t" data-en="All Letters" data-km="គ្រប់តួអក្សរ">All Letters</span>
-            </div>
-          </div>
-        </button>
-        <button type="button" class="lsh-hub-banner custom" id="lshCustomBanner" title="${isKm ? 'មេរៀនផ្ទាល់ខ្លួន — បង្កើត និងហ្វឹកហាត់' : 'Custom Lessons — Craft & Practice Your Own Drills'}">
-          <div class="lsh-hb-left">
-            <span class="lsh-hb-badge custom-badge">
-              <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              <span>NEW</span>
-            </span>
-            <div class="lsh-hb-text">
-              <span class="lsh-hb-title i18n-t" data-en="Custom" data-km="ផ្ទាល់ខ្លួន">Custom</span>
-              <span class="lsh-hb-sub i18n-t" data-en="Craft &amp; Train" data-km="បង្កើត &amp; ហាត់">Craft &amp; Train</span>
-            </div>
-          </div>
-        </button>
-      `;
-      frag.appendChild(hubBannerWrap);
     }
 
     const adaptiveCard = document.createElement('div');
@@ -2255,9 +2225,7 @@ function renderLessonStrip(){
     const bodyEl = document.createElement('div');
     bodyEl.className = 'lesson-strip-body';
     bodyEl.id = 'lessonStripBody';
-    if(!isRei){
-      bodyEl.appendChild(adaptiveCard);
-    }
+    bodyEl.appendChild(adaptiveCard);
 
     let lessonsToRender = LESSONS;
     let nextRecommendedId = null;
@@ -2324,11 +2292,6 @@ function renderLessonStrip(){
       card.className = 'lesson-card' + (isBonusCard ? ' bonus-card' : '') + (locked ? ' locked' : '') + (currentLesson && currentLesson.id===def.id ? ' active' : '') + (isNextRecommended ? ' next-recommended' : '');
       card.dataset.lesson = def.id;
 
-      const startBtnHtml = isNextRecommended
-        ? `<button type="button" class="rei-card-start-btn" aria-label="Start this drill"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg> <span>${isKm ? 'ចាប់ផ្តើម' : 'Start'}</span></button>`
-        : '';
-      const nextBadgeHtml = '';
-
       const examplesHtml = def.examples && def.examples.length
         ? `<div class="lesson-card-examples"><span class="lce-lbl">${isKm ? 'ឧទាហរណ៍៖' : 'Ex:'}</span> ${def.examples.slice(0, 3).map(ex=>`<span class="lce-chip">${ex}</span>`).join(' ')}</div>`
         : '';
@@ -2347,10 +2310,8 @@ function renderLessonStrip(){
           <div class="lesson-card-head">
             <span class="lesson-card-title">${def.title}</span>
             <span class="lesson-card-type type-${def.type}">${def.type}</span>
-            ${nextBadgeHtml}
             ${bonusTag}
             ${statusHtml}
-            ${startBtnHtml}
           </div>
           <div class="lesson-card-sub">${def.subtitle}</div>
           ${examplesHtml}
@@ -2378,12 +2339,22 @@ function renderLessonStrip(){
             </div>
           </div>
           <button type="button" class="rst-advance-btn" data-next-stage="${reiActiveStage + 1}">
-            <span>${isKm ? 'បន្តទៅ ' + nextName : 'Advance to ' + nextName}</span>
+            <span>${isKm ? 'បន្តទៅវគ្គ ' + (reiActiveStage + 1) : 'Advance to Stage ' + (reiActiveStage + 1)}</span>
             <svg class="pk-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
         `;
         bodyEl.appendChild(advBanner);
       }
+
+      const exploreRow = document.createElement('div');
+      exploreRow.className = 'rei-stage-explore-more';
+      exploreRow.innerHTML = `
+        <button type="button" class="rei-explore-all-btn" data-stage="all">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>${isKm ? 'មើលគ្រប់ ២២២ មេរៀន' : 'Explore All 222 Lessons'}</span>
+        </button>
+      `;
+      bodyEl.appendChild(exploreRow);
     }
 
     if(!isRei){
@@ -2590,6 +2561,12 @@ lessonStrip.addEventListener('click', (e)=>{
   // If clicked 222 Lessons Hub Banner
   const hubBanner = e.target.closest('#lshHubBanner');
   if(hubBanner){
+    if(typeof window !== 'undefined' && (window.__IS_REI__ || document.documentElement.classList.contains('is-rei'))){
+      reiActiveStage = 'all';
+      window.reiActiveStage = 'all';
+      window.__reiUserSelectedStage = true;
+      renderLessonStrip();
+    }
     if(typeof openLearnMoreHub === 'function') openLearnMoreHub();
     return;
   }
@@ -2598,9 +2575,22 @@ lessonStrip.addEventListener('click', (e)=>{
   const expandBtn = e.target.closest('#lshExpandBtn');
   if(expandBtn){
     isStripExpanded = !isStripExpanded;
+    document.body.classList.toggle('strip-expanded', isStripExpanded);
     // If expanding to 2 columns and all levels are collapsed, open the first level
     if(isStripExpanded && collapsedLevels.size === LEVELS.length){
       collapsedLevels.delete(String(LEVELS[0].id));
+    }
+    renderLessonStrip();
+    return;
+  }
+
+  // If clicked explore all 222 lessons button in Rei
+  const exploreAllBtn = e.target.closest('.rei-explore-all-btn');
+  if(exploreAllBtn){
+    reiActiveStage = 'all';
+    if(typeof window !== 'undefined'){
+      window.reiActiveStage = 'all';
+      window.__reiUserSelectedStage = true;
     }
     renderLessonStrip();
     return;
@@ -2623,7 +2613,7 @@ lessonStrip.addEventListener('click', (e)=>{
     if(nextStg && nextStg <= 7){
       reiActiveStage = nextStg;
       if(typeof window !== 'undefined'){
-        window.reiActiveStage = reiActiveStage;
+        window.reiActiveStage = nextStg;
         window.__reiUserSelectedStage = true;
       }
       renderLessonStrip();
@@ -3603,7 +3593,13 @@ function startLesson(idOrDef, allowDirectPractice = false){
   if(typeof window !== 'undefined' && window.adaptiveActive && typeof PK_ADAPTIVE !== 'undefined' && typeof PK_ADAPTIVE.exitSession === 'function'){
     PK_ADAPTIVE.exitSession(false);
   }
-  const def = (typeof idOrDef === 'object') ? idOrDef : LESSONS.find(l=> String(l.id) === String(idOrDef));
+  let def = (typeof idOrDef === 'object') ? idOrDef : LESSONS.find(l=> String(l.id) === String(idOrDef));
+  if(!def && !isNaN(parseInt(idOrDef, 10))){
+    const numIdx = parseInt(idOrDef, 10) - 1;
+    if(numIdx >= 0 && numIdx < LESSONS.length){
+      def = LESSONS[numIdx];
+    }
+  }
   if(!def) return;
   if(!def.isRemedial && !allowDirectPractice && isLessonLocked(def.id)) return;
 
@@ -3663,9 +3659,9 @@ function startLesson(idOrDef, allowDirectPractice = false){
   hoverLayer = null;
   render();
 
-  lessonTitleEl.textContent = def.title;
+  if(lessonTitleEl) lessonTitleEl.textContent = def.title;
   renderLessonMeta(def);
-  lessonPanel.hidden = false;
+  if(lessonPanel) lessonPanel.hidden = false;
   const mEl = document.getElementById('manuscript'); if(mEl) mEl.hidden = true;
   if(lessonStrip){
     lessonStrip.hidden = false;
@@ -4592,7 +4588,7 @@ if(document.readyState !== 'loading'){
     if(typeof restoreSavedLessonSession === 'function' && !lessonActive){
       restoreSavedLessonSession();
     }
-    if(lessonStrip && lessonStrip.children.length === 0) renderLessonStrip();
+    if(lessonStrip && !lessonActive) renderLessonStrip();
   });
 }
 

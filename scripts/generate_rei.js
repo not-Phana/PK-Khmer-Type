@@ -93,31 +93,8 @@ function buildReiHtml(isSubdir = false) {
     '<span class="pk-mdg-brand-name">PK KHMER TYPE REI</span>'
   );
 
-  // 5. Make Lesson Strip Easier to Understand:
-  // Remove promotional clutter banners & adaptive card, add Stage Navigator in initial HTML
-  const stageNavigator = `<div class="rei-how-to-use-guide" id="reiHowToUseGuide">
-    <div class="rei-htu-step active">
-      <span class="rei-htu-num">1</span>
-      <span class="rei-htu-text">
-        <span class="rei-htu-main i18n-t" data-en="Pick Stage" data-km="ជ្រើសរើសវគ្គ">Pick Stage</span>
-      </span>
-    </div>
-    <svg class="pk-icon rei-htu-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-    <div class="rei-htu-step">
-      <span class="rei-htu-num">2</span>
-      <span class="rei-htu-text">
-        <span class="rei-htu-main i18n-t" data-en="Choose Drill" data-km="ជ្រើសមេរៀន">Choose Drill</span>
-      </span>
-    </div>
-    <svg class="pk-icon rei-htu-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-    <div class="rei-htu-step">
-      <span class="rei-htu-num">3</span>
-      <span class="rei-htu-text">
-        <span class="rei-htu-main i18n-t" data-en="Type by Guide" data-km="វាយតាមការណែនាំ">Type by Guide</span>
-      </span>
-    </div>
-  </div>
-  <div class="rei-strip-stages-wrap" id="reiStripStagesWrap">
+  // 5. Stage Navigator in initial HTML (Ergonomic Stage Rail with 0 Truncation)
+  const stageNavigator = `<div class="rei-strip-stages-wrap" id="reiStripStagesWrap">
     <button type="button" class="rei-stage-scroll-btn prev" id="reiStageScrollPrev" aria-label="Scroll stages left" title="Scroll left">
       <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
@@ -129,7 +106,7 @@ function buildReiHtml(isSubdir = false) {
       <button type="button" class="rei-stage-btn locked" data-stage="5" aria-disabled="true" title="Stage 5: Subscripts & Diacritics (Locked)">5. Subscripts <span class="rei-stage-badge locked" title="Locked"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>
       <button type="button" class="rei-stage-btn locked" data-stage="6" aria-disabled="true" title="Stage 6: Word Practice (Locked)">6. Words <span class="rei-stage-badge locked" title="Locked"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>
       <button type="button" class="rei-stage-btn locked" data-stage="7" aria-disabled="true" title="Stage 7: Sentences & Flow (Locked)">7. Flow <span class="rei-stage-badge locked" title="Locked"><svg class="pk-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>
-      <button type="button" class="rei-stage-btn" data-stage="all" title="View All Lessons">All</button>
+      <button type="button" class="rei-stage-btn" data-stage="all" title="View All Lessons">All (222)</button>
     </div>
     <button type="button" class="rei-stage-scroll-btn next" id="reiStageScrollNext" aria-label="Scroll stages right" title="Scroll right">
       <svg class="pk-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -143,10 +120,10 @@ function buildReiHtml(isSubdir = false) {
     <p class="rst-desc" id="reiStageTipDesc">Anchor Left Index on F (ថ) and Right Index on J (ញ). Return fingers to home keys after every stroke without looking down.</p>
   </div>`;
 
-  html = html.replace(/<div class="lesson-strip-banners-row">[\s\S]*?<\/button>\s*<\/div>/, stageNavigator);
-  html = html.replace(/<div class="adaptive-sidebar-card" id="adaptiveSidebarCard">[\s\S]*?<\/button>\s*<\/div>/, '');
-  html = html.replace(/<button type="button" class="lsh-adaptive-btn"[\s\S]*?<\/button>/, '');
-  html = html.replace(/<button type="button" class="lsh-expand-btn"[\s\S]*?<\/button>/, '');
+  html = html.replace(
+    /(<div class="lesson-strip-banners-row">[\s\S]*?<\/div>)/,
+    `$1\n  ${stageNavigator}`
+  );
 
   
   // 5b. Interactive Live Finger Reach Guidance HUD in Lesson Panel
@@ -302,12 +279,15 @@ function buildReiHtml(isSubdir = false) {
       color: #0284c7;
     }
 
-    /* Hide promotional clutter banners & adaptive practice card */
-    .lesson-strip-banners-row,
-    .adaptive-sidebar-card,
-    .lsh-adaptive-btn,
-    .lsh-expand-btn {
-      display: none !important;
+    /* Expandable Luxury Sidebar for Rei */
+    .is-rei #lessonStrip.expanded,
+    .is-rei .lesson-strip.expanded {
+      width: min(94vw, 680px) !important;
+    }
+    .is-rei .lesson-strip.expanded .lesson-level-list {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 8px !important;
     }
 
     /* Desktop View (>= 1024px): Retain native right sidebar layout with centered main deck */
@@ -315,6 +295,10 @@ function buildReiHtml(isSubdir = false) {
       body.is-rei {
         padding-right: 375px !important;
         box-sizing: border-box !important;
+        transition: padding-right 0.22s ease !important;
+      }
+      body.is-rei.strip-expanded {
+        padding-right: min(94vw, 710px) !important;
       }
       .is-rei #lessonStrip,
       .is-rei .lesson-strip {
@@ -336,6 +320,7 @@ function buildReiHtml(isSubdir = false) {
         -webkit-backdrop-filter: blur(16px) !important;
         display: flex !important;
         flex-direction: column !important;
+        transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease !important;
       }
       .is-rei .top-actions {
         max-width: 960px !important;
@@ -849,38 +834,18 @@ html.theme-light .rscc-sub {
       position: relative !important;
       display: flex !important;
       align-items: center !important;
-      background: rgba(0, 0, 0, 0.35) !important;
+      background: rgba(0, 0, 0, 0.25) !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
       flex-shrink: 0 !important;
       width: 100% !important;
       box-sizing: border-box !important;
       overflow: hidden !important;
+      padding: 4px 6px !important;
+      gap: 4px !important;
     }
     .rei-strip-stages-wrap::before,
     .rei-strip-stages-wrap::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 24px;
-      pointer-events: none;
-      z-index: 5;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    .rei-strip-stages-wrap::before {
-      left: 30px;
-      background: linear-gradient(90deg, rgba(14, 18, 38, 0.95), transparent);
-    }
-    .rei-strip-stages-wrap::after {
-      right: 30px;
-      background: linear-gradient(-90deg, rgba(14, 18, 38, 0.95), transparent);
-    }
-    .rei-strip-stages-wrap.can-scroll-left::before {
-      opacity: 1;
-    }
-    .rei-strip-stages-wrap.can-scroll-right::after {
-      opacity: 1;
+      display: none !important;
     }
     .rei-stage-scroll-btn {
       display: inline-flex !important;
@@ -1166,12 +1131,9 @@ html.theme-light .rscc-sub {
       border-bottom: 1px solid #e2e8f0 !important;
     }
 
-    html.theme-light .rei-strip-stages-wrap::before {
-      background: linear-gradient(90deg, #f8fafc, rgba(248, 250, 252, 0)) !important;
-    }
-
+    html.theme-light .rei-strip-stages-wrap::before,
     html.theme-light .rei-strip-stages-wrap::after {
-      background: linear-gradient(-90deg, #f8fafc, rgba(248, 250, 252, 0)) !important;
+      display: none !important;
     }
 
     html.theme-light .rei-stage-scroll-btn {

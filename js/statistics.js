@@ -685,11 +685,13 @@ function initStatisticsDashboard(){
 
   const statsOpenBtn = document.getElementById('statsOpenBtn');
   const statsCloseBtn = document.getElementById('statsCloseBtn');
-  statsOpenBtn.addEventListener('click', ()=>{
-    try { renderStats(); } catch(err){ console.error('renderStats error:', err); }
-    statsModal.hidden = false;
-    if(statsCloseBtn) statsCloseBtn.focus();
-  });
+  if(statsOpenBtn){
+    statsOpenBtn.addEventListener('click', ()=>{
+      try { renderStats(); } catch(err){ console.error('renderStats error:', err); }
+      if(statsModal) statsModal.hidden = false;
+      if(statsCloseBtn) statsCloseBtn.focus();
+    });
+  }
   function closeStatsModal(){
     if(typeof window.closeModalAnimated === 'function' && statsModal){
       window.closeModalAnimated(statsModal);
@@ -697,8 +699,8 @@ function initStatisticsDashboard(){
       statsModal.hidden = true;
     }
   }
-  statsCloseBtn.addEventListener('click', closeStatsModal);
-  statsModal.addEventListener('click', e=>{ if(e.target === statsModal) closeStatsModal(); });
+  if(statsCloseBtn) statsCloseBtn.addEventListener('click', closeStatsModal);
+  if(statsModal) statsModal.addEventListener('click', e=>{ if(e.target === statsModal) closeStatsModal(); });
 
 
   /* =====================================================================
@@ -730,29 +732,37 @@ function initStatisticsDashboard(){
   const profileStatsGrid = document.getElementById('profileStatsGrid');
 
   function refreshAvatarUI(){
+    if(!profileAvatarImg) return;
     if(profile.avatar){
       profileAvatarImg.src = profile.avatar;
       profileAvatarImg.hidden = false;
-      profileAvatarFallback.style.display = 'none';
+      if(profileAvatarFallback) profileAvatarFallback.style.display = 'none';
     } else {
       profileAvatarImg.hidden = true;
-      profileAvatarFallback.style.display = 'inline';
-      profileAvatarFallback.textContent = initials(profile.name);
+      if(profileAvatarFallback){
+        profileAvatarFallback.style.display = 'inline';
+        profileAvatarFallback.textContent = initials(profile.name);
+      }
     }
   }
 
 
   function refreshProfileUI(){
-    profileNameDisplay.textContent = profile.name || 'Phanna Kurosaki';
-    profileNameDisplay.setAttribute('data-text', profile.name || 'Phanna Kurosaki');
+    if(!profileNameDisplay && !profileStatsGrid) return;
+    if(profileNameDisplay){
+      profileNameDisplay.textContent = profile.name || 'Phanna Kurosaki';
+      profileNameDisplay.setAttribute('data-text', profile.name || 'Phanna Kurosaki');
+    }
     refreshAvatarUI();
 
     const isKm = document.documentElement.classList.contains('site-km-mode');
     const layoutCount = document.querySelectorAll('#layoutStrip .layout-pill').length || 3;
     const lessonTotal = typeof TOTAL_LESSONS_ALL_LAYOUTS !== "undefined" ? TOTAL_LESSONS_ALL_LAYOUTS : 86;
-    profileSubstats.textContent = isKm
-      ? `• ${lessonTotal} មេរៀនបានបង្កើត · ${layoutCount} ប្លង់ក្តារចុច`
-      : `• ${lessonTotal} lessons shipped · ${layoutCount} layouts live`;
+    if(profileSubstats){
+      profileSubstats.textContent = isKm
+        ? `• ${lessonTotal} មេរៀនបានបង្កើត · ${layoutCount} ប្លង់ក្តារចុច`
+        : `• ${lessonTotal} lessons shipped · ${layoutCount} layouts live`;
+    }
 
     const xpFill = document.getElementById('profileXpFill');
     const xpLabel = document.getElementById('profileXpLabel');
@@ -767,7 +777,7 @@ function initStatisticsDashboard(){
         ? `<b>${ROADMAP_PCT}%</b> ឆ្ពោះទៅ v1.0 — បន្ទាប់គឺ ${nextKm}`
         : `<b>${ROADMAP_PCT}%</b> toward v1.0 — ${ROADMAP_NEXT} next`;
     }
-    profileSidebar.classList.add('tier-5');
+    if(profileSidebar) profileSidebar.classList.add('tier-5');
 
     const tiles = [
       [lessonTotal, isKm ? 'មេរៀនបានបង្កើត' : 'Lessons Crafted', pkIcon('book', 20), '#ffd166'],
