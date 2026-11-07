@@ -266,6 +266,17 @@
   <link rel="stylesheet" href="css/custom-lessons.css?v=91">
   <script>
     try {
+      // Early Theme Initialization to prevent dark/light flash on page refresh
+      var isReiPage = (typeof window !== 'undefined' && (window.__IS_REI__ || location.pathname.includes('rei')));
+      var savedThemeMode = isReiPage
+        ? (localStorage.getItem('pk_rei_theme') || localStorage.getItem('khmerSettingTheme'))
+        : localStorage.getItem('khmerSettingTheme');
+      if (savedThemeMode === 'light') {
+        document.documentElement.classList.add('theme-light');
+      } else if (savedThemeMode === 'system' && window.matchMedia && !window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('theme-light');
+      }
+
       var p = localStorage.getItem('khmerSettingPerformanceMode');
       var a = localStorage.getItem('khmerSettingAnimationMode');
       var r = localStorage.getItem('khmerSettingReducedMotion');
@@ -3730,7 +3741,7 @@
         <div class="scale-stat-detail">78 Standard &middot; 78 NiDA &middot; 66 English &middot; 54 Bonus</div>
       </div>
       <div class="scale-stat-card">
-        <div class="scale-stat-value" id="scaleStatTests" data-target="206">206</div>
+        <div class="scale-stat-value" id="scaleStatTests" data-target="210">210</div>
         <div class="scale-stat-label i18n-t" data-en="Automated Passing Tests" data-km="ការធ្វើតេស្តស្វ័យប្រវត្តិកន្លងផុត">Automated Passing Tests</div>
         <div class="scale-stat-detail">100% Passing Unit &amp; Regression Test Suites</div>
       </div>

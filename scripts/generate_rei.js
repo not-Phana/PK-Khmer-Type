@@ -1234,7 +1234,13 @@ html.theme-light .rscc-sub {
 
       function updateThemeUI(isLight) {
         document.documentElement.classList.toggle('theme-light', isLight);
-        if (themeText) themeText.textContent = isLight ? 'Dark' : 'Light';
+        if (themeText) {
+          themeText.setAttribute('data-en', isLight ? 'Dark' : 'Light');
+          themeText.setAttribute('data-km', isLight ? 'ងងឹត' : 'ពន្លឺ');
+          var isKm = (document.documentElement.getAttribute('lang') === 'km') ||
+            (document.getElementById('topLangBadgeKm') && document.getElementById('topLangBadgeKm').classList.contains('active'));
+          themeText.textContent = isLight ? (isKm ? 'ងងឹត' : 'Dark') : (isKm ? 'ពន្លឺ' : 'Light');
+        }
         if (themeIcon) {
           themeIcon.innerHTML = isLight
             ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
@@ -1242,15 +1248,23 @@ html.theme-light .rscc-sub {
         }
       }
 
-      var savedTheme = localStorage.getItem('pk_rei_theme') || (document.documentElement.classList.contains('theme-light') ? 'light' : 'dark');
+      window.__updateReiThemeUI = updateThemeUI;
+
+      var savedTheme = localStorage.getItem('pk_rei_theme') || localStorage.getItem('khmerSettingTheme') || (document.documentElement.classList.contains('theme-light') ? 'light' : 'dark');
       updateThemeUI(savedTheme === 'light');
 
       if (themeBtn) {
         themeBtn.addEventListener('click', function(){
           var currentlyLight = document.documentElement.classList.contains('theme-light');
           var nextIsLight = !currentlyLight;
-          localStorage.setItem('pk_rei_theme', nextIsLight ? 'light' : 'dark');
-          updateThemeUI(nextIsLight);
+          var nextMode = nextIsLight ? 'light' : 'dark';
+          localStorage.setItem('pk_rei_theme', nextMode);
+          localStorage.setItem('khmerSettingTheme', nextMode);
+          if (typeof window.applyTheme === 'function') {
+            window.applyTheme(nextMode, false);
+          } else {
+            updateThemeUI(nextIsLight);
+          }
           if (typeof playClick === 'function') playClick('down');
         });
       }

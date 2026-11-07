@@ -1047,6 +1047,12 @@ function initSettingsToggles() {
     document.documentElement.classList.toggle("theme-glass", effective === "glass");
     themeButtons.forEach((b) => b.classList.toggle("active", b.dataset.theme === mode));
     safeSet(LS.theme, mode);
+    if (typeof window !== "undefined" && window.__IS_REI__) {
+      safeSet("pk_rei_theme", effective === "light" ? "light" : "dark");
+      if (typeof window.__updateReiThemeUI === "function") {
+        window.__updateReiThemeUI(effective === "light");
+      }
+    }
     if (syncThemeAccent && THEME_DEFAULT_ACCENT[effective]) {
       applyAccent(THEME_DEFAULT_ACCENT[effective]);
     }
@@ -1058,7 +1064,16 @@ function initSettingsToggles() {
       if (soundOn) playClick("down");
     });
   });
-  applyTheme(safeGet(LS.theme, "dark"), false);
+
+  var initialTheme = safeGet(LS.theme, "dark");
+  if (typeof window !== "undefined" && window.__IS_REI__) {
+    var reiSavedTheme = safeGet("pk_rei_theme", "");
+    if (reiSavedTheme) {
+      initialTheme = reiSavedTheme;
+    }
+  }
+  applyTheme(initialTheme, false);
+  window.applyTheme = applyTheme;
 
   accentButtons.forEach((b) => {
     b.addEventListener("click", (e) => {
@@ -1901,7 +1916,11 @@ function initSettingsToggles() {
   window.addEventListener("pkCloudSettingsApplied", async () => {
     window.__isApplyingCloudSettings = true;
     try {
-      applyTheme(safeGet(LS.theme, "dark"), false);
+      var cloudTheme = safeGet(LS.theme, "dark");
+      if (typeof window !== "undefined" && window.__IS_REI__) {
+        cloudTheme = safeGet("pk_rei_theme", cloudTheme);
+      }
+      applyTheme(cloudTheme, false);
       applyAccent(safeGet(LS.accent, "gold"));
       applyKhmerFont(safeGet(LS.khmerFont, "kantumruy"));
       applyWallpaperBlur(safeGet(LS.wallpaperBlur, "0"));
@@ -3668,7 +3687,7 @@ if (document.readyState === "loading") {
   function startScaleLiveTelemetry() {
     countUpValue(document.getElementById("scaleStatLoc"), 250168, 700);
     countUpValue(document.getElementById("scaleStatLessons"), 276, 600);
-    countUpValue(document.getElementById("scaleStatTests"), 206, 500);
+    countUpValue(document.getElementById("scaleStatTests"), 210, 500);
     countUpValue(document.getElementById("scaleStatFiles"), 412, 600);
     countUpValue(document.getElementById("scaleStatStandards"), 3, 400);
 
