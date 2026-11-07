@@ -468,7 +468,15 @@
       }
       .is-rei .board-wrap {
         max-width: 960px !important;
-        margin: 0 auto !important;
+        margin: 0 auto 155px auto !important;
+        transition: margin-bottom .28s cubic-bezier(.16,1,.3,1) !important;
+      }
+      html.hands-guide-off .is-rei .board-wrap,
+      .is-rei .board-wrap.hands-hidden {
+        margin: 0 auto 24px auto !important;
+      }
+      .is-rei .pro-tips-banner-card {
+        margin: 0 auto 16px auto !important;
       }
       .is-rei .lesson-panel {
         max-width: 960px !important;

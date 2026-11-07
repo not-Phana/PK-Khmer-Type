@@ -382,6 +382,28 @@ test('Rei Tutor: Welcome Onboarding Track Selector Option', () => {
   assert.ok(tutCss.includes('.pk-tut-track-card.pk-tut-track-rei'), 'Must include CSS styling for Rei track card');
 });
 
+test('Rei Tutor: Hands Clearance & Layout Isolation (No overlap with Pro Tips or lower cards)', () => {
+  const reiContent = fs.readFileSync(path.join(rootDir, 'rei.html'), 'utf8');
+  const typingCss = fs.readFileSync(path.join(rootDir, 'css/typing.css'), 'utf8');
+  const lessonsCss = fs.readFileSync(path.join(rootDir, 'css/lessons.css'), 'utf8');
+  const kbCode = fs.readFileSync(path.join(rootDir, 'js/keyboard.js'), 'utf8');
+
+  // 1. Rei board-wrap has generous clearance (155px) so wrists never overlap Pro Tips card
+  assert.ok(reiContent.includes('margin: 0 auto 155px auto !important;'), 'Rei board-wrap must have 155px bottom margin for hands overlay');
+  assert.ok(reiContent.includes('margin: 0 auto 24px auto !important;'), 'Rei board-wrap must collapse margin when hands are toggled off');
+
+  // 2. typing.css default clearance
+  assert.ok(typingCss.includes('margin: 0 auto 155px auto;'), 'Default board-wrap must provide 155px clearance for hands');
+  assert.ok(typingCss.includes('margin-bottom: 24px !important;'), 'Default board-wrap must collapse when hands-hidden');
+
+  // 3. lessons.css toolbar clearance
+  assert.ok(lessonsCss.includes('margin:150px auto 0;'), 'Toolbar in Studio Pro must have 150px margin to avoid hand collision');
+
+  // 4. keyboard.js dynamic state sync
+  assert.ok(kbCode.includes("classList.add('hands-guide-off')"), 'keyboard.js must toggle hands-guide-off when hands hidden');
+  assert.ok(kbCode.includes("classList.remove('hands-guide-off')"), 'keyboard.js must remove hands-guide-off when hands visible');
+});
+
 test('Rei Tutor: Strict Zero-Emoji Compliance', () => {
   const files = [
     'rei/index.html',

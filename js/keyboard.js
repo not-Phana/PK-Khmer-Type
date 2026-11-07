@@ -2059,10 +2059,18 @@ function updateHandsOverlay(){
   if(!handsOn || HAND_CONFIG.overlayMode === 'hidden'){
     handsOverlay.classList.add('hidden');
     handsOverlay.style.display = 'none';
+    if(boardWrap) boardWrap.classList.add('hands-hidden');
+    if(typeof document !== 'undefined' && document.documentElement){
+      document.documentElement.classList.add('hands-guide-off');
+    }
     return;
   }
   handsOverlay.classList.remove('hidden');
   handsOverlay.style.display = '';
+  if(boardWrap) boardWrap.classList.remove('hands-hidden');
+  if(typeof document !== 'undefined' && document.documentElement){
+    document.documentElement.classList.remove('hands-guide-off');
+  }
   handsOverlay.classList.toggle('mode-ghost', HAND_CONFIG.overlayMode === 'ghost');
 
   let wrapRect = (boardWrap && typeof boardWrap.getBoundingClientRect === 'function') ? boardWrap.getBoundingClientRect() : null;

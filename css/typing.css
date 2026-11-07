@@ -92,14 +92,19 @@
     width:min(92vw, 860px);
     box-sizing:border-box;
     padding:22px;
+    margin: 0 auto 155px auto;
     background:linear-gradient(180deg, #141830, #0c0e1c);
     border:1px solid #2a3155;
     box-shadow:
       0 30px 60px -20px rgba(0,0,0,0.65),
       inset 0 1px 0 rgba(255,255,255,0.04);
-    transition:border-color .15s ease, transform .12s ease;
+    transition:margin-bottom .28s cubic-bezier(.16,1,.3,1), border-color .15s ease, transform .12s ease;
     transform-style:preserve-3d;
     will-change:transform;
+  }
+  html.hands-guide-off .board-wrap,
+  .board-wrap.hands-hidden {
+    margin-bottom: 24px !important;
   }
   .board-wrap.layer-ctrl{
     border-color: color-mix(in srgb, var(--temple-blue) 55%, #2a3155);
