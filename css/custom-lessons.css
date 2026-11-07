@@ -1174,11 +1174,11 @@ html.theme-light .lesson-strip-banners-row .lsh-hub-banner {
   color: #0f172a !important;
 }
 html.theme-light .lesson-strip-banners-row .lsh-hub-banner:hover {
-  background: #f1f5f9 !important;
+  background: #ffffff !important;
   border-color: #94a3b8 !important;
 }
 html.theme-light .lesson-strip-banners-row .lsh-hb-title {
-  color: #b45309 !important;
+  color: #0f172a !important;
 }
 html.theme-light .lesson-strip-banners-row .lsh-hb-sub {
   color: #64748b !important;
@@ -1186,15 +1186,75 @@ html.theme-light .lesson-strip-banners-row .lsh-hb-sub {
 
 /* Sepia Theme */
 html.theme-sepia .lesson-strip-banners-row .lsh-hub-banner {
-  background: #f5ece0 !important;
-  border-color: #d8c8b0 !important;
+  background: #f7eedf !important;
+  border-color: #d4c3a3 !important;
   color: #2c1b0c !important;
 }
+html.theme-sepia .lesson-strip-banners-row .lsh-hub-banner:hover {
+  background: #faf4e8 !important;
+  border-color: #9a3412 !important;
+}
 html.theme-sepia .lesson-strip-banners-row .lsh-hb-title {
-  color: #92400e !important;
+  color: #2c1b0c !important;
 }
 html.theme-sepia .lesson-strip-banners-row .lsh-hb-sub {
-  color: #78716c !important;
+  color: #785b3b !important;
+}
+
+/* Moonlight Theme */
+html.theme-moonlight .lesson-strip-banners-row .lsh-hub-banner {
+  background: linear-gradient(135deg, rgba(15, 29, 51, 0.95) 0%, rgba(9, 19, 34, 0.98) 100%) !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  color: #f0f9ff !important;
+}
+html.theme-moonlight .lesson-strip-banners-row .lsh-hb-title {
+  color: #38bdf8 !important;
+}
+html.theme-moonlight .lesson-strip-banners-row .lsh-hb-sub {
+  color: #94a3b8 !important;
+}
+
+/* Jungle Theme */
+html.theme-jungle .lesson-strip-banners-row .lsh-hub-banner {
+  background: linear-gradient(135deg, rgba(15, 39, 28, 0.95) 0%, rgba(9, 24, 17, 0.98) 100%) !important;
+  border-color: rgba(52, 211, 153, 0.35) !important;
+  color: #ecfdf5 !important;
+}
+html.theme-jungle .lesson-strip-banners-row .lsh-hb-title {
+  color: #34d399 !important;
+}
+html.theme-jungle .lesson-strip-banners-row .lsh-hb-sub {
+  color: #a7f3d0 !important;
+  opacity: 0.75 !important;
+}
+
+/* Sunset Theme */
+html.theme-sunset .lesson-strip-banners-row .lsh-hub-banner {
+  background: linear-gradient(135deg, rgba(45, 19, 29, 0.95) 0%, rgba(31, 13, 20, 0.98) 100%) !important;
+  border-color: rgba(251, 113, 133, 0.35) !important;
+  color: #fff1f2 !important;
+}
+html.theme-sunset .lesson-strip-banners-row .lsh-hb-title {
+  color: #fb7185 !important;
+}
+html.theme-sunset .lesson-strip-banners-row .lsh-hb-sub {
+  color: #fecdd3 !important;
+  opacity: 0.75 !important;
+}
+
+/* Glass Theme */
+html.theme-glass .lesson-strip-banners-row .lsh-hub-banner {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+html.theme-glass .lesson-strip-banners-row .lsh-hb-title {
+  color: #ffffff !important;
+}
+html.theme-glass .lesson-strip-banners-row .lsh-hb-sub {
+  color: rgba(255, 255, 255, 0.75) !important;
 }
 
 
@@ -1357,6 +1417,97 @@ html.theme-sepia .lesson-strip-banners-row .lsh-hb-sub {
   background: rgba(255, 209, 102, 0.16);
   border-color: rgba(255, 209, 102, 0.4);
   color: #ffd166;
+}
+
+/* Theme Adaptive Overrides for Crafted Drawer */
+html.theme-light .lesson-level-header.craft-level-header {
+  border-top: 1px solid #cbd5e1 !important;
+  background: #f8fafc !important;
+  border-left: 3px solid #6d28d9 !important;
+}
+html.theme-light .cl-header-title-wrap {
+  color: #0f172a !important;
+}
+html.theme-light .cl-header-icon {
+  color: #6d28d9 !important;
+}
+html.theme-light .cl-drawer-count-badge {
+  background: #f5f3ff !important;
+  border-color: #ddd6fe !important;
+  color: #6d28d9 !important;
+}
+html.theme-light .craft-drawer-empty {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+html.theme-light .craft-empty-msg {
+  color: #64748b !important;
+}
+html.theme-light .craft-empty-btn,
+html.theme-light .craft-drawer-add-btn {
+  background: #f5f3ff !important;
+  border-color: #c4b5fd !important;
+  color: #6d28d9 !important;
+}
+html.theme-light .craft-empty-btn:hover,
+html.theme-light .craft-drawer-add-btn:hover {
+  background: #6d28d9 !important;
+  color: #ffffff !important;
+  border-color: #6d28d9 !important;
+}
+html.theme-light .craft-drawer-manage-btn {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+html.theme-light .craft-drawer-manage-btn:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+html.theme-sepia .lesson-level-header.craft-level-header {
+  border-top: 1px solid #ddcca8 !important;
+  background: #ede0c8 !important;
+  border-left: 3px solid #9a3412 !important;
+}
+html.theme-sepia .cl-header-title-wrap {
+  color: #2c1b0c !important;
+}
+html.theme-sepia .cl-header-icon {
+  color: #9a3412 !important;
+}
+html.theme-sepia .cl-drawer-count-badge {
+  background: #f5ece0 !important;
+  border-color: #d4a373 !important;
+  color: #9a3412 !important;
+}
+html.theme-sepia .craft-drawer-empty {
+  background: #f7eedf !important;
+  border-color: #d4c3a3 !important;
+}
+html.theme-sepia .craft-empty-msg {
+  color: #785b3b !important;
+}
+html.theme-sepia .craft-empty-btn,
+html.theme-sepia .craft-drawer-add-btn {
+  background: #f5ece0 !important;
+  border-color: #d4a373 !important;
+  color: #9a3412 !important;
+}
+html.theme-sepia .craft-empty-btn:hover,
+html.theme-sepia .craft-drawer-add-btn:hover {
+  background: #9a3412 !important;
+  color: #ffffff !important;
+  border-color: #9a3412 !important;
+}
+html.theme-sepia .craft-drawer-manage-btn {
+  background: #faf4e8 !important;
+  border-color: #d4c3a3 !important;
+  color: #5c4125 !important;
+}
+html.theme-sepia .craft-drawer-manage-btn:hover {
+  background: #ede0c8 !important;
+  color: #2c1b0c !important;
 }
 
 /* Footer Button Highlight */
