@@ -368,13 +368,29 @@ test('Rei Tutor: Stage Locking and Sequential Progression', () => {
   assert.equal(isReiStageLocked(3), true, 'Stage 3 must be locked when Stage 1 is incomplete');
 });
 
+test('Rei Tutor: Welcome Onboarding Track Selector Option', () => {
+  const tutCode = fs.readFileSync(path.join(rootDir, 'js/tutorial.js'), 'utf8');
+  const tutCss = fs.readFileSync(path.join(rootDir, 'css/tutorial.css'), 'utf8');
+
+  // Verify track card and icon in tutorial.js
+  assert.ok(tutCode.includes('data-track="rei"'), 'Must include data-track="rei" card in onboarding modal');
+  assert.ok(tutCode.includes('id="pkTutTrackReiName"'), 'Must include id="pkTutTrackReiName" element');
+  assert.ok(tutCode.includes('trackReiTitle'), 'Must include trackReiTitle in English and Khmer dictionaries');
+  assert.ok(tutCode.includes("window.location.href = 'rei.html'"), 'Must direct to rei.html when Rei track is chosen');
+
+  // Verify CSS styles
+  assert.ok(tutCss.includes('.pk-tut-track-card.pk-tut-track-rei'), 'Must include CSS styling for Rei track card');
+});
+
 test('Rei Tutor: Strict Zero-Emoji Compliance', () => {
   const files = [
     'rei/index.html',
     'rei.html',
     'scripts/generate_rei.js',
     'js/lessons.js',
-    'js/settings.js'
+    'js/settings.js',
+    'js/tutorial.js',
+    'css/tutorial.css'
   ];
 
   const emojiPattern = /[\u{1F300}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1FA70}-\u{1FAFF}]/u;

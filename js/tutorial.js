@@ -104,7 +104,10 @@
       trackNidaTag: '78 Lessons · Every Letter Included',
       trackEngTitle: 'English (US)',
       trackEngDesc: 'Structured QWERTY touch-typing curriculum from ASDF home row to high speed.',
-      trackEngTag: '66 Lessons · Every Letter Included'
+      trackEngTag: '66 Lessons · Every Letter Included',
+      trackReiTitle: 'PK Khmer Type Rei (Zen Edition)',
+      trackReiDesc: 'Distraction-free Zen typing tutor with Angkor wallpapers and 7 guided stages. Best for pure typing practice.',
+      trackReiTag: 'Zen Mode · 7 Stages · Pure Typing'
     },
     km: {
       welcomeTitle: 'សូមស្វាគមន៍មកកាន់ PK Khmer Type',
@@ -132,6 +135,9 @@
       trackEngTitle: 'English (US)',
       trackEngDesc: 'រៀនវាយក្តារចុចអង់គ្លេស QWERTY ពីជួរកណ្តាល ASDF រហូតដល់ស្ទាត់ជំនាញ។',
       trackEngTag: '៦៦ មេរៀន · រួមបញ្ចូលគ្រប់តួអក្សរ',
+      trackReiTitle: 'PK Khmer Type Rei (រៀន)',
+      trackReiDesc: 'កម្មវិធីហ្វឹកហាត់ស្ងប់ស្ងាត់ ផ្ដោតលើការរៀនវាយអក្សរសុទ្ធសាធ ៧ វគ្គ និងរូបភាពទេសភាពខ្មែរ ដោយគ្មានការរំខាន។',
+      trackReiTag: 'ផ្ដោតអារម្មណ៍ · ៧ វគ្គ · រៀនវាយសុទ្ធសាធ',
 
       step1Title: 'ជំហានទី ១ — ស្វែងរកមេរៀនរបស់អ្នក',
       step1Desc: 'មេរៀនរបស់អ្នកស្ថិតនៅទីនេះ។ ចាប់ផ្តើមពីមេរៀនដំបូងដែលបានដោះសោ ហើយបន្តដំណើរទៅមុខ។',
@@ -215,6 +221,7 @@
     cmdbar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M6 9h3"/><path d="M11 9h3"/><path d="M16 9h2"/><path d="M6 15h12"/></svg>',
     focus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>',
     globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+    rei: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5" stroke-dasharray="52 6"/><path d="M9 16.5l3-9 3 9M9.8 14h4.4"/><line x1="8" y1="20" x2="16" y2="20"/></svg>',
     stats: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
     settings: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1.51-1V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
     user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
@@ -398,6 +405,20 @@
                     <span class="pk-tut-track-badge" id="pkTutTrackEngTag">66 Lessons · Every Letter Included</span>
                   </div>
                   <div class="pk-tut-track-desc" id="pkTutTrackEngDesc">Structured QWERTY touch-typing curriculum from ASDF home row to high speed.</div>
+                </div>
+                <div class="pk-tut-track-check" aria-hidden="true">
+                  <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+              </div>
+
+              <div class="pk-tut-track-card pk-tut-track-rei" data-track="rei" tabindex="0" role="button" aria-pressed="false">
+                <div class="pk-tut-track-icon-box" aria-hidden="true">${TUT_ICONS.rei}</div>
+                <div class="pk-tut-track-info">
+                  <div class="pk-tut-track-title-row">
+                    <span class="pk-tut-track-name" id="pkTutTrackReiName">PK Khmer Type Rei</span>
+                    <span class="pk-tut-track-badge pk-tut-badge-rei" id="pkTutTrackReiTag">Zen Mode · 7 Stages · Pure Typing</span>
+                  </div>
+                  <div class="pk-tut-track-desc" id="pkTutTrackReiDesc">Distraction-free Zen typing tutor with Angkor wallpapers and 7 guided stages. Best for pure typing practice.</div>
                 </div>
                 <div class="pk-tut-track-check" aria-hidden="true">
                   <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -593,6 +614,12 @@
             c.classList.toggle('active', act);
             c.setAttribute('aria-pressed', String(act));
           });
+          if(chosen === 'rei'){
+            if(typeof playHolographicChime === 'function'){
+              playHolographicChime(true);
+            }
+            return;
+          }
           if(typeof window.switchLayout === 'function'){
             window.switchLayout(chosen);
           }
@@ -615,6 +642,15 @@
       secBtn.textContent = this.t('skipTutorial');
 
       priBtn.onclick = () => {
+        const activeCard = modal.querySelector('.pk-tut-track-card.active');
+        const chosen = activeCard ? activeCard.dataset.track : 'standard';
+
+        if(chosen === 'rei'){
+          this.skip();
+          window.location.href = 'rei.html';
+          return;
+        }
+
         this.currentModalMode = null;
         modal.style.display = 'none';
         maskSvg.style.display = 'block';

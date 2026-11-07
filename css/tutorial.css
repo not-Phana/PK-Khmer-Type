@@ -341,9 +341,11 @@ html.site-km-mode .pk-tut-tlang-arrow {
   left: 50%;
   transform: translate(-50%, -50%);
   width: min(92vw, 530px);
+  max-height: 94vh;
+  overflow-y: auto;
   background: #0a0e1c;
   border: 1px solid rgba(255, 209, 102, 0.45);
-  padding: 30px 28px 26px;
+  padding: 24px 26px 20px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8),
               0 0 36px rgba(255, 209, 102, 0.2);
   color: #f1f5f9;
@@ -588,6 +590,23 @@ html.site-km-mode .pk-tut-tlang-arrow {
   border-color: rgba(255, 209, 102, 0.4);
   background: rgba(255, 209, 102, 0.08);
   transform: translateY(-1px);
+}
+
+.pk-tut-track-card.pk-tut-track-rei:hover:not(.active) {
+  border-color: rgba(255, 209, 102, 0.45);
+  background: rgba(255, 209, 102, 0.09);
+}
+
+.pk-tut-track-card.pk-tut-track-rei .pk-tut-badge-rei {
+  background: rgba(255, 209, 102, 0.14);
+  border-color: rgba(255, 209, 102, 0.35);
+  color: #ffd166;
+}
+
+.pk-tut-track-card.pk-tut-track-rei.active {
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.22), rgba(15, 23, 42, 0.92));
+  border: 1.5px solid #ffd166;
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 209, 102, 0.35);
 }
 
 .pk-tut-track-card.active {
