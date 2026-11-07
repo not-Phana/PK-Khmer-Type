@@ -8114,20 +8114,24 @@ html.theme-light .rscc-sub {
     font-weight: 700;
   }
 
-  /* Highlighted Top Action Button */
+  /* Highlighted Top Action Button (Refined & Compact) */
   .pro-tips-highlight-btn {
-    background: rgba(255, 209, 102, 0.15) !important;
-    border: 1.5px solid #ffd166 !important;
+    background: rgba(255, 209, 102, 0.1) !important;
+    border: 1px solid rgba(255, 209, 102, 0.6) !important;
     color: #ffd166 !important;
-    font-weight: 700 !important;
-    box-shadow: 0 0 14px rgba(255, 209, 102, 0.3) !important;
+    font-weight: 600 !important;
+    font-size: 0.71rem !important;
+    padding: 0 8px !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    box-shadow: 0 0 8px rgba(255, 209, 102, 0.2) !important;
   }
 
   .pro-tips-highlight-btn:hover {
-    background: rgba(255, 209, 102, 0.25) !important;
-    border-color: #ffe082 !important;
+    background: rgba(255, 209, 102, 0.2) !important;
+    border-color: #ffd166 !important;
     color: #ffffff !important;
-    box-shadow: 0 0 20px rgba(255, 209, 102, 0.5) !important;
+    box-shadow: 0 0 14px rgba(255, 209, 102, 0.35) !important;
   }
 
   /* Increase font size in mastery tips modal cards */

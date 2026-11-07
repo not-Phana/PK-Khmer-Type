@@ -323,12 +323,44 @@
       display: none !important;
     }
 
+    /* Sleek, Compact Top Actions Bar */
+    .top-actions {
+      padding: 3px 6px !important;
+      gap: 4px !important;
+    }
+    .top-actions .top-actions-group {
+      gap: 3px !important;
+    }
+    .top-actions button,
+    .top-actions a.top-action-btn {
+      height: 28px !important;
+      min-height: 28px !important;
+      padding: 0 8px !important;
+      font-size: 0.71rem !important;
+      gap: 5px !important;
+    }
+    .top-actions button .pk-icon,
+    .top-actions a.top-action-btn .pk-icon {
+      width: 13px !important;
+      height: 13px !important;
+    }
+    .top-actions .focus-kbd-badge,
+    .top-actions .top-lang-kbd {
+      font-size: 0.58rem !important;
+      padding: 1px 4px !important;
+      border-radius: 4px !important;
+    }
+    .top-actions .top-actions-divider {
+      height: 16px !important;
+      margin: 0 1px !important;
+    }
+
     /* Rei Header Brand Crest Link */
     .rei-brand-link {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 4px 10px 4px 6px;
+      gap: 5px;
+      padding: 2px 8px 2px 5px;
       background: rgba(255, 209, 102, 0.08);
       border: 1px solid rgba(255, 209, 102, 0.25);
       border-radius: 20px;
@@ -336,6 +368,7 @@
       color: inherit;
       transition: all 0.2s ease;
       cursor: pointer;
+      height: 28px;
       flex-shrink: 0;
     }
     .rei-brand-link:hover {
@@ -345,15 +378,15 @@
       box-shadow: 0 4px 12px rgba(255, 209, 102, 0.2);
     }
     .rei-brand-logo-img {
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       display: block;
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
     }
     .rei-brand-text {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       color: #ffd166;
     }
     .rei-brand-glyph {
@@ -1351,8 +1384,8 @@ html.theme-light .rscc-sub {
 
   <!-- Group 1: Workspace Tools -->
   <div class="top-actions-group" role="group" aria-label="Workspace Tools">
-    <button id="focusModeBtn" class="focus-mode-btn" aria-label="Toggle Focus Mode" title="Focus Mode (Hide distractions, Alt+F)"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg> <span class="focus-btn-text i18n-t" data-en="Focus" data-km="ផ្ដោត">Focus</span> <kbd class="focus-kbd-badge">Alt+F</kbd></button>
-    <button id="tipsModalBtn" class="top-action-btn tips-modal-btn pro-tips-highlight-btn" title="Touch-Typing &amp; Khmer Mastery Tips (Alt+T)" aria-label="Open Mastery Tips"><svg class="pk-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> <span class="i18n-t" data-en="PRO TIPS" data-km="គន្លឹះ">PRO TIPS</span> <kbd class="top-lang-kbd" aria-hidden="true">Alt+T</kbd></button>
+    <button id="focusModeBtn" class="focus-mode-btn" aria-label="Toggle Focus Mode" title="Focus Mode (Hide distractions, Alt+F)"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg> <span class="focus-btn-text i18n-t" data-en="Focus" data-km="ផ្ដោត">Focus</span> <kbd class="focus-kbd-badge">Alt+F</kbd></button>
+    <button id="tipsModalBtn" class="top-action-btn tips-modal-btn pro-tips-highlight-btn" title="Touch-Typing &amp; Khmer Mastery Tips (Alt+T)" aria-label="Open Mastery Tips"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> <span class="i18n-t" data-en="Pro Tips" data-km="គន្លឹះ">Pro Tips</span> <kbd class="top-lang-kbd" aria-hidden="true">Alt+T</kbd></button>
   </div>
 
   <div class="top-actions-divider" aria-hidden="true"></div>
