@@ -43,6 +43,25 @@
   if (window[KEY]) return;
   const SCRIPT_EL = document.currentScript;
 
+  // Early config resolution so engine, view, and triggers share the same flags
+  const _ds = (SCRIPT_EL && SCRIPT_EL.dataset) || {};
+  const _usr = window.SwarmCursorsConfig || {};
+  const _pick = (k, d) => (_ds[k] !== undefined ? _ds[k] : _usr[k] !== undefined ? _usr[k] : d);
+  const _trig = String(_pick("trigger", "button")).toLowerCase();
+  const CFG = {
+    trigger: _trig,
+    label: String(_pick("label", "Rebuild this page")),
+    position: String(_pick("position", "bottom-right")).toLowerCase(),
+    hotkey: String(_pick("hotkey", "alt+shift+s")).toLowerCase().replace(/\s+/g, ""),
+    delay: Number(_pick("delay", 400)) || 0,
+    once: String(_pick("once", "")).toLowerCase(),
+    paths: String(_pick("paths", "")),
+    reducedMotion: String(_pick("reducedMotion", "skip")).toLowerCase(),
+    hud: String(_pick("hud", _trig === "auto" ? "false" : "true")).toLowerCase(),
+    autoLive: String(_pick("autoLive", _trig === "auto" ? "true" : "false")).toLowerCase(),
+    speed: Number(_pick("speed", _trig === "auto" ? 2 : 1)) || 1,
+  };
+
   // ---------------------------------------------------------------- constants
 
   const NAMES = [
@@ -1563,7 +1582,7 @@
 .hud button.pri:hover{background:#2aa6ff}
 .hud button.on{background:rgba(13,153,255,.22);color:#8fd0ff}
 .hud button[hidden]{display:none}
-.hud .x{padding:7px 9px;color:#aaa;display:inline-flex;align-items:center;justify-content:center}
+.hud .x{padding:7px 9px;color:#aaa}
 .hud button.snd{display:flex;align-items:center;gap:6px;padding:6px 8px}
 .hud button.snd.off{color:#8a8a8a}
 .hud button.snd.tap{background:#0D99FF;animation:hudpulse 1.6s ease-in-out infinite}
@@ -1672,7 +1691,7 @@
   <button data-a="sound" class="snd" title="Sound (M)"></button>
   <button data-a="live" class="pri" hidden title="Fade back to the real page">Go live</button>
   <button data-a="replay" hidden title="Wipe and rebuild again">Replay</button>
-  <button data-a="close" class="x" title="Exit (Esc)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+  <button data-a="close" class="x" title="Exit (Esc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="display:block"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
 </div>`;
       const $ = (s) => root.querySelector(s);
       this.bg = $(".bg");
@@ -2135,7 +2154,7 @@
       this.frontier = 0;
       this.vel = 0;
       this.tempo = 1;
-      this.speed = 1;
+      this.speed = CFG.speed || 1;
       this.time = 0;
       this.rulers = { want: 0, t: 0, lastNeed: -10 };
       this.lastScroll = null;
@@ -2348,7 +2367,9 @@
         }
       }
 
-      if (!this.flocking && this.started && this.waitCount === 0) {
+      const isAuto = CFG.trigger === "auto" || CFG.autoLive === "true";
+      const doneVisible = isAuto && this.time > 1.2 && this.backlog() === 0;
+      if (!this.flocking && this.started && (this.waitCount === 0 || doneVisible)) {
         for (const c of this.cursors)
           if (!c.task && !c.follow) {
             c.follow = true;
@@ -3533,7 +3554,11 @@
       this.sfx.intro();
       this.view.bg.classList.add("on");
       this.view.intro.classList.add("on");
-      this.view.hud.classList.add("on");
+      if (CFG.hud === "false") {
+        this.view.hud.style.display = "none";
+      } else {
+        this.view.hud.classList.add("on");
+      }
       const mark = (k) => (this.timing[k] = Math.round(performance.now() - this.t0));
       await sleep(520);
       await unhidePage();
@@ -3752,6 +3777,13 @@
       v.root.querySelector('[data-a="tour"]').hidden = true;
       v.root.querySelector('[data-a="speed"]').hidden = true;
       this.tour = false;
+      if (CFG.autoLive === "true" || CFG.trigger === "auto") {
+        setTimeout(() => {
+          if (this.complete && app === this && !this.dead) {
+            this.destroy(true);
+          }
+        }, 1000);
+      }
     }
 
     destroy(reveal) {
@@ -3862,19 +3894,7 @@
   // ------------------------------------------------------------ embed triggers
 
   const TRIGGER_UI = (() => {
-    const ds = (SCRIPT_EL && SCRIPT_EL.dataset) || {};
-    const user = window.SwarmCursorsConfig || {};
-    const pick = (k, d) => (ds[k] !== undefined ? ds[k] : user[k] !== undefined ? user[k] : d);
-    const cfg = {
-      trigger: String(pick("trigger", "button")).toLowerCase(),
-      label: String(pick("label", "Rebuild this page")),
-      position: String(pick("position", "bottom-right")).toLowerCase(),
-      hotkey: String(pick("hotkey", "alt+shift+s")).toLowerCase().replace(/\s+/g, ""),
-      delay: Number(pick("delay", 800)) || 0,
-      once: String(pick("once", "")).toLowerCase(),
-      paths: String(pick("paths", "")),
-      reducedMotion: String(pick("reducedMotion", "skip")).toLowerCase(),
-    };
+    const cfg = CFG;
 
     const here = location.pathname.replace(/\/index\.html?$/, "/") || "/";
     const norm = (p) => (p.length > 1 ? p.replace(/\/+$/, "") : p);
@@ -3892,6 +3912,7 @@
       stop: (reveal) => stop(!!reveal),
       toggle: () => window[KEY].toggle(),
       isRunning: () => !!app,
+      get app() { return app; },
       config: cfg,
     };
 
