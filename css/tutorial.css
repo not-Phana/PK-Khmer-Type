@@ -819,3 +819,110 @@ html.reduced-motion .pk-tutorial-modal-card,
 html.anim-mode-minimal .pk-tutorial-modal-card {
   animation: none !important;
 }
+
+
+/* ================= Light Theme for Tutorial Modal & Tooltips ================= */
+html.theme-light .pk-tutorial-modal-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 25px 70px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(255, 255, 255, 1) !important;
+  color: #0f172a !important;
+}
+html.theme-light .pk-tut-modal-title {
+  color: #0f172a !important;
+}
+html.theme-light .pk-tut-modal-subtitle {
+  color: #475569 !important;
+}
+html.theme-light .pk-tut-track-heading {
+  color: #64748b !important;
+}
+html.theme-light .pk-tut-track-card {
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+html.theme-light .pk-tut-track-card:hover:not(.active) {
+  background: #ffffff !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12) !important;
+}
+html.theme-light .pk-tut-track-card.active {
+  background: #eff6ff !important;
+  border: 1.5px solid #0284c7 !important;
+  box-shadow: 0 4px 20px rgba(2, 132, 199, 0.25), 0 0 0 2px rgba(2, 132, 199, 0.3) !important;
+}
+html.theme-light .pk-tut-track-name {
+  color: #0f172a !important;
+}
+html.theme-light .pk-tut-track-card.active .pk-tut-track-name {
+  color: #0284c7 !important;
+}
+html.theme-light .pk-tut-track-desc {
+  color: #64748b !important;
+}
+html.theme-light .pk-tut-track-badge {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+html.theme-light .pk-tut-track-card.active .pk-tut-track-badge {
+  background: #e0f2fe !important;
+  border-color: #7dd3fc !important;
+  color: #0369a1 !important;
+}
+html.theme-light .pk-tut-track-icon-box {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #64748b !important;
+}
+html.theme-light .pk-tut-track-card.active .pk-tut-track-icon-box {
+  background: #e0f2fe !important;
+  border-color: #7dd3fc !important;
+  color: #0284c7 !important;
+}
+html.theme-light .pk-tut-track-check {
+  border-color: #cbd5e1 !important;
+}
+html.theme-light .pk-tut-track-card.active .pk-tut-track-check {
+  background: #0284c7 !important;
+  border-color: #0284c7 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 10px rgba(2, 132, 199, 0.6) !important;
+}
+html.theme-light .pk-tut-btn-primary {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  border: 1px solid #b45309 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35) !important;
+}
+html.theme-light .pk-tut-btn-primary:hover {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+}
+html.theme-light .pk-tut-btn-secondary {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #334155 !important;
+}
+html.theme-light .pk-tut-btn-secondary:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+html.theme-light .pk-tutorial-tooltip {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.16) !important;
+  color: #0f172a !important;
+}
+html.theme-light .pk-tut-tooltip-title {
+  color: #0f172a !important;
+}
+html.theme-light .pk-tut-tooltip-desc {
+  color: #475569 !important;
+}
+html.theme-light .pk-tutorial-practice-pill {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+}

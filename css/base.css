@@ -1049,28 +1049,50 @@
   /* ================= new: light theme override — Crisp Ceramic Studio ================= */
   html.theme-light body {
     background:
-      radial-gradient(ellipse 70vw 45vh at 20% -5%, rgba(59, 130, 246, 0.08), transparent 60%),
-      radial-gradient(ellipse 60vw 40vh at 80% 5%, rgba(245, 158, 11, 0.08), transparent 60%),
-      linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%) !important;
+      radial-gradient(ellipse 65vw 45vh at 20% -5%, rgba(14, 165, 233, 0.09), transparent 60%),
+      radial-gradient(ellipse 55vw 40vh at 85% 5%, rgba(245, 158, 11, 0.08), transparent 60%),
+      radial-gradient(ellipse 60vw 50vh at 50% 105%, rgba(99, 102, 241, 0.06), transparent 65%),
+      radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.22) 1px, transparent 0) 0 0 / 28px 28px,
+      linear-gradient(180deg, #fbfcfd 0%, #f1f5f9 50%, #e8edf3 100%) !important;
     color: #0f172a;
   }
+  html.theme-light body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse 85vw 60vh at 50% 40%, transparent 45%, rgba(226, 232, 240, 0.65) 100%) !important;
+  }
   html.theme-light {
+    color-scheme: light;
+    accent-color: var(--gold, #0284c7);
     --ink: #0f172a;
     --ink-dim: #475569;
     --stone-1: #ffffff;
-    --stone-2: #f1f5f9;
-    --stone-3: #e2e8f0;
+    --stone-2: #f8fafc;
+    --stone-3: #f1f5f9;
     --stone-edge: #cbd5e1;
-    --gold: #d97706;
-    --gold-bright: #b45309;
+    --gold: #0284c7;
+    --gold-bright: #0369a1;
     --tooltip-bg: #0f172a;
     --tooltip-border: #334155;
     --tooltip-ink: #f8fafc;
     --fx-ink: #0f172a;
     --fx-ink-dim: #475569;
-    --fx-glass: rgba(255, 255, 255, 0.88);
-    --fx-glass-2: rgba(241, 245, 249, 0.85);
-    --fx-border: rgba(15, 23, 42, 0.15);
+    --fx-glass: rgba(255, 255, 255, 0.92);
+    --fx-glass-2: rgba(241, 245, 249, 0.9);
+    --fx-border: rgba(15, 23, 42, 0.12);
+    --hand-l-stroke: #0284c7;
+    --hand-l-glow: rgba(2, 132, 199, 0.4);
+    --hand-l-crease: #0369a1;
+    --hand-l-tip-fill: rgba(2, 132, 199, 0.65);
+    --hand-l-tip-stroke: #0284c7;
+    --hand-r-stroke: #e11d48;
+    --hand-r-glow: rgba(225, 29, 72, 0.4);
+    --hand-r-crease: #be123c;
+    --hand-r-tip-fill: rgba(225, 29, 72, 0.65);
+    --hand-r-tip-stroke: #e11d48;
   }
   html.theme-light .hero-title,
   html.theme-light .hero-title span,
@@ -1078,13 +1100,14 @@
     color: #0f172a;
   }
   html.theme-light .subtitle,
-  html.theme-light .hero-desc,
-  html.theme-light .founder-tag {
+  html.theme-light .hero-desc {
     color: #475569;
   }
   html.theme-light .founder-tag {
-    background: #e2e8f0;
-    border-color: #cbd5e1;
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #475569 !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
   }
   
   html.theme-light h1 {
@@ -1093,6 +1116,28 @@
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
     text-shadow: none;
   }
+  html.theme-light .pk-logo,
+  html.theme-light .rei-logo-crest,
+  html.theme-light .logo-badge {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-bottom: 2.5px solid #94a3b8 !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+    color: #0f172a !important;
+  }
+  html.theme-light .hero-badge,
+  html.theme-light .studio-pro-badge {
+    background: #eff6ff !important;
+    border: 1px solid #bfdbfe !important;
+    color: #1d4ed8 !important;
+    font-weight: 700 !important;
+  }
+  html.theme-light .version-tag {
+    background: #fffbeb !important;
+    border: 1px solid #fde68a !important;
+    color: #b45309 !important;
+    font-weight: 700 !important;
+  }
   html.theme-sepia h1 {
     color: #2c1b0c;
     border-color: rgba(44, 27, 12, 0.25);
@@ -1100,80 +1145,133 @@
     text-shadow: none;
   }
 
-  /* Chassis: Sleek space-silver aluminum */
+  /* Chassis: CNC Anodized Aluminum with Specular Highlight */
   html.theme-light .board-wrap {
-    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 40%, #eef2f6 100%) !important;
     border: 2px solid #cbd5e1 !important;
-    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(15, 23, 42, 0.06) !important;
+    border-top: 2px solid #e2e8f0 !important;
+    border-bottom: 2.5px solid #94a3b8 !important;
+    box-shadow:
+      0 20px 50px -10px rgba(15, 23, 42, 0.12),
+      0 8px 24px -4px rgba(15, 23, 42, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(203, 213, 225, 0.5) !important;
   }
   html.theme-light .board-chassis-bar {
-    background: #e2e8f0;
-    border-bottom: 1px solid #cbd5e1;
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
     color: #334155;
   }
-  html.theme-light .chassis-action-btn {
-    background: #ffffff;
-    border-color: #cbd5e1;
-    color: #1e293b;
+  html.theme-light .chassis-deck-id {
+    color: #1e293b !important;
   }
-  html.theme-light .chassis-action-btn:hover {
-    background: #f1f5f9;
-    border-color: #94a3b8;
+  html.theme-light .chassis-led-dot {
+    background: #0ea5e9 !important;
+    box-shadow: 0 0 8px rgba(14, 165, 233, 0.8), 0 0 2px #0ea5e9 !important;
   }
-  /* Keycaps: Double-shot ceramic chalk + Option 2B Soft Finger-Zone Tints */
-  html.theme-light .key {
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%) !important;
+  html.theme-light .chassis-version-badge {
+    background: #eff6ff !important;
+    border: 1px solid #bfdbfe !important;
+    color: #1d4ed8 !important;
+    font-weight: 700 !important;
+  }
+  html.theme-light .chassis-scale-btn,
+  html.theme-light .rei-scale-btn {
+    background: #f0fdf4 !important;
+    border: 1px solid #86efac !important;
+    color: #15803d !important;
+    font-weight: 700 !important;
+  }
+  html.theme-light .chassis-docs-btn,
+  html.theme-light .chassis-3d-btn,
+  html.theme-light .chassis-dash-btn {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #334155 !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05) !important;
+  }
+  html.theme-light .chassis-docs-btn:hover,
+  html.theme-light .chassis-3d-btn:hover,
+  html.theme-light .chassis-dash-btn:hover {
+    background: #f8fafc !important;
+    border-color: #0284c7 !important;
     color: #0f172a !important;
-    border: 1.5px solid #cbd5e1 !important;
-    border-bottom: 3.5px solid #94a3b8 !important;
-    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05) !important;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.15) !important;
+  }
+  /* Keycaps: Double-shot Ceramic PBT Precision + Artisan Finger Zones */
+  html.theme-light .key {
+    background: linear-gradient(180deg, #ffffff 0%, #fcfdfe 60%, #f8fafc 100%) !important;
+    color: #0f172a !important;
+    border: 1.5px solid #d1d5db !important;
+    border-top: 1.5px solid #e5e7eb !important;
+    border-bottom: 3.5px solid #9ca3af !important;
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+    font-weight: 600;
   }
   html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="lp"],
   html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="rp"] {
-    background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 100%) !important;
-    border-color: #fda4af !important;
-    border-bottom: 3.5px solid #f43f5e !important;
+    background: linear-gradient(180deg, #fff5f5 0%, #fed7d7 100%) !important;
+    border-color: #feb2b2 !important;
+    border-bottom: 3.5px solid #e53e3e !important;
   }
   html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="lr"],
   html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="rr"] {
-    background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%) !important;
-    border-color: #fcd34d !important;
-    border-bottom: 3.5px solid #f59e0b !important;
+    background: linear-gradient(180deg, #fffaf0 0%, #feebc8 100%) !important;
+    border-color: #fbd38d !important;
+    border-bottom: 3.5px solid #dd6b20 !important;
   }
   html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="lm"],
   html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="rm"] {
-    background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%) !important;
-    border-color: #6ee7b7 !important;
-    border-bottom: 3.5px solid #10b981 !important;
+    background: linear-gradient(180deg, #f0fff4 0%, #c6f6d5 100%) !important;
+    border-color: #9ae6b4 !important;
+    border-bottom: 3.5px solid #38a169 !important;
   }
   html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="li"] {
-    background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%) !important;
-    border-color: #93c5fd !important;
-    border-bottom: 3.5px solid #2563eb !important;
+    background: linear-gradient(180deg, #ebf8ff 0%, #bee3f8 100%) !important;
+    border-color: #90cdf4 !important;
+    border-bottom: 3.5px solid #3182ce !important;
   }
   html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="ri"] {
-    background: linear-gradient(180deg, #f5f3ff 0%, #ede9fe 100%) !important;
-    border-color: #c4b5fd !important;
-    border-bottom: 3.5px solid #7c3aed !important;
+    background: linear-gradient(180deg, #faf5ff 0%, #e9d8fd 100%) !important;
+    border-color: #d6bcfa !important;
+    border-bottom: 3.5px solid #805ad5 !important;
+  }
+  /* Sub-glyphs, numbers, shift badges, modifier keys */
+  html.theme-light .key .sub,
+  html.theme-light .key .code,
+  html.theme-light .key .space-glyph,
+  html.theme-light .key .space-label {
+    color: #334155 !important;
+    font-weight: 600;
+  }
+  html.theme-light .key .alt {
+    color: #0369a1 !important;
+    font-weight: 700;
   }
   html.theme-light .key:hover {
     background: #ffffff !important;
-    border-color: var(--gold, #2563eb) !important;
-    box-shadow: 0 0 0 2px var(--accent-soft, rgba(59, 130, 246, 0.3)) !important;
+    border-color: #0284c7 !important;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.18), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+    transform: translateY(-1px);
   }
   html.theme-light .key.pressed,
   html.theme-light .key:active {
     background: #e2e8f0 !important;
-    border-bottom-width: 1px !important;
+    border-bottom-width: 1.5px !important;
     transform: translateY(2px) !important;
     box-shadow: none !important;
   }
-  html.theme-light .key.lesson-target {
-    background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%) !important;
+  html.theme-light .key.lesson-target,
+  html.theme-light .key.target {
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%) !important;
     color: #ffffff !important;
-    border: 2px solid #4c1d95 !important;
-    border-bottom: 4px solid #2e1065 !important;
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25), 0 8px 18px rgba(109, 40, 217, 0.35) !important;
+    border: 2px solid #1e40af !important;
+    border-bottom: 4px solid #172554 !important;
+    box-shadow:
+      0 0 0 3px rgba(37, 99, 235, 0.35),
+      0 8px 24px rgba(37, 99, 235, 0.45) !important;
+    transform: translateY(-2px) !important;
   }
   html.theme-light .key.lesson-target .main,
   html.theme-light .key.lesson-target .sub,
@@ -1182,37 +1280,103 @@
   html.theme-light .key.lesson-target .space-glyph,
   html.theme-light .key.lesson-target .space-label {
     color: #ffffff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
   }
   html.theme-light .key.modifier-target {
     background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%) !important;
     color: #ffffff !important;
     border: 2px solid #075985 !important;
-    border-bottom: 4px solid #0c4a6e !important;
+    border-bottom: 4px solid #082f49 !important;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.35), 0 8px 20px rgba(2, 132, 199, 0.4) !important;
   }
-  html.theme-light .key.target,
   html.theme-light .key.hint-next {
-    background: color-mix(in srgb, var(--gold-bright, #2563eb) 22%, #ffffff) !important;
-    border-color: var(--gold, #2563eb) !important;
+    background: color-mix(in srgb, var(--gold-bright, #0284c7) 22%, #ffffff) !important;
+    border-color: var(--gold, #0284c7) !important;
     color: #0f172a !important;
-    box-shadow: 0 0 14px var(--accent-glow, rgba(37, 99, 235, 0.35)) !important;
+    box-shadow: 0 0 14px rgba(2, 132, 199, 0.35) !important;
+  }
+  html.theme-light .key .glyph {
+    color: #0f172a !important;
+    text-shadow: none !important;
+    font-weight: 600 !important;
   }
   html.theme-light .key .shift-badge {
-    color: var(--gold, #2563eb) !important;
-    background: var(--accent-soft, rgba(37, 99, 235, 0.08));
-    border: 1px solid var(--accent-border, rgba(37, 99, 235, 0.22));
+    color: #0369a1 !important;
+    background: #e0f2fe !important;
+    border: 1px solid #7dd3fc !important;
     padding: 1px 4px;
-    font-weight: 600;
+    border-radius: 4px;
+    font-weight: 700 !important;
+    opacity: 0.95 !important;
+    text-shadow: none !important;
+  }
+  html.theme-light .key:hover .shift-badge {
+    color: #0284c7 !important;
+    opacity: 1 !important;
+  }
+  html.theme-light .hero-version-tag {
+    background: #fffbeb !important;
+    border: 1px solid #fde68a !important;
+    color: #b45309 !important;
+    box-shadow: 0 1px 3px rgba(217, 119, 6, 0.12) !important;
+  }
+  html.theme-light .hero-ver-num {
+    color: #b45309 !important;
+    font-weight: 700 !important;
+  }
+  html.theme-light .hero-ver-beta {
+    background: #fef3c7 !important;
+    border: 1px solid #f59e0b !important;
+    color: #92400e !important;
+    font-weight: 800 !important;
+  }
+  html.theme-light .hero-version-tag:hover {
+    background: #fef3c7 !important;
+    border-color: #f59e0b !important;
+    color: #78350f !important;
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.22) !important;
+  }
+  html.theme-light .hero-edition-tag {
+    background: #eff6ff !important;
+    border: 1px solid #bfdbfe !important;
+    color: #1d4ed8 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.12) !important;
+  }
+  html.theme-light .hero-edition-tag.rei {
+    background: #fffbeb !important;
+    border: 1px solid #fde68a !important;
+    color: #b45309 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 1px 3px rgba(217, 119, 6, 0.12) !important;
   }
   html.theme-light .key.mod {
-    background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%) !important;
-    color: #334155 !important;
-    border-bottom-color: #94a3b8 !important;
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    color: #1e293b !important;
+    border-color: #cbd5e1 !important;
+    border-bottom: 3.5px solid #94a3b8 !important;
+    font-weight: 700;
   }
   html.theme-light .key.mod.active,
   html.theme-light .key.mod.pressed {
     background: #cbd5e1 !important;
     color: #0f172a !important;
+    border-bottom-width: 1.5px !important;
+    transform: translateY(2px) !important;
+  }
+
+  /* Keyboard shortcut badges in light mode: sleek anodized aluminum keycaps */
+  html.theme-light kbd,
+  html.theme-light .kbd-badge,
+  html.theme-light .shortcut-badge,
+  html.theme-light .key-badge,
+  html.theme-light .key-combo kbd {
+    background: #f1f5f9 !important;
+    border: 1px solid #cbd5e1 !important;
+    border-bottom: 2px solid #94a3b8 !important;
+    color: #334155 !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+    font-weight: 700 !important;
   }
   /* Manuscript & Typing Prompt */
   html.theme-light .manuscript,

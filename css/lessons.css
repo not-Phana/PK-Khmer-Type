@@ -9439,3 +9439,71 @@ html.theme-light .rscc-sub {
   .shake {
     animation: pk-shake 0.42s ease !important;
   }
+
+
+/* ================= Light Theme Polish for Rei Stage Rail, Telemetry & Focus Mode ================= */
+html.theme-light .focus-lesson-hud {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1), 0 0 14px rgba(2, 132, 199, 0.15) !important;
+  color: #0f172a !important;
+}
+
+html.theme-light .rei-stage-tip-banner {
+  background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%) !important;
+  border: 1.5px solid #fde68a !important;
+  box-shadow: 0 4px 16px rgba(217, 119, 6, 0.08) !important;
+}
+
+html.theme-light .rst-title {
+  color: #92400e !important;
+  font-weight: 700 !important;
+}
+
+html.theme-light .rst-desc {
+  color: #475569 !important;
+}
+
+html.theme-light .rei-stage-btn {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.theme-light .rei-stage-btn:hover:not(.locked) {
+  background: #ffffff !important;
+  border-color: #0284c7 !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15) !important;
+}
+
+html.theme-light .rei-stage-btn.active {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+  border-color: #b45309 !important;
+  box-shadow: 0 3px 12px rgba(217, 119, 6, 0.35) !important;
+}
+
+html.theme-light .project-scale-modal-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-top: 3px solid #0284c7 !important;
+  box-shadow: 0 25px 70px rgba(15, 23, 42, 0.2), 0 0 30px rgba(2, 132, 199, 0.1) !important;
+  color: #0f172a !important;
+}
+
+html.theme-light .ps-stat-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.theme-light .ps-stat-val {
+  color: #0f172a !important;
+}
+
+html.theme-light .ps-stat-lbl {
+  color: #64748b !important;
+}
