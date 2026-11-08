@@ -41,7 +41,7 @@
 
   const KEY = "__swarmRebuild";
   if (window[KEY]) return;
-  const SCRIPT_EL = document.currentScript;
+  const SCRIPT_EL = document.currentScript || document.querySelector('script[src*="swarm-cursors"]');
 
   // Early config resolution so engine, view, and triggers share the same flags
   const _ds = (SCRIPT_EL && SCRIPT_EL.dataset) || {};
@@ -322,6 +322,9 @@
       dst.setAttribute("width", src.clientWidth || src.getBoundingClientRect().width);
       dst.setAttribute("height", src.clientHeight || src.getBoundingClientRect().height);
       st += styleString(cs, SVG_OUTER_PROPS);
+    }
+    if (cs.webkitBackgroundClip === "text" || cs.backgroundClip === "text") {
+      st += `background-image:${cs.backgroundImage};background-size:${cs.backgroundSize};background-position:${cs.backgroundPosition};-webkit-background-clip:text;background-clip:text;`;
     }
     dst.setAttribute("style", st);
     for (const a of [...dst.attributes]) {
@@ -614,6 +617,9 @@
 
     function rootStyle(cs, isRun) {
       let s = styleString(cs, TEXT_PROPS);
+      if (cs.webkitBackgroundClip === "text" || cs.backgroundClip === "text") {
+        s += `background-image:${cs.backgroundImage};background-size:${cs.backgroundSize};background-position:${cs.backgroundPosition};-webkit-background-clip:text;background-clip:text;`;
+      }
       if (isRun) return s + "display:block;padding:0;margin:0;box-sizing:border-box;width:100%;height:100%;position:relative;";
       const pad = (side) =>
         (parseFloat(cs.getPropertyValue(`padding-${side}`)) || 0) + (parseFloat(cs.getPropertyValue(`border-${side}-width`)) || 0);
@@ -752,10 +758,11 @@
 
     function emitBox(el, cs, r, ctx, key, forceRect) {
       if (el === html) return null;
+      const isTextClip = cs.webkitBackgroundClip === "text" || cs.backgroundClip === "text";
       const tag = el.localName;
       const bgc = cs.backgroundColor;
       const bgi = cs.backgroundImage;
-      const bgVisible = (alphaOf(bgc) > 0.01 && !sameColor(bgc, pageBg.color)) || bgi !== "none";
+      const bgVisible = ((alphaOf(bgc) > 0.01 && !sameColor(bgc, pageBg.color)) || (bgi !== "none" && !isTextClip));
       if (el === body && pageBg.from === body) return null;
       const sides = ["top", "right", "bottom", "left"].map((s) => {
         const w = parseFloat(cs.getPropertyValue(`border-${s}-width`)) || 0;

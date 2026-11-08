@@ -403,26 +403,28 @@ body {
 .welcome-title-giant {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(3.2rem, 1.8rem + 4.8vw, 5.6rem);
+  font-size: clamp(4rem, 2.4rem + 5.5vw, 6.6rem);
   font-weight: 900;
-  line-height: 0.98;
+  line-height: 0.94;
   letter-spacing: -0.04em;
   text-transform: none;
-  white-space: nowrap;
+  max-width: 560px;
+  white-space: normal;
   position: relative;
+  color: #ffd166;
   background: linear-gradient(135deg, #ffffff 0%, #fff3d1 18%, #ffd166 38%, #ffb703 58%, #ffd166 78%, #ffffff 100%);
   background-size: 250% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmerFlow 6s linear infinite;
-  filter: drop-shadow(0 0 24px rgba(255, 209, 102, 0.35)) drop-shadow(0 12px 48px rgba(255, 157, 46, 0.22));
+  filter: drop-shadow(0 0 28px rgba(255, 209, 102, 0.4)) drop-shadow(0 14px 52px rgba(255, 157, 46, 0.25));
 }
 
 @media (max-width: 640px) {
   .welcome-title-giant {
-    white-space: normal;
-    line-height: 1.05;
+    font-size: clamp(3rem, 1.8rem + 6vw, 4.4rem);
+    line-height: 1.02;
   }
 }
 
