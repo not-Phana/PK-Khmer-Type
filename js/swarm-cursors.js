@@ -3985,6 +3985,7 @@
     const ready = (fn) => (document.readyState === "complete" ? fn() : window.addEventListener("load", fn, { once: true }));
     ready(() => {
       const params = new URLSearchParams(location.search);
+      if (params.get("swarm") === "0" || params.get("swarm") === "false") return;
       if (params.has("swarm") && params.get("swarm") !== "0") {
         setTimeout(start, cfg.delay);
         return;

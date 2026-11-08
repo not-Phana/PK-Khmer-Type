@@ -352,34 +352,96 @@ body {
 }
 
 .welcome-title {
-  font-size: clamp(2.3rem, 4.4vw, 3.8rem);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  margin-bottom: 12px;
-  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+  position: relative;
 }
 
-.welcome-title .shimmer-text {
-  background: linear-gradient(90deg, #ffe082 0%, #ffd166 25%, #fffdfa 50%, #ffd166 75%, #ff9d2e 100%);
-  background-size: 200% auto;
+.welcome-title-prefix {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 0.8rem + 0.5vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  line-height: 1.2;
+  position: relative;
+  padding-left: 2px;
+}
+
+.welcome-title-prefix::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-bright));
+  border-radius: 1px;
+}
+
+.welcome-title-prefix::after {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 2px;
+  background: var(--gold-bright);
+  opacity: 0.6;
+  border-radius: 1px;
+}
+
+.site-km-mode .welcome-title-prefix {
+  font-family: var(--font-km);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.welcome-title-giant {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 1.8rem + 4.8vw, 5.6rem);
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  text-transform: none;
+  white-space: nowrap;
+  position: relative;
+  background: linear-gradient(135deg, #ffffff 0%, #fff3d1 18%, #ffd166 38%, #ffb703 58%, #ffd166 78%, #ffffff 100%);
+  background-size: 250% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmerFlow 5s linear infinite;
+  animation: shimmerFlow 6s linear infinite;
+  filter: drop-shadow(0 0 24px rgba(255, 209, 102, 0.35)) drop-shadow(0 12px 48px rgba(255, 157, 46, 0.22));
+}
+
+@media (max-width: 640px) {
+  .welcome-title-giant {
+    white-space: normal;
+    line-height: 1.05;
+  }
+}
+
+.welcome-title .shimmer-text {
+  /* Shimmer gradient defined on .welcome-title-giant */
 }
 
 @keyframes shimmerFlow {
-  to { background-position: 200% center; }
+  to { background-position: 250% center; }
 }
 
 .welcome-title-km {
   font-family: var(--font-km);
-  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-  font-weight: 700;
-  line-height: 1.35;
-  margin-bottom: 14px;
-  color: var(--gold-bright);
+  font-size: clamp(1.12rem, 1.6vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.45;
+  margin-bottom: 16px;
+  color: rgba(255, 209, 102, 0.88);
+  letter-spacing: 0.01em;
 }
 
 .welcome-subtitle {
@@ -481,6 +543,13 @@ body {
   .hero-left-content {
     align-items: center;
     text-align: center;
+  }
+  .welcome-title {
+    align-items: center;
+    text-align: center;
+  }
+  .welcome-title-prefix {
+    justify-content: center;
   }
   .welcome-hero-ctas {
     justify-content: center;
