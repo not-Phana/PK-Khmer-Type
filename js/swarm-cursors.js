@@ -491,9 +491,9 @@
       const g = probe.getContext("2d");
       g.drawImage(el, 0, 0, 12, 12);
       const d = g.getImageData(0, 0, 12, 12).data;
-      let a = 0;
-      for (let i = 3; i < d.length; i += 4) a += d[i];
-      return a > 0 ? el.toDataURL() : null;
+      let v = 0;
+      for (let i = 0; i < d.length; i += 4) v += d[i] + d[i + 1] + d[i + 2] + d[i + 3];
+      return v > 0 ? el.toDataURL() : null;
     } catch (_) {
       return null;
     }

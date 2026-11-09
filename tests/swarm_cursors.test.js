@@ -44,3 +44,10 @@ test('Swarm Cursors 1.5: Text-clipped gradient backgrounds are skipped in emitBo
   assert.match(code, /isTextClip\s*=\s*cs\.webkitBackgroundClip\s*===\s*"text"\s*\|\|\s*cs\.backgroundClip\s*===\s*"text"/);
   assert.match(code, /\(bgi\s*!==\s*"none"\s*&&\s*!isTextClip\)/);
 });
+
+test('Swarm Cursors 1.6: 3D hero WebGL canvas preserves drawing buffer for swarm snapshot capture', () => {
+  const welcomeJs = fs.readFileSync(path.join(ROOT, 'js', 'welcome.js'), 'utf8');
+  assert.match(welcomeJs, /new THREE\.WebGLRenderer\(\{[\s\S]*?preserveDrawingBuffer:\s*true/);
+  const swarmJs = fs.readFileSync(path.join(ROOT, 'js', 'swarm-cursors.js'), 'utf8');
+  assert.match(swarmJs, /d\[i\]\s*\+\s*d\[i\s*\+\s*1\]\s*\+\s*d\[i\s*\+\s*2\]\s*\+\s*d\[i\s*\+\s*3\]/);
+});

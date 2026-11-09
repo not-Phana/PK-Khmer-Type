@@ -561,6 +561,7 @@
       canvas: canvas,
       antialias: true,
       alpha: true,
+      preserveDrawingBuffer: true,
       powerPreference: 'high-performance'
     });
     renderer.setSize(stageWidth, stageHeight);
