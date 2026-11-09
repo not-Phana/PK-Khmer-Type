@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://fonts.googleapis.com https://fonts.gstatic.com; worker-src 'self' blob:; media-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self';">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -65,7 +66,7 @@
     document.head.appendChild(_m);
   }
 </script>
-<meta name="theme-color" content="#ff9d2e">
+<meta name="theme-color" id="pkThemeColorMeta" content="#0a0d16">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="icon" type="image/png" sizes="48x48" href="icon-48.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
@@ -256,30 +257,40 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/base.css?v=98">
-  <link rel="stylesheet" href="css/keyboard.css?v=98">
-  <link rel="stylesheet" href="css/typing.css?v=98">
-  <link rel="stylesheet" href="css/lessons.css?v=98">
-  <link rel="stylesheet" href="css/responsive.css?v=98">
-  <link rel="stylesheet" href="css/settings.css?v=98">
-  <link rel="stylesheet" href="css/tutorial.css?v=98">
-  <link rel="stylesheet" href="css/custom-lessons.css?v=98">
+  <link rel="stylesheet" href="css/base.css?v=99">
+  <link rel="stylesheet" href="css/keyboard.css?v=99">
+  <link rel="stylesheet" href="css/typing.css?v=99">
+  <link rel="stylesheet" href="css/lessons.css?v=99">
+  <link rel="stylesheet" href="css/responsive.css?v=99">
+  <link rel="stylesheet" href="css/settings.css?v=99">
+  <link rel="stylesheet" href="css/tutorial.css?v=99">
+  <link rel="stylesheet" href="css/custom-lessons.css?v=99">
   <style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
-  <link rel="stylesheet" href="css/desktop-transition.css?v=98">
+  <link rel="stylesheet" href="css/desktop-transition.css?v=99">
   <link rel="expect" href="#keyboard" blocking="render">
-  <script async blocking="render" src="js/desktop-transition.js?v=98"></script>
+  <script async blocking="render" src="js/desktop-transition.js?v=99"></script>
   <script>
     try {
-      // Early Theme Initialization to prevent dark/light flash on page refresh
+      // Early Theme Initialization to prevent flash on page refresh across all 8 themes
       var isReiPage = (typeof window !== 'undefined' && (window.__IS_REI__ || location.pathname.includes('rei')));
       var savedThemeMode = isReiPage
         ? (localStorage.getItem('pk_rei_theme') || localStorage.getItem('khmerSettingTheme'))
         : localStorage.getItem('khmerSettingTheme');
-      if (savedThemeMode === 'light') {
-        document.documentElement.classList.add('theme-light');
-      } else if (savedThemeMode === 'system' && window.matchMedia && !window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('theme-light');
+      var effTheme = savedThemeMode || 'dark';
+      if (effTheme === 'system') {
+        effTheme = (window.matchMedia && !window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'light' : 'dark';
       }
+      var validThemeClasses = ['light', 'sepia', 'temple', 'moonlight', 'jungle', 'sunset', 'glass'];
+      var rootEl = document.documentElement;
+      if (effTheme === 'light') {
+        document.documentElement.classList.add('theme-light');
+      } else if (validThemeClasses.indexOf(effTheme) !== -1) {
+        rootEl.classList.add('theme-' + effTheme);
+      }
+      rootEl.style.colorScheme = (effTheme === 'light' || effTheme === 'sepia') ? 'light' : 'dark';
+      var themeMetaMap = { dark: '#0a0d16', light: '#f8fafc', sepia: '#f5efe6', temple: '#0c0910', moonlight: '#050a18', jungle: '#07140f', sunset: '#170a10', glass: '#09111e' };
+      var metaTc = document.querySelector('meta[name="theme-color"]');
+      if (metaTc && themeMetaMap[effTheme]) metaTc.setAttribute('content', themeMetaMap[effTheme]);
 
       var p = localStorage.getItem('khmerSettingPerformanceMode');
       var a = localStorage.getItem('khmerSettingAnimationMode');
@@ -329,35 +340,35 @@
     } catch(e){}
   </script>
   <!-- Scripts (deferred in head with render-blocking boot so keyboard/layout complete before Frame 1 / pagereveal) -->
-  <script defer src="js/icons.js?v=98"></script>
-  <script defer src="js/vendor/supabase.js?v=98"></script>
-  <script defer src="js/supabase-env.js?v=98" onerror="window.__PK_NO_ENV_FILE=true"></script>
-  <script defer src="js/supabase-config.js?v=98"></script>
-  <script defer src="js/cloud-sync.js?v=98"></script>
-  <script defer src="js/storage.js?v=98"></script>
-  <script defer src="js/offline-bridge.js?v=98"></script>
-  <script defer src="data/curriculum-data.js?v=98"></script>
-  <script defer src="data/adaptive-vocab.js?v=98"></script>
-  <script defer src="js/typing.js?v=98"></script>
-  <script defer src="js/keyboard.js?v=98"></script>
-  <script defer src="js/tracker.js?v=98"></script>
-  <script defer src="js/progress.js?v=98"></script>
-  <script defer src="js/review.js?v=98"></script>
-  <script defer src="js/cursor-inspector.js?v=98"></script>
-  <script defer src="js/smooth-cursor.js?v=98"></script>
-  <script defer src="js/feedback.js?v=98"></script>
-  <script defer src="js/achievements.js?v=98"></script>
-  <script defer src="js/adaptive.js?v=98"></script>
-  <script defer src="js/lessons.js?v=98"></script>
-  <script defer src="js/custom-lessons.js?v=98"></script>
-  <script defer src="js/test-lab.js?v=98"></script>
-  <script defer src="js/race.js?v=98"></script>
-  <script defer src="js/statistics.js?v=98"></script>
-  <script defer src="js/settings.js?v=98"></script>
-  <script defer src="js/shortcuts.js?v=98"></script>
-  <script defer src="js/quick_guide.js?v=98"></script>
-  <script defer src="js/tutorial.js?v=98"></script>
-  <script defer src="js/app.js?v=98" blocking="render"></script>
+  <script defer src="js/icons.js?v=99"></script>
+  <script defer src="js/vendor/supabase.js?v=99"></script>
+  <script defer src="js/supabase-env.js?v=99" onerror="window.__PK_NO_ENV_FILE=true"></script>
+  <script defer src="js/supabase-config.js?v=99"></script>
+  <script defer src="js/cloud-sync.js?v=99"></script>
+  <script defer src="js/storage.js?v=99"></script>
+  <script defer src="js/offline-bridge.js?v=99"></script>
+  <script defer src="data/curriculum-data.js?v=99"></script>
+  <script defer src="data/adaptive-vocab.js?v=99"></script>
+  <script defer src="js/typing.js?v=99"></script>
+  <script defer src="js/keyboard.js?v=99"></script>
+  <script defer src="js/tracker.js?v=99"></script>
+  <script defer src="js/progress.js?v=99"></script>
+  <script defer src="js/review.js?v=99"></script>
+  <script defer src="js/cursor-inspector.js?v=99"></script>
+  <script defer src="js/smooth-cursor.js?v=99"></script>
+  <script defer src="js/feedback.js?v=99"></script>
+  <script defer src="js/achievements.js?v=99"></script>
+  <script defer src="js/adaptive.js?v=99"></script>
+  <script defer src="js/lessons.js?v=99"></script>
+  <script defer src="js/custom-lessons.js?v=99"></script>
+  <script defer src="js/test-lab.js?v=99"></script>
+  <script defer src="js/race.js?v=99"></script>
+  <script defer src="js/statistics.js?v=99"></script>
+  <script defer src="js/settings.js?v=99"></script>
+  <script defer src="js/shortcuts.js?v=99"></script>
+  <script defer src="js/quick_guide.js?v=99"></script>
+  <script defer src="js/tutorial.js?v=99"></script>
+  <script defer src="js/app.js?v=99" blocking="render"></script>
 </head>
 <body>
 
@@ -437,8 +448,8 @@
             <line x1="10" y1="8" x2="10.01" y2="8"/>
             <line x1="14" y1="8" x2="14.01" y2="8"/>
             <line x1="18" y1="8" x2="18.01" y2="8"/>
-            <line x1="6" y1="12" x2="8" y2="12" stroke="#ffd166" stroke-width="2.5"/>
-            <line x1="16" y1="12" x2="18" y2="12" stroke="#ffd166" stroke-width="2.5"/>
+            <line x1="6" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="16" y1="12" x2="18" y2="12" stroke="currentColor" stroke-width="2.5"/>
             <line x1="7" y1="16" x2="17" y2="16"/>
           </svg>
         </div>
@@ -975,7 +986,7 @@
         <div class="tl-char-row" id="testLabCharRow"></div>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:0.75rem;color:#94a3b8;"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> <span class="i18n-t" data-en="Type the highlighted character. Backspace can correct errors." data-km="វាយតួអក្សរដែលបានបន្លិច។ Backspace អាចកែកំហុសបាន។">Type the highlighted character. Backspace can correct errors.</span></span>
+        <span class="tl-live-hint"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> <span class="i18n-t" data-en="Type the highlighted character. Backspace can correct errors." data-km="វាយតួអក្សរដែលបានបន្លិច។ Backspace អាចកែកំហុសបាន។">Type the highlighted character. Backspace can correct errors.</span></span>
         <button type="button" class="secondary-btn" id="tlCancelBtn"><span class="i18n-t" data-en="Cancel Test" data-km="បោះបង់ការតេស្ត">Cancel Test</span></button>
       </div>
     </div>
@@ -1719,9 +1730,9 @@
               <button type="button" data-radius="14" title="Smooth organic curve">14px</button>
               <button type="button" data-radius="20" title="Pill capsule shape">20px</button>
             </div>
-            <div class="radius-live-preview" id="radiusLivePreview" style="margin-top:10px; padding:8px 12px; background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.3); display:flex; align-items:center; justify-content:space-between; gap:10px;">
-              <span style="font-size:0.75rem; color:var(--ink-dim, #94a3b8); font-weight:600;" class="i18n-t" data-en="Live Preview" data-km="ការមើលសាកល្បង">Live Preview</span>
-              <span class="radius-live-badge" style="font-size:0.76rem; font-weight:700; color:var(--gold-bright, #ffd166); padding:2px 8px; background:rgba(255,209,102,0.14); border:1px solid rgba(255,209,102,0.35); border-radius:inherit;" id="radiusLiveBadge">9px</span>
+            <div class="radius-live-preview" id="radiusLivePreview">
+              <span class="radius-live-label i18n-t" data-en="Live Preview" data-km="ការមើលសាកល្បង">Live Preview</span>
+              <span class="radius-live-badge" id="radiusLiveBadge">9px</span>
             </div>
           </div>
         </div>
@@ -1924,7 +1935,7 @@
         <div class="settings-row" data-search="reset all progress delete clear lessons stats danger">
           <div class="settings-row-info">
             <div class="settings-row-title-line">
-              <span class="settings-row-name i18n-t" style="color:#f87171;" data-en="Reset All Typing Progress" data-km="លុបវឌ្ឍនភាពវាយអក្សរទាំងអស់">Reset All Typing Progress</span>
+              <span class="settings-row-name settings-danger-label i18n-t" data-en="Reset All Typing Progress" data-km="លុបវឌ្ឍនភាពវាយអក្សរទាំងអស់">Reset All Typing Progress</span>
               <span class="settings-row-km">លុបវឌ្ឍនភាពទាំងអស់</span>
             </div>
             <div class="settings-row-desc i18n-t" data-en="Permanently erase all completed lessons, WPM records, and history." data-km="លុបចោលមេរៀនដែលបានបញ្ចប់ កំណត់ត្រា WPM និងប្រវត្តិទាំងអស់ជាអចិន្ត្រៃយ៍។">Permanently erase all completed lessons, WPM records, and history.</div>
@@ -3486,7 +3497,7 @@
     </button>
     <div class="version-modal-header">
       <div class="version-modal-crest" aria-hidden="true">
-        <svg class="pk-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="pk-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </div>
       <h2 id="versionModalTitle" class="version-modal-title">
         <span>PK Khmer Type</span>
@@ -3549,7 +3560,7 @@
     </button>
     <div class="mastery-tips-header">
       <div class="mastery-tips-crest" aria-hidden="true">
-        <svg class="pk-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        <svg class="pk-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
       </div>
       <div class="mastery-tips-title-wrap">
         <div class="mastery-tips-pill">
@@ -3727,7 +3738,7 @@
     <!-- Footer -->
     <div class="mastery-tips-footer">
       <span class="scale-footer-badge">
-        <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
         <span class="i18n-t" data-en="Press Alt+T anytime to open these tips" data-km="ចុច Alt+T គ្រប់ពេលដើម្បីបើកគន្លឹះទាំងនេះ">Press Alt+T anytime to open these tips</span>
       </span>
       <button type="button" class="mastery-tips-ack-btn" id="masteryTipsAckBtn">
@@ -3744,7 +3755,7 @@
     </button>
     <div class="project-scale-header">
       <div class="project-scale-crest" aria-hidden="true">
-        <svg class="pk-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+        <svg class="pk-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
       </div>
       <div class="project-scale-title-wrap">
         <div class="project-scale-pill">
@@ -3810,7 +3821,7 @@
         <!-- Card 1: Engine Uptime -->
         <div class="stld-card">
           <div class="stld-card-top">
-            <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 10"/></svg>
+            <svg class="pk-icon stld-icon-uptime" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 10"/></svg>
             <span class="stld-card-label i18n-t" data-en="Engine Uptime" data-km="ថិរវេលាដំណើរការ">Engine Uptime</span>
           </div>
           <div class="stld-card-val" id="scaleLiveUptime">00:00:00</div>
@@ -3820,7 +3831,7 @@
         <!-- Card 2: Memory Heap Density -->
         <div class="stld-card">
           <div class="stld-card-top">
-            <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            <svg class="pk-icon stld-icon-memory" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
             <span class="stld-card-label i18n-t" data-en="JS Heap Memory" data-km="អង្គចងចាំ JS Heap">JS Heap Memory</span>
           </div>
           <div class="stld-card-val" id="scaleLiveMemory">-- MB</div>
@@ -3830,7 +3841,7 @@
         <!-- Card 3: Active DOM Tree Nodes -->
         <div class="stld-card">
           <div class="stld-card-top">
-            <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <svg class="pk-icon stld-icon-dom" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
             <span class="stld-card-label i18n-t" data-en="Active DOM Nodes" data-km="ថ្នាំង DOM សកម្ម">Active DOM Nodes</span>
           </div>
           <div class="stld-card-val" id="scaleLiveDomNodes">--</div>
@@ -3840,7 +3851,7 @@
         <!-- Card 4: Session Typing Vitals -->
         <div class="stld-card">
           <div class="stld-card-top">
-            <svg class="pk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6" y2="8"/><line x1="10" y1="8" x2="10" y2="8"/><line x1="14" y1="8" x2="14" y2="8"/><line x1="18" y1="8" x2="18" y2="8"/><line x1="8" y1="12" x2="8" y2="12"/><line x1="12" y1="12" x2="12" y2="12"/><line x1="16" y1="12" x2="16" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+            <svg class="pk-icon stld-icon-typing" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6" y2="8"/><line x1="10" y1="8" x2="10" y2="8"/><line x1="14" y1="8" x2="14" y2="8"/><line x1="18" y1="8" x2="18" y2="8"/><line x1="8" y1="12" x2="8" y2="12"/><line x1="12" y1="12" x2="12" y2="12"/><line x1="16" y1="12" x2="16" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
             <span class="stld-card-label i18n-t" data-en="Session Typing Vitals" data-km="ទិន្នន័យវាយអត្ថបទ">Session Typing Vitals</span>
           </div>
           <div class="stld-card-val" id="scaleLiveTypingKeys">0 strokes</div>
@@ -3897,7 +3908,7 @@
 
     <div class="project-scale-footer">
       <div class="scale-footer-badge">
-        <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         <span class="i18n-t" data-en="100% Strict Zero-Emoji Native SVG UI Standard" data-km="ស្តង់ដារ SVG ដើម គ្មានរូប Emoji ១០០%">100% Strict Zero-Emoji Native SVG UI Standard</span>
       </div>
       <button type="button" class="project-scale-ack-btn" id="projectScaleAckBtn">
@@ -5236,7 +5247,7 @@
 
 <noscript>
     <h2>PK Khmer Type (ក្តារចុចខ្មែរ PK) — Free Interactive Khmer &amp; English Typing Tutor</h2>
-    <p><strong>PK Khmer Type</strong> is a free, zero-dependency browser-based touch typing trainer created by <strong>Phanna Kurosaki</strong> to help students and learners master the <strong>Khmer Standard Keyboard Layout</strong>, the official <strong>Khmer NiDA Unicode Keyboard Layout</strong>, and <strong>English (US) QWERTY</strong>. Please enable JavaScript in your browser to use the interactive virtual keyboard, 3D kinematic finger guide, and real-time typing practice engine, or read the <a href="Documents/index.html" style="color:#ffd166;">PK Khmer Type Official Documentation &amp; Keyboard Layout Guide</a>.</p>
+    <p><strong>PK Khmer Type</strong> is a free, zero-dependency browser-based touch typing trainer created by <strong>Phanna Kurosaki</strong> to help students and learners master the <strong>Khmer Standard Keyboard Layout</strong>, the official <strong>Khmer NiDA Unicode Keyboard Layout</strong>, and <strong>English (US) QWERTY</strong>. Please enable JavaScript in your browser to use the interactive virtual keyboard, 3D kinematic finger guide, and real-time typing practice engine, or read the <a href="Documents/index.html" class="noscript-doc-link">PK Khmer Type Official Documentation &amp; Keyboard Layout Guide</a>.</p>
     <h3>Supported Keyboard Layouts &amp; Visual Reference</h3>
     <ul>
       <li><strong>Khmer Standard Keyboard Layout (ប្លង់ក្តារចុចខ្មែរស្តង់ដារ):</strong> Features home row anchors <code>ា ស ដ ថ</code> (left hand: A, S, D, F) and <code>ញ ក ល ៈ</code> (right hand: J, K, L, ;). Press unshifted <code>Space</code> to type the subscript trigger Coeng (<code>្</code>) and <code>Shift + Space</code> to insert a visible space.</li>
@@ -5256,7 +5267,7 @@
       <li><strong>Adaptive Practice Engine:</strong> Keybr-inspired continuous drill generator targeting your weakest keys until every active character reaches 100% mastery.</li>
       <li><strong>Temple Trial &amp; Typing Race:</strong> Timed Khmer word challenges and real-time WPM races against automated bot pacers.</li>
     </ul>
-    <p>Explore the full documentation, keyboard shortcuts, and Khmer Unicode typing rules at <a href="Documents/index.html" style="color:#ffd166;">https://not-phana.github.io/PK-Khmer-Type/Documents/</a>.</p>
+    <p>Explore the full documentation, keyboard shortcuts, and Khmer Unicode typing rules at <a href="Documents/index.html" class="noscript-doc-link">https://not-phana.github.io/PK-Khmer-Type/Documents/</a>.</p>
   </article>
 </noscript>
 

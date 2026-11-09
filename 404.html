@@ -6,8 +6,37 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://avatars.githubusercontent.com; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; worker-src 'self' blob:; media-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta name="theme-color" content="#05070d">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" id="pkThemeColorMeta" content="#05070d">
+  <script id="pkEarlyThemeBoot">
+    (function () {
+      var THEME_META = {
+        dark: '#05070d',
+        light: '#f4f7fb',
+        sepia: '#f6efe2',
+        temple: '#0f0b08',
+        moonlight: '#090d1a',
+        jungle: '#06140e',
+        sunset: '#140914',
+        glass: '#070b14'
+      };
+      var ALL_CLASSES = ['theme-light', 'theme-sepia', 'theme-temple', 'theme-moonlight', 'theme-jungle', 'theme-sunset', 'theme-glass'];
+      try {
+        var savedMode = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+        var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var eff = savedMode === 'system' ? (sysDark ? 'dark' : 'light') : savedMode;
+        if (!THEME_META[eff]) eff = 'dark';
+        var root = document.documentElement;
+        ALL_CLASSES.forEach(function (c) { root.classList.remove(c); });
+        if (eff !== 'dark') root.classList.add('theme-' + eff);
+        root.dataset.themeMode = savedMode;
+        root.dataset.themeEffective = eff;
+        root.style.colorScheme = (eff === 'light' || eff === 'sepia') ? 'light' : 'dark';
+        var meta = document.getElementById('pkThemeColorMeta');
+        if (meta) meta.setAttribute('content', THEME_META[eff]);
+      } catch (e) {}
+    })();
+  </script>
   <meta name="description" content="Error 404: Coordinate Desynchronized — The requested manuscript chamber could not be found in the PK Khmer Type scriptorium.">
   <title>404 // Coordinate Desynchronized — PK Khmer Type</title>
 
@@ -21,10 +50,12 @@
        Strict Zero-Emoji, Pure Procedural Web Audio, Local-First Architecture
        ========================================================================== */
     :root {
+      color-scheme: light dark;
       --bg-void: #05070d;
       --bg-stone-1: #0a0d18;
       --bg-stone-2: #121626;
       --bg-stone-3: #1a2035;
+      --surface-solid: #121626;
       --gold-primary: #ffd166;
       --gold-amber: #ff9d2e;
       --gold-dim: rgba(255, 209, 102, 0.15);
@@ -38,6 +69,44 @@
       --ink-muted: #64748b;
       --glass-border: rgba(255, 209, 102, 0.18);
       --glass-card: rgba(18, 22, 38, 0.82);
+      --header-border: rgba(255, 255, 255, 0.08);
+      --footer-border: rgba(255, 255, 255, 0.06);
+      --pill-bg: rgba(255, 255, 255, 0.04);
+      --pill-border: rgba(255, 255, 255, 0.12);
+      --pill-hover-bg: rgba(255, 255, 255, 0.1);
+      --pill-hover-ink: #ffffff;
+      --primary-portal-bg: linear-gradient(135deg, #ffd166 0%, #ff9d2e 100%);
+      --primary-portal-ink: #111420;
+      --primary-portal-border: rgba(255, 209, 102, 0.6);
+      --telemetry-bg: rgba(255, 71, 87, 0.08);
+      --telemetry-border: rgba(255, 71, 87, 0.35);
+      --telemetry-ink: #ff6b81;
+      --glyph-grad: linear-gradient(180deg, #ffffff 10%, #ffd166 70%, #ff9d2e 100%);
+      --glyph-shadow: drop-shadow(0 0 35px rgba(255, 209, 102, 0.4));
+      --missing-bg: rgba(10, 13, 24, 0.85);
+      --missing-border: rgba(255, 71, 87, 0.25);
+      --missing-ink: #ff9d2e;
+      --slot-bg: rgba(10, 13, 24, 0.9);
+      --slot-border: rgba(255, 255, 255, 0.12);
+      --slot-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+      --slot-active-ink: #ffffff;
+      --slot-matched-bg: rgba(95, 214, 148, 0.15);
+      --portal-bg: rgba(255, 255, 255, 0.03);
+      --portal-border: rgba(255, 255, 255, 0.08);
+      --portal-hover-bg: rgba(255, 209, 102, 0.07);
+      --portal-hover-border: rgba(255, 209, 102, 0.35);
+      --portal-well-bg: rgba(255, 255, 255, 0.05);
+      --portal-well-border: rgba(255, 255, 255, 0.1);
+      --portal-well-hover-ink: #111420;
+      --portal-name-ink: #ffffff;
+      --kbd-bg: rgba(255, 255, 255, 0.08);
+      --kbd-border: rgba(255, 255, 255, 0.18);
+      --grid-bg:
+        radial-gradient(circle 800px at 50% 20%, rgba(255, 157, 46, 0.08), transparent 70%),
+        radial-gradient(circle 600px at 80% 80%, rgba(167, 139, 250, 0.06), transparent 70%),
+        linear-gradient(rgba(255, 209, 102, 0.03) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(255, 209, 102, 0.03) 1px, transparent 1px) 0 0 / 48px 48px;
+      --drill-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 209, 102, 0.1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -75,11 +144,7 @@
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      background:
-        radial-gradient(circle 800px at 50% 20%, rgba(255, 157, 46, 0.08), transparent 70%),
-        radial-gradient(circle 600px at 80% 80%, rgba(167, 139, 250, 0.06), transparent 70%),
-        linear-gradient(rgba(255, 209, 102, 0.03) 1px, transparent 1px) 0 0 / 48px 48px,
-        linear-gradient(90deg, rgba(255, 209, 102, 0.03) 1px, transparent 1px) 0 0 / 48px 48px;
+      background: var(--grid-bg);
     }
 
     /* Layout Shell */
@@ -101,7 +166,7 @@
       align-items: center;
       justify-content: space-between;
       padding-bottom: 24px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid var(--header-border);
       gap: 16px;
       flex-wrap: wrap;
     }
@@ -170,8 +235,8 @@
       font-size: 0.78rem;
       font-weight: 700;
       color: var(--ink-dim);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
       border-radius: 9px;
       cursor: pointer;
       text-decoration: none;
@@ -179,8 +244,8 @@
     }
 
     .pill-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
+      background: var(--pill-hover-bg);
+      color: var(--pill-hover-ink);
       border-color: var(--gold-primary);
       box-shadow: 0 0 14px rgba(255, 209, 102, 0.2);
     }
@@ -188,20 +253,20 @@
     .pill-btn.active {
       color: var(--gold-primary);
       border-color: var(--gold-primary);
-      background: rgba(255, 209, 102, 0.1);
+      background: var(--gold-dim);
     }
 
     .pill-btn.primary-portal {
-      background: linear-gradient(135deg, #ffd166 0%, #ff9d2e 100%);
-      color: #111420;
-      border: 1px solid rgba(255, 209, 102, 0.6);
+      background: var(--primary-portal-bg);
+      color: var(--primary-portal-ink);
+      border: 1px solid var(--primary-portal-border);
       box-shadow: 0 4px 16px rgba(255, 157, 46, 0.35);
     }
 
     .pill-btn.primary-portal:hover {
       transform: translateY(-1px);
       box-shadow: 0 6px 22px rgba(255, 157, 46, 0.5);
-      color: #080a10;
+      color: var(--primary-portal-ink);
     }
 
     /* Main Error Stage */
@@ -222,9 +287,9 @@
       gap: 8px;
       padding: 5px 14px;
       border-radius: 9px;
-      border: 1px solid rgba(255, 71, 87, 0.35);
-      background: rgba(255, 71, 87, 0.08);
-      color: #ff6b81;
+      border: 1px solid var(--telemetry-border);
+      background: var(--telemetry-bg);
+      color: var(--telemetry-ink);
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       letter-spacing: 0.06em;
@@ -263,10 +328,10 @@
       font-weight: 800;
       line-height: 0.9;
       letter-spacing: -0.04em;
-      background: linear-gradient(180deg, #ffffff 10%, #ffd166 70%, #ff9d2e 100%);
+      background: var(--glyph-grad);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 35px rgba(255, 209, 102, 0.4));
+      filter: var(--glyph-shadow);
       position: relative;
     }
 
@@ -352,13 +417,13 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(10, 13, 24, 0.85);
-      border: 1px solid rgba(255, 71, 87, 0.25);
+      background: var(--missing-bg);
+      border: 1px solid var(--missing-border);
       border-radius: 9px;
       padding: 6px 14px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.82rem;
-      color: #ff9d2e;
+      color: var(--missing-ink);
       margin-bottom: 30px;
       max-width: 100%;
       overflow: hidden;
@@ -372,9 +437,10 @@
       max-width: 580px;
       background: var(--glass-card);
       border: 1px solid var(--glass-border);
+      border-radius: 12px;
       padding: 24px 20px;
       margin-bottom: 34px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 209, 102, 0.1);
+      box-shadow: var(--drill-shadow);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       position: relative;
@@ -411,8 +477,8 @@
       width: 44px;
       height: 52px;
       border-radius: 9px;
-      background: rgba(10, 13, 24, 0.9);
-      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      background: var(--slot-bg);
+      border: 1.5px solid var(--slot-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -421,18 +487,18 @@
       font-weight: 800;
       color: var(--ink-dim);
       transition: all 0.16s ease;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+      box-shadow: var(--slot-shadow);
     }
 
     .drill-char-slot.active {
       border-color: var(--gold-primary);
-      color: #fff;
+      color: var(--slot-active-ink);
       box-shadow: 0 0 16px rgba(255, 209, 102, 0.45);
       animation: slot-breathe 1.2s ease-in-out infinite alternate;
     }
 
     .drill-char-slot.matched {
-      background: rgba(95, 214, 148, 0.15);
+      background: var(--slot-matched-bg);
       border-color: var(--emerald-pass);
       color: var(--emerald-pass);
       box-shadow: 0 0 12px rgba(95, 214, 148, 0.35);
@@ -485,8 +551,9 @@
       align-items: center;
       gap: 14px;
       padding: 14px 16px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      background: var(--portal-bg);
+      border: 1px solid var(--portal-border);
       text-decoration: none;
       color: var(--ink);
       text-align: left;
@@ -495,17 +562,17 @@
 
     .portal-card:hover {
       transform: translateY(-2px);
-      background: rgba(255, 209, 102, 0.07);
-      border-color: rgba(255, 209, 102, 0.35);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(255, 209, 102, 0.15);
+      background: var(--portal-hover-bg);
+      border-color: var(--portal-hover-border);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18), 0 0 16px rgba(255, 209, 102, 0.14);
     }
 
     .portal-icon-well {
       width: 40px;
       height: 40px;
       border-radius: 9px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--portal-well-bg);
+      border: 1px solid var(--portal-well-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -516,7 +583,7 @@
 
     .portal-card:hover .portal-icon-well {
       background: var(--gold-primary);
-      color: #111420;
+      color: var(--portal-well-hover-ink);
       box-shadow: 0 0 14px var(--gold-glow);
     }
 
@@ -529,7 +596,7 @@
     .portal-name {
       font-size: 0.88rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--portal-name-ink);
     }
 
     .portal-desc {
@@ -548,12 +615,12 @@
       color: var(--ink-muted);
       font-family: 'JetBrains Mono', monospace;
       padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-top: 1px solid var(--footer-border);
     }
 
     .kbd-chip {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: var(--kbd-bg);
+      border: 1px solid var(--kbd-border);
       border-radius: 9px;
       padding: 1px 6px;
       color: var(--gold-primary);
@@ -580,11 +647,242 @@
       pointer-events: none;
     }
 
+    .nav-theme-wrap {
+      padding: 5px 10px;
+    }
+    .nav-theme-select {
+      appearance: auto;
+      background: transparent;
+      border: none;
+      color: var(--ink);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      outline: none;
+      max-width: 126px;
+    }
+    .nav-theme-select option {
+      background: var(--surface-solid);
+      color: var(--ink);
+    }
+
     @media (max-width: 640px) {
       .error-shell { padding: 16px; }
+      .header-actions { flex-wrap: wrap; }
       .glyph-display { gap: 12px; }
       .drill-char-slot { width: 36px; height: 46px; font-size: 1.25rem; }
       .portals-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ========================================================================
+       FULL 8-THEME SYSTEM (404 Rescue Portal)
+       ======================================================================== */
+    html.theme-light {
+      color-scheme: light;
+      --bg-void: #f4f7fb;
+      --bg-stone-1: #ffffff;
+      --bg-stone-2: #f8fafc;
+      --bg-stone-3: #e2e8f0;
+      --surface-solid: #ffffff;
+      --gold-primary: #9a3412;
+      --gold-amber: #b45309;
+      --gold-dim: #fef3c7;
+      --gold-glow: rgba(180, 83, 9, 0.25);
+      --cyan-radar: #0369a1;
+      --emerald-pass: #047857;
+      --ruby-fault: #be123c;
+      --purple-portal: #6d28d9;
+      --ink: #0f172a;
+      --ink-dim: #334155;
+      --ink-muted: #475569;
+      --glass-border: rgba(15, 23, 42, 0.16);
+      --glass-card: #ffffff;
+      --header-border: rgba(15, 23, 42, 0.14);
+      --footer-border: rgba(15, 23, 42, 0.12);
+      --pill-bg: #ffffff;
+      --pill-border: rgba(15, 23, 42, 0.18);
+      --pill-hover-bg: #fef3c7;
+      --pill-hover-ink: #7c2d12;
+      --primary-portal-bg: linear-gradient(135deg, #b45309 0%, #9a3412 100%);
+      --primary-portal-ink: #ffffff;
+      --primary-portal-border: #9a3412;
+      --telemetry-bg: #fff1f2;
+      --telemetry-border: rgba(190, 18, 60, 0.35);
+      --telemetry-ink: #9f1239;
+      --glyph-grad: linear-gradient(180deg, #0f172a 10%, #9a3412 72%, #b45309 100%);
+      --glyph-shadow: drop-shadow(0 8px 20px rgba(15, 23, 42, 0.12));
+      --missing-bg: #fff7ed;
+      --missing-border: rgba(190, 18, 60, 0.32);
+      --missing-ink: #9a3412;
+      --slot-bg: #f8fafc;
+      --slot-border: rgba(15, 23, 42, 0.22);
+      --slot-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.08);
+      --slot-active-ink: #7c2d12;
+      --slot-matched-bg: #dcfce7;
+      --portal-bg: #ffffff;
+      --portal-border: rgba(15, 23, 42, 0.14);
+      --portal-hover-bg: #fffbeb;
+      --portal-hover-border: #b45309;
+      --portal-well-bg: #fef3c7;
+      --portal-well-border: rgba(180, 83, 9, 0.3);
+      --portal-well-hover-ink: #ffffff;
+      --portal-name-ink: #0f172a;
+      --kbd-bg: #ffffff;
+      --kbd-border: rgba(15, 23, 42, 0.24);
+      --grid-bg:
+        radial-gradient(circle 800px at 50% 20%, rgba(180, 83, 9, 0.06), transparent 70%),
+        radial-gradient(circle 600px at 80% 80%, rgba(3, 105, 161, 0.05), transparent 70%),
+        linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px) 0 0 / 48px 48px;
+      --drill-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    }
+    html.theme-light .drill-char-slot.active {
+      background: #fef3c7;
+      box-shadow: 0 0 12px rgba(180, 83, 9, 0.25);
+    }
+    html.theme-light .glyph-rotor { border-color: rgba(154, 52, 18, 0.35); }
+    html.theme-light .glyph-rotor-inner { border-color: rgba(3, 105, 161, 0.35); }
+    html.theme-light .glyph-core-icon { filter: drop-shadow(0 0 10px rgba(180, 83, 9, 0.35)); }
+
+    html.theme-sepia {
+      color-scheme: light;
+      --bg-void: #f6efe2;
+      --bg-stone-1: #fdf9f0;
+      --bg-stone-2: #f8f1e4;
+      --bg-stone-3: #e5d5b7;
+      --surface-solid: #fdf9f0;
+      --gold-primary: #7c2d12;
+      --gold-amber: #9a3412;
+      --gold-dim: #f5deb3;
+      --gold-glow: rgba(154, 52, 18, 0.25);
+      --cyan-radar: #0e7490;
+      --emerald-pass: #15803d;
+      --ruby-fault: #9f1239;
+      --purple-portal: #6d28d9;
+      --ink: #2d1f11;
+      --ink-dim: #4e361d;
+      --ink-muted: #6b5239;
+      --glass-border: rgba(78, 54, 29, 0.22);
+      --glass-card: #fdf9f0;
+      --header-border: rgba(78, 54, 29, 0.18);
+      --footer-border: rgba(78, 54, 29, 0.16);
+      --pill-bg: #fdf9f0;
+      --pill-border: rgba(78, 54, 29, 0.24);
+      --pill-hover-bg: #f5deb3;
+      --pill-hover-ink: #451a03;
+      --primary-portal-bg: linear-gradient(135deg, #9a3412 0%, #7c2d12 100%);
+      --primary-portal-ink: #ffffff;
+      --primary-portal-border: #7c2d12;
+      --telemetry-bg: #fff1f2;
+      --telemetry-border: rgba(159, 18, 57, 0.35);
+      --telemetry-ink: #9f1239;
+      --glyph-grad: linear-gradient(180deg, #2d1f11 10%, #9a3412 72%, #7c2d12 100%);
+      --glyph-shadow: drop-shadow(0 8px 20px rgba(45, 31, 17, 0.14));
+      --missing-bg: #fdf9f0;
+      --missing-border: rgba(159, 18, 57, 0.32);
+      --missing-ink: #7c2d12;
+      --slot-bg: #f3e8d4;
+      --slot-border: rgba(78, 54, 29, 0.26);
+      --slot-shadow: inset 0 1px 2px rgba(45, 31, 17, 0.1);
+      --slot-active-ink: #451a03;
+      --slot-matched-bg: #dcfce7;
+      --portal-bg: #fdf9f0;
+      --portal-border: rgba(78, 54, 29, 0.2);
+      --portal-hover-bg: #f5deb3;
+      --portal-hover-border: #9a3412;
+      --portal-well-bg: #f5deb3;
+      --portal-well-border: rgba(154, 52, 18, 0.32);
+      --portal-well-hover-ink: #ffffff;
+      --portal-name-ink: #2d1f11;
+      --kbd-bg: #fdf9f0;
+      --kbd-border: rgba(78, 54, 29, 0.26);
+      --grid-bg:
+        radial-gradient(circle 800px at 50% 20%, rgba(154, 52, 18, 0.07), transparent 70%),
+        radial-gradient(circle 600px at 80% 80%, rgba(14, 116, 144, 0.05), transparent 70%),
+        linear-gradient(rgba(78, 54, 29, 0.04) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(78, 54, 29, 0.04) 1px, transparent 1px) 0 0 / 48px 48px;
+      --drill-shadow: 0 12px 32px rgba(45, 31, 17, 0.1);
+    }
+    html.theme-sepia .drill-char-slot.active {
+      background: #f5deb3;
+      box-shadow: 0 0 12px rgba(154, 52, 18, 0.28);
+    }
+
+    html.theme-temple {
+      --bg-void: #0f0b08;
+      --bg-stone-1: #17110c;
+      --bg-stone-2: #211811;
+      --surface-solid: #211811;
+      --gold-primary: #f5c451;
+      --gold-amber: #d97706;
+      --glass-card: rgba(30, 22, 16, 0.88);
+      --glass-border: rgba(245, 196, 81, 0.24);
+      --grid-bg:
+        radial-gradient(circle 800px at 50% 20%, rgba(245, 196, 81, 0.12), transparent 70%),
+        linear-gradient(rgba(245, 196, 81, 0.03) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(245, 196, 81, 0.03) 1px, transparent 1px) 0 0 / 48px 48px;
+    }
+
+    html.theme-moonlight {
+      --bg-void: #090d1a;
+      --bg-stone-1: #0f152a;
+      --bg-stone-2: #161f3d;
+      --surface-solid: #161f3d;
+      --gold-primary: #fde68a;
+      --cyan-radar: #7dd3fc;
+      --glass-card: rgba(18, 25, 51, 0.88);
+      --glass-border: rgba(125, 211, 252, 0.24);
+      --grid-bg:
+        radial-gradient(circle 800px at 50% 20%, rgba(125, 211, 252, 0.1), transparent 70%),
+        linear-gradient(rgba(125, 211, 252, 0.03) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(125, 211, 252, 0.03) 1px, transparent 1px) 0 0 / 48px 48px;
+    }
+
+    html.theme-jungle {
+      --bg-void: #06140e;
+      --bg-stone-1: #0a1f16;
+      --bg-stone-2: #102e21;
+      --surface-solid: #102e21;
+      --gold-primary: #fde047;
+      --emerald-pass: #34d399;
+      --glass-card: rgba(13, 39, 28, 0.88);
+      --glass-border: rgba(52, 211, 153, 0.24);
+      --grid-bg:
+        radial-gradient(circle 800px at 50% 20%, rgba(52, 211, 153, 0.12), transparent 70%),
+        linear-gradient(rgba(52, 211, 153, 0.03) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(52, 211, 153, 0.03) 1px, transparent 1px) 0 0 / 48px 48px;
+    }
+
+    html.theme-sunset {
+      --bg-void: #140914;
+      --bg-stone-1: #1f0e1f;
+      --bg-stone-2: #2c142c;
+      --surface-solid: #2c142c;
+      --gold-primary: #fde047;
+      --gold-amber: #fb923c;
+      --glass-card: rgba(36, 16, 36, 0.88);
+      --glass-border: rgba(251, 146, 60, 0.26);
+      --grid-bg:
+        radial-gradient(circle 800px at 50% 20%, rgba(251, 146, 60, 0.12), transparent 70%),
+        linear-gradient(rgba(251, 146, 60, 0.03) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(251, 146, 60, 0.03) 1px, transparent 1px) 0 0 / 48px 48px;
+    }
+
+    html.theme-glass {
+      --bg-void: #070b14;
+      --surface-solid: #0a1020;
+      --glass-card: rgba(10, 16, 32, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --portal-bg: rgba(10, 16, 32, 0.72);
+      --portal-border: rgba(255, 255, 255, 0.18);
+      --pill-bg: rgba(14, 22, 44, 0.68);
+      --pill-border: rgba(255, 255, 255, 0.2);
+    }
+    html.theme-glass .drill-container,
+    html.theme-glass .portal-card {
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
     }
   </style>
 </head>
@@ -620,6 +918,22 @@
       </a>
 
       <div class="header-actions">
+        <!-- Theme Selector -->
+        <label class="pill-btn nav-theme-wrap" title="Switch Theme">
+          <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <select id="errorThemeSelect" class="nav-theme-select" aria-label="Color theme">
+            <option value="system">System Auto</option>
+            <option value="dark">Dark Mode</option>
+            <option value="light">Light Mode</option>
+            <option value="sepia">Sepia Paper</option>
+            <option value="temple">Angkor Temple</option>
+            <option value="moonlight">Moonlight Indigo</option>
+            <option value="jungle">Emerald Jungle</option>
+            <option value="sunset">Warm Sunset</option>
+            <option value="glass">Smoked Glass</option>
+          </select>
+        </label>
+
         <!-- Audio Synth Toggle -->
         <button type="button" class="pill-btn active" id="audioToggleBtn" title="Toggle Procedural Key Sound (M)" aria-label="Toggle Procedural Key Sound">
           <svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
@@ -1004,7 +1318,7 @@
         if (feedbackEl) feedbackEl.textContent = i18n[currentLang].drillInit;
         if (timerBadge) {
           timerBadge.textContent = '[CALIBRATING]';
-          timerBadge.style.color = '#ffd166';
+          timerBadge.style.color = 'var(--gold-primary)';
         }
       }
 
@@ -1039,7 +1353,7 @@
             }
             if (timerBadge) {
               timerBadge.textContent = '[LOCKED // WARPING]';
-              timerBadge.style.color = '#5fd694';
+              timerBadge.style.color = 'var(--emerald-pass)';
             }
 
             playWarpChime();
@@ -1149,9 +1463,17 @@
 
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = p.gold
-              ? `rgba(255, 209, 102, ${p.alpha})`
-              : `rgba(56, 189, 248, ${p.alpha * 0.7})`;
+            const effTheme = document.documentElement.dataset.themeEffective || 'dark';
+            const isLightSurface = effTheme === 'light' || effTheme === 'sepia';
+            if (isLightSurface) {
+              ctx.fillStyle = p.gold
+                ? `rgba(180, 83, 9, ${Math.min(0.45, p.alpha * 0.55)})`
+                : `rgba(3, 105, 161, ${Math.min(0.38, p.alpha * 0.45)})`;
+            } else {
+              ctx.fillStyle = p.gold
+                ? `rgba(255, 209, 102, ${p.alpha})`
+                : `rgba(56, 189, 248, ${p.alpha * 0.7})`;
+            }
             ctx.fill();
           }
 
@@ -1160,6 +1482,69 @@
 
         requestAnimationFrame(render);
       }
+
+      // ========================================================================
+      // 6. Theme Synchronization Engine
+      // ========================================================================
+      const ERR_THEME_META = {
+        dark: '#05070d',
+        light: '#f4f7fb',
+        sepia: '#f6efe2',
+        temple: '#0f0b08',
+        moonlight: '#090d1a',
+        jungle: '#06140e',
+        sunset: '#140914',
+        glass: '#070b14'
+      };
+      const ERR_THEME_CLASSES = ['theme-light', 'theme-sepia', 'theme-temple', 'theme-moonlight', 'theme-jungle', 'theme-sunset', 'theme-glass'];
+      const errorThemeSelect = document.getElementById('errorThemeSelect');
+
+      function applyErrorTheme(mode, opts) {
+        const persist = !opts || opts.persist !== false;
+        const chosen = mode || 'dark';
+        const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let eff = chosen === 'system' ? (sysDark ? 'dark' : 'light') : chosen;
+        if (!ERR_THEME_META[eff]) eff = 'dark';
+        const root = document.documentElement;
+        ERR_THEME_CLASSES.forEach((c) => root.classList.remove(c));
+        if (eff !== 'dark') root.classList.add('theme-' + eff);
+        root.dataset.themeMode = chosen;
+        root.dataset.themeEffective = eff;
+        root.style.colorScheme = (eff === 'light' || eff === 'sepia') ? 'light' : 'dark';
+        const meta = document.getElementById('pkThemeColorMeta');
+        if (meta) meta.setAttribute('content', ERR_THEME_META[eff]);
+        if (errorThemeSelect && errorThemeSelect.value !== chosen) errorThemeSelect.value = chosen;
+        if (persist) {
+          try {
+            localStorage.setItem('khmerSettingTheme', chosen);
+            localStorage.setItem('pk_rei_theme', chosen);
+          } catch (e) {}
+        }
+      }
+
+      let initTheme = 'dark';
+      try {
+        initTheme = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+      } catch (e) {}
+      applyErrorTheme(initTheme, { persist: false });
+
+      if (errorThemeSelect) {
+        errorThemeSelect.addEventListener('change', (e) => applyErrorTheme(e.target.value, { persist: true }));
+      }
+      if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        const onSys = () => {
+          const cur = document.documentElement.dataset.themeMode || 'dark';
+          if (cur === 'system') applyErrorTheme('system', { persist: false });
+        };
+        if (typeof mq.addEventListener === 'function') mq.addEventListener('change', onSys);
+        else if (typeof mq.addListener === 'function') mq.addListener(onSys);
+      }
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'khmerSettingTheme' || e.key === 'pk_rei_theme') {
+          applyErrorTheme(e.newValue || 'dark', { persist: false });
+        }
+      });
 
       // Initialize
       setupDrill(targetWord);

@@ -17,6 +17,7 @@ const LS = Object.assign(window.LS || {}, {
   handColorCustomL: "khmerSettingHandColorCustomL",
   handColorCustomR: "khmerSettingHandColorCustomR",
   accent: "khmerSettingAccent",
+  accentCustom: "khmerSettingAccentCustom",
   khmerFont: "khmerSettingKhmerFont",
   shiftPreview: "khmerSettingShiftPreview",
   keyHighlight: "khmerSettingKeyHighlight",
@@ -73,7 +74,7 @@ function ensureSettingsStylesheet() {
   if (!document.querySelector('link[href*="css/settings.css"]')) {
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "css/settings.css?v=46";
+    link.href = "css/settings.css?v=99";
     document.head.appendChild(link);
   }
 }
@@ -224,7 +225,7 @@ function ensureUpgradedSettingsModalDOM() {
         <div class="settings-row wallpaper-settings-row" data-search="custom wallpaper background image photo url upload"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Custom Background Wallpaper</span><span class="settings-row-km">រូបភាពផ្ទៃក្រោយ</span></div><div class="settings-row-desc">Upload local artwork or add a custom image URL with live HUD preview &amp; curated studio themes.</div><div class="active-wallpaper-chip" id="activeWallpaperChip" style="display:none;"><div class="active-wallpaper-thumb" id="activeWallpaperThumb"></div><div class="active-wallpaper-meta"><span class="active-wallpaper-status"><span class="active-wallpaper-dot"></span> Active Wallpaper</span><span class="active-wallpaper-label" id="activeWallpaperLabel">Custom Backdrop</span></div></div></div><div class="settings-row-control"><div class="wallpaper-actions"><input type="file" id="wallpaperFileInput" accept="image/*" style="display:none;"><button type="button" class="wallpaper-btn" id="uploadWallpaperBtn" title="Choose local image file">Upload Image</button><button type="button" class="wallpaper-btn wallpaper-btn-highlight" id="urlWallpaperBtn" title="Open Custom Wallpaper Studio &amp; URL Gallery"><svg class="pk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Add via URL / Gallery</button><button type="button" class="wallpaper-btn danger" id="removeWallpaperBtn" style="display:none;" title="Remove custom wallpaper">Remove</button></div></div></div>
         <div class="settings-row wallpaper-dim-row" id="wallpaperDimControl" style="display:none;" data-search="wallpaper dimming brightness dark"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Wallpaper Dimming</span></div><div class="settings-row-desc">Darken the custom wallpaper so the keyboard stays crisp.</div></div><div class="settings-row-control"><div class="settings-slider-wrap"><input type="range" id="wallpaperDimSlider" min="15" max="90" value="65"><span class="settings-slider-badge" id="wallpaperDimValue">65%</span></div></div></div>
         <div class="settings-row" data-search="wallpaper blur glass backdrop"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Backdrop Glass Blur</span><span class="settings-row-km">កម្រិតព្រាលផ្ទៃក្រោយ</span></div><div class="settings-row-desc">Apply soft optical depth-of-field blur to custom wallpapers.</div></div><div class="settings-row-control"><div class="settings-slider-wrap"><input type="range" id="wallpaperBlurSlider" min="0" max="24" value="0"><span class="settings-slider-badge" id="wallpaperBlurValue">0px</span></div></div></div>
-        <div class="settings-row" data-search="border radius corner curve rounded sharp rounded corners curvature 0px 6px 9px 14px 20px"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Interface Corner Radius</span><span class="settings-row-km">កម្រិតកោងជ្រុង</span></div><div class="settings-row-desc">Customize the border radius across all cards, sidebars, search bars, and buttons.</div></div><div class="settings-row-control"><div class="settings-slider-wrap"><input type="range" id="borderRadiusSlider" min="0" max="32" value="9" step="1" aria-label="Interface Corner Radius"><span class="settings-slider-badge" id="borderRadiusValue">9px</span></div><div class="settings-choice radius-choice" id="radiusPresetChoice" style="margin-top:8px;"><button type="button" data-radius="0" title="Sharp 90-degree square corners">0px</button><button type="button" data-radius="6" title="Sleek IDE / Antigravity subtle curve">6px</button><button type="button" data-radius="9" class="active" title="Default modern rounded curve">9px</button><button type="button" data-radius="14" title="Smooth organic curve">14px</button><button type="button" data-radius="20" title="Pill capsule shape">20px</button></div><div class="radius-live-preview" id="radiusLivePreview" style="margin-top:10px; padding:8px 12px; background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.3); display:flex; align-items:center; justify-content:space-between; gap:10px;"><span style="font-size:0.75rem; color:var(--ink-dim, #94a3b8); font-weight:600;">Live Preview</span><span class="radius-live-badge" style="font-size:0.76rem; font-weight:700; color:var(--gold-bright, #ffd166); padding:2px 8px; background:rgba(255,209,102,0.14); border:1px solid rgba(255,209,102,0.35); border-radius:inherit;" id="radiusLiveBadge">9px</span></div></div></div>
+        <div class="settings-row" data-search="border radius corner curve rounded sharp rounded corners curvature 0px 6px 9px 14px 20px"><div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name">Interface Corner Radius</span><span class="settings-row-km">កម្រិតកោងជ្រុង</span></div><div class="settings-row-desc">Customize the border radius across all cards, sidebars, search bars, and buttons.</div></div><div class="settings-row-control"><div class="settings-slider-wrap"><input type="range" id="borderRadiusSlider" min="0" max="32" value="9" step="1" aria-label="Interface Corner Radius"><span class="settings-slider-badge" id="borderRadiusValue">9px</span></div><div class="settings-choice radius-choice" id="radiusPresetChoice" style="margin-top:8px;"><button type="button" data-radius="0" title="Sharp 90-degree square corners">0px</button><button type="button" data-radius="6" title="Sleek IDE / Antigravity subtle curve">6px</button><button type="button" data-radius="9" class="active" title="Default modern rounded curve">9px</button><button type="button" data-radius="14" title="Smooth organic curve">14px</button><button type="button" data-radius="20" title="Pill capsule shape">20px</button></div><div class="radius-live-preview" id="radiusLivePreview"><span class="radius-live-label">Live Preview</span><span class="radius-live-badge" id="radiusLiveBadge">9px</span></div></div></div>
       </div>
 
       <div class="settings-section" data-cat-section="immersion">
@@ -260,7 +261,7 @@ function ensureUpgradedSettingsModalDOM() {
           <div class="settings-row-control" id="settingsBackupBtnSlot"></div>
         </div>
         <div class="settings-row" data-search="reset all progress delete clear lessons stats danger">
-          <div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name" style="color:#f87171;">Reset All Typing Progress</span><span class="settings-row-km">លុបវឌ្ឍនភាពទាំងអស់</span></div><div class="settings-row-desc">Permanently erase all completed lessons, WPM records, and history.</div></div>
+          <div class="settings-row-info"><div class="settings-row-title-line"><span class="settings-row-name settings-danger-label">Reset All Typing Progress</span><span class="settings-row-km">លុបវឌ្ឍនភាពទាំងអស់</span></div><div class="settings-row-desc">Permanently erase all completed lessons, WPM records, and history.</div></div>
           <div class="settings-row-control" id="settingsResetBtnSlot"></div>
         </div>
       </div>
@@ -637,8 +638,27 @@ if (typeof soundToggle !== "undefined" && soundToggle) {
 function initSettingsToggles() {
   ensureSettingsStylesheet();
   ensureUpgradedSettingsModalDOM();
-  healBothHandsOverlay();
-  setTimeout(healBothHandsOverlay, 350);
+  // Ensure right-pinky kinematics definition/SVG element synchronously without forcing layout during VT;
+  // full healBothHandsOverlay() re-measure runs once any active View Transition settles.
+  try {
+    if (typeof FINGERS !== "undefined" && Array.isArray(FINGERS)) {
+      const rpDef = { id: "rp", hand: "R", home: "semicolon", kind: "pinky", baseW: 12.5, tipW: 7.5, kDist: 68, restLen: 52, restAng: 0.10 };
+      const existingIdx = FINGERS.findIndex((f) => f && f.id === "rp");
+      if (existingIdx === -1) FINGERS.push(rpDef);
+      else if (!FINGERS[existingIdx].kind) FINGERS[existingIdx] = rpDef;
+      if (typeof fingerEls !== "undefined" && !fingerEls["rp"] && typeof createFingerElement === "function") {
+        createFingerElement(rpDef);
+      }
+    }
+  } catch (_e) {}
+  if (typeof window.pkWhenTransitionSettled === "function") {
+    window.pkWhenTransitionSettled(() => {
+      if (typeof setTimeout === "function") setTimeout(healBothHandsOverlay, 80);
+    });
+  } else {
+    healBothHandsOverlay();
+    setTimeout(healBothHandsOverlay, 350);
+  }
 
   function bindSwitch(el, onToggle) {
     if (!el) return;
@@ -737,7 +757,11 @@ function initSettingsToggles() {
     }
 
     tabsScrollEl.addEventListener("scroll", updateTabsScrollArrows, { passive: true });
-    setTimeout(updateTabsScrollArrows, 100);
+    if (typeof window.pkWhenTransitionSettled === "function") {
+      window.pkWhenTransitionSettled(updateTabsScrollArrows);
+    } else {
+      setTimeout(updateTabsScrollArrows, 100);
+    }
   }
 
   function filterSettingsView() {
@@ -1001,32 +1025,110 @@ function initSettingsToggles() {
   };
 
   const ACCENTS = {
-    gold:     { gold: "#ff9d2e", bright: "#ffd166", ink: "#1a1106", glow: "rgba(255, 209, 102, 0.42)", soft: "rgba(255, 209, 102, 0.16)", border: "rgba(255, 209, 102, 0.36)" },
-    jade:     { gold: "#3f9d6b", bright: "#5fd694", ink: "#061a10", glow: "rgba(95, 214, 148, 0.42)",  soft: "rgba(95, 214, 148, 0.16)",  border: "rgba(95, 214, 148, 0.36)" },
-    sapphire: { gold: "#14b8a6", bright: "#2dd4a7", ink: "#041e19", glow: "rgba(45, 212, 167, 0.42)",  soft: "rgba(45, 212, 167, 0.16)",  border: "rgba(45, 212, 167, 0.36)" },
-    ruby:     { gold: "#e11d48", bright: "#ff5a70", ink: "#ffffff", glow: "rgba(255, 90, 112, 0.45)",  soft: "rgba(255, 90, 112, 0.16)",  border: "rgba(255, 90, 112, 0.38)" },
-    cyan:     { gold: "#0284c7", bright: "#38bdf8", ink: "#041628", glow: "rgba(56, 189, 248, 0.42)",  soft: "rgba(56, 189, 248, 0.16)",  border: "rgba(56, 189, 248, 0.36)" },
-    amethyst: { gold: "#9333ea", bright: "#c084fc", ink: "#160726", glow: "rgba(192, 132, 252, 0.45)", soft: "rgba(192, 132, 252, 0.16)", border: "rgba(192, 132, 252, 0.38)" }
+    gold: {
+      gold: "#ff9d2e", bright: "#ffd166", ink: "#1a1106", glow: "rgba(255, 209, 102, 0.42)", soft: "rgba(255, 209, 102, 0.16)", border: "rgba(255, 209, 102, 0.36)",
+      light: { gold: "#b45309", bright: "#92400e", ink: "#ffffff", glow: "rgba(180, 83, 9, 0.24)", soft: "rgba(180, 83, 9, 0.12)", border: "rgba(180, 83, 9, 0.38)" }
+    },
+    jade: {
+      gold: "#3f9d6b", bright: "#5fd694", ink: "#061a10", glow: "rgba(95, 214, 148, 0.42)", soft: "rgba(95, 214, 148, 0.16)", border: "rgba(95, 214, 148, 0.36)",
+      light: { gold: "#047857", bright: "#065f46", ink: "#ffffff", glow: "rgba(4, 120, 87, 0.24)", soft: "rgba(4, 120, 87, 0.12)", border: "rgba(4, 120, 87, 0.38)" }
+    },
+    sapphire: {
+      gold: "#14b8a6", bright: "#2dd4a7", ink: "#041e19", glow: "rgba(45, 212, 167, 0.42)", soft: "rgba(45, 212, 167, 0.16)", border: "rgba(45, 212, 167, 0.36)",
+      light: { gold: "#0f766e", bright: "#115e59", ink: "#ffffff", glow: "rgba(15, 118, 110, 0.24)", soft: "rgba(15, 118, 110, 0.12)", border: "rgba(15, 118, 110, 0.38)" }
+    },
+    ruby: {
+      gold: "#be123c", bright: "#fb7185", ink: "#ffffff", glow: "rgba(251, 113, 133, 0.45)", soft: "rgba(251, 113, 133, 0.16)", border: "rgba(251, 113, 133, 0.38)",
+      light: { gold: "#be123c", bright: "#9f1239", ink: "#ffffff", glow: "rgba(190, 18, 60, 0.24)", soft: "rgba(190, 18, 60, 0.12)", border: "rgba(190, 18, 60, 0.38)" }
+    },
+    cyan: {
+      gold: "#38bdf8", bright: "#7dd3fc", ink: "#041628", glow: "rgba(56, 189, 248, 0.42)", soft: "rgba(56, 189, 248, 0.16)", border: "rgba(56, 189, 248, 0.36)",
+      light: { gold: "#0369a1", bright: "#075985", ink: "#ffffff", glow: "rgba(2, 132, 199, 0.24)", soft: "rgba(2, 132, 199, 0.11)", border: "rgba(2, 132, 199, 0.38)" }
+    },
+    amethyst: {
+      gold: "#9333ea", bright: "#c084fc", ink: "#ffffff", glow: "rgba(192, 132, 252, 0.45)", soft: "rgba(192, 132, 252, 0.16)", border: "rgba(192, 132, 252, 0.38)",
+      light: { gold: "#7e22ce", bright: "#6b21a8", ink: "#ffffff", glow: "rgba(126, 34, 206, 0.24)", soft: "rgba(126, 34, 206, 0.12)", border: "rgba(126, 34, 206, 0.38)" }
+    }
   };
 
+  const THEME_META_COLORS = {
+    dark: "#0a0d16",
+    light: "#f8fafc",
+    sepia: "#f5efe6",
+    temple: "#0c0910",
+    moonlight: "#050a18",
+    jungle: "#07140f",
+    sunset: "#170a10",
+    glass: "#09111e"
+  };
+
+  function getEffectiveThemeName() {
+    const cl = document.documentElement.classList;
+    if (cl.contains("theme-light")) return "light";
+    if (cl.contains("theme-sepia")) return "sepia";
+    if (cl.contains("theme-temple")) return "temple";
+    if (cl.contains("theme-moonlight")) return "moonlight";
+    if (cl.contains("theme-jungle")) return "jungle";
+    if (cl.contains("theme-sunset")) return "sunset";
+    if (cl.contains("theme-glass")) return "glass";
+    return "dark";
+  }
+
+  function isLightSurfaceTheme() {
+    const cl = document.documentElement.classList;
+    return cl.contains("theme-light") || cl.contains("theme-sepia");
+  }
+
   const accentButtons = document.querySelectorAll("#accentChoice button");
-  function applyAccent(name) {
-    const key = ACCENTS[name] ? name : "gold";
-    const a = ACCENTS[key];
+  function syncAccentButtonsUI(activeKey) {
+    accentButtons.forEach((b) => {
+      const isAct = b.dataset.accent === activeKey;
+      b.classList.toggle("active", isAct);
+      b.setAttribute("aria-pressed", isAct ? "true" : "false");
+    });
+  }
+
+  function clearCustomAccentOverride(effectiveTheme) {
     const root = document.documentElement;
+    const eff = effectiveTheme || getEffectiveThemeName();
+    const defKey = THEME_DEFAULT_ACCENT[eff] || "gold";
+    ["--gold", "--gold-bright", "--accent-ink", "--ink-on-accent", "--accent-glow", "--accent-soft", "--accent-border"].forEach((prop) => {
+      root.style.removeProperty(prop);
+    });
+    root.setAttribute("data-accent-color", defKey);
+    syncAccentButtonsUI(defKey);
+    try {
+      if (localStorage.getItem("khmerSettingHandColorPreset") === "match" && window.PKHandsColor && typeof window.PKHandsColor.applyHandColors === "function") {
+        window.PKHandsColor.applyHandColors("match");
+      }
+    } catch (e) {}
+  }
+
+  function applyAccent(name, save, isExplicitCustom) {
+    if (save === undefined) save = true;
+    const root = document.documentElement;
+    const isCustomMode = isExplicitCustom === true || (isExplicitCustom !== false && safeGet(LS.accentCustom, "") === "1");
+    if (!isCustomMode || name === "auto") {
+      clearCustomAccentOverride(getEffectiveThemeName());
+      if (save) safeSet(LS.accentCustom, "0");
+      return;
+    }
+    const key = ACCENTS[name] ? name : "gold";
+    const basePalette = ACCENTS[key];
+    const a = (isLightSurfaceTheme() && basePalette.light) ? basePalette.light : basePalette;
     root.setAttribute("data-accent-color", key);
     root.style.setProperty("--gold", a.gold);
     root.style.setProperty("--gold-bright", a.bright);
     root.style.setProperty("--accent-ink", a.ink);
+    root.style.setProperty("--ink-on-accent", a.ink);
     root.style.setProperty("--accent-glow", a.glow);
     root.style.setProperty("--accent-soft", a.soft);
     root.style.setProperty("--accent-border", a.border);
-    accentButtons.forEach((b) => {
-      const isAct = b.dataset.accent === key;
-      b.classList.toggle("active", isAct);
-      b.setAttribute("aria-pressed", isAct ? "true" : "false");
-    });
-    safeSet(LS.accent, key);
+    syncAccentButtonsUI(key);
+    if (save) {
+      safeSet(LS.accent, key);
+      safeSet(LS.accentCustom, "1");
+    }
     try {
       if (localStorage.getItem("khmerSettingHandColorPreset") === "match" && window.PKHandsColor && typeof window.PKHandsColor.applyHandColors === "function") {
         window.PKHandsColor.applyHandColors("match");
@@ -1035,33 +1137,61 @@ function initSettingsToggles() {
   }
 
   const themeButtons = document.querySelectorAll("#themeChoice button");
-  function applyTheme(mode, syncThemeAccent) {
+  function applyTheme(mode, syncThemeAccent, opts) {
+    opts = opts || {};
+    const skipSave = Boolean(opts.skipSave);
+    const resetCustomAccent = Boolean(opts.resetCustomAccent);
     const sysDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     const effective = mode === "system" ? (sysDark ? "dark" : "light") : mode;
-    document.documentElement.classList.toggle("theme-light", effective === "light");
-    document.documentElement.classList.toggle("theme-temple", effective === "temple");
-    document.documentElement.classList.toggle("theme-moonlight", effective === "moonlight");
-    document.documentElement.classList.toggle("theme-jungle", effective === "jungle");
-    document.documentElement.classList.toggle("theme-sunset", effective === "sunset");
-    document.documentElement.classList.toggle("theme-sepia", effective === "sepia");
-    document.documentElement.classList.toggle("theme-glass", effective === "glass");
-    themeButtons.forEach((b) => b.classList.toggle("active", b.dataset.theme === mode));
-    safeSet(LS.theme, mode);
-    if (typeof window !== "undefined" && window.__IS_REI__) {
-      safeSet("pk_rei_theme", effective === "light" ? "light" : "dark");
-      if (typeof window.__updateReiThemeUI === "function") {
-        window.__updateReiThemeUI(effective === "light");
+    const validEff = ["dark", "light", "sepia", "temple", "moonlight", "jungle", "sunset", "glass"].includes(effective) ? effective : "dark";
+    const root = document.documentElement;
+    root.classList.toggle("theme-light", validEff === "light");
+    root.classList.toggle("theme-temple", validEff === "temple");
+    root.classList.toggle("theme-moonlight", validEff === "moonlight");
+    root.classList.toggle("theme-jungle", validEff === "jungle");
+    root.classList.toggle("theme-sunset", validEff === "sunset");
+    root.classList.toggle("theme-sepia", validEff === "sepia");
+    root.classList.toggle("theme-glass", validEff === "glass");
+    root.dataset.themeMode = mode;
+    root.dataset.themeEffective = validEff;
+    root.style.colorScheme = (validEff === "light" || validEff === "sepia") ? "light" : "dark";
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme && THEME_META_COLORS[validEff]) {
+      metaTheme.setAttribute("content", THEME_META_COLORS[validEff]);
+    }
+    themeButtons.forEach((b) => {
+      const isAct = b.dataset.theme === mode;
+      b.classList.toggle("active", isAct);
+      b.setAttribute("aria-pressed", isAct ? "true" : "false");
+    });
+    if (!skipSave) {
+      safeSet(LS.theme, mode);
+      const persistedReiTheme = mode === "system" ? "system" : validEff;
+      safeSet("pk_rei_theme", persistedReiTheme);
+    }
+    if (typeof window !== "undefined" && window.__IS_REI__ && typeof window.__updateReiThemeUI === "function") {
+      window.__updateReiThemeUI(validEff === "light", validEff);
+    }
+    if (resetCustomAccent || syncThemeAccent) {
+      if (!skipSave) {
+        safeSet(LS.accentCustom, "0");
+        if (THEME_DEFAULT_ACCENT[validEff]) safeSet(LS.accent, THEME_DEFAULT_ACCENT[validEff]);
       }
-    } else if (typeof window !== "undefined" && (mode === "light" || mode === "dark" || mode === "system")) {
-      safeSet("pk_rei_theme", effective === "light" ? "light" : "dark");
+      clearCustomAccentOverride(validEff);
+    } else if (safeGet(LS.accentCustom, "") === "1") {
+      applyAccent(safeGet(LS.accent, "gold"), false, true);
+    } else {
+      clearCustomAccentOverride(validEff);
     }
-    if (syncThemeAccent && THEME_DEFAULT_ACCENT[effective]) {
-      applyAccent(THEME_DEFAULT_ACCENT[effective]);
-    }
+    try {
+      document.dispatchEvent(new CustomEvent("pk-theme-changed", {
+        detail: { mode: mode, effective: validEff }
+      }));
+    } catch (e) {}
   }
   themeButtons.forEach((b) => {
     b.addEventListener("click", (e) => {
-      applyTheme(b.dataset.theme, false);
+      applyTheme(b.dataset.theme, true, { resetCustomAccent: true });
       triggerThemeTransitionFX(b, b.dataset.theme, e);
       if (soundOn) playClick("down");
     });
@@ -1079,12 +1209,36 @@ function initSettingsToggles() {
 
   accentButtons.forEach((b) => {
     b.addEventListener("click", (e) => {
-      applyAccent(b.dataset.accent);
+      applyAccent(b.dataset.accent, true, true);
       triggerThemeTransitionFX(b, b.dataset.accent, e);
       if (soundOn) playClick("down");
     });
   });
-  applyAccent(safeGet(LS.accent, "gold"));
+
+  // Live OS color-scheme listener when "System" theme mode is active
+  if (window.matchMedia) {
+    const sysMq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onSystemThemeChange = () => {
+      if (safeGet(LS.theme, "dark") === "system") {
+        applyTheme("system", false, { skipSave: true });
+      }
+    };
+    if (typeof sysMq.addEventListener === "function") {
+      sysMq.addEventListener("change", onSystemThemeChange);
+    } else if (typeof sysMq.addListener === "function") {
+      sysMq.addListener(onSystemThemeChange);
+    }
+  }
+
+  // Live cross-tab theme & accent sync via storage events
+  window.addEventListener("storage", (ev) => {
+    if (!ev || !ev.key || ev.key === LS.theme || ev.key === "pk_rei_theme" || ev.key === LS.accent || ev.key === LS.accentCustom) {
+      const nextTheme = (typeof window !== "undefined" && window.__IS_REI__)
+        ? (safeGet("pk_rei_theme", "") || safeGet(LS.theme, "dark"))
+        : safeGet(LS.theme, "dark");
+      applyTheme(nextTheme, false, { skipSave: true });
+    }
+  });
 
   // Khmer Script Font Family
   const khmerFontBtns = document.querySelectorAll("#khmerFontChoice button");
@@ -1154,10 +1308,8 @@ function initSettingsToggles() {
     document.documentElement.style.setProperty("--app-radius", px + "px");
 
     const oldSt = document.getElementById("pkCustomBorderRadiusStyle");
-    const newSt = document.createElement("style");
-    newSt.id = "pkCustomBorderRadiusStyle";
     const extraSharp = px === 0 ? ".toggle-switch, .toggle-switch::after, input[type=\"checkbox\"] { border-radius: 0px !important; }" : "";
-    newSt.textContent = ":root {" +
+    const cssText = ":root {" +
       "--radius: " + px + "px !important;" +
       "--radius-xs: " + Math.max(0, px - 6) + "px !important;" +
       "--radius-sm: " + Math.max(0, px - 3) + "px !important;" +
@@ -1183,17 +1335,13 @@ function initSettingsToggles() {
       extraSharp;
 
     if (oldSt) {
-      if (typeof oldSt.replaceWith === "function") {
-        oldSt.replaceWith(newSt);
-      } else if (oldSt.parentNode && typeof oldSt.parentNode.replaceChild === "function") {
-        oldSt.parentNode.replaceChild(newSt, oldSt);
-      } else {
-        if (typeof oldSt.remove === "function") oldSt.remove();
-        if (document.head && typeof document.head.appendChild === "function") {
-          document.head.appendChild(newSt);
-        }
+      if (oldSt.textContent !== cssText) {
+        oldSt.textContent = cssText;
       }
     } else if (document.head && typeof document.head.appendChild === "function") {
+      const newSt = document.createElement("style");
+      newSt.id = "pkCustomBorderRadiusStyle";
+      newSt.textContent = cssText;
       document.head.appendChild(newSt);
     }
 
@@ -1325,7 +1473,8 @@ function initSettingsToggles() {
       console.warn("PK Khmer Type: Rejected unsafe wallpaper URL.");
       return;
     }
-    dimPct = dimPct !== undefined ? dimPct : (parseInt(safeGet(WALLPAPER_DIM_KEY, "65"), 10) || 65);
+    const savedDimVal = parseInt(safeGet(WALLPAPER_DIM_KEY, "65"), 10);
+    dimPct = (dimPct !== undefined && Number.isFinite(Number(dimPct))) ? Number(dimPct) : (Number.isFinite(savedDimVal) ? savedDimVal : 65);
     var sanitizedUrl = normUrl.replace(/["'\\]/g, "");
     cwLayer.style.backgroundImage = 'url("' + sanitizedUrl + '")';
     document.documentElement.style.setProperty("--wallpaper-dim", (dimPct / 100).toString());
@@ -1587,7 +1736,8 @@ function initSettingsToggles() {
     const blurSlider = document.getElementById("wallpaperTuneBlurSlider");
 
     const normUrl = normalizeImageUrl(rawUrl);
-    const dimVal = dimSlider ? parseInt(dimSlider.value, 10) || 65 : 65;
+    const parsedDimSlider = dimSlider ? parseInt(dimSlider.value, 10) : NaN;
+    const dimVal = Number.isFinite(parsedDimSlider) ? parsedDimSlider : 65;
     const blurVal = blurSlider ? parseInt(blurSlider.value, 10) || 0 : 0;
 
     if (previewDim) previewDim.style.background = "rgba(5, 7, 13, " + (dimVal / 100) + ")";
@@ -1669,7 +1819,9 @@ function initSettingsToggles() {
     }
 
     const cleanUrl = normUrl.trim();
-    const finalDim = dimOverride !== undefined ? dimOverride : (dimSlider ? parseInt(dimSlider.value, 10) || 65 : 65);
+    const parsedOverDim = (dimOverride !== undefined && Number.isFinite(Number(dimOverride))) ? Number(dimOverride) : NaN;
+    const parsedSliderDim = dimSlider ? parseInt(dimSlider.value, 10) : NaN;
+    const finalDim = Number.isFinite(parsedOverDim) ? parsedOverDim : (Number.isFinite(parsedSliderDim) ? parsedSliderDim : 65);
     const finalBlur = blurOverride !== undefined ? blurOverride : (blurSlider ? parseInt(blurSlider.value, 10) || 0 : 0);
 
     safeSet(WALLPAPER_KEY, cleanUrl);
@@ -1700,7 +1852,8 @@ function initSettingsToggles() {
     const blurSlider = document.getElementById("wallpaperTuneBlurSlider");
     const blurVal = document.getElementById("wallpaperTuneBlurVal");
 
-    const curDim = parseInt(safeGet(WALLPAPER_DIM_KEY, "65"), 10) || 65;
+    const rawCurDim = parseInt(safeGet(WALLPAPER_DIM_KEY, "65"), 10);
+    const curDim = Number.isFinite(rawCurDim) ? rawCurDim : 65;
     const curBlur = parseInt(safeGet(LS.wallpaperBlur, "0"), 10) || 0;
 
     if (dimSlider) dimSlider.value = curDim;
@@ -1812,7 +1965,8 @@ function initSettingsToggles() {
   const wpTuneDimVal = document.getElementById("wallpaperTuneDimVal");
   if (wpTuneDimSlider) {
     wpTuneDimSlider.addEventListener("input", () => {
-      const val = parseInt(wpTuneDimSlider.value, 10) || 65;
+      const rawTuneDim = parseInt(wpTuneDimSlider.value, 10);
+      const val = Number.isFinite(rawTuneDim) ? rawTuneDim : 65;
       if (wpTuneDimVal) wpTuneDimVal.textContent = val + "%";
       const previewDim = document.getElementById("wallpaperPreviewDim");
       if (previewDim) previewDim.style.background = "rgba(5, 7, 13, " + (val / 100) + ")";
@@ -1876,7 +2030,8 @@ function initSettingsToggles() {
           updateWallpaperStagePreview(dataUrl);
           const dimSlider = document.getElementById("wallpaperTuneDimSlider");
           const blurSlider = document.getElementById("wallpaperTuneBlurSlider");
-          const finalDim = dimSlider ? parseInt(dimSlider.value, 10) || 65 : 65;
+          const rawUploadDim = dimSlider ? parseInt(dimSlider.value, 10) : NaN;
+          const finalDim = Number.isFinite(rawUploadDim) ? rawUploadDim : 65;
           const finalBlur = blurSlider ? parseInt(blurSlider.value, 10) || 0 : 0;
           commitWallpaperApply(dataUrl, finalDim, finalBlur);
         };
@@ -1897,7 +2052,8 @@ function initSettingsToggles() {
   if (removeWallpaperBtn) removeWallpaperBtn.addEventListener("click", removeWallpaper);
   if (wallpaperDimSlider) {
     wallpaperDimSlider.addEventListener("input", () => {
-      const val = parseInt(wallpaperDimSlider.value, 10) || 65;
+      const rawDimVal = parseInt(wallpaperDimSlider.value, 10);
+      const val = Number.isFinite(rawDimVal) ? rawDimVal : 65;
       document.documentElement.style.setProperty("--wallpaper-dim", (val / 100).toString());
       if (wallpaperDimValue) wallpaperDimValue.textContent = val + "%";
       safeSet(WALLPAPER_DIM_KEY, String(val));
@@ -1906,7 +2062,8 @@ function initSettingsToggles() {
 
   const savedWallpaper = safeGet(WALLPAPER_KEY, null) || safeGet("khmerCustomWallpaperUrl", null);
   if (savedWallpaper) {
-    applyWallpaper(savedWallpaper, parseInt(safeGet(WALLPAPER_DIM_KEY, "65"), 10));
+    const rawInitDim = parseInt(safeGet(WALLPAPER_DIM_KEY, "65"), 10);
+    applyWallpaper(savedWallpaper, Number.isFinite(rawInitDim) ? rawInitDim : 65);
   } else if (window.PKCloudSync && typeof window.PKCloudSync.getLocalFileCache === "function") {
     window.PKCloudSync.getLocalFileCache("custom_wallpaper").then((cached) => {
       if (cached && cached.dataUrl) {
@@ -2188,10 +2345,13 @@ function initSettingsToggles() {
   // Compact Keyboard Proportions
   const compactKeysToggle = document.getElementById("compactKeysToggle");
   function applyCompactKeys(on) {
-    document.documentElement.classList.toggle("compact-keys", on);
-    setSwitchUI(compactKeysToggle, on);
+    const wasOn = document.documentElement.classList.contains("compact-keys");
+    document.documentElement.classList.toggle("compact-keys", !!on);
+    setSwitchUI(compactKeysToggle, !!on);
     safeSet(LS.compactKeys, on ? "1" : "0");
-    setTimeout(healBothHandsOverlay, 50);
+    if (wasOn !== !!on) {
+      setTimeout(healBothHandsOverlay, 50);
+    }
   }
   bindSwitch(compactKeysToggle, applyCompactKeys);
   applyCompactKeys(safeGet(LS.compactKeys, "0") === "1");
@@ -2553,8 +2713,9 @@ function initSettingsToggles() {
 
   window.applyFocusMode = applyFocusMode;
   function applyFocusMode(on) {
-    document.documentElement.classList.toggle("focus-mode", on);
-    setSwitchUI(focusModeToggle, on);
+    const wasOn = document.documentElement.classList.contains("focus-mode");
+    document.documentElement.classList.toggle("focus-mode", !!on);
+    setSwitchUI(focusModeToggle, !!on);
     if (focusModeBtn) {
       focusModeBtn.classList.toggle("active", on);
       focusModeBtn.setAttribute("aria-pressed", String(on));
@@ -2576,14 +2737,16 @@ function initSettingsToggles() {
       const ls = document.getElementById("lessonStrip");
       if (ls) ls.classList.remove("expanded");
     }
-    requestAnimationFrame(() => {
-      if (typeof window.updateHandsOverlay === "function") {
-        window.updateHandsOverlay();
-      } else if (typeof window.render === "function") {
-        window.render();
-      }
-      window.dispatchEvent(new Event("resize"));
-    });
+    if (wasOn !== !!on) {
+      requestAnimationFrame(() => {
+        if (typeof window.updateHandsOverlay === "function") {
+          window.updateHandsOverlay();
+        } else if (typeof window.render === "function") {
+          window.render();
+        }
+        window.dispatchEvent(new Event("resize"));
+      });
+    }
     safeSet(LS.focusMode, on ? "1" : "0");
   }
   bindSwitch(focusModeToggle, applyFocusMode);
@@ -2656,8 +2819,7 @@ function initSettingsToggles() {
     presetBtns.forEach((b) => b.classList.toggle("active", b.dataset.preset === presetName));
     if (presetName === "default") {
       applyBorderRadius(9);
-      applyTheme("dark");
-      applyAccent("gold");
+      applyTheme("dark", true, { resetCustomAccent: true });
       applyCursorColor("theme");
       applyKhmerFont("kantumruy");
       applyLargeText(false);
@@ -2685,8 +2847,7 @@ function initSettingsToggles() {
       applyDyslexiaSpacing(false);
     } else if (presetName === "pro") {
       applyBorderRadius(6);
-      applyTheme("moonlight");
-      applyAccent("cyan");
+      applyTheme("moonlight", true, { resetCustomAccent: true });
       applyCompactKeys(true);
       applyHandsOpacity(40);
       applySwitchProfile("red", true);
@@ -2698,8 +2859,7 @@ function initSettingsToggles() {
       applyTargetWpm(75);
     } else if (presetName === "immersion") {
       applyBorderRadius(9);
-      applyTheme("temple");
-      applyAccent("gold");
+      applyTheme("temple", true, { resetCustomAccent: true });
       applyCompactKeys(false);
       applyHandsOpacity(90);
       if (typeof handsToggle !== "undefined" && handsToggle && !handsToggle.classList.contains("on")) handsToggle.click();

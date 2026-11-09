@@ -53,18 +53,48 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../icon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../icon-180.png">
   <link rel="manifest" href="../manifest.json">
-  <meta name="theme-color" content="#ff9d2e">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" id="pkThemeColorMeta" content="#060812">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="docs.css?v=4.8.0">
+  <script id="pkEarlyThemeBoot">
+    (function () {
+      var THEME_META = {
+        dark: '#060812',
+        light: '#f4f7fb',
+        sepia: '#f6efe2',
+        temple: '#0f0b08',
+        moonlight: '#090d1a',
+        jungle: '#06140e',
+        sunset: '#140914',
+        glass: '#070b14'
+      };
+      var ALL_CLASSES = ['theme-light', 'theme-sepia', 'theme-temple', 'theme-moonlight', 'theme-jungle', 'theme-sunset', 'theme-glass'];
+      try {
+        var savedMode = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+        var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var eff = savedMode === 'system' ? (sysDark ? 'dark' : 'light') : savedMode;
+        if (!THEME_META[eff]) eff = 'dark';
+        var root = document.documentElement;
+        ALL_CLASSES.forEach(function (c) { root.classList.remove(c); });
+        if (eff !== 'dark') root.classList.add('theme-' + eff);
+        root.dataset.themeMode = savedMode;
+        root.dataset.themeEffective = eff;
+        root.style.colorScheme = (eff === 'light' || eff === 'sepia') ? 'light' : 'dark';
+        var meta = document.getElementById('pkThemeColorMeta');
+        if (meta) meta.setAttribute('content', THEME_META[eff]);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="docs.css?v=99">
   <style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
-  <link rel="stylesheet" href="../css/desktop-transition.css?v=98">
+  <link rel="stylesheet" href="../css/desktop-transition.css?v=99">
   <link rel="expect" href="#docsSidebar" blocking="render">
-  <script async blocking="render" src="../js/desktop-transition.js?v=98"></script>
+  <script async blocking="render" src="../js/desktop-transition.js?v=99"></script>
   <script>
     try {
       var p = localStorage.getItem('khmerSettingPerformanceMode');
@@ -270,6 +300,20 @@
     </div>
 
     <div class="header-actions">
+      <label class="nav-theme-wrap" title="Switch Theme">
+        <svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <select id="docsThemeSelect" class="nav-theme-select" aria-label="Color theme">
+          <option value="system">System Auto</option>
+          <option value="dark">Dark Mode</option>
+          <option value="light">Light Mode</option>
+          <option value="sepia">Sepia Paper</option>
+          <option value="temple">Angkor Temple</option>
+          <option value="moonlight">Moonlight Indigo</option>
+          <option value="jungle">Emerald Jungle</option>
+          <option value="sunset">Warm Sunset</option>
+          <option value="glass">Smoked Glass</option>
+        </select>
+      </label>
       <button class="btn-ghost" id="docsLangToggle" title="Toggle language / ប្តូរភាសា">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         <span class="lang-label">ខ្មែរ</span>
@@ -1738,6 +1782,6 @@
   <!-- Scripts -->
   <script src="three.min.js?v=4.4.0"></script>
   <script src="keycap3d.js?v=4.4.0"></script>
-  <script src="docs.js?v=4.8.0"></script>
+  <script src="docs.js?v=99"></script>
 </body>
 </html>

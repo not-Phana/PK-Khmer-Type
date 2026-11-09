@@ -1873,7 +1873,7 @@
           alpha: 0.08 + Math.random() * 0.18,
           baseAlpha: 0.08 + Math.random() * 0.18,
           char: isGlyph ? KHMER_GLYPHS[Math.floor(Math.random() * KHMER_GLYPHS.length)] : null,
-          color: Math.random() > 0.5 ? 'rgba(93, 233, 213,' : 'rgba(255, 209, 102,',
+          isSignal: Math.random() > 0.5,
           phase: Math.random() * Math.PI * 2,
         });
       }
@@ -1926,18 +1926,23 @@
           p.y += (dy / dist) * force;
         }
 
-        const pulseAlpha = p.baseAlpha + Math.sin(p.phase) * 0.05;
+        const eff = document.documentElement.dataset.themeEffective || 'dark';
+        const isLightPaper = eff === 'light' || eff === 'sepia';
+        const colorPrefix = isLightPaper
+          ? (p.isSignal ? 'rgba(3, 105, 161,' : 'rgba(154, 52, 18,')
+          : (p.isSignal ? 'rgba(93, 233, 213,' : 'rgba(255, 209, 102,');
+        const pulseAlpha = (p.baseAlpha + Math.sin(p.phase) * 0.05) * (isLightPaper ? 0.65 : 1);
 
         if (p.char) {
           ctx.save();
           ctx.font = `600 ${p.size}px "Kantumruy Pro", "Noto Sans Khmer", sans-serif`;
-          ctx.fillStyle = `${p.color}${Math.max(0.04, pulseAlpha)})`;
+          ctx.fillStyle = `${colorPrefix}${Math.max(0.04, pulseAlpha)})`;
           ctx.fillText(p.char, p.x, p.y);
           ctx.restore();
         } else {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = `${p.color}${Math.max(0.06, pulseAlpha * 1.5)})`;
+          ctx.fillStyle = `${colorPrefix}${Math.max(0.06, pulseAlpha * 1.5)})`;
           ctx.fill();
         }
       });
@@ -2168,7 +2173,81 @@
     onScroll();
   }
 
+  const LAUNCH_THEME_META = {
+    dark: '#060911',
+    light: '#f4f7fb',
+    sepia: '#f6efe2',
+    temple: '#0f0b08',
+    moonlight: '#090d1a',
+    jungle: '#06140e',
+    sunset: '#140914',
+    glass: '#070b14'
+  };
+  const LAUNCH_THEME_CLASSES = ['theme-light', 'theme-sepia', 'theme-temple', 'theme-moonlight', 'theme-jungle', 'theme-sunset', 'theme-glass'];
+
+  function applyLaunchTheme(mode, opts) {
+    const o = opts || {};
+    const persist = o.persist !== false;
+    const raw = mode || 'dark';
+    const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let eff = raw === 'system' ? (sysDark ? 'dark' : 'light') : raw;
+    if (!LAUNCH_THEME_META[eff]) eff = 'dark';
+
+    const root = document.documentElement;
+    LAUNCH_THEME_CLASSES.forEach((c) => root.classList.remove(c));
+    if (eff !== 'dark') root.classList.add('theme-' + eff);
+    root.dataset.themeMode = raw;
+    root.dataset.themeEffective = eff;
+    root.style.colorScheme = (eff === 'light' || eff === 'sepia') ? 'light' : 'dark';
+
+    const meta = document.getElementById('pkThemeColorMeta');
+    if (meta) meta.setAttribute('content', LAUNCH_THEME_META[eff]);
+
+    const sel = byId('launchThemeSelect');
+    if (sel && sel.value !== raw) sel.value = raw;
+
+    if (persist) {
+      try {
+        localStorage.setItem('khmerSettingTheme', raw);
+        localStorage.setItem('pk_rei_theme', raw);
+      } catch (_e) {}
+    }
+  }
+  window.applyLaunchTheme = applyLaunchTheme;
+
+  function setupLaunchTheme() {
+    let savedMode = 'dark';
+    try {
+      savedMode = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+    } catch (_e) {}
+    applyLaunchTheme(savedMode, { persist: false });
+
+    const sel = byId('launchThemeSelect');
+    if (sel) {
+      sel.addEventListener('change', (ev) => applyLaunchTheme(ev.target.value, { persist: true }));
+    }
+
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      const onSysChange = () => {
+        let cur = 'dark';
+        try {
+          cur = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+        } catch (_e) {}
+        if (cur === 'system') applyLaunchTheme('system', { persist: false });
+      };
+      if (typeof mq.addEventListener === 'function') mq.addEventListener('change', onSysChange);
+    }
+
+    window.addEventListener('storage', (ev) => {
+      if (ev.key === 'khmerSettingTheme' || ev.key === 'pk_rei_theme') {
+        applyLaunchTheme(ev.newValue || 'dark', { persist: false });
+      }
+    });
+  }
+
   function initialize() {
+    setupLaunchTheme();
     initAmbientCanvas();
     initHandsDOM();
     setupMotion();

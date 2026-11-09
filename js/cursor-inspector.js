@@ -110,6 +110,16 @@
     '»': { name: 'Right Guillemet', nameKm: 'សញ្ញាសម្រង់បិទ (»)', ipa: 'Closing quote', type: 'Punctuation' }
   };
 
+  function getThemeFallbackFingerColor() {
+    try {
+      if (typeof getComputedStyle === 'function' && document.documentElement) {
+        const val = getComputedStyle(document.documentElement).getPropertyValue('--gold-bright').trim();
+        if (val) return val;
+      }
+    } catch (e) {}
+    return '#ffd166';
+  }
+
   // Finger presentation names & accents
   const FINGER_INFO = {
     lp: { nameEn: 'Left Pinky', nameKm: 'ដៃឆ្វេង · កូនដៃ', color: '#38bdf8' },
@@ -491,7 +501,7 @@
     const layoutId = global.currentLayoutId || 'standard';
     const layer = typeof global.currentLayer === 'function' ? global.currentLayer() : 'base';
     const fid = (global.KEY_FINGER && global.KEY_FINGER[keyId]) || null;
-    const finfo = (fid && FINGER_INFO[fid]) || { nameEn: 'Touch Key', nameKm: 'ម្រាមដៃ', color: '#ffd166' };
+    const finfo = (fid && FINGER_INFO[fid]) || { nameEn: 'Touch Key', nameKm: 'ម្រាមដៃ', color: getThemeFallbackFingerColor() };
 
     // 1. Kinematic Hand Guide Sync — ALWAYS active so 3D hands track mouse hover even with Mouse Inspector OFF!
     if (typeof global.setActiveFinger === 'function') {
@@ -835,7 +845,7 @@
     }
 
     const fid = (foundKey && global.KEY_FINGER && global.KEY_FINGER[foundKey]) || null;
-    const finfo = (fid && FINGER_INFO[fid]) || { nameEn: 'Touch Key', nameKm: 'ម្រាមដៃ', color: '#ffd166' };
+    const finfo = (fid && FINGER_INFO[fid]) || { nameEn: 'Touch Key', nameKm: 'ម្រាមដៃ', color: getThemeFallbackFingerColor() };
 
     const keyLabel = foundKey ? getHumanKeyLabel(foundKey) : '';
     let recipeText = `<kbd>${keyLabel || 'Combo'}</kbd>`;

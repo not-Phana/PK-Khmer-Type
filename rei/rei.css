@@ -2,29 +2,41 @@
 /* Strict Zero-Emoji Compliance: Pure SVG vector icons only */
 
 :root {
-  --color-scheme: light dark;
+  color-scheme: light dark;
   --rei-bg: #0b0f19;
   --rei-surface: #111827;
   --rei-surface-card: #1b2336;
   --rei-surface-hover: #26334d;
-  --rei-border: rgba(255, 255, 255, 0.12);
-  --rei-border-subtle: rgba(255, 255, 255, 0.06);
+  --rei-border: rgba(255, 255, 255, 0.14);
+  --rei-border-strong: rgba(255, 255, 255, 0.28);
+  --rei-border-subtle: rgba(255, 255, 255, 0.08);
   --rei-text: #f8fafc;
-  --rei-text-dim: #94a3b8;
-  --rei-text-muted: #64748b;
+  --rei-text-dim: #cbd5e1;
+  --rei-text-muted: #94a3b8;
   --rei-accent: #f59e0b;
   --rei-accent-hover: #d97706;
   --rei-accent-glow: rgba(245, 158, 11, 0.35);
+  --rei-accent-soft: rgba(245, 158, 11, 0.16);
+  --rei-accent-border: rgba(245, 158, 11, 0.42);
   --rei-accent-text: #0f172a;
-  --rei-cyan: #06b6d4;
-  --rei-green: #10b981;
-  --rei-green-glow: rgba(16, 185, 129, 0.25);
-  --rei-red: #ef4444;
-  --rei-red-glow: rgba(239, 68, 68, 0.3);
+  --rei-cyan: #38bdf8;
+  --rei-cyan-soft: rgba(56, 189, 248, 0.22);
+  --rei-cyan-glow: rgba(56, 189, 248, 0.35);
+  --rei-green: #34d399;
+  --rei-green-soft: rgba(52, 211, 153, 0.16);
+  --rei-green-glow: rgba(52, 211, 153, 0.25);
+  --rei-red: #f87171;
+  --rei-red-glow: rgba(248, 113, 113, 0.28);
+  --rei-kbd-bg: rgba(0, 0, 0, 0.28);
+  --rei-backdrop: rgba(4, 7, 16, 0.72);
   --rei-key-bg-top: #1e2638;
   --rei-key-bg-bot: #141a29;
   --rei-key-border: #0b0e17;
   --rei-key-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --rei-target-bg-top: rgba(245, 158, 11, 0.26);
+  --rei-target-bg-bot: rgba(245, 158, 11, 0.12);
+  --rei-guide-bg-top: rgba(56, 189, 248, 0.24);
+  --rei-guide-bg-bot: rgba(56, 189, 248, 0.1);
   --rei-font-khmer: 'Kantumruy Pro', 'Khmer OS Siemreap', 'Noto Sans Khmer', sans-serif;
   --rei-font-mono: 'JetBrains Mono', monospace;
   --rei-font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -33,28 +45,202 @@
 }
 
 html.theme-light {
-  --rei-bg: #f8fafc;
+  color-scheme: light;
+  --rei-bg: #f1f5f9;
   --rei-surface: #ffffff;
-  --rei-surface-card: #f1f5f9;
+  --rei-surface-card: #f8fafc;
   --rei-surface-hover: #e2e8f0;
-  --rei-border: rgba(15, 23, 42, 0.12);
-  --rei-border-subtle: rgba(15, 23, 42, 0.06);
+  --rei-border: rgba(15, 23, 42, 0.16);
+  --rei-border-strong: rgba(15, 23, 42, 0.34);
+  --rei-border-subtle: rgba(15, 23, 42, 0.08);
   --rei-text: #0f172a;
-  --rei-text-dim: #475569;
-  --rei-text-muted: #94a3b8;
-  --rei-accent: #d97706;
-  --rei-accent-hover: #b45309;
-  --rei-accent-glow: rgba(217, 119, 6, 0.25);
+  --rei-text-dim: #334155;
+  --rei-text-muted: #64748b;
+  --rei-accent: #b45309;
+  --rei-accent-hover: #92400e;
+  --rei-accent-glow: rgba(180, 83, 9, 0.24);
+  --rei-accent-soft: rgba(217, 119, 6, 0.12);
+  --rei-accent-border: rgba(180, 83, 9, 0.36);
   --rei-accent-text: #ffffff;
-  --rei-cyan: #0891b2;
-  --rei-green: #059669;
-  --rei-green-glow: rgba(5, 150, 105, 0.2);
-  --rei-red: #dc2626;
-  --rei-red-glow: rgba(220, 38, 38, 0.25);
+  --rei-cyan: #0369a1;
+  --rei-cyan-soft: rgba(3, 105, 161, 0.14);
+  --rei-cyan-glow: rgba(3, 105, 161, 0.25);
+  --rei-green: #047857;
+  --rei-green-soft: rgba(4, 120, 87, 0.12);
+  --rei-green-glow: rgba(4, 120, 87, 0.2);
+  --rei-red: #b91c1c;
+  --rei-red-glow: rgba(185, 28, 28, 0.18);
+  --rei-kbd-bg: #e2e8f0;
+  --rei-backdrop: rgba(15, 23, 42, 0.45);
   --rei-key-bg-top: #ffffff;
-  --rei-key-bg-bot: #e2e8f0;
-  --rei-key-border: #cbd5e1;
-  --rei-key-shadow: 0 2px 4px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --rei-key-bg-bot: #eef2f6;
+  --rei-key-border: #94a3b8;
+  --rei-key-shadow: 0 3px 0 #cbd5e1, 0 4px 8px rgba(15, 23, 42, 0.08), inset 0 1px 0 #ffffff;
+  --rei-target-bg-top: #fef3c7;
+  --rei-target-bg-bot: #fde68a;
+  --rei-guide-bg-top: #e0f2fe;
+  --rei-guide-bg-bot: #bae6fd;
+}
+
+html.theme-sepia {
+  color-scheme: light;
+  --rei-bg: #efe5d2;
+  --rei-surface: #faf4e8;
+  --rei-surface-card: #f3e9d6;
+  --rei-surface-hover: #e5d6ba;
+  --rei-border: rgba(74, 48, 22, 0.22);
+  --rei-border-strong: rgba(74, 48, 22, 0.42);
+  --rei-border-subtle: rgba(74, 48, 22, 0.12);
+  --rei-text: #2c1b0c;
+  --rei-text-dim: #523920;
+  --rei-text-muted: #6e5033;
+  --rei-accent: #9a3412;
+  --rei-accent-hover: #7c2d12;
+  --rei-accent-glow: rgba(154, 52, 18, 0.24);
+  --rei-accent-soft: rgba(154, 52, 18, 0.12);
+  --rei-accent-border: rgba(154, 52, 18, 0.38);
+  --rei-accent-text: #ffffff;
+  --rei-cyan: #0e7490;
+  --rei-cyan-soft: rgba(14, 116, 144, 0.14);
+  --rei-cyan-glow: rgba(14, 116, 144, 0.25);
+  --rei-green: #15803d;
+  --rei-green-soft: rgba(21, 128, 61, 0.12);
+  --rei-green-glow: rgba(21, 128, 61, 0.2);
+  --rei-red: #b91c1c;
+  --rei-red-glow: rgba(185, 28, 28, 0.18);
+  --rei-kbd-bg: #e5d6ba;
+  --rei-backdrop: rgba(44, 27, 12, 0.45);
+  --rei-key-bg-top: #fdf9f0;
+  --rei-key-bg-bot: #eadbc1;
+  --rei-key-border: #bfa784;
+  --rei-key-shadow: 0 3px 0 #c9b493, 0 4px 8px rgba(44, 27, 12, 0.1), inset 0 1px 0 #fffdf9;
+  --rei-target-bg-top: #fde68a;
+  --rei-target-bg-bot: #fcd34d;
+  --rei-guide-bg-top: #e0f2fe;
+  --rei-guide-bg-bot: #bae6fd;
+}
+
+html.theme-temple {
+  color-scheme: dark;
+  --rei-bg: #120e0a;
+  --rei-surface: #1c150f;
+  --rei-surface-card: #261d14;
+  --rei-surface-hover: #33261a;
+  --rei-border: rgba(245, 194, 107, 0.18);
+  --rei-border-strong: rgba(245, 194, 107, 0.38);
+  --rei-border-subtle: rgba(245, 194, 107, 0.1);
+  --rei-text: #fef3c7;
+  --rei-text-dim: #e7d3b0;
+  --rei-text-muted: #b89f79;
+  --rei-accent: #f59e0b;
+  --rei-accent-hover: #d97706;
+  --rei-accent-glow: rgba(245, 158, 11, 0.35);
+  --rei-accent-soft: rgba(245, 158, 11, 0.16);
+  --rei-accent-border: rgba(245, 158, 11, 0.42);
+  --rei-accent-text: #1c1104;
+  --rei-key-bg-top: #2b2016;
+  --rei-key-bg-bot: #1a130d;
+  --rei-key-border: #0e0a06;
+}
+
+html.theme-moonlight {
+  color-scheme: dark;
+  --rei-bg: #070c1a;
+  --rei-surface: #0e162c;
+  --rei-surface-card: #15213e;
+  --rei-surface-hover: #1e2e52;
+  --rei-border: rgba(125, 211, 252, 0.18);
+  --rei-border-strong: rgba(125, 211, 252, 0.36);
+  --rei-border-subtle: rgba(125, 211, 252, 0.09);
+  --rei-text: #f0f9ff;
+  --rei-text-dim: #bae6fd;
+  --rei-text-muted: #7dd3fc;
+  --rei-accent: #38bdf8;
+  --rei-accent-hover: #0ea5e9;
+  --rei-accent-glow: rgba(56, 189, 248, 0.36);
+  --rei-accent-soft: rgba(56, 189, 248, 0.16);
+  --rei-accent-border: rgba(56, 189, 248, 0.42);
+  --rei-accent-text: #041628;
+  --rei-key-bg-top: #172342;
+  --rei-key-bg-bot: #0d1429;
+  --rei-key-border: #060a15;
+  --rei-target-bg-top: rgba(56, 189, 248, 0.28);
+  --rei-target-bg-bot: rgba(56, 189, 248, 0.12);
+}
+
+html.theme-jungle {
+  color-scheme: dark;
+  --rei-bg: #06140e;
+  --rei-surface: #0c2117;
+  --rei-surface-card: #122d20;
+  --rei-surface-hover: #193d2b;
+  --rei-border: rgba(110, 231, 183, 0.18);
+  --rei-border-strong: rgba(110, 231, 183, 0.38);
+  --rei-border-subtle: rgba(110, 231, 183, 0.09);
+  --rei-text: #ecfdf5;
+  --rei-text-dim: #a7f3d0;
+  --rei-text-muted: #6ee7b7;
+  --rei-accent: #10b981;
+  --rei-accent-hover: #059669;
+  --rei-accent-glow: rgba(16, 185, 129, 0.36);
+  --rei-accent-soft: rgba(16, 185, 129, 0.16);
+  --rei-accent-border: rgba(16, 185, 129, 0.42);
+  --rei-accent-text: #022015;
+  --rei-key-bg-top: #143223;
+  --rei-key-bg-bot: #0b1c14;
+  --rei-key-border: #050d09;
+  --rei-target-bg-top: rgba(16, 185, 129, 0.28);
+  --rei-target-bg-bot: rgba(16, 185, 129, 0.12);
+}
+
+html.theme-sunset {
+  color-scheme: dark;
+  --rei-bg: #160a13;
+  --rei-surface: #24101e;
+  --rei-surface-card: #301729;
+  --rei-surface-hover: #3f1e36;
+  --rei-border: rgba(251, 146, 160, 0.2);
+  --rei-border-strong: rgba(251, 146, 160, 0.38);
+  --rei-border-subtle: rgba(251, 146, 160, 0.1);
+  --rei-text: #fff1f2;
+  --rei-text-dim: #fecdd3;
+  --rei-text-muted: #fda4af;
+  --rei-accent: #fb7185;
+  --rei-accent-hover: #f43f5e;
+  --rei-accent-glow: rgba(251, 113, 133, 0.36);
+  --rei-accent-soft: rgba(251, 113, 133, 0.16);
+  --rei-accent-border: rgba(251, 113, 133, 0.42);
+  --rei-accent-text: #2c0711;
+  --rei-key-bg-top: #34182b;
+  --rei-key-bg-bot: #1f0d19;
+  --rei-key-border: #12060e;
+  --rei-target-bg-top: rgba(251, 113, 133, 0.28);
+  --rei-target-bg-bot: rgba(251, 113, 133, 0.12);
+}
+
+html.theme-glass {
+  color-scheme: dark;
+  --rei-bg: #0b1120;
+  --rei-surface: rgba(10, 16, 32, 0.72);
+  --rei-surface-card: rgba(15, 23, 42, 0.66);
+  --rei-surface-hover: rgba(30, 41, 59, 0.8);
+  --rei-border: rgba(255, 255, 255, 0.22);
+  --rei-border-strong: rgba(255, 255, 255, 0.38);
+  --rei-border-subtle: rgba(255, 255, 255, 0.12);
+  --rei-text: #f8fafc;
+  --rei-text-dim: #e2e8f0;
+  --rei-text-muted: #cbd5e1;
+  --rei-accent: #38bdf8;
+  --rei-accent-hover: #0ea5e9;
+  --rei-accent-glow: rgba(56, 189, 248, 0.4);
+  --rei-accent-soft: rgba(56, 189, 248, 0.18);
+  --rei-accent-border: rgba(56, 189, 248, 0.45);
+  --rei-accent-text: #041628;
+  --rei-key-bg-top: rgba(22, 32, 54, 0.76);
+  --rei-key-bg-bot: rgba(10, 16, 32, 0.86);
+  --rei-key-border: rgba(255, 255, 255, 0.2);
+  --rei-target-bg-top: rgba(56, 189, 248, 0.32);
+  --rei-target-bg-bot: rgba(56, 189, 248, 0.14);
 }
 
 /* Universal hidden attribute rule */
@@ -128,8 +314,8 @@ button {
   width: 28px;
   height: 28px;
   border-radius: 6px;
-  background: linear-gradient(135deg, var(--rei-accent), #f97316);
-  color: #0f172a;
+  background: linear-gradient(135deg, var(--rei-accent), var(--rei-accent-hover));
+  color: var(--rei-accent-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -152,9 +338,9 @@ button {
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  background: rgba(245, 158, 11, 0.15);
+  background: var(--rei-accent-soft);
   color: var(--rei-accent);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid var(--rei-accent-border);
 }
 
 /* Action Buttons */
@@ -172,7 +358,7 @@ button {
 
 .rei-btn:hover {
   background: var(--rei-surface-hover);
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: var(--rei-border-strong);
 }
 
 .rei-btn.active {
@@ -184,7 +370,7 @@ button {
 .rei-kbd {
   font-size: 0.7rem;
   font-family: var(--rei-font-mono);
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--rei-kbd-bg);
   padding: 1px 5px;
   border-radius: 3px;
   border: 1px solid var(--rei-border);
@@ -296,11 +482,11 @@ button {
 
 .rei-stage-pill:hover {
   color: var(--rei-text);
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--rei-border-strong);
 }
 
 .rei-stage-pill.active {
-  background: rgba(245, 158, 11, 0.14);
+  background: var(--rei-accent-soft);
   color: var(--rei-accent);
   border-color: var(--rei-accent);
 }
@@ -330,7 +516,7 @@ button {
 
 .rei-lesson-card:hover {
   background: var(--rei-surface-hover);
-  border-color: rgba(245, 158, 11, 0.4);
+  border-color: var(--rei-accent-border);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
@@ -515,7 +701,7 @@ button {
 }
 
 .rei-char.current {
-  background: rgba(245, 158, 11, 0.22);
+  background: var(--rei-accent-soft);
   color: var(--rei-accent);
   box-shadow: 0 0 0 2px var(--rei-accent-glow);
 }
@@ -631,13 +817,13 @@ button {
 .rei-key.target-key {
   border-color: var(--rei-accent);
   box-shadow: 0 0 12px var(--rei-accent-glow), inset 0 0 6px var(--rei-accent-glow);
-  background: linear-gradient(180deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.12));
+  background: linear-gradient(180deg, var(--rei-target-bg-top), var(--rei-target-bg-bot));
 }
 
 .rei-key.guide-key {
   border-color: var(--rei-cyan);
-  box-shadow: 0 0 10px rgba(6, 182, 212, 0.35);
-  background: linear-gradient(180deg, rgba(6, 182, 212, 0.25), rgba(6, 182, 212, 0.1));
+  box-shadow: 0 0 10px var(--rei-cyan-glow);
+  background: linear-gradient(180deg, var(--rei-guide-bg-top), var(--rei-guide-bg-bot));
 }
 
 .rei-key-sub {
@@ -670,7 +856,7 @@ button {
 .rei-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--rei-backdrop);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -697,12 +883,21 @@ button {
   height: 56px;
   margin: 0 auto;
   border-radius: 50%;
-  background: rgba(16, 185, 129, 0.15);
+  background: var(--rei-green-soft);
   color: var(--rei-green);
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px solid var(--rei-green);
+}
+
+html.theme-glass .rei-lesson-hub,
+html.theme-glass .rei-practice-deck,
+html.theme-glass .rei-keyboard-wrap,
+html.theme-glass .rei-modal,
+html.theme-glass .rei-header {
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
 }
 
 .rei-modal-title {

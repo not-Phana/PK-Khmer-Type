@@ -77,8 +77,13 @@ function initApp(){
     }
   } catch(e){}
 
-  // Synchronous initial render for zero-delay offline startup
-  try { if(typeof buildBoard === "function") buildBoard(); } catch(e){ console.error("buildBoard error:", e); }
+  // Synchronous initial render for zero-delay offline startup (skip rebuild if keyboard.js already rendered current layout)
+  try {
+    const kbEl = document.getElementById("keyboard");
+    if (typeof buildBoard === "function" && (!kbEl || kbEl.children.length === 0 || window.__pkBuiltLayoutId !== window.currentLayoutId)) {
+      buildBoard();
+    }
+  } catch(e){ console.error("buildBoard error:", e); }
   try { if(typeof syncLayoutUI === "function") syncLayoutUI(window.currentLayoutId); } catch(e){}
   try { if(typeof render === "function") render(); } catch(e){ console.error("render error:", e); }
   try { if(typeof renderLessonStrip === "function") renderLessonStrip(); } catch(e){ console.error("renderLessonStrip error:", e); }
@@ -86,23 +91,38 @@ function initApp(){
   try { if(typeof updateHandsOverlay === "function") updateHandsOverlay(); } catch(e){ console.error("updateHandsOverlay error:", e); }
   try { if(typeof updateMasteryStat === "function") updateMasteryStat(); } catch(e){ console.error("updateMasteryStat error:", e); }
   try { if(typeof restoreSavedLessonSession === "function") restoreSavedLessonSession(); } catch(e){ console.error("restoreSavedLessonSession error:", e); }
+  window.__pkBootComplete = true;
 
-  // Re-measure hand kinematics after layout & web fonts settle
-  if(typeof requestAnimationFrame === "function"){
-    requestAnimationFrame(()=>{
-      try { if(typeof updateHandsOverlay === "function") updateHandsOverlay(); } catch(e){}
-    });
-  }
-  if(document.fonts && document.fonts.ready){
-    document.fonts.ready.then(()=>{
-      try { if(typeof updateHandsOverlay === "function") updateHandsOverlay(); } catch(e){}
-    }).catch(()=>{});
-  }
+  // Re-measure hand kinematics and enrich external JSONs after any active desktop transition settles
+  const runDeferredPostReveal = () => {
+    if(typeof requestAnimationFrame === "function"){
+      requestAnimationFrame(()=>{
+        try { if(typeof updateHandsOverlay === "function") updateHandsOverlay(); } catch(e){}
+      });
+    }
+    if(document.fonts && document.fonts.ready){
+      document.fonts.ready.then(()=>{
+        try { if(typeof updateHandsOverlay === "function") updateHandsOverlay(); } catch(e){}
+      }).catch(()=>{});
+    }
 
-  // Async data enrichment when hosted on server
-  loadExternalData();
+    // Async data enrichment when hosted on server
+    loadExternalData();
+  };
+
+  if(typeof window.pkWhenTransitionSettled === "function"){
+    window.pkWhenTransitionSettled(runDeferredPostReveal);
+  } else {
+    runDeferredPostReveal();
+  }
 
   window.addEventListener("resize", ()=>{
+    if(document.documentElement && document.documentElement.classList.contains("pk-vt-active") && typeof window.pkWhenTransitionSettled === "function"){
+      window.pkWhenTransitionSettled(()=>{
+        try { if(typeof updateHandsOverlay === "function") updateHandsOverlay(); } catch(e){}
+      });
+      return;
+    }
     try { if(typeof updateHandsOverlay === "function") updateHandsOverlay(); } catch(e){}
   });
 }

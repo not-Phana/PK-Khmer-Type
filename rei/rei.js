@@ -312,12 +312,30 @@
      3. State Management & Local Storage
      ============================================================ */
   const STORAGE_THEME = 'pk_rei_theme';
+  const STORAGE_THEME_STUDIO = 'khmerSettingTheme';
   const STORAGE_LAYOUT = 'pk_rei_layout';
   const STORAGE_SOUND = 'pk_rei_sound';
   const STORAGE_PROGRESS = 'pk_rei_progress';
 
+  const REI_VALID_THEMES = new Set(['dark', 'light', 'sepia', 'temple', 'moonlight', 'jungle', 'sunset', 'glass']);
+  const REI_THEME_CLASSES = ['theme-light', 'theme-sepia', 'theme-temple', 'theme-moonlight', 'theme-jungle', 'theme-sunset', 'theme-glass'];
+
+  function resolveEffectiveTheme(rawTheme) {
+    if (rawTheme === 'system' || !rawTheme) {
+      const prefersDark = !(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
+      return prefersDark ? 'dark' : 'light';
+    }
+    return REI_VALID_THEMES.has(rawTheme) ? rawTheme : 'dark';
+  }
+
+  function getSavedThemeMode() {
+    const raw = localStorage.getItem(STORAGE_THEME) || localStorage.getItem(STORAGE_THEME_STUDIO) || 'dark';
+    return (raw === 'system' || REI_VALID_THEMES.has(raw)) ? raw : 'dark';
+  }
+
   let currentLayoutId = localStorage.getItem(STORAGE_LAYOUT) || 'standard';
-  let isDarkMode = localStorage.getItem(STORAGE_THEME) !== 'light';
+  let activeThemeMode = getSavedThemeMode();
+  let isDarkMode = !['light', 'sepia'].includes(resolveEffectiveTheme(activeThemeMode));
   soundOn = localStorage.getItem(STORAGE_SOUND) !== 'false';
 
   let userProgress = {};
@@ -435,12 +453,38 @@
      6. Rendering & UI Updates
      ============================================================ */
 
-  function applyTheme(isDark) {
-    isDarkMode = isDark;
-    document.documentElement.classList.toggle('theme-light', !isDark);
-    localStorage.setItem(STORAGE_THEME, isDark ? 'dark' : 'light');
+  function applyTheme(themeOrIsDark, options) {
+    const opts = options || {};
+    let mode;
+    if (typeof themeOrIsDark === 'boolean') {
+      mode = themeOrIsDark ? 'dark' : 'light';
+    } else if (typeof themeOrIsDark === 'string' && (themeOrIsDark === 'system' || REI_VALID_THEMES.has(themeOrIsDark))) {
+      mode = themeOrIsDark;
+    } else {
+      mode = 'dark';
+    }
+
+    activeThemeMode = mode;
+    const effective = resolveEffectiveTheme(mode);
+    const isLightSurface = (effective === 'light' || effective === 'sepia');
+    isDarkMode = !isLightSurface;
+
+    const root = document.documentElement;
+    REI_THEME_CLASSES.forEach((cls) => root.classList.remove(cls));
+    if (effective !== 'dark') {
+      root.classList.add('theme-' + effective);
+    }
+    root.style.colorScheme = isLightSurface ? 'light' : 'dark';
+
+    if (!opts.skipSave) {
+      try {
+        localStorage.setItem(STORAGE_THEME, mode);
+        localStorage.setItem(STORAGE_THEME_STUDIO, mode);
+      } catch (_e) {}
+    }
+
     if (elThemeBtn) {
-      elThemeBtn.innerHTML = isDark
+      elThemeBtn.innerHTML = isDarkMode
         ? `<svg class="rei-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> <span>Light</span>`
         : `<svg class="rei-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> <span>Dark</span>`;
     }
@@ -958,7 +1002,7 @@
      8. Initialization
      ============================================================ */
   function init() {
-    applyTheme(isDarkMode);
+    applyTheme(getSavedThemeMode(), { skipSave: true });
     updateSoundUI();
     updateLangUI();
     renderCurriculumControls();
@@ -970,6 +1014,23 @@
     if (elThemeBtn) {
       elThemeBtn.addEventListener('click', () => applyTheme(!isDarkMode));
     }
+
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      const onMqChange = () => {
+        if (getSavedThemeMode() === 'system') {
+          applyTheme('system', { skipSave: true });
+        }
+      };
+      if (typeof mq.addEventListener === 'function') mq.addEventListener('change', onMqChange);
+      else if (typeof mq.addListener === 'function') mq.addListener(onMqChange);
+    }
+
+    window.addEventListener('storage', (ev) => {
+      if (!ev || !ev.key || ev.key === STORAGE_THEME || ev.key === STORAGE_THEME_STUDIO) {
+        applyTheme(getSavedThemeMode(), { skipSave: true });
+      }
+    });
 
     if (elSoundBtn) {
       elSoundBtn.addEventListener('click', () => {

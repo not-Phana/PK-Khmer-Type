@@ -271,7 +271,7 @@
   /* ---------- typing race ---------- */
   .race-toggle-btn{ position:relative; overflow:hidden; }
   .race-toggle-btn.on{
-    color:#241405;
+    color:var(--ink-on-accent, #241405);
     background:linear-gradient(135deg, var(--gold-bright), var(--gold));
     border-color:var(--gold-bright);
     box-shadow:0 0 16px rgba(255,209,102,0.45);
@@ -353,7 +353,7 @@
     outline-offset:2px;
   }
   .race-pill[aria-checked="true"]{
-    color:#241405;
+    color:var(--ink-on-accent, #241405);
     background:linear-gradient(135deg, var(--gold-bright), var(--gold));
     border-color:var(--gold-bright);
     box-shadow:0 0 14px rgba(255,209,102,0.4);
@@ -373,7 +373,7 @@
     font-size:0.78rem;
     letter-spacing:0.08em;
     text-transform:uppercase;
-    color:#241405;
+    color:var(--ink-on-accent, #241405);
     background:linear-gradient(135deg, var(--gold-bright), var(--gold));
     border:1px solid var(--gold-bright);
     padding:11px 30px;
@@ -861,7 +861,7 @@
   }
   .race-result-actions button:hover{ box-shadow:0 0 16px rgba(255,209,102,0.35); border-color:var(--gold); color:var(--ink); transform:translateY(-1px); }
   .race-result-actions button.primary{
-    color:#241405;
+    color:var(--ink-on-accent, #241405);
     background:linear-gradient(135deg, var(--gold-bright), var(--gold));
     border-color:var(--gold-bright);
   }
@@ -1015,7 +1015,7 @@
     border-radius: var(--radius, 9px);
     background:linear-gradient(135deg, var(--gold-bright), var(--gold));
     border:1px solid var(--gold-bright);
-    color:#241405;
+    color:var(--ink-on-accent, #241405);
     cursor:pointer;
     transition:all .16s ease;
     white-space:nowrap;
@@ -1141,7 +1141,7 @@
     background:rgba(255,255,255,0.08);
   }
   .nida-tab-btn.active{
-    color:#241405;
+    color:var(--ink-on-accent, #241405);
     background:linear-gradient(135deg, var(--gold-bright), var(--gold));
     border-color:var(--gold-bright);
     font-weight:700;
@@ -1422,3 +1422,446 @@
     25%{ transform:translateX(-3px); }
     75%{ transform:translateX(3px); }
   }
+
+/* === UNIVERSAL 8-THEME OVERRIDES FOR TYPING, TRIAL, RACE & NIDA === */
+
+/* Light & Sepia: Manuscript, Trial Panel, Race Arena & Results */
+:is(html.theme-light, html.theme-sepia) .manuscript-placeholder {
+  color: var(--ink-dim) !important;
+}
+html.theme-light .trial-panel,
+html.theme-light .race-panel {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.14), inset 0 1px 0 #ffffff !important;
+  color: #0f172a !important;
+}
+html.theme-sepia .trial-panel,
+html.theme-sepia .race-panel {
+  background: rgba(250, 245, 236, 0.97) !important;
+  border: 1px solid #ccbc9e !important;
+  box-shadow: 0 18px 46px rgba(44, 27, 12, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+  color: #2c1b0c !important;
+}
+:is(html.theme-light, html.theme-sepia) .trial-top {
+  border-bottom-color: var(--stone-edge) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .trial-stats b {
+  color: var(--ink) !important;
+  text-shadow: none !important;
+}
+html.theme-light .trial-word {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+html.theme-sepia .trial-word {
+  background: #f0e6d2 !important;
+  border-color: #ccbc9e !important;
+}
+:is(html.theme-light, html.theme-sepia) .tw-char {
+  color: var(--ink-dim) !important;
+  text-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .tw-char.done {
+  color: var(--gold-bright) !important;
+  text-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .tw-char.current {
+  color: var(--ink) !important;
+  text-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .tw-char.shake {
+  color: var(--danger-ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-setup-title {
+  color: var(--gold-bright) !important;
+  text-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-pill {
+  background: var(--stone-2) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-pill:hover {
+  background: var(--accent-soft) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--gold-bright) !important;
+  box-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-pill[aria-checked="true"],
+:is(html.theme-light, html.theme-sepia) .race-start-btn,
+:is(html.theme-light, html.theme-sepia) .race-toggle-btn.on,
+:is(html.theme-light, html.theme-sepia) .race-result-actions button.primary {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--accent-ink, #ffffff) !important;
+  box-shadow: 0 4px 14px var(--accent-glow) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-name-input {
+  background: var(--stone-1) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-name-input::placeholder {
+  color: var(--ink-dim) !important;
+  opacity: 0.72;
+}
+html.theme-light .race-track {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+}
+html.theme-sepia .race-track {
+  background: #f0e6d2 !important;
+  border-color: #ccbc9e !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 12px rgba(44, 27, 12, 0.08) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-track-header {
+  border-bottom-color: var(--stone-edge) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-lead-badge.lead-player {
+  color: var(--success-ink) !important;
+  background: rgba(4, 120, 87, 0.12) !important;
+  border-color: rgba(4, 120, 87, 0.35) !important;
+  box-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-lead-badge.lead-ai {
+  color: var(--danger-ink) !important;
+  background: rgba(185, 28, 28, 0.10) !important;
+  border-color: rgba(185, 28, 28, 0.35) !important;
+  box-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-lead-badge.lead-tied {
+  color: var(--warn-ink) !important;
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-finish-banner {
+  color: var(--ink-dim) !important;
+}
+html.theme-light .race-track-tag.ai-tag,
+html.theme-light .race-track-pct.ai-pct {
+  color: #0369a1 !important;
+}
+html.theme-sepia .race-track-tag.ai-tag,
+html.theme-sepia .race-track-pct.ai-pct {
+  color: #1d4ed8 !important;
+}
+html.theme-light .race-track-bar {
+  background: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.08) !important;
+}
+html.theme-sepia .race-track-bar {
+  background: #e7dac1 !important;
+  border-color: #ccbc9e !important;
+  box-shadow: inset 0 1px 2px rgba(44, 27, 12, 0.1) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-track-fill:not(.ai-fill) {
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright)) !important;
+  box-shadow: 0 0 8px var(--accent-glow) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-runner-head.player-runner {
+  background: var(--gold-bright) !important;
+  color: var(--accent-ink, #ffffff) !important;
+  box-shadow: 0 0 6px var(--accent-glow) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-ai-pill-row .ai-pill-wpm {
+  background: var(--stone-3) !important;
+  color: var(--ink) !important;
+  opacity: 0.92;
+}
+:is(html.theme-light, html.theme-sepia) .race-ai-pill-row .race-pill[aria-checked="true"] .ai-pill-wpm {
+  background: rgba(255, 255, 255, 0.24) !important;
+  color: var(--accent-ink, #ffffff) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-char {
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-char.correct {
+  color: var(--success-ink) !important;
+  text-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-char.wrong {
+  color: var(--danger-ink) !important;
+  text-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-char.current {
+  color: var(--ink) !important;
+  font-weight: 700;
+}
+html.theme-light .race-countdown {
+  background: rgba(248, 250, 252, 0.94) !important;
+  color: var(--gold-bright) !important;
+  text-shadow: none !important;
+}
+html.theme-sepia .race-countdown {
+  background: rgba(250, 245, 236, 0.94) !important;
+  color: var(--gold-bright) !important;
+  text-shadow: none !important;
+}
+html.theme-light .race-result-overlay {
+  background: rgba(241, 245, 249, 0.80) !important;
+}
+html.theme-sepia .race-result-overlay {
+  background: rgba(226, 210, 181, 0.80) !important;
+}
+html.theme-light .race-result-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.20) !important;
+  color: #0f172a !important;
+}
+html.theme-sepia .race-result-card {
+  background: linear-gradient(180deg, #faf5ec 0%, #f0e6d2 100%) !important;
+  border-color: #ccbc9e !important;
+  box-shadow: 0 24px 60px rgba(44, 27, 12, 0.22) !important;
+  color: #2c1b0c !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-result-card h2,
+:is(html.theme-light, html.theme-sepia) .race-result-card .race-pb {
+  text-shadow: none !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-duel-badge.win {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+  box-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-duel-badge.loss {
+  background: rgba(3, 105, 161, 0.12) !important;
+  border-color: rgba(3, 105, 161, 0.35) !important;
+  color: #0369a1 !important;
+  box-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-duel-sub {
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-result-grid b {
+  color: var(--ink) !important;
+  text-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-result-actions button:not(.primary) {
+  background: var(--stone-2) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .race-result-actions button:not(.primary):hover {
+  background: var(--accent-soft) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--gold-bright) !important;
+  box-shadow: none !important;
+}
+
+/* Light & Sepia: NiDA Layout Switch HUD & Guide Modal */
+:is(html.theme-light, html.theme-sepia) .layout-action-btn.nida-guide-btn {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .layout-action-btn.nida-guide-btn:hover,
+:is(html.theme-light, html.theme-sepia) .layout-action-btn.nida-guide-btn.highlighted {
+  background: var(--gold-bright) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--accent-ink, #ffffff) !important;
+  box-shadow: 0 4px 12px var(--accent-glow) !important;
+}
+html.theme-light .nida-switch-hud-inner {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(254, 242, 242, 0.97)) !important;
+  border: 1.5px solid #dc2626 !important;
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.16) !important;
+}
+html.theme-sepia .nida-switch-hud-inner {
+  background: linear-gradient(135deg, #faf5ec, #f9e6e4) !important;
+  border: 1.5px solid #991b1b !important;
+  box-shadow: 0 14px 36px rgba(44, 27, 12, 0.20) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-switch-hud-icon-wrap {
+  background: rgba(185, 28, 28, 0.12) !important;
+  border-color: rgba(185, 28, 28, 0.36) !important;
+  color: var(--danger-ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-switch-hud-title {
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-switch-hud-desc {
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .hud-kbd,
+:is(html.theme-light, html.theme-sepia) .nida-quick-banner kbd,
+:is(html.theme-light, html.theme-sepia) .nida-steps-list kbd {
+  background: var(--stone-1) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 2px 0 var(--stone-edge) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-hud-guide-btn {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--accent-ink, #ffffff) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-hud-close-btn {
+  background: var(--stone-2) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-hud-close-btn:hover {
+  background: var(--stone-3) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-modal-icon-badge {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .modal-subtitle {
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-quick-banner,
+:is(html.theme-light, html.theme-sepia) .nida-step-box.highlight {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-qb-title,
+:is(html.theme-light, html.theme-sepia) .nida-sb-badge,
+:is(html.theme-light, html.theme-sepia) .nida-mobile-card h4,
+:is(html.theme-light, html.theme-sepia) .nida-test-title {
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-tab-nav {
+  border-bottom-color: var(--stone-edge) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-tab-btn {
+  background: var(--stone-2) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-tab-btn:hover {
+  background: var(--stone-3) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-tab-btn.active {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--accent-ink, #ffffff) !important;
+  box-shadow: 0 2px 10px var(--accent-glow) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-step-box,
+:is(html.theme-light, html.theme-sepia) .nida-steps-list li,
+:is(html.theme-light, html.theme-sepia) .nida-dl-card,
+:is(html.theme-light, html.theme-sepia) .nida-mobile-card,
+:is(html.theme-light, html.theme-sepia) .nida-test-zone {
+  background: var(--stone-2) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+  box-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-dl-card:hover {
+  background: var(--accent-soft) !important;
+  border-color: var(--gold-bright) !important;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.10) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-dl-icon,
+:is(html.theme-light, html.theme-sepia) .nida-dl-badge,
+:is(html.theme-light, html.theme-sepia) .nida-step-num {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-step-info strong,
+:is(html.theme-light, html.theme-sepia) .nida-dl-name {
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-step-info code {
+  background: var(--stone-3) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-test-input {
+  background: var(--stone-1) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-test-input::placeholder {
+  color: var(--ink-dim) !important;
+  opacity: 0.72;
+}
+:is(html.theme-light, html.theme-sepia) .nida-test-clear-btn {
+  background: var(--stone-1) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-test-clear-btn:hover {
+  background: var(--stone-3) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-test-badge.neutral {
+  background: var(--stone-3) !important;
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-test-badge.good {
+  color: var(--success-ink) !important;
+  background: rgba(4, 120, 87, 0.12) !important;
+  border-color: rgba(4, 120, 87, 0.35) !important;
+}
+:is(html.theme-light, html.theme-sepia) .nida-test-badge.bad {
+  color: var(--danger-ink) !important;
+  background: rgba(185, 28, 28, 0.12) !important;
+  border-color: rgba(185, 28, 28, 0.35) !important;
+}
+
+/* Smoked Frosted Glass: Trial, Race & NiDA Surfaces */
+html.theme-glass .trial-panel,
+html.theme-glass .race-panel,
+html.theme-glass .race-result-card,
+html.theme-glass .nida-switch-hud-inner {
+  background: rgba(10, 16, 32, 0.78) !important;
+  backdrop-filter: blur(22px) saturate(165%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(165%) !important;
+  border-color: rgba(125, 211, 252, 0.36) !important;
+  color: #f8fafc !important;
+}
+html.theme-glass .trial-word,
+html.theme-glass .race-track,
+html.theme-glass .nida-step-box,
+html.theme-glass .nida-steps-list li,
+html.theme-glass .nida-dl-card,
+html.theme-glass .nida-mobile-card,
+html.theme-glass .nida-test-zone {
+  background: rgba(14, 22, 46, 0.56) !important;
+  border-color: rgba(148, 163, 184, 0.28) !important;
+}
+html.theme-glass .nida-test-input,
+html.theme-glass .race-countdown {
+  background: rgba(8, 13, 28, 0.84) !important;
+  border-color: rgba(125, 211, 252, 0.36) !important;
+}
+
+/* Atmosphere Themes: Trial, Race & NiDA Surfaces */
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .trial-panel,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .race-panel,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .race-result-card,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .nida-switch-hud-inner {
+  background: linear-gradient(180deg, var(--stone-2) 0%, var(--stone-1) 100%) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .trial-word,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .race-track,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .nida-step-box,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .nida-steps-list li,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .nida-dl-card,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .nida-mobile-card,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .nida-test-zone {
+  background: var(--stone-1) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .race-track-fill:not(.ai-fill),
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .race-runner-head.player-runner {
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright)) !important;
+  color: var(--accent-ink) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .race-countdown {
+  background: color-mix(in srgb, var(--stone-1) 92%, transparent) !important;
+}

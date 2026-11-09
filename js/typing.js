@@ -607,6 +607,16 @@ function getFxCoord(el, ev) {
   return { x: window.innerWidth / 2, y: window.innerHeight / 2, height: 46 };
 }
 
+function getThemeFxAccent() {
+  try {
+    if (typeof getComputedStyle === 'function' && document.documentElement) {
+      const val = getComputedStyle(document.documentElement).getPropertyValue('--gold-bright').trim();
+      if (val) return val;
+    }
+  } catch (e) {}
+  return '#ffd166';
+}
+
 function heatColor(streakVal) {
   const html = document.documentElement;
   const isLight = html.classList.contains('theme-light');
@@ -615,23 +625,26 @@ function heatColor(streakVal) {
   const isSunset = html.classList.contains('theme-sunset');
   const isJungle = html.classList.contains('theme-jungle');
   const isGlass = html.classList.contains('theme-glass');
+  const themeAccent = getThemeFxAccent();
 
   const s = typeof streakVal === 'number' ? streakVal : (typeof streak !== 'undefined' ? streak : 0);
 
   if (s >= 30) {
-    const cosmic = ['#38bdf8', '#c084fc', '#f43f5e', '#ffd166', '#00f3ff'];
+    const cosmic = isLight || isSepia
+      ? [themeAccent, '#0284c7', '#7e22ce', '#be123c', '#047857']
+      : [themeAccent, '#38bdf8', '#c084fc', '#f43f5e', '#00f3ff'];
     return cosmic[Math.floor(Math.random() * cosmic.length)];
   }
-  if (s >= 15) return '#ff5533';
-  if (s >= 6) return '#f59e0b';
+  if (s >= 15) return (isLight || isSepia) ? '#dc2626' : '#ff5533';
+  if (s >= 6) return (isLight || isSepia) ? '#b45309' : '#f59e0b';
 
-  if (isMoonlight) return '#00f3ff';
-  if (isSunset) return '#ff7a45';
-  if (isJungle) return '#10b981';
-  if (isGlass) return '#38bdf8';
-  if (isLight) return '#d97706';
-  if (isSepia) return '#b45309';
-  return '#ffd166';
+  if (isMoonlight) return themeAccent || '#00f3ff';
+  if (isSunset) return themeAccent || '#ff7a45';
+  if (isJungle) return themeAccent || '#10b981';
+  if (isGlass) return themeAccent || '#7dd3fc';
+  if (isLight) return themeAccent || '#0369a1';
+  if (isSepia) return themeAccent || '#92400e';
+  return themeAccent || '#ffd166';
 }
 
 function isAnimationDisabled() {
@@ -734,7 +747,11 @@ function streakCelebrationBurst(count, el) {
   initFxCanvas();
   const coord = getFxCoord(el, null);
   const n = count || 28;
-  const palette = ['#ffd166', '#ff477e', '#38bdf8', '#10b981', '#a855f7', '#ffffff', '#ff9f43'];
+  const isLightLike = document.documentElement.classList.contains('theme-light') || document.documentElement.classList.contains('theme-sepia');
+  const accentCol = getThemeFxAccent();
+  const palette = isLightLike
+    ? [accentCol, '#be123c', '#0284c7', '#047857', '#7e22ce', '#b45309', '#0f172a']
+    : [accentCol, '#ff477e', '#38bdf8', '#10b981', '#a855f7', '#ffffff', '#ff9f43'];
 
   for (let i = 0; i < n; i++) {
     const p = fxSpawn();

@@ -30,7 +30,21 @@ function achievementOnce(key, icon, title, sub){
 
 
 /* ---------- confetti ---------- */
-const CONFETTI_COLORS = ['#ffd166','#ff9d2e','#4a84c4','#c8474c','#eaffda'];
+function getThemeConfettiColors(){
+  const cl = document.documentElement.classList;
+  const isLightLike = cl.contains('theme-light') || cl.contains('theme-sepia');
+  let accentBright = '';
+  let accent = '';
+  try {
+    const cs = getComputedStyle(document.documentElement);
+    accentBright = (cs.getPropertyValue('--gold-bright') || '').trim();
+    accent = (cs.getPropertyValue('--gold') || '').trim();
+  } catch (e) {}
+  if (isLightLike) {
+    return [accent || '#0284c7', accentBright || '#0369a1', '#b45309', '#be123c', '#047857'];
+  }
+  return [accentBright || '#ffd166', accent || '#ff9d2e', '#4a84c4', '#c8474c', '#5fd694'];
+}
 function confettiBurst(cx, cy, count){
   if(document.documentElement.classList.contains('anim-mode-off') ||
      document.documentElement.classList.contains('anim-mode-minimal') ||
@@ -39,10 +53,11 @@ function confettiBurst(cx, cy, count){
     return;
   }
   count = count || 26;
+  const colors = getThemeConfettiColors();
   for(let i=0;i<count;i++){
     const p = document.createElement('div');
     p.className = 'confetti-piece';
-    p.style.background = CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)];
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
     p.style.left = cx + 'px';
     p.style.top = cy + 'px';
     const angle = Math.random()*Math.PI*2;
@@ -779,13 +794,25 @@ function initStatisticsDashboard(){
     }
     if(profileSidebar) profileSidebar.classList.add('tier-5');
 
+    const cl = document.documentElement.classList;
+    const isLightSurface = cl.contains('theme-light') || cl.contains('theme-sepia');
+    let accentCol = isLightSurface ? '#0284c7' : '#ffd166';
+    let successCol = isLightSurface ? '#047857' : '#5fd694';
+    try {
+      const cs = getComputedStyle(document.documentElement);
+      accentCol = (cs.getPropertyValue('--gold-bright') || cs.getPropertyValue('--gold') || '').trim() || accentCol;
+      successCol = (cs.getPropertyValue('--success-ink') || '').trim() || successCol;
+    } catch (e) {}
+    const tealCol = isLightSurface ? '#0f766e' : '#2dd4a7';
+    const crimsonCol = isLightSurface ? '#be123c' : '#ff5a70';
+
     const tiles = [
-      [lessonTotal, isKm ? 'មេរៀនបានបង្កើត' : 'Lessons Crafted', pkIcon('book', 20), '#ffd166'],
-      [layoutCount, isKm ? 'ប្លង់ក្តារចុច' : 'Layouts Designed', pkIcon('keyboard', 20), '#2dd4a7'],
-      ['100%', isKm ? 'បង្កើតដោយផ្ទាល់' : 'Solo-Built', pkIcon('tool', 20), '#ff5a70'],
-      ['2026', isKm ? 'បង្កើតតាំងពី' : 'Founder Since', pkIcon('crown', 20), '#ffd166'],
-      ['0', isKm ? 'ពាណិជ្ជកម្ម' : 'Ads', pkIcon('ban', 20), '#5fd694'],
-      ['24/7', isKm ? 'កំពុងអភិវឌ្ឍន៍' : 'Actively Building', pkIcon('zap', 20), '#5fd694', true],
+      [lessonTotal, isKm ? 'មេរៀនបានបង្កើត' : 'Lessons Crafted', pkIcon('book', 20), accentCol],
+      [layoutCount, isKm ? 'ប្លង់ក្តារចុច' : 'Layouts Designed', pkIcon('keyboard', 20), tealCol],
+      ['100%', isKm ? 'បង្កើតដោយផ្ទាល់' : 'Solo-Built', pkIcon('tool', 20), crimsonCol],
+      ['2026', isKm ? 'បង្កើតតាំងពី' : 'Founder Since', pkIcon('crown', 20), accentCol],
+      ['0', isKm ? 'ពាណិជ្ជកម្ម' : 'Ads', pkIcon('ban', 20), successCol],
+      ['24/7', isKm ? 'កំពុងអភិវឌ្ឍន៍' : 'Actively Building', pkIcon('zap', 20), successCol, true],
     ];
     profileStatsGrid.innerHTML = tiles.map(([val,label,icon,accent,live],i)=>
       `<div class="stat-tile" style="--tile-accent:${accent};--tile-delay:${(i*0.06).toFixed(2)}s">${live ? '<span class="stat-tile-live" aria-hidden="true"></span>' : ''}<div class="stat-tile-icon">${icon}</div><div class="stat-tile-val">${val}</div><div class="stat-tile-label">${label}</div></div>`
@@ -859,6 +886,12 @@ function initStatisticsDashboard(){
   }
 
   refreshProfileUI();
+  document.addEventListener('pk-theme-changed', refreshProfileUI);
+  window.addEventListener('storage', (ev) => {
+    if (!ev || !ev.key || ev.key === 'khmerSettingTheme' || ev.key === 'khmerSettingAccent' || ev.key === 'khmerSettingAccentCustom') {
+      refreshProfileUI();
+    }
+  });
 }
 
 if(document.readyState === "loading"){

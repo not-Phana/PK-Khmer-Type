@@ -1722,83 +1722,82 @@
     color: #ffd8d0 !important;
   }
 
-  /* Glass Theme Variant */
+  /* Glass Theme Variant (Smoked Frosted Slate) */
   html.theme-glass .pk-cursor-hud {
-    background: rgba(255, 255, 255, 0.08) !important;
-    backdrop-filter: blur(28px) saturate(200%) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.35) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.55) !important;
+    background: rgba(10, 16, 32, 0.80) !important;
+    backdrop-filter: blur(22px) saturate(170%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(170%) !important;
+    border: 1px solid rgba(125, 211, 252, 0.34) !important;
+    border-top: 1px solid rgba(186, 230, 253, 0.46) !important;
     box-shadow:
-      0 24px 50px -10px rgba(0, 0, 0, 0.65),
-      0 10px 20px -5px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.15),
-      0 0 28px rgba(255, 255, 255, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
-    color: #ffffff !important;
+      0 24px 50px -10px rgba(0, 0, 0, 0.72),
+      0 10px 20px -5px rgba(0, 0, 0, 0.48),
+      0 0 0 1px rgba(125, 211, 252, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+    color: #f8fafc !important;
   }
   html.theme-glass .pk-chud-glyph-box {
-    background: rgba(255, 255, 255, 0.12) !important;
+    background: rgba(15, 23, 42, 0.70) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.45) !important;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.35) !important;
-    color: #ffffff !important;
+    border: 1px solid rgba(148, 163, 184, 0.36) !important;
+    border-bottom: 2px solid rgba(2, 6, 23, 0.72) !important;
+    color: #f8fafc !important;
     box-shadow:
-      0 4px 12px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+      0 4px 12px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
   }
   html.theme-glass .pk-chud-glyph-box svg {
-    stroke: #ffffff !important;
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7)) !important;
+    stroke: var(--gold-bright, #7dd3fc) !important;
+    filter: drop-shadow(0 0 6px var(--accent-glow, rgba(56, 189, 248, 0.5))) !important;
   }
   html.theme-glass .pk-chud-name {
-    color: #ffffff !important;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
+    color: #f8fafc !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65) !important;
   }
   html.theme-glass .pk-chud-km-tag {
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: #cbd5e1 !important;
   }
   html.theme-glass .pk-chud-category {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-color: rgba(255, 255, 255, 0.45) !important;
-    color: #ffffff !important;
+    background: var(--accent-soft, rgba(56, 189, 248, 0.16)) !important;
+    border-color: var(--accent-border, rgba(125, 211, 252, 0.40)) !important;
+    color: var(--gold-bright, #7dd3fc) !important;
   }
   html.theme-glass .pk-chud-cat-dot {
-    background: #ffffff !important;
-    box-shadow: 0 0 8px #ffffff !important;
+    background: var(--gold-bright, #7dd3fc) !important;
+    box-shadow: 0 0 8px var(--gold-bright, #7dd3fc) !important;
   }
   html.theme-glass .pk-chud-grid {
-    background: rgba(0, 0, 0, 0.28) !important;
+    background: rgba(8, 13, 28, 0.64) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border: 1px solid rgba(148, 163, 184, 0.24) !important;
   }
   html.theme-glass .pk-chud-label {
-    color: rgba(255, 255, 255, 0.75) !important;
+    color: #cbd5e1 !important;
   }
   html.theme-glass .pk-chud-finger {
-    color: #ffffff !important;
+    color: #f8fafc !important;
   }
   html.theme-glass .pk-chud-recipe kbd {
-    background: rgba(255, 255, 255, 0.16) !important;
-    border: 1px solid rgba(255, 255, 255, 0.40) !important;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.40) !important;
-    color: #ffffff !important;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    background: rgba(15, 23, 42, 0.78) !important;
+    border: 1px solid rgba(148, 163, 184, 0.36) !important;
+    border-bottom: 2px solid rgba(2, 6, 23, 0.78) !important;
+    color: #f8fafc !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
   }
   html.theme-glass .pk-chud-subscript-badge {
-    background: rgba(255, 255, 255, 0.14) !important;
-    border-color: rgba(255, 255, 255, 0.38) !important;
-    color: #ffffff !important;
+    background: rgba(15, 23, 42, 0.68) !important;
+    border-color: rgba(125, 211, 252, 0.34) !important;
+    color: #f8fafc !important;
   }
   html.theme-glass .pk-chud-subscript-badge .sub-glyph {
-    color: #ffd166 !important;
+    color: var(--gold-bright, #7dd3fc) !important;
   }
   html.theme-glass .pk-chud-desc {
-    background: rgba(255, 255, 255, 0.10) !important;
-    border-left-color: rgba(255, 255, 255, 0.8) !important;
-    color: #ffffff !important;
+    background: rgba(15, 23, 42, 0.64) !important;
+    border-left-color: var(--gold-bright, #7dd3fc) !important;
+    color: #e2e8f0 !important;
   }
 
   /* Dark Theme Variant */
@@ -2124,3 +2123,468 @@
     transform: none !important;
     box-shadow: none !important;
   }
+
+/* === UNIVERSAL 8-THEME OVERRIDES FOR KEYBOARD, STATES, CHASSIS & CURSOR === */
+
+/* 1. Light & Sepia High-Specificity Keycap States & Finger Zones (beats base.css .key .glyph) */
+html.theme-sepia .key .glyph {
+  color: #2c1b0c !important;
+  text-shadow: none !important;
+  font-weight: 600 !important;
+}
+html.theme-light .key.lesson-target,
+html.theme-light .key.lesson-target .glyph,
+html.theme-light .key.lesson-target .shift-badge,
+html.theme-light .key.lesson-target .main,
+html.theme-light .key.lesson-target .sub,
+html.theme-light .key.lesson-target .alt,
+html.theme-light .key.lesson-target .code,
+html.theme-light .key.lesson-target .space-glyph,
+html.theme-light .key.lesson-target .space-label {
+  color: #ffffff !important;
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+}
+html.theme-light .key.lesson-target,
+html.theme-light .key.target {
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%) !important;
+  border: 2px solid #1e40af !important;
+  border-bottom: 4px solid #172554 !important;
+}
+html.theme-sepia .key.lesson-target,
+html.theme-sepia .key.lesson-target .glyph,
+html.theme-sepia .key.lesson-target .shift-badge,
+html.theme-sepia .key.lesson-target .main,
+html.theme-sepia .key.lesson-target .sub,
+html.theme-sepia .key.lesson-target .alt,
+html.theme-sepia .key.lesson-target .code,
+html.theme-sepia .key.lesson-target .space-glyph,
+html.theme-sepia .key.lesson-target .space-label {
+  color: #ffffff !important;
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+}
+html.theme-sepia .key.lesson-target,
+html.theme-sepia .key.target {
+  background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%) !important;
+  border: 2px solid #4c1d95 !important;
+  border-bottom: 4px solid #2e1065 !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.modifier-target,
+:is(html.theme-light, html.theme-sepia) .key.modifier-target .glyph,
+:is(html.theme-light, html.theme-sepia) .key.modifier-target .main,
+:is(html.theme-light, html.theme-sepia) .key.modifier-target .code,
+:is(html.theme-light, html.theme-sepia) .key.modifier-target .shift-badge {
+  color: #ffffff !important;
+  background: transparent !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.modifier-target {
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%) !important;
+  border: 2px solid #075985 !important;
+  border-bottom: 4px solid #082f49 !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.correct {
+  background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%) !important;
+  border: 2px solid #16a34a !important;
+  border-bottom: 3.5px solid #15803d !important;
+  color: #14532d !important;
+  box-shadow: 0 0 16px rgba(22, 163, 74, 0.35) !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.correct .glyph,
+:is(html.theme-light, html.theme-sepia) .key.correct .main,
+:is(html.theme-light, html.theme-sepia) .key.correct .sub,
+:is(html.theme-light, html.theme-sepia) .key.correct .code,
+:is(html.theme-light, html.theme-sepia) .key.correct .shift-badge {
+  color: #14532d !important;
+  background: transparent !important;
+  text-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.wrong {
+  background: linear-gradient(180deg, #dc2626 0%, #b91c1c 100%) !important;
+  border: 2px solid #991b1b !important;
+  border-bottom: 3.5px solid #7f1d1d !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 16px rgba(185, 28, 28, 0.42) !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.wrong .glyph,
+:is(html.theme-light, html.theme-sepia) .key.wrong .main,
+:is(html.theme-light, html.theme-sepia) .key.wrong .sub,
+:is(html.theme-light, html.theme-sepia) .key.wrong .code,
+:is(html.theme-light, html.theme-sepia) .key.wrong .shift-badge {
+  color: #ffffff !important;
+  background: transparent !important;
+  text-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.lit {
+  background: color-mix(in srgb, var(--gold, #0369a1) 20%, var(--stone-1)) !important;
+  border-color: var(--gold-bright) !important;
+  box-shadow: 0 0 14px var(--accent-glow), inset 0 0 0 1px var(--accent-border) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.lit .glyph {
+  color: var(--ink) !important;
+}
+
+/* Canonical L5/R5/L4/R4/L3/R3/L2/R2 finger zones on Light & Sepia */
+html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L5"],
+html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R5"] {
+  background: linear-gradient(180deg, #fff5f5 0%, #fed7d7 100%) !important;
+  border-color: #feb2b2 !important;
+  border-bottom: 3.5px solid #e53e3e !important;
+}
+html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L4"],
+html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R4"] {
+  background: linear-gradient(180deg, #fffaf0 0%, #feebc8 100%) !important;
+  border-color: #fbd38d !important;
+  border-bottom: 3.5px solid #dd6b20 !important;
+}
+html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L3"],
+html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R3"] {
+  background: linear-gradient(180deg, #f0fff4 0%, #c6f6d5 100%) !important;
+  border-color: #9ae6b4 !important;
+  border-bottom: 3.5px solid #38a169 !important;
+}
+html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L2"] {
+  background: linear-gradient(180deg, #ebf8ff 0%, #bee3f8 100%) !important;
+  border-color: #90cdf4 !important;
+  border-bottom: 3.5px solid #3182ce !important;
+}
+html.theme-light .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R2"] {
+  background: linear-gradient(180deg, #faf5ff 0%, #e9d8fd 100%) !important;
+  border-color: #d6bcfa !important;
+  border-bottom: 3.5px solid #805ad5 !important;
+}
+html.theme-sepia .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L5"],
+html.theme-sepia .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R5"] {
+  background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 100%) !important;
+  border-color: #fda4af !important;
+  border-bottom: 3.5px solid #f43f5e !important;
+}
+html.theme-sepia .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L4"],
+html.theme-sepia .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R4"] {
+  background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%) !important;
+  border-color: #fcd34d !important;
+  border-bottom: 3.5px solid #f59e0b !important;
+}
+html.theme-sepia .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L3"],
+html.theme-sepia .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R3"] {
+  background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%) !important;
+  border-color: #6ee7b7 !important;
+  border-bottom: 3.5px solid #10b981 !important;
+}
+html.theme-sepia .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L2"] {
+  background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%) !important;
+  border-color: #93c5fd !important;
+  border-bottom: 3.5px solid #2563eb !important;
+}
+html.theme-sepia .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R2"] {
+  background: linear-gradient(180deg, #f5f3ff 0%, #ede9fe 100%) !important;
+  border-color: #c4b5fd !important;
+  border-bottom: 3.5px solid #7c3aed !important;
+}
+
+/* Light & Sepia modifier hover/press + held layers */
+html.theme-light .key.mod {
+  background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+  border-bottom-color: #94a3b8 !important;
+}
+html.theme-light .key.mod:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%) !important;
+  color: #0f172a !important;
+  border-color: var(--gold, #0369a1) !important;
+}
+html.theme-sepia .key.mod:hover {
+  background: linear-gradient(180deg, #faf5ec 0%, #e7dac1 100%) !important;
+  color: #2c1b0c !important;
+  border-color: var(--gold, #b45309) !important;
+}
+html.theme-light .key.key-win.pressed {
+  background: #dbeafe !important;
+  color: #0f172a !important;
+}
+html.theme-sepia .key.key-win.pressed {
+  background: #dfd1b8 !important;
+  color: #2c1b0c !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.key-ctrl.pressed,
+:is(html.theme-light, html.theme-sepia) .key.key-ctrl.locked,
+:is(html.theme-light, html.theme-sepia) .key.key-ctrl:hover,
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-ctrl .key.key-ctrl {
+  background: linear-gradient(180deg, #059669 0%, #047857 100%) !important;
+  color: #ffffff !important;
+  border-color: #065f46 !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.key-ctrl.pressed .glyph,
+:is(html.theme-light, html.theme-sepia) .key.key-ctrl.locked .glyph,
+:is(html.theme-light, html.theme-sepia) .key.key-ctrl:hover .glyph,
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-ctrl .key.key-ctrl .glyph {
+  color: #ffffff !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.key-altgr.pressed,
+:is(html.theme-light, html.theme-sepia) .key.key-altgr.locked,
+:is(html.theme-light, html.theme-sepia) .key.key-altgr:hover,
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-altgr .key.key-altgr {
+  background: linear-gradient(180deg, #e11d48 0%, #be123c 100%) !important;
+  color: #ffffff !important;
+  border-color: #9f1239 !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.key-altgr.pressed .glyph,
+:is(html.theme-light, html.theme-sepia) .key.key-altgr.locked .glyph,
+:is(html.theme-light, html.theme-sepia) .key.key-altgr:hover .glyph,
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-altgr .key.key-altgr .glyph {
+  color: #ffffff !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.key-shift.pressed,
+:is(html.theme-light, html.theme-sepia) .key.key-shift.locked,
+:is(html.theme-light, html.theme-sepia) .key.key-shift:hover,
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-shift .key.key-shift {
+  background: linear-gradient(180deg, var(--gold, #b45309), var(--gold-bright, #92400e)) !important;
+  color: #ffffff !important;
+  border-color: var(--gold-bright, #78350f) !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.key-shift.pressed .glyph,
+:is(html.theme-light, html.theme-sepia) .key.key-shift.locked .glyph,
+:is(html.theme-light, html.theme-sepia) .key.key-shift:hover .glyph,
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-shift .key.key-shift .glyph {
+  color: #ffffff !important;
+}
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-shift .key:not(.empty):not(.mod) {
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-shift .key:not(.empty):not(.mod) .glyph {
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-ctrl .key:not(.empty):not(.mod) {
+  border-color: rgba(4, 120, 87, 0.55) !important;
+}
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-ctrl .key:not(.empty):not(.mod) .glyph {
+  color: #047857 !important;
+}
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-altgr .key:not(.empty):not(.mod) {
+  border-color: rgba(190, 18, 60, 0.55) !important;
+}
+:is(html.theme-light, html.theme-sepia) .board-wrap.layer-altgr .key:not(.empty):not(.mod) .glyph {
+  color: #be123c !important;
+}
+
+/* 2. Hand Color Toolbar Button across all Themes */
+html.theme-light .toolbar .hands-color-quick-btn {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+html.theme-sepia .toolbar .hands-color-quick-btn {
+  background: #faf5ec !important;
+  border-color: #ccbc9e !important;
+  color: #2c1b0c !important;
+}
+:is(html.theme-light, html.theme-sepia) .toolbar .hands-color-quick-btn:hover {
+  border-color: var(--gold-bright) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12) !important;
+}
+:is(html.theme-light, html.theme-sepia) .toolbar .hands-color-quick-btn .hand-color-swatch-duo {
+  background: var(--stone-2) !important;
+  border-color: var(--stone-edge) !important;
+}
+:is(html.theme-light, html.theme-sepia) .toolbar .hands-color-quick-btn .hand-color-swatch-duo span {
+  border-color: rgba(15, 23, 42, 0.35) !important;
+}
+html.theme-glass .toolbar .hands-color-quick-btn {
+  background: rgba(12, 20, 40, 0.54) !important;
+  border-color: rgba(148, 163, 184, 0.32) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .toolbar .hands-color-quick-btn {
+  background: var(--stone-2) !important;
+  border-color: var(--accent-border) !important;
+}
+
+/* 3. Board Chassis Bar, Version Pill, Inspector Beacon & Layer Pills */
+:is(html.theme-light, html.theme-sepia) .board-chassis-bar {
+  border-bottom-color: var(--stone-edge) !important;
+}
+html.theme-light .chassis-slash {
+  color: #64748b !important;
+}
+html.theme-sepia .chassis-slash {
+  color: #6b4f2c !important;
+}
+html.theme-glass .chassis-slash {
+  color: rgba(241, 245, 249, 0.75) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .chassis-slash {
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .chassis-docs-badge,
+:is(html.theme-light, html.theme-sepia) .chassis-badge,
+:is(html.theme-light, html.theme-sepia) .chassis-version-badge {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+  box-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .chassis-version-badge:hover {
+  background: var(--gold-bright) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--accent-ink, #ffffff) !important;
+}
+
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .chassis-version-badge,
+html.theme-glass .chassis-version-badge {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .chassis-version-badge:hover,
+html.theme-glass .chassis-version-badge:hover {
+  background: color-mix(in srgb, var(--gold-bright) 28%, var(--stone-2)) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .key.inspector-beacon {
+  border-color: var(--gold-bright) !important;
+  background: var(--accent-soft) !important;
+  box-shadow: 0 0 18px var(--accent-glow), inset 0 0 8px var(--accent-soft) !important;
+}
+:is(html.theme-light, html.theme-sepia) .guide-mini-key.active,
+:is(html.theme-light, html.theme-sepia) .guide-mini-key.mini-pulsing {
+  border-color: var(--gold-bright) !important;
+  background: var(--gold-bright) !important;
+  box-shadow: 0 4px 12px var(--accent-glow) !important;
+}
+:is(html.theme-light, html.theme-sepia) .guide-mini-key.active .km-ch,
+:is(html.theme-light, html.theme-sepia) .guide-mini-key.mini-pulsing .km-ch,
+:is(html.theme-light, html.theme-sepia) .guide-mini-key.active .en-ch,
+:is(html.theme-light, html.theme-sepia) .guide-mini-key.mini-pulsing .en-ch {
+  color: var(--accent-ink, #ffffff) !important;
+  text-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .layer-pill:hover {
+  border-color: var(--gold-bright) !important;
+  color: var(--gold-bright) !important;
+  box-shadow: 0 0 10px var(--accent-glow) !important;
+}
+:is(html.theme-light, html.theme-sepia) .layer-pill.locked {
+  border-color: var(--gold-bright) !important;
+  background: var(--accent-soft) !important;
+  color: var(--gold-bright) !important;
+  box-shadow: 0 0 12px var(--accent-glow) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset, html.theme-glass) .key.inspector-beacon {
+  border-color: var(--gold-bright) !important;
+  background: var(--accent-soft) !important;
+  box-shadow: 0 0 20px var(--accent-glow), inset 0 0 10px var(--accent-soft) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset, html.theme-glass) .guide-mini-key.active,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset, html.theme-glass) .guide-mini-key.mini-pulsing {
+  border-color: var(--gold-bright) !important;
+  background: color-mix(in srgb, var(--gold-bright) 24%, var(--stone-2)) !important;
+  box-shadow: 0 0 14px var(--accent-glow) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset, html.theme-glass) .guide-mini-key.active .en-ch,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset, html.theme-glass) .guide-mini-key.mini-pulsing .en-ch,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset, html.theme-glass) .layer-pill.locked {
+  border-color: var(--gold-bright) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset, html.theme-glass) .layer-pill:hover {
+  border-color: var(--gold-bright) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 0 12px var(--accent-glow) !important;
+}
+
+/* 4. Smooth YOU Presence Cursor (Light, Sepia, Glass, Atmosphere) */
+html.theme-light .pyc-arrow-path {
+  stroke: #ffffff !important;
+}
+html.theme-light .pyc-badge-inner {
+  background: rgba(255, 255, 255, 0.94) !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.14), 0 0 8px var(--cur-glow) !important;
+}
+html.theme-sepia .pyc-arrow-path {
+  stroke: #faf5ec !important;
+}
+html.theme-sepia .pyc-badge-inner {
+  background: rgba(250, 245, 236, 0.95) !important;
+  box-shadow: 0 4px 14px rgba(44, 27, 12, 0.16), 0 0 8px var(--cur-glow) !important;
+}
+html.theme-glass .pyc-badge-inner {
+  background: rgba(10, 16, 32, 0.84) !important;
+  backdrop-filter: blur(12px) saturate(165%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(165%) !important;
+}
+
+/* 5. Smoked Frosted Glass Keyboard Deck & Finger Zones */
+html.theme-glass .board-wrap {
+  background: rgba(10, 16, 32, 0.72) !important;
+  backdrop-filter: blur(22px) saturate(165%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(165%) !important;
+  border-color: rgba(125, 211, 252, 0.30) !important;
+}
+html.theme-glass .key {
+  background: rgba(15, 23, 42, 0.64) !important;
+  border-color: rgba(148, 163, 184, 0.32) !important;
+  border-bottom: 3.5px solid rgba(148, 163, 184, 0.48) !important;
+  color: #f8fafc !important;
+}
+html.theme-glass .key.mod {
+  background: rgba(10, 15, 30, 0.78) !important;
+  color: #cbd5e1 !important;
+}
+html.theme-glass .key:hover {
+  background: rgba(30, 41, 59, 0.78) !important;
+  border-color: var(--gold-bright, #7dd3fc) !important;
+  color: #ffffff !important;
+}
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="lp"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="rp"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L5"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R5"] {
+  background: linear-gradient(180deg, rgba(244, 63, 94, 0.22), rgba(15, 23, 42, 0.66)) !important;
+  border-bottom-color: #f43f5e !important;
+}
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="lr"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="rr"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L4"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R4"] {
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.22), rgba(15, 23, 42, 0.66)) !important;
+  border-bottom-color: #f59e0b !important;
+}
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="lm"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="rm"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L3"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R3"] {
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.22), rgba(15, 23, 42, 0.66)) !important;
+  border-bottom-color: #10b981 !important;
+}
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="li"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="L2"] {
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.24), rgba(15, 23, 42, 0.66)) !important;
+  border-bottom-color: #3b82f6 !important;
+}
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="ri"],
+html.theme-glass .key:not(.mod):not(.lesson-target):not(.correct):not(.wrong)[data-finger="R2"] {
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.24), rgba(15, 23, 42, 0.66)) !important;
+  border-bottom-color: #8b5cf6 !important;
+}
+
+/* 6. Atmosphere Themes: Lit Keys & Horizon Harmony */
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .key.lit {
+  background: color-mix(in srgb, var(--gold-bright) 24%, var(--stone-2)) !important;
+  border-color: var(--gold-bright) !important;
+  box-shadow: 0 0 16px var(--accent-glow), inset 0 0 0 1px var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .key.mod {
+  background: linear-gradient(180deg, var(--stone-2), var(--stone-1)) !important;
+  border-color: var(--stone-edge) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .key.mod:hover {
+  background: linear-gradient(180deg, var(--stone-3), var(--stone-2)) !important;
+  color: var(--ink) !important;
+  border-color: var(--gold) !important;
+}

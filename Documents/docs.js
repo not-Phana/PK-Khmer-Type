@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdown.hidden = false;
         dropdown.innerHTML = `
           <div class="search-empty-state">
-            <div style="font-weight:600; color:#fff;">No documentation results for <strong>"${rawQuery}"</strong></div>
+            <div style="font-weight:600; color:var(--doc-ink);">No documentation results for <strong>"${rawQuery}"</strong></div>
             <div style="margin-top:8px; font-size:0.8rem; color:var(--doc-ink-dim);">
               Suggestions: <code>3d</code>, <code>keycap</code>, <code>coeng</code>, <code>adaptive</code>, <code>shortcuts</code>, <code>race</code>, <code>ប្លង់</code>, <code>ជើង</code>
             </div>
@@ -703,5 +703,74 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initCyberpunkSwitchChamber();
+
+  // 8-Theme + Live System Sync Engine
+  const DOCS_THEME_META = {
+    dark: '#060812',
+    light: '#f4f7fb',
+    sepia: '#f6efe2',
+    temple: '#0f0b08',
+    moonlight: '#090d1a',
+    jungle: '#06140e',
+    sunset: '#140914',
+    glass: '#070b14'
+  };
+  const DOCS_THEME_CLASSES = ['theme-light', 'theme-sepia', 'theme-temple', 'theme-moonlight', 'theme-jungle', 'theme-sunset', 'theme-glass'];
+
+  function applyDocsTheme(mode, opts) {
+    const o = opts || {};
+    const persist = o.persist !== false;
+    const raw = mode || 'dark';
+    const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let eff = raw === 'system' ? (sysDark ? 'dark' : 'light') : raw;
+    if (!DOCS_THEME_META[eff]) eff = 'dark';
+
+    const root = document.documentElement;
+    DOCS_THEME_CLASSES.forEach((c) => root.classList.remove(c));
+    if (eff !== 'dark') root.classList.add('theme-' + eff);
+    root.dataset.themeMode = raw;
+    root.dataset.themeEffective = eff;
+    root.style.colorScheme = (eff === 'light' || eff === 'sepia') ? 'light' : 'dark';
+
+    const meta = document.getElementById('pkThemeColorMeta');
+    if (meta) meta.setAttribute('content', DOCS_THEME_META[eff]);
+
+    const sel = document.getElementById('docsThemeSelect');
+    if (sel && sel.value !== raw) sel.value = raw;
+
+    if (persist) {
+      try {
+        localStorage.setItem('khmerSettingTheme', raw);
+        localStorage.setItem('pk_rei_theme', raw);
+      } catch (_e) {}
+    }
+  }
+  window.applyDocsTheme = applyDocsTheme;
+
+  const docsThemeSel = document.getElementById('docsThemeSelect');
+  let savedDocsTheme = 'dark';
+  try {
+    savedDocsTheme = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+  } catch (_e) {}
+  applyDocsTheme(savedDocsTheme, { persist: false });
+  if (docsThemeSel) {
+    docsThemeSel.addEventListener('change', (e) => applyDocsTheme(e.target.value, { persist: true }));
+  }
+  if (window.matchMedia) {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const onSysChange = () => {
+      let cur = 'dark';
+      try {
+        cur = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+      } catch (_e) {}
+      if (cur === 'system') applyDocsTheme('system', { persist: false });
+    };
+    if (typeof mq.addEventListener === 'function') mq.addEventListener('change', onSysChange);
+  }
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'khmerSettingTheme' || e.key === 'pk_rei_theme') {
+      applyDocsTheme(e.newValue || 'dark', { persist: false });
+    }
+  });
 });
 

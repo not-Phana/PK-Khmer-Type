@@ -5088,10 +5088,10 @@ function applyLessonsData(data){
             const best = getLessonBest(l.id);
             const locked = isLessonLocked(l.id);
             const statusIcon = best && best.mastered
-              ? `<svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5fd694" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`
+              ? `<span class="lm-vt-status-mastered"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>`
               : locked
-              ? `<svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
-              : `<svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+              ? `<span class="lm-vt-status-locked"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>`
+              : `<span class="lm-vt-status-ready"><svg class="pk-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>`;
 
             const title = (isKm && l.titleKm) ? l.titleKm : l.title;
             lessonsHtml += `
@@ -5586,14 +5586,19 @@ function initReiStageRailScroll(wrapEl) {
     }
   }, true);
 
-  // Auto-scroll active stage button into view smoothly
-  setTimeout(() => {
+  // Auto-scroll active stage button into view cleanly after any desktop View Transition settles
+  const runStageRailAlign = () => {
     const activeBtn = sBar.querySelector('.rei-stage-btn.active');
-    if (activeBtn && typeof activeBtn.scrollIntoView === 'function') {
+    if (activeBtn && activeBtn.offsetLeft > 8 && typeof activeBtn.scrollIntoView === 'function') {
       activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
     updateScrollButtons();
-  }, 60);
+  };
+  if (typeof window.pkWhenTransitionSettled === 'function') {
+    window.pkWhenTransitionSettled(runStageRailAlign);
+  } else {
+    setTimeout(runStageRailAlign, 60);
+  }
 }
 window.initReiStageRailScroll = initReiStageRailScroll;
 

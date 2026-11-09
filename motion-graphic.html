@@ -3,11 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" id="pkThemeColorMeta" content="#05070d">
+  <script id="pkEarlyThemeBoot">
+    (function () {
+      var THEME_META = {
+        dark: '#05070d',
+        light: '#f4f7fb',
+        sepia: '#f6efe2',
+        temple: '#0f0b08',
+        moonlight: '#090d1a',
+        jungle: '#06140e',
+        sunset: '#140914',
+        glass: '#070b14'
+      };
+      var ALL_CLASSES = ['theme-light', 'theme-sepia', 'theme-temple', 'theme-moonlight', 'theme-jungle', 'theme-sunset', 'theme-glass'];
+      try {
+        var savedMode = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+        var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var eff = savedMode === 'system' ? (sysDark ? 'dark' : 'light') : savedMode;
+        if (!THEME_META[eff]) eff = 'dark';
+        var root = document.documentElement;
+        ALL_CLASSES.forEach(function (c) { root.classList.remove(c); });
+        if (eff !== 'dark') root.classList.add('theme-' + eff);
+        root.dataset.themeMode = savedMode;
+        root.dataset.themeEffective = eff;
+        root.style.colorScheme = (eff === 'light' || eff === 'sepia') ? 'light' : 'dark';
+        var meta = document.getElementById('pkThemeColorMeta');
+        if (meta) meta.setAttribute('content', THEME_META[eff]);
+      } catch (e) {}
+    })();
+  </script>
   <title>PK Khmer Type — Cinematic Motion Graphic & App Showcase</title>
   <style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
-  <link rel="stylesheet" href="css/desktop-transition.css?v=98">
+  <link rel="stylesheet" href="css/desktop-transition.css?v=99">
   <link rel="expect" href="#mgStageCard" blocking="render">
-  <script async blocking="render" src="js/desktop-transition.js?v=98"></script>
+  <script async blocking="render" src="js/desktop-transition.js?v=99"></script>
   <meta name="description" content="Cinematic motion graphic and interactive typing showcase for PK Khmer Type — Cambodia's premier mechanical touch-typing studio.">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +51,10 @@
        Strict Zero-Emoji, 60 FPS Procedural Canvas & Web Audio
        ========================================================================== */
     :root {
+      color-scheme: light dark;
       --bg-void: #05070d;
       --bg-card: rgba(14, 18, 32, 0.85);
+      --bg-card-solid: #0e1220;
       --gold-primary: #ffd166;
       --gold-amber: #ff9d2e;
       --cyan-neon: #38bdf8;
@@ -30,6 +63,31 @@
       --ink: #f8fafc;
       --ink-dim: #94a3b8;
       --glass-border: rgba(255, 209, 102, 0.22);
+      --ui-surface: rgba(255, 255, 255, 0.045);
+      --ui-surface-hover: rgba(255, 209, 102, 0.12);
+      --ui-border: rgba(255, 255, 255, 0.12);
+      --track-bg: rgba(255, 255, 255, 0.1);
+      --marker-bg: rgba(255, 255, 255, 0.35);
+      --logo-bg: rgba(255, 209, 102, 0.1);
+      --badge-bg: rgba(255, 209, 102, 0.12);
+      --badge-border: rgba(255, 209, 102, 0.3);
+      --badge-ink: #ffd166;
+      --primary-btn-bg: linear-gradient(135deg, var(--gold-primary), var(--gold-amber));
+      --primary-btn-ink: #05070d;
+      --export-bg: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 157, 46, 0.2));
+      --export-border: rgba(255, 209, 102, 0.45);
+      --export-ink: #ffffff;
+      --active-pill-bg: rgba(255, 209, 102, 0.15);
+      --active-pill-ink: #ffd166;
+      --active-icon-bg: var(--gold-primary);
+      --active-icon-ink: #05070d;
+      --stage-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 209, 102, 0.12);
+      --panel-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      --ambient-bg:
+        radial-gradient(circle at 50% 10%, rgba(255, 157, 46, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 10% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 90% 70%, rgba(255, 71, 87, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, #05070d 0%, #080c18 60%, #05070d 100%);
       --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-khmer: 'Kantumruy Pro', 'Khmer OS Siemreap', 'Khmer OS', 'Noto Sans Khmer', sans-serif;
       --font-mono: 'JetBrains Mono', 'Cascadia Code', monospace;
@@ -57,11 +115,7 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      background:
-        radial-gradient(circle at 50% 10%, rgba(255, 157, 46, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at 10% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 90% 70%, rgba(255, 71, 87, 0.06) 0%, transparent 50%),
-        linear-gradient(180deg, #05070d 0%, #080c18 60%, #05070d 100%);
+      background: var(--ambient-bg);
     }
 
     .mg-container {
@@ -95,19 +149,21 @@
     .mg-logo-wrap {
       width: 36px;
       height: 36px;
-      background: rgba(255, 209, 102, 0.1);
+      border-radius: 9px;
+      background: var(--logo-bg);
       border: 1px solid var(--glass-border);
+      color: var(--ink);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 16px rgba(255, 209, 102, 0.2);
+      box-shadow: 0 0 16px rgba(255, 209, 102, 0.18);
     }
 
     .mg-brand-title {
       font-size: 1.15rem;
       font-weight: 800;
       letter-spacing: -0.02em;
-      color: #ffffff;
+      color: var(--ink);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -124,9 +180,10 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       padding: 3px 8px;
-      background: rgba(255, 209, 102, 0.12);
-      border: 1px solid rgba(255, 209, 102, 0.3);
-      color: var(--gold-primary);
+      border-radius: 9px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--badge-ink);
     }
 
     .mg-nav-actions {
@@ -140,8 +197,9 @@
       font-size: 0.78rem;
       font-weight: 600;
       color: var(--ink-dim);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--ui-surface);
+      border: 1px solid var(--ui-border);
+      border-radius: 9px;
       padding: 6px 14px;
       display: inline-flex;
       align-items: center;
@@ -152,15 +210,15 @@
     }
 
     .mg-nav-btn:hover {
-      color: #ffffff;
+      color: var(--ink);
       border-color: var(--gold-primary);
-      background: rgba(255, 209, 102, 0.12);
+      background: var(--ui-surface-hover);
       box-shadow: 0 0 14px rgba(255, 209, 102, 0.2);
     }
 
     .mg-nav-btn.primary {
-      background: linear-gradient(135deg, var(--gold-primary), var(--gold-amber));
-      color: #05070d;
+      background: var(--primary-btn-bg);
+      color: var(--primary-btn-ink);
       border-color: transparent;
       font-weight: 700;
     }
@@ -177,10 +235,9 @@
       aspect-ratio: 16 / 9;
       background: #000000;
       border: 1px solid var(--glass-border);
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.8),
-        0 0 40px rgba(255, 209, 102, 0.12);
+      box-shadow: var(--stage-shadow);
     }
 
     #mgCanvas {
@@ -194,11 +251,12 @@
       width: 100%;
       background: var(--bg-card);
       border: 1px solid var(--glass-border);
+      border-radius: 12px;
       padding: 12px 18px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: var(--panel-shadow);
     }
 
     /* Timeline Scrubber */
@@ -220,7 +278,8 @@
       position: relative;
       flex: 1;
       height: 8px;
-      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9px;
+      background: var(--track-bg);
       cursor: pointer;
       overflow: visible;
     }
@@ -260,7 +319,7 @@
       top: -3px;
       width: 2px;
       height: 14px;
-      background: rgba(255, 255, 255, 0.35);
+      background: var(--marker-bg);
       border-radius: 9px;
       pointer-events: none;
     }
@@ -284,8 +343,8 @@
       width: 36px;
       height: 36px;
       border-radius: 9px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--ui-surface);
+      border: 1px solid var(--ui-border);
       color: var(--ink);
       display: flex;
       align-items: center;
@@ -297,13 +356,13 @@
     .mg-icon-btn:hover {
       border-color: var(--gold-primary);
       color: var(--gold-primary);
-      background: rgba(255, 209, 102, 0.12);
+      background: var(--ui-surface-hover);
     }
 
     .mg-icon-btn.active {
-      border-color: var(--gold-primary);
-      color: #05070d;
-      background: var(--gold-primary);
+      border-color: var(--active-icon-bg);
+      color: var(--active-icon-ink);
+      background: var(--active-icon-bg);
     }
 
     .mg-scene-pills {
@@ -318,8 +377,9 @@
       font-size: 0.72rem;
       font-weight: 600;
       color: var(--ink-dim);
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--ui-surface);
+      border: 1px solid var(--ui-border);
+      border-radius: 9px;
       padding: 5px 10px;
       cursor: pointer;
       white-space: nowrap;
@@ -327,14 +387,14 @@
     }
 
     .mg-scene-pill:hover {
-      color: #ffffff;
-      border-color: rgba(255, 209, 102, 0.4);
+      color: var(--ink);
+      border-color: var(--gold-primary);
     }
 
     .mg-scene-pill.active {
-      background: rgba(255, 209, 102, 0.15);
+      background: var(--active-pill-bg);
       border-color: var(--gold-primary);
-      color: var(--gold-primary);
+      color: var(--active-pill-ink);
       font-weight: 700;
     }
 
@@ -343,26 +403,27 @@
       font-size: 0.76rem;
       font-weight: 700;
       padding: 7px 14px;
+      border-radius: 9px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: all 0.2s ease;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: var(--ui-surface);
+      border: 1px solid var(--ui-border);
       color: var(--ink);
     }
 
     .mg-action-btn:hover {
       border-color: var(--gold-primary);
       color: var(--gold-primary);
-      background: rgba(255, 209, 102, 0.12);
+      background: var(--ui-surface-hover);
     }
 
     .mg-action-btn.export-btn {
-      background: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 157, 46, 0.2));
-      border-color: rgba(255, 209, 102, 0.45);
-      color: #ffffff;
+      background: var(--export-bg);
+      border-color: var(--export-border);
+      color: var(--export-ink);
     }
 
     .mg-action-btn.export-btn:hover {
@@ -382,11 +443,13 @@
 
     .mg-explain-card {
       background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--ui-border);
+      border-radius: 12px;
       padding: 16px 18px;
       display: flex;
       flex-direction: column;
       gap: 8px;
+      box-shadow: var(--panel-shadow);
       transition: border-color 0.2s ease;
     }
 
@@ -403,8 +466,9 @@
     .mg-explain-icon {
       width: 32px;
       height: 32px;
-      background: rgba(255, 209, 102, 0.1);
-      border: 1px solid rgba(255, 209, 102, 0.25);
+      border-radius: 9px;
+      background: var(--logo-bg);
+      border: 1px solid var(--badge-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -415,7 +479,7 @@
     .mg-explain-title {
       font-size: 0.94rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--ink);
     }
 
     .mg-explain-desc {
@@ -451,7 +515,46 @@
       50% { opacity: 0.3; }
     }
 
+    .nav-theme-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 9px;
+      background: var(--ui-surface);
+      border: 1px solid var(--ui-border);
+      color: var(--ink-dim);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .nav-theme-wrap:focus-within,
+    .nav-theme-wrap:hover {
+      border-color: var(--gold-primary);
+    }
+    .nav-theme-select {
+      appearance: auto;
+      background: transparent;
+      border: none;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      max-width: 132px;
+    }
+    .nav-theme-select option {
+      background: var(--bg-card-solid);
+      color: var(--ink);
+    }
+
     @media (max-width: 768px) {
+      .mg-header {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .mg-badge {
+        display: none;
+      }
       .mg-btn-row {
         flex-direction: column;
         align-items: stretch;
@@ -459,6 +562,149 @@
       .mg-scene-pills {
         justify-content: flex-start;
       }
+    }
+
+    /* ========================================================================
+       THEME SELECTOR & FULL 8-THEME SYSTEM (Motion Graphic)
+       ======================================================================== */
+    html.theme-light {
+      color-scheme: light;
+      --bg-void: #f4f7fb;
+      --bg-card: #ffffff;
+      --bg-card-solid: #ffffff;
+      --gold-primary: #b45309;
+      --gold-amber: #9a3412;
+      --cyan-neon: #0369a1;
+      --emerald-neon: #047857;
+      --ruby-neon: #be123c;
+      --ink: #0f172a;
+      --ink-dim: #334155;
+      --glass-border: rgba(15, 23, 42, 0.16);
+      --ui-surface: #f1f5f9;
+      --ui-surface-hover: #fef3c7;
+      --ui-border: rgba(15, 23, 42, 0.18);
+      --track-bg: #cbd5e1;
+      --marker-bg: rgba(15, 23, 42, 0.35);
+      --logo-bg: #fef3c7;
+      --badge-bg: #fef3c7;
+      --badge-border: rgba(180, 83, 9, 0.35);
+      --badge-ink: #7c2d12;
+      --primary-btn-bg: linear-gradient(135deg, #b45309, #9a3412);
+      --primary-btn-ink: #ffffff;
+      --export-bg: #fef3c7;
+      --export-border: #b45309;
+      --export-ink: #7c2d12;
+      --active-pill-bg: #fef3c7;
+      --active-pill-ink: #7c2d12;
+      --active-icon-bg: #9a3412;
+      --active-icon-ink: #ffffff;
+      --stage-shadow: 0 20px 50px rgba(15, 23, 42, 0.16);
+      --panel-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+      --ambient-bg:
+        radial-gradient(circle at 50% 10%, rgba(180, 83, 9, 0.06) 0%, transparent 60%),
+        radial-gradient(circle at 10% 80%, rgba(3, 105, 161, 0.05) 0%, transparent 50%),
+        linear-gradient(180deg, #f4f7fb 0%, #eaf0f7 60%, #f4f7fb 100%);
+    }
+
+    html.theme-sepia {
+      color-scheme: light;
+      --bg-void: #f6efe2;
+      --bg-card: #fdf9f0;
+      --bg-card-solid: #fdf9f0;
+      --gold-primary: #9a3412;
+      --gold-amber: #7c2d12;
+      --cyan-neon: #0e7490;
+      --emerald-neon: #15803d;
+      --ruby-neon: #9f1239;
+      --ink: #2d1f11;
+      --ink-dim: #4e361d;
+      --glass-border: rgba(78, 54, 29, 0.22);
+      --ui-surface: #f3e8d4;
+      --ui-surface-hover: #f5deb3;
+      --ui-border: rgba(78, 54, 29, 0.22);
+      --track-bg: #dfd2ba;
+      --marker-bg: rgba(78, 54, 29, 0.35);
+      --logo-bg: #f5deb3;
+      --badge-bg: #f5deb3;
+      --badge-border: rgba(154, 52, 18, 0.35);
+      --badge-ink: #7c2d12;
+      --primary-btn-bg: linear-gradient(135deg, #9a3412, #7c2d12);
+      --primary-btn-ink: #ffffff;
+      --export-bg: #f5deb3;
+      --export-border: #9a3412;
+      --export-ink: #7c2d12;
+      --active-pill-bg: #f5deb3;
+      --active-pill-ink: #7c2d12;
+      --active-icon-bg: #7c2d12;
+      --active-icon-ink: #ffffff;
+      --stage-shadow: 0 20px 50px rgba(45, 31, 17, 0.18);
+      --panel-shadow: 0 6px 20px rgba(45, 31, 17, 0.08);
+      --ambient-bg:
+        radial-gradient(circle at 50% 10%, rgba(154, 52, 18, 0.07) 0%, transparent 60%),
+        radial-gradient(circle at 10% 80%, rgba(14, 116, 144, 0.05) 0%, transparent 50%),
+        linear-gradient(180deg, #f6efe2 0%, #ede2cd 60%, #f6efe2 100%);
+    }
+
+    html.theme-temple {
+      --bg-void: #0f0b08;
+      --bg-card: rgba(30, 22, 16, 0.9);
+      --bg-card-solid: #1e1610;
+      --gold-primary: #f5c451;
+      --gold-amber: #d97706;
+      --glass-border: rgba(245, 196, 81, 0.26);
+      --ambient-bg:
+        radial-gradient(circle at 50% 10%, rgba(245, 196, 81, 0.14) 0%, transparent 60%),
+        linear-gradient(180deg, #0f0b08 0%, #19120c 60%, #0f0b08 100%);
+    }
+
+    html.theme-moonlight {
+      --bg-void: #090d1a;
+      --bg-card: rgba(18, 25, 51, 0.9);
+      --bg-card-solid: #121933;
+      --gold-primary: #fde68a;
+      --gold-amber: #7dd3fc;
+      --glass-border: rgba(125, 211, 252, 0.24);
+      --ambient-bg:
+        radial-gradient(circle at 50% 10%, rgba(125, 211, 252, 0.12) 0%, transparent 60%),
+        linear-gradient(180deg, #090d1a 0%, #101730 60%, #090d1a 100%);
+    }
+
+    html.theme-jungle {
+      --bg-void: #06140e;
+      --bg-card: rgba(13, 39, 28, 0.9);
+      --bg-card-solid: #0d271c;
+      --gold-primary: #fde047;
+      --gold-amber: #34d399;
+      --glass-border: rgba(52, 211, 153, 0.26);
+      --ambient-bg:
+        radial-gradient(circle at 50% 10%, rgba(52, 211, 153, 0.14) 0%, transparent 60%),
+        linear-gradient(180deg, #06140e 0%, #0b2218 60%, #06140e 100%);
+    }
+
+    html.theme-sunset {
+      --bg-void: #140914;
+      --bg-card: rgba(36, 16, 36, 0.9);
+      --bg-card-solid: #241024;
+      --gold-primary: #fde047;
+      --gold-amber: #fb923c;
+      --glass-border: rgba(251, 146, 60, 0.28);
+      --ambient-bg:
+        radial-gradient(circle at 50% 10%, rgba(251, 146, 60, 0.15) 0%, transparent 60%),
+        linear-gradient(180deg, #140914 0%, #220e22 60%, #140914 100%);
+    }
+
+    html.theme-glass {
+      --bg-void: #070b14;
+      --bg-card: rgba(10, 16, 32, 0.72);
+      --bg-card-solid: #0a1020;
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --ui-surface: rgba(14, 22, 44, 0.65);
+      --ui-border: rgba(255, 255, 255, 0.2);
+    }
+    html.theme-glass .mg-controls-panel,
+    html.theme-glass .mg-explain-card {
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
     }
   </style>
 </head>
@@ -475,8 +721,8 @@
           <line x1="10" y1="8" x2="10.01" y2="8"/>
           <line x1="14" y1="8" x2="14.01" y2="8"/>
           <line x1="18" y1="8" x2="18.01" y2="8"/>
-          <line x1="6" y1="12" x2="8" y2="12" stroke="#ffd166" stroke-width="2.5"/>
-          <line x1="16" y1="12" x2="18" y2="12" stroke="#ffd166" stroke-width="2.5"/>
+          <line x1="6" y1="12" x2="8" y2="12" stroke="var(--gold-primary)" stroke-width="2.5"/>
+          <line x1="16" y1="12" x2="18" y2="12" stroke="var(--gold-primary)" stroke-width="2.5"/>
           <line x1="7" y1="16" x2="17" y2="16"/>
         </svg>
       </div>
@@ -487,6 +733,20 @@
     </a>
 
     <div class="mg-nav-actions">
+      <label class="nav-theme-wrap" title="Switch Theme">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <select id="mgThemeSelect" class="nav-theme-select" aria-label="Color theme">
+          <option value="system">System Auto</option>
+          <option value="dark">Dark Mode</option>
+          <option value="light">Light Mode</option>
+          <option value="sepia">Sepia Paper</option>
+          <option value="temple">Angkor Temple</option>
+          <option value="moonlight">Moonlight Indigo</option>
+          <option value="jungle">Emerald Jungle</option>
+          <option value="sunset">Warm Sunset</option>
+          <option value="glass">Smoked Glass</option>
+        </select>
+      </label>
       <a href="index.html" class="mg-nav-btn primary">
         <span>Enter Studio</span>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
@@ -1727,13 +1987,78 @@
   // Start Animation Loop
   requestAnimationFrame(renderFrame);
 
+  /* ---------- Theme Synchronization Engine ---------- */
+  var MG_THEME_META = {
+    dark: '#05070d',
+    light: '#f4f7fb',
+    sepia: '#f6efe2',
+    temple: '#0f0b08',
+    moonlight: '#090d1a',
+    jungle: '#06140e',
+    sunset: '#140914',
+    glass: '#070b14'
+  };
+  var MG_THEME_CLASSES = ['theme-light', 'theme-sepia', 'theme-temple', 'theme-moonlight', 'theme-jungle', 'theme-sunset', 'theme-glass'];
+  var mgThemeSelect = document.getElementById('mgThemeSelect');
+
+  function applyMotionTheme(mode, opts) {
+    var persist = !opts || opts.persist !== false;
+    var chosen = mode || 'dark';
+    var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var eff = chosen === 'system' ? (sysDark ? 'dark' : 'light') : chosen;
+    if (!MG_THEME_META[eff]) eff = 'dark';
+    var root = document.documentElement;
+    MG_THEME_CLASSES.forEach(function (cls) { root.classList.remove(cls); });
+    if (eff !== 'dark') root.classList.add('theme-' + eff);
+    root.dataset.themeMode = chosen;
+    root.dataset.themeEffective = eff;
+    root.style.colorScheme = (eff === 'light' || eff === 'sepia') ? 'light' : 'dark';
+    var meta = document.getElementById('pkThemeColorMeta');
+    if (meta) meta.setAttribute('content', MG_THEME_META[eff]);
+    if (mgThemeSelect && mgThemeSelect.value !== chosen) mgThemeSelect.value = chosen;
+    if (persist) {
+      try {
+        localStorage.setItem('khmerSettingTheme', chosen);
+        localStorage.setItem('pk_rei_theme', chosen);
+      } catch (e) {}
+    }
+  }
+
+  (function initMotionTheme() {
+    var initial = 'dark';
+    try {
+      initial = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+    } catch (e) {}
+    applyMotionTheme(initial, { persist: false });
+    if (mgThemeSelect) {
+      mgThemeSelect.addEventListener('change', function (e) {
+        applyMotionTheme(e.target.value, { persist: true });
+      });
+    }
+    if (window.matchMedia) {
+      var mq = window.matchMedia('(prefers-color-scheme: dark)');
+      var onSysChange = function () {
+        var cur = document.documentElement.dataset.themeMode || 'dark';
+        if (cur === 'system') applyMotionTheme('system', { persist: false });
+      };
+      if (typeof mq.addEventListener === 'function') mq.addEventListener('change', onSysChange);
+      else if (typeof mq.addListener === 'function') mq.addListener(onSysChange);
+    }
+    window.addEventListener('storage', function (e) {
+      if (e.key === 'khmerSettingTheme' || e.key === 'pk_rei_theme') {
+        applyMotionTheme(e.newValue || 'dark', { persist: false });
+      }
+    });
+  })();
+
   // Expose global controller for automated captures / CDP scripts
   window.PKMotionGraphic = {
     seekTo: function (t) { currentTime = t; lastTypedIndex = -1; },
     play: function () { isPlaying = true; },
     pause: function () { isPlaying = false; },
     getCurrentTime: function () { return currentTime; },
-    exportVideo: startRecording
+    exportVideo: startRecording,
+    applyTheme: applyMotionTheme
   };
 })();
 </script>

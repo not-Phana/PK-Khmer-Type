@@ -821,90 +821,368 @@ html.anim-mode-minimal .pk-tutorial-modal-card {
 }
 
 
-/* ================= Light Theme for Tutorial Modal & Tooltips ================= */
+/* ================= 8-Theme Overhaul for Tutorial Overlay, Modals, Tooltips & HUD ================= */
+
+.pk-spotlight-frame {
+  border-color: var(--gold-bright, #ffd166);
+  box-shadow: 0 0 0 1px var(--accent-border, rgba(255, 209, 102, 0.3)),
+              0 0 24px var(--accent-glow, rgba(255, 209, 102, 0.45)),
+              inset 0 0 12px var(--accent-soft, rgba(255, 209, 102, 0.15));
+}
+.pk-tutorial-tooltip,
+.pk-tutorial-modal-card,
+.pk-tutorial-practice-pill {
+  border-color: var(--accent-border, rgba(255, 209, 102, 0.4));
+}
+
+/* Theme-Aware Accent Variables across Default Dark, Temple, Moonlight, Jungle, Sunset, Glass */
+.pk-tut-tooltip-lang-btn {
+  border-color: var(--accent-border, rgba(255, 209, 102, 0.3));
+  color: var(--ink-dim, #cbd5e1);
+}
+.pk-tut-tooltip-lang-btn:hover {
+  border-color: var(--gold-bright, #ffd166);
+  background: var(--accent-soft, rgba(255, 209, 102, 0.14));
+  box-shadow: 0 0 12px var(--accent-glow, rgba(255, 209, 102, 0.3));
+}
+.pk-tut-tlang-opt.active {
+  color: var(--accent-ink, #070a12);
+  background: var(--gold-bright, #ffd166);
+  box-shadow: 0 0 8px var(--accent-glow, rgba(255, 209, 102, 0.55));
+}
+.pk-tut-tlang-arrow,
+.pk-tut-cmd-chip svg,
+.pk-tut-crest-icon,
+.pk-tut-inline-icon,
+.pk-tut-pill-icon {
+  color: var(--gold-bright, #ffd166);
+}
+.pk-tutorial-step-badge {
+  color: var(--gold-bright, #ffd166);
+  background: var(--accent-soft, rgba(255, 209, 102, 0.14));
+  border-color: var(--accent-border, rgba(255, 209, 102, 0.28));
+}
+.pk-tutorial-icon-box {
+  background: var(--accent-soft, rgba(255, 209, 102, 0.14));
+  border-color: var(--accent-border, rgba(255, 209, 102, 0.45));
+  color: var(--gold-bright, #ffd166);
+}
+.pk-tutorial-btn-pri,
+.pk-tut-btn-primary,
+.pk-tut-track-card.active .pk-tut-track-check {
+  background: var(--gold-bright, #ffd166);
+  border-color: var(--gold-bright, #ffd166);
+  color: var(--accent-ink, #070a12);
+  box-shadow: 0 4px 14px var(--accent-glow, rgba(255, 209, 102, 0.35));
+}
+.pk-tutorial-btn-pri:hover,
+.pk-tut-btn-primary:hover {
+  filter: brightness(1.06);
+  background: var(--gold-bright, #ffd166);
+}
+.pk-tutorial-skip-btn {
+  color: var(--ink-dim, #94a3b8);
+}
+.pk-tut-pill-dot {
+  background: var(--gold-bright, #ffd166);
+  box-shadow: 0 0 8px var(--gold-bright, #ffd166);
+}
+.pk-tut-pill-btn {
+  color: var(--ink-dim, #94a3b8);
+}
+
+/* ---- Dark Atmospheric Variants: Temple / Moonlight / Jungle / Sunset / Glass ---- */
+html.theme-temple .pk-tutorial-modal-card,
+html.theme-temple .pk-tutorial-tooltip,
+html.theme-temple .pk-tutorial-practice-pill {
+  background: rgba(30, 21, 13, 0.98) !important;
+  border-color: var(--accent-border, rgba(255, 209, 102, 0.42)) !important;
+  color: #fff1dc !important;
+}
+html.theme-temple .pk-tutorial-body,
+html.theme-temple .pk-tut-modal-subtitle,
+html.theme-temple .pk-tut-track-desc { color: #d6bc93 !important; }
+html.theme-temple .pk-tut-path-list,
+html.theme-temple .pk-tut-track-card {
+  background: rgba(45, 31, 18, 0.65) !important;
+  border-color: rgba(255, 209, 102, 0.2) !important;
+}
+html.theme-temple .pk-tut-lang-segmented {
+  background: rgba(24, 16, 9, 0.92) !important;
+  border-color: var(--accent-border, rgba(255, 209, 102, 0.35)) !important;
+}
+
+html.theme-moonlight .pk-tutorial-modal-card,
+html.theme-moonlight .pk-tutorial-tooltip,
+html.theme-moonlight .pk-tutorial-practice-pill {
+  background: rgba(16, 25, 48, 0.98) !important;
+  border-color: var(--accent-border, rgba(191, 224, 255, 0.42)) !important;
+  color: #eaf2ff !important;
+}
+html.theme-moonlight .pk-tutorial-body,
+html.theme-moonlight .pk-tut-modal-subtitle,
+html.theme-moonlight .pk-tut-track-desc { color: #b6c7ea !important; }
+html.theme-moonlight .pk-tut-path-list,
+html.theme-moonlight .pk-tut-track-card {
+  background: rgba(24, 38, 70, 0.65) !important;
+  border-color: rgba(191, 224, 255, 0.22) !important;
+}
+html.theme-moonlight .pk-tut-lang-segmented {
+  background: rgba(12, 19, 38, 0.92) !important;
+  border-color: var(--accent-border, rgba(191, 224, 255, 0.35)) !important;
+}
+
+html.theme-jungle .pk-tutorial-modal-card,
+html.theme-jungle .pk-tutorial-tooltip,
+html.theme-jungle .pk-tutorial-practice-pill {
+  background: rgba(13, 26, 18, 0.98) !important;
+  border-color: var(--accent-border, rgba(95, 214, 148, 0.42)) !important;
+  color: #eafff0 !important;
+}
+html.theme-jungle .pk-tutorial-body,
+html.theme-jungle .pk-tut-modal-subtitle,
+html.theme-jungle .pk-tut-track-desc { color: #b0dcc0 !important; }
+html.theme-jungle .pk-tut-path-list,
+html.theme-jungle .pk-tut-track-card {
+  background: rgba(20, 42, 29, 0.65) !important;
+  border-color: rgba(95, 214, 148, 0.22) !important;
+}
+html.theme-jungle .pk-tut-lang-segmented {
+  background: rgba(10, 20, 14, 0.92) !important;
+  border-color: var(--accent-border, rgba(95, 214, 148, 0.35)) !important;
+}
+
+html.theme-sunset .pk-tutorial-modal-card,
+html.theme-sunset .pk-tutorial-tooltip,
+html.theme-sunset .pk-tutorial-practice-pill {
+  background: rgba(34, 15, 26, 0.98) !important;
+  border-color: var(--accent-border, rgba(255, 138, 76, 0.42)) !important;
+  color: #fff0e6 !important;
+}
+html.theme-sunset .pk-tutorial-body,
+html.theme-sunset .pk-tut-modal-subtitle,
+html.theme-sunset .pk-tut-track-desc { color: #ecc0b8 !important; }
+html.theme-sunset .pk-tut-path-list,
+html.theme-sunset .pk-tut-track-card {
+  background: rgba(50, 22, 38, 0.65) !important;
+  border-color: rgba(255, 138, 76, 0.22) !important;
+}
+html.theme-sunset .pk-tut-lang-segmented {
+  background: rgba(26, 12, 19, 0.92) !important;
+  border-color: var(--accent-border, rgba(255, 138, 76, 0.35)) !important;
+}
+
+html.theme-glass .pk-tutorial-modal-card,
+html.theme-glass .pk-tutorial-tooltip,
+html.theme-glass .pk-tutorial-practice-pill {
+  background: rgba(10, 16, 32, 0.80) !important;
+  backdrop-filter: blur(24px) saturate(170%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(170%) !important;
+  border-color: rgba(125, 211, 252, 0.34) !important;
+  color: #f8fafc !important;
+}
+html.theme-glass .pk-tut-path-list,
+html.theme-glass .pk-tut-track-card,
+html.theme-glass .pk-tut-lang-segmented,
+html.theme-glass .pk-tutorial-btn-sec,
+html.theme-glass .pk-tut-cmd-chip {
+  background: rgba(14, 22, 46, 0.62) !important;
+  border-color: rgba(148, 163, 184, 0.30) !important;
+  color: #f8fafc !important;
+}
+html.theme-glass .pk-tut-cmd-chip kbd {
+  background: rgba(8, 13, 28, 0.84) !important;
+  border-color: var(--accent-border, rgba(125, 211, 252, 0.45)) !important;
+  color: var(--gold-bright, #7dd3fc) !important;
+}
+html.theme-glass .pk-tutorial-body,
+html.theme-glass .pk-tut-modal-subtitle,
+html.theme-glass .pk-tut-track-desc { color: #cbd5e1 !important; }
+
+html[class*="theme-"]:not(.theme-light):not(.theme-sepia) .pk-tut-track-card.active,
+html[class*="theme-"]:not(.theme-light):not(.theme-sepia) .pk-tut-track-card.pk-tut-track-rei.active {
+  background: linear-gradient(135deg, var(--accent-soft, rgba(255, 209, 102, 0.2)), rgba(10, 14, 24, 0.85)) !important;
+  border-color: var(--gold-bright, #ffd166) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55), 0 0 18px var(--accent-glow, rgba(255, 209, 102, 0.28)) !important;
+}
+html[class*="theme-"]:not(.theme-light):not(.theme-sepia) .pk-tut-track-card.active .pk-tut-track-name,
+html[class*="theme-"]:not(.theme-light):not(.theme-sepia) .pk-tut-track-card.active .pk-tut-track-badge,
+html[class*="theme-"]:not(.theme-light):not(.theme-sepia) .pk-tut-track-card.active .pk-tut-track-icon-box,
+html[class*="theme-"]:not(.theme-light):not(.theme-sepia) .pk-tut-track-card.pk-tut-track-rei .pk-tut-badge-rei {
+  color: var(--gold-bright, #ffd166) !important;
+  border-color: var(--accent-border, rgba(255, 209, 102, 0.45)) !important;
+}
+html[class*="theme-"]:not(.theme-light):not(.theme-sepia) .pk-tut-seg-btn.active {
+  background: var(--accent-soft, rgba(255, 209, 102, 0.24)) !important;
+  border: 1px solid var(--gold-bright, #ffd166) !important;
+  color: var(--gold-bright, #ffd166) !important;
+}
+
+/* ---- Light Theme: Full Tutorial Surface & Tooltip Coverage ---- */
+html.theme-light .pk-tutorial-scrim {
+  fill: rgba(15, 23, 42, 0.46) !important;
+}
+html.theme-light .pk-spotlight-frame {
+  border-color: var(--gold-bright, #075985) !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9), 0 0 22px var(--accent-glow, rgba(7, 89, 133, 0.45)) !important;
+}
 html.theme-light .pk-tutorial-modal-card {
-  background: rgba(255, 255, 255, 0.98) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
   border: 1.5px solid #cbd5e1 !important;
   box-shadow: 0 25px 70px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(255, 255, 255, 1) !important;
   color: #0f172a !important;
 }
-html.theme-light .pk-tut-modal-title {
+html.theme-light .pk-tut-crest-icon,
+html.theme-light .pk-tut-inline-icon,
+html.theme-light .pk-tutorial-icon-box {
+  background: #e0f2fe !important;
+  border-color: var(--accent-border, #7dd3fc) !important;
+  color: var(--gold-bright, #075985) !important;
+  box-shadow: none !important;
+}
+html.theme-light .pk-tut-inline-icon svg,
+html.theme-light .pk-tutorial-icon-box svg {
+  filter: none !important;
+}
+html.theme-light .pk-tut-lang-segmented {
+  background: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: none !important;
+}
+html.theme-light .pk-tut-seg-btn {
+  color: #334155 !important;
+}
+html.theme-light .pk-tut-seg-btn:hover:not(.active) {
+  color: #0f172a !important;
+  background: rgba(15, 23, 42, 0.06) !important;
+}
+html.theme-light .pk-tut-seg-btn.active {
+  background: #ffffff !important;
+  border: 1px solid var(--gold-bright, #075985) !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1) !important;
+}
+html.theme-light .pk-tut-seg-tag.en {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  border-color: #7dd3fc !important;
+}
+html.theme-light .pk-tut-seg-btn.active .pk-tut-seg-tag.en {
+  background: #0369a1 !important;
+  color: #ffffff !important;
+  border-color: #0369a1 !important;
+  box-shadow: none !important;
+}
+html.theme-light .pk-tut-seg-tag.km {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  border-color: #fcd34d !important;
+}
+html.theme-light .pk-tut-seg-btn.active .pk-tut-seg-tag.km {
+  background: #b45309 !important;
+  color: #ffffff !important;
+  border-color: #b45309 !important;
+  box-shadow: none !important;
+}
+html.theme-light .pk-tut-modal-title,
+html.theme-light .pk-tutorial-title {
   color: #0f172a !important;
 }
-html.theme-light .pk-tut-modal-subtitle {
+html.theme-light .pk-tut-modal-subtitle,
+html.theme-light .pk-tutorial-body {
   color: #475569 !important;
 }
+html.theme-light .pk-tut-path-list {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+html.theme-light .pk-tut-path-item {
+  color: #1e293b !important;
+}
+html.theme-light .pk-tut-path-num {
+  background: #ffffff !important;
+  border-color: var(--accent-border, #7dd3fc) !important;
+  color: var(--gold-bright, #075985) !important;
+}
 html.theme-light .pk-tut-track-heading {
-  color: #64748b !important;
+  color: #475569 !important;
 }
 html.theme-light .pk-tut-track-card {
   background: #f8fafc !important;
-  border: 1.5px solid #e2e8f0 !important;
+  border: 1.5px solid #cbd5e1 !important;
   color: #0f172a !important;
 }
-html.theme-light .pk-tut-track-card:hover:not(.active) {
+html.theme-light .pk-tut-track-card:hover:not(.active),
+html.theme-light .pk-tut-track-card.pk-tut-track-rei:hover:not(.active) {
   background: #ffffff !important;
-  border-color: #0284c7 !important;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12) !important;
+  border-color: var(--gold-bright, #0369a1) !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.1) !important;
 }
-html.theme-light .pk-tut-track-card.active {
+html.theme-light .pk-tut-track-card.active,
+html.theme-light .pk-tut-track-card.pk-tut-track-rei.active {
   background: #eff6ff !important;
-  border: 1.5px solid #0284c7 !important;
-  box-shadow: 0 4px 20px rgba(2, 132, 199, 0.25), 0 0 0 2px rgba(2, 132, 199, 0.3) !important;
+  border: 1.5px solid var(--gold-bright, #075985) !important;
+  box-shadow: 0 4px 18px var(--accent-glow, rgba(7, 89, 133, 0.22)), 0 0 0 2px var(--accent-soft, rgba(7, 89, 133, 0.18)) !important;
 }
 html.theme-light .pk-tut-track-name {
   color: #0f172a !important;
 }
 html.theme-light .pk-tut-track-card.active .pk-tut-track-name {
-  color: #0284c7 !important;
+  color: var(--gold-bright, #075985) !important;
 }
 html.theme-light .pk-tut-track-desc {
-  color: #64748b !important;
+  color: #475569 !important;
 }
 html.theme-light .pk-tut-track-badge {
   background: #f1f5f9 !important;
   border-color: #cbd5e1 !important;
-  color: #475569 !important;
+  color: #334155 !important;
 }
+html.theme-light .pk-tut-track-card.pk-tut-track-rei .pk-tut-badge-rei,
 html.theme-light .pk-tut-track-card.active .pk-tut-track-badge {
   background: #e0f2fe !important;
   border-color: #7dd3fc !important;
-  color: #0369a1 !important;
+  color: #075985 !important;
 }
 html.theme-light .pk-tut-track-icon-box {
   background: #ffffff !important;
   border-color: #cbd5e1 !important;
-  color: #64748b !important;
+  color: #475569 !important;
 }
 html.theme-light .pk-tut-track-card.active .pk-tut-track-icon-box {
   background: #e0f2fe !important;
   border-color: #7dd3fc !important;
-  color: #0284c7 !important;
+  color: var(--gold-bright, #075985) !important;
+  box-shadow: none !important;
 }
 html.theme-light .pk-tut-track-check {
-  border-color: #cbd5e1 !important;
+  border-color: #94a3b8 !important;
 }
 html.theme-light .pk-tut-track-card.active .pk-tut-track-check {
-  background: #0284c7 !important;
-  border-color: #0284c7 !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 10px rgba(2, 132, 199, 0.6) !important;
+  background: var(--gold-bright, #075985) !important;
+  border-color: var(--gold-bright, #075985) !important;
+  color: var(--accent-ink, #ffffff) !important;
+  box-shadow: 0 0 10px var(--accent-glow, rgba(7, 89, 133, 0.45)) !important;
 }
-html.theme-light .pk-tut-btn-primary {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
-  border: 1px solid #b45309 !important;
-  color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35) !important;
+html.theme-light .pk-tut-btn-primary,
+html.theme-light .pk-tutorial-btn-pri {
+  background: linear-gradient(135deg, var(--gold-bright, #075985), var(--gold, #0369a1)) !important;
+  border: 1px solid var(--gold-bright, #075985) !important;
+  color: var(--accent-ink, #ffffff) !important;
+  box-shadow: 0 4px 14px var(--accent-glow, rgba(7, 89, 133, 0.28)) !important;
 }
-html.theme-light .pk-tut-btn-primary:hover {
-  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+html.theme-light .pk-tut-btn-primary:hover,
+html.theme-light .pk-tutorial-btn-pri:hover {
+  filter: brightness(1.06);
 }
-html.theme-light .pk-tut-btn-secondary {
+html.theme-light .pk-tut-btn-secondary,
+html.theme-light .pk-tutorial-btn-sec {
   background: #f1f5f9 !important;
   border: 1px solid #cbd5e1 !important;
-  color: #334155 !important;
+  color: #1e293b !important;
 }
-html.theme-light .pk-tut-btn-secondary:hover {
+html.theme-light .pk-tut-btn-secondary:hover,
+html.theme-light .pk-tutorial-btn-sec:hover {
   background: #e2e8f0 !important;
   color: #0f172a !important;
 }
@@ -914,15 +1192,340 @@ html.theme-light .pk-tutorial-tooltip {
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.16) !important;
   color: #0f172a !important;
 }
-html.theme-light .pk-tut-tooltip-title {
-  color: #0f172a !important;
+html.theme-light .pk-tutorial-step-badge {
+  background: #e0f2fe !important;
+  border-color: #7dd3fc !important;
+  color: var(--gold-bright, #075985) !important;
 }
-html.theme-light .pk-tut-tooltip-desc {
+html.theme-light .pk-tut-tooltip-lang-btn {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+html.theme-light .pk-tut-tlang-opt.active {
+  background: var(--gold-bright, #075985) !important;
+  color: var(--accent-ink, #ffffff) !important;
+  box-shadow: none !important;
+}
+html.theme-light .pk-tut-tlang-arrow {
+  color: var(--gold-bright, #075985) !important;
+}
+html.theme-light .pk-tutorial-close-btn {
   color: #475569 !important;
 }
-html.theme-light .pk-tutorial-practice-pill {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border: 1.5px solid #cbd5e1 !important;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12) !important;
+html.theme-light .pk-tutorial-close-btn:hover {
   color: #0f172a !important;
+  background: #e2e8f0 !important;
+}
+html.theme-light .pk-tut-cmd-chip {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+html.theme-light .pk-tut-cmd-chip svg {
+  color: var(--gold-bright, #075985) !important;
+}
+html.theme-light .pk-tut-cmd-chip kbd {
+  background: #ffffff !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+html.theme-light .pk-tutorial-footer {
+  border-top-color: #e2e8f0 !important;
+}
+html.theme-light .pk-tutorial-skip-btn {
+  color: #475569 !important;
+}
+html.theme-light .pk-tutorial-skip-btn:hover {
+  color: #0f172a !important;
+}
+html.theme-light .pk-tutorial-practice-pill {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.14) !important;
+  color: #0f172a !important;
+}
+html.theme-light .pk-tut-pill-dot {
+  background: var(--gold-bright, #075985) !important;
+  box-shadow: 0 0 8px var(--accent-glow, rgba(7, 89, 133, 0.45)) !important;
+}
+html.theme-light .pk-tut-pill-icon {
+  color: var(--gold-bright, #075985) !important;
+}
+html.theme-light .pk-tut-pill-btn {
+  color: #475569 !important;
+}
+html.theme-light .pk-tut-pill-btn:hover {
+  color: #0f172a !important;
+}
+
+/* ---- Sepia Theme: Warm Parchment Tutorial Overlay, Modal & Tooltips ---- */
+html.theme-sepia .pk-tutorial-scrim {
+  fill: rgba(44, 27, 12, 0.48) !important;
+}
+html.theme-sepia .pk-spotlight-frame {
+  border-color: var(--gold-bright, #92400e) !important;
+  box-shadow: 0 0 0 2px rgba(250, 245, 236, 0.9), 0 0 22px var(--accent-glow, rgba(146, 64, 14, 0.4)) !important;
+}
+html.theme-sepia .pk-tutorial-modal-card {
+  background: linear-gradient(180deg, #faf5ec 0%, #efe6d5 100%) !important;
+  border: 1.5px solid #ccbc9e !important;
+  box-shadow: 0 25px 70px rgba(44, 27, 12, 0.26) !important;
+  color: #2c1b0c !important;
+}
+html.theme-sepia .pk-tut-crest-icon,
+html.theme-sepia .pk-tut-inline-icon,
+html.theme-sepia .pk-tutorial-icon-box {
+  background: #ede3d1 !important;
+  border-color: #bfa886 !important;
+  color: var(--gold-bright, #92400e) !important;
+  box-shadow: none !important;
+}
+html.theme-sepia .pk-tut-inline-icon svg,
+html.theme-sepia .pk-tutorial-icon-box svg {
+  filter: none !important;
+}
+html.theme-sepia .pk-tut-lang-segmented {
+  background: #e7dac1 !important;
+  border-color: #bfa886 !important;
+  box-shadow: none !important;
+}
+html.theme-sepia .pk-tut-seg-btn {
+  color: #5c4228 !important;
+}
+html.theme-sepia .pk-tut-seg-btn:hover:not(.active) {
+  color: #2c1b0c !important;
+  background: rgba(44, 27, 12, 0.08) !important;
+}
+html.theme-sepia .pk-tut-seg-btn.active {
+  background: #faf5ec !important;
+  border: 1px solid var(--gold-bright, #92400e) !important;
+  color: #2c1b0c !important;
+  box-shadow: 0 2px 8px rgba(44, 27, 12, 0.12) !important;
+}
+html.theme-sepia .pk-tut-seg-tag.en {
+  background: #ede3d1 !important;
+  color: #5c4228 !important;
+  border-color: #bfa886 !important;
+}
+html.theme-sepia .pk-tut-seg-btn.active .pk-tut-seg-tag.en {
+  background: #2c1b0c !important;
+  color: #faf5ec !important;
+  border-color: #2c1b0c !important;
+  box-shadow: none !important;
+}
+html.theme-sepia .pk-tut-seg-tag.km {
+  background: #f3e2c2 !important;
+  color: #92400e !important;
+  border-color: #c8a265 !important;
+}
+html.theme-sepia .pk-tut-seg-btn.active .pk-tut-seg-tag.km {
+  background: #92400e !important;
+  color: #faf5ec !important;
+  border-color: #92400e !important;
+  box-shadow: none !important;
+}
+html.theme-sepia .pk-tut-modal-title,
+html.theme-sepia .pk-tutorial-title {
+  color: #2c1b0c !important;
+}
+html.theme-sepia .pk-tut-modal-subtitle,
+html.theme-sepia .pk-tutorial-body {
+  color: #5c4228 !important;
+}
+html.theme-sepia .pk-tut-path-list {
+  background: #f0e6d2 !important;
+  border-color: #ccbc9e !important;
+}
+html.theme-sepia .pk-tut-path-item {
+  color: #3d2814 !important;
+}
+html.theme-sepia .pk-tut-path-num {
+  background: #faf5ec !important;
+  border-color: #bfa886 !important;
+  color: var(--gold-bright, #92400e) !important;
+}
+html.theme-sepia .pk-tut-track-heading {
+  color: #5c4228 !important;
+}
+html.theme-sepia .pk-tut-track-card {
+  background: #f5ecdc !important;
+  border: 1.5px solid #ccbc9e !important;
+  color: #2c1b0c !important;
+}
+html.theme-sepia .pk-tut-track-card:hover:not(.active),
+html.theme-sepia .pk-tut-track-card.pk-tut-track-rei:hover:not(.active) {
+  background: #faf5ec !important;
+  border-color: var(--gold-bright, #92400e) !important;
+  box-shadow: 0 4px 14px rgba(44, 27, 12, 0.14) !important;
+}
+html.theme-sepia .pk-tut-track-card.active,
+html.theme-sepia .pk-tut-track-card.pk-tut-track-rei.active {
+  background: #ede1c9 !important;
+  border: 1.5px solid var(--gold-bright, #92400e) !important;
+  box-shadow: 0 4px 18px var(--accent-glow, rgba(146, 64, 14, 0.25)), 0 0 0 2px var(--accent-soft, rgba(146, 64, 14, 0.18)) !important;
+}
+html.theme-sepia .pk-tut-track-name {
+  color: #2c1b0c !important;
+}
+html.theme-sepia .pk-tut-track-card.active .pk-tut-track-name {
+  color: var(--gold-bright, #92400e) !important;
+}
+html.theme-sepia .pk-tut-track-desc {
+  color: #5c4228 !important;
+}
+html.theme-sepia .pk-tut-track-badge {
+  background: #efe6d5 !important;
+  border-color: #bfa886 !important;
+  color: #4a3421 !important;
+}
+html.theme-sepia .pk-tut-track-card.pk-tut-track-rei .pk-tut-badge-rei,
+html.theme-sepia .pk-tut-track-card.active .pk-tut-track-badge {
+  background: #faf5ec !important;
+  border-color: var(--accent-border, #b45309) !important;
+  color: var(--gold-bright, #92400e) !important;
+}
+html.theme-sepia .pk-tut-track-icon-box {
+  background: #faf5ec !important;
+  border-color: #ccbc9e !important;
+  color: #5c4228 !important;
+}
+html.theme-sepia .pk-tut-track-card.active .pk-tut-track-icon-box {
+  background: #faf5ec !important;
+  border-color: var(--gold-bright, #92400e) !important;
+  color: var(--gold-bright, #92400e) !important;
+  box-shadow: none !important;
+}
+html.theme-sepia .pk-tut-track-check {
+  border-color: #a68c6b !important;
+}
+html.theme-sepia .pk-tut-track-card.active .pk-tut-track-check {
+  background: var(--gold-bright, #92400e) !important;
+  border-color: var(--gold-bright, #92400e) !important;
+  color: var(--accent-ink, #ffffff) !important;
+  box-shadow: 0 0 10px var(--accent-glow, rgba(146, 64, 14, 0.4)) !important;
+}
+html.theme-sepia .pk-tut-btn-primary,
+html.theme-sepia .pk-tutorial-btn-pri {
+  background: linear-gradient(135deg, var(--gold-bright, #92400e), var(--gold, #78350f)) !important;
+  border: 1px solid var(--gold-bright, #92400e) !important;
+  color: var(--accent-ink, #ffffff) !important;
+  box-shadow: 0 4px 14px var(--accent-glow, rgba(146, 64, 14, 0.28)) !important;
+}
+html.theme-sepia .pk-tut-btn-secondary,
+html.theme-sepia .pk-tutorial-btn-sec {
+  background: #ede3d1 !important;
+  border: 1px solid #ccbc9e !important;
+  color: #4a3421 !important;
+}
+html.theme-sepia .pk-tut-btn-secondary:hover,
+html.theme-sepia .pk-tutorial-btn-sec:hover {
+  background: #e4d4ba !important;
+  color: #2c1b0c !important;
+}
+html.theme-sepia .pk-tutorial-tooltip {
+  background: #faf5ec !important;
+  border: 1.5px solid #ccbc9e !important;
+  box-shadow: 0 16px 40px rgba(44, 27, 12, 0.22) !important;
+  color: #2c1b0c !important;
+}
+html.theme-sepia .pk-tutorial-step-badge {
+  background: #ede3d1 !important;
+  border-color: #bfa886 !important;
+  color: var(--gold-bright, #92400e) !important;
+}
+html.theme-sepia .pk-tut-tooltip-lang-btn {
+  background: #ede3d1 !important;
+  border-color: #bfa886 !important;
+  color: #3d2814 !important;
+}
+html.theme-sepia .pk-tut-tlang-opt.active {
+  background: var(--gold-bright, #92400e) !important;
+  color: var(--accent-ink, #ffffff) !important;
+  box-shadow: none !important;
+}
+html.theme-sepia .pk-tut-tlang-arrow {
+  color: var(--gold-bright, #92400e) !important;
+}
+html.theme-sepia .pk-tutorial-close-btn {
+  color: #5c4228 !important;
+}
+html.theme-sepia .pk-tutorial-close-btn:hover {
+  color: #2c1b0c !important;
+  background: #e4d4ba !important;
+}
+html.theme-sepia .pk-tut-cmd-chip {
+  background: #f0e6d2 !important;
+  border-color: #ccbc9e !important;
+  color: #2c1b0c !important;
+}
+html.theme-sepia .pk-tut-cmd-chip svg {
+  color: var(--gold-bright, #92400e) !important;
+}
+html.theme-sepia .pk-tut-cmd-chip kbd {
+  background: #faf5ec !important;
+  border-color: #bfa886 !important;
+  color: #2c1b0c !important;
+}
+html.theme-sepia .pk-tutorial-footer {
+  border-top-color: #d9c8aa !important;
+}
+html.theme-sepia .pk-tutorial-skip-btn {
+  color: #5c4228 !important;
+}
+html.theme-sepia .pk-tutorial-skip-btn:hover {
+  color: #2c1b0c !important;
+}
+html.theme-sepia .pk-tutorial-practice-pill {
+  background: #faf5ec !important;
+  border: 1.5px solid #ccbc9e !important;
+  box-shadow: 0 10px 30px rgba(44, 27, 12, 0.18) !important;
+  color: #2c1b0c !important;
+}
+html.theme-sepia .pk-tut-pill-dot {
+  background: var(--gold-bright, #92400e) !important;
+  box-shadow: 0 0 8px var(--accent-glow, rgba(146, 64, 14, 0.45)) !important;
+}
+html.theme-sepia .pk-tut-pill-icon {
+  color: var(--gold-bright, #92400e) !important;
+}
+html.theme-sepia .pk-tut-pill-btn {
+  color: #5c4228 !important;
+}
+html.theme-sepia .pk-tut-pill-btn:hover {
+  color: #2c1b0c !important;
+}
+
+
+/* === UNIVERSAL 8-THEME OVERRIDES FOR TUTORIAL CHIPS, BUTTONS & BADGES === */
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .pk-tut-cmd-chip {
+  background: color-mix(in srgb, var(--stone-3) 55%, transparent) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .pk-tut-cmd-chip svg {
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .pk-tut-cmd-chip kbd {
+  background: var(--stone-1) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .pk-tutorial-btn-sec,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .pk-tut-btn-secondary {
+  background: var(--stone-2) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .pk-tutorial-skip-btn {
+  color: var(--ink-dim) !important;
+}
+html.theme-glass .pk-tut-btn-primary,
+html.theme-glass .pk-tutorial-btn-pri {
+  background: linear-gradient(135deg, var(--gold-bright, #7dd3fc), var(--gold, #38bdf8)) !important;
+  color: var(--accent-ink, #041628) !important;
+  border-color: var(--gold-bright, #7dd3fc) !important;
+}
+html.theme-glass .pk-tutorial-skip-btn {
+  color: #cbd5e1 !important;
 }

@@ -669,6 +669,7 @@ if(typeof window !== 'undefined') window.decomposeKhmerSequence = decomposeKhmer
 
 function buildBoard(){
   if(!board) return;
+  if(typeof window !== 'undefined') window.__pkBuiltLayoutId = currentLayoutId;
   board.innerHTML = '';
   keyEls = {};
   glyphData = {};
@@ -801,7 +802,7 @@ ALL_ROWS.forEach(rowDef=>{
   });
   board.appendChild(rowEl);
 });
-  if(typeof window !== 'undefined'){
+  if(typeof window !== 'undefined' && window.__pkBootComplete){
     requestAnimationFrame(()=>{
       recalibrateCoordinates();
       updateHandsOverlay();
@@ -1343,8 +1344,20 @@ function getThemeMatchedColors() {
     return { l: '#0284c7', r: '#7c3aed' };
   } else if (root.classList.contains('theme-sepia')) {
     return { l: '#b48342', r: '#c2593f' };
+  } else if (root.classList.contains('theme-glass')) {
+    return { l: '#7dd3fc', r: '#38bdf8' };
   }
   return { l: '#38bdf8', r: '#f472b6' };
+}
+
+function getThemeActiveGlowHex(fallbackHex) {
+  try {
+    if (typeof getComputedStyle === 'function' && document.documentElement) {
+      const v = getComputedStyle(document.documentElement).getPropertyValue('--gold-bright').trim();
+      if (v) return v;
+    }
+  } catch (e) {}
+  return fallbackHex || '#ffd166';
 }
 
 const defs = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS, 'defs') : null;
@@ -1353,6 +1366,12 @@ if(defs) defs.id = 'handsDefs';
 function updateHandsGradients(leftHex, rightHex) {
   const palL = buildHandPalette(leftHex, '#38bdf8');
   const palR = buildHandPalette(rightHex, '#f472b6');
+  const activeStopL = getThemeActiveGlowHex(palL.light);
+  const activeStopR = getThemeActiveGlowHex(palR.light);
+  const isLightLike = typeof document !== 'undefined' && document.documentElement &&
+    (document.documentElement.classList.contains('theme-light') || document.documentElement.classList.contains('theme-sepia'));
+  const shadowOpacity = isLightLike ? '0.20' : '0.55';
+  const glowShadowOpacity = isLightLike ? '0.28' : '0.45';
 
   if(defs){
     defs.innerHTML = `
@@ -1373,7 +1392,7 @@ function updateHandsGradients(leftHex, rightHex) {
     <stop offset="24%" stop-color="${palL.deep}" stop-opacity="0"/>
     <stop offset="50%" stop-color="${palL.bright}" stop-opacity="0.65"/>
     <stop offset="78%" stop-color="${palL.bright}" stop-opacity="0.95"/>
-    <stop offset="90%" stop-color="#ffd166" stop-opacity="0.98"/>
+    <stop offset="90%" stop-color="${activeStopL}" stop-opacity="0.98"/>
     <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
   </linearGradient>
   <linearGradient id="fingerGradActiveR" x1="0" y1="1" x2="0.15" y2="0">
@@ -1381,7 +1400,7 @@ function updateHandsGradients(leftHex, rightHex) {
     <stop offset="24%" stop-color="${palR.deep}" stop-opacity="0"/>
     <stop offset="50%" stop-color="${palR.bright}" stop-opacity="0.65"/>
     <stop offset="78%" stop-color="${palR.bright}" stop-opacity="0.95"/>
-    <stop offset="90%" stop-color="#ffd166" stop-opacity="0.98"/>
+    <stop offset="90%" stop-color="${activeStopR}" stop-opacity="0.98"/>
     <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
   </linearGradient>
   <linearGradient id="activeStrokeGradL" x1="0" y1="1" x2="0.15" y2="0">
@@ -1433,13 +1452,13 @@ function updateHandsGradients(leftHex, rightHex) {
     <stop offset="100%" stop-color="${palR.mid}" stop-opacity="0"/>
   </radialGradient>
   <filter id="handShadow" x="-40%" y="-40%" width="180%" height="180%">
-    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.55"/>
-    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="${palL.bright}" flood-opacity="0.45"/>
+    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="${shadowOpacity}"/>
+    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="${palL.bright}" flood-opacity="${glowShadowOpacity}"/>
     <feDropShadow dx="0" dy="8" stdDeviation="22" flood-color="${palL.mid}" flood-opacity="0.25"/>
   </filter>
   <filter id="handShadowR" x="-40%" y="-40%" width="180%" height="180%">
-    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.55"/>
-    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="${palR.bright}" flood-opacity="0.45"/>
+    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="${shadowOpacity}"/>
+    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="${palR.bright}" flood-opacity="${glowShadowOpacity}"/>
     <feDropShadow dx="0" dy="8" stdDeviation="22" flood-color="${palR.mid}" flood-opacity="0.25"/>
   </filter>
   `;
@@ -1528,12 +1547,21 @@ if(typeof window !== 'undefined' && window.PKHandsColor) window.PKHandsColor.app
 if (typeof MutationObserver !== 'undefined' && typeof document !== 'undefined' && document.documentElement) {
   const themeObserver = new MutationObserver(() => {
     try {
-      if (localStorage.getItem('khmerSettingHandColorPreset') === 'match') {
-        window.PKHandsColor.applyHandColors('match');
+      if (window.PKHandsColor && typeof window.PKHandsColor.applyHandColors === 'function') {
+        window.PKHandsColor.applyHandColors();
       }
     } catch(e){}
   });
-  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-accent-color'] });
+}
+if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+  document.addEventListener('pk-theme-changed', () => {
+    try {
+      if (window.PKHandsColor && typeof window.PKHandsColor.applyHandColors === 'function') {
+        window.PKHandsColor.applyHandColors();
+      }
+    } catch(e){}
+  });
 }
 
 const handGroupL = typeof document !== 'undefined' && typeof SVGNS !== 'undefined' ? document.createElementNS(SVGNS,'g') : null;
@@ -2237,7 +2265,7 @@ function renderFrame(handL, handR, wrapRect){
   const framesR = {};
   let needsAnim = false;
 
-  const prefersReducedMotion = isReducedMotionOrMinimal();
+  const prefersReducedMotion = isReducedMotionOrMinimal() || (typeof document !== 'undefined' && document.documentElement && document.documentElement.classList && document.documentElement.classList.contains('pk-vt-active'));
 
   FINGERS.forEach(f=>{
     const fe = fingerEls[f.id];
@@ -2437,6 +2465,13 @@ if(typeof window !== 'undefined'){
 
 if(typeof ResizeObserver !== 'undefined' && boardWrap){
   const ro = new ResizeObserver(()=>{
+    if(document.documentElement && document.documentElement.classList.contains('pk-vt-active') && typeof window !== 'undefined' && typeof window.pkWhenTransitionSettled === 'function'){
+      window.pkWhenTransitionSettled(()=>{
+        recalibrateCoordinates();
+        updateHandsOverlay();
+      });
+      return;
+    }
     recalibrateCoordinates();
     updateHandsOverlay();
   });
@@ -2468,6 +2503,13 @@ if(handsToggle){
 
 if(typeof window !== 'undefined'){
   window.addEventListener('resize', ()=>{
+    if(typeof document !== 'undefined' && document.documentElement && document.documentElement.classList && document.documentElement.classList.contains('pk-vt-active') && typeof window.pkWhenTransitionSettled === 'function'){
+      window.pkWhenTransitionSettled(()=>{
+        recalibrateCoordinates();
+        updateHandsOverlay();
+      });
+      return;
+    }
     recalibrateCoordinates();
     updateHandsOverlay();
   });

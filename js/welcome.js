@@ -298,8 +298,8 @@
           radius: Math.random() * 1.8 + 0.6,
           vx: (Math.random() - 0.5) * 0.35,
           vy: -Math.random() * 0.45 - 0.15,
-          alpha: Math.random() * 0.6 + 0.2,
-          color: Math.random() > 0.4 ? 'rgba(255, 209, 102,' : 'rgba(56, 189, 248,'
+          alpha: Math.random() * 0.55 + 0.2,
+          gold: Math.random() > 0.4
         });
       }
     }
@@ -315,6 +315,10 @@
     let animId = null;
     function render(){
       ctx.clearRect(0, 0, width, height);
+      const eff = document.documentElement.dataset.themeEffective || 'dark';
+      const isLightPaper = eff === 'light' || eff === 'sepia';
+      const cGold = isLightPaper ? 'rgba(180, 83, 9,' : 'rgba(255, 209, 102,';
+      const cCyan = isLightPaper ? 'rgba(3, 105, 161,' : 'rgba(56, 189, 248,';
 
       for(let i = 0; i < particles.length; i++){
         const p = particles[i];
@@ -334,11 +338,12 @@
           p.y -= (dy / dist) * 0.6;
         }
 
+        const col = p.gold ? cGold : cCyan;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color + p.alpha + ')';
-        ctx.shadowColor = p.color + '0.8)';
-        ctx.shadowBlur = p.radius * 4;
+        ctx.fillStyle = col + (isLightPaper ? (p.alpha * 0.45) : p.alpha) + ')';
+        ctx.shadowColor = col + (isLightPaper ? '0.25)' : '0.8)');
+        ctx.shadowBlur = isLightPaper ? 0 : p.radius * 4;
         ctx.fill();
       }
 
@@ -505,7 +510,10 @@
 
       spark.style.setProperty('--vx', `${vx}px`);
       spark.style.setProperty('--vy', `${vy}px`);
-      spark.style.setProperty('--color', Math.random() > 0.35 ? '#ffd166' : '#38bdf8');
+      const cs = getComputedStyle(document.documentElement);
+      const c1 = (cs.getPropertyValue('--gold-bright') || '').trim() || '#ffd166';
+      const c2 = (cs.getPropertyValue('--cyan') || '').trim() || '#38bdf8';
+      spark.style.setProperty('--color', Math.random() > 0.35 ? c1 : c2);
 
       container.appendChild(spark);
       setTimeout(() => spark.remove(), 600);
@@ -1406,7 +1414,74 @@
       });
     }
 
-    // 3. Initialize subsystems
+    // 3. 8-Theme + Live System Sync Engine
+    const WELCOME_THEME_META = {
+      dark: '#05070e',
+      light: '#f4f7fb',
+      sepia: '#f6efe2',
+      temple: '#0f0b08',
+      moonlight: '#090d1a',
+      jungle: '#06140e',
+      sunset: '#140914',
+      glass: '#070b14'
+    };
+    const WELCOME_THEME_CLASSES = ['theme-light', 'theme-sepia', 'theme-temple', 'theme-moonlight', 'theme-jungle', 'theme-sunset', 'theme-glass'];
+
+    function applyWelcomeTheme(mode, opts){
+      const o = opts || {};
+      const persist = o.persist !== false;
+      const raw = mode || 'dark';
+      const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      let eff = raw === 'system' ? (sysDark ? 'dark' : 'light') : raw;
+      if(!WELCOME_THEME_META[eff]) eff = 'dark';
+
+      const root = document.documentElement;
+      WELCOME_THEME_CLASSES.forEach(c => root.classList.remove(c));
+      if(eff !== 'dark') root.classList.add('theme-' + eff);
+      root.dataset.themeMode = raw;
+      root.dataset.themeEffective = eff;
+      root.style.colorScheme = (eff === 'light' || eff === 'sepia') ? 'light' : 'dark';
+
+      const meta = document.getElementById('pkThemeColorMeta');
+      if(meta) meta.setAttribute('content', WELCOME_THEME_META[eff]);
+
+      const sel = document.getElementById('welcomeThemeSelect');
+      if(sel && sel.value !== raw) sel.value = raw;
+
+      if(persist){
+        try {
+          localStorage.setItem('khmerSettingTheme', raw);
+          localStorage.setItem('pk_rei_theme', raw);
+        } catch(_e){}
+      }
+    }
+    window.applyWelcomeTheme = applyWelcomeTheme;
+
+    const welcomeThemeSel = document.getElementById('welcomeThemeSelect');
+    const savedThemeMode = (function(){
+      try {
+        return localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+      } catch(_e){ return 'dark'; }
+    })();
+    applyWelcomeTheme(savedThemeMode, { persist: false });
+    if(welcomeThemeSel){
+      welcomeThemeSel.addEventListener('change', (e) => applyWelcomeTheme(e.target.value, { persist: true }));
+    }
+    if(window.matchMedia){
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      const onSysChange = () => {
+        const cur = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+        if(cur === 'system') applyWelcomeTheme('system', { persist: false });
+      };
+      if(typeof mq.addEventListener === 'function') mq.addEventListener('change', onSysChange);
+    }
+    window.addEventListener('storage', (e) => {
+      if(e.key === 'khmerSettingTheme' || e.key === 'pk_rei_theme'){
+        applyWelcomeTheme(e.newValue || 'dark', { persist: false });
+      }
+    });
+
+    // 4. Initialize subsystems
     applyLanguage(currentLang);
     initAmbientCanvas();
     initTypingTheater();

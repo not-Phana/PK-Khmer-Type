@@ -2609,9 +2609,16 @@
     box-shadow:0 12px 32px -8px rgba(44, 27, 12, 0.12), 0 0 0 1px rgba(44, 27, 12, 0.08);
   }
   html.theme-glass .toolbar{
-    background:rgba(255, 255, 255, 0.08);
-    border-color:rgba(255, 255, 255, 0.22);
-    box-shadow:0 20px 48px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    background:rgba(10, 16, 32, 0.56);
+    backdrop-filter:blur(20px) saturate(165%);
+    -webkit-backdrop-filter:blur(20px) saturate(165%);
+    border-color:rgba(148, 163, 184, 0.28);
+    box-shadow:0 20px 48px -12px rgba(0, 0, 0, 0.58), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+  :is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .toolbar{
+    background:var(--fx-glass);
+    border-color:var(--accent-border);
+    box-shadow:0 16px 40px -10px rgba(0, 0, 0, 0.55);
   }
 
   /* ============================================================
@@ -2769,13 +2776,13 @@
   }
 
   html.theme-light .hint-hud-tag {
-    color: #0284c7 !important;
+    color: #0369a1 !important;
     background: #e0f2fe !important;
     border-color: #bae6fd !important;
   }
 
   html.theme-light .hint-hud-tag svg {
-    color: #0284c7 !important;
+    color: #0369a1 !important;
   }
 
   html.theme-light .hint {
@@ -2797,19 +2804,87 @@
     box-shadow: 0 0 10px rgba(2, 132, 199, 0.35) !important;
   }
 
-  /* Curated Theme Variations for Left Light Beam */
+  /* Warm Sepia Parchment Support for Guide Hint Card */
+  html.theme-sepia .hint-wrap,
+  html.theme-sepia .hint:not(.hint-wrap .hint) {
+    background: linear-gradient(135deg, #faf5ec 0%, #f0e6d2 100%) !important;
+    border: 1px solid #ccbc9e !important;
+    box-shadow: -5px 0 18px rgba(180, 83, 9, 0.24), 0 10px 25px -5px rgba(44, 27, 12, 0.10) !important;
+    color: #2c1b0c !important;
+  }
+  html.theme-sepia .hint-wrap::before,
+  html.theme-sepia .hint:not(.hint-wrap .hint)::before {
+    background: linear-gradient(180deg, #b45309 0%, #d97706 50%, #92400e 100%) !important;
+    box-shadow: -4px 0 14px rgba(180, 83, 9, 0.35) !important;
+  }
+  html.theme-sepia .hint-hud-tag {
+    color: #92400e !important;
+    background: #fef3c7 !important;
+    border-color: #d97706 !important;
+  }
+  html.theme-sepia .hint-hud-tag svg { color: #92400e !important; }
+  html.theme-sepia .hint { color: #4a3421 !important; text-shadow: none !important; }
+  html.theme-sepia .hint b {
+    background: #e7dac1 !important;
+    border-color: #aa9674 !important;
+    color: #2c1b0c !important;
+    box-shadow: none !important;
+  }
+
+  /* Smoked Frosted Glass Hint Card */
+  html.theme-glass .hint-wrap,
+  html.theme-glass .hint:not(.hint-wrap .hint) {
+    background: rgba(10, 16, 32, 0.60) !important;
+    backdrop-filter: blur(20px) saturate(165%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(165%) !important;
+    border: 1px solid rgba(148, 163, 184, 0.30) !important;
+    color: #f8fafc !important;
+  }
+  html.theme-glass .hint { color: #e2e8f0 !important; }
+  html.theme-glass .hint b {
+    background: rgba(56, 189, 248, 0.18) !important;
+    border-color: rgba(125, 211, 252, 0.45) !important;
+    color: #7dd3fc !important;
+  }
+
+  /* Curated Atmosphere Theme Variations (Card, Beam & Badges) */
+  :is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .hint-wrap,
+  :is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .hint:not(.hint-wrap .hint) {
+    background: linear-gradient(135deg, var(--stone-2) 0%, var(--stone-1) 100%) !important;
+    border-color: var(--accent-border) !important;
+    border-left-color: var(--gold-bright) !important;
+  }
+  :is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .hint-hud-tag {
+    color: var(--gold-bright) !important;
+    background: var(--accent-soft) !important;
+    border-color: var(--accent-border) !important;
+  }
+  :is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .hint-hud-tag svg {
+    color: var(--gold-bright) !important;
+  }
+  :is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .hint {
+    color: var(--ink-dim) !important;
+  }
+  :is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .hint b {
+    background: var(--accent-soft) !important;
+    border-color: var(--accent-border) !important;
+    color: var(--gold-bright) !important;
+  }
   html.theme-temple .hint-wrap::before,
   html.theme-temple .hint:not(.hint-wrap .hint)::before {
     background: linear-gradient(180deg, #ffd166 0%, #f59e0b 50%, #b45309 100%) !important;
     box-shadow: -4px 0 16px rgba(255, 209, 102, 0.6) !important;
   }
-
+  html.theme-moonlight .hint-wrap::before,
+  html.theme-moonlight .hint:not(.hint-wrap .hint)::before {
+    background: linear-gradient(180deg, #bfe0ff 0%, #7fb8ff 50%, #3b82f6 100%) !important;
+    box-shadow: -4px 0 16px rgba(127, 184, 255, 0.55) !important;
+  }
   html.theme-jungle .hint-wrap::before,
   html.theme-jungle .hint:not(.hint-wrap .hint)::before {
     background: linear-gradient(180deg, #10b981 0%, #34d399 50%, #059669 100%) !important;
     box-shadow: -4px 0 16px rgba(16, 185, 129, 0.6) !important;
   }
-
   html.theme-sunset .hint-wrap::before,
   html.theme-sunset .hint:not(.hint-wrap .hint)::before {
     background: linear-gradient(180deg, #f43f5e 0%, #ec4899 50%, #8b5cf6 100%) !important;
@@ -4894,7 +4969,7 @@ html.theme-light .asc-sub {
 html.theme-light .asc-btn {
   background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
   border: 1px solid #b45309 !important;
-  color: #ffffff !important;
+  color: #1a0f02 !important;
   font-weight: 700 !important;
   box-shadow: 0 2px 6px rgba(217, 119, 6, 0.28) !important;
 }
@@ -5019,6 +5094,9 @@ html.theme-light .guide-kbd {
 html.theme-light .guide-stat-num {
   color: #b45309 !important;
 }
+html.theme-sepia .guide-stat-num {
+  color: #92400e !important;
+}
 html.theme-light .guide-active-card,
 html.theme-light .guide-target-callout {
   background: #f1f5f9 !important;
@@ -5026,17 +5104,63 @@ html.theme-light .guide-target-callout {
 }
 html.theme-light .gtc-key-badge {
   background: #ffffff !important;
-  border-color: #94a3b8 !important;
+  border-color: #cbd5e1 !important;
   border-bottom: 2px solid #64748b !important;
   color: #0f172a !important;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1) !important;
 }
+html.theme-light .gtc-key-badge.resting {
+  color: #475569 !important;
+}
 html.theme-light .gtc-finger-name {
-  color: #0284c7 !important;
+  color: #0369a1 !important;
 }
 html.theme-light .gtc-finger-hint,
 html.theme-light .gtc-label {
   color: #475569 !important;
+}
+
+html.theme-sepia .gtc-key-badge {
+  background: #fffdf8 !important;
+  border-color: #ccbc9e !important;
+  border-bottom: 2px solid #8c6b3f !important;
+  color: #2c1b0c !important;
+  box-shadow: 0 1px 3px rgba(44, 27, 12, 0.1) !important;
+}
+html.theme-sepia .gtc-key-badge.resting {
+  color: #5c4125 !important;
+}
+html.theme-sepia .gtc-finger-name {
+  color: #0369a1 !important;
+}
+html.theme-sepia .gtc-finger-hint,
+html.theme-sepia .gtc-label {
+  color: #5c4125 !important;
+}
+
+html.theme-glass .gtc-key-badge {
+  background: rgba(14, 22, 44, 0.75) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  border-bottom: 2px solid rgba(125, 211, 252, 0.6) !important;
+  color: #ffffff !important;
+}
+html.theme-glass .gtc-key-badge.resting {
+  color: rgba(241, 245, 249, 0.85) !important;
+}
+html.theme-glass .gtc-finger-name {
+  color: #7dd3fc !important;
+}
+
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .gtc-key-badge {
+  background: linear-gradient(180deg, var(--stone-3), var(--stone-2)) !important;
+  border-color: var(--accent-border) !important;
+  color: #ffffff !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .gtc-key-badge.resting {
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .gtc-finger-name {
+  color: var(--gold-bright) !important;
 }
 html.theme-light .guide-drill-weak-btn {
   background: #f1f5f9 !important;
@@ -5657,7 +5781,7 @@ html.theme-sepia .asc-sub {
   color: #6b4f2c !important;
 }
 html.theme-sepia .asc-btn {
-  background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%) !important;
+  background: linear-gradient(135deg, #9a3412 0%, #7c2d12 100%) !important;
   border: 1px solid #7c2d12 !important;
   color: #ffffff !important;
   font-weight: 700 !important;
@@ -6126,7 +6250,7 @@ html.theme-sepia .lc-ring::before {
   background: #faf5ec !important;
 }
 
-/* ---------- 4. TRANSPARENT GLASS THEME (html.theme-glass ONLY) ---------- */
+/* ---------- 4. SMOKED FROSTED GLASS THEME (html.theme-glass ONLY) ---------- */
 html.theme-glass .lesson-strip,
 html.theme-glass #lessonStrip,
 html.theme-glass.focus-mode .lesson-strip,
@@ -6134,17 +6258,24 @@ html.theme-glass.focus-mode #lessonStrip,
 html.theme-glass .guide-dock,
 html.theme-glass #guideDock,
 html.theme-glass .lesson-panel,
-html.theme-glass .adaptive-panel,
+html.theme-glass .adaptive-panel {
+  background: rgba(10, 16, 32, 0.56) !important;
+  backdrop-filter: blur(20px) saturate(165%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(165%) !important;
+  border: 1px solid rgba(148, 163, 184, 0.28) !important;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.52), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+  color: #f8fafc !important;
+}
 html.theme-glass .lesson-complete-card,
 html.theme-glass .pk-fb-complete-card,
 html.theme-glass .pk-fb-paused-card,
 html.theme-glass .adaptive-summary-card {
-  background: rgba(255, 255, 255, 0) !important;
-  backdrop-filter: blur(5px) !important;
-  -webkit-backdrop-filter: blur(5px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.35) !important;
-  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.38) !important;
-  color: #ffffff !important;
+  background: rgba(10, 16, 32, 0.80) !important;
+  backdrop-filter: blur(24px) saturate(170%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(170%) !important;
+  border: 1px solid rgba(148, 163, 184, 0.34) !important;
+  box-shadow: 0 28px 68px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+  color: #f8fafc !important;
 }
 
 html.theme-glass .lesson-complete-card::before,
@@ -6156,11 +6287,11 @@ html.theme-glass .lesson-complete-card::after {
 html.theme-glass .lesson-strip-header,
 html.theme-glass .lesson-strip-search,
 html.theme-glass .guide-dock-header {
-  background: rgba(255, 255, 255, 0) !important;
-  backdrop-filter: blur(5px) !important;
-  -webkit-backdrop-filter: blur(5px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35) !important;
-  color: #ffffff !important;
+  background: rgba(10, 16, 32, 0.64) !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.24) !important;
+  color: #f8fafc !important;
 }
 
 html.theme-glass .lss-input-wrap input,
@@ -6205,79 +6336,73 @@ html.theme-glass .adaptive-modal-breakdown,
 html.theme-glass .adaptive-before-after,
 html.theme-glass .asg-box,
 html.theme-glass .lesson-complete-actions button:not(.primary) {
-  background: rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
-  color: #ffffff !important;
+  background: rgba(12, 20, 40, 0.54) !important;
+  backdrop-filter: blur(12px) saturate(155%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(155%) !important;
+  border: 1px solid rgba(148, 163, 184, 0.28) !important;
+  color: #f8fafc !important;
   box-shadow: none !important;
 }
 
 /* Glass Theme Banners, Buttons & Scrollbars */
 html.theme-glass .lsh-hub-banner,
 html.theme-glass .lesson-strip-banners-row .lsh-hub-banner {
-  background: rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
-  color: #ffffff !important;
+  background: rgba(12, 20, 40, 0.58) !important;
+  backdrop-filter: blur(14px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+  border: 1px solid rgba(148, 163, 184, 0.30) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  color: #f8fafc !important;
 }
 html.theme-glass .lsh-hub-banner:hover,
 html.theme-glass .lesson-strip-banners-row .lsh-hub-banner:hover {
-  background: rgba(255, 255, 255, 0.16) !important;
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 16px rgba(255, 255, 255, 0.25) !important;
+  background: rgba(20, 32, 62, 0.72) !important;
+  border-color: var(--gold-bright, #7dd3fc) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), 0 0 16px rgba(125, 211, 252, 0.25) !important;
 }
 html.theme-glass .lsh-hb-badge {
-  background: rgba(255, 255, 255, 0.16) !important;
-  border: 1px solid rgba(255, 255, 255, 0.38) !important;
-  color: #ffffff !important;
+  background: rgba(56, 189, 248, 0.22) !important;
+  border: 1px solid rgba(125, 211, 252, 0.42) !important;
+  color: #e0f2fe !important;
 }
-html.theme-glass .lsh-hb-title {
-  color: #ffffff !important;
-}
-html.theme-glass .lsh-hb-sub {
-  color: rgba(255, 255, 255, 0.75) !important;
-}
-html.theme-glass .lsh-hb-arrow {
-  color: #ffffff !important;
-}
+html.theme-glass .lsh-hb-title { color: #f8fafc !important; }
+html.theme-glass .lsh-hb-sub { color: #cbd5e1 !important; }
+html.theme-glass .lsh-hb-arrow { color: #7dd3fc !important; }
 html.theme-glass .asc-btn {
-  background: rgba(255, 255, 255, 0.22) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.45) !important;
-  color: #ffffff !important;
-  box-shadow: 0 3px 12px rgba(255, 255, 255, 0.2) !important;
+  background: color-mix(in srgb, var(--gold-bright, #7dd3fc) 28%, rgba(10, 16, 32, 0.78)) !important;
+  backdrop-filter: blur(12px) saturate(165%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(165%) !important;
+  border: 1px solid var(--gold-bright, #7dd3fc) !important;
+  color: #f8fafc !important;
+  box-shadow: 0 3px 12px rgba(56, 189, 248, 0.26) !important;
 }
 html.theme-glass .asc-btn:hover {
-  background: rgba(255, 255, 255, 0.35) !important;
+  background: color-mix(in srgb, var(--gold-bright, #7dd3fc) 42%, rgba(10, 16, 32, 0.82)) !important;
   border-color: #ffffff !important;
-  box-shadow: 0 5px 18px rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 5px 18px rgba(125, 211, 252, 0.42) !important;
 }
 html.theme-glass .lesson-card {
-  background: rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.22) !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
-  color: #ffffff !important;
+  background: rgba(12, 20, 40, 0.52) !important;
+  backdrop-filter: blur(12px) saturate(155%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(155%) !important;
+  border: 1px solid rgba(148, 163, 184, 0.26) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28) !important;
+  color: #f8fafc !important;
 }
 html.theme-glass .lesson-card:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: rgba(255, 255, 255, 0.45) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35) !important;
+  background: rgba(20, 32, 62, 0.68) !important;
+  border-color: var(--gold-bright, #7dd3fc) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.38) !important;
 }
 html.theme-glass .lesson-card.active {
-  background: rgba(255, 255, 255, 0.22) !important;
-  border-color: #ffffff !important;
-  box-shadow: 0 0 0 1.5px #ffffff, 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  background: color-mix(in srgb, var(--gold-bright, #7dd3fc) 24%, rgba(10, 16, 32, 0.76)) !important;
+  border-color: var(--gold-bright, #7dd3fc) !important;
+  box-shadow: 0 0 0 1.5px var(--gold-bright, #7dd3fc), 0 8px 24px rgba(0, 0, 0, 0.42) !important;
 }
 html.theme-glass .lesson-card-num {
-  background: rgba(255, 255, 255, 0.14) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  color: #ffffff !important;
+  background: rgba(15, 24, 48, 0.68) !important;
+  border: 1px solid rgba(125, 211, 252, 0.36) !important;
+  color: #f8fafc !important;
 }
 html.theme-glass .lesson-strip-body::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.35) !important;
@@ -9835,11 +9960,11 @@ html.theme-light .rscc-sub {
   }
 
   html.theme-glass .pro-tips-banner-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
-    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15), 0 16px 40px -8px rgba(0, 0, 0, 0.6) !important;
-    backdrop-filter: blur(24px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    background: linear-gradient(135deg, rgba(10, 16, 32, 0.60) 0%, rgba(16, 24, 48, 0.56) 100%) !important;
+    border: 1.5px solid rgba(148, 163, 184, 0.32) !important;
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.16), 0 16px 40px -8px rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(22px) saturate(165%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(165%) !important;
   }
   html.theme-glass .pro-tip-content-large {
     color: #ffffff !important;
@@ -9882,8 +10007,8 @@ html.theme-light .rscc-sub {
     border-bottom: 1px solid rgba(249, 115, 22, 0.2) !important;
   }
   html.theme-glass .rei-strip-stages-wrap {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    background: rgba(10, 16, 32, 0.58) !important;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.25) !important;
   }
 
   /* Explore All Lessons Button in Rei Mode */
@@ -10048,4 +10173,891 @@ html.theme-light .ps-stat-val {
 
 html.theme-light .ps-stat-lbl {
   color: #64748b !important;
+}
+
+
+/* ==========================================================================
+   Universal 8-Theme Overrides: Feedback, Adaptive, 222 Hub, Bonus Vault,
+   Fanfare, Rei Aids/Stage Rail, Project Scale & Mastery Tips
+   ========================================================================== */
+
+/* --- 1. Live Hint, Feedback Breakdown & Incomplete Summary --- */
+:is(html.theme-light, html.theme-sepia) .lesson-live-hint {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .pk-fb-stat-box,
+:is(html.theme-light, html.theme-sepia) .pk-fb-insight-col,
+:is(html.theme-light, html.theme-sepia) .pk-fb-section-breakdown,
+:is(html.theme-light, html.theme-sepia) .pk-fb-pause-details {
+  background: var(--stone-2) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .pk-fb-pause-row b { color: var(--ink) !important; }
+:is(html.theme-light, html.theme-sepia) .pk-fb-pause-bar,
+:is(html.theme-light, html.theme-sepia) .pk-fb-ex-track { background: var(--stone-3) !important; }
+:is(html.theme-light, html.theme-sepia) .pk-fb-subhead.good,
+:is(html.theme-light, html.theme-sepia) .pk-fb-chip.good,
+:is(html.theme-light, html.theme-sepia) .pk-fb-trend-row.improving { color: var(--success-ink) !important; border-color: var(--success-ink) !important; background: rgba(4, 120, 87, 0.10) !important; }
+:is(html.theme-light, html.theme-sepia) .pk-fb-subhead.warn,
+:is(html.theme-light, html.theme-sepia) .pk-fb-chip.warn,
+:is(html.theme-light, html.theme-sepia) .pk-fb-finger-note { color: var(--warn-ink) !important; background: rgba(180, 83, 9, 0.10) !important; border-color: var(--warn-ink) !important; }
+:is(html.theme-light, html.theme-sepia) .pk-fb-trend-row.declining { color: var(--danger-ink) !important; background: rgba(185, 28, 28, 0.10) !important; border-color: var(--danger-ink) !important; }
+:is(html.theme-light, html.theme-sepia) .pk-fb-trend-row.stable { color: var(--gold-bright) !important; background: var(--accent-soft) !important; border-color: var(--accent-border) !important; }
+:is(html.theme-light, html.theme-sepia) .pk-fb-trend-badge { background: rgba(15, 23, 42, 0.10) !important; color: var(--ink) !important; }
+:is(html.theme-light, html.theme-sepia) .pk-fb-rec-banner { background: var(--stone-2) !important; border-color: var(--stone-edge) !important; color: var(--ink) !important; }
+
+/* --- 2. Adaptive Engine Pills, Focus HUD & Adaptive Summary Modal --- */
+:is(html.theme-light, html.theme-sepia) .as-pill {
+  background: var(--stone-1) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .as-pill-bar-track { background: var(--stone-3) !important; }
+:is(html.theme-light, html.theme-sepia) .as-pill.as-locked { opacity: 0.5; background: var(--stone-3) !important; color: var(--ink-dim) !important; }
+:is(html.theme-light, html.theme-sepia) .as-pill.as-active,
+:is(html.theme-light, html.theme-sepia) .as-pill.as-zero,
+:is(html.theme-light, html.theme-sepia) .as-pill.as-zero.as-focus {
+  background: rgba(3, 105, 161, 0.10) !important;
+  border-color: rgba(3, 105, 161, 0.40) !important;
+  color: #0369a1 !important;
+}
+:is(html.theme-light, html.theme-sepia) .as-pill.as-active .as-pill-char,
+:is(html.theme-light, html.theme-sepia) .as-pill.as-active .as-pill-stat,
+:is(html.theme-light, html.theme-sepia) .as-pill.as-zero .as-pill-char,
+:is(html.theme-light, html.theme-sepia) .as-pill.as-zero .as-pill-stat { color: #0369a1 !important; }
+:is(html.theme-light, html.theme-sepia) .as-pill.as-learning,
+:is(html.theme-light, html.theme-sepia) .as-pill.as-needs-practice {
+  background: rgba(180, 83, 9, 0.12) !important;
+  border-color: rgba(180, 83, 9, 0.48) !important;
+  color: #92400e !important;
+  box-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .as-pill.as-advancing,
+:is(html.theme-light, html.theme-sepia) .as-pill.as-improving {
+  background: rgba(14, 116, 144, 0.12) !important;
+  border-color: rgba(14, 116, 144, 0.50) !important;
+  color: #0e7490 !important;
+  box-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .as-pill.as-mastered,
+:is(html.theme-light, html.theme-sepia) .as-pill.as-strong {
+  background: rgba(4, 120, 87, 0.12) !important;
+  border-color: rgba(4, 120, 87, 0.48) !important;
+  color: #065f46 !important;
+  box-shadow: none !important;
+}
+:is(html.theme-light, html.theme-sepia) .as-pill.as-weak {
+  background: rgba(185, 28, 28, 0.12) !important;
+  border-color: rgba(185, 28, 28, 0.50) !important;
+  color: #991b1b !important;
+}
+:is(html.theme-light, html.theme-sepia) .as-pill.as-focus {
+  border-color: var(--gold-bright) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .as-pill .as-tooltip {
+  background: var(--tooltip-bg) !important;
+  border-color: var(--tooltip-border) !important;
+  color: var(--tooltip-ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .adaptive-stage-badge { color: #6d28d9 !important; background: rgba(109, 40, 217, 0.10) !important; border-color: rgba(109, 40, 217, 0.35) !important; }
+:is(html.theme-light, html.theme-sepia) .adaptive-focus-badge { color: var(--gold-bright) !important; background: var(--accent-soft) !important; border-color: var(--accent-border) !important; }
+:is(html.theme-light, html.theme-sepia) .afh-weak-chip { background: rgba(185, 28, 28, 0.10) !important; border-color: rgba(185, 28, 28, 0.40) !important; color: var(--danger-ink) !important; }
+:is(html.theme-light, html.theme-sepia) .afh-weak-chip.needs-practice { background: rgba(180, 83, 9, 0.10) !important; border-color: rgba(180, 83, 9, 0.40) !important; color: var(--warn-ink) !important; }
+:is(html.theme-light, html.theme-sepia) .afh-healthy-chip { color: var(--success-ink) !important; }
+:is(html.theme-light, html.theme-sepia) .afh-finger-note { color: var(--gold-bright) !important; }
+:is(html.theme-light, html.theme-sepia) .adaptive-round-toast { color: var(--success-ink) !important; background: rgba(4, 120, 87, 0.10) !important; border-color: rgba(4, 120, 87, 0.35) !important; }
+:is(html.theme-light, html.theme-sepia) .adaptive-summary-title,
+:is(html.theme-light, html.theme-sepia) .aba-val { color: var(--ink) !important; }
+:is(html.theme-light, html.theme-sepia) .adaptive-unlocked-banner { color: var(--success-ink) !important; }
+:is(html.theme-light, html.theme-sepia) .adaptive-modal-finger { color: var(--gold-bright) !important; background: var(--accent-soft) !important; border-color: var(--accent-border) !important; }
+:is(html.theme-light, html.theme-sepia) .aba-diff.positive { color: var(--success-ink) !important; }
+:is(html.theme-light, html.theme-sepia) .aba-diff.negative { color: var(--danger-ink) !important; }
+:is(html.theme-light, html.theme-sepia) .adaptive-next-btn {
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright)) !important;
+  color: var(--accent-ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .adaptive-summary-exit-btn {
+  border-color: var(--stone-edge) !important;
+  color: var(--ink-dim) !important;
+}
+:is(html.theme-light, html.theme-sepia) .adaptive-summary-exit-btn:hover {
+  border-color: var(--gold-bright) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .adaptive-summary-card,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .adaptive-panel {
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .adaptive-next-btn,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .asc-btn {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  color: var(--accent-ink) !important;
+}
+
+/* --- 3. 222 Master Lessons & Alphabet Coverage Hub (#learnMoreHubModal) --- */
+:is(html.theme-light, html.theme-sepia) .lsh-hub-banner,
+:is(html.theme-light, html.theme-sepia) .lesson-strip-banners-row .lsh-hub-banner {
+  background: var(--stone-2) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lsh-hub-banner:hover {
+  border-color: var(--gold-bright) !important;
+  background: var(--stone-1) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lsh-hb-badge {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lsh-hb-title,
+:is(html.theme-light, html.theme-sepia) .lsh-hb-arrow { color: var(--gold-bright) !important; }
+:is(html.theme-light, html.theme-sepia) .lsh-hb-sub { color: var(--ink-dim) !important; }
+:is(html.theme-light, html.theme-sepia) .top-action-btn.learn-more-nav-btn {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+
+:is(html.theme-light, html.theme-sepia) .lm-hub-modal-card {
+  background: linear-gradient(180deg, var(--stone-1) 0%, var(--stone-2) 100%) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lm-hub-modal-top,
+:is(html.theme-light, html.theme-sepia) .lm-hub-nav-tabs,
+:is(html.theme-light, html.theme-sepia) .lm-hub-footer { border-color: var(--stone-edge) !important; }
+:is(html.theme-light, html.theme-sepia) .lm-hub-badge-icon,
+:is(html.theme-light, html.theme-sepia) .lm-hub-chip,
+:is(html.theme-light, html.theme-sepia) .lm-hub-verified-tag {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lm-hub-stat,
+:is(html.theme-light, html.theme-sepia) .lm-alpha-inspector,
+:is(html.theme-light, html.theme-sepia) .lm-lesson-item,
+:is(html.theme-light, html.theme-sepia) .lm-master-card,
+:is(html.theme-light, html.theme-sepia) .lm-master-pedagogy-box {
+  background: var(--stone-1) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lm-hub-stat.highlight {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lm-stat-val,
+:is(html.theme-light, html.theme-sepia) .lm-hub-stat.highlight .lm-stat-val,
+:is(html.theme-light, html.theme-sepia) .lm-ai-glyph,
+:is(html.theme-light, html.theme-sepia) .lm-ai-code,
+:is(html.theme-light, html.theme-sepia) .lm-alpha-sec-title,
+:is(html.theme-light, html.theme-sepia) .lm-li-code,
+:is(html.theme-light, html.theme-sepia) .lm-mc-track,
+:is(html.theme-light, html.theme-sepia) .lm-mc-khmer-title,
+:is(html.theme-light, html.theme-sepia) .lm-mp-heading,
+:is(html.theme-light, html.theme-sepia) .lm-hub-verif-note {
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lm-stat-lbl,
+:is(html.theme-light, html.theme-sepia) .lm-ai-name,
+:is(html.theme-light, html.theme-sepia) .lm-li-title,
+:is(html.theme-light, html.theme-sepia) .lm-master-title,
+:is(html.theme-light, html.theme-sepia) .lm-mc-title,
+:is(html.theme-light, html.theme-sepia) .lm-mc-stats strong,
+:is(html.theme-light, html.theme-sepia) .lm-mp-item strong { color: var(--ink) !important; }
+:is(html.theme-light, html.theme-sepia) .lm-stat-sub,
+:is(html.theme-light, html.theme-sepia) .lm-ai-lesson-line,
+:is(html.theme-light, html.theme-sepia) .lm-master-desc,
+:is(html.theme-light, html.theme-sepia) .lm-mc-desc,
+:is(html.theme-light, html.theme-sepia) .lm-mc-stats,
+:is(html.theme-light, html.theme-sepia) .lm-mp-item p { color: var(--ink-dim) !important; }
+:is(html.theme-light, html.theme-sepia) .lm-tab-btn,
+:is(html.theme-light, html.theme-sepia) .lm-alpha-pill-btn,
+:is(html.theme-light, html.theme-sepia) .lm-char-tile,
+:is(html.theme-light, html.theme-sepia) .lm-track-pill,
+:is(html.theme-light, html.theme-sepia) .lm-browse-search-input,
+:is(html.theme-light, html.theme-sepia) .lm-ai-badge,
+:is(html.theme-light, html.theme-sepia) .lm-li-units {
+  background: var(--stone-2) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lm-tab-btn.active,
+:is(html.theme-light, html.theme-sepia) .lm-alpha-pill-btn.active,
+:is(html.theme-light, html.theme-sepia) .lm-char-tile.active,
+:is(html.theme-light, html.theme-sepia) .lm-track-pill.active {
+  background: var(--gold-bright) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--accent-ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lm-alpha-sec-badge,
+:is(html.theme-light, html.theme-sepia) .lm-li-key-badge,
+:is(html.theme-light, html.theme-sepia) .lm-mc-badge,
+:is(html.theme-light, html.theme-sepia) .lm-master-badge {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lm-ai-launch-btn,
+:is(html.theme-light, html.theme-sepia) .lm-li-launch-btn,
+:is(html.theme-light, html.theme-sepia) .lm-mc-launch-btn {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--accent-ink) !important;
+}
+
+html.theme-glass .lm-hub-modal-card {
+  background: rgba(10, 16, 32, 0.84) !important;
+  backdrop-filter: blur(24px) saturate(170%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(170%) !important;
+  border-color: rgba(125, 211, 252, 0.34) !important;
+}
+html.theme-glass .lm-hub-stat,
+html.theme-glass .lm-alpha-inspector,
+html.theme-glass .lm-char-tile,
+html.theme-glass .lm-lesson-item,
+html.theme-glass .lm-master-card,
+html.theme-glass .lm-master-pedagogy-box,
+html.theme-glass .lm-browse-search-input {
+  background: rgba(14, 22, 46, 0.56) !important;
+  border-color: rgba(148, 163, 184, 0.28) !important;
+}
+html.theme-glass .lm-tab-btn.active,
+html.theme-glass .lm-alpha-pill-btn.active,
+html.theme-glass .lm-track-pill.active,
+html.theme-glass .lm-char-tile.active {
+  background: color-mix(in srgb, #7dd3fc 28%, rgba(10, 16, 32, 0.78)) !important;
+  border-color: #7dd3fc !important;
+  color: #f8fafc !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lsh-hub-banner,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lesson-strip-banners-row .lsh-hub-banner {
+  background: var(--stone-2) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lsh-hb-title,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lsh-hb-arrow { color: var(--gold-bright) !important; }
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lm-hub-modal-card {
+  background: linear-gradient(180deg, var(--stone-2) 0%, var(--stone-1) 100%) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lm-master-card,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lm-alpha-inspector,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lm-lesson-item {
+  background: var(--stone-1) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lm-ai-launch-btn {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  color: var(--accent-ink) !important;
+}
+
+/* --- 4. Grandmaster Bonus Vault & 222-Completion Fanfare Modal --- */
+:is(html.theme-light, html.theme-sepia) .lesson-level-header.bonus-level-header,
+:is(html.theme-light, html.theme-sepia) .lesson-card.bonus-card,
+:is(html.theme-light, html.theme-sepia) .bonus-auto-jump-banner {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .bonus-auto-jump-banner .baj-title,
+:is(html.theme-light, html.theme-sepia) .bonus-auto-jump-banner .baj-desc b.baj-sec,
+:is(html.theme-light, html.theme-sepia) .lesson-card-bonus-tag,
+:is(html.theme-light, html.theme-sepia) .bvh-badge.unlocked { color: var(--gold-bright) !important; }
+:is(html.theme-light, html.theme-sepia) .bvh-badge.locked { color: var(--danger-ink) !important; border-color: var(--danger-ink) !important; background: rgba(185, 28, 28, 0.10) !important; }
+:is(html.theme-light, html.theme-sepia) .bonus-auto-jump-banner .baj-desc { color: var(--ink-dim) !important; }
+:is(html.theme-light, html.theme-sepia) .bonus-auto-jump-banner .baj-jump-btn,
+:is(html.theme-light, html.theme-sepia) .lm-vt-lr-launch-btn,
+:is(html.theme-light, html.theme-sepia) .gm-enter-vault-btn {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  color: var(--accent-ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lm-vault-intro,
+:is(html.theme-light, html.theme-sepia) .lm-vault-progress-card,
+:is(html.theme-light, html.theme-sepia) .lm-vault-tier-card,
+:is(html.theme-light, html.theme-sepia) .lm-vt-lesson-row,
+:is(html.theme-light, html.theme-sepia) .gm-fanfare-card,
+:is(html.theme-light, html.theme-sepia) .gm-fstat-item {
+  background: var(--stone-1) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-light, html.theme-sepia) .lm-vault-title,
+:is(html.theme-light, html.theme-sepia) .lm-vt-title,
+:is(html.theme-light, html.theme-sepia) .lm-vt-lr-title,
+:is(html.theme-light, html.theme-sepia) .gm-fanfare-title { color: var(--ink) !important; }
+:is(html.theme-light, html.theme-sepia) .lm-vault-desc,
+:is(html.theme-light, html.theme-sepia) .lm-vp-max,
+:is(html.theme-light, html.theme-sepia) .lm-vp-lbl,
+:is(html.theme-light, html.theme-sepia) .lm-vp-hint,
+:is(html.theme-light, html.theme-sepia) .lm-vt-desc,
+:is(html.theme-light, html.theme-sepia) .lm-vt-lr-code,
+:is(html.theme-light, html.theme-sepia) .gm-fanfare-sub,
+:is(html.theme-light, html.theme-sepia) .gm-fstat-lbl { color: var(--ink-dim) !important; }
+:is(html.theme-light, html.theme-sepia) .lm-vp-num,
+:is(html.theme-light, html.theme-sepia) .lm-vt-tier-badge,
+:is(html.theme-light, html.theme-sepia) .gm-fanfare-crown-icon,
+:is(html.theme-light, html.theme-sepia) .gm-fanfare-tag,
+:is(html.theme-light, html.theme-sepia) .gm-fstat-num { color: var(--gold-bright) !important; }
+:is(html.theme-light, html.theme-sepia) .lm-vp-status.unlocked,
+:is(html.theme-light, html.theme-sepia) .lm-vp-hint.unlocked,
+:is(html.theme-light, html.theme-sepia) .lm-vt-lr-score { color: var(--success-ink) !important; }
+:is(html.theme-light, html.theme-sepia) .lm-vp-status.locked { color: var(--danger-ink) !important; }
+:is(html.theme-light, html.theme-sepia) .lm-vp-meter-track { background: var(--stone-3) !important; }
+:is(html.theme-light, html.theme-sepia) .lm-vt-header { border-bottom-color: var(--stone-edge) !important; }
+:is(html.theme-light, html.theme-sepia) .lm-vt-track-pill.standard,
+:is(html.theme-light, html.theme-sepia) .lm-vt-track-pill.nida,
+:is(html.theme-light, html.theme-sepia) .lm-vt-track-pill.english {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+html.theme-glass .lm-vault-intro,
+html.theme-glass .lm-vault-progress-card,
+html.theme-glass .lm-vault-tier-card,
+html.theme-glass .lm-vt-lesson-row,
+html.theme-glass .gm-fstat-item {
+  background: rgba(14, 22, 46, 0.56) !important;
+  border-color: rgba(148, 163, 184, 0.28) !important;
+}
+html.theme-glass .gm-fanfare-card {
+  background: rgba(10, 16, 32, 0.84) !important;
+  backdrop-filter: blur(24px) saturate(170%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(170%) !important;
+  border-color: rgba(125, 211, 252, 0.36) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lm-vault-intro,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lm-vault-progress-card,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .lm-vault-tier-card,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .gm-fanfare-card {
+  background: var(--stone-1) !important;
+  border-color: var(--accent-border) !important;
+}
+
+/* --- 5. Rei Pedagogical Aids, Stage Rail & Focus HUD --- */
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .rei-finger-reach-hud {
+  background: var(--stone-2) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .rei-stage-tip-banner {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+}
+html.theme-sepia .rei-stage-tip-banner { background: #fbf5e6 !important; border-color: #d97706 !important; color: #451a03 !important; }
+html.theme-sepia .rst-title, html.theme-sepia .rst-header { color: #92400e !important; }
+html.theme-sepia .rst-desc { color: #5c4125 !important; }
+html.theme-glass .rei-stage-tip-banner { background: rgba(14, 22, 46, 0.56) !important; border-color: rgba(125, 211, 252, 0.30) !important; }
+
+html.theme-sepia .rei-stage-scroll-btn,
+html.theme-sepia .rei-stage-btn {
+  background: #faf5ec !important;
+  border-color: #ccbc9e !important;
+  color: #4a3421 !important;
+}
+html.theme-sepia .rei-stage-btn.active {
+  background: linear-gradient(135deg, #b45309, #92400e) !important;
+  border-color: #92400e !important;
+  color: #faf5ec !important;
+}
+html.theme-glass .rei-stage-scroll-btn,
+html.theme-glass .rei-stage-btn,
+html.theme-glass .focus-lesson-hud {
+  background: rgba(12, 20, 40, 0.58) !important;
+  border-color: rgba(148, 163, 184, 0.30) !important;
+  color: #f8fafc !important;
+}
+html.theme-glass .rei-stage-btn.active {
+  background: color-mix(in srgb, #7dd3fc 28%, rgba(10, 16, 32, 0.78)) !important;
+  border-color: #7dd3fc !important;
+  color: #f8fafc !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .rei-stage-scroll-btn,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .rei-stage-btn,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .focus-lesson-hud {
+  background: var(--stone-2) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--ink) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .rei-stage-btn.active {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  color: var(--accent-ink) !important;
+  border-color: var(--gold-bright) !important;
+}
+html.theme-sepia .focus-lesson-hud { background: #faf5ec !important; border-color: #ccbc9e !important; color: #2c1b0c !important; }
+html.theme-sepia .flh-dock-btn, html.theme-light .flh-dock-btn { color: var(--ink) !important; }
+:is(html.theme-light, html.theme-sepia) .flh-kbd,
+:is(html.theme-light, html.theme-sepia) .lsh-collapse-btn {
+  background: var(--stone-2) !important;
+  border-color: var(--stone-edge) !important;
+  color: var(--ink) !important;
+}
+html.theme-sepia .lesson-card.next-recommended { background: linear-gradient(135deg, #ecfdf5 0%, #faf5ec 100%) !important; border-color: #166534 !important; }
+html.theme-glass .lesson-card.next-recommended { background: rgba(16, 185, 129, 0.16) !important; border-color: #34d399 !important; }
+:is(html.theme-light, html.theme-sepia) .rei-stage-complete-card { background: rgba(4, 120, 87, 0.10) !important; border-color: rgba(4, 120, 87, 0.36) !important; }
+:is(html.theme-light, html.theme-sepia) .rscc-text,
+:is(html.theme-light, html.theme-sepia) .rscc-sub { color: var(--success-ink) !important; }
+html.theme-glass .rei-explore-all-btn {
+  background: rgba(14, 22, 46, 0.62) !important;
+  border-color: rgba(125, 211, 252, 0.38) !important;
+  color: #f8fafc !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .rei-explore-all-btn {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+
+/* --- 6. Project Scale & Architecture Telemetry Modal (#projectScaleModal) --- */
+:is(html.theme-light, html.theme-sepia) .chassis-scale-btn,
+:is(html.theme-light, html.theme-sepia) .rei-scale-btn,
+:is(html.theme-light, html.theme-sepia) .version-action-scale-btn {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-light, html.theme-sepia) .chassis-scale-badge {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  color: var(--accent-ink) !important;
+}
+html.theme-sepia .project-scale-modal-card {
+  background: linear-gradient(180deg, #faf5ec 0%, #f0e6d2 100%) !important;
+  border: 1.5px solid #ccbc9e !important;
+  border-top: 3px solid #92400e !important;
+  color: #2c1b0c !important;
+}
+html.theme-sepia .project-scale-title,
+html.theme-sepia .ps-stat-val,
+html.theme-sepia .scale-stat-label,
+html.theme-sepia .scale-pillar-content h4,
+html.theme-sepia .stld-title,
+html.theme-sepia .stld-card-val { color: #2c1b0c !important; }
+html.theme-sepia .project-scale-sub,
+html.theme-sepia .ps-stat-lbl,
+html.theme-sepia .scale-stat-detail,
+html.theme-sepia .scale-pillar-content p,
+html.theme-sepia .stld-card-label,
+html.theme-sepia .stld-card-sub { color: #6b4f2c !important; }
+html.theme-sepia .ps-stat-card,
+html.theme-sepia .scale-stat-card,
+html.theme-sepia .project-scale-pillars,
+html.theme-sepia .scale-telemetry-live-deck,
+html.theme-sepia .stld-card {
+  background: #faf5ec !important;
+  border-color: #ccbc9e !important;
+}
+html.theme-sepia .scale-stat-value {
+  background: linear-gradient(135deg, #b45309 0%, #92400e 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+html.theme-sepia .scale-pillars-heading,
+html.theme-sepia .scale-footer-badge { color: #92400e !important; }
+html.theme-sepia .project-scale-ack-btn { background: linear-gradient(135deg, #b45309, #92400e) !important; color: #faf5ec !important; }
+html.theme-sepia .project-scale-footer,
+html.theme-sepia .stld-header { border-color: #ccbc9e !important; }
+
+html.theme-glass .project-scale-modal-card {
+  background: rgba(10, 16, 32, 0.84) !important;
+  backdrop-filter: blur(24px) saturate(170%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(170%) !important;
+  border-color: rgba(125, 211, 252, 0.36) !important;
+}
+html.theme-glass .ps-stat-card,
+html.theme-glass .scale-stat-card,
+html.theme-glass .project-scale-pillars,
+html.theme-glass .scale-telemetry-live-deck,
+html.theme-glass .stld-card {
+  background: rgba(14, 22, 46, 0.56) !important;
+  border-color: rgba(148, 163, 184, 0.28) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .project-scale-modal-card {
+  background: linear-gradient(180deg, var(--stone-2) 0%, var(--stone-1) 100%) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .scale-telemetry-live-deck,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .ps-stat-card,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .scale-stat-card,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .project-scale-pillars,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .stld-card {
+  background: var(--stone-1) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .project-scale-ack-btn {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  color: var(--accent-ink) !important;
+}
+
+/* --- 7. Mastery Tips Modal (#masteryTipsModal) & .hint-pro-tip-bar --- */
+html.theme-sepia .hint-pro-tip-bar,
+html.theme-sepia .mastery-tips-footer,
+html.theme-sepia .mastery-tips-nav { border-color: #ccbc9e !important; }
+html.theme-sepia .pro-tip-tag { background: #fef3c7 !important; border-color: #d97706 !important; color: #92400e !important; }
+html.theme-sepia .pro-tip-content { color: #2c1b0c !important; }
+html.theme-sepia .pro-tip-cycle-btn { background: #f0e6d2 !important; border-color: #ccbc9e !important; color: #4a3421 !important; }
+html.theme-sepia .mastery-tips-modal-card {
+  background: linear-gradient(180deg, #faf5ec 0%, #f0e6d2 100%) !important;
+  border: 1.5px solid #ccbc9e !important;
+  border-top: 3px solid #92400e !important;
+}
+html.theme-sepia .mastery-tips-title,
+html.theme-sepia .tip-card-title { color: #2c1b0c !important; }
+html.theme-sepia .mastery-tips-sub,
+html.theme-sepia .tip-card-body { color: #5c4125 !important; }
+html.theme-sepia .tips-tab-btn,
+html.theme-sepia .tip-card { background: #faf5ec !important; border-color: #ccbc9e !important; color: #4a3421 !important; }
+html.theme-sepia .tips-tab-btn.active { background: #fef3c7 !important; border-color: #92400e !important; color: #78350f !important; }
+html.theme-sepia .tip-card-body kbd { background: #e7dac1 !important; border-color: #aa9674 !important; color: #2c1b0c !important; }
+html.theme-sepia .mastery-tips-ack-btn,
+html.theme-light .mastery-tips-ack-btn {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  color: var(--accent-ink) !important;
+}
+
+html.theme-glass .mastery-tips-modal-card {
+  background: rgba(10, 16, 32, 0.84) !important;
+  backdrop-filter: blur(24px) saturate(170%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(170%) !important;
+  border-color: rgba(125, 211, 252, 0.36) !important;
+}
+html.theme-glass .tip-card,
+html.theme-glass .tips-tab-btn,
+html.theme-glass .pro-tip-cycle-btn {
+  background: rgba(14, 22, 46, 0.56) !important;
+  border-color: rgba(148, 163, 184, 0.28) !important;
+}
+html.theme-glass .tips-tab-btn.active {
+  background: color-mix(in srgb, #7dd3fc 28%, rgba(10, 16, 32, 0.78)) !important;
+  border-color: #7dd3fc !important;
+  color: #f8fafc !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .mastery-tips-modal-card {
+  background: linear-gradient(180deg, var(--stone-2) 0%, var(--stone-1) 100%) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .tip-card,
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .tips-tab-btn {
+  background: var(--stone-1) !important;
+  border-color: var(--accent-border) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .tips-tab-btn.active {
+  background: var(--accent-soft) !important;
+  border-color: var(--gold-bright) !important;
+  color: var(--gold-bright) !important;
+}
+:is(html.theme-temple, html.theme-moonlight, html.theme-jungle, html.theme-sunset) .mastery-tips-ack-btn {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold)) !important;
+  color: var(--accent-ink) !important;
+}
+
+/* ============================================================
+   All 8+1 Themes: Target Keys Pedestal, Flow Banner & Drill Keycaps
+   WCAG AA compliant, zero emojis.
+   ============================================================ */
+html.theme-light .guide-live-status-pill.status-ready,
+html.theme-sepia .guide-live-status-pill.status-ready {
+  background: rgba(2, 132, 199, 0.12) !important;
+  border-color: rgba(2, 132, 199, 0.35) !important;
+  color: #0284c7 !important;
+}
+html.theme-light .guide-live-status-pill.status-ready #guideLiveStatusText,
+html.theme-sepia .guide-live-status-pill.status-ready #guideLiveStatusText {
+  color: #0369a1 !important;
+}
+html.theme-light .guide-live-status-pill.status-ready .gls-dot,
+html.theme-sepia .guide-live-status-pill.status-ready .gls-dot {
+  background: #0284c7 !important;
+}
+html.theme-light .guide-live-status-pill.status-active,
+html.theme-sepia .guide-live-status-pill.status-active {
+  background: rgba(4, 120, 87, 0.12) !important;
+  border-color: rgba(4, 120, 87, 0.35) !important;
+  color: #047857 !important;
+}
+html.theme-light .guide-live-status-pill.status-active #guideLiveStatusText,
+html.theme-sepia .guide-live-status-pill.status-active #guideLiveStatusText {
+  color: #047857 !important;
+}
+html.theme-light .guide-live-status-pill.status-active .gls-dot,
+html.theme-sepia .guide-live-status-pill.status-active .gls-dot {
+  background: #047857 !important;
+}
+
+/* Light Theme Drill Components */
+html.theme-light .lesson-flow-banner {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+html.theme-light .lfb-badge {
+  color: #b45309 !important;
+}
+html.theme-light .lfb-sub {
+  color: #475569 !important;
+}
+html.theme-light .lfb-track {
+  background: #e2e8f0 !important;
+}
+html.theme-light .lesson-newkeys {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 0 #ffffff !important;
+}
+html.theme-light .lesson-newkeys-label {
+  color: #b45309 !important;
+}
+html.theme-light .lesson-newkey-chip {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+html.theme-light .nk-keycap {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%) !important;
+  border: 1px solid #cbd5e1 !important;
+  border-bottom: 3px solid #b45309 !important;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1), inset 0 1px 0 #ffffff !important;
+}
+html.theme-light .nk-keycap .nk-char {
+  color: #0f172a !important;
+  text-shadow: none !important;
+}
+html.theme-light .nk-homing-bump {
+  background: #b45309 !important;
+  box-shadow: 0 0 4px rgba(180, 83, 9, 0.4) !important;
+}
+html.theme-light .nk-keyid {
+  color: #334155 !important;
+  background: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+}
+html.theme-light .nk-finger-badge {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+html.theme-light .nk-finger-badge.finger-li,
+html.theme-light .nk-finger-badge.finger-ri {
+  color: #0369a1 !important;
+  background: rgba(2, 132, 199, 0.1) !important;
+  border-color: rgba(2, 132, 199, 0.32) !important;
+}
+html.theme-light .nk-finger-badge.finger-lm,
+html.theme-light .nk-finger-badge.finger-rm {
+  color: #047857 !important;
+  background: rgba(4, 120, 87, 0.1) !important;
+  border-color: rgba(4, 120, 87, 0.32) !important;
+}
+html.theme-light .nk-finger-badge.finger-lr,
+html.theme-light .nk-finger-badge.finger-rr {
+  color: #7e22ce !important;
+  background: rgba(126, 34, 206, 0.1) !important;
+  border-color: rgba(126, 34, 206, 0.32) !important;
+}
+html.theme-light .nk-finger-badge.finger-lp,
+html.theme-light .nk-finger-badge.finger-rp {
+  color: #be123c !important;
+  background: rgba(190, 18, 60, 0.1) !important;
+  border-color: rgba(190, 18, 60, 0.32) !important;
+}
+html.theme-light .nk-finger-badge.finger-lt,
+html.theme-light .nk-finger-badge.finger-rt {
+  color: #b45309 !important;
+  background: rgba(180, 83, 9, 0.1) !important;
+  border-color: rgba(180, 83, 9, 0.32) !important;
+}
+html.theme-light .lesson-examples-banner {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+html.theme-light .leb-label {
+  color: #b45309 !important;
+}
+html.theme-light .leb-chip {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Sepia Theme Drill Components */
+html.theme-sepia .lesson-flow-banner {
+  background: #ede3d1 !important;
+  border-color: #d6c7b2 !important;
+}
+html.theme-sepia .lfb-badge {
+  color: #92400e !important;
+}
+html.theme-sepia .lfb-sub {
+  color: #5c4428 !important;
+}
+html.theme-sepia .lfb-track {
+  background: #dfd2be !important;
+}
+html.theme-sepia .lesson-newkeys {
+  background: #f4ead6 !important;
+  border-color: #d6c7b2 !important;
+  box-shadow: inset 0 1px 3px rgba(44, 27, 12, 0.08), 0 1px 0 #ffffff !important;
+}
+html.theme-sepia .lesson-newkeys-label {
+  color: #92400e !important;
+}
+html.theme-sepia .lesson-newkey-chip {
+  background: #faf5ec !important;
+  border-color: #d6c7b2 !important;
+}
+html.theme-sepia .nk-keycap {
+  background: linear-gradient(180deg, #fffdf8 0%, #f0e6d2 100%) !important;
+  border: 1px solid #ccbc9e !important;
+  border-bottom: 3px solid #92400e !important;
+  box-shadow: 0 4px 10px rgba(44, 27, 12, 0.12), inset 0 1px 0 #ffffff !important;
+}
+html.theme-sepia .nk-keycap .nk-char {
+  color: #2d1f11 !important;
+  text-shadow: none !important;
+}
+html.theme-sepia .nk-homing-bump {
+  background: #92400e !important;
+  box-shadow: 0 0 4px rgba(146, 64, 14, 0.4) !important;
+}
+html.theme-sepia .nk-keyid {
+  color: #432b14 !important;
+  background: #e5d7c0 !important;
+  border-color: #ccbc9e !important;
+}
+html.theme-sepia .nk-finger-badge {
+  background: #ede3d1 !important;
+  color: #432b14 !important;
+  border-color: #ccbc9e !important;
+}
+html.theme-sepia .nk-finger-badge.finger-li,
+html.theme-sepia .nk-finger-badge.finger-ri {
+  color: #0369a1 !important;
+  background: rgba(2, 132, 199, 0.12) !important;
+  border-color: rgba(2, 132, 199, 0.35) !important;
+}
+html.theme-sepia .nk-finger-badge.finger-lm,
+html.theme-sepia .nk-finger-badge.finger-rm {
+  color: #047857 !important;
+  background: rgba(4, 120, 87, 0.12) !important;
+  border-color: rgba(4, 120, 87, 0.35) !important;
+}
+html.theme-sepia .nk-finger-badge.finger-lr,
+html.theme-sepia .nk-finger-badge.finger-rr {
+  color: #7e22ce !important;
+  background: rgba(126, 34, 206, 0.12) !important;
+  border-color: rgba(126, 34, 206, 0.35) !important;
+}
+html.theme-sepia .nk-finger-badge.finger-lp,
+html.theme-sepia .nk-finger-badge.finger-rp {
+  color: #be123c !important;
+  background: rgba(190, 18, 60, 0.12) !important;
+  border-color: rgba(190, 18, 60, 0.35) !important;
+}
+html.theme-sepia .nk-finger-badge.finger-lt,
+html.theme-sepia .nk-finger-badge.finger-rt {
+  color: #92400e !important;
+  background: rgba(146, 64, 14, 0.12) !important;
+  border-color: rgba(146, 64, 14, 0.35) !important;
+}
+html.theme-sepia .lesson-examples-banner {
+  background: #f4ead6 !important;
+  border-color: #d6c7b2 !important;
+}
+html.theme-sepia .leb-label {
+  color: #92400e !important;
+}
+html.theme-sepia .leb-chip {
+  background: #faf5ec !important;
+  border-color: #d6c7b2 !important;
+  color: #2d1f11 !important;
+}
+
+/* Smoked Glass Theme Drill Components */
+html.theme-glass .lesson-flow-banner {
+  background: rgba(10, 16, 32, 0.72) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+}
+html.theme-glass .lesson-newkeys {
+  background: rgba(10, 16, 32, 0.72) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+}
+html.theme-glass .nk-keycap {
+  background: rgba(14, 22, 42, 0.82) !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+}
+html.theme-glass .lesson-examples-banner {
+  background: rgba(10, 16, 32, 0.72) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+}
+
+/* Atmospheric Themes Drill Components */
+html.theme-temple .lesson-flow-banner,
+html.theme-temple .lesson-newkeys,
+html.theme-temple .lesson-examples-banner {
+  background: rgba(25, 17, 10, 0.88) !important;
+  border-color: rgba(255, 209, 102, 0.25) !important;
+}
+html.theme-temple .nk-keycap {
+  background: linear-gradient(180deg, #2b1d12 0%, #170f08 100%) !important;
+  border-color: rgba(255, 209, 102, 0.38) !important;
+}
+
+html.theme-moonlight .lesson-flow-banner,
+html.theme-moonlight .lesson-newkeys,
+html.theme-moonlight .lesson-examples-banner {
+  background: rgba(12, 20, 42, 0.88) !important;
+  border-color: rgba(125, 211, 252, 0.25) !important;
+}
+html.theme-moonlight .nk-keycap {
+  background: linear-gradient(180deg, #182850 0%, #0d162d 100%) !important;
+  border-color: rgba(125, 211, 252, 0.38) !important;
+}
+
+html.theme-jungle .lesson-flow-banner,
+html.theme-jungle .lesson-newkeys,
+html.theme-jungle .lesson-examples-banner {
+  background: rgba(10, 28, 18, 0.88) !important;
+  border-color: rgba(52, 211, 153, 0.25) !important;
+}
+html.theme-jungle .nk-keycap {
+  background: linear-gradient(180deg, #143524 0%, #0a1f14 100%) !important;
+  border-color: rgba(52, 211, 153, 0.38) !important;
+}
+
+html.theme-sunset .lesson-flow-banner,
+html.theme-sunset .lesson-newkeys,
+html.theme-sunset .lesson-examples-banner {
+  background: rgba(30, 12, 24, 0.88) !important;
+  border-color: rgba(251, 146, 60, 0.25) !important;
+}
+html.theme-sunset .nk-keycap {
+  background: linear-gradient(180deg, #3c142c 0%, #1e0917 100%) !important;
+  border-color: rgba(251, 146, 60, 0.38) !important;
+}
+
+.lm-vt-status-mastered { color: var(--success-ink, #5fd694); display: inline-flex; align-items: center; }
+.lm-vt-status-locked { color: var(--ink-dim, #94a3b8); display: inline-flex; align-items: center; }
+.lm-vt-status-ready { color: var(--gold-bright, #ffd166); display: inline-flex; align-items: center; }
+
+/* Re-assert Windows High Contrast / forced-colors above all theme rules */
+@media (forced-colors: active) {
+  .lesson-panel, .adaptive-panel, .lesson-flow-banner, .lesson-newkeys,
+  .lesson-char-row, .nk-keycap, .stat-pod, .as-pill, .adaptive-focus-hud,
+  .lm-hub-modal-card, .project-scale-modal-card, .mastery-tips-modal-card {
+    background: Canvas !important;
+    color: CanvasText !important;
+    border: 1px solid CanvasText !important;
+    box-shadow: none !important;
+  }
 }

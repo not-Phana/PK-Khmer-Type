@@ -30,7 +30,7 @@
     box-sizing:border-box;
     contain:layout style;
     overscroll-behavior:contain;
-    box-shadow:0 24px 60px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,209,102,0.22);
+    box-shadow:0 24px 60px rgba(0,0,0,0.85), 0 0 0 1px var(--accent-border, rgba(255,209,102,0.22));
   }
 
   @media(min-width:1200px){
@@ -40,7 +40,7 @@
       width:300px;
       max-height:calc(100vh - 108px);
       z-index:60;
-      box-shadow:0 20px 50px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,209,102,0.14), 0 0 32px rgba(255,209,102,0.06);
+      box-shadow:0 20px 50px rgba(0,0,0,0.75), 0 0 0 1px var(--accent-border, rgba(255,209,102,0.14)), 0 0 32px var(--accent-soft, rgba(255,209,102,0.06));
     }
   }
 
@@ -71,8 +71,8 @@
       overflow:hidden !important;
       backdrop-filter:blur(12px);
       -webkit-backdrop-filter:blur(12px);
-      box-shadow:0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,209,102,0.18);
-      border-color:rgba(255,209,102,0.25);
+      box-shadow:0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px var(--accent-border, rgba(255,209,102,0.18));
+      border-color:var(--accent-border, rgba(255,209,102,0.25));
       transition:width .28s cubic-bezier(.22,1,.36,1), top .28s ease, bottom .28s ease, max-height .28s ease, box-shadow .28s ease, border-color .28s ease;
     }
     .lesson-strip.expanded,
@@ -83,8 +83,8 @@
       width:min(660px, calc(100vw - 760px));
       border-radius: var(--radius, 9px) !important;
       overflow:hidden !important;
-      box-shadow:0 18px 54px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,209,102,0.24);
-      border-color:rgba(255,209,102,0.35);
+      box-shadow:0 18px 54px rgba(0,0,0,0.7), 0 0 0 1px var(--accent-border, rgba(255,209,102,0.24));
+      border-color:var(--gold-bright, rgba(255,209,102,0.35));
     }
     @media(min-width:1600px){
       .lesson-strip.expanded{

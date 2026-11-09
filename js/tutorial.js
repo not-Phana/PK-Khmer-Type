@@ -309,7 +309,7 @@
               <rect id="pkSpotlightHole" x="0" y="0" width="0" height="0" rx="12" ry="12" fill="black" />
             </mask>
           </defs>
-          <rect x="0" y="0" width="100%" height="100%" fill="rgba(6, 9, 18, 0.78)" mask="url(#pkTutorialMask)" />
+          <rect class="pk-tutorial-scrim" x="0" y="0" width="100%" height="100%" fill="rgba(6, 9, 18, 0.78)" mask="url(#pkTutorialMask)" />
         </svg>
 
         <div id="pkSpotlightFrame" class="pk-spotlight-frame hidden-frame" aria-hidden="true"></div>

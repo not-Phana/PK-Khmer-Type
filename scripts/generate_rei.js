@@ -21,7 +21,7 @@ function buildReiHtml(isSubdir = false) {
   // 2. Title & Rei Flag Meta
   html = html.replace(
     /<title>.*?<\/title>/,
-    `<title>PK Khmer Type Rei — Cambodian & English Typing Tutor</title>\n  <meta name="color-scheme" content="light dark">\n  <script>window.__IS_REI__ = true; window.__IS_REI_SUBDIR__ = ${isSubdir ? 'true' : 'false'};</script>`
+    `<title>PK Khmer Type Rei — Cambodian & English Typing Tutor</title>\n  <script>window.__IS_REI__ = true; window.__IS_REI_SUBDIR__ = ${isSubdir ? 'true' : 'false'};</script>`
   );
   html = html.replace(/<html\s+lang="en"\s+class="([^"]*)"/, '<html lang="en" class="is-rei $1"');
   html = html.replace('<body', '<body class="is-rei"');
@@ -137,7 +137,7 @@ function buildReiHtml(isSubdir = false) {
   html = html.replace(
     '<div class="lesson-char-row" id="lessonCharRow"></div>',
     `<div class="rei-finger-reach-hud" id="reiFingerReachHud" aria-live="polite">
-      <span class="rei-reach-dot rest" style="background:#94a3b8;"></span>
+      <span class="rei-reach-dot rest"></span>
       <span class="rei-reach-label">Home Row Resting (Index anchors on F & J)</span>
     </div>
     <div class="lesson-char-row" id="lessonCharRow"></div>`
@@ -181,12 +181,12 @@ function buildReiHtml(isSubdir = false) {
 
   // 9. Remove Site Footer and AI Alliance Box (Matching User Image 4)
   const footerRegex = /<footer class="site-footer" id="siteFooter">[\s\S]*?<\/footer>/;
-  const newFooter = `<footer class="site-footer" style="margin-top: 32px; padding: 20px; text-align: center; color: var(--ink-dim); font-size: 0.82rem; border-top: 1px solid rgba(255,255,255,0.08);">
+  const newFooter = `<footer class="site-footer" style="margin-top: 32px; padding: 20px; text-align: center; color: var(--ink-dim); font-size: 0.82rem; border-top: 1px solid var(--line, rgba(255,255,255,0.12));">
     <span>PK Khmer Type Rei · Traditional Touch-Typing Tutor</span>
     <span style="margin: 0 10px; opacity: 0.4;">·</span>
-    <button type="button" id="projectScaleBtnReiFooter" class="rei-scale-btn" style="background:none; border:none; color: #38bdf8; cursor:pointer; font-size: 0.8rem; text-decoration: underline;">Scale: 250K+ LOC (412 Files · 199 Tests)</button>
+    <button type="button" id="projectScaleBtnReiFooter" class="rei-scale-btn" style="background:none; border:none; color: var(--gold-bright, var(--gold, #ffd166)); cursor:pointer; font-size: 0.8rem; text-decoration: underline;">Scale: 250K+ LOC (412 Files · 199 Tests)</button>
     <span style="margin: 0 10px; opacity: 0.4;">·</span>
-    <a href="${isSubdir ? '../index.html' : 'index.html'}" style="color: var(--gold); text-decoration: none;">Switch to Full Studio</a>
+    <a href="${isSubdir ? '../index.html' : 'index.html'}" style="color: var(--gold); text-decoration: none; font-weight: 600;">Switch to Full Studio</a>
   </footer>`;
   html = html.replace(footerRegex, newFooter);
 
@@ -241,8 +241,8 @@ function buildReiHtml(isSubdir = false) {
       align-items: center;
       gap: 5px;
       padding: 2px 8px 2px 5px;
-      background: rgba(255, 209, 102, 0.08);
-      border: 1px solid rgba(255, 209, 102, 0.25);
+      background: var(--accent-soft, rgba(255, 209, 102, 0.1));
+      border: 1px solid var(--accent-border, rgba(255, 209, 102, 0.28));
       border-radius: 20px;
       text-decoration: none;
       color: inherit;
@@ -252,22 +252,22 @@ function buildReiHtml(isSubdir = false) {
       flex-shrink: 0;
     }
     .rei-brand-link:hover {
-      background: rgba(255, 209, 102, 0.16);
-      border-color: #ffd166;
+      background: var(--accent-soft, rgba(255, 209, 102, 0.18));
+      border-color: var(--gold, #ffd166);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(255, 209, 102, 0.2);
+      box-shadow: 0 4px 12px var(--accent-glow, rgba(255, 209, 102, 0.2));
     }
     .rei-brand-logo-img {
       width: 18px;
       height: 18px;
       display: block;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
     }
     .rei-brand-text {
       font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 0.06em;
-      color: #ffd166;
+      color: var(--gold-bright, var(--gold, #ffd166));
     }
     .rei-brand-glyph {
       font-family: 'Noto Serif Khmer', 'Khmer OS Battambang', serif;
@@ -275,15 +275,32 @@ function buildReiHtml(isSubdir = false) {
       color: #38bdf8;
       margin-left: 2px;
     }
-    html.theme-light .rei-brand-link {
-      background: rgba(217, 119, 6, 0.08);
-      border-color: rgba(217, 119, 6, 0.25);
+    html.theme-light .rei-brand-link,
+    html.theme-sepia .rei-brand-link {
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
     }
     html.theme-light .rei-brand-text {
       color: #92400e;
     }
     html.theme-light .rei-brand-glyph {
-      color: #0284c7;
+      color: #0369a1;
+    }
+    html.theme-sepia .rei-brand-text {
+      color: #7c2d12;
+    }
+    html.theme-sepia .rei-brand-glyph {
+      color: #0e7490;
+    }
+    html.theme-glass .rei-brand-link {
+      background: rgba(15, 23, 42, 0.72);
+      border-color: rgba(255, 255, 255, 0.26);
+    }
+    html.theme-glass .rei-brand-text {
+      color: #7dd3fc;
+    }
+    html.theme-glass .rei-brand-glyph {
+      color: #e0f2fe;
     }
 
     /* Expandable Luxury Sidebar for Rei */
@@ -320,11 +337,11 @@ function buildReiHtml(isSubdir = false) {
         border-radius: 12px !important;
         overflow-y: auto !important;
         overflow-x: hidden !important;
-        background: rgba(14, 18, 36, 0.96) !important;
-        border: 1px solid rgba(255, 209, 102, 0.28) !important;
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 209, 102, 0.15) !important;
-        backdrop-filter: blur(16px) !important;
-        -webkit-backdrop-filter: blur(16px) !important;
+        background: var(--glass-surface, var(--stone-1, rgba(14, 18, 36, 0.96))) !important;
+        border: 1px solid var(--accent-border, var(--line)) !important;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--accent-soft, rgba(255, 209, 102, 0.12)) !important;
+        backdrop-filter: blur(18px) saturate(145%) !important;
+        -webkit-backdrop-filter: blur(18px) saturate(145%) !important;
         display: flex !important;
         flex-direction: column !important;
         transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease !important;
@@ -442,11 +459,11 @@ function buildReiHtml(isSubdir = false) {
       width: 355px !important;
       max-height: calc(100vh - 92px) !important;
       border-radius: 12px !important;
-      background: linear-gradient(168deg, rgba(14, 18, 38, 0.95) 0%, rgba(8, 11, 24, 0.98) 100%) !important;
-      border: 1px solid rgba(255, 209, 102, 0.32) !important;
-      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 209, 102, 0.15) !important;
-      backdrop-filter: blur(20px) !important;
-      -webkit-backdrop-filter: blur(20px) !important;
+      background: var(--glass-surface, var(--stone-1, rgba(14, 18, 38, 0.96))) !important;
+      border: 1px solid var(--accent-border, var(--line)) !important;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45), 0 0 24px var(--accent-soft, rgba(255, 209, 102, 0.14)) !important;
+      backdrop-filter: blur(20px) saturate(150%) !important;
+      -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
     }
     html.focus-mode #lessonStrip.dock-collapsed,
@@ -459,17 +476,17 @@ function buildReiHtml(isSubdir = false) {
     /* Active Target Key Pulse Animation */
     @keyframes rei-target-pulse {
       0%, 100% {
-        box-shadow: 0 0 0 0 rgba(255, 209, 102, 0.7), 0 0 12px rgba(255, 209, 102, 0.5);
+        box-shadow: 0 0 0 0 var(--accent-glow, rgba(255, 209, 102, 0.7)), 0 0 12px var(--accent-glow, rgba(255, 209, 102, 0.5));
       }
       50% {
-        box-shadow: 0 0 0 5px rgba(255, 209, 102, 0), 0 0 20px rgba(255, 209, 102, 0.9);
+        box-shadow: 0 0 0 5px rgba(255, 209, 102, 0), 0 0 20px var(--accent-glow, rgba(255, 209, 102, 0.85));
       }
     }
     .is-rei .key.lesson-target,
     .is-rei .key.active-target {
       animation: rei-target-pulse 1.3s infinite cubic-bezier(0.4, 0, 0.6, 1) !important;
-      border-color: #ffd166 !important;
-      color: #ffd166 !important;
+      border-color: var(--gold, #ffd166) !important;
+      color: var(--gold-bright, var(--gold, #ffd166)) !important;
       z-index: 4 !important;
     }
 
@@ -482,14 +499,15 @@ function buildReiHtml(isSubdir = false) {
       padding: 6px 15px;
       margin: 0 auto 10px;
       max-width: 720px;
-      background: rgba(14, 18, 36, 0.92);
-      border: 1px solid rgba(255, 209, 102, 0.35);
+      background: var(--glass-surface, var(--stone-1, rgba(14, 18, 36, 0.92)));
+      border: 1px solid var(--accent-border, var(--line));
       border-radius: 999px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.24);
       font-size: 0.82rem;
       letter-spacing: 0.02em;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      color: var(--ink, #f8fafc);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       transition: all 0.15s ease;
     }
     .rei-reach-dot {
@@ -498,11 +516,15 @@ function buildReiHtml(isSubdir = false) {
       border-radius: 50%;
       flex-shrink: 0;
     }
+    .rei-reach-dot.rest {
+      background: var(--ink-dim, #94a3b8);
+    }
     .rei-reach-finger {
       font-weight: 700;
     }
     .rei-reach-arrow {
-      opacity: 0.6;
+      color: var(--ink-dim, #94a3b8);
+      opacity: 0.8;
     }
     .rei-reach-key-badge {
       display: inline-flex;
@@ -510,21 +532,25 @@ function buildReiHtml(isSubdir = false) {
       gap: 3px;
       padding: 2px 7px;
       border-radius: 6px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: var(--stone-2, rgba(255, 255, 255, 0.12));
+      border: 1px solid var(--line, rgba(255, 255, 255, 0.2));
       font-family: var(--font-mono, monospace);
       font-weight: 700;
-      color: var(--gold, #ffd166);
+      color: var(--gold-bright, var(--gold, #ffd166));
     }
     .rei-reach-shift {
       color: #f472b6;
       font-size: 0.74rem;
     }
+    html.theme-light .rei-reach-shift,
+    html.theme-sepia .rei-reach-shift {
+      color: #be185d;
+    }
     .rei-reach-char {
       font-family: var(--font-khmer, sans-serif);
       font-size: 1.06rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--ink, #ffffff);
       margin-left: 2px;
     }
     .rei-reach-action {
@@ -541,8 +567,8 @@ function buildReiHtml(isSubdir = false) {
   justify-content: space-between;
   gap: 6px;
   padding: 8px 10px;
-  background: rgba(255, 209, 102, 0.05);
-  border-bottom: 1px solid rgba(255, 209, 102, 0.15);
+  background: var(--accent-soft, rgba(255, 209, 102, 0.05));
+  border-bottom: 1px solid var(--accent-border, rgba(255, 209, 102, 0.15));
   font-size: 0.72rem;
   flex-shrink: 0;
 }
@@ -556,8 +582,8 @@ function buildReiHtml(isSubdir = false) {
   width: 17px;
   height: 17px;
   border-radius: 50%;
-  background: rgba(255, 209, 102, 0.2);
-  color: var(--gold, #ffd166);
+  background: var(--accent-soft, rgba(255, 209, 102, 0.2));
+  color: var(--gold-bright, var(--gold, #ffd166));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -567,7 +593,7 @@ function buildReiHtml(isSubdir = false) {
 }
 .rei-htu-step.active .rei-htu-num {
   background: var(--gold, #ffd166);
-  color: #0f172a;
+  color: var(--accent-text, #0f172a);
 }
 .rei-htu-text {
   display: flex;
@@ -591,7 +617,7 @@ function buildReiHtml(isSubdir = false) {
 }
 .rei-htu-arrow {
   color: var(--ink-dim, #94a3b8);
-  opacity: 0.45;
+  opacity: 0.6;
   flex-shrink: 0;
 }
 
@@ -608,22 +634,22 @@ function buildReiHtml(isSubdir = false) {
   font-weight: 700;
   padding: 1px 6px;
   border-radius: 8px;
-  background: rgba(255, 209, 102, 0.18);
-  color: var(--gold, #ffd166);
+  background: var(--accent-soft, rgba(255, 209, 102, 0.18));
+  color: var(--gold-bright, var(--gold, #ffd166));
   white-space: nowrap;
   flex-shrink: 0;
 }
 .rst-progress-track {
   width: 100%;
   height: 4px;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--stone-2, rgba(255, 255, 255, 0.12));
   border-radius: 2px;
   margin: 6px 0 8px;
   overflow: hidden;
 }
 .rst-progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, #ffd166 0%, #10b981 100%);
+  background: linear-gradient(90deg, var(--gold, #ffd166) 0%, var(--success-ink, #10b981) 100%);
   border-radius: 2px;
   transition: width 0.3s ease;
 }
@@ -640,18 +666,18 @@ function buildReiHtml(isSubdir = false) {
   gap: 5px;
   padding: 4px 10px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #ffd166 0%, #f59e0b 100%);
-  color: #0f172a;
+  background: linear-gradient(135deg, var(--gold-bright, #ffd166) 0%, var(--gold, #f59e0b) 100%);
+  color: var(--accent-text, #0f172a);
   border: none;
   font-weight: 700;
   font-size: 0.72rem;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 2px 6px var(--accent-glow, rgba(245, 158, 11, 0.35));
   transition: all 0.15s ease;
 }
 .rst-quick-start-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 4px 10px var(--accent-glow, rgba(245, 158, 11, 0.5));
 }
 .rst-done-badge {
   display: inline-flex;
@@ -659,7 +685,7 @@ function buildReiHtml(isSubdir = false) {
   gap: 4px;
   font-size: 0.72rem;
   font-weight: 700;
-  color: #10b981;
+  color: var(--success-ink, #10b981);
 }
 .rst-advance-btn {
   display: inline-flex;
@@ -683,9 +709,9 @@ function buildReiHtml(isSubdir = false) {
 
 /* Next Recommended Drill Highlight */
 .lesson-card.next-recommended {
-  border: 1.5px solid #10b981 !important;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(14, 18, 36, 0.95) 100%) !important;
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.28) !important;
+  border: 1.5px solid var(--success-ink, #10b981) !important;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, var(--stone-1, rgba(14, 18, 36, 0.95)) 100%) !important;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.24) !important;
   position: relative;
 }
 .rei-next-tag {
@@ -697,7 +723,7 @@ function buildReiHtml(isSubdir = false) {
   letter-spacing: 0.04em;
   padding: 1px 5px;
   border-radius: 4px;
-  background: #10b981;
+  background: #047857;
   color: #ffffff;
   vertical-align: middle;
 }
@@ -742,7 +768,7 @@ function buildReiHtml(isSubdir = false) {
   color: var(--ink);
 }
 .rscc-text svg {
-  color: #10b981;
+  color: var(--success-ink, #10b981);
   flex-shrink: 0;
 }
 .rscc-sub {
@@ -750,42 +776,72 @@ function buildReiHtml(isSubdir = false) {
   color: var(--ink-dim, #94a3b8);
 }
 
-/* Light Mode Overrides for Next Recommended and Guide */
+/* Light & Sepia Mode Overrides for Next Recommended and Guide */
 html.theme-light .rei-how-to-use-guide {
   background: #f8fafc !important;
   border-bottom: 1px solid #e2e8f0 !important;
 }
+html.theme-sepia .rei-how-to-use-guide {
+  background: #f5ebd6 !important;
+  border-bottom: 1px solid #d5c4a3 !important;
+}
 html.theme-light .rei-htu-main {
   color: #0f172a !important;
+}
+html.theme-sepia .rei-htu-main {
+  color: #2c1b0c !important;
 }
 html.theme-light .rei-htu-num {
   background: #e2e8f0 !important;
   color: #475569 !important;
 }
+html.theme-sepia .rei-htu-num {
+  background: #e5d6ba !important;
+  color: #523920 !important;
+}
 html.theme-light .rei-htu-step.active .rei-htu-num {
-  background: #d97706 !important;
+  background: #b45309 !important;
+  color: #ffffff !important;
+}
+html.theme-sepia .rei-htu-step.active .rei-htu-num {
+  background: #9a3412 !important;
   color: #ffffff !important;
 }
 html.theme-light .rst-progress-pill {
   background: #fef3c7 !important;
-  color: #b45309 !important;
+  color: #92400e !important;
+}
+html.theme-sepia .rst-progress-pill {
+  background: #f3e0b8 !important;
+  color: #7c2d12 !important;
 }
 html.theme-light .rst-progress-track {
   background: #e2e8f0 !important;
 }
-html.theme-light .lesson-card.next-recommended {
-  border: 1.5px solid #059669 !important;
-  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%) !important;
-  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.18) !important;
+html.theme-sepia .rst-progress-track {
+  background: #e5d6ba !important;
 }
-html.theme-light .rei-stage-complete-card {
-  background: #f0fdf4 !important;
+html.theme-light .lesson-card.next-recommended {
+  border: 1.5px solid #047857 !important;
+  background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%) !important;
+  box-shadow: 0 4px 14px rgba(4, 120, 87, 0.18) !important;
+}
+html.theme-sepia .lesson-card.next-recommended {
+  border: 1.5px solid #15803d !important;
+  background: linear-gradient(135deg, #f0f7e6 0%, #faf4e8 100%) !important;
+  box-shadow: 0 4px 14px rgba(21, 128, 61, 0.16) !important;
+}
+html.theme-light .rei-stage-complete-card,
+html.theme-sepia .rei-stage-complete-card {
+  background: #ecfdf5 !important;
   border-color: #86efac !important;
 }
-html.theme-light .rscc-text {
+html.theme-light .rscc-text,
+html.theme-sepia .rscc-text {
   color: #064e3b !important;
 }
-html.theme-light .rscc-sub {
+html.theme-light .rscc-sub,
+html.theme-sepia .rscc-sub {
   color: #047857 !important;
 }
 
@@ -793,8 +849,8 @@ html.theme-light .rscc-sub {
     .rei-stage-tip-banner {
       margin: 8px 10px 4px;
       padding: 8px 12px;
-      background: rgba(255, 209, 102, 0.08);
-      border: 1px solid rgba(255, 209, 102, 0.22);
+      background: var(--accent-soft, rgba(255, 209, 102, 0.08));
+      border: 1px solid var(--accent-border, rgba(255, 209, 102, 0.22));
       border-radius: 8px;
       font-size: 0.76rem;
       line-height: 1.45;
@@ -807,7 +863,7 @@ html.theme-light .rscc-sub {
       gap: 6px;
       font-weight: 700;
       font-size: 0.72rem;
-      color: var(--gold, #ffd166);
+      color: var(--gold-bright, var(--gold, #ffd166));
       margin-bottom: 3px;
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -830,19 +886,19 @@ html.theme-light .rscc-sub {
       color: inherit;
     }
     .rei-stage-badge.check {
-      background: #059669;
+      background: #047857;
       color: #ffffff;
       padding: 1px 4px;
     }
 
     html.theme-light .rei-finger-reach-hud {
-      background: rgba(255, 255, 255, 0.95) !important;
+      background: rgba(255, 255, 255, 0.96) !important;
       border: 1px solid #cbd5e1 !important;
       box-shadow: 0 3px 10px rgba(15, 23, 42, 0.06) !important;
       color: #0f172a !important;
     }
     html.theme-light .rei-reach-arrow {
-      color: #64748b !important;
+      color: #475569 !important;
       opacity: 1 !important;
     }
     html.theme-light .rei-reach-key-badge {
@@ -863,7 +919,7 @@ html.theme-light .rscc-sub {
       color: #2c1b0c !important;
     }
     html.theme-sepia .rei-reach-arrow {
-      color: #7c5e3f !important;
+      color: #6e5033 !important;
       opacity: 1 !important;
     }
     html.theme-sepia .rei-reach-key-badge {
@@ -875,13 +931,68 @@ html.theme-light .rscc-sub {
       color: #2c1b0c !important;
     }
     html.theme-sepia .rei-reach-action {
-      color: #6b4f2c !important;
+      color: #523920 !important;
     }
+    /* Smoked Frosted Glass for Rei HUD & Sidebar */
     html.theme-glass .rei-finger-reach-hud {
-      background: rgba(255, 255, 255, 0.08) !important;
-      border: 1px solid rgba(255, 255, 255, 0.28) !important;
+      background: rgba(10, 16, 32, 0.74) !important;
+      border: 1px solid rgba(255, 255, 255, 0.24) !important;
+      color: #f8fafc !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+      backdrop-filter: blur(18px) saturate(150%) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+    }
+    html.theme-glass .rei-reach-key-badge {
+      background: rgba(15, 23, 42, 0.8) !important;
+      border-color: rgba(255, 255, 255, 0.25) !important;
+      color: #7dd3fc !important;
+    }
+    html.theme-glass .rei-reach-char {
       color: #ffffff !important;
-      box-shadow: none !important;
+    }
+    html.theme-glass .rei-reach-action {
+      color: #cbd5e1 !important;
+    }
+    html.theme-glass.is-rei #lessonStrip,
+    html.theme-glass .is-rei #lessonStrip,
+    html.theme-glass.focus-mode #lessonStrip,
+    html.theme-glass.focus-mode .is-rei #lessonStrip {
+      background: rgba(10, 16, 32, 0.72) !important;
+      border: 1px solid rgba(255, 255, 255, 0.24) !important;
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+      backdrop-filter: blur(22px) saturate(155%) !important;
+      -webkit-backdrop-filter: blur(22px) saturate(155%) !important;
+    }
+    html.theme-glass .lesson-card.next-recommended {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(12, 20, 38, 0.82) 100%) !important;
+    }
+    html.theme-temple.is-rei #lessonStrip,
+    html.theme-temple .is-rei #lessonStrip,
+    html.theme-temple.focus-mode #lessonStrip,
+    html.theme-temple.focus-mode .is-rei #lessonStrip {
+      background: rgba(26, 19, 12, 0.96) !important;
+      border-color: rgba(245, 194, 107, 0.32) !important;
+    }
+    html.theme-moonlight.is-rei #lessonStrip,
+    html.theme-moonlight .is-rei #lessonStrip,
+    html.theme-moonlight.focus-mode #lessonStrip,
+    html.theme-moonlight.focus-mode .is-rei #lessonStrip {
+      background: rgba(11, 18, 38, 0.96) !important;
+      border-color: rgba(125, 211, 252, 0.3) !important;
+    }
+    html.theme-jungle.is-rei #lessonStrip,
+    html.theme-jungle .is-rei #lessonStrip,
+    html.theme-jungle.focus-mode #lessonStrip,
+    html.theme-jungle.focus-mode .is-rei #lessonStrip {
+      background: rgba(10, 29, 20, 0.96) !important;
+      border-color: rgba(110, 231, 183, 0.3) !important;
+    }
+    html.theme-sunset.is-rei #lessonStrip,
+    html.theme-sunset .is-rei #lessonStrip,
+    html.theme-sunset.focus-mode #lessonStrip,
+    html.theme-sunset.focus-mode .is-rei #lessonStrip {
+      background: rgba(34, 15, 28, 0.96) !important;
+      border-color: rgba(251, 146, 160, 0.3) !important;
     }
     html.theme-light .rei-stage-tip-banner {
       background: #fefce8 !important;
@@ -889,16 +1000,33 @@ html.theme-light .rscc-sub {
       color: #713f12 !important;
     }
     html.theme-light .rst-header {
-      color: #b45309 !important;
+      color: #92400e !important;
     }
     html.theme-light .rst-desc {
-      color: #854d0e !important;
+      color: #713f12 !important;
+    }
+    html.theme-sepia .rei-stage-tip-banner {
+      background: #f6ead0 !important;
+      border-color: #d4b982 !important;
+      color: #3d240c !important;
+    }
+    html.theme-sepia .rst-header {
+      color: #7c2d12 !important;
+    }
+    html.theme-sepia .rst-desc {
+      color: #523920 !important;
     }
     html.theme-light .is-rei .key.lesson-target,
     html.theme-light .is-rei .key.active-target {
-      border-color: #d97706 !important;
-      color: #92400e !important;
-      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.35), 0 4px 12px rgba(217, 119, 6, 0.25) !important;
+      border-color: #b45309 !important;
+      color: #78350f !important;
+      box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.32), 0 4px 12px rgba(180, 83, 9, 0.22) !important;
+    }
+    html.theme-sepia .is-rei .key.lesson-target,
+    html.theme-sepia .is-rei .key.active-target {
+      border-color: #9a3412 !important;
+      color: #7c2d12 !important;
+      box-shadow: 0 0 0 3px rgba(154, 52, 18, 0.32), 0 4px 12px rgba(154, 52, 18, 0.22) !important;
     }
 
     /* Horizontal Stage Selector Rail with Nav Arrows & Wheel Support */
@@ -906,8 +1034,8 @@ html.theme-light .rscc-sub {
       position: relative !important;
       display: flex !important;
       align-items: center !important;
-      background: rgba(0, 0, 0, 0.25) !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      background: var(--stone-2, rgba(0, 0, 0, 0.25)) !important;
+      border-bottom: 1px solid var(--line, rgba(255, 255, 255, 0.08)) !important;
       flex-shrink: 0 !important;
       width: 100% !important;
       box-sizing: border-box !important;
@@ -928,8 +1056,8 @@ html.theme-light .rscc-sub {
       flex-shrink: 0 !important;
       margin: 0 4px !important;
       border-radius: 50% !important;
-      background: rgba(255, 255, 255, 0.08) !important;
-      border: 1px solid rgba(255, 255, 255, 0.16) !important;
+      background: var(--stone-1, rgba(255, 255, 255, 0.08)) !important;
+      border: 1px solid var(--line, rgba(255, 255, 255, 0.16)) !important;
       color: var(--gold-bright, #ffd166) !important;
       cursor: pointer !important;
       z-index: 6 !important;
@@ -937,13 +1065,13 @@ html.theme-light .rscc-sub {
       transition: all 0.15s ease !important;
     }
     .rei-stage-scroll-btn:hover:not(:disabled) {
-      background: rgba(255, 209, 102, 0.22) !important;
-      border-color: rgba(255, 209, 102, 0.5) !important;
+      background: var(--accent-soft, rgba(255, 209, 102, 0.22)) !important;
+      border-color: var(--gold, rgba(255, 209, 102, 0.5)) !important;
       transform: scale(1.1) !important;
-      box-shadow: 0 0 10px rgba(255, 209, 102, 0.35) !important;
+      box-shadow: 0 0 10px var(--accent-glow, rgba(255, 209, 102, 0.35)) !important;
     }
     .rei-stage-scroll-btn:disabled {
-      opacity: 0.2 !important;
+      opacity: 0.25 !important;
       cursor: default !important;
       pointer-events: none !important;
     }
@@ -977,47 +1105,54 @@ html.theme-light .rscc-sub {
       font-size: 0.72rem;
       font-weight: 600;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.07);
+      background: var(--stone-1, rgba(255, 255, 255, 0.07));
       color: var(--ink);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--line, rgba(255, 255, 255, 0.12));
       cursor: pointer;
       white-space: nowrap;
       flex-shrink: 0;
       transition: all 0.15s ease;
     }
     .rei-stage-btn:hover {
-      background: rgba(255, 209, 102, 0.18);
-      border-color: rgba(255, 209, 102, 0.35);
+      background: var(--accent-soft, rgba(255, 209, 102, 0.18));
+      border-color: var(--accent-border, rgba(255, 209, 102, 0.35));
     }
-        .rei-stage-btn.locked {
-      opacity: 0.52 !important;
-      background: rgba(15, 23, 42, 0.4) !important;
-      border-color: rgba(255, 255, 255, 0.08) !important;
-      color: #94a3b8 !important;
+    .rei-stage-btn.locked {
+      opacity: 0.58 !important;
+      background: var(--stone-2, rgba(15, 23, 42, 0.4)) !important;
+      border-color: var(--line, rgba(255, 255, 255, 0.08)) !important;
+      color: var(--ink-dim, #94a3b8) !important;
       cursor: not-allowed !important;
     }
     .rei-stage-btn.locked:hover {
       opacity: 0.85 !important;
-      background: rgba(245, 158, 11, 0.12) !important;
-      border-color: rgba(245, 158, 11, 0.4) !important;
+      background: var(--accent-soft, rgba(245, 158, 11, 0.12)) !important;
+      border-color: var(--accent-border, rgba(245, 158, 11, 0.4)) !important;
       color: #ffd166 !important;
     }
     .rei-stage-badge.locked {
-      background: rgba(245, 158, 11, 0.18) !important;
-      border: 1px solid rgba(245, 158, 11, 0.35) !important;
+      background: var(--accent-soft, rgba(245, 158, 11, 0.18)) !important;
+      border: 1px solid var(--accent-border, rgba(245, 158, 11, 0.35)) !important;
       color: #f59e0b !important;
       padding: 1px 5px !important;
     }
     html.theme-light .rei-stage-btn.locked {
-      opacity: 0.55 !important;
+      opacity: 0.65 !important;
       background: #f1f5f9 !important;
       border-color: #cbd5e1 !important;
-      color: #64748b !important;
+      color: #475569 !important;
     }
-    html.theme-light .rei-stage-badge.locked {
+    html.theme-sepia .rei-stage-btn.locked {
+      opacity: 0.65 !important;
+      background: #efe3cc !important;
+      border-color: #ccbc9e !important;
+      color: #523920 !important;
+    }
+    html.theme-light .rei-stage-badge.locked,
+    html.theme-sepia .rei-stage-badge.locked {
       background: #fef3c7 !important;
-      border-color: #f59e0b !important;
-      color: #b45309 !important;
+      border-color: #d97706 !important;
+      color: #92400e !important;
     }
     @keyframes pk-shake {
       0%, 100% { transform: translateX(0); }
@@ -1030,10 +1165,20 @@ html.theme-light .rscc-sub {
 
     .rei-stage-btn.active {
       background: var(--gold, #ffd166) !important;
-      color: #0f172a !important;
+      color: var(--accent-text, #0f172a) !important;
       font-weight: 700 !important;
       border-color: var(--gold, #ffd166) !important;
-      box-shadow: 0 2px 8px rgba(255, 209, 102, 0.35);
+      box-shadow: 0 2px 8px var(--accent-glow, rgba(255, 209, 102, 0.35));
+    }
+    html.theme-light .rei-stage-btn.active {
+      background: #f59e0b !important;
+      color: #1a0f02 !important;
+      border-color: #d97706 !important;
+    }
+    html.theme-sepia .rei-stage-btn.active {
+      background: #9a3412 !important;
+      color: #ffffff !important;
+      border-color: #7c2d12 !important;
     }
 
     .lesson-level-header {
@@ -1062,12 +1207,36 @@ html.theme-light .rscc-sub {
       border-color: #60a5fa;
       color: #ffffff;
     }
+    html.theme-light .wallpaper-upload-btn,
+    html.theme-sepia .wallpaper-upload-btn {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-color: #93c5fd;
+    }
+    html.theme-light .wallpaper-upload-btn:hover,
+    html.theme-sepia .wallpaper-upload-btn:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+      color: #ffffff;
+    }
     .modal-secondary-btn.danger {
       border-color: rgba(239, 68, 68, 0.4) !important;
       color: #f87171 !important;
     }
     .modal-secondary-btn.danger:hover {
       background: rgba(239, 68, 68, 0.15) !important;
+      color: #ffffff !important;
+    }
+    html.theme-light .modal-secondary-btn.danger,
+    html.theme-sepia .modal-secondary-btn.danger {
+      border-color: #fca5a5 !important;
+      color: #b91c1c !important;
+      background: #fef2f2 !important;
+    }
+    html.theme-light .modal-secondary-btn.danger:hover,
+    html.theme-sepia .modal-secondary-btn.danger:hover {
+      background: #b91c1c !important;
+      border-color: #b91c1c !important;
       color: #ffffff !important;
     }
 
@@ -1317,6 +1486,101 @@ html.theme-light .rscc-sub {
       color: #475569 !important;
       border: 1px solid #e2e8f0 !important;
     }
+
+    /* ================= Warm Sepia Mode for Rei Sidebar & Tactile Deck ================= */
+    html.theme-sepia body {
+      background: #efe5d2 !important;
+      color: #2c1b0c !important;
+    }
+    html.theme-sepia .hero-title {
+      color: #2c1b0c !important;
+      text-shadow: none !important;
+    }
+    html.theme-sepia .board-chassis,
+    html.theme-sepia .keyboard-board,
+    html.theme-sepia .manuscript,
+    html.theme-sepia .kb-stats-shelf,
+    html.theme-sepia .kb-layout-shelf,
+    html.theme-sepia .kb-layer-shelf {
+      background: #faf4e8 !important;
+      border-color: #ccbc9e !important;
+    }
+    html.theme-sepia .top-actions {
+      background: rgba(250, 244, 232, 0.92) !important;
+      border: 1px solid #ccbc9e !important;
+    }
+    html.theme-sepia .top-action-btn {
+      background: #f3e9d6 !important;
+      border-color: #ccbc9e !important;
+      color: #3d240c !important;
+    }
+    html.theme-sepia .top-action-btn:hover {
+      background: #e5d6ba !important;
+      color: #2c1b0c !important;
+    }
+    html.theme-sepia.is-rei #lessonStrip,
+    html.theme-sepia .is-rei #lessonStrip,
+    html.theme-sepia.focus-mode #lessonStrip,
+    html.theme-sepia.focus-mode .is-rei #lessonStrip {
+      background: #faf4e8 !important;
+      border: 1px solid #ccbc9e !important;
+      box-shadow: 0 12px 30px rgba(44, 27, 12, 0.12) !important;
+    }
+    html.theme-sepia .lesson-strip-body,
+    html.theme-sepia.is-rei .lesson-strip-body,
+    html.theme-sepia #lessonStripBody,
+    html.theme-sepia.is-rei #lessonStripBody {
+      background: #faf4e8 !important;
+      color: #2c1b0c !important;
+    }
+    html.theme-sepia .lesson-level-header {
+      background: #f3e9d6 !important;
+      border: 1px solid #d5c4a3 !important;
+      border-left: 3px solid #9a3412 !important;
+      color: #2c1b0c !important;
+    }
+    html.theme-sepia .rei-strip-stages-wrap {
+      background: #efe3cc !important;
+      border-bottom: 1px solid #d5c4a3 !important;
+    }
+    html.theme-sepia .rei-stage-scroll-btn {
+      background: #faf4e8 !important;
+      border: 1px solid #ccbc9e !important;
+      color: #9a3412 !important;
+    }
+    html.theme-sepia .rei-stage-btn {
+      background: #e5d6ba !important;
+      color: #3d240c !important;
+      border-color: #ccbc9e !important;
+    }
+    html.theme-sepia .rei-stage-btn.active {
+      background: linear-gradient(135deg, #b45309 0%, #9a3412 100%) !important;
+      color: #ffffff !important;
+      border-color: #7c2d12 !important;
+    }
+    html.theme-sepia .lesson-card {
+      background: #faf4e8 !important;
+      border: 1px solid #d5c4a3 !important;
+    }
+    html.theme-sepia .lesson-card:hover {
+      background: #f3e9d6 !important;
+      border-color: #bfa784 !important;
+    }
+    html.theme-sepia .lesson-card.active {
+      background: #f6ead0 !important;
+      border: 2px solid #9a3412 !important;
+    }
+    html.theme-sepia .lesson-card-title {
+      color: #2c1b0c !important;
+    }
+    html.theme-sepia .lesson-card-sub {
+      color: #6e5033 !important;
+    }
+    html.theme-sepia .lesson-card-num {
+      background: #efe3cc !important;
+      color: #523920 !important;
+      border: 1px solid #d5c4a3 !important;
+    }
   </style>
 </head>`;
   html = html.replace('</head>', reiCss);
@@ -1326,22 +1590,65 @@ html.theme-light .rscc-sub {
   <!-- PK Khmer Type Rei Controller Script -->
   <script>
     (function(){
-      // 1. Theme Switcher (Dark & Light)
+      // 1. Theme Switcher (All 8 Studio Themes + Live System Sync)
       var themeBtn = document.getElementById('reiThemeToggleBtn');
       var themeText = document.getElementById('reiThemeText');
       var themeIcon = document.getElementById('reiThemeIcon');
+      var ALL_THEMES = ['dark', 'light', 'sepia', 'temple', 'moonlight', 'jungle', 'sunset', 'glass'];
+      var ALL_THEME_CLASSES = ['theme-light', 'theme-sepia', 'theme-temple', 'theme-moonlight', 'theme-jungle', 'theme-sunset', 'theme-glass'];
+      var THEME_META_COLORS = {
+        dark: '#0a0d16',
+        light: '#f1f5f9',
+        sepia: '#efe5d2',
+        temple: '#120e0a',
+        moonlight: '#070c1a',
+        jungle: '#06140e',
+        sunset: '#160a13',
+        glass: '#0b1120'
+      };
 
-      function updateThemeUI(isLight) {
-        document.documentElement.classList.toggle('theme-light', isLight);
+      function resolveEffectiveReiTheme(raw) {
+        if (!raw || raw === 'system') {
+          var isSysDark = !(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
+          return isSysDark ? 'dark' : 'light';
+        }
+        return ALL_THEMES.indexOf(raw) !== -1 ? raw : 'dark';
+      }
+
+      function updateThemeUI(isLightArg, explicitEffectiveTheme) {
+        var root = document.documentElement;
+        var resolvedTheme = explicitEffectiveTheme;
+        if (!resolvedTheme) {
+          if (typeof isLightArg === 'string' && (isLightArg === 'system' || ALL_THEMES.indexOf(isLightArg) !== -1)) {
+            resolvedTheme = resolveEffectiveReiTheme(isLightArg);
+          } else {
+            resolvedTheme = isLightArg ? 'light' : 'dark';
+          }
+        }
+        ALL_THEME_CLASSES.forEach(function(cls) { root.classList.remove(cls); });
+        if (resolvedTheme !== 'dark') {
+          root.classList.add('theme-' + resolvedTheme);
+        }
+        var isLightSurface = (resolvedTheme === 'light' || resolvedTheme === 'sepia');
+        root.dataset.themeMode = savedTheme || resolvedTheme;
+        root.dataset.themeEffective = resolvedTheme;
+        root.style.colorScheme = isLightSurface ? 'light' : 'dark';
+
+        var metaTheme = document.querySelector('meta[name="theme-color"]');
+        if (metaTheme && THEME_META_COLORS[resolvedTheme]) {
+          metaTheme.setAttribute('content', THEME_META_COLORS[resolvedTheme]);
+        }
+
+        var isLightBtn = isLightSurface;
         if (themeText) {
-          themeText.setAttribute('data-en', isLight ? 'Dark' : 'Light');
-          themeText.setAttribute('data-km', isLight ? 'ងងឹត' : 'ពន្លឺ');
-          var isKm = (document.documentElement.getAttribute('lang') === 'km') ||
+          themeText.setAttribute('data-en', isLightBtn ? 'Dark' : 'Light');
+          themeText.setAttribute('data-km', isLightBtn ? 'ងងឹត' : 'ពន្លឺ');
+          var isKm = (root.getAttribute('lang') === 'km') ||
             (document.getElementById('topLangBadgeKm') && document.getElementById('topLangBadgeKm').classList.contains('active'));
-          themeText.textContent = isLight ? (isKm ? 'ងងឹត' : 'Dark') : (isKm ? 'ពន្លឺ' : 'Light');
+          themeText.textContent = isLightBtn ? (isKm ? 'ងងឹត' : 'Dark') : (isKm ? 'ពន្លឺ' : 'Light');
         }
         if (themeIcon) {
-          themeIcon.innerHTML = isLight
+          themeIcon.innerHTML = isLightBtn
             ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
             : '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
         }
@@ -1350,23 +1657,53 @@ html.theme-light .rscc-sub {
       window.__updateReiThemeUI = updateThemeUI;
 
       var savedTheme = localStorage.getItem('pk_rei_theme') || localStorage.getItem('khmerSettingTheme') || (document.documentElement.classList.contains('theme-light') ? 'light' : 'dark');
-      updateThemeUI(savedTheme === 'light');
+      var effInit = resolveEffectiveReiTheme(savedTheme);
+      updateThemeUI(effInit === 'light', effInit);
 
       if (themeBtn) {
         themeBtn.addEventListener('click', function(){
-          var currentlyLight = document.documentElement.classList.contains('theme-light');
-          var nextIsLight = !currentlyLight;
-          var nextMode = nextIsLight ? 'light' : 'dark';
+          var root = document.documentElement;
+          var isCurrentlyLightSurface = root.classList.contains('theme-light') || root.classList.contains('theme-sepia');
+          var nextMode = isCurrentlyLightSurface ? 'dark' : 'light';
           localStorage.setItem('pk_rei_theme', nextMode);
           localStorage.setItem('khmerSettingTheme', nextMode);
           if (typeof window.applyTheme === 'function') {
-            window.applyTheme(nextMode, false);
+            window.applyTheme(nextMode, false, { resetCustomAccent: true });
           } else {
-            updateThemeUI(nextIsLight);
+            updateThemeUI(nextMode === 'light', nextMode);
           }
           if (typeof playClick === 'function') playClick('down');
         });
       }
+
+      if (window.matchMedia) {
+        var sysMqRei = window.matchMedia('(prefers-color-scheme: dark)');
+        var onReiSysChange = function() {
+          var stored = localStorage.getItem('pk_rei_theme') || localStorage.getItem('khmerSettingTheme') || 'dark';
+          if (stored === 'system') {
+            var nextEff = resolveEffectiveReiTheme('system');
+            if (typeof window.applyTheme === 'function') {
+              window.applyTheme('system', false, { skipSave: true });
+            } else {
+              updateThemeUI(nextEff === 'light', nextEff);
+            }
+          }
+        };
+        if (typeof sysMqRei.addEventListener === 'function') sysMqRei.addEventListener('change', onReiSysChange);
+        else if (typeof sysMqRei.addListener === 'function') sysMqRei.addListener(onReiSysChange);
+      }
+
+      window.addEventListener('storage', function(ev) {
+        if (!ev || !ev.key || ev.key === 'pk_rei_theme' || ev.key === 'khmerSettingTheme') {
+          var synced = localStorage.getItem('pk_rei_theme') || localStorage.getItem('khmerSettingTheme') || 'dark';
+          var effSynced = resolveEffectiveReiTheme(synced);
+          if (typeof window.applyTheme === 'function') {
+            window.applyTheme(synced, false, { skipSave: true });
+          } else {
+            updateThemeUI(effSynced === 'light', effSynced);
+          }
+        }
+      });
 
       // 2. Wallpaper Studio Launcher
       var wpBtn = document.getElementById('reiWallpaperBtn');

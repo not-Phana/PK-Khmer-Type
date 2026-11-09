@@ -1107,7 +1107,7 @@ function raceFinish(timedOut){
     setTimeout(()=> emberBurst(boardWrap, {
       clientX: rect.left + rect.width*(0.25 + Math.random()*0.5),
       clientY: rect.top + rect.height*(0.3 + Math.random()*0.3)
-    }, 10, '#ffd166'), i*80);
+    }, 10, (typeof getComputedStyle === 'function' ? getComputedStyle(document.documentElement).getPropertyValue('--gold-bright').trim() : '') || '#ffd166'), i*80);
   }
   playChime();
   confettiBurst(rect.left + rect.width/2, rect.top + rect.height*0.3, accuracy === 100 ? 34 : 22);

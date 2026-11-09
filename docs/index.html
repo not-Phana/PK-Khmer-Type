@@ -5,15 +5,27 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="color-scheme" content="light dark">
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://not-phana.github.io/PK-Khmer-Type/Documents/">
   <meta http-equiv="refresh" content="0; url=../Documents/index.html">
   <title>PK Khmer Type — Official Documentation Redirect</title>
   <script>
-    window.location.replace('../Documents/index.html' + window.location.search + window.location.hash);
+    (function () {
+      try {
+        var m = localStorage.getItem('khmerSettingTheme') || localStorage.getItem('pk_rei_theme') || 'dark';
+        var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var eff = m === 'system' ? (sysDark ? 'dark' : 'light') : m;
+        var root = document.documentElement;
+        if (eff === 'light') { root.style.background = '#f4f7fb'; root.style.color = '#0f172a'; root.style.colorScheme = 'light'; }
+        else if (eff === 'sepia') { root.style.background = '#f6efe2'; root.style.color = '#2d1f11'; root.style.colorScheme = 'light'; }
+        else { root.style.background = '#060812'; root.style.color = '#f8fafc'; root.style.colorScheme = 'dark'; }
+      } catch (_e) {}
+      window.location.replace('../Documents/index.html' + window.location.search + window.location.hash);
+    })();
   </script>
 </head>
-<body style="background:#060812;color:#f8fafc;font-family:sans-serif;padding:40px;text-align:center;">
-  <p>Redirecting to PK Khmer Type Official Documentation... <a href="../Documents/index.html" style="color:#ff9d2e;">Click here if not redirected</a>.</p>
+<body style="font-family:sans-serif;padding:40px;text-align:center;">
+  <p>Redirecting to PK Khmer Type Official Documentation... <a href="../Documents/index.html" style="color:inherit;text-decoration:underline;font-weight:700;">Click here if not redirected</a>.</p>
 </body>
 </html>

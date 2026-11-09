@@ -63,6 +63,9 @@ test('Desktop Transition 1.2: js/desktop-transition.js resolves Windows Virtual 
   vm.runInNewContext(jsCode, sandbox);
   const dt = sandbox.PKDesktopTransition;
   assert.ok(dt, 'window.PKDesktopTransition must be exposed');
+  assert.equal(typeof sandbox.pkWhenTransitionSettled, 'function', 'window.pkWhenTransitionSettled must be exposed');
+  assert.equal(typeof dt.syncAppearanceOnActivation, 'function', 'syncAppearanceOnActivation must be exposed');
+  assert.equal(typeof dt.installSpeculationRules, 'function', 'installSpeculationRules must be exposed');
 
   // Studio Pro <-> Rei directionality (root & /rei/ subdir)
   assert.equal(
@@ -137,9 +140,9 @@ test('Desktop Transition 1.3: HTML pages link desktop-transition CSS, blocking-r
   const reiHtml = fs.readFileSync(path.join(rootDir, 'rei.html'), 'utf8');
   const reiSubHtml = fs.readFileSync(path.join(rootDir, 'rei/index.html'), 'utf8');
 
-  assert.match(indexHtml, /<script defer src="js\/app\.js\?v=98" blocking="render"><\/script>/, 'index.html must mark boot app.js blocking="render" in <head>');
-  assert.match(reiHtml, /<script defer src="js\/app\.js\?v=98" blocking="render"><\/script>/, 'rei.html must mark boot app.js blocking="render" in <head>');
-  assert.match(reiSubHtml, /<script defer src="\.\.\/js\/app\.js\?v=98" blocking="render"><\/script>/, 'rei/index.html must mark boot ../js/app.js blocking="render" in <head>');
+  assert.match(indexHtml, /<script defer src="js\/app\.js\?v=99" blocking="render"><\/script>/, 'index.html must mark boot app.js blocking="render" in <head>');
+  assert.match(reiHtml, /<script defer src="js\/app\.js\?v=99" blocking="render"><\/script>/, 'rei.html must mark boot app.js blocking="render" in <head>');
+  assert.match(reiSubHtml, /<script defer src="\.\.\/js\/app\.js\?v=99" blocking="render"><\/script>/, 'rei/index.html must mark boot ../js/app.js blocking="render" in <head>');
 
   assert.match(indexHtml, /<a href="rei\.html"[^>]*id="heroEditionSwitch"/, 'index.html must expose clickable Studio Pro -> Rei switcher');
   assert.match(reiHtml, /<a href="index\.html"[^>]*id="heroEditionSwitch"/, 'rei.html must expose clickable Rei -> Studio Pro switcher');

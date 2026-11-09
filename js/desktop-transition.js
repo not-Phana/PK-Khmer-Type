@@ -1,10 +1,12 @@
 /**
  * PK Khmer Type — Windows Virtual Desktop Switch Coordinator
  *
- * Registers blocking-render `pageswap` and `pagereveal` listeners for
- * directional Cross-Document View Transitions (`desktop-next` / `desktop-prev`),
- * honors system & in-app reduced-motion settings, and provides a safe
- * compositor fallback for browsers/contexts without cross-document VT.
+ * - Registers blocking-render `pageswap` and `pagereveal` listeners for directional
+ *   Cross-Document View Transitions (`desktop-next` / `desktop-prev`)
+ * - Synchronizes appearance/theme/reduced-motion cleanly on prerender activation
+ * - Defers background data hydration until after View Transition finishes (zero frame drops)
+ * - Installs Speculation Rules API prerendering after landing settles (0ms next-click latency)
+ * - Provides a crisp compositor fallback for browsers/contexts without cross-document VT
  *
  * Strict Zero-Emoji Policy enforced.
  */
@@ -16,8 +18,15 @@
   var ENTER_CLASS_PREV = 'pk-dt-entering-prev';
   var LEAVE_CLASS_NEXT = 'pk-dt-leaving-next';
   var LEAVE_CLASS_PREV = 'pk-dt-leaving-prev';
+  var VT_ACTIVE_CLASS = 'pk-vt-active';
+  var VT_SETTLED_CLASS = 'pk-vt-settled';
   var MAX_HANDOFF_AGE_MS = 3000;
+
   var _isNavigatingFallback = false;
+  var _isRevealed = false;
+  var _isAnimatingVT = false;
+  var _settleQueue = [];
+  var _speculationScheduled = false;
 
   /**
    * Map workspace routes onto a left-to-right virtual desktop strip:
@@ -116,6 +125,209 @@
     return false;
   }
 
+  function setClassFlag(cl, name, enabled) {
+    if (!cl) return;
+    if (enabled && typeof cl.add === 'function') {
+      cl.add(name);
+    } else if (!enabled && typeof cl.remove === 'function') {
+      cl.remove(name);
+    }
+  }
+
+  /**
+   * Re-synchronize theme, reduced-motion, and active layout before View Transition
+   * snapshot capture (essential when a page arrives via Speculation Rules prerender).
+   */
+  function syncAppearanceOnActivation() {
+    try {
+      if (typeof document === 'undefined' || !document.documentElement) return;
+      var root = document.documentElement;
+      var cl = root.classList;
+      if (!cl) return;
+
+      if (typeof localStorage !== 'undefined') {
+        var pathname = (typeof location !== 'undefined' && location.pathname) ? location.pathname : '';
+        var isReiPage = Boolean((typeof window !== 'undefined' && window.__IS_REI__) || pathname.indexOf('rei') !== -1);
+        var savedTheme = isReiPage
+          ? (localStorage.getItem('pk_rei_theme') || localStorage.getItem('khmerSettingTheme'))
+          : localStorage.getItem('khmerSettingTheme');
+
+        if (savedTheme) {
+          var effTheme = savedTheme;
+          if (effTheme === 'system' && typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+            effTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          var themeList = ['light', 'sepia', 'temple', 'moonlight', 'jungle', 'sunset', 'glass'];
+          for (var ti = 0; ti < themeList.length; ti++) {
+            var tn = themeList[ti];
+            setClassFlag(cl, 'theme-' + tn, effTheme === tn);
+          }
+          if (root.dataset) {
+            root.dataset.themeMode = savedTheme;
+            root.dataset.themeEffective = effTheme;
+          }
+          if (root.style) {
+            root.style.colorScheme = (effTheme === 'light' || effTheme === 'sepia') ? 'light' : 'dark';
+          }
+          if (isReiPage && typeof window !== 'undefined' && typeof window.__updateReiThemeUI === 'function') {
+            window.__updateReiThemeUI(effTheme === 'light', effTheme);
+          }
+          if (typeof document !== 'undefined' && typeof document.dispatchEvent === 'function' && typeof CustomEvent === 'function') {
+            try {
+              document.dispatchEvent(new CustomEvent('pk-theme-changed', {
+                detail: { mode: savedTheme, effective: effTheme }
+              }));
+            } catch (evErr) {}
+          }
+        }
+
+        var perf = localStorage.getItem('khmerSettingPerformanceMode');
+        var anim = localStorage.getItem('khmerSettingAnimationMode');
+        var red = localStorage.getItem('khmerSettingReducedMotion');
+        var noMotion = (perf === '1' || anim === 'off' || red === '1');
+        if (noMotion) {
+          setClassFlag(cl, 'performance-mode', true);
+          setClassFlag(cl, 'anim-mode-off', true);
+          setClassFlag(cl, 'reduce-motion', true);
+          setClassFlag(cl, 'reduced-motion', true);
+        }
+
+        var savedLayout = localStorage.getItem('pk_active_layout') || localStorage.getItem('khmerActiveLayout');
+        if (
+          savedLayout &&
+          typeof window !== 'undefined' &&
+          window.currentLayoutId &&
+          window.currentLayoutId !== savedLayout &&
+          typeof window.switchLayout === 'function'
+        ) {
+          window.switchLayout(savedLayout);
+        }
+      }
+
+      if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('pk_mobile_gate_bypass') === '1') {
+        setClassFlag(cl, 'pk-mobile-gate-dismissed', true);
+      }
+    } catch (e) {}
+  }
+
+  function flushSettleQueue() {
+    _isAnimatingVT = false;
+    try {
+      if (typeof document !== 'undefined' && document.documentElement && document.documentElement.classList) {
+        if (document.documentElement.classList.contains(VT_ACTIVE_CLASS)) {
+          document.documentElement.classList.add(VT_SETTLED_CLASS);
+        }
+        document.documentElement.classList.remove(VT_ACTIVE_CLASS);
+      }
+    } catch (e) {}
+    while (_settleQueue.length > 0) {
+      var cb = _settleQueue.shift();
+      try {
+        cb();
+      } catch (err) {}
+    }
+  }
+
+  function scheduleFlushAfterFrame() {
+    var schedule = (typeof requestAnimationFrame === 'function')
+      ? requestAnimationFrame
+      : function (fn) { return setTimeout(fn, 0); };
+    schedule(function () {
+      flushSettleQueue();
+    });
+  }
+
+  function pkWhenTransitionSettled(fn) {
+    if (typeof fn !== 'function') return;
+    if (_isRevealed && !_isAnimatingVT) {
+      try {
+        fn();
+      } catch (e) {}
+      return;
+    }
+    _settleQueue.push(fn);
+  }
+
+  function installSpeculationRules() {
+    try {
+      if (_speculationScheduled) return;
+      if (typeof document === 'undefined' || !document.head) return;
+      if (document.prerendering) return;
+      if (typeof location !== 'undefined' && location.protocol === 'file:') return;
+      if (typeof HTMLScriptElement !== 'function' || typeof HTMLScriptElement.supports !== 'function') return;
+      if (!HTMLScriptElement.supports('speculationrules')) return;
+      if (document.getElementById('pkSpeculationRules')) {
+        _speculationScheduled = true;
+        return;
+      }
+
+      var primaryHref = null;
+      try {
+        var primaryEl = document.getElementById('heroEditionSwitch') || document.getElementById('topReiBtn');
+        if (primaryEl && primaryEl.getAttribute) {
+          var rawPrimary = primaryEl.getAttribute('href');
+          if (rawPrimary && rawPrimary.charAt(0) !== '#') {
+            primaryHref = new URL(rawPrimary, location.href).href;
+          }
+        }
+      } catch (e) {}
+
+      var prerenderRules = [];
+      if (primaryHref) {
+        prerenderRules.push({
+          urls: [primaryHref],
+          eagerness: 'immediate'
+        });
+      }
+      prerenderRules.push({
+        where: {
+          and: [
+            { href_matches: '/*' },
+            { not: { selector_matches: "[href^='#'], [href*='logout'], [download], [target='_blank'], [rel~='nofollow'], .do-not-prerender" } }
+          ]
+        },
+        eagerness: 'moderate'
+      });
+
+      _speculationScheduled = true;
+      var specScript = document.createElement('script');
+      specScript.id = 'pkSpeculationRules';
+      specScript.type = 'speculationrules';
+      specScript.textContent = JSON.stringify({
+        prefetch: [
+          {
+            where: {
+              and: [
+                { href_matches: '/*' },
+                { not: { selector_matches: "[href^='#'], [href*='logout'], [download], [target='_blank'], [rel~='nofollow'], .do-not-prerender" } }
+              ]
+            },
+            eagerness: 'moderate'
+          }
+        ],
+        prerender: prerenderRules
+      });
+      document.head.appendChild(specScript);
+    } catch (e) {}
+  }
+
+  function scheduleIdleSpeculationRules() {
+    pkWhenTransitionSettled(function () {
+      var run = function () {
+        if (typeof requestIdleCallback === 'function') {
+          requestIdleCallback(installSpeculationRules, { timeout: 350 });
+        } else {
+          installSpeculationRules();
+        }
+      };
+      if (typeof setTimeout === 'function') {
+        setTimeout(run, 60);
+      } else {
+        run();
+      }
+    });
+  }
+
   function readPendingDirection() {
     try {
       if (typeof sessionStorage === 'undefined') return null;
@@ -189,7 +401,55 @@
   /* ------------------------------------------------------------------------
    * 1. Native Cross-Document View Transitions (pageswap + pagereveal)
    * ------------------------------------------------------------------------ */
+  if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+    document.addEventListener('prerenderingchange', function () {
+      syncAppearanceOnActivation();
+      scheduleIdleSpeculationRules();
+    });
+  }
+
   if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+    window.addEventListener('storage', function (event) {
+      var k = event && event.key;
+      if (
+        !k ||
+        k === 'khmerSettingTheme' ||
+        k === 'pk_rei_theme' ||
+        k === 'khmerSettingAccent' ||
+        k === 'khmerSettingAccentCustom' ||
+        k === 'khmerSettingPerformanceMode' ||
+        k === 'khmerSettingAnimationMode' ||
+        k === 'khmerSettingReducedMotion' ||
+        k === 'pk_active_layout' ||
+        k === 'khmerActiveLayout'
+      ) {
+        syncAppearanceOnActivation();
+      }
+    });
+
+    if (typeof window.matchMedia === 'function') {
+      try {
+        var sysDarkMq = window.matchMedia('(prefers-color-scheme: dark)');
+        var handleSysChange = function () {
+          try {
+            var pathname = (typeof location !== 'undefined' && location.pathname) ? location.pathname : '';
+            var isReiPage = Boolean((typeof window !== 'undefined' && window.__IS_REI__) || pathname.indexOf('rei') !== -1);
+            var cur = isReiPage
+              ? (localStorage.getItem('pk_rei_theme') || localStorage.getItem('khmerSettingTheme'))
+              : localStorage.getItem('khmerSettingTheme');
+            if (cur === 'system') {
+              syncAppearanceOnActivation();
+            }
+          } catch (e) {}
+        };
+        if (typeof sysDarkMq.addEventListener === 'function') {
+          sysDarkMq.addEventListener('change', handleSysChange);
+        } else if (typeof sysDarkMq.addListener === 'function') {
+          sysDarkMq.addListener(handleSysChange);
+        }
+      } catch (e) {}
+    }
+
     window.addEventListener('pageswap', function (event) {
       if (!event || !event.viewTransition) return;
 
@@ -229,11 +489,21 @@
     });
 
     window.addEventListener('pagereveal', function (event) {
+      _isRevealed = true;
       var pending = readPendingDirection();
       clearPendingDirection();
       clearFallbackClasses();
 
-      if (!event || !event.viewTransition) return;
+      syncAppearanceOnActivation();
+
+      if (!event || !event.viewTransition) {
+        if (typeof setTimeout === 'function') {
+          setTimeout(flushSettleQueue, 0);
+        } else {
+          flushSettleQueue();
+        }
+        return;
+      }
 
       if (isMotionDisabled()) {
         try {
@@ -241,6 +511,11 @@
             event.viewTransition.skipTransition();
           }
         } catch (e) {}
+        if (typeof setTimeout === 'function') {
+          setTimeout(flushSettleQueue, 0);
+        } else {
+          flushSettleQueue();
+        }
         return;
       }
 
@@ -256,21 +531,68 @@
             event.viewTransition.skipTransition();
           }
         } catch (e) {}
+        if (typeof setTimeout === 'function') {
+          setTimeout(flushSettleQueue, 0);
+        } else {
+          flushSettleQueue();
+        }
         return;
       }
+
+      _isAnimatingVT = true;
+      try {
+        if (document.documentElement && document.documentElement.classList) {
+          document.documentElement.classList.add(VT_ACTIVE_CLASS);
+        }
+      } catch (e) {}
 
       try {
         if (event.viewTransition.types && typeof event.viewTransition.types.add === 'function') {
           event.viewTransition.types.add(dir);
         }
       } catch (e) {}
+
+      var safetyTimer = (typeof setTimeout === 'function')
+        ? setTimeout(flushSettleQueue, 650)
+        : null;
+
+      if (event.viewTransition.finished && typeof event.viewTransition.finished.then === 'function') {
+        event.viewTransition.finished.then(
+          function () {
+            if (safetyTimer && typeof clearTimeout === 'function') clearTimeout(safetyTimer);
+            scheduleFlushAfterFrame();
+          },
+          function () {
+            if (safetyTimer && typeof clearTimeout === 'function') clearTimeout(safetyTimer);
+            scheduleFlushAfterFrame();
+          }
+        );
+      } else {
+        if (safetyTimer && typeof clearTimeout === 'function') clearTimeout(safetyTimer);
+        scheduleFlushAfterFrame();
+      }
     });
 
     window.addEventListener('pageshow', function (event) {
       if (event && event.persisted) {
         _isNavigatingFallback = false;
+        _isRevealed = true;
         clearPendingDirection();
         clearFallbackClasses();
+        syncAppearanceOnActivation();
+        flushSettleQueue();
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', function () {
+      scheduleIdleSpeculationRules();
+      if (typeof setTimeout === 'function') {
+        setTimeout(function () {
+          if (!_isRevealed && !_isAnimatingVT && (!document || !document.prerendering)) {
+            _isRevealed = true;
+            flushSettleQueue();
+          }
+        }, 700);
       }
     });
   }
@@ -297,6 +619,8 @@
           try {
             document.documentElement.classList.remove(ENTER_CLASS_NEXT, ENTER_CLASS_PREV);
           } catch (e) {}
+          _isRevealed = true;
+          flushSettleQueue();
         };
 
         if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
@@ -308,12 +632,10 @@
           });
         }
         if (typeof setTimeout === 'function') {
-          setTimeout(cleanEnter, 420);
+          setTimeout(cleanEnter, 410);
         }
       }
     }
-  } else if (hasNativeVT) {
-    // Wait until pagereveal consumes the pending direction; nothing else needed on load.
   }
 
   function performFallbackSwitch(destHref) {
@@ -335,7 +657,7 @@
 
     setTimeout(function () {
       location.href = destHref;
-    }, 185);
+    }, 170);
   }
 
   if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
@@ -368,8 +690,8 @@
         }
       } catch (e) {}
 
-      // If native Cross-Document View Transitions are active, just seed pending direction
-      // for edge-case fallback and allow 100% native browser navigation!
+      // If native Cross-Document View Transitions are active, seed pending direction
+      // and allow 100% native browser navigation (including prerendered activation!)
       if (supportsNativeCrossDocVT()) {
         var nativeDir = resolveDesktopDirection(currentHref, destHref);
         if (nativeDir && !isMotionDisabled()) {
@@ -387,7 +709,7 @@
   }
 
   /* ------------------------------------------------------------------------
-   * 3. Public Helper for JS-driven Switch Triggers (tutorial, dashboard, etc.)
+   * 3. Public Helpers
    * ------------------------------------------------------------------------ */
   if (typeof window !== 'undefined') {
     window.pkSwitchDesktop = function (url) {
@@ -404,11 +726,16 @@
       performFallbackSwitch(url);
     };
 
+    window.pkWhenTransitionSettled = pkWhenTransitionSettled;
+
     window.PKDesktopTransition = {
       classifyDesktopRoute: classifyDesktopRoute,
       resolveDesktopDirection: resolveDesktopDirection,
       isMotionDisabled: isMotionDisabled,
-      supportsNativeCrossDocVT: supportsNativeCrossDocVT
+      supportsNativeCrossDocVT: supportsNativeCrossDocVT,
+      syncAppearanceOnActivation: syncAppearanceOnActivation,
+      installSpeculationRules: installSpeculationRules,
+      whenSettled: pkWhenTransitionSettled
     };
   }
 })();
