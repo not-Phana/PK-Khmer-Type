@@ -273,17 +273,21 @@ test('UNC-13: Row 4 ISO keyboard layout alignment, key widths, and finger assign
   });
 });
 
-test('UNC-14: Compact lesson panel proportions, scroll anchoring, and light/sepia/forced-colors contrast', () => {
+test('UNC-14: Balanced responsive lesson panel proportions, scroll anchoring, and light/sepia/forced-colors contrast', () => {
   const lessonsCss = fs.readFileSync(path.join(projectRoot, 'css/lessons.css'), 'utf8');
   const baseCss = fs.readFileSync(path.join(projectRoot, 'css/base.css'), 'utf8');
   const lessonsJs = fs.readFileSync(path.join(projectRoot, 'js/lessons.js'), 'utf8');
+  const reiScript = fs.readFileSync(path.join(projectRoot, 'scripts/generate_rei.js'), 'utf8');
 
-  // Compact panel sizing avoids desktop dock overlap & fits cleanly above the keyboard
-  assert.match(lessonsCss, /\.lesson-panel\{[^}]*width:\s*min\(92vw,\s*660px\)/);
-  assert.match(lessonsCss, /\.adaptive-panel\s*\{[^}]*width:\s*min\(92vw,\s*660px\)/);
+  // Balanced responsive panel sizing: avoids dock collision at 1440px while scaling up cleanly on wide viewports & Rei
+  assert.match(lessonsCss, /\.lesson-panel\{[^}]*width:\s*min\(92vw,\s*672px\)/);
+  assert.match(lessonsCss, /\.adaptive-panel\s*\{[^}]*width:\s*min\(92vw,\s*672px\)/);
+  assert.match(lessonsCss, /@media \(min-width:\s*1680px\)[\s\S]*?:is\(\.lesson-panel,\s*\.adaptive-panel\)[^}]*width:\s*min\(92vw,\s*840px\)/);
+  assert.match(lessonsCss, /\.lesson-char-row\{[\s\S]*?font-size:\s*clamp\(1\.98rem/);
+  assert.match(reiScript, /\.is-rei \.lesson-panel\s*\{[^}]*840px/);
 
-  // Compact new-keycap & stat-pod rhythm
-  assert.match(lessonsCss, /\.nk-keycap\{[^}]*min-width:\s*34px/);
+  // Tactile new-keycap & stat-pod rhythm
+  assert.match(lessonsCss, /\.nk-keycap\{[^}]*min-width:\s*44px/);
   assert.ok(lessonsCss.includes('@media (forced-colors: active)'), 'lessons.css must provide forced-colors fallback rules');
 
   // Light and Sepia theme readability overrides for new keys and adaptive explanations

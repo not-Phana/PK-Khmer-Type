@@ -367,9 +367,27 @@ function buildReiHtml(isSubdir = false) {
         margin: 0 auto 16px auto !important;
       }
       .is-rei .lesson-panel {
-        max-width: min(92vw, 680px) !important;
-        margin: 8px auto 10px !important;
+        width: min(92vw, 840px) !important;
+        max-width: min(100%, 840px) !important;
+        margin: 12px auto 12px !important;
+        padding: 15px 22px 14px;
       }
+      .is-rei .lesson-top { gap: 12px; }
+      .is-rei .lesson-top-left { gap: 10px; }
+      .is-rei .lesson-live-indicator { padding: 3px 9px 3px 8px; }
+      .is-rei .lli-text { font-size: 0.62rem; letter-spacing: 0.08em; }
+      .is-rei .lesson-deck-title { font-size: 0.96rem; letter-spacing: 0.04em; }
+      .is-rei .lesson-top-right { gap: 7px; }
+      .is-rei .lesson-quick-btn { padding: 5px 11px; font-size: 0.74rem; }
+      .is-rei .lesson-counter-capsule { padding: 4px 11px; font-size: 0.8rem; }
+      .is-rei .lesson-stats { gap: 8px; padding-top: 10px; }
+      .is-rei .stat-pod { padding: 5px 11px; gap: 6px; }
+      .is-rei .stat-pod-icon { width: 14px; height: 14px; }
+      .is-rei .stat-pod-body { gap: 5px; }
+      .is-rei .stat-pod-title { font-size: 0.61rem; letter-spacing: 0.05em; }
+      .is-rei .stat-pod-num { font-size: 0.88rem; }
+      .is-rei #lessonExitBtn,
+      .is-rei .lesson-exit-tactical-btn { padding: 6px 13px; font-size: 0.69rem; letter-spacing: 0.04em; }
       .is-rei .lesson-panel:not([hidden]) {
         display: block !important;
       }
@@ -380,8 +398,8 @@ function buildReiHtml(isSubdir = false) {
       }
       html.focus-mode .is-rei .lesson-panel,
       html.focus-mode.is-rei .lesson-panel {
-        max-width: min(100%, 680px) !important;
-        margin: 4px auto 8px auto !important;
+        max-width: min(100%, 780px) !important;
+        margin: 6px auto 10px auto !important;
       }
     }
 
@@ -460,23 +478,23 @@ function buildReiHtml(isSubdir = false) {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 3px 12px;
-      margin: 0 auto 8px;
-      max-width: 640px;
+      gap: 9px;
+      padding: 6px 15px;
+      margin: 0 auto 10px;
+      max-width: 720px;
       background: rgba(14, 18, 36, 0.92);
       border: 1px solid rgba(255, 209, 102, 0.35);
-      border-radius: 20px;
+      border-radius: 999px;
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28);
-      font-size: 0.74rem;
+      font-size: 0.82rem;
       letter-spacing: 0.02em;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       transition: all 0.15s ease;
     }
     .rei-reach-dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       flex-shrink: 0;
     }
@@ -490,8 +508,8 @@ function buildReiHtml(isSubdir = false) {
       display: inline-flex;
       align-items: center;
       gap: 3px;
-      padding: 1px 6px;
-      border-radius: 5px;
+      padding: 2px 7px;
+      border-radius: 6px;
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.2);
       font-family: var(--font-mono, monospace);
@@ -500,17 +518,17 @@ function buildReiHtml(isSubdir = false) {
     }
     .rei-reach-shift {
       color: #f472b6;
-      font-size: 0.7rem;
+      font-size: 0.74rem;
     }
     .rei-reach-char {
       font-family: var(--font-khmer, sans-serif);
-      font-size: 0.94rem;
+      font-size: 1.06rem;
       font-weight: 700;
       color: #ffffff;
       margin-left: 2px;
     }
     .rei-reach-action {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: var(--ink-dim, #94a3b8);
       font-style: italic;
     }

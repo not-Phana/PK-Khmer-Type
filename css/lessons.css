@@ -1281,9 +1281,9 @@
   .lesson-panel{
     position:relative;
     z-index:10;
-    width:min(92vw, 660px);
-    margin:10px auto 10px;
-    padding:11px 16px 10px;
+    width:min(92vw, 672px);
+    margin:14px auto 12px;
+    padding:14px 16px 13px;
     border-radius: var(--radius, 11px);
     background:
       radial-gradient(120% 120% at 50% 0%, rgba(30, 38, 62, 0.5) 0%, transparent 65%),
@@ -1292,10 +1292,10 @@
     -webkit-backdrop-filter:blur(20px);
     border:1px solid rgba(255, 209, 102, 0.28);
     box-shadow:
-      0 18px 46px rgba(0,0,0,0.75),
-      0 0 24px rgba(255,209,102,0.08),
+      0 20px 52px rgba(0,0,0,0.78),
+      0 0 28px rgba(255,209,102,0.09),
       inset 0 1px 0 rgba(255,255,255,0.14),
-      inset 0 0 16px rgba(0,0,0,0.35);
+      inset 0 0 18px rgba(0,0,0,0.36);
     animation:panel-in .38s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   @keyframes panel-in{
@@ -1322,9 +1322,9 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:10px;
-    margin-bottom:6px;
-    padding-bottom:7px;
+    gap:8px;
+    margin-bottom:9px;
+    padding-bottom:9px;
     border-bottom:1px solid rgba(255,255,255,0.08);
   }
   .lesson-top-left{
@@ -1337,15 +1337,15 @@
     display:inline-flex;
     align-items:center;
     gap:5px;
-    padding:2px 7px 2px 6px;
+    padding:3px 8px 3px 7px;
     border-radius: var(--radius, 9px);
     background:rgba(52, 211, 153, 0.12);
     border:1px solid rgba(52, 211, 153, 0.35);
     flex-shrink:0;
   }
   .lli-dot{
-    width:6px;
-    height:6px;
+    width:7px;
+    height:7px;
     border-radius:50%;
     background:#34d399;
     box-shadow:0 0 8px #34d399;
@@ -1357,16 +1357,16 @@
   }
   .lli-text{
     font-family:'JetBrains Mono', monospace;
-    font-size:0.54rem;
+    font-size:0.58rem;
     font-weight:700;
-    letter-spacing:0.08em;
+    letter-spacing:0.06em;
     color:#34d399;
   }
   .lesson-deck-title{
     font-family:'Orbitron', sans-serif;
-    font-size:0.78rem;
+    font-size:0.86rem;
     font-weight:700;
-    letter-spacing:0.04em;
+    letter-spacing:0.03em;
     text-transform:uppercase;
     color:#ffffff;
     white-space:nowrap;
@@ -1383,14 +1383,14 @@
   .lesson-quick-btn{
     display:inline-flex;
     align-items:center;
-    gap:5px;
-    padding:3px 9px;
+    gap:4px;
+    padding:4px 9px;
     border-radius: var(--radius, 9px);
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,255,255,0.12);
     color:var(--ink-dim);
     font-family:'Space Grotesk', -apple-system, sans-serif;
-    font-size:0.64rem;
+    font-size:0.7rem;
     font-weight:600;
     cursor:pointer;
     transition:all .18s ease;
@@ -1408,8 +1408,8 @@
   }
   .lesson-quick-btn .lqb-badge{
     font-family:'JetBrains Mono', monospace;
-    font-size:0.52rem;
-    padding:1px 4px;
+    font-size:0.56rem;
+    padding:1px 5px;
     border-radius: 5px;
     background:rgba(255,255,255,0.08);
     color:var(--gold-bright);
@@ -1420,12 +1420,12 @@
     display:inline-flex;
     align-items:center;
     gap:3px;
-    padding:2px 9px;
+    padding:4px 9px;
     border-radius: var(--radius, 9px);
     background:rgba(0,0,0,0.45);
     border:1px solid rgba(255,209,102,0.22);
     font-family:'Orbitron', monospace;
-    font-size:0.7rem;
+    font-size:0.76rem;
     font-weight:700;
   }
   .lesson-counter-capsule b{
@@ -1440,15 +1440,15 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:8px;
-    margin:0 0 7px;
+    gap:10px;
+    margin:0 0 9px;
   }
   .lesson-meta-badge{
-    font-size:0.6rem;
+    font-size:0.68rem;
     font-weight:600;
     letter-spacing:0.06em;
     text-transform:uppercase;
-    padding:2px 8px;
+    padding:3px 10px;
     border-radius: var(--radius, 9px);
     background:rgba(255,209,102,0.12);
     border:1px solid rgba(255,209,102,0.35);
@@ -1458,7 +1458,7 @@
   .lesson-meta-badge.badge-test{ color:var(--temple-red); border-color:rgba(255,59,86,0.45); background:rgba(255,59,86,0.1); }
   .lesson-meta-badge.badge-words{ color:var(--gold-bright); border-color:rgba(255,209,102,0.45); background:rgba(255,209,102,0.1); }
   .lesson-meta-best{
-    font-size:0.62rem;
+    font-size:0.7rem;
     letter-spacing:0.03em;
     color:var(--ink-dim);
   }
@@ -1468,16 +1468,16 @@
   .lesson-flow-banner{
     display:flex;
     flex-direction:column-reverse;
-    gap:4px;
-    margin:0 0 7px;
-    padding:5px 10px 6px;
+    gap:5px;
+    margin:0 0 10px;
+    padding:7px 13px 8px;
     border-radius: var(--radius, 9px);
     background:rgba(0, 0, 0, 0.32);
     border:1px solid rgba(255, 255, 255, 0.08);
     transition:border-color .25s ease, background .25s ease;
   }
   .lfb-track{
-    height:3px;
+    height:4px;
     width:100%;
     border-radius: var(--radius, 9px);
     background:rgba(255, 255, 255, 0.08);
@@ -1499,15 +1499,15 @@
   .lfb-badge{
     display:inline-flex;
     align-items:center;
-    gap:5px;
+    gap:6px;
     font-family:'Orbitron', monospace;
-    font-size:0.6rem;
+    font-size:0.68rem;
     font-weight:700;
     letter-spacing:0.06em;
     color:var(--gold-bright);
   }
   .lfb-sub{
-    font-size:0.58rem;
+    font-size:0.66rem;
     color:var(--ink-dim);
     letter-spacing:0.02em;
   }
@@ -1552,16 +1552,16 @@
   }
   .lesson-flow-banner[data-flow="transcendent"] .lfb-badge{ color:#34d399; }
 
-  /* 3D Mechanical Target Keys Pedestal (Compact Horizontal Strip) */
+  /* 3D Mechanical Target Keys Pedestal (Balanced Horizontal Strip) */
   .lesson-newkeys{
     display:flex;
     flex-direction:row;
     align-items:center;
     justify-content:space-between;
     flex-wrap:wrap;
-    gap:8px 12px;
-    margin:0 0 8px;
-    padding:6px 11px;
+    gap:10px 14px;
+    margin:0 0 10px;
+    padding:8px 14px;
     border-radius: var(--radius, 9px);
     background:rgba(4, 7, 14, 0.62);
     border:1px solid rgba(255, 209, 102, 0.22);
@@ -1576,8 +1576,8 @@
   .lesson-newkeys-label{
     display:inline-flex;
     align-items:center;
-    gap:5px;
-    font-size:0.6rem;
+    gap:6px;
+    font-size:0.66rem;
     letter-spacing:0.07em;
     font-weight:700;
     text-transform:uppercase;
@@ -1587,7 +1587,7 @@
     display:flex;
     align-items:center;
     justify-content:flex-start;
-    gap:8px;
+    gap:10px;
     flex-wrap:wrap;
     flex:1;
   }
@@ -1595,8 +1595,8 @@
     display:inline-flex;
     flex-direction:row;
     align-items:center;
-    gap:7px;
-    padding:3px 9px 3px 5px;
+    gap:9px;
+    padding:4px 11px 4px 6px;
     border-radius: var(--radius, 9px);
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,255,255,0.1);
@@ -1607,17 +1607,17 @@
     border-color:rgba(255,209,102,0.35);
   }
 
-  /* 3D Tactile Keycap Body (Compact) */
+  /* 3D Tactile Keycap Body (Balanced Tactile Scale) */
   .nk-keycap{
     position:relative;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    min-width:34px;
-    min-height:32px;
-    padding:3px 8px 3px;
-    border-radius: 7px;
+    min-width:44px;
+    min-height:42px;
+    padding:4px 10px 4px;
+    border-radius: 8px;
     background:linear-gradient(180deg, #1f2638 0%, #111522 100%);
     border:1px solid rgba(255, 209, 102, 0.38);
     box-shadow:
@@ -1629,7 +1629,7 @@
   }
   .nk-keycap .nk-char{
     font-family:'Noto Sans Khmer','Noto Serif Khmer', sans-serif;
-    font-size:1.12rem;
+    font-size:1.38rem;
     font-weight:700;
     line-height:1.15;
     color:var(--gold-bright);
@@ -1637,7 +1637,7 @@
   }
   .nk-homing-bump{
     display:block;
-    width:10px;
+    width:12px;
     height:2px;
     margin:2px auto 0;
     border-radius: var(--radius, 9px);
@@ -1648,15 +1648,15 @@
   .nk-key-details{
     display:flex;
     align-items:center;
-    gap:5px;
+    gap:6px;
     flex-wrap:wrap;
   }
   .nk-keyid{
     font-family:'JetBrains Mono', monospace;
-    font-size:0.62rem;
+    font-size:0.7rem;
     font-weight:700;
     color:#e2e8f0;
-    padding:2px 6px;
+    padding:2px 7px;
     border-radius: 6px;
     background:rgba(255,255,255,0.08);
     border:1px solid rgba(255,255,255,0.12);
@@ -1664,9 +1664,9 @@
   }
   .nk-finger-badge{
     font-family:'Space Grotesk', -apple-system, sans-serif;
-    font-size:0.56rem;
+    font-size:0.64rem;
     font-weight:600;
-    padding:2px 6px;
+    padding:2px 7px;
     border-radius: 6px;
     letter-spacing:0.02em;
     background:rgba(255,255,255,0.06);
@@ -1709,9 +1709,9 @@
     display:flex;
     align-items:center;
     flex-wrap:wrap;
-    gap:6px;
-    margin:0 0 8px;
-    padding:5px 10px;
+    gap:7px;
+    margin:0 0 10px;
+    padding:7px 12px;
     border-radius: var(--radius, 9px);
     background:rgba(24, 21, 28, 0.65);
     border:1px solid rgba(255, 209, 102, 0.2);
@@ -1722,30 +1722,30 @@
     display:inline-flex;
     align-items:center;
     gap:5px;
-    font-size:0.62rem;
+    font-size:0.68rem;
     font-weight:600;
     letter-spacing:0.06em;
     text-transform:uppercase;
     color:var(--gold);
-    margin-right:2px;
+    margin-right:3px;
   }
   .leb-label svg{ opacity:0.85; vertical-align:-1px; }
   .leb-chips{
     display:inline-flex;
     align-items:center;
     flex-wrap:wrap;
-    gap:5px;
+    gap:6px;
   }
   .leb-chip{
     display:inline-flex;
     align-items:center;
-    padding:2px 8px;
+    padding:3px 10px;
     border-radius: 7px;
     background:rgba(255, 209, 102, 0.08);
     border:1px solid rgba(255, 180, 50, 0.28);
     color:var(--gold-bright);
     font-family:'Noto Sans Khmer','Noto Serif Khmer', system-ui, sans-serif;
-    font-size:0.84rem;
+    font-size:0.92rem;
     letter-spacing:0.02em;
     line-height:1.35;
     transition:background 0.2s, border-color 0.2s, transform 0.15s;
@@ -1757,12 +1757,12 @@
     transform:translateY(-1px);
   }
   .lesson-progress-bar{
-    height:5px;
+    height:6px;
     border-radius: var(--radius, 9px);
     background:rgba(255,255,255,0.08);
     border:1px solid rgba(255,255,255,0.1);
     overflow:hidden;
-    margin-bottom:8px;
+    margin-bottom:10px;
   }
   .lesson-progress-fill{
     height:100%;
@@ -1779,20 +1779,21 @@
   }
   .lesson-char-row{
     display:flex;
-    gap:7px;
+    gap:9px;
     justify-content:center;
+    justify-content:safe center;
     align-items:center;
     flex-wrap:nowrap;
     white-space:nowrap;
     overflow-x:auto;
     overflow-y:visible;
-    min-height:2.45em;
+    min-height:2.55em;
     height:auto;
-    padding:7px 14px;
+    padding:9px 16px;
     font-family:'Kantumruy Pro', 'Khmer OS Battambang', 'Khmer OS Siemreap', 'Noto Sans Khmer', sans-serif;
-    font-size:1.72rem;
+    font-size:clamp(1.98rem, 1.55rem + 0.52vw, 2.24rem);
     line-height:1.8;
-    margin-bottom:9px;
+    margin-bottom:11px;
     background:rgba(7, 10, 20, 0.62);
     border:1.5px solid rgba(255, 255, 255, 0.14);
     border-radius: var(--radius, 9px);
@@ -1843,14 +1844,14 @@
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    min-width:1.22em;
-    min-height:1.82em;
+    min-width:1.24em;
+    min-height:1.85em;
     height:auto;
     line-height:1.8;
-    padding:2px 7px;
-    border-radius: 8px;
+    padding:3px 8px;
+    border-radius: 9px;
     border:1.5px solid rgba(255, 255, 255, 0.16);
-    border-bottom:3px solid rgba(148, 163, 184, 0.42);
+    border-bottom:3.5px solid rgba(148, 163, 184, 0.42);
     background:linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
     box-shadow:0 2px 6px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     flex-shrink:0;
@@ -1933,21 +1934,21 @@
     100%{ opacity:1; transform:scaleX(1.05); }
   }
   .lc-space{
-    min-width:1.22em;
+    min-width:1.24em;
     color:#94a3b8;
-    font-size:1.72rem;
+    font-size:clamp(1.98rem, 1.55rem + 0.52vw, 2.24rem);
     font-weight:700;
-    min-height:1.82em;
-    height:1.82em;
+    min-height:1.85em;
+    height:1.85em;
     display:inline-flex;
     align-items:center;
     justify-content:center;
     line-height:1;
-    padding:2px 6px;
-    border-radius: 8px;
+    padding:3px 7px;
+    border-radius: 9px;
     box-sizing:border-box;
     border:1.5px dashed rgba(148, 163, 184, 0.35);
-    border-bottom:3px solid rgba(148, 163, 184, 0.35);
+    border-bottom:3.5px solid rgba(148, 163, 184, 0.35);
     background:rgba(255, 255, 255, 0.03);
     transition:transform .16s cubic-bezier(.34,1.56,.64,1);
   }
@@ -1981,21 +1982,21 @@
     75%{ transform:translateX(3px) rotate(1deg); }
     90%{ transform:translateX(-1px); }
   }
-  /* Tactical Telemetry HUD Pods (Compact Inline Row) */
+  /* Tactical Telemetry HUD Pods (Balanced Inline Row) */
   .lesson-stats{
     display:flex;
-    gap:6px;
+    gap:5px;
     align-items:center;
     justify-content:flex-start;
     flex-wrap:wrap;
-    padding-top:8px;
+    padding-top:9px;
     border-top:1px solid rgba(255,255,255,0.08);
   }
   .stat-pod{
     display:flex;
     align-items:center;
-    gap:6px;
-    padding:4px 9px;
+    gap:5px;
+    padding:4px 8px;
     border-radius: var(--radius, 9px);
     background:rgba(0, 0, 0, 0.42);
     border:1px solid rgba(255, 255, 255, 0.08);
@@ -2007,8 +2008,8 @@
     background:rgba(0, 0, 0, 0.55);
   }
   .stat-pod-icon{
-    width:12px;
-    height:12px;
+    width:13px;
+    height:13px;
     flex-shrink:0;
     transition:transform .18s ease;
   }
@@ -2019,20 +2020,20 @@
     display:flex;
     flex-direction:row;
     align-items:baseline;
-    gap:5px;
+    gap:4px;
     line-height:1.15;
   }
   .stat-pod-title{
     font-family:'Space Grotesk', -apple-system, sans-serif;
-    font-size:0.54rem;
+    font-size:0.55rem;
     font-weight:700;
-    letter-spacing:0.06em;
+    letter-spacing:0.04em;
     text-transform:uppercase;
     color:var(--ink-dim);
   }
   .stat-pod-num{
     font-family:'JetBrains Mono', monospace;
-    font-size:0.78rem;
+    font-size:0.81rem;
     font-weight:700;
     color:#ffffff;
   }
@@ -2060,16 +2061,16 @@
     margin-left:auto;
     display:inline-flex;
     align-items:center;
-    gap:5px;
+    gap:4px;
     font-family:'Space Grotesk', -apple-system, sans-serif;
     font-size:0.64rem;
     font-weight:700;
-    letter-spacing:0.04em;
+    letter-spacing:0.03em;
     text-transform:uppercase;
     background:rgba(239,68,68,0.12);
     border:1px solid rgba(239,68,68,0.38);
     color:#fca5a5;
-    padding:4px 10px;
+    padding:5px 10px;
     border-radius: var(--radius, 9px);
     cursor:pointer;
     transition:all .18s ease;
@@ -2839,9 +2840,9 @@
     background:rgba(255,209,102,0.09);
     border:1px solid rgba(255,209,102,0.3);
     border-radius: var(--radius, 9px);
-    padding:4px 12px;
-    margin:0 auto 8px;
-    font-size:0.7rem;
+    padding:6px 14px;
+    margin:0 auto 10px;
+    font-size:0.78rem;
     font-weight:600;
     color:var(--gold-bright);
     text-align:center;
@@ -3271,18 +3272,107 @@
   .adaptive-panel {
     background: linear-gradient(180deg, #101428 0%, #0a0d1a 100%);
     border: 1px solid rgba(255, 157, 46, 0.35);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
-    padding: 11px 16px 10px;
-    margin: 10px auto;
-    width: min(92vw, 660px);
-    max-width: 660px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+    padding: 14px 16px 13px;
+    margin: 14px auto 12px;
+    width: min(92vw, 672px);
     animation: fadeIn 0.25s ease-out;
+  }
+  @media (min-width: 1500px) {
+    :is(.lesson-panel, .adaptive-panel) {
+      width: min(92vw, 740px);
+      padding: 15px 22px 14px;
+    }
+    .lesson-top {
+      gap: 12px;
+    }
+    .lesson-top-left {
+      gap: 10px;
+    }
+    .lesson-live-indicator {
+      padding: 3px 9px 3px 8px;
+    }
+    .lli-text {
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+    }
+    .lesson-deck-title {
+      font-size: 0.96rem;
+      letter-spacing: 0.04em;
+    }
+    .lesson-top-right {
+      gap: 7px;
+    }
+    .lesson-quick-btn {
+      padding: 5px 11px;
+      font-size: 0.74rem;
+    }
+    .lesson-counter-capsule {
+      padding: 4px 11px;
+      font-size: 0.8rem;
+    }
+    .lesson-stats {
+      gap: 7px;
+      padding-top: 10px;
+    }
+    .stat-pod {
+      padding: 5px 10px;
+      gap: 6px;
+    }
+    .stat-pod-icon {
+      width: 14px;
+      height: 14px;
+    }
+    .stat-pod-body {
+      gap: 5px;
+    }
+    .stat-pod-title {
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+    }
+    .stat-pod-num {
+      font-size: 0.86rem;
+    }
+    .lesson-exit-tactical-btn,
+    #lessonExitBtn {
+      padding: 6px 12px;
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+    }
+  }
+  @media (min-width: 1580px) {
+    :is(.lesson-panel, .adaptive-panel) {
+      width: min(92vw, 800px);
+    }
+  }
+  @media (min-width: 1680px) {
+    :is(.lesson-panel, .adaptive-panel) {
+      width: min(92vw, 840px);
+    }
+    .lesson-stats {
+      gap: 9px;
+    }
+    .stat-pod {
+      padding: 6px 12px;
+      gap: 7px;
+    }
+    .stat-pod-title {
+      font-size: 0.63rem;
+    }
+    .stat-pod-num {
+      font-size: 0.92rem;
+    }
+    .lesson-exit-tactical-btn,
+    #lessonExitBtn {
+      font-size: 0.72rem;
+      padding: 6px 14px;
+    }
   }
   .adaptive-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     flex-wrap: wrap;
     gap: 8px;
   }
@@ -3296,7 +3386,7 @@
     align-items: center;
     gap: 6px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: var(--gold-bright);
     letter-spacing: 0.04em;
@@ -3305,18 +3395,18 @@
     background: rgba(160, 107, 255, 0.16);
     border: 1px solid rgba(160, 107, 255, 0.4);
     color: #c4b5fd;
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     font-weight: 600;
-    padding: 2px 8px;
+    padding: 3px 9px;
     border-radius: var(--radius, 9px);
   }
   .adaptive-focus-badge {
     background: rgba(255, 209, 102, 0.15);
     border: 1px solid rgba(255, 209, 102, 0.45);
     color: var(--gold-bright);
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    padding: 2px 8px;
+    padding: 3px 9px;
     border-radius: var(--radius, 9px);
     font-family: 'JetBrains Mono', monospace;
   }
@@ -3326,7 +3416,7 @@
     gap: 12px;
   }
   .adaptive-unlocked-count {
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     color: var(--ink-dim);
     font-family: 'JetBrains Mono', monospace;
   }
@@ -3334,9 +3424,9 @@
     background: rgba(255, 255, 255, 0.07);
     border: 1px solid rgba(255, 255, 255, 0.18);
     color: var(--ink-dim);
-    padding: 4px 10px;
+    padding: 5px 11px;
     border-radius: var(--radius, 9px);
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
@@ -3350,9 +3440,9 @@
     background: rgba(255, 255, 255, 0.07);
     border: 1px solid rgba(255, 255, 255, 0.18);
     color: var(--ink-dim);
-    padding: 4px 10px;
+    padding: 5px 11px;
     border-radius: var(--radius, 9px);
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease;
@@ -4106,84 +4196,84 @@ html.focus-mode .lesson-panel:not([hidden]) {
   display: none !important;
 }
 
-/* Focus Mode: Compact, ergonomically scaled lesson panel to prevent keyboard cutoff */
+/* Focus Mode: Balanced, ergonomically scaled lesson panel to align with keyboard width */
 html.focus-mode .lesson-panel {
   width: 100% !important;
-  max-width: min(100%, 680px) !important;
-  margin: 4px auto 8px auto !important;
-  padding: 9px 14px 8px !important;
+  max-width: min(100%, 780px) !important;
+  margin: 6px auto 10px auto !important;
+  padding: 13px 18px 12px !important;
   transform: none !important;
 }
 html.focus-mode .lesson-top {
-  margin-bottom: 5px !important;
-  padding-bottom: 5px !important;
+  margin-bottom: 7px !important;
+  padding-bottom: 7px !important;
 }
 html.focus-mode .lesson-meta-row {
-  margin: 0 0 5px !important;
+  margin: 0 0 7px !important;
 }
 html.focus-mode .lesson-flow-banner {
-  margin: 0 0 6px !important;
-  padding: 4px 10px 5px !important;
+  margin: 0 0 8px !important;
+  padding: 5px 11px 6px !important;
 }
 html.focus-mode .lesson-newkeys {
-  margin: 0 0 6px !important;
-  padding: 5px 10px !important;
-  gap: 6px 10px !important;
+  margin: 0 0 8px !important;
+  padding: 7px 12px !important;
+  gap: 8px 12px !important;
 }
 html.focus-mode .nk-keycap {
-  min-width: 30px !important;
-  min-height: 28px !important;
-  padding: 2px 7px !important;
+  min-width: 38px !important;
+  min-height: 36px !important;
+  padding: 3px 8px !important;
 }
 html.focus-mode .nk-keycap .nk-char {
-  font-size: 1.02rem !important;
+  font-size: 1.24rem !important;
 }
 html.focus-mode .lesson-progress-bar {
-  height: 4px !important;
-  margin-bottom: 6px !important;
+  height: 5px !important;
+  margin-bottom: 8px !important;
 }
 html.focus-mode .rei-finger-reach-hud {
-  margin: 0 auto 6px !important;
-  padding: 3px 10px !important;
-  font-size: 0.72rem !important;
+  margin: 0 auto 8px !important;
+  padding: 4px 12px !important;
+  font-size: 0.78rem !important;
 }
 html.focus-mode .lesson-char-row {
-  font-size: 1.56rem !important;
-  min-height: 2.35em !important;
+  font-size: 1.9rem !important;
+  min-height: 2.42em !important;
   line-height: 1.8 !important;
-  padding: 6px 12px !important;
-  margin-bottom: 7px !important;
+  padding: 7px 15px !important;
+  margin-bottom: 9px !important;
 }
 html.focus-mode .lc-char {
-  min-width: 1.18em !important;
-  min-height: 1.72em !important;
+  min-width: 1.22em !important;
+  min-height: 1.8em !important;
   line-height: 1.8 !important;
-  padding: 2px 6px !important;
+  padding: 2px 7px !important;
 }
 html.focus-mode .lc-space {
-  min-width: 1.18em !important;
-  min-height: 1.72em !important;
-  height: 1.72em !important;
-  font-size: 1.56rem !important;
+  min-width: 1.22em !important;
+  min-height: 1.8em !important;
+  height: 1.8em !important;
+  font-size: 1.9rem !important;
 }
 html.focus-mode .lesson-stats {
-  padding-top: 6px !important;
-  gap: 5px !important;
+  padding-top: 8px !important;
+  gap: 6px !important;
 }
 html.focus-mode .stat-pod {
-  padding: 3px 7px !important;
-  gap: 5px !important;
+  padding: 4px 9px !important;
+  gap: 6px !important;
 }
 html.focus-mode .stat-pod-title {
-  font-size: 0.5rem !important;
+  font-size: 0.58rem !important;
 }
 html.focus-mode .stat-pod-num {
-  font-size: 0.72rem !important;
+  font-size: 0.84rem !important;
 }
 html.focus-mode #lessonExitBtn,
 html.focus-mode .lesson-exit-tactical-btn {
-  padding: 4px 9px !important;
-  font-size: 0.62rem !important;
+  padding: 5px 11px !important;
+  font-size: 0.66rem !important;
 }
 
 @media (max-height: 820px) {
@@ -4193,16 +4283,16 @@ html.focus-mode .lesson-exit-tactical-btn {
   html.focus-mode .lesson-panel {
     transform: none !important;
     margin: 2px auto 6px auto !important;
-    padding: 7px 12px 7px !important;
+    padding: 10px 15px 9px !important;
   }
   html.focus-mode .lesson-char-row {
-    font-size: 1.48rem !important;
-    min-height: 2.25em !important;
+    font-size: 1.76rem !important;
+    min-height: 2.32em !important;
     line-height: 1.8 !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 7px !important;
   }
   html.focus-mode .lc-space {
-    font-size: 1.48rem !important;
+    font-size: 1.76rem !important;
   }
   html.focus-mode .board-wrap {
     transform: scale(0.84) !important;
@@ -7922,23 +8012,23 @@ html.anim-mode-minimal .lesson-card:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 3px 12px;
-  margin: 0 auto 8px;
-  max-width: 640px;
+  gap: 9px;
+  padding: 6px 15px;
+  margin: 0 auto 10px;
+  max-width: 720px;
   background: rgba(14, 18, 36, 0.92);
   border: 1px solid rgba(255, 209, 102, 0.35);
-  border-radius: 20px;
+  border-radius: 999px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28);
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   letter-spacing: 0.02em;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   transition: all 0.15s ease;
 }
 .rei-reach-dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -7952,8 +8042,8 @@ html.anim-mode-minimal .lesson-card:hover {
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  padding: 1px 6px;
-  border-radius: 5px;
+  padding: 2px 7px;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
   font-family: var(--font-mono, monospace);
@@ -7962,17 +8052,17 @@ html.anim-mode-minimal .lesson-card:hover {
 }
 .rei-reach-shift {
   color: #f472b6;
-  font-size: 0.7rem;
+  font-size: 0.74rem;
 }
 .rei-reach-char {
   font-family: var(--font-khmer, sans-serif);
-  font-size: 0.94rem;
+  font-size: 1.06rem;
   font-weight: 700;
   color: #ffffff;
   margin-left: 2px;
 }
 .rei-reach-action {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--ink-dim, #94a3b8);
   font-style: italic;
 }

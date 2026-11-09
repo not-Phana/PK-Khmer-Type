@@ -97,18 +97,23 @@
   @media (max-width: 640px){
     .lesson-panel, .adaptive-panel{
       width:95vw;
-      padding:9px 10px 8px;
-      margin:8px auto;
+      padding:12px 13px 11px;
+      margin:10px auto;
     }
-    .lesson-newkeys{ padding:5px 8px; gap:6px 8px; }
+    .lesson-top{ flex-wrap:wrap; gap:7px 8px; }
+    .lesson-top-left{ flex:1 1 100%; min-width:0; }
+    .lesson-deck-title{ font-size:0.84rem; }
+    .lesson-top-right{ width:100%; justify-content:flex-start; flex-wrap:wrap; gap:6px; }
+    .lesson-counter-capsule{ margin-left:auto; }
+    .lesson-newkeys{ padding:7px 10px; gap:8px 10px; }
     .lesson-char-row{
-      font-size:1.45rem;
-      min-height:2.3em;
-      padding:6px 8px;
-      gap:5px;
+      font-size:1.68rem;
+      min-height:2.4em;
+      padding:7px 12px;
+      gap:6px;
     }
-    .lc-space{ font-size:1.45rem; }
-    .stat-pod{ padding:3px 7px; gap:4px; }
+    .lc-space{ font-size:1.68rem; }
+    .stat-pod{ padding:4px 8px; gap:5px; }
   }
 
   @media (max-width: 640px){
