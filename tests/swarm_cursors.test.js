@@ -51,3 +51,15 @@ test('Swarm Cursors 1.6: 3D hero WebGL canvas preserves drawing buffer for swarm
   const swarmJs = fs.readFileSync(path.join(ROOT, 'js', 'swarm-cursors.js'), 'utf8');
   assert.match(swarmJs, /d\[i\]\s*\+\s*d\[i\s*\+\s*1\]\s*\+\s*d\[i\s*\+\s*2\]\s*\+\s*d\[i\s*\+\s*3\]/);
 });
+
+test('Swarm Cursors 1.7: Live canvas mirror syncs per-frame and 3D lance runs autonomous orbital animation', () => {
+  const swarmJs = fs.readFileSync(path.join(ROOT, 'js', 'swarm-cursors.js'), 'utf8');
+  assert.match(swarmJs, /liveCanvas:\s*el/);
+  assert.match(swarmJs, /this\.liveCanvases\s*=\s*model\.items\.filter/);
+  assert.match(swarmJs, /syncLiveCanvases\(\)/);
+  assert.match(swarmJs, /this\.syncLiveCanvases\(\);/);
+  const welcomeJs = fs.readFileSync(path.join(ROOT, 'js', 'welcome.js'), 'utf8');
+  assert.match(welcomeJs, /const isIdleSweep\s*=\s*!pointerActive/);
+  assert.match(welcomeJs, /breathRoll\s*=\s*Math\.sin/);
+  assert.match(welcomeJs, /const dtScale\s*=\s*delta \* 60;/);
+});

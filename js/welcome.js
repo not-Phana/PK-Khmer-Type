@@ -1178,7 +1178,7 @@
       triggerShockwave();
     });
 
-    // Mouse Tracking across Window with Dynamic Velocity Banking
+    // Mouse Tracking across Window with Autonomous Orbital Patrol & Dynamic Velocity Banking
     const mouse = {
       clientX: window.innerWidth * 0.5,
       clientY: window.innerHeight * 0.35
@@ -1186,6 +1186,9 @@
 
     let prevMouseX = window.innerWidth * 0.5;
     let mouseVelocityX = 0;
+    let pointerActive = false;
+    let lastPointerAt = 0;
+    let pointerOrigin = null;
 
     const needleState = {
       targetQuat: new THREE.Quaternion(),
@@ -1193,6 +1196,16 @@
     };
 
     window.addEventListener('pointermove', (e) => {
+      if (!pointerOrigin) {
+        pointerOrigin = { x: e.clientX, y: e.clientY };
+        prevMouseX = e.clientX;
+        return;
+      }
+      if (!pointerActive && Math.hypot(e.clientX - pointerOrigin.x, e.clientY - pointerOrigin.y) < 10) {
+        return;
+      }
+      pointerActive = true;
+      lastPointerAt = performance.now();
       mouseVelocityX = e.clientX - prevMouseX;
       prevMouseX = e.clientX;
       mouse.clientX = e.clientX;
@@ -1218,12 +1231,17 @@
     function renderLoop(){
       requestAnimationFrame(renderLoop);
 
-      const delta = clock.getDelta();
+      const delta = Math.min(clock.getDelta(), 0.05);
       const time = clock.getElapsedTime();
+      const dtScale = delta * 60;
 
-      // 1. Direct Aiming: The razor tip points directly at the mouse cursor
+      // 1. Direct Aiming (or smooth celestial orbital sweep on initial load / pointer idle)
       let dx = 0, dy = -150;
-      if(stage){
+      const isIdleSweep = !pointerActive || (performance.now() - lastPointerAt > 5000);
+      if (isIdleSweep) {
+        dx = Math.cos(time * 0.95) * 210;
+        dy = Math.sin(time * 1.45) * 165 - 30;
+      } else if (stage) {
         const rect = stage.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
@@ -1237,44 +1255,48 @@
       if(dist > 8){
         const screenAngle = Math.atan2(-dy, dx);
         const zRot = screenAngle - Math.PI / 2;
-        const bankRoll = Math.max(-0.25, Math.min(0.25, -mouseVelocityX * 0.015));
-        const leanAmount = Math.min(0.26, 0.10 + (dist / (window.innerWidth || 1200)) * 0.18);
+        const breathRoll = Math.sin(time * 1.85) * 0.18;
+        const breathPitch = Math.cos(time * 1.35) * 0.11;
+        const idleVelRoll = isIdleSweep ? Math.sin(time * 0.95) * 0.22 : Math.max(-0.26, Math.min(0.26, -mouseVelocityX * 0.015));
+        const bankRoll = Math.max(-0.38, Math.min(0.38, idleVelRoll + breathRoll));
+        const leanAmount = Math.min(0.34, 0.12 + (dist / (window.innerWidth || 1200)) * 0.18) + breathPitch;
         const targetEuler = new THREE.Euler(leanAmount, bankRoll, zRot, 'ZXY');
         needleState.targetQuat.setFromEuler(targetEuler);
       }
 
-      needleAssembly.quaternion.slerp(needleState.targetQuat, 0.11);
+      needleAssembly.quaternion.slerp(needleState.targetQuat, isIdleSweep ? 0.08 : 0.12);
 
-      // Subtle levitation float
-      needleAssembly.position.y = Math.sin(time * 2.2) * 0.12;
+      // 2-axis celestial levitation float
+      needleAssembly.position.x = Math.cos(time * 1.35) * 0.09;
+      needleAssembly.position.y = Math.sin(time * 2.15) * 0.18;
       needleGlowLight.position.copy(needleAssembly.position);
 
       // 2. Pulse Novas with Harmonic Waves & Shimmer Rotation
       starSprites.forEach(item => {
-        const p = 1.0 + Math.sin(time * 3.8 + item.phase) * 0.22;
+        const p = 1.0 + Math.sin(time * 4.0 + item.phase) * 0.26;
         item.sprite.scale.set(item.baseScale * p, item.baseScale * p, 1);
-        item.sprite.material.rotation = Math.sin(time * 0.7 + item.phase) * 0.18;
+        item.sprite.material.rotation = Math.sin(time * 0.85 + item.phase) * 0.24;
       });
 
-      // 3. Rotate Triple Gimbal Rings & Core Diamond
-      gimbalRing1.rotation.z += 0.022;
-      gimbalRing1.rotation.x += 0.012;
-      gimbalRing2.rotation.z -= 0.018;
-      gimbalRing2.rotation.y += 0.015;
-      gimbalRing3.rotation.y += 0.035;
-      gimbalRing3.rotation.x += 0.024;
+      // 3. Rotate Triple Gimbal Rings & Core Diamond (frame-rate independent)
+      gimbalRing1.rotation.z += 0.024 * dtScale;
+      gimbalRing1.rotation.x += 0.014 * dtScale;
+      gimbalRing2.rotation.z -= 0.020 * dtScale;
+      gimbalRing2.rotation.y += 0.018 * dtScale;
+      gimbalRing3.rotation.y += 0.038 * dtScale;
+      gimbalRing3.rotation.x += 0.026 * dtScale;
 
-      outerDiamond.rotation.y += 0.028;
-      outerDiamond.rotation.x += 0.014;
-      innerDiamond.rotation.z -= 0.040;
+      outerDiamond.rotation.y += 0.032 * dtScale;
+      outerDiamond.rotation.x += 0.016 * dtScale;
+      innerDiamond.rotation.z -= 0.044 * dtScale;
 
       starGems.forEach(gem => {
-        gem.rotation.y += 0.032;
+        gem.rotation.y += 0.036 * dtScale;
       });
-      rTipGem.rotation.y += 0.03;
-      lTipGem.rotation.y -= 0.03;
-      rBarbGem.rotation.x += 0.03;
-      lBarbGem.rotation.x -= 0.03;
+      rTipGem.rotation.y += 0.035 * dtScale;
+      lTipGem.rotation.y -= 0.035 * dtScale;
+      rBarbGem.rotation.x += 0.035 * dtScale;
+      lBarbGem.rotation.x -= 0.035 * dtScale;
 
       // 4. Update Orbiting Celestial Satellites (Starlight Motes)
       motes.forEach(m => {

@@ -966,7 +966,13 @@
       }
       if (tag === "canvas") {
         const src = canvasPixels(el);
-        if (src) return imgOf(src);
+        if (src) {
+          const mc = document.createElement("canvas");
+          mc.width = el.width || Math.max(1, Math.round(r.width));
+          mc.height = el.height || Math.max(1, Math.round(r.height));
+          mc.setAttribute("style", fit + "display:block;width:100%;height:100%;");
+          return { el: mc, sig: "canvas:" + mc.width + "x" + mc.height + ":" + src.slice(-48), liveCanvas: el };
+        }
         return null;
       }
       // iframe / embed / object
@@ -999,6 +1005,7 @@
         ...b,
         blend: cs.mixBlendMode !== "normal" ? cs.mixBlendMode : ctx.blend || "",
         media: m.el,
+        liveCanvas: m.liveCanvas || null,
         frame: styleString(cs, ["border-top-width", "border-right-width", "border-bottom-width", "border-left-width", "border-top-style", "border-right-style", "border-bottom-style", "border-left-style", "border-top-color", "border-right-color", "border-bottom-color", "border-left-color"]),
         radius: cs.borderRadius,
         shadow: cs.boxShadow !== "none" ? cs.boxShadow : "",
@@ -1782,6 +1789,7 @@
     }
 
     mount(model) {
+      this.liveCanvases = model.items.filter((it) => it.kind === "image" && it.liveCanvas);
       this.world.style.width = model.docW + "px";
       this.world.style.height = model.docH + "px";
       const by = { world: [], under: [], over: [] };
@@ -1921,6 +1929,15 @@
             const t = parseFloat(m.getAttribute("data-t"));
             if (t > 0) m.addEventListener("loadedmetadata", () => (m.currentTime = t), { once: true });
             if (m.hasAttribute("data-play")) m.play().catch(() => {});
+          } else if (m.localName === "canvas" && src.liveCanvas) {
+            n._mdCanvas = m;
+            n._mdCtx = m.getContext("2d");
+            if (n._mdCtx && src.liveCanvas.width && src.liveCanvas.height) {
+              m.width = src.liveCanvas.width;
+              m.height = src.liveCanvas.height;
+              n._mdCtx.clearRect(0, 0, m.width, m.height);
+              n._mdCtx.drawImage(src.liveCanvas, 0, 0, m.width, m.height);
+            }
           }
           n._src = src;
           if (src.frame) {
@@ -2132,6 +2149,24 @@
         `<div class="ruler-corner" style="opacity:${f1(t)}"></div>`;
     }
 
+    syncLiveCanvases() {
+      if (!this.liveCanvases || !this.liveCanvases.length) return;
+      for (const it of this.liveCanvases) {
+        if (!it.vis || !it.node) continue;
+        const src = it.mode === "master" ? it.copyOf : it;
+        const lc = src && src.liveCanvas;
+        const mc = it.node._mdCanvas;
+        const ctx = it.node._mdCtx;
+        if (!lc || !mc || !ctx || !lc.width || !lc.height) continue;
+        if (mc.width !== lc.width || mc.height !== lc.height) {
+          mc.width = lc.width;
+          mc.height = lc.height;
+        }
+        ctx.clearRect(0, 0, mc.width, mc.height);
+        ctx.drawImage(lc, 0, 0, mc.width, mc.height);
+      }
+    }
+
     render(E) {
       this.syncWorld();
       if (this.backdrops && this.backdrops.length) {
@@ -2142,6 +2177,7 @@
         }
       }
       if (E.items) for (const it of E.items) this.renderItem(it);
+      this.syncLiveCanvases();
       this.renderOverlay(E);
       this.renderCursors(E);
       this.renderRulers(E);

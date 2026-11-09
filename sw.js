@@ -11,7 +11,7 @@
  * Strict Zero-Emoji Policy: 100% SVG vector icons only.
  * ============================================================================ */
 
-var CACHE_VERSION = "pk-khmer-type-v94";
+var CACHE_VERSION = "pk-khmer-type-v95";
 var FONT_CACHE = "pk-khmer-type-fonts-v1";
 
 var PRECACHE_ASSETS = [

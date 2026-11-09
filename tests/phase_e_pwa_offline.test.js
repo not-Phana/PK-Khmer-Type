@@ -31,7 +31,7 @@ test('Phase E: Service Worker - sw.js syntax, precache assets, and offline strat
   const swCode = fs.readFileSync(swPath, 'utf8');
 
   // 1. Verify cache version
-  assert.ok(swCode.includes('CACHE_VERSION = "pk-khmer-type-v94"'), 'sw.js must use v94 cache version');
+  assert.ok(swCode.includes('CACHE_VERSION = "pk-khmer-type-v95"'), 'sw.js must use v95 cache version');
 
   // 2. Verify critical shell precache assets
   const criticalAssets = [
