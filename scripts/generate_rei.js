@@ -85,8 +85,8 @@ function buildReiHtml(isSubdir = false) {
     `$1${isSubdir ? '../' : ''}assets/rei-logo.svg$2`
   );
   html = html.replace(
-    'PK Khmer Type <span class="hero-edition-tag">Studio Pro</span>',
-    'PK Khmer Type <span class="hero-edition-tag rei">Rei</span>'
+    /PK Khmer Type <a[^>]*class="hero-edition-tag[^"]*"[^>]*>[\s\S]*?<\/a>/,
+    `PK Khmer Type <a href="${isSubdir ? '../index.html' : 'index.html'}" class="hero-edition-tag rei hero-edition-switch" id="heroEditionSwitch" title="Switch to PK Khmer Type Studio Pro" aria-label="PK Khmer Type Rei — Switch to PK Khmer Type Studio Pro"><span class="hero-edition-label">Rei</span><svg class="hero-edition-switch-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3l4 4-4 4"/><path d="M20 7H4"/><path d="M8 21l-4-4 4-4"/><path d="M4 17h16"/></svg></a>`
   );
   html = html.replace(
     '<span class="pk-mdg-brand-name">PK KHMER TYPE STUDIO PRO</span>',

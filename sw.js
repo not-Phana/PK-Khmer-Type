@@ -11,7 +11,7 @@
  * Strict Zero-Emoji Policy: 100% SVG vector icons only.
  * ============================================================================ */
 
-var CACHE_VERSION = "pk-khmer-type-v97";
+var CACHE_VERSION = "pk-khmer-type-v98";
 var FONT_CACHE = "pk-khmer-type-fonts-v1";
 
 var PRECACHE_ASSETS = [
@@ -44,6 +44,8 @@ var PRECACHE_ASSETS = [
   "css/tutorial.css",
   "css/custom-lessons.css",
   "css/welcome.css",
+  "css/desktop-transition.css",
+  "js/desktop-transition.js",
   "js/icons.js",
   "js/vendor/supabase.js",
   "js/supabase-config.js",

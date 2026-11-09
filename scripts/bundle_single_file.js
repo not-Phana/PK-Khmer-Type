@@ -81,14 +81,11 @@ function bundle() {
   </script>
   `;
 
-  // Inject shim right before first script
-  html = html.replace(/<script defer src="js\/icons\.js[^"]*"><\/script>/, `${offlineDataShim}\n  <script defer src="js/icons.js?v=86"></script>`);
-
-  // 3. Inline JavaScript files
-  html = html.replace(/<script\s+defer\s+src=["']([^"']+)["'][^>]*><\/script>/gi, (match, src) => {
+  // 3. Inline JavaScript files (deferred modules placed safely before </body>, async render-blocking in place)
+  html = html.replace(/<script\s+(?:async\s+)?blocking=["']render["']\s+src=["']([^"']+)["'][^>]*><\/script>/gi, (match, src) => {
+    if (/^https?:\/\//i.test(src)) return match;
     try {
       const js = readLocal(src);
-      // Clean potential script closing tag collisions
       const safeJs = js.replace(/<\/script>/gi, '<\\/script>');
       return `<script data-source="${src.split('?')[0]}">\n${safeJs}\n</script>`;
     } catch (err) {
@@ -96,6 +93,28 @@ function bundle() {
       return match;
     }
   });
+
+  const inlinedDeferBlocks = [];
+  html = html.replace(/<script\s+defer\s+src=["']([^"']+)["'][^>]*><\/script>/gi, (match, src) => {
+    try {
+      const js = readLocal(src);
+      // Clean potential script closing tag collisions
+      const safeJs = js.replace(/<\/script>/gi, '<\\/script>');
+      inlinedDeferBlocks.push(`<script data-source="${src.split('?')[0]}">\n${safeJs}\n</script>`);
+      return '';
+    } catch (err) {
+      console.warn(`[Phase I Bundler] Warning: Failed to inline script ${src}: ${err.message}`);
+      inlinedDeferBlocks.push(match);
+      return '';
+    }
+  });
+
+  if (inlinedDeferBlocks.length > 0) {
+    const payload = `${offlineDataShim}\n${inlinedDeferBlocks.join('\n')}\n</body>`;
+    html = html.replace('</body>', () => payload);
+  } else {
+    html = html.replace(/<script defer src="js\/icons\.js[^"]*"><\/script>/, () => `${offlineDataShim}\n  <script defer src="js/icons.js?v=86"></script>`);
+  }
 
   // 4. Verify Zero-Emoji compliance in output
   const emojiRegex = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;

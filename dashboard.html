@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PK Khmer Type — Analytics &amp; Mastery Dashboard</title>
+  <style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+  <link rel="stylesheet" href="css/desktop-transition.css?v=98">
+  <link rel="expect" href="#spotlightCard" blocking="render">
+  <script async blocking="render" src="js/desktop-transition.js?v=98"></script>
   <link rel="icon" type="image/svg+xml" href="assets/dashboard-logo.svg">
   <link rel="alternate icon" type="image/svg+xml" href="logo.svg">
   <link rel="apple-touch-icon" href="logo.svg">
@@ -4776,7 +4780,7 @@ function renderPunchcard(sessions) {
           localStorage.setItem('pk_active_layout', layoutId);
           localStorage.setItem('khmerActiveLayout', layoutId);
         } catch (e) {}
-        window.location.href = `index.html?lesson=${encodeURIComponent(lessonId)}&layout=${encodeURIComponent(layoutId)}`;
+        var _targetUrl = `index.html?lesson=${encodeURIComponent(lessonId)}&layout=${encodeURIComponent(layoutId)}`; if (typeof window.pkSwitchDesktop === 'function') { window.pkSwitchDesktop(_targetUrl); } else { window.location.href = _targetUrl; }
       };
 
       // Launch Weak Key Drill
@@ -4786,7 +4790,7 @@ function renderPunchcard(sessions) {
           localStorage.setItem('pk_active_layout', layoutId);
           localStorage.setItem('khmerActiveLayout', layoutId);
         } catch (e) {}
-        window.location.href = `index.html?practice=weak&key=${encodeURIComponent(keyId)}&layout=${encodeURIComponent(layoutId)}`;
+        var _weakUrl = `index.html?practice=weak&key=${encodeURIComponent(keyId)}&layout=${encodeURIComponent(layoutId)}`; if (typeof window.pkSwitchDesktop === 'function') { window.pkSwitchDesktop(_weakUrl); } else { window.location.href = _weakUrl; }
       };
 
       // Open Key Inspector Modal
@@ -4986,6 +4990,15 @@ function renderPunchcard(sessions) {
          TEACHER OFFLINE BATCH GRADING WORKSTATION & CERTIFICATE STUDIO
          ============================================================ */
       let batchSlips = [];
+
+      function escapeHtml(str) {
+        return String(str == null ? '' : str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
 
       function verifyStudentGradeSlip(slipData) {
         try {

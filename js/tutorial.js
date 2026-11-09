@@ -647,7 +647,7 @@
 
         if(chosen === 'rei'){
           this.skip();
-          window.location.href = 'rei.html';
+          if(typeof window.pkSwitchDesktop === 'function'){ window.pkSwitchDesktop('rei.html'); } else { window.location.href = 'rei.html'; }
           return;
         }
 

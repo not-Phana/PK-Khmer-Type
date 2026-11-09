@@ -1052,6 +1052,8 @@ function initSettingsToggles() {
       if (typeof window.__updateReiThemeUI === "function") {
         window.__updateReiThemeUI(effective === "light");
       }
+    } else if (typeof window !== "undefined" && (mode === "light" || mode === "dark" || mode === "system")) {
+      safeSet("pk_rei_theme", effective === "light" ? "light" : "dark");
     }
     if (syncThemeAccent && THEME_DEFAULT_ACCENT[effective]) {
       applyAccent(THEME_DEFAULT_ACCENT[effective]);

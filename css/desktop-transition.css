@@ -1,0 +1,312 @@
+/* ============================================================================
+ * PK Khmer Type — Windows Virtual Desktop Cross-Document Switch Transitions
+ *
+ * Implements smooth Windows 10/11 virtual desktop swipe dynamics across pages
+ * (Welcome <-> Studio Pro <-> Rei Tutor <-> Dashboard <-> Documents).
+ * Primary: Native CSS Cross-Document View Transitions (@view-transition)
+ * Fallback: Compositor slide classes for non-VT browsers & file:// contexts.
+ * Strict Zero-Emoji Policy enforced.
+ * ============================================================================ */
+
+@view-transition {
+  navigation: auto;
+}
+
+/* Reduced-Motion Opt-Out: Disable View Transitions completely */
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  html.pk-dt-leaving-next body,
+  html.pk-dt-leaving-prev body,
+  html.pk-dt-entering-next body,
+  html.pk-dt-entering-prev body {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Windows Task-View / Workspace Depth Backdrop during Cross-Document Switch */
+::view-transition {
+  background: radial-gradient(circle at 50% 40%, #0d1324 0%, #05070e 72%, #03040a 100%);
+}
+
+html.theme-light::view-transition {
+  background: radial-gradient(circle at 50% 40%, #e2e8f0 0%, #cbd5e1 68%, #94a3b8 100%);
+}
+
+::view-transition-group(root) {
+  animation-duration: 480ms;
+}
+
+/* Prevent additive blend bleed when two opaque desktops slide past each other */
+html:active-view-transition-type(desktop-next)::view-transition-image-pair(root),
+html:active-view-transition-type(desktop-prev)::view-transition-image-pair(root) {
+  isolation: isolate;
+}
+
+html:active-view-transition-type(desktop-next)::view-transition-old(root),
+html:active-view-transition-type(desktop-next)::view-transition-new(root),
+html:active-view-transition-type(desktop-prev)::view-transition-old(root),
+html:active-view-transition-type(desktop-prev)::view-transition-new(root) {
+  mix-blend-mode: normal;
+  border-radius: 14px;
+  overflow: hidden;
+  outline: 1px solid rgba(255, 255, 255, 0.14);
+  animation-duration: 480ms;
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+}
+
+html.theme-light:active-view-transition-type(desktop-next)::view-transition-old(root),
+html.theme-light:active-view-transition-type(desktop-next)::view-transition-new(root),
+html.theme-light:active-view-transition-type(desktop-prev)::view-transition-old(root),
+html.theme-light:active-view-transition-type(desktop-prev)::view-transition-new(root) {
+  outline: 1px solid rgba(15, 23, 42, 0.16);
+}
+
+/* Forward Virtual Desktop Switch (e.g., Studio Pro -> PK Khmer Type Rei) */
+html:active-view-transition-type(desktop-next)::view-transition-old(root) {
+  animation-name: pkWinDesktopOutLeft;
+}
+
+html:active-view-transition-type(desktop-next)::view-transition-new(root) {
+  animation-name: pkWinDesktopInRight;
+}
+
+/* Backward Virtual Desktop Switch (e.g., PK Khmer Type Rei -> Studio Pro) */
+html:active-view-transition-type(desktop-prev)::view-transition-old(root) {
+  animation-name: pkWinDesktopOutRight;
+}
+
+html:active-view-transition-type(desktop-prev)::view-transition-new(root) {
+  animation-name: pkWinDesktopInLeft;
+}
+
+/*
+ * Synchronized Windows 11 Virtual Desktop Switch Keyframes
+ * Phase 1 (0% -> 14%): Gently pull back into windowed desktop plane (scale 0.955)
+ * Phase 2 (14% -> 86%): Locked conveyor glide across with invariant 7.5% gap (zero overlap)
+ * Phase 3 (86% -> 100%): Expand incoming desktop flush to full viewport (scale 1)
+ */
+@keyframes pkWinDesktopOutLeft {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1);
+  }
+  14% {
+    transform: translate3d(0, 0, 0) scale(0.955);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  86% {
+    transform: translate3d(-103%, 0, 0) scale(0.955);
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translate3d(-103%, 0, 0) scale(0.955);
+    opacity: 0;
+  }
+}
+
+@keyframes pkWinDesktopInRight {
+  0% {
+    transform: translate3d(103%, 0, 0) scale(0.955);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1);
+  }
+  14% {
+    transform: translate3d(103%, 0, 0) scale(0.955);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  86% {
+    transform: translate3d(0, 0, 0) scale(0.955);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pkWinDesktopOutRight {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1);
+  }
+  14% {
+    transform: translate3d(0, 0, 0) scale(0.955);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  86% {
+    transform: translate3d(103%, 0, 0) scale(0.955);
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translate3d(103%, 0, 0) scale(0.955);
+    opacity: 0;
+  }
+}
+
+@keyframes pkWinDesktopInLeft {
+  0% {
+    transform: translate3d(-103%, 0, 0) scale(0.955);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1);
+  }
+  14% {
+    transform: translate3d(-103%, 0, 0) scale(0.955);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  86% {
+    transform: translate3d(0, 0, 0) scale(0.955);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+ * Progressive Fallback (Firefox & file:// local browsing without onpagereveal)
+ * Never activates on browsers running native Cross-Document View Transitions.
+ * ============================================================================ */
+
+html.pk-dt-leaving-next,
+html.pk-dt-leaving-prev,
+html.pk-dt-entering-next,
+html.pk-dt-entering-prev {
+  background: #04060d !important;
+  overflow-x: hidden !important;
+}
+
+html.theme-light.pk-dt-leaving-next,
+html.theme-light.pk-dt-leaving-prev,
+html.theme-light.pk-dt-entering-next,
+html.theme-light.pk-dt-entering-prev {
+  background: #cbd5e1 !important;
+}
+
+html.pk-dt-leaving-next body {
+  animation: pkDesktopFallbackOutLeft 210ms cubic-bezier(0.32, 0, 0.67, 0) forwards !important;
+  will-change: transform, opacity;
+  border-radius: 14px;
+}
+
+html.pk-dt-leaving-prev body {
+  animation: pkDesktopFallbackOutRight 210ms cubic-bezier(0.32, 0, 0.67, 0) forwards !important;
+  will-change: transform, opacity;
+  border-radius: 14px;
+}
+
+html.pk-dt-entering-next body {
+  animation: pkDesktopFallbackInRight 360ms cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  will-change: transform, opacity;
+  border-radius: 14px;
+}
+
+html.pk-dt-entering-prev body {
+  animation: pkDesktopFallbackInLeft 360ms cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  will-change: transform, opacity;
+  border-radius: 14px;
+}
+
+@keyframes pkDesktopFallbackOutLeft {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+  28% {
+    transform: translate3d(0, 0, 0) scale(0.96);
+    opacity: 0.96;
+  }
+  100% {
+    transform: translate3d(-34%, 0, 0) scale(0.955);
+    opacity: 0;
+  }
+}
+
+@keyframes pkDesktopFallbackOutRight {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+  28% {
+    transform: translate3d(0, 0, 0) scale(0.96);
+    opacity: 0.96;
+  }
+  100% {
+    transform: translate3d(34%, 0, 0) scale(0.955);
+    opacity: 0;
+  }
+}
+
+@keyframes pkDesktopFallbackInRight {
+  0% {
+    transform: translate3d(38%, 0, 0) scale(0.955);
+    opacity: 0;
+  }
+  75% {
+    transform: translate3d(0, 0, 0) scale(0.972);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pkDesktopFallbackInLeft {
+  0% {
+    transform: translate3d(-38%, 0, 0) scale(0.955);
+    opacity: 0;
+  }
+  75% {
+    transform: translate3d(0, 0, 0) scale(0.972);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Respect in-app Reduced Motion / Performance Mode toggles */
+html.reduce-motion.pk-dt-leaving-next body,
+html.reduce-motion.pk-dt-leaving-prev body,
+html.reduce-motion.pk-dt-entering-next body,
+html.reduce-motion.pk-dt-entering-prev body,
+html.reduced-motion.pk-dt-leaving-next body,
+html.reduced-motion.pk-dt-leaving-prev body,
+html.reduced-motion.pk-dt-entering-next body,
+html.reduced-motion.pk-dt-entering-prev body,
+html.performance-mode.pk-dt-leaving-next body,
+html.performance-mode.pk-dt-leaving-prev body,
+html.performance-mode.pk-dt-entering-next body,
+html.performance-mode.pk-dt-entering-prev body,
+html.anim-mode-off.pk-dt-leaving-next body,
+html.anim-mode-off.pk-dt-leaving-prev body,
+html.anim-mode-off.pk-dt-entering-next body,
+html.anim-mode-off.pk-dt-entering-prev body {
+  animation: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}

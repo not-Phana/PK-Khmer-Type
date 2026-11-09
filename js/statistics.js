@@ -795,63 +795,68 @@ function initStatisticsDashboard(){
   /* -- profile expand/collapse -- */
   const profileSidebar = document.getElementById('profileSidebar');
   function setProfileExpanded(on){
+    if(!profileSidebar) return;
     profileSidebar.classList.toggle('collapsed', !on);
     profileSidebar.classList.toggle('expanded', on);
     profileSidebar.setAttribute('aria-expanded', String(on));
   }
-  profileSidebar.addEventListener('click', (e)=>{
-    if(e.target.closest('button, input')) return;
-    setProfileExpanded(profileSidebar.classList.contains('collapsed'));
-  });
-  profileSidebar.addEventListener('keydown', (e)=>{
-    if(e.target !== profileSidebar) return;
-    if(e.key === 'Enter' || e.key === ' '){
-      e.preventDefault();
+  if(profileSidebar){
+    profileSidebar.addEventListener('click', (e)=>{
+      if(e.target.closest('button, input')) return;
       setProfileExpanded(profileSidebar.classList.contains('collapsed'));
-    }
-  });
+    });
+    profileSidebar.addEventListener('keydown', (e)=>{
+      if(e.target !== profileSidebar) return;
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        setProfileExpanded(profileSidebar.classList.contains('collapsed'));
+      }
+    });
 
-  /* -- subtle 3D tilt parallax on mouse move -- */
-  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!prefersReducedMotion && window.matchMedia && window.matchMedia('(hover: hover)').matches){
-    profileSidebar.addEventListener('mousemove', (e)=>{
-      const r = profileSidebar.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width;
-      const py = (e.clientY - r.top) / r.height;
-      const tiltX = (px - 0.5) * 6;
-      const tiltY = (0.5 - py) * 6;
-      profileSidebar.style.setProperty('--tiltX', tiltX.toFixed(2) + 'deg');
-      profileSidebar.style.setProperty('--tiltY', tiltY.toFixed(2) + 'deg');
-    });
-    profileSidebar.addEventListener('mouseleave', ()=>{
-      profileSidebar.style.setProperty('--tiltX', '0deg');
-      profileSidebar.style.setProperty('--tiltY', '0deg');
-    });
+    /* -- subtle 3D tilt parallax on mouse move -- */
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!prefersReducedMotion && window.matchMedia && window.matchMedia('(hover: hover)').matches){
+      profileSidebar.addEventListener('mousemove', (e)=>{
+        const r = profileSidebar.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        const tiltX = (px - 0.5) * 6;
+        const tiltY = (0.5 - py) * 6;
+        profileSidebar.style.setProperty('--tiltX', tiltX.toFixed(2) + 'deg');
+        profileSidebar.style.setProperty('--tiltY', tiltY.toFixed(2) + 'deg');
+      });
+      profileSidebar.addEventListener('mouseleave', ()=>{
+        profileSidebar.style.setProperty('--tiltX', '0deg');
+        profileSidebar.style.setProperty('--tiltY', '0deg');
+      });
+    }
   }
 
   /* -- edit avatar (resized client-side, stored as a data URL) -- */
-  profileAvatarInput.addEventListener('change', ()=>{
-    const file = profileAvatarInput.files && profileAvatarInput.files[0];
-    if(!file) return;
-    const img = new Image();
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      img.onload = ()=>{
-        const size = 160;
-        const canvas = document.createElement('canvas');
-        canvas.width = size; canvas.height = size;
-        const ctx = canvas.getContext('2d');
-        const scale = Math.max(size / img.width, size / img.height);
-        const w = img.width * scale, h = img.height * scale;
-        ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
-        profile.avatar = canvas.toDataURL('image/jpeg', 0.85);
-        saveProfile(profile);
-        refreshProfileUI();
+  if(profileAvatarInput){
+    profileAvatarInput.addEventListener('change', ()=>{
+      const file = profileAvatarInput.files && profileAvatarInput.files[0];
+      if(!file) return;
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = ()=>{
+        img.onload = ()=>{
+          const size = 160;
+          const canvas = document.createElement('canvas');
+          canvas.width = size; canvas.height = size;
+          const ctx = canvas.getContext('2d');
+          const scale = Math.max(size / img.width, size / img.height);
+          const w = img.width * scale, h = img.height * scale;
+          ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+          profile.avatar = canvas.toDataURL('image/jpeg', 0.85);
+          saveProfile(profile);
+          refreshProfileUI();
+        };
+        img.src = reader.result;
       };
-      img.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-  });
+      reader.readAsDataURL(file);
+    });
+  }
 
   refreshProfileUI();
 }

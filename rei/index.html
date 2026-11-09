@@ -258,14 +258,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/base.css?v=97">
-  <link rel="stylesheet" href="../css/keyboard.css?v=97">
-  <link rel="stylesheet" href="../css/typing.css?v=97">
-  <link rel="stylesheet" href="../css/lessons.css?v=97">
-  <link rel="stylesheet" href="../css/responsive.css?v=97">
-  <link rel="stylesheet" href="../css/settings.css?v=97">
-  <link rel="stylesheet" href="../css/tutorial.css?v=97">
-  <link rel="stylesheet" href="../css/custom-lessons.css?v=97">
+  <link rel="stylesheet" href="../css/base.css?v=98">
+  <link rel="stylesheet" href="../css/keyboard.css?v=98">
+  <link rel="stylesheet" href="../css/typing.css?v=98">
+  <link rel="stylesheet" href="../css/lessons.css?v=98">
+  <link rel="stylesheet" href="../css/responsive.css?v=98">
+  <link rel="stylesheet" href="../css/settings.css?v=98">
+  <link rel="stylesheet" href="../css/tutorial.css?v=98">
+  <link rel="stylesheet" href="../css/custom-lessons.css?v=98">
+  <style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+  <link rel="stylesheet" href="../css/desktop-transition.css?v=98">
+  <link rel="expect" href="#keyboard" blocking="render">
+  <script async blocking="render" src="../js/desktop-transition.js?v=98"></script>
   <script>
     try {
       // Early Theme Initialization to prevent dark/light flash on page refresh
@@ -326,6 +330,36 @@
       document.head.appendChild(st);
     } catch(e){}
   </script>
+  <!-- Scripts (deferred in head with render-blocking boot so keyboard/layout complete before Frame 1 / pagereveal) -->
+  <script defer src="../js/icons.js?v=98"></script>
+  <script defer src="../js/vendor/supabase.js?v=98"></script>
+  <script defer src="../js/supabase-env.js?v=98" onerror="window.__PK_NO_ENV_FILE=true"></script>
+  <script defer src="../js/supabase-config.js?v=98"></script>
+  <script defer src="../js/cloud-sync.js?v=98"></script>
+  <script defer src="../js/storage.js?v=98"></script>
+  <script defer src="../js/offline-bridge.js?v=98"></script>
+  <script defer src="../data/curriculum-data.js?v=98"></script>
+  <script defer src="../data/adaptive-vocab.js?v=98"></script>
+  <script defer src="../js/typing.js?v=98"></script>
+  <script defer src="../js/keyboard.js?v=98"></script>
+  <script defer src="../js/tracker.js?v=98"></script>
+  <script defer src="../js/progress.js?v=98"></script>
+  <script defer src="../js/review.js?v=98"></script>
+  <script defer src="../js/cursor-inspector.js?v=98"></script>
+  <script defer src="../js/smooth-cursor.js?v=98"></script>
+  <script defer src="../js/feedback.js?v=98"></script>
+  <script defer src="../js/achievements.js?v=98"></script>
+  <script defer src="../js/adaptive.js?v=98"></script>
+  <script defer src="../js/lessons.js?v=98"></script>
+  <script defer src="../js/custom-lessons.js?v=98"></script>
+  <script defer src="../js/test-lab.js?v=98"></script>
+  <script defer src="../js/race.js?v=98"></script>
+  <script defer src="../js/statistics.js?v=98"></script>
+  <script defer src="../js/settings.js?v=98"></script>
+  <script defer src="../js/shortcuts.js?v=98"></script>
+  <script defer src="../js/quick_guide.js?v=98"></script>
+  <script defer src="../js/tutorial.js?v=98"></script>
+  <script defer src="../js/app.js?v=98" blocking="render"></script>
 
   <!-- PK Khmer Type Rei Dedicated Responsive Tutor Styles -->
   <style id="reiDedicatedStyles">
@@ -3505,7 +3539,7 @@ html.theme-light .rscc-sub {
   <img src="../assets/rei-logo.svg" alt="PK Khmer Type Official Crest Logo" width="52" height="52">
 </div>
 
-<h1><span class="km">ក ខ គ</span>PK Khmer Type <span class="hero-edition-tag rei">Rei</span> <button type="button" class="hero-version-tag" id="heroVersionTag" title="View PK Khmer Type Studio Pro v2.4 Beta Showcase" aria-label="Version 2.4 Beta Showcase"><span class="hero-ver-num">v2.4</span> <span class="hero-ver-beta">Beta</span></button></h1>
+<h1><span class="km">ក ខ គ</span>PK Khmer Type <a href="../index.html" class="hero-edition-tag rei hero-edition-switch" id="heroEditionSwitch" title="Switch to PK Khmer Type Studio Pro" aria-label="PK Khmer Type Rei — Switch to PK Khmer Type Studio Pro"><span class="hero-edition-label">Rei</span><svg class="hero-edition-switch-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3l4 4-4 4"/><path d="M20 7H4"/><path d="M8 21l-4-4 4-4"/><path d="M4 17h16"/></svg></a> <button type="button" class="hero-version-tag" id="heroVersionTag" title="View PK Khmer Type Studio Pro v2.4 Beta Showcase" aria-label="Version 2.4 Beta Showcase"><span class="hero-ver-num">v2.4</span> <span class="hero-ver-beta">Beta</span></button></h1>
 <p class="subtitle i18n-t" id="mainSubtitle" data-en="Rest your pointer on &lt;kbd&gt;Shift&lt;/kbd&gt;, &lt;kbd&gt;Ctrl&lt;/kbd&gt;, or &lt;kbd&gt;AltGr&lt;/kbd&gt; to preview a layer — click to pin it, click keys to type, or just use your real keyboard." data-km="ដាក់ព្រួញកណ្ដុរលើ &lt;kbd&gt;Shift&lt;/kbd&gt;, &lt;kbd&gt;Ctrl&lt;/kbd&gt; ឬ &lt;kbd&gt;AltGr&lt;/kbd&gt; ដើម្បីមើលស្រទាប់ជាមុន — ចុចដើម្បីភ្ជាប់វា ចុចគ្រាប់ចុចដើម្បីវាយ ឬគ្រាន់តែប្រើក្តារចុចពិតរបស់អ្នក។">Rest your pointer on <kbd>Shift</kbd>, <kbd>Ctrl</kbd>, or <kbd>AltGr</kbd> to preview a layer — click to pin it, click keys to type, or just use your real keyboard.</p>
 <div class="founder-byline">
   <span class="founder-byline-mark" aria-hidden="true">&bull;</span>
@@ -5336,36 +5370,6 @@ html.theme-light .rscc-sub {
   </article>
 </noscript>
 
-  <!-- Scripts -->
-  <script defer src="../js/icons.js?v=97"></script>
-  <script defer src="../js/vendor/supabase.js?v=97"></script>
-  <script defer src="../js/supabase-env.js?v=97" onerror="window.__PK_NO_ENV_FILE=true"></script>
-  <script defer src="../js/supabase-config.js?v=97"></script>
-  <script defer src="../js/cloud-sync.js?v=97"></script>
-  <script defer src="../js/storage.js?v=97"></script>
-  <script defer src="../js/offline-bridge.js?v=97"></script>
-  <script defer src="../data/curriculum-data.js?v=97"></script>
-  <script defer src="../data/adaptive-vocab.js?v=97"></script>
-  <script defer src="../js/typing.js?v=97"></script>
-  <script defer src="../js/keyboard.js?v=97"></script>
-  <script defer src="../js/tracker.js?v=97"></script>
-  <script defer src="../js/progress.js?v=97"></script>
-  <script defer src="../js/review.js?v=97"></script>
-  <script defer src="../js/cursor-inspector.js?v=97"></script>
-  <script defer src="../js/smooth-cursor.js?v=97"></script>
-  <script defer src="../js/feedback.js?v=97"></script>
-  <script defer src="../js/achievements.js?v=97"></script>
-  <script defer src="../js/adaptive.js?v=97"></script>
-  <script defer src="../js/lessons.js?v=97"></script>
-  <script defer src="../js/custom-lessons.js?v=97"></script>
-  <script defer src="../js/test-lab.js?v=97"></script>
-  <script defer src="../js/race.js?v=97"></script>
-  <script defer src="../js/statistics.js?v=97"></script>
-  <script defer src="../js/settings.js?v=97"></script>
-  <script defer src="../js/shortcuts.js?v=97"></script>
-  <script defer src="../js/quick_guide.js?v=97"></script>
-  <script defer src="../js/tutorial.js?v=97"></script>
-  <script defer src="../js/app.js?v=97"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {

@@ -61,6 +61,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="docs.css?v=4.8.0">
+  <style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+  <link rel="stylesheet" href="../css/desktop-transition.css?v=98">
+  <link rel="expect" href="#docsSidebar" blocking="render">
+  <script async blocking="render" src="../js/desktop-transition.js?v=98"></script>
   <script>
     try {
       var p = localStorage.getItem('khmerSettingPerformanceMode');
