@@ -8,9 +8,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 
-test('Swarm Cursors 1.1: welcome.html includes swarm-cursors.js with auto-rebuild', () => {
+test('Swarm Cursors 1.1: welcome.html includes swarm-cursors.js with auto-rebuild and cache-busting query', () => {
   const html = fs.readFileSync(path.join(ROOT, 'welcome.html'), 'utf8');
-  assert.match(html, /<script[^>]*src=["']js\/swarm-cursors\.js["'][^>]*data-trigger=["']auto["']/);
+  assert.match(html, /<script[^>]*src=["']js\/swarm-cursors\.js\?v=\d+["'][^>]*data-trigger=["']auto["']/);
+  assert.match(html, /href=["']css\/welcome\.css\?v=\d+["']/);
   assert.match(html, /<canvas\s+id=["']welcomeCanvas["'][^>]*data-swarm-ignore/);
 });
 

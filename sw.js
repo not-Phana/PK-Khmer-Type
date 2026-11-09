@@ -11,7 +11,7 @@
  * Strict Zero-Emoji Policy: 100% SVG vector icons only.
  * ============================================================================ */
 
-var CACHE_VERSION = "pk-khmer-type-v92";
+var CACHE_VERSION = "pk-khmer-type-v93";
 var FONT_CACHE = "pk-khmer-type-fonts-v1";
 
 var PRECACHE_ASSETS = [
@@ -72,6 +72,8 @@ var PRECACHE_ASSETS = [
   "js/shortcuts.js",
   "js/quick_guide.js",
   "js/tutorial.js",
+  "js/welcome.js",
+  "js/swarm-cursors.js",
   "js/app.js"
 ];
 
@@ -173,10 +175,21 @@ self.addEventListener("fetch", function (event) {
   }
 
   // 4. Static Application Shell Assets: Network-First with Cache Fallback
-  // Soft-reloads (Ctrl+R / F5) always receive the freshest CSS/JS immediately,
-  // eliminating stale cached stylesheets while maintaining 100% offline PWA support.
+  // Revalidate same-origin assets against server on every reload (Ctrl+R) using
+  // cache: "no-cache" so browser HTTP disk cache never serves stale CSS/JS after updates.
+  if (request.cache === "only-if-cached" && request.mode !== "same-origin") {
+    return;
+  }
+  var fetchInput = request;
+  if (url.origin === self.location.origin) {
+    try {
+      fetchInput = new Request(request, { cache: "no-cache" });
+    } catch (_err) {
+      fetchInput = request;
+    }
+  }
   event.respondWith(
-    fetch(request).then(function (networkResponse) {
+    fetch(fetchInput).then(function (networkResponse) {
       if (networkResponse && networkResponse.status === 200) {
         var clone = networkResponse.clone();
         caches.open(CACHE_VERSION).then(function (cache) {

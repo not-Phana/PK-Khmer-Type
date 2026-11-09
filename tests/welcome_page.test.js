@@ -59,8 +59,8 @@ test('Welcome 1.3: HTML markup structure, CSP, and meta headers', () => {
   assert.ok(html.includes('data-code="Space"'), 'Bench must contain Spacebar');
 
   // Style and Script references
-  assert.ok(html.includes('href="css/welcome.css"'), 'Must link css/welcome.css');
-  assert.ok(html.includes('src="js/welcome.js"'), 'Must load js/welcome.js');
+  assert.match(html, /href="css\/welcome\.css(?:\?v=\d+)?"/, 'Must link css/welcome.css');
+  assert.match(html, /src="js\/welcome\.js(?:\?v=\d+)?"/, 'Must load js/welcome.js');
 });
 
 test('Welcome 1.4: JavaScript engine contains procedural audio, canvas particles, and bilingual dictionary', () => {
@@ -139,7 +139,7 @@ test('Welcome 1.7: Small 3D Celestial Starlight Pointer exclusively in welcome.h
   // Must exist in welcome.html
   assert.ok(welcomeHtml.includes('id="hero3DCanvas"'), 'welcome.html must contain 3D hero canvas');
   assert.ok(welcomeHtml.includes('id="hero3dStage"'), 'welcome.html must contain 3D showcase stage');
-  assert.ok(welcomeHtml.includes('src="Documents/three.min.js"'), 'welcome.html must load local Three.js engine');
+  assert.match(welcomeHtml, /src="Documents\/three\.min\.js(?:\?v=\d+)?"/, 'welcome.html must load local Three.js engine');
 
   // Must NOT exist in index.html (exclusively in welcome.html)
   assert.ok(!indexHtml.includes('id="siteCelestialPointerLink"'), 'index.html must not contain celestial pointer link');

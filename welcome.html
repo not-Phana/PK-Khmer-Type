@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/welcome.css">
+  <link rel="stylesheet" href="css/welcome.css?v=93">
   <title>Welcome to PK Khmer Type — Cambodian Touch-Typing Studio</title>
 </head>
 <body>
@@ -357,17 +357,17 @@
     </footer>
   </div>
 
-  <script src="Documents/three.min.js"></script>
-  <script src="js/welcome.js"></script>
+  <script src="Documents/three.min.js?v=93"></script>
+  <script src="js/welcome.js?v=93"></script>
   <script>
     if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').catch(function () {});
+        navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(function (reg) { reg.update(); }).catch(function () {});
       });
     }
   </script>
 <!-- swarm-cursors:start -->
-<script src="js/swarm-cursors.js" defer data-trigger="auto" data-reduced-motion="ignore"></script>
+<script src="js/swarm-cursors.js?v=93" defer data-trigger="auto" data-reduced-motion="ignore"></script>
 <!-- swarm-cursors:end -->
 </body>
 </html>

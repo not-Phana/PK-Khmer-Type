@@ -31,13 +31,14 @@ test('Phase E: Service Worker - sw.js syntax, precache assets, and offline strat
   const swCode = fs.readFileSync(swPath, 'utf8');
 
   // 1. Verify cache version
-  assert.ok(swCode.includes('CACHE_VERSION = "pk-khmer-type-v92"'), 'sw.js must use v92 cache version');
+  assert.ok(swCode.includes('CACHE_VERSION = "pk-khmer-type-v93"'), 'sw.js must use v93 cache version');
 
   // 2. Verify critical shell precache assets
   const criticalAssets = [
     'index.html', 'dashboard.html', 'welcome.html', 'manifest.json',
     'css/base.css', 'css/keyboard.css', 'css/typing.css', 'css/lessons.css',
-    'js/typing.js', 'js/keyboard.js', 'js/lessons.js', 'js/storage.js', 'js/adaptive.js'
+    'js/typing.js', 'js/keyboard.js', 'js/lessons.js', 'js/storage.js', 'js/adaptive.js',
+    'js/welcome.js', 'js/swarm-cursors.js'
   ];
   for (const asset of criticalAssets) {
     assert.ok(swCode.includes(`"${asset}"`), `sw.js precache list must include "${asset}"`);
@@ -47,6 +48,7 @@ test('Phase E: Service Worker - sw.js syntax, precache assets, and offline strat
   assert.ok(swCode.includes('addEventListener("install"'), 'sw.js must handle install event');
   assert.ok(swCode.includes('addEventListener("activate"'), 'sw.js must handle activate event');
   assert.ok(swCode.includes('addEventListener("fetch"'), 'sw.js must handle fetch event');
+  assert.ok(swCode.includes('cache: "no-cache"'), 'sw.js must revalidate same-origin assets cleanly on soft reload');
 
   // 4. Verify stale-while-revalidate and offline index.html fallback
   assert.ok(swCode.includes('caches.match("index.html")') || swCode.includes('caches.match("./index.html")'),
