@@ -850,7 +850,8 @@
           T += k[5];
         }
         const fake = { left: L, top: T, right: L + bw, bottom: T + bh, width: bw, height: bh };
-        if (!intersect(ltrb(fake), ctx.clip)) return;
+        const inter = intersect(ltrb(fake), ctx.clip);
+        if (!inter || inter.r - inter.l < 0.5 || inter.b - inter.t < 0.5) return;
         emitBox(PSEUDO_EL, ps, fake, { ...ctx, op: ctx.op * pop }, ctx.key(), false);
       } else {
         const cl = pad.l + n(cs.paddingLeft);
@@ -876,7 +877,8 @@
           T = vAlign();
         } else return;
         const fake = { left: L, top: T, right: L + w, bottom: T + h, width: w, height: h };
-        if (!intersect(ltrb(fake), ctx.clip)) return;
+        const inter = intersect(ltrb(fake), ctx.clip);
+        if (!inter || inter.r - inter.l < 0.5 || inter.b - inter.t < 0.5) return;
         emitBox(PSEUDO_EL, ps, fake, { ...ctx, op: ctx.op * pop }, ctx.key(), false);
       }
     }
@@ -1192,7 +1194,7 @@
         kids = sum ? [sum] : [];
       }
       const emptyEl = !kids.some((k) => (k.nodeType === 3 && /\S/.test(k.data)) || k.nodeType === 1);
-      const pctx = { ...kctx, layer, clip };
+      const pctx = { ...kctx, layer, clip: isScroller ? clip : kidClip };
       const directText = kids.some((n) => n.nodeType === 3 && /\S/.test(n.data));
       const kinds = [];
       let allRun = !el.shadowRoot;
@@ -1892,7 +1894,9 @@
       n.style.height = h + "px";
       const c = it.clip;
       n.style.clipPath =
-        it.done && c ? `inset(${Math.max(0, c.t - it.y)}px ${Math.max(0, it.x + it.w - c.r)}px ${Math.max(0, it.y + it.h - c.b)}px ${Math.max(0, c.l - it.x)}px)` : "";
+        (it.done || (it.draw && it.dx === 0 && it.dy === 0 && it.scale === 1)) && c
+          ? `inset(${Math.max(0, c.t - it.y)}px ${Math.max(0, it.x + w - c.r)}px ${Math.max(0, it.y + h - c.b)}px ${Math.max(0, c.l - it.x)}px)`
+          : "";
 
       if (it.kind === "rect") {
         const css = it.mode === "master" ? it.copyOf.css : it.css;

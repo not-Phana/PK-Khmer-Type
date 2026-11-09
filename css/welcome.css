@@ -592,7 +592,9 @@ body {
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transition: left 0.7s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: left 0.7s ease, opacity 0.2s ease;
 }
 
 .hero-main-cta:hover {
@@ -602,6 +604,7 @@ body {
 
 .hero-main-cta:hover::before {
   left: 100%;
+  opacity: 1;
 }
 
 .hero-secondary-cta {

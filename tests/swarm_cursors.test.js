@@ -29,3 +29,17 @@ test('Swarm Cursors 1.3: Auto configuration suppresses HUD and enables autoLive'
   assert.match(code, /doneVisible\s*=\s*isAuto/);
   assert.match(code, /this\.destroy\(true\)/);
 });
+
+test('Swarm Cursors 1.4: Overflow clipping applies to pseudo-elements (prevents offscreen button sheen leak)', () => {
+  const code = fs.readFileSync(path.join(ROOT, 'js', 'swarm-cursors.js'), 'utf8');
+  assert.match(code, /pctx\s*=\s*\{\s*\.\.\.kctx,\s*layer,\s*clip:\s*isScroller\s*\?\s*clip\s*:\s*kidClip\s*\}/);
+  assert.match(code, /inter\.r\s*-\s*inter\.l\s*<\s*0\.5\s*\|\|\s*inter\.b\s*-\s*inter\.t\s*<\s*0\.5/);
+  const welcomeCss = fs.readFileSync(path.join(ROOT, 'css', 'welcome.css'), 'utf8');
+  assert.match(welcomeCss, /\.hero-main-cta::before\s*\{[^}]*opacity:\s*0;/s);
+});
+
+test('Swarm Cursors 1.5: Text-clipped gradient backgrounds are skipped in emitBox and preserved on clones', () => {
+  const code = fs.readFileSync(path.join(ROOT, 'js', 'swarm-cursors.js'), 'utf8');
+  assert.match(code, /isTextClip\s*=\s*cs\.webkitBackgroundClip\s*===\s*"text"\s*\|\|\s*cs\.backgroundClip\s*===\s*"text"/);
+  assert.match(code, /\(bgi\s*!==\s*"none"\s*&&\s*!isTextClip\)/);
+});
