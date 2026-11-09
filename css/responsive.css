@@ -95,7 +95,20 @@
   }
 
   @media (max-width: 640px){
-    .lesson-char-row{ font-size:1.7rem; }
+    .lesson-panel, .adaptive-panel{
+      width:95vw;
+      padding:9px 10px 8px;
+      margin:8px auto;
+    }
+    .lesson-newkeys{ padding:5px 8px; gap:6px 8px; }
+    .lesson-char-row{
+      font-size:1.45rem;
+      min-height:2.3em;
+      padding:6px 8px;
+      gap:5px;
+    }
+    .lc-space{ font-size:1.45rem; }
+    .stat-pod{ padding:3px 7px; gap:4px; }
   }
 
   @media (max-width: 640px){

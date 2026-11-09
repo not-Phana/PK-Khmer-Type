@@ -3690,9 +3690,8 @@ function scrollToLessonStage(){
     const vh = window.innerHeight || document.documentElement.clientHeight || 800;
     const boardRect = boardWrap.getBoundingClientRect();
     const boardBottom = currentScrollY + boardRect.bottom;
-    const metaEl = lessonPanel.querySelector('.lesson-meta-row') || lessonPanel;
-    const metaTop = currentScrollY + metaEl.getBoundingClientRect().top;
-    const targetY = Math.max(0, Math.max(metaTop - 8, boardBottom - vh + 12));
+    const panelTop = currentScrollY + lessonPanel.getBoundingClientRect().top;
+    const targetY = Math.max(0, Math.max(panelTop - 10, boardBottom - vh + 12));
     window.scrollTo({ top: targetY, behavior: 'smooth' });
   };
   requestAnimationFrame(doScroll);

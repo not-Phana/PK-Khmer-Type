@@ -273,3 +273,29 @@ test('UNC-13: Row 4 ISO keyboard layout alignment, key widths, and finger assign
   });
 });
 
+test('UNC-14: Compact lesson panel proportions, scroll anchoring, and light/sepia/forced-colors contrast', () => {
+  const lessonsCss = fs.readFileSync(path.join(projectRoot, 'css/lessons.css'), 'utf8');
+  const baseCss = fs.readFileSync(path.join(projectRoot, 'css/base.css'), 'utf8');
+  const lessonsJs = fs.readFileSync(path.join(projectRoot, 'js/lessons.js'), 'utf8');
+
+  // Compact panel sizing avoids desktop dock overlap & fits cleanly above the keyboard
+  assert.match(lessonsCss, /\.lesson-panel\{[^}]*width:\s*min\(92vw,\s*660px\)/);
+  assert.match(lessonsCss, /\.adaptive-panel\s*\{[^}]*width:\s*min\(92vw,\s*660px\)/);
+
+  // Compact new-keycap & stat-pod rhythm
+  assert.match(lessonsCss, /\.nk-keycap\{[^}]*min-width:\s*34px/);
+  assert.ok(lessonsCss.includes('@media (forced-colors: active)'), 'lessons.css must provide forced-colors fallback rules');
+
+  // Light and Sepia theme readability overrides for new keys and adaptive explanations
+  assert.ok(lessonsCss.includes('html.theme-light .nk-keyid'));
+  assert.ok(lessonsCss.includes('html.theme-light .afh-explanation'));
+  assert.ok(lessonsCss.includes('html.theme-sepia .nk-keyid'));
+  assert.ok(lessonsCss.includes('html.theme-sepia .afh-explanation'));
+  assert.match(baseCss, /border-bottom:\s*3px solid #10b981/);
+  assert.match(baseCss, /border-bottom:\s*3px solid #16a34a/);
+
+  // Scroll anchoring targets the full lessonPanel header rather than cropping .lesson-top
+  assert.ok(lessonsJs.includes('const panelTop = currentScrollY + lessonPanel.getBoundingClientRect().top;'));
+  assert.ok(lessonsJs.includes('Math.max(panelTop - 10, boardBottom - vh + 12)'));
+});
+

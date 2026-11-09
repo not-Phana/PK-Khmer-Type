@@ -1396,7 +1396,7 @@
     color: #047857 !important;
     background: #ecfdf5 !important;
     border: 1.5px solid #6ee7b7 !important;
-    border-bottom: 4px solid #10b981 !important;
+    border-bottom: 3px solid #10b981 !important;
     text-shadow: none !important;
   }
   html.theme-light .lc-char.current,
@@ -1404,7 +1404,7 @@
     color: #ffffff !important;
     background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%) !important;
     border: 2px solid #4c1d95 !important;
-    border-bottom: 4px solid #2e1065 !important;
+    border-bottom: 3px solid #2e1065 !important;
     box-shadow: 0 8px 18px rgba(109, 40, 217, 0.35), 0 0 0 3px rgba(124, 58, 237, 0.22) !important;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
   }
@@ -2426,7 +2426,7 @@
     color: #15803d !important;
     background: #dcfce7 !important;
     border: 1.5px solid #4ade80 !important;
-    border-bottom: 4px solid #16a34a !important;
+    border-bottom: 3px solid #16a34a !important;
     text-shadow: none !important;
   }
   html.theme-sepia .lc-char.current,
@@ -2434,7 +2434,7 @@
     color: #ffffff !important;
     background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%) !important;
     border: 2px solid #4c1d95 !important;
-    border-bottom: 4px solid #2e1065 !important;
+    border-bottom: 3px solid #2e1065 !important;
     box-shadow: 0 8px 18px rgba(109, 40, 217, 0.35), 0 0 0 3px rgba(124, 58, 237, 0.22) !important;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
   }
@@ -9783,14 +9783,14 @@ a.pk-cc-handle:hover {
 .afh-explanation {
   display: block;
   width: 100%;
-  font-size: 0.72rem;
-  line-height: 1.4;
+  font-size: 0.7rem;
+  line-height: 1.35;
   color: #ffd166;
   background: rgba(255, 209, 102, 0.08);
   border: 1px solid rgba(255, 209, 102, 0.2);
   border-radius: var(--radius, 9px);
-  padding: 6px 10px;
-  margin-top: 8px;
+  padding: 4px 10px;
+  margin-top: 2px;
 }
 
 /* 4. Typing Test Lab Modal */

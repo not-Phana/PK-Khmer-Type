@@ -367,8 +367,8 @@ function buildReiHtml(isSubdir = false) {
         margin: 0 auto 16px auto !important;
       }
       .is-rei .lesson-panel {
-        max-width: 960px !important;
-        margin: 10px auto !important;
+        max-width: min(92vw, 680px) !important;
+        margin: 8px auto 10px !important;
       }
       .is-rei .lesson-panel:not([hidden]) {
         display: block !important;
@@ -380,8 +380,8 @@ function buildReiHtml(isSubdir = false) {
       }
       html.focus-mode .is-rei .lesson-panel,
       html.focus-mode.is-rei .lesson-panel {
-        max-width: min(100%, 820px) !important;
-        margin: 6px auto 10px auto !important;
+        max-width: min(100%, 680px) !important;
+        margin: 4px auto 8px auto !important;
       }
     }
 
@@ -460,23 +460,23 @@ function buildReiHtml(isSubdir = false) {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 7px 16px;
-      margin: 4px auto 10px;
-      max-width: 680px;
+      gap: 8px;
+      padding: 3px 12px;
+      margin: 0 auto 8px;
+      max-width: 640px;
       background: rgba(14, 18, 36, 0.92);
       border: 1px solid rgba(255, 209, 102, 0.35);
       border-radius: 20px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-      font-size: 0.82rem;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28);
+      font-size: 0.74rem;
       letter-spacing: 0.02em;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       transition: all 0.15s ease;
     }
     .rei-reach-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       flex-shrink: 0;
     }
@@ -490,8 +490,8 @@ function buildReiHtml(isSubdir = false) {
       display: inline-flex;
       align-items: center;
       gap: 3px;
-      padding: 2px 7px;
-      border-radius: 6px;
+      padding: 1px 6px;
+      border-radius: 5px;
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.2);
       font-family: var(--font-mono, monospace);
@@ -500,17 +500,17 @@ function buildReiHtml(isSubdir = false) {
     }
     .rei-reach-shift {
       color: #f472b6;
-      font-size: 0.74rem;
+      font-size: 0.7rem;
     }
     .rei-reach-char {
       font-family: var(--font-khmer, sans-serif);
-      font-size: 1.05rem;
+      font-size: 0.94rem;
       font-weight: 700;
       color: #ffffff;
       margin-left: 2px;
     }
     .rei-reach-action {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--ink-dim, #94a3b8);
       font-style: italic;
     }
@@ -820,16 +820,50 @@ html.theme-light .rscc-sub {
     html.theme-light .rei-finger-reach-hud {
       background: rgba(255, 255, 255, 0.95) !important;
       border: 1px solid #cbd5e1 !important;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06) !important;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.06) !important;
       color: #0f172a !important;
+    }
+    html.theme-light .rei-reach-arrow {
+      color: #64748b !important;
+      opacity: 1 !important;
     }
     html.theme-light .rei-reach-key-badge {
       background: #f1f5f9 !important;
       border-color: #cbd5e1 !important;
-      color: #b45309 !important;
+      color: #0f172a !important;
     }
     html.theme-light .rei-reach-char {
       color: #0f172a !important;
+    }
+    html.theme-light .rei-reach-action {
+      color: #475569 !important;
+    }
+    html.theme-sepia .rei-finger-reach-hud {
+      background: rgba(250, 244, 232, 0.96) !important;
+      border: 1px solid #ccbc9e !important;
+      box-shadow: 0 3px 10px rgba(44, 27, 12, 0.08) !important;
+      color: #2c1b0c !important;
+    }
+    html.theme-sepia .rei-reach-arrow {
+      color: #7c5e3f !important;
+      opacity: 1 !important;
+    }
+    html.theme-sepia .rei-reach-key-badge {
+      background: #efe3cc !important;
+      border-color: #ccbc9e !important;
+      color: #2c1b0c !important;
+    }
+    html.theme-sepia .rei-reach-char {
+      color: #2c1b0c !important;
+    }
+    html.theme-sepia .rei-reach-action {
+      color: #6b4f2c !important;
+    }
+    html.theme-glass .rei-finger-reach-hud {
+      background: rgba(255, 255, 255, 0.08) !important;
+      border: 1px solid rgba(255, 255, 255, 0.28) !important;
+      color: #ffffff !important;
+      box-shadow: none !important;
     }
     html.theme-light .rei-stage-tip-banner {
       background: #fefce8 !important;
