@@ -251,21 +251,111 @@
       return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || '';
     }
 
+    hasUserProgress(){
+      try {
+        if(typeof countCompletedBaseLessons === 'function' && countCompletedBaseLessons() > 0){
+          return true;
+        }
+        if(typeof window !== 'undefined' && typeof window.countCompletedBaseLessons === 'function' && window.countCompletedBaseLessons() > 0){
+          return true;
+        }
+
+        const progressApi = (typeof window !== 'undefined' && window.PK_PROGRESS) || (typeof global !== 'undefined' && global.PK_PROGRESS);
+        if(progressApi && typeof progressApi.exportData === 'function'){
+          const state = progressApi.exportData();
+          if(state && state.courses){
+            for(const cid of Object.keys(state.courses)){
+              const c = state.courses[cid];
+              if(c && c.lessons){
+                for(const lid of Object.keys(c.lessons)){
+                  const l = c.lessons[lid];
+                  if(l && (l.completed || l.totalAttempts > 0 || l.bestAccuracy > 0)){
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        const rawProg = localStorage.getItem('khmerProgress_v2');
+        if(rawProg){
+          const p = JSON.parse(rawProg);
+          if(p && p.courses){
+            for(const cid of Object.keys(p.courses)){
+              const c = p.courses[cid];
+              if(c && c.lessons){
+                for(const lid of Object.keys(c.lessons)){
+                  const l = c.lessons[lid];
+                  if(l && (l.completed || l.totalAttempts > 0 || l.bestAccuracy > 0)){
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        for(let i = 0; i < localStorage.length; i++){
+          const k = localStorage.key(i);
+          if(k && k.startsWith('khmerLessonBest_')){
+            const raw = localStorage.getItem(k);
+            if(raw){
+              const item = JSON.parse(raw);
+              if(item && (item.attempts > 0 || item.mastered || item.accuracy > 0)){
+                return true;
+              }
+            }
+          }
+        }
+
+        const lessonSets = (typeof LESSON_SETS !== 'undefined' && LESSON_SETS) || (typeof window !== 'undefined' && window.LESSON_SETS);
+        const getBest = (typeof getLessonBest === 'function') ? getLessonBest : (typeof window !== 'undefined' && window.getLessonBest);
+        if(lessonSets && typeof getBest === 'function'){
+          for(const layoutKey of Object.keys(lessonSets)){
+            const list = lessonSets[layoutKey];
+            if(Array.isArray(list)){
+              for(const l of list){
+                const b = getBest(l.id);
+                if(b && (b.attempts > 0 || b.mastered || b.accuracy > 0)){
+                  return true;
+                }
+              }
+            }
+          }
+        }
+
+        const rawCust = localStorage.getItem('khmerCustomLessons_v1');
+        if(rawCust){
+          const c = JSON.parse(rawCust);
+          if(c && Array.isArray(c.lessons) && c.lessons.some(cl => cl.attempts > 0 || cl.completed)){
+            return true;
+          }
+        }
+
+        const stats = (typeof savedLessonStats !== 'undefined' && savedLessonStats) || (typeof window !== 'undefined' && window.savedLessonStats);
+        if(stats && (stats.keys > 15 || stats.correct > 10)){
+          return true;
+        }
+        const rawStats = localStorage.getItem('khmerLessonStats');
+        if(rawStats){
+          const s = JSON.parse(rawStats);
+          if(s && (s.keys > 15 || s.correct > 10)){
+            return true;
+          }
+        }
+      } catch(e){}
+      return false;
+    }
+
     isNewUser(){
       try {
         if(localStorage.getItem(LS_COMPLETED) === '1') return false;
         if(localStorage.getItem(LS_SKIPPED) === '1') return false;
 
-        // Check if user already has saved lesson progress or stats
-        if(typeof getLessonBest === 'function' && typeof LESSONS !== 'undefined' && Array.isArray(LESSONS)){
-          const hasMastered = LESSONS.some(l => {
-            const b = getLessonBest(l.id);
-            return b && (b.attempts > 0 || b.mastered);
-          });
-          if(hasMastered) return false;
-        }
-
-        if(typeof savedLessonStats !== 'undefined' && savedLessonStats && savedLessonStats.keys > 30){
+        if(this.hasUserProgress()){
+          localStorage.setItem(LS_COMPLETED, '1');
+          localStorage.removeItem(LS_SAVED_STEP);
           return false;
         }
 
@@ -279,12 +369,21 @@
       this.ensureDOM();
       window.addEventListener('pkLessonCompleted', this.boundOnLessonComplete);
 
-      // Check if tutorial was in progress or is a new user
-      let savedStep = null;
-      try { savedStep = localStorage.getItem(LS_SAVED_STEP); } catch(e){}
       let isDone = false;
       try { isDone = localStorage.getItem(LS_COMPLETED) === '1' || localStorage.getItem(LS_SKIPPED) === '1'; } catch(e){}
-      if(savedStep && !isDone){
+      if(isDone) return;
+
+      if(this.hasUserProgress()){
+        try {
+          localStorage.setItem(LS_COMPLETED, '1');
+          localStorage.removeItem(LS_SAVED_STEP);
+        } catch(e){}
+        return;
+      }
+
+      let savedStep = null;
+      try { savedStep = localStorage.getItem(LS_SAVED_STEP); } catch(e){}
+      if(savedStep){
         setTimeout(() => this.resume(savedStep), 500);
       } else if(this.isNewUser()){
         setTimeout(() => this.showWelcome(), 600);
@@ -677,15 +776,17 @@
       const overlay = document.getElementById('pkTutorialOverlay');
       const modal = document.getElementById('pkTutorialModalCard');
       const tooltip = document.getElementById('pkTutorialTooltip');
-      const maskSvg = overlay.querySelector('.pk-tutorial-mask-svg');
+      const maskSvg = overlay ? overlay.querySelector('.pk-tutorial-mask-svg') : null;
       const pill = document.getElementById('pkTutorialPracticePill');
 
-      overlay.hidden = false;
-      overlay.classList.remove('pk-modal-mode');
-      modal.style.display = 'none';
-      maskSvg.style.display = 'block';
-      tooltip.style.display = 'block';
-      pill.style.display = 'none';
+      if(overlay){
+        overlay.hidden = false;
+        overlay.classList.remove('pk-modal-mode');
+      }
+      if(modal) modal.style.display = 'none';
+      if(maskSvg) maskSvg.style.display = 'block';
+      if(tooltip) tooltip.style.display = 'block';
+      if(pill) pill.style.display = 'none';
 
       window.addEventListener('resize', this.boundOnResize, { passive: true });
       window.addEventListener('scroll', this.boundOnResize, { passive: true });
@@ -900,6 +1001,14 @@
     /* ---- Step 3D: Track Your Progress ---- */
     stepLessonTrackProgress(){
       const progressEl = document.querySelector('.lesson-progress-bar') || document.getElementById('lessonProgressFill') || document.getElementById('lessonPanel');
+
+      const onUserTypes = (e) => {
+        if(!e.ctrlKey && !e.altKey && !e.metaKey && e.key && e.key.length === 1 && this.currentStepKey === 'lesson-track-progress'){
+          window.removeEventListener('keydown', onUserTypes);
+          this.goToStep('waiting-practice');
+        }
+      };
+      window.addEventListener('keydown', onUserTypes, { once: true });
       this.spotlight(progressEl, {
         stepText: `Lesson Guide (4/4)`,
         icon: TUT_ICONS.progress,
@@ -934,6 +1043,11 @@
 
     /* ---- Lesson Completion Intercept ---- */
     handleLessonCompleted(ev){
+      try {
+        localStorage.setItem(LS_COMPLETED, '1');
+        localStorage.removeItem(LS_SAVED_STEP);
+      } catch(e){}
+
       if(!this.isWaitingForLessonComplete && !this.active) return;
       this.isWaitingForLessonComplete = false;
 
@@ -1370,6 +1484,7 @@
       this.cleanup();
       try {
         localStorage.setItem(LS_SKIPPED, '1');
+        localStorage.setItem(LS_COMPLETED, '1');
         localStorage.removeItem(LS_SAVED_STEP);
       } catch(e){}
     }
@@ -1404,6 +1519,14 @@
     }
 
     resume(stepKey){
+      if(this.hasUserProgress() || localStorage.getItem(LS_COMPLETED) === '1' || localStorage.getItem(LS_SKIPPED) === '1'){
+        try {
+          localStorage.setItem(LS_COMPLETED, '1');
+          localStorage.removeItem(LS_SAVED_STEP);
+        } catch(e){}
+        this.cleanup();
+        return;
+      }
       this.goToStep(stepKey);
     }
   }

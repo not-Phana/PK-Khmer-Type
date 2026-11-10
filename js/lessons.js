@@ -3587,6 +3587,12 @@ function startLesson(idOrDef, allowDirectPractice = false){
   if(document.activeElement && typeof document.activeElement.blur === 'function'){
     document.activeElement.blur();
   }
+  if(typeof window !== 'undefined' && window.PK_TUTORIAL && window.PK_TUTORIAL.active){
+    const stepKey = window.PK_TUTORIAL.currentStepKey;
+    if(stepKey && !stepKey.startsWith('lesson-') && stepKey !== 'waiting-practice'){
+      window.PK_TUTORIAL.cleanup();
+    }
+  }
   if(typeof trialActive !== 'undefined' && trialActive && typeof stopTrial === 'function') stopTrial();
   if(typeof raceReset === 'function') raceReset();
   if(typeof raceMode !== 'undefined' && raceMode && typeof exitRaceMode === 'function') exitRaceMode();
@@ -4173,6 +4179,11 @@ function completeLesson(){
   const rect = (boardWrap || document.body).getBoundingClientRect();
   playChime();
   confettiBurst(rect.left + rect.width/2, rect.top + rect.height*0.3, accuracy === 100 ? 34 : 22);
+
+  try {
+    localStorage.setItem('khmerTutorialCompleted', '1');
+    localStorage.removeItem('khmerTutorialStep');
+  } catch(e){}
 
   clearActiveLessonSession();
   lessonActive = false;
